@@ -28,7 +28,7 @@
     align-items: center;
     padding: 10px;
     background-color: #000000a0;
-    font-size: 20px;
+    font-size: 18px;
     backdrop-filter: blur(4px);
 }
 /* what is she cooking? nothing good */
@@ -97,6 +97,7 @@ footer>a:hover {
     position: relative;
 }
 .header-name {
+    font-size: 20px;
     font-weight: 500;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -325,19 +326,22 @@ body {
     font-weight: 600;
 }
 .rank-6 {
-    background: linear-gradient(111deg, #FFAA00 0%, #855900 100%);
+    background: linear-gradient(193deg, #FFAA00 0%, #c08000 100%);
 }
 .rank-b {
-    background: linear-gradient(111deg, #5ff 0%, #00787c 100%);
+    background: linear-gradient(193deg, rgb(51, 200, 200) 0%, #189b9b 100%);
 }
 .rank-a {
-    background: linear-gradient(111deg, #5f5 0%, #218b21 100%);
+    background: linear-gradient(193deg, #5f5 0%, #2cc82c 100%);
 }
 .rank-2 {
-    background: linear-gradient(111deg, #0a0 0%, #125312 100%);
+    background: linear-gradient(193deg, #0a0 0%, #006b00 100%);
 }
 .rank-c {
-    background: linear-gradient(111deg, #f55 0%, rgb(121, 14, 14) 100%);
+    background: linear-gradient(193deg, #f55 0%, #b82a2a 100%);
+}
+.rank-d {
+    background: linear-gradient(193deg, #f5f 0%, rgb(217, 53, 217) 100%);
 }
 .w400 {
     font-weight: 400;
@@ -469,7 +473,10 @@ body {
     color: #fff;
 }
 @media screen and (max-width: 600px) {
-    .avatar-user {
+    .avatar {
         display: none;
+    }
+    .player-card {
+        width: unset;
     }
 }

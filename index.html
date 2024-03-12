@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
   <link rel="stylesheet" href="stylesheet.css">
+  <script src="/external/skinview3d.bundle.js" type="module"></script>
   <title>nadeshiko</title>
 </head>
 
@@ -37,7 +38,7 @@
       </div>
     </header>
     <div class="flex-container">
-      <img src="/img/chloe.png" class="avatar-user" alt="Chloe">
+      <canvas id="skin_container" class="avatar"></canvas>
       <section class="player-card">
         <div class="player-info">
           <div class="details">
@@ -93,6 +94,24 @@
       Made with ♥&#xFE0E; by <a href="https://github.com/niqumu" target="_blank">kittycatchloe</a> and <a href="https://brookie.dev" target="_blank">BrookeAFK</a>.
     </footer>
   </div>
-</body>
+  
 
+ 
+<script>
+  // This will run once the page is fully loaded
+  document.addEventListener("DOMContentLoaded", function() {
+      let skinViewer = new skinview3d.SkinViewer({
+          canvas: document.getElementById("skin_container"),
+          width: 300,
+          height: 400,
+          skin: "/img/chloeskin.png"
+      });
+
+      skinViewer.camera.position.set(-30, 18, 50);
+      skinViewer.animation = new skinview3d.IdleAnimation();
+      skinViewer.controls.enableZoom = false;
+
+  });
+</script> 
+</body>
 </html>
