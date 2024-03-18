@@ -1,0 +1,37 @@
+{
+    "success": true,
+    "name": "BrookeAFK",
+    "uuid": "03e08a601d174f4086cd33fe6001cf83",
+    "rank": "VIP_PLUS",
+    "rank_color": "GOLD",
+    "plus_color": "DARK_BLUE",
+    "status": {
+        "online": false
+    },
+    "stats": {
+        "network": {
+            "level": 288.14,
+            "level_multiplier": 6.9,
+            "first_login": 	1248726950000,
+            "last_login": 0,
+            "general": {
+                "achievement_points": 12340,
+                "karma": 180053410,
+                "quests_completed": 8104,
+                "ranks_gifted": 168e9
+            },
+            "guild": {
+                "name": "it",
+                "tag": "IT",
+                "color": "YELLOW",
+                "level": 98,
+                "members": 125,
+                "joined": 0
+            },
+            "social": {
+                "discord": "brookeafk",
+                "hypixel": "https://hypixel.net/members/5346625/"
+            }
+        }
+    }
+}

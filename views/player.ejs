@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/stylesheet.css">
+  <script src="/external/skinview3d.bundle.js" type="module"></script>
+  <script src="https://unpkg.com/card3d@2.6.5/dist/card3d.js"></script> <!-- unused u can remove it -->
+  <title>nadeshiko</title>
+</head>
+
+<body>
+  <div class="background-filter">
+    <header>
+      <div class="header">
+        <div class="header-left">
+          <img class="logo" src="/img/logo.png" alt="nadeshiko logo">
+          <p class="wordmark">nadeshiko</p>
+          <a href="#home" class="header-button"><img src="/img/home.svg" class="header-icon">Home</a>
+          <a href="#about" class="header-button"><img src="/img/about.svg" class="header-icon">About</a>
+          <a href="#cards" class="header-button"><img src="/img/cards.svg" class="header-icon">Cards</a>
+        </div>
+        <div class="header-right">
+          <input type="search" class="searchbar" placeholder="&#x1F50E;&#xFE0E; Search for a player...">
+        </div>
+      </div>
+      <div class="header2">
+        <div class="header-left">
+          <p class="header-name"><span class="rank" id="header-rank"><span id="header-ranktext">MVP</span><span class="m1" id="header-plus">++</span></span> <span class="m6" id="header-name">kittycatchloe</span></span></p>
+        </div>
+        <div class="header-right">
+          <p class="header-game highlighted">Network</p>
+          <p class="header-game">Bed Wars</p>
+          <p class="header-game">Duels</p>
+          <p class="header-game">SkyWars</p>
+          <p class="header-down">⏷</p>
+        </div>
+      </div>
+    </header>
+    <div class="flex-container">
+      <canvas id="skin_container" class="avatar"></canvas>
+      <section class="player-card">
+        <div class="player-info">
+          <div class="details">
+            <div class="flex-two-item">
+              <span class="player-name">
+                <span class="rank" id="card-rank"><span id="card-ranktext">MVP</span><span class="m1" id="card-plus">++</span></span> <span class="m6" id="card-name">kittycatchloe</span> <span id="card-guild">[NERDS]</span>
+              </span>
+              <span id="online-status">Currently Offline</span>
+            </div>
+
+            <div class="extended-card">
+              <p><span style="color: var(--gold)" id="level-container">Level <span style="font-weight: 500" id="level">301</span></span> <span class="m8">(<span id="multiplier">1</span>&times;)</span></p>
+              <div class="progress-bar">
+                <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
+                <div class="progress" style="width: 66%;" id="xp-progress-bar"></div>
+              </div>
+              <div class="stats">
+                <div class="login-info flex-two-item">
+                  <p>First Login <span class="statistic" id="first-login"><span class="mc">Unknown</span></span> <span id="first-login-ago"><span class="mc">Unknown</span></span></p>
+                  <p>Last Login <span class="statistic" id="last-login"><span class="mc">Unknown</span></span> <span id="last-login-ago"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="flex-two-item general-guild">
+                  <div class="general-stats">
+                    <p class="stat-title">General</p>
+                    <p>Achievement Points <span class="statistic" id="achievement-points"><span class="mc">Unknown</span></span></p>
+                    <p>Karma <span class="statistic" id="karma"><span class="mc">Unknown</span></span></p>
+                    <p>Quests Completed <span class="statistic" id="quests-completed"><span class="mc">Unknown</span></span></p>
+                    <p>Ranks Gifted <span class="statistic" id="ranks-gifted"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="general-stats" id="guild-stats">
+                    <p class="stat-title">Guild</p>
+                    <p>Name <span class="statistic" id="guild-name">SBNOfficial</span> <span id="guild-tag">[NERDS]</span> <span id="guild-level"><span class="mc">Unknown</span></span></p>
+                    <p>Members <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span></p>
+                    <p>Guild Master <span class="mc">Unknown</span></p>
+                    <p>Joined <span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span> <span id="guild-joined-ago">(4d ago)*</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-two-item">
+              <div class="buttons"><span class="general-button mright">Generate Card</span><span class="general-button">SkyBlock Stats</span></div>
+              <div class="socials flex-two-item flex-separated"><a target="_blank" id="sociallink-hypixel"><img src="/img/hypixel.svg" class="social-media-logo mright" id="social-hypixel"></a><a target="_blank" id="sociallink-youtube"><img src="/img/youtube.svg" class="social-media-logo mleft mright" id="social-youtube"></a><a target="_blank" id="sociallink-twitter"><img src="/img/twitter.svg" class="social-media-logo mright mleft" id="social-twitter"></a><a target="_blank" id="sociallink-tiktok"><img src="/img/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok"></a><a target="_blank" id="sociallink-twitch"><img src="/img/twitch.svg" class="social-media-logo mright  mleft" id="social-twitch"></a><a target="_blank" id="sociallink-discord"><img src="/img/discord.svg" class="mleft social-media-logo" id="social-discord"></a>
+                <p class="w500 mleft" id="social-discord-username">chloe.dll</p></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer>
+      Made with ♥&#xFE0E; by <a href="https://github.com/niqumu" target="_blank">kittycatchloe</a> and <a href="https://brookie.dev" target="_blank">BrookeAFK</a>.
+    </footer>
+  </div>
+  
+
+ 
+<script>
+  var playerData;
+
+  const RANK_COLOURS = { // rank colour, text, contains +
+    NON: ["7", "", ""],
+    VIP: ["a", "VIP", ""],
+    VIP_PLUS: ["a", "VIP", "+"],
+    MVP: ["b", "MVP", ""],
+    MVP_PLUS: ["b", "MVP", "+"],
+    MVP_PLUS_PLUS: ["6", "MVP", "++"],
+    YOUTUBE: ["c", "YOUTUBE", ""],
+    GM: ["2", "GM", ""],
+    ADMIN: ["c", "ADMIN", ""],
+    PIG_PLUS_PLUS: ["d", "PIG", "+++"],
+    EVENTS: ["c", "EVENTS", ""],
+    MOJANG: ["6", "MOJANG", ""],
+  }
+
+  const COLOURS = {
+    BLACK: "0",
+    DARK_BLUE: "1",
+    DARK_GREEN: "2",
+    DARK_AQUA: "3",
+    DARK_RED: "4",
+    DARK_PURPLE: "5",
+    GOLD: "6",
+    GRAY: "7",
+    DARK_GRAY: "8",
+    BLUE: "9",
+    GREEN: "a",
+    AQUA: "b",
+    RED: "c",
+    LIGHT_PURPLE: "d",
+    YELLOW: "e",
+    WHITE: "f",
+  };
+
+
+  // This will run once the page is fully loaded
+  document.addEventListener("DOMContentLoaded", function() {
+
+      fetch('/api_example/api.json').then(e => e.json()).then(data => {
+          playerData = data;
+          insertLoadedData();
+      })
+
+      let skinViewer = new skinview3d.SkinViewer({
+          canvas: document.getElementById("skin_container"),
+          width: 300,
+          height: 400,
+          skin: "/img/chloeskin.png"
+      });
+
+      skinViewer.camera.position.set(-30, 18, 50);
+      skinViewer.animation = new skinview3d.IdleAnimation();
+      skinViewer.controls.enableZoom = false;
+
+  });
+
+  function relativeTime(timestamp, currentTime = Date.now()) { // Only works for dates in the past, sorry 3:
+    let dateNew = new Date(currentTime);
+    let dateOld = new Date(timestamp);
+
+    let years = dateNew.getFullYear() - dateOld.getFullYear();
+    let months = dateNew.getMonth() - dateOld.getMonth();
+    let days = dateNew.getDate() - dateOld.getDate();
+    let hours = dateNew.getHours() - dateOld.getHours();
+    let minutes = dateNew.getMinutes() - dateOld.getMinutes();
+    let seconds = dateNew.getSeconds() - dateOld.getSeconds();
+
+    if (seconds < 0) {
+      minutes--;
+      seconds += 60;
+    }
+
+    if (minutes < 0) {
+      hours--;
+      minutes += 60;
+    }
+
+    if (hours < 0) {
+      days--;
+      hours += 24;
+    }
+
+    if (days < 0) {
+      months--;
+      days += new Date(dateOld.getFullYear(), dateOld.getMonth() + 1, 0).getDate();
+    }
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    if (years > 0) return `${years}y ago`;
+    if (months > 0) return `${months}m ago`;
+    if (days > 0) return `${days}d ago`;
+    if (hours > 0) return `${hours}h ago`;
+    if (minutes > 0) return `${minutes}min ago`;
+    if (seconds > 0) return `${seconds}s ago`;
+    return "now!"
+  }
+
+  function insertLoadedData() {
+      var playerStats = playerData["stats"];
+      var networkStats = playerStats["network"];
+
+      var playerRank = RANK_COLOURS[playerData["rank"]];
+
+      var rankColor = (playerRank[0] == "MVP_PLUS_PLUS" ? COLOURS[playerData["rank_color"]] : playerRank[0])
+      document.getElementById("card-rank").classList.add("rank-" + rankColor);
+      document.getElementById("header-rank").classList.add("rank-" + rankColor);
+      document.getElementById("card-name").style.color = `var(--mc` + rankColor + `)`;
+      document.getElementById("header-name").style.color = `var(--mc` + rankColor + `)`;
+
+      document.getElementById("card-ranktext").innerText = playerRank[1];
+      document.getElementById("header-ranktext").innerText = playerRank[1];
+      console.log(playerRank)
+
+      var plusColour = (playerRank[2] == "" ? "0" : (playerData["rank"] == "VIP_PLUS" ? "6" : playerData["plus_color"]));
+      document.getElementById("card-plus").innerText = playerRank[2];
+      document.getElementById("header-plus").innerText = playerRank[2];
+      document.getElementById("card-plus").style.color = `var(--mc` + plusColour + `)`;
+      document.getElementById("header-plus").style.color = `var(--mc` + plusColour + `)`;
+
+
+      document.getElementById("card-name").innerText = playerData["name"];
+      document.getElementById("header-name").innerText = playerData["name"];
+      document.getElementById("achievement-points").innerText = (networkStats["general"]["achievement_points"]).toLocaleString();
+      document.getElementById("karma").innerText = (networkStats["general"]["karma"]).toLocaleString();
+      document.getElementById("quests-completed").innerText = (networkStats["general"]["quests_completed"]).toLocaleString();
+      document.getElementById("ranks-gifted").innerText = (networkStats["general"]["ranks_gifted"]).toLocaleString();
+      document.getElementById("multiplier").innerText = (networkStats["level_multiplier"]).toLocaleString();
+
+      document.getElementById("first-login").innerText = (new Date((networkStats["first_login"]))).toLocaleDateString();
+      document.getElementById("first-login-ago").innerHTML = "(" + relativeTime(new Date(networkStats["first_login"])) + ")";
+    
+      document.getElementById("last-login").innerText = (new Date((networkStats["last_login"]))).toLocaleDateString();
+      document.getElementById("last-login-ago").innerHTML = "(" + relativeTime(new Date(networkStats["last_login"])) + ")";
+      
+      if(playerData["status"]["online"]) {
+        document.getElementById("online-status").innerText = "Currently Online!";
+        document.getElementById("online-status").style.color = "var(--ma)";
+      }
+      else document.getElementById("online-status").innerText = "Currently Offline";
+
+      if(networkStats["guild"] == undefined) {
+        document.getElementById("guild-stats").style.display = "none";
+        document.getElementById("card-guild").style.display = "none";
+      }
+      else {
+        guildStats = networkStats["guild"];
+          document.getElementById("guild-name").innerText = guildStats["name"];
+          document.getElementById("guild-tag").innerText = "[" + guildStats["tag"] + "]";
+          document.getElementById("card-guild").innerText = "[" + guildStats["tag"] + "]";
+          document.getElementById("guild-tag").style.color = `var(--mc` + COLOURS[guildStats["color"]] + `)`;
+          document.getElementById("card-guild").style.color = `var(--mc` + COLOURS[guildStats["color"]] + `)`;
+          document.getElementById("guild-level").innerText = "(Level " + guildStats["level"] + ")";
+          document.getElementById("guild-members").innerText = guildStats["members"];
+          document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
+      }
+
+      hypixelLevel = networkStats["level"];
+      document.getElementById("level").innerText = Math.floor(hypixelLevel);
+
+      var xpProgress = ((hypixelLevel % 1) * 100).toFixed(0) + "%";
+      document.getElementById("xp-progress-bar").style.width = xpProgress;
+      document.getElementById("xp-progress-number").innerText = xpProgress;
+
+      var socials = ["hypixel", "youtube", "twitter", "tiktok", "twitch", "discord"];
+      for(a = 0; a < socials.length; a++) {
+        if(networkStats["social"][socials[a]] == undefined) {
+          document.getElementById("social-" + socials[a]).style.display = "none";
+        } else if(socials[a] != "discord") {
+          document.getElementById("sociallink-" + socials[a]).href = networkStats["social"][socials[a]];
+        }
+      }
+  }
+</script> 
+</body>
+</html>
