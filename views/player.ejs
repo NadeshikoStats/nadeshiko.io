@@ -13,7 +13,7 @@
 <body>
   <div class="background-filter">
     <header>
-      <div class="header">
+      <div class="header"> <!-- site-wide header -->
         <div class="header-left">
           <img class="logo" src="/img/logo.png" alt="nadeshiko logo">
           <p class="wordmark">nadeshiko</p>
@@ -25,7 +25,7 @@
           <input type="search" class="searchbar" placeholder="&#x1F50E;&#xFE0E; Search for a player...">
         </div>
       </div>
-      <div class="header2">
+      <div class="header2"> <!-- secondary header for game bar -->
         <div class="header-left">
           <p class="header-name"><span class="rank" id="header-rank"><span id="header-ranktext">MVP</span><span class="m1" id="header-plus">++</span></span> <span class="m6" id="header-name">kittycatchloe</span></span></p>
         </div>
@@ -38,7 +38,7 @@
         </div>
       </div>
     </header>
-    <div class="flex-container">
+    <div class="flex-container"> <!-- general stats -->
       <canvas id="skin_container" class="avatar"></canvas>
       <section class="player-card">
         <div class="player-info">
@@ -101,7 +101,7 @@
 <script>
   var playerData;
 
-  const RANK_COLOURS = { // rank colour, text, contains +
+  const RANK_COLORS = { // 3-item list that contains rank colour, text, contains +
     NON: ["7", "", ""],
     VIP: ["a", "VIP", ""],
     VIP_PLUS: ["a", "VIP", "+"],
@@ -116,7 +116,7 @@
     MOJANG: ["6", "MOJANG", ""],
   }
 
-  const COLOURS = {
+  const COLORS = {
     BLACK: "0",
     DARK_BLUE: "1",
     DARK_GREEN: "2",
@@ -136,28 +136,28 @@
   };
 
 
-  // This will run once the page is fully loaded
+  // Runs once the page is fully loaded.
   document.addEventListener("DOMContentLoaded", function() {
 
-      fetch('/api_example/api.json').then(e => e.json()).then(data => {
+      fetch('/api_example/api.json').then(e => e.json()).then(data => { // Fetches API data.
           playerData = data;
-          insertLoadedData();
+          insertLoadedData(); // Inserts the imported data into the DOM.
       })
 
-      let skinViewer = new skinview3d.SkinViewer({
+      let skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
           canvas: document.getElementById("skin_container"),
           width: 300,
           height: 400,
           skin: "/img/chloeskin.png"
       });
 
-      skinViewer.camera.position.set(-30, 18, 50);
+      skinViewer.camera.position.set(-30, 18, 50); // Sets player orientation
       skinViewer.animation = new skinview3d.IdleAnimation();
       skinViewer.controls.enableZoom = false;
 
   });
 
-  function relativeTime(timestamp, currentTime = Date.now()) { // Only works for dates in the past, sorry 3:
+  function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past.
     let dateNew = new Date(currentTime);
     let dateOld = new Date(timestamp);
 
@@ -185,7 +185,7 @@
 
     if (days < 0) {
       months--;
-      days += new Date(dateOld.getFullYear(), dateOld.getMonth() + 1, 0).getDate();
+      days += new Date(dateOld.getFullYear(), dateOld.getMonth() + 1, 0).getDate(); // Ensures that a month has the correct number of days.
     }
 
     if (months < 0) {
@@ -199,29 +199,29 @@
     if (hours > 0) return `${hours}h ago`;
     if (minutes > 0) return `${minutes}min ago`;
     if (seconds > 0) return `${seconds}s ago`;
-    return "now!"
+    return "now!";
   }
 
   function insertLoadedData() {
       var playerStats = playerData["stats"];
-      var networkStats = playerStats["network"];
+      var networkStats = playerStats["network"]; // Player's network stats.
 
-      var playerRank = RANK_COLOURS[playerData["rank"]];
+      var playerRank = RANK_COLORS[playerData["rank"]];
 
-      var rankColor = (playerRank[0] == "MVP_PLUS_PLUS" ? COLOURS[playerData["rank_color"]] : playerRank[0])
-      document.getElementById("card-rank").classList.add("rank-" + rankColor);
+      var rankColor = (playerRank[0] == "MVP_PLUS_PLUS" ? COLORS[playerData["rank_color"]] : playerRank[0]) // defines a rankColor variable, which is the player's supposed rank colour, unless the rank is MVP++ (which has two available colours)
+      document.getElementById("card-rank").classList.add("rank-" + rankColor); // Changes the rank to the player's rank colour
       document.getElementById("header-rank").classList.add("rank-" + rankColor);
-      document.getElementById("card-name").style.color = `var(--mc` + rankColor + `)`;
+      document.getElementById("card-name").style.color = `var(--mc` + rankColor + `)`; // Changes the player's name to the player's rank colour
       document.getElementById("header-name").style.color = `var(--mc` + rankColor + `)`;
 
-      document.getElementById("card-ranktext").innerText = playerRank[1];
+      document.getElementById("card-ranktext").innerText = playerRank[1]; // Adds player's rank
       document.getElementById("header-ranktext").innerText = playerRank[1];
       console.log(playerRank)
 
-      var plusColour = (playerRank[2] == "" ? "0" : (playerData["rank"] == "VIP_PLUS" ? "6" : playerData["plus_color"]));
-      document.getElementById("card-plus").innerText = playerRank[2];
+      var plusColour = (playerRank[2] == "" ? "0" : (playerData["rank"] == "VIP_PLUS" ? "6" : playerData["plus_color"])); // Changes + colour accordingly, unless if VIP+, in which case it is always gold
+      document.getElementById("card-plus").innerText = playerRank[2]; // Sets number of plusses
       document.getElementById("header-plus").innerText = playerRank[2];
-      document.getElementById("card-plus").style.color = `var(--mc` + plusColour + `)`;
+      document.getElementById("card-plus").style.color = `var(--mc` + plusColour + `)`; // Sets plus colour
       document.getElementById("header-plus").style.color = `var(--mc` + plusColour + `)`;
 
 
@@ -233,13 +233,13 @@
       document.getElementById("ranks-gifted").innerText = (networkStats["general"]["ranks_gifted"]).toLocaleString();
       document.getElementById("multiplier").innerText = (networkStats["level_multiplier"]).toLocaleString();
 
-      document.getElementById("first-login").innerText = (new Date((networkStats["first_login"]))).toLocaleDateString();
+      document.getElementById("first-login").innerText = (new Date((networkStats["first_login"]))).toLocaleDateString(); // Gets first login in Unix time and turns it into a date
       document.getElementById("first-login-ago").innerHTML = "(" + relativeTime(new Date(networkStats["first_login"])) + ")";
     
       document.getElementById("last-login").innerText = (new Date((networkStats["last_login"]))).toLocaleDateString();
       document.getElementById("last-login-ago").innerHTML = "(" + relativeTime(new Date(networkStats["last_login"])) + ")";
       
-      if(playerData["status"]["online"]) {
+      if(playerData["status"]["online"]) { // Checks player's online status
         document.getElementById("online-status").innerText = "Currently Online!";
         document.getElementById("online-status").style.color = "var(--ma)";
       }
@@ -254,8 +254,8 @@
           document.getElementById("guild-name").innerText = guildStats["name"];
           document.getElementById("guild-tag").innerText = "[" + guildStats["tag"] + "]";
           document.getElementById("card-guild").innerText = "[" + guildStats["tag"] + "]";
-          document.getElementById("guild-tag").style.color = `var(--mc` + COLOURS[guildStats["color"]] + `)`;
-          document.getElementById("card-guild").style.color = `var(--mc` + COLOURS[guildStats["color"]] + `)`;
+          document.getElementById("guild-tag").style.color = `var(--mc` + COLORS[guildStats["color"]] + `)`;
+          document.getElementById("card-guild").style.color = `var(--mc` + COLORS[guildStats["color"]] + `)`;
           document.getElementById("guild-level").innerText = "(Level " + guildStats["level"] + ")";
           document.getElementById("guild-members").innerText = guildStats["members"];
           document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
@@ -264,12 +264,12 @@
       hypixelLevel = networkStats["level"];
       document.getElementById("level").innerText = Math.floor(hypixelLevel);
 
-      var xpProgress = ((hypixelLevel % 1) * 100).toFixed(0) + "%";
+      var xpProgress = ((hypixelLevel % 1) * 100).toFixed(0) + "%"; // Sets user's XP progress and progress bar
       document.getElementById("xp-progress-bar").style.width = xpProgress;
       document.getElementById("xp-progress-number").innerText = xpProgress;
 
       var socials = ["hypixel", "youtube", "twitter", "tiktok", "twitch", "discord"];
-      for(a = 0; a < socials.length; a++) {
+      for(a = 0; a < socials.length; a++) { // Iterates through social media and hides icons that don't exist for the player
         if(networkStats["social"][socials[a]] == undefined) {
           document.getElementById("social-" + socials[a]).style.display = "none";
         } else if(socials[a] != "discord") {
