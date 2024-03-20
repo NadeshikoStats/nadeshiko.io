@@ -118,6 +118,7 @@ footer>a:hover {
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 30px;
+    transition-duration: 1s;
 }
 .header-down {
     margin-right: 20px;
@@ -212,6 +213,7 @@ footer>a:hover {
     align-items: center;
     align-content: space-between;
     flex: 1 1 auto;
+    transition-duration: 1s;
 }
 .flex-item {
     flex: 1;
@@ -263,20 +265,17 @@ h1 {
         flex-direction: column;
     }
 }
-.flex-container>* {
+
+.header-name.unloaded {
     opacity: 0;
-    animation: fadein 1s ease-out forwards;
 }
-@keyframes fadein {
-    from {
-        opacity: 0;
-        transform: translateY(-60px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0px);
-    }
+
+.flex-container.unloaded {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: brightness(0.2);
 }
+
 body {
     background-image: url(/img/lobby/main.png);
     background-position: center top;
@@ -489,10 +488,6 @@ body {
 .mf {
     color: #fff;
 }
-
-
-
-
 
 @media screen and (max-width: 600px) {
     .avatar {

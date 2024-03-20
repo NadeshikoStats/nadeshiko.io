@@ -2,23 +2,23 @@
     "success": true,
     "name": "BrookeAFK",
     "uuid": "03e08a601d174f4086cd33fe6001cf83",
-    "rank": "VIP_PLUS",
+    "rank": "MVP_PLUS_PLUS",
     "rank_color": "GOLD",
-    "plus_color": "DARK_BLUE",
+    "plus_color": "DARK_PURPLE",
     "status": {
         "online": false
     },
     "stats": {
         "network": {
-            "level": 288.14,
-            "level_multiplier": 6.9,
-            "first_login": 	1248726950000,
-            "last_login": 0,
+            "level": 286.52,
+            "level_multiplier": 8,
+            "first_login": 	1629689854478,
+            "last_login": 1710870288049,
             "general": {
-                "achievement_points": 12340,
+                "achievement_points": 12990,
                 "karma": 180053410,
                 "quests_completed": 8104,
-                "ranks_gifted": 168e9
+                "ranks_gifted": 25
             },
             "guild": {
                 "name": "it",
@@ -26,7 +26,7 @@
                 "color": "YELLOW",
                 "level": 98,
                 "members": 125,
-                "joined": 0
+                "joined": 1639689854478
             },
             "social": {
                 "discord": "brookeafk",
