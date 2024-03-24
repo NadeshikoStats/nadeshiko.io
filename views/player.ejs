@@ -58,7 +58,8 @@
               </div>
               <div class="stats">
                 <div class="login-info flex-two-item">
-                  <p>First Login <span class="statistic" id="first-login"><span class="mc">Unknown</span></span> <span id="first-login-ago"><span class="mc">Unknown</span></span></p>
+                  <p>First Login <span class="statistic" id="first-login"><span class="mc">Unknown</span></span> <span id="first-login-ago"><span class="mc">Unknown</span></span>
+                  <span class="tooltip"><img id="birthday" class="icon tinyicon" src="/icon/cake.png"><span class="tooltiptext" id="birthday-text"></span></span></p>
 
                   <p>Last Login <span class="statistic" id="last-login"><span class="mc">Unknown</span></span> <span id="last-login-ago"><span class="mc">Unknown</span></span></p>
                 </div>
@@ -206,6 +207,7 @@
   function insertLoadedData() {
       var playerStats = playerData["stats"];
       var networkStats = playerStats["network"]; // Player's network stats.
+      var dateNow = new Date();
 
       var playerRank = RANK_COLORS[playerData["rank"]];
 
@@ -234,8 +236,15 @@
       document.getElementById("ranks-gifted").innerText = (networkStats["general"]["ranks_gifted"]).toLocaleString();
       document.getElementById("multiplier").innerText = (networkStats["level_multiplier"]).toLocaleString();
 
-      document.getElementById("first-login").innerText = (new Date((networkStats["first_login"]))).toLocaleDateString(); // Gets first login in Unix time and turns it into a date
-      document.getElementById("first-login-ago").innerHTML = "(" + relativeTime(new Date(networkStats["first_login"])) + ")";
+      var firstLogin = new Date((networkStats["first_login"])); // Used for birthday calculation
+      document.getElementById("first-login").innerText = (firstLogin).toLocaleDateString(); // Gets first login in Unix time and turns it into a date
+      document.getElementById("first-login-ago").innerHTML = "(" + relativeTime(firstLogin) + ")";
+
+      if((firstLogin.getMonth() == dateNow.getMonth()) && (firstLogin.getDate() == dateNow.getDate()) && (firstLogin.getYear() != dateNow.getYear())) {
+        document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
+        document.getElementById("birthday-text").innerText = ("Happy " + ordinal(dateNow.getYear() - firstLogin.getYear()) + " Hypixel anniversary!");
+        console.log("Happy birthday!");
+      }
     
       document.getElementById("last-login").innerText = (new Date((networkStats["last_login"]))).toLocaleDateString();
       document.getElementById("last-login-ago").innerHTML = "(" + relativeTime(new Date(networkStats["last_login"])) + ")";
@@ -281,6 +290,14 @@
 
       document.getElementById("flex-container-0").classList.remove("unloaded");
       document.getElementById("header-name-full").classList.remove("unloaded");
+  }
+
+  function ordinal(num) { // Returns the ordinal number format of an integer (3 → 3rd)
+    let ordinals = ["st", "nd", "rd"];
+    for(a = 0; a < ordinals.length; a++) {
+      if(num % 100 !== (11 + a) && num % 10 == (1 + a)) return (num + ordinals[a])
+    }
+    return num + "th";
   }
 </script> 
 </body>
