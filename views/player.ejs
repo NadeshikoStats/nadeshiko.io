@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
   <link rel="stylesheet" href="/css/stylesheet.css">
   <script src="/external/skinview3d.bundle.js" type="module"></script>
   <script src="/external/minecrafttext.js"></script>
@@ -74,9 +74,9 @@
                   </div>
                   <div class="general-stats" id="guild-stats">
                     <p class="stat-title">Guild</p>
-                    <p>Name <span class="statistic" id="guild-name">SBNOfficial</span> <span id="guild-tag">[NERDS]</span> <span id="guild-level"><span class="mc">Unknown</span></span></p>
+                    <p>Name <span class="statistic" id="guild-name">SBNOfficial</span> <span id="guild-tag">[NERDS]</span></span></p>
                     <p>Members <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span></p>
-                    <p>Guild Master <span class="mc">Unknown</span></p>
+                    <p>Guild Level <span id="guild-level"><span class="mc">Unknown</span></span></p>
                     <p>Joined <span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span> <span id="guild-joined-ago">(4d ago)*</span></p>
                   </div>
                 </div>
@@ -233,7 +233,7 @@
       document.getElementById("achievement-points").innerText = (profileStats["achievement_points"]).toLocaleString();
       document.getElementById("karma").innerText = (profileStats["karma"]).toLocaleString();
       console.log((profileStats["karma"]).toLocaleString());
-      document.getElementById("quests-completed").innerText = "Chloe Fix This"/*(profileStats["quests_completed"]).toLocaleString();*/
+      document.getElementById("quests-completed").innerText = (profileStats["quests_completed"]).toLocaleString();
       document.getElementById("ranks-gifted").innerText = (und(profileStats["ranks_gifted"])).toLocaleString();
       document.getElementById("multiplier").innerText = (profileStats["coin_multiplier"]).toLocaleString();
 
@@ -271,7 +271,7 @@
           document.getElementById("card-guild").innerHTML = generateMinecraftText(guildStats["tag"]);
           document.getElementById("guild-tag").style.color = `var(--mc` + COLORS[guildStats["color"]] + `)`;
           document.getElementById("card-guild").style.color = `var(--mc` + COLORS[guildStats["color"]] + `)`;
-          document.getElementById("guild-level").innerText = "(Level " + guildStats["level"] + ")";
+          document.getElementById("guild-level").innerText = guildStats["level"];
           document.getElementById("guild-members").innerText = guildStats["members"];
           document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
           document.getElementById("guild-joined-ago").innerText = "(" + relativeTime(new Date(guildStats["joined"])) + ")";

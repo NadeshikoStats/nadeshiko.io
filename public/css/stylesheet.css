@@ -393,8 +393,8 @@ body {
     font-weight: 500;
 }
 
-.avatar-user {
-    height: 300px;
+.avatar {
+    cursor: grab;
 }
 
 .player-name {
