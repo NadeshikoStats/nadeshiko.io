@@ -245,7 +245,7 @@ footer>a:hover {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 60%;
+    width: max(60%, 750px);
 }
 
 .extended-card {
