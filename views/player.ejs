@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +51,7 @@
             </div>
 
             <div class="extended-card">
-              <p><span style="color: var(--gold)" id="level-container">Level <span style="font-weight: 500" id="level">301</span></span> <span class="m8">(<span id="multiplier">1</span>&times;)</span></p>
+              <p><span id="level-container">Level <span id="level" class="statistic">301</span></span> <span class="m8">(<span id="multiplier">1</span>&times;)</span></p>
               <div class="progress-bar">
                 <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
                 <div class="progress" style="width: 66%;" id="xp-progress-bar"></div>
@@ -279,6 +278,10 @@
 
       hypixelLevel = profileStats["network_level"];
       document.getElementById("level").innerText = Math.floor(hypixelLevel);
+      if(hypixelLevel >= 250) {
+        document.getElementById("level-container").style.color = "var(--gold-transparent)";
+        document.getElementById("level").style.color = "var(--gold)";
+      }
 
       var xpProgress = ((hypixelLevel % 1) * 100).toFixed(0) + "%"; // Sets user's XP progress and progress bar
       document.getElementById("xp-progress-bar").style.width = xpProgress;
