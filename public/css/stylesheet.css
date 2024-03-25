@@ -129,6 +129,7 @@ footer>a:hover {
     align-items: center;
     justify-content: center;
     transition-duration: 0.3s;
+    font-size: 14px;
 }
 
 .header-button:hover {
@@ -207,7 +208,7 @@ footer>a:hover {
 
 .searchbar {
     all: unset;
-    font-size: 18px;
+    font-size: 14px;
     background-color: #222;
     color: white;
     transition-duration: 0.3s;
@@ -215,7 +216,7 @@ footer>a:hover {
     width: 300px;
     right: 0px;
     border-radius: 15px;
-    padding: 3px;
+    padding: 6px;
     padding-left: 15px;
     margin-right: 9px;
 }
