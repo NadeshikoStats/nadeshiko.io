@@ -134,7 +134,7 @@
 
     playerName = "<%= name %>";
 
-      fetch('http://localhost:641/stats?name=' + playerName).then(e => e.json()).then(data => { // Fetches API data.
+      fetch('http://localhost:2000/stats?name=' + playerName).then(e => e.json()).then(data => { // Fetches API data.
           playerData = data;
           insertLoadedData(); // Inserts the imported data into the DOM.
       })
