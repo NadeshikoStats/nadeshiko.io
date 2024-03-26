@@ -75,7 +75,7 @@
                     <p class="stat-title">Guild</p>
                     <p>Name <span class="statistic" id="guild-name">SBNOfficial</span> <span id="guild-tag">[NERDS]</span></span></p>
                     <p>Members <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span></p>
-                    <p>Guild Level <span id="guild-level"><span class="mc">Unknown</span></span></p>
+                    <p>Guild Level <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span></p>
                     <p>Joined <span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span> <span id="guild-joined-ago">(4d ago)*</span></p>
                   </div>
                 </div>
@@ -274,7 +274,7 @@
           document.getElementById("card-guild").innerHTML = generateMinecraftText(guildStats["tag"]);
           document.getElementById("guild-tag").style.color = `var(--mc` + COLORS[guildStats["color"]] + `)`;
           document.getElementById("card-guild").style.color = `var(--mc` + COLORS[guildStats["color"]] + `)`;
-          document.getElementById("guild-level").innerText = guildStats["level"];
+          document.getElementById("guild-level").innerText = Math.floor(guildStats["level"]);
           document.getElementById("guild-members").innerText = guildStats["members"];
           document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
           document.getElementById("guild-joined-ago").innerText = "(" + relativeTime(new Date(guildStats["joined"])) + ")";
