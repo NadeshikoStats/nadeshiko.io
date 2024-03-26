@@ -109,6 +109,8 @@ footer>a:hover {
 
 .logo {
     height: 25px;
+    padding-left: 10px;
+    padding-right: 5px;
 }
 
 .wordmark {
@@ -242,16 +244,16 @@ footer>a:hover {
 }
 
 .player-card {
-    background-color: #000000a0;
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: max(60%, 750px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    width: min(60%, 800px);
 }
 
 .extended-card {
-    background-color: #00000080;
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
     padding: 10px;
     margin: 5px;
     margin-top: 15px;
@@ -277,7 +279,7 @@ footer>a:hover {
 }
 
 .general-stats>p {
-    margin: 7px;
+    margin: 10px;
 }
 
 .details {
@@ -399,8 +401,8 @@ body {
 }
 
 .player-name {
-    font-weight: 500;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 22px;
 }
 
 .general-button {
@@ -424,10 +426,10 @@ body {
 .rank {
     border-radius: 99px;
     padding: 5px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
 }
 
