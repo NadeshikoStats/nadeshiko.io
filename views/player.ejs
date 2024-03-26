@@ -214,10 +214,11 @@
           canvas: document.getElementById("skin_container"),
           width: 300,
           height: 400,
-          skin: "data:image/png;base64," + playerSkin
+          skin: "data:image/png;base64," + playerSkin,
+          model: "slim",
+          cape: "http://textures.minecraft.net/texture/17912790ff164b93196f08ba71d0e62129304776d0f347334f8a6eae509f8a56"
       });
 
-      
       skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
       skinViewer.animation = new skinview3d.IdleAnimation();
       skinViewer.controls.enableZoom = false;
