@@ -4,6 +4,8 @@
     --pale-grey: #ffffff80;
     --gold: #e99a3f;
     --gold-transparent: #e99a3f90;
+    --accent: #bc6ff8;
+    --accent-general: #bc6ff8;
     --grey: #888;
     --mc0: #000000;
     /* Black */
@@ -326,7 +328,7 @@ h1 {
 }
 
 .progress {
-    background-color: #BC6FF8;
+    background-color: var(--accent);
     height: 20px;
     border-radius: 15px;
 }
@@ -440,7 +442,7 @@ body {
 }
 
 .general-button:hover {
-    background-color: var(--nadeshiko);
+    background-color: var(--accent);
     color: #222;
     cursor: pointer;
 }
@@ -545,7 +547,7 @@ body {
     transform: translateX(-50%) translateY(15px);
     width: 120%;
     height: 5px;
-    background-color: #4A90E2;
+    background-color: var(--accent);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }

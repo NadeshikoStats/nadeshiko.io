@@ -141,18 +141,6 @@
     })
     .catch(error => console.error('Error fetching player data:', error));
 
-
-      let skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
-          canvas: document.getElementById("skin_container"),
-          width: 300,
-          height: 400,
-          skin: "/img/chloeskin.png"
-      });
-
-      skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
-      skinViewer.animation = new skinview3d.IdleAnimation();
-      skinViewer.controls.enableZoom = false;
-
   });
 
   function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past.
@@ -214,8 +202,22 @@
   }
 
  function insertLoadedData() {
+      var playerSkin = playerData["skin"]; 
+
+      let skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
+          canvas: document.getElementById("skin_container"),
+          width: 300,
+          height: 400,
+          skin: "data:image/png;base64," + playerSkin
+      });
+
+      skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
+      skinViewer.animation = new skinview3d.IdleAnimation();
+      skinViewer.controls.enableZoom = false;
+
       var playerStats = playerData["stats"];
       var profileStats = playerData["profile"];
+
       var dateNow = new Date();
 
       var playerRank = profileStats["tag"];
