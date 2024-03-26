@@ -191,10 +191,6 @@ footer>a:hover {
     height: 100%;
 }
 
-.general-guild {
-    margin-top: 15px;
-}
-
 .flex-two-item {
     display: flex;
     justify-content: space-between;
@@ -224,6 +220,10 @@ footer>a:hover {
     margin-right: 9px;
 }
 
+#level-container-container {
+    margin: 10px;
+}
+
 .social-media-logo {
     height: 24px;
     opacity: 0.5;
@@ -232,6 +232,10 @@ footer>a:hover {
 }
 
 .social-media-logo:hover {
+    opacity: 1;
+}
+
+#sociallink-discord:hover, #sociallink-discord:hover + p {
     opacity: 1;
 }
 
@@ -278,7 +282,19 @@ footer>a:hover {
     flex-wrap: wrap;
 }
 
+.half-and-half {
+    width: 50%;
+}
+
 .general-stats>p {
+    margin: 10px;
+}
+
+.login-information {
+    margin-bottom: 20px;
+}
+
+.login-duo {
     margin: 10px;
 }
 
@@ -298,6 +314,8 @@ h1 {
     margin-bottom: 20px;
     margin-top: 10px;
     text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .progress-number {
@@ -398,6 +416,11 @@ body {
 
 .avatar {
     cursor: grab;
+}
+
+.socials-buttons {
+    margin-top: 20px;
+    margin-bottom: 5px;
 }
 
 .player-name {

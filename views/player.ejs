@@ -51,27 +51,27 @@
             </div>
 
             <div class="extended-card">
-              <p><span id="level-container">Level <span id="level" class="statistic">301</span></span> <span class="m8">(<span id="multiplier">1</span>&times;)</span></p>
+              <p id="level-container-container"><span id="level-container">Level <span id="level" class="statistic">301</span></span> <span class="m8">(<span id="multiplier">1</span>&times;)</span></p>
               <div class="progress-bar">
                 <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
                 <div class="progress" style="width: 66%;" id="xp-progress-bar"></div>
               </div>
               <div class="stats">
                 <div class="login-info flex-two-item">
-                  <p>First Login <span class="statistic" id="first-login"><span class="mc">Unknown</span></span> <span id="first-login-ago"><span class="mc">Unknown</span></span>
+                  <p class="half-and-half login-duo">First Login <span class="statistic" id="first-login"><span class="mc">Unknown</span></span> <span id="first-login-ago"><span class="mc">Unknown</span></span>
                   <span class="tooltip"><img id="birthday" class="icon tinyicon" src="/icon/cake.png"><span class="tooltiptext" id="birthday-text"></span></span></p>
 
-                  <p id="last-login-container">Last Login <span class="statistic" id="last-login"><span class="mc">Unknown</span></span> <span id="last-login-ago"><span class="mc">Unknown</span></span></p>
+                  <p id="last-login-container" class="half-and-half login-duo">Last Login <span class="statistic" id="last-login"><span class="mc">Unknown</span></span> <span id="last-login-ago"><span class="mc">Unknown</span></span></p>
                 </div>
                 <div class="flex-two-item general-guild">
-                  <div class="general-stats">
+                  <div class="general-stats half-and-half">
                     <p class="stat-title">General</p>
                     <p>Achievement Points <span class="statistic" id="achievement-points"><span class="mc">Unknown</span></span></p>
                     <p>Karma <span class="statistic" id="karma"><span class="mc">Unknown</span></span></p>
                     <p>Quests Completed <span class="statistic" id="quests-completed"><span class="mc">Unknown</span></span></p>
                     <p>Ranks Gifted <span class="statistic" id="ranks-gifted"><span class="mc">Unknown</span></span></p>
                   </div>
-                  <div class="general-stats" id="guild-stats">
+                  <div class="general-stats half-and-half" id="guild-stats">
                     <p class="stat-title">Guild</p>
                     <p>Name <span class="statistic" id="guild-name">SBNOfficial</span> <span id="guild-tag">[NERDS]</span></span></p>
                     <p>Level <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span></p>
@@ -81,7 +81,7 @@
                 </div>
               </div>
             </div>
-            <div class="flex-two-item">
+            <div class="flex-two-item socials-buttons">
               <div class="buttons"><span class="general-button mright">Generate Card</span><span class="general-button">SkyBlock Stats</span></div>
               <div class="socials flex-two-item flex-separated"><a target="_blank" id="sociallink-hypixel"><img src="/img/hypixel.svg" class="social-media-logo mright" id="social-hypixel"></a><a target="_blank" id="sociallink-youtube"><img src="/img/youtube.svg" class="social-media-logo mleft mright" id="social-youtube"></a><a target="_blank" id="sociallink-twitter"><img src="/img/twitter.svg" class="social-media-logo mright mleft" id="social-twitter"></a><a target="_blank" id="sociallink-tiktok"><img src="/img/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok"></a><a target="_blank" id="sociallink-twitch"><img src="/img/twitch.svg" class="social-media-logo mright  mleft" id="social-twitch"></a><a target="_blank" id="sociallink-discord"><img src="/img/discord.svg" class="mleft social-media-logo" id="social-discord"></a>
                 <p class="w500 mleft" id="social-discord-username"></p></span>
@@ -274,8 +274,8 @@
           document.getElementById("card-guild").innerHTML = generateMinecraftText(guildStats["tag"]);
           document.getElementById("guild-tag").style.color = `var(--mc` + COLORS[guildStats["color"]] + `)`;
           document.getElementById("card-guild").style.color = `var(--mc` + COLORS[guildStats["color"]] + `)`;
-          document.getElementById("guild-level").innerText = Math.floor(guildStats["level"]);
-          document.getElementById("guild-members").innerText = guildStats["members"];
+          document.getElementById("guild-level").innerText = (Math.floor(guildStats["level"])).toLocaleString();
+          document.getElementById("guild-members").innerText = (guildStats["members"]).toLocaleString();
           document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
           document.getElementById("guild-joined-ago").innerText = "(" + relativeTime(new Date(guildStats["joined"])) + ")";
       } 
