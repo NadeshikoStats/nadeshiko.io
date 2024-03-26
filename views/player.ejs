@@ -133,10 +133,14 @@
 
     playerName = "<%= name %>";
 
-      fetch('http://localhost:2000/stats?name=' + playerName).then(e => e.json()).then(data => { // Fetches API data.
-          playerData = data;
-          insertLoadedData(); // Inserts the imported data into the DOM.
-      })
+    fetch(`/playerData?name=${encodeURIComponent(playerName)}`)
+    .then(response => response.json())
+    .then(data => {
+      playerData = data;
+      insertLoadedData();
+    })
+    .catch(error => console.error('Error fetching player data:', error));
+
 
       let skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
           canvas: document.getElementById("skin_container"),
