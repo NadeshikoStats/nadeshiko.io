@@ -7,7 +7,19 @@
   <script src="/external/skinview3d.bundle.js" type="module"></script>
   <script src="/external/minecrafttext.js"></script>
   <script src="https://unpkg.com/card3d@2.6.5/dist/card3d.js"></script> <!-- unused u can remove it -->
-  <title>nadeshiko</title>
+  <title>
+  <meta name="theme-color" content="#f6adc6">
+  <title><%- (playerData["profile"]["tagged_name"]).replaceAll(/§[A-Fa-f0-9]/g, "") %>'s stats on nadeshiko</title>
+
+  <% if (playerData && playerData.profile && playerData.profile.network_level) { %>
+    <meta name="description" content="<%= playerData.status.online ? '🟢 Online!' : '🔴 Offline' %>
+
+    🌐 Level **<%-(playerData.profile.network_level).toFixed(2)%>**
+    📜 Quests **<%-(playerData.profile.quests_completed).toLocaleString()%>**
+    ☮️ Karma **<%-(playerData.profile.karma).toLocaleString()%>**
+    🏆 AP **<%-(playerData.profile.achievement_points).toLocaleString()%>**
+    💸 Ranks Gifted **<%-(playerData.profile.ranks_gifted).toLocaleString()%>**">
+  <% } %>
 </head>
 
 <body>
@@ -133,14 +145,9 @@
 
     playerName = "<%= name %>";
 
-    fetch(`/playerData?name=${encodeURIComponent(playerName)}`)
-    .then(response => response.json())
-    .then(data => {
-      playerData = data;
-      insertLoadedData();
-    })
-    .catch(error => console.error('Error fetching player data:', error));
-
+    console.log(JSON.parse(`<%= playerData %>`));
+    playerData = JSON.parse(`<%= playerData %>`);
+    insertLoadedData();
   });
 
   function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past.
