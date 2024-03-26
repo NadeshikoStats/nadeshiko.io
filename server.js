@@ -25,7 +25,7 @@ app.get('/player/:name', async (req, res) => {
       res.render('player', { name, playerData });
    } catch(error) {
        console.error("Fetching player data failed! → ", error);
-       res.status(500).send("An error occurred fetching player data :(");
+       res.redirect('/');
    }
 });
 
