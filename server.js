@@ -17,8 +17,6 @@ app.get('/player/:name', async (req, res) => {
   try {
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
-
-       console.log(playerData);
       
       res.render('player', { name, playerData });
    } catch(error) {
