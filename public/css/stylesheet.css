@@ -153,7 +153,7 @@ footer>a:hover {
 
 .header-name {
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 30px;
@@ -428,6 +428,8 @@ body {
 .player-name {
     font-weight: 600;
     font-size: 22px;
+    display: flex;
+    align-items: center;
 }
 
 .general-button {
@@ -480,6 +482,11 @@ body {
 
 .rank-d {
     background: linear-gradient(193deg, #f5f 0%, rgb(217, 53, 217) 100%);
+}
+
+#card-name {
+    margin-left: 6px;
+    margin-right: 6px;
 }
 
 /* Tooltips */

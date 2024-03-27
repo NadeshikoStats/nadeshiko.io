@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
   <meta property="og:title" content="<%- (playerData['profile']['tagged_name']).replaceAll(/§[A-Fa-f0-9]/g, '') %>">
-  <title><%- (playerData["profile"]["tagged_name"]).replaceAll(/§[A-Fa-f0-9]/g, "") %>'s | nadeshiko.io</title>
+  <title><%- (playerData["profile"]["tagged_name"]).replaceAll(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
 
   <% if (playerData && playerData.profile && playerData.profile.network_level) { %>
     <meta name="description" content="<%= playerData.status.online ? '🟢 Online!' : '🔴 Offline' %>
@@ -40,7 +40,7 @@
       </div>
       <div class="header2"> <!-- secondary header for game bar -->
         <div class="header-left">
-          <p class="header-name unloaded" id="header-name-full"><span class="rank" id="header-rank"><span id="header-ranktext">?</span></span> <span class="m6" id="header-name">kittycatchloe</span></span></p>
+          <p class="header-name unloaded" id="header-name"></p>
         </div>
         <div class="header-right">
           <p class="header-game highlighted">Network</p>
@@ -209,6 +209,16 @@
     }
   }
 
+
+function isInputField(element) {
+  return (
+    element.tagName === 'INPUT' || 
+    element.tagName === 'TEXTAREA' || 
+    element.isContentEditable
+  );
+}
+
+
  function insertLoadedData() {
 
       let skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
@@ -224,6 +234,49 @@
       skinViewer.animation = new skinview3d.IdleAnimation();
       skinViewer.controls.enableZoom = false;
 
+
+      document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 16 && !isInputField(document.activeElement)) { // If LSHIFT pressed
+    skinViewer.playerObject.skin.position.z = -3; // Move the player's skin so that it looks like they're shifting
+    skinViewer.playerObject.skin.leftArm.rotation.x = Math.PI * 15 / 180;
+      skinViewer.playerObject.skin.leftArm.position.z = 4;
+      skinViewer.playerObject.skin.leftArm.position.y = -4;
+
+      skinViewer.playerObject.skin.rightArm.rotation.x = Math.PI * 15 / 180;
+      skinViewer.playerObject.skin.rightArm.position.z = 4;
+      skinViewer.playerObject.skin.rightArm.position.y = -4;
+
+      skinViewer.playerObject.skin.head.position.z = 5.5;
+      skinViewer.playerObject.skin.head.position.y = -1.5;
+
+
+
+      skinViewer.playerObject.skin.body.rotation.x = Math.PI * 20 / 180;
+      skinViewer.playerObject.skin.body.position.z = 2;
+      skinViewer.playerObject.skin.body.position.y = -6;
+  }
+});
+
+document.addEventListener('keyup', function(event) {
+  if (event.keyCode === 16 && !isInputField(document.activeElement)) {
+    skinViewer.playerObject.skin.position.z = 0; // Reset the skin if LSHIFT was released
+    skinViewer.playerObject.skin.leftArm.rotation.x = 0;
+      skinViewer.playerObject.skin.leftArm.position.z = 0;
+      skinViewer.playerObject.skin.leftArm.position.y = -3;
+
+      skinViewer.playerObject.skin.rightArm.rotation.x = 0;
+      skinViewer.playerObject.skin.rightArm.position.z = 0;
+      skinViewer.playerObject.skin.rightArm.position.y = -3;
+
+      skinViewer.playerObject.skin.head.position.z = 0;
+      skinViewer.playerObject.skin.head.position.y = 0;
+
+      skinViewer.playerObject.skin.body.rotation.x = 0;
+      skinViewer.playerObject.skin.body.position.z = 0;
+      skinViewer.playerObject.skin.body.position.y = -6;
+  }
+});
+
       var playerStats = playerData["stats"];
       var profileStats = playerData["profile"];
 
@@ -233,17 +286,14 @@
       var playerRankCute = cuteRank(playerRank, 1);
 
       document.getElementById("card-rank").classList.add("rank-" + playerRankCute[0]); // Changes the rank to the player's rank colour
-      document.getElementById("header-rank").classList.add("rank-" + playerRankCute[0]);
       document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
-      document.getElementById("header-name").style.color = `var(--mc` + playerRankCute[0] + `)`;
 
       document.getElementById("card-ranktext").innerHTML = playerRankCute[1]; // Adds player's rank
-      document.getElementById("header-ranktext").innerHTML = playerRankCute[1];
       console.log(playerRankCute)
 
 
       document.getElementById("card-name").innerText = playerData["name"];
-      document.getElementById("header-name").innerText = playerData["name"];
+      document.getElementById("header-name").innerHTML = cuteRank(profileStats["tagged_name"], 0);
       document.getElementById("achievement-points").innerText = (profileStats["achievement_points"]).toLocaleString();
       document.getElementById("karma").innerText = (profileStats["karma"]).toLocaleString();
       console.log((profileStats["karma"]).toLocaleString());
@@ -317,7 +367,7 @@
       }
 
       document.getElementById("flex-container-0").classList.remove("unloaded");
-      document.getElementById("header-name-full").classList.remove("unloaded");
+      document.getElementById("header-name").classList.remove("unloaded");
   }
 
   function ordinal(num) { // Returns the ordinal number format of an integer (3 → 3rd)
