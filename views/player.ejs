@@ -8,16 +8,18 @@
   <script src="/external/minecrafttext.js"></script>
   <script src="https://unpkg.com/card3d@2.6.5/dist/card3d.js"></script> <!-- unused u can remove it -->
   <meta name="theme-color" content="#f6adc6">
-  <title><%- (playerData["profile"]["tagged_name"]).replaceAll(/§[A-Fa-f0-9]/g, "") %>'s stats on nadeshiko</title>
+  <meta property="og:site_name" content="nadeshiko.io">
+  <meta property="og:title" content="<%- (playerData['profile']['tagged_name']).replaceAll(/§[A-Fa-f0-9]/g, '') %>">
+  <title><%- (playerData["profile"]["tagged_name"]).replaceAll(/§[A-Fa-f0-9]/g, "") %>'s | nadeshiko.io</title>
 
   <% if (playerData && playerData.profile && playerData.profile.network_level) { %>
     <meta name="description" content="<%= playerData.status.online ? '🟢 Online!' : '🔴 Offline' %>
 
-    🌐 Level <%-(playerData.profile.network_level).toFixed(2)%>
-    📜 Quests <%-(playerData.profile.quests_completed).toLocaleString()%>
-    ☮️ Karma <%-(playerData.profile.karma).toLocaleString()%>
-    🏆 AP <%-(playerData.profile.achievement_points).toLocaleString()%>
-    💸 Ranks Gifted <%-(playerData.profile.ranks_gifted).toLocaleString()%>">
+    🌐 Network Level: <%-(playerData.profile.network_level).toFixed(2)%>
+    📜 Quests Completed: <%-(playerData.profile.quests_completed).toLocaleString()%>
+    ☮️ Karma: <%-(playerData.profile.karma).toLocaleString()%>
+    🏆 Achievement Points: <%-(playerData.profile.achievement_points).toLocaleString()%>
+    💸 Ranks Gifted: <%-(playerData.profile.ranks_gifted).toLocaleString()%>">
   <% } %>
 </head>
 
@@ -56,13 +58,13 @@
           <div class="details">
             <div class="flex-two-item">
               <span class="player-name">
-                <span class="rank" id="card-rank"><span id="card-ranktext">?</span></span> <span class="m6" id="card-name">kittycatchloe</span> <span id="card-guild">[NERDS]</span>
+                <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m6" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span>
               </span>
-              <span id="online-status">Currently Offline</span>
+              <span id="online-status"><span class="mc">Unknown</span></span>
             </div>
 
             <div class="extended-card">
-              <p id="level-container-container"><span id="level-container">Level <span id="level" class="statistic">301</span></span> <span class="m8">(<span id="multiplier">1</span>&times;)</span></p>
+              <p id="level-container-container"><span id="level-container">Level <span id="level" class="statistic"><span class="mc">Unknown</span></span></span> <span class="m8">(<span id="multiplier">1</span>&times;)</span></p>
               <div class="progress-bar">
                 <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
                 <div class="progress" style="width: 66%;" id="xp-progress-bar"></div>
@@ -84,10 +86,10 @@
                   </div>
                   <div class="general-stats half-and-half" id="guild-stats">
                     <p class="stat-title">Guild</p>
-                    <p>Name <span class="statistic" id="guild-name">SBNOfficial</span> <span id="guild-tag">[NERDS]</span></span></p>
+                    <p>Name <span class="statistic" id="guild-name"><span class="mc">Unknown</span></span> <span id="guild-tag"><span class="mc">Unknown</span></span></span></p>
                     <p>Level <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span></p>
                     <p>Members <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span></p>
-                    <p>Joined <span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span> <span id="guild-joined-ago">(4d ago)*</span></p>
+                    <p>Joined <span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span> <span id="guild-joined-ago"><span class="mc">Unknown</span></span></p>
                   </div>
                 </div>
               </div>
