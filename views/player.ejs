@@ -12,8 +12,8 @@
   <% if (base64PlayerImage) { %>
     <meta property="og:image" itemprop="image primaryImageOfPage" content="<%= base64PlayerImage %>">
   <% } %>
-  <title><%- (playerData["profile"]["tagged_name"]).replaceAll(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
-
+  <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
+  
   <% if (playerData && playerData.profile && playerData.profile.network_level) { %>
     <meta name="description" content="┌ <%= playerData.status.online ? '🟢 Online!' : '🔴 Offline' %>
 │
