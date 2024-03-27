@@ -15,7 +15,7 @@
   <% if (playerData && playerData.profile && playerData.profile.network_level) { %>
     <meta name="description" content="┌ <%= playerData.status.online ? '🟢 Online!' : '🔴 Offline' %>
 │
-├🌐 Network Level: <%-(playerData.profile.network_level).toFixed(2)%>
+├ 🌐 Network Level: <%-(playerData.profile.network_level).toFixed(2)%>
 ├ 📜 Quests Completed: <%-(playerData.profile.quests_completed).toLocaleString()%>
 ├ ☮️ Karma: <%-(playerData.profile.karma).toLocaleString()%>
 ├ 🏆 Achievement Points: <%-(playerData.profile.achievement_points).toLocaleString()%>
