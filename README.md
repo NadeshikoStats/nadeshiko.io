@@ -24,6 +24,7 @@ way of achieving this is via `iptables`:
 
 Alternatively, if you are operating in an environment where port 80 is not restricted, simply change 
 `const port = 8080;` in `server.js`.
+
 ---
 
 Made with ♥&#xFE0E; by <a href="https://github.com/niqumu" target="_blank">niqumu</a> and <a href="https://brookie.dev" target="_blank">BrookeAFK</a>
