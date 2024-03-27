@@ -15,14 +15,33 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+
+async function getVisageImage(uuid) {
+  try {
+    // Sends API call to Visage
+    const imageUrl = 'https://visage.surgeplay.com/face/128/' + uuid;
+    const response = await await axios.get(imageUrl, {
+      responseType: 'arraybuffer',
+      headers: { 'User-Agent': 'nadeshiko.io (+https://nadeshiko.io; contact@nadeshiko.io)' }
+    })
+    const imageBuffer = Buffer.from(response.data, 'binary'); // Converts image to base64 so it can be sent through axios
+    
+    return(`data:image/jpeg;base64,${imageBuffer.toString('base64')}`);
+  } catch (error) {
+    console.error('Error fetching player image! ', error);
+    return "";
+  }
+}
+
 app.get('/player/:name', async (req, res) => {
   const name = req.params.name;
+  var base64PlayerImage = "";
   
   try {
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
-      
-      res.render('player', { name, playerData });
+       base64PlayerImage = await getVisageImage(playerData["uuid"]);      
+      res.render('player', { name, playerData, base64PlayerImage });
    } catch(error) {
        console.error("Fetching player data failed! → ", error);
        res.redirect('/');
