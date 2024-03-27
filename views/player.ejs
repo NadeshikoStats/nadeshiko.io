@@ -35,7 +35,7 @@
           <a href="#cards" class="header-button"><img src="/img/cards.svg" class="header-icon">Cards</a>
         </div>
         <div class="header-right">
-          <input type="search" class="searchbar" placeholder="&#x1F50E;&#xFE0E;  Search for a player...">
+          <input type="search" class="searchbar" id="searchbar" placeholder="&#x1F50E;&#xFE0E;  Search for a player...">
         </div>
       </div>
       <div class="header2"> <!-- secondary header for game bar -->
@@ -327,6 +327,14 @@
     }
     return num + "th";
   }
+
+  document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
+    if (event.key === "Enter") { // Did the user press enter?
+      event.preventDefault();
+      var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+      window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+    }
+  });
 </script> 
 </body>
 </html>
