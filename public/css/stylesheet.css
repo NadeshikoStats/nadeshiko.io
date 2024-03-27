@@ -252,7 +252,6 @@ footer>a:hover {
 .player-card {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 25px;
-    overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     width: min(60%, 800px);
 }
@@ -354,6 +353,10 @@ h1 {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+}
+
+.smallicon {
+    height: 25px;
 }
 
 .tinyicon {
@@ -458,6 +461,7 @@ body {
     color: white;
     font-size: 16px;
     font-weight: 600;
+    min-width: max-content;
 }
 
 .rank-6 {
@@ -514,6 +518,8 @@ body {
     opacity: 0;
     transition: opacity 0.3s;
     padding: 10px;
+    font-weight: 400;
+    font-size: 15px;
 }
 
 .tooltip:hover .tooltiptext {
