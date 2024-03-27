@@ -12,9 +12,6 @@
   <% if (base64PlayerImage) { %>
     <meta property="og:image" itemprop="image primaryImageOfPage" content="<%= base64PlayerImage %>">
   <% } %>
-  
-  <meta name="fake" content="<%= base64PlayerImage %>">
-  <meta property="og:image" itemprop="image primaryImageOfPage" content="" />
   <title><%- (playerData["profile"]["tagged_name"]).replaceAll(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
 
   <% if (playerData && playerData.profile && playerData.profile.network_level) { %>
