@@ -220,10 +220,11 @@ function isInputField(element) {
   );
 }
 
+var skinViewer;
 
  function insertLoadedData() {
 
-      let skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
+      skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
           canvas: document.getElementById("skin_container"),
           width: 300,
           height: 400,
@@ -234,48 +235,73 @@ function isInputField(element) {
 
       skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
       skinViewer.animation = new skinview3d.IdleAnimation();
+      skinViewer.playerObject.cape.rotation.x = 1;
+
       skinViewer.controls.enableZoom = false;
 
 
       document.addEventListener('keydown', function(event) {
-  if (event.keyCode === 16 && !isInputField(document.activeElement)) { // If LSHIFT pressed
-    skinViewer.playerObject.skin.position.z = -3; // Move the player's skin so that it looks like they're shifting
-    skinViewer.playerObject.skin.leftArm.rotation.x = Math.PI * 15 / 180;
-      skinViewer.playerObject.skin.leftArm.position.z = 4;
-      skinViewer.playerObject.skin.leftArm.position.y = -4;
+  if (event.keyCode === 16 && !isInputField(document.activeElement)) { // If LSHIFT pressed, adjust skin to sneak based on constants from Mine-imator
+    skinViewer.animation.paused = true; // Cape can't move in the x direction while idle animation is on
+    let skinViewerObject = skinViewer.playerObject;
+    let skinViewerSkin = skinViewerObject.skin;
 
-      skinViewer.playerObject.skin.rightArm.rotation.x = Math.PI * 15 / 180;
-      skinViewer.playerObject.skin.rightArm.position.z = 4;
-      skinViewer.playerObject.skin.rightArm.position.y = -4;
+    skinViewerSkin.head.position.y = -2.5;
 
-      skinViewer.playerObject.skin.head.position.z = 5.5;
-      skinViewer.playerObject.skin.head.position.y = -1.5;
+    skinViewerSkin.body.rotation.x = 0.4887;
+    skinViewerSkin.body.position.y = -7;
+    skinViewerSkin.body.position.z = -2;
 
+    skinViewerSkin.leftArm.rotation.x = 0.3491;
+    skinViewerSkin.leftArm.position.y = -3.5;
+    
+    skinViewerSkin.rightArm.rotation.x = 0.3491;
+    skinViewerSkin.rightArm.position.y = -3.5;
+    
+    skinViewerSkin.leftLeg.position.x = 2;
+    skinViewerSkin.leftLeg.position.y = -11;
+    skinViewerSkin.leftLeg.position.z = -3.5;
 
+    skinViewerSkin.rightLeg.position.x = -2;
+    skinViewerSkin.rightLeg.position.y = -11;
+    skinViewerSkin.rightLeg.position.z = -3.5;
 
-      skinViewer.playerObject.skin.body.rotation.x = Math.PI * 20 / 180;
-      skinViewer.playerObject.skin.body.position.z = 2;
-      skinViewer.playerObject.skin.body.position.y = -6;
+    skinViewerObject.cape.rotation.x = 0.4365;
+    skinViewerObject.cape.position.y = 7;
+    skinViewerObject.cape.position.z = -2;
   }
 });
 
+
 document.addEventListener('keyup', function(event) {
-  if (event.keyCode === 16 && !isInputField(document.activeElement)) {
-    skinViewer.playerObject.skin.position.z = 0; // Reset the skin if LSHIFT was released
-    skinViewer.playerObject.skin.leftArm.rotation.x = 0;
-      skinViewer.playerObject.skin.leftArm.position.z = 0;
-      skinViewer.playerObject.skin.leftArm.position.y = -2;
+  if (event.keyCode === 16 && !isInputField(document.activeElement)) { // Removes sneak; sets values to defaults
+    skinViewer.animation.paused = false;
+    let skinViewerSkin = skinViewer.playerObject.skin;
+    let skinViewerObject = skinViewer.playerObject;
 
-      skinViewer.playerObject.skin.rightArm.rotation.x = 0;
-      skinViewer.playerObject.skin.rightArm.position.z = 0;
-      skinViewer.playerObject.skin.rightArm.position.y = -2;
+    skinViewerSkin.head.position.y = 0;
 
-      skinViewer.playerObject.skin.head.position.z = 0;
-      skinViewer.playerObject.skin.head.position.y = 0;
+    skinViewerSkin.body.rotation.x = 0;
+    skinViewerSkin.body.position.y = -6;
+    skinViewerSkin.body.position.z = 0;
 
-      skinViewer.playerObject.skin.body.rotation.x = 0;
-      skinViewer.playerObject.skin.body.position.z = 0;
-      skinViewer.playerObject.skin.body.position.y = -6;
+    skinViewerSkin.leftArm.position.y = -2;
+    skinViewerSkin.leftArm.rotation.x = 0;
+    
+    skinViewerSkin.rightArm.rotation.x = 0;
+    skinViewerSkin.rightArm.position.y = -2;
+
+    skinViewerSkin.leftLeg.position.x = 2;
+    skinViewerSkin.leftLeg.position.y = -12;
+    skinViewerSkin.leftLeg.position.z = 0;
+
+    skinViewerSkin.rightLeg.position.x = -2;
+    skinViewerSkin.rightLeg.position.y = -12;
+    skinViewerSkin.rightLeg.position.z = 0;
+    
+    skinViewerObject.cape.rotation.x = 1.5714;
+    skinViewerObject.cape.position.y = 8;
+    skinViewerObject.cape.position.z = -2;
   }
 });
 
