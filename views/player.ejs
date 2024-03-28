@@ -9,9 +9,9 @@
   <script src="https://unpkg.com/card3d@2.6.5/dist/card3d.js"></script> <!-- unused u can remove it -->
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
-  <% if (base64PlayerImage) { %>
-    <meta property="og:image" itemprop="image primaryImageOfPage" content="<%= base64PlayerImage %>">
-  <% } %>
+  <meta property="og:image" content="https://crafatar.com/avatars/<%= playerData.uuid %>?overlay=true">
+  <meta property="og:image:secure_url" content="https://crafatar.com/avatars/<%= playerData.uuid %>?overlay=true">
+  <meta property="og:image:alt" content="<%= playerData.name %>'s Minecraft skin">
   <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
 
   <% if (playerData && playerData.profile && playerData.profile.network_level) { %>
@@ -113,6 +113,7 @@
     <footer>
       Made with ♥&#xFE0E; by <a href="https://github.com/niqumu" target="_blank">kittycatchloe</a> and <a href="https://brookie.dev" target="_blank">BrookeAFK</a>.
     </footer>
+  </div>
 
  
 <script>
