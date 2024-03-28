@@ -146,18 +146,14 @@
 
   // Runs once the page is fully loaded.
   document.addEventListener("DOMContentLoaded", function() {
-
     playerName = "<%= name %>";
-
     playerData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(playerData)) %>"));
-    console.log(playerData);
     insertLoadedData();
   });
 
   function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past.
     let dateNew = new Date(currentTime);
     let dateOld = new Date(timestamp);
-
     let years = dateNew.getFullYear() - dateOld.getFullYear();
     let months = dateNew.getMonth() - dateOld.getMonth();
     let days = dateNew.getDate() - dateOld.getDate();
@@ -318,14 +314,11 @@ document.addEventListener('keyup', function(event) {
       document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
 
       document.getElementById("card-ranktext").innerHTML = playerRankCute[1]; // Adds player's rank
-      console.log(playerRankCute)
-
 
       document.getElementById("card-name").innerText = playerData["name"];
       document.getElementById("header-name").innerHTML = cuteRank(profileStats["tagged_name"], 0);
       document.getElementById("achievement-points").innerText = (profileStats["achievement_points"]).toLocaleString();
       document.getElementById("karma").innerText = (profileStats["karma"]).toLocaleString();
-      console.log((profileStats["karma"]).toLocaleString());
       document.getElementById("quests-completed").innerText = (profileStats["quests_completed"]).toLocaleString();
       document.getElementById("ranks-gifted").innerText = (und(profileStats["ranks_gifted"])).toLocaleString();
       document.getElementById("multiplier").innerText = (profileStats["coin_multiplier"]).toLocaleString();
@@ -337,7 +330,6 @@ document.addEventListener('keyup', function(event) {
       if((firstLogin.getMonth() == dateNow.getMonth()) && (firstLogin.getDate() == dateNow.getDate()) && (firstLogin.getYear() != dateNow.getYear())) {
         document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
         document.getElementById("birthday-text").innerText = ("Happy " + ordinal(dateNow.getYear() - firstLogin.getYear()) + " Hypixel anniversary!");
-        console.log("Happy birthday!");
       }
     
       if(profileStats["last_login"] == 0) document.getElementById("last-login-container").style.display = "none";
@@ -353,7 +345,6 @@ document.addEventListener('keyup', function(event) {
       else document.getElementById("online-status").innerText = "Currently Offline";
 
       if(playerData["guild"] == undefined) {
-        console.log(playerData);
         document.getElementById("guild-stats").style.display = "none";
         document.getElementById("card-guild").style.display = "none";
       }
@@ -384,7 +375,6 @@ document.addEventListener('keyup', function(event) {
       for(a = 0; a < socials.length; a++) { // Iterates through social media and hides icons that don't exist for the player
         if(profileStats["social_media"][socials[a]] == undefined) {
           document.getElementById("social-" + (socials[a]).toLowerCase()).style.display = "none";
-          console.log(profileStats["social_media"]);
         } else if(socials[a] != "DISCORD") {
           socialMediaNew = profileStats["social_media"][socials[a]];
           document.getElementById("sociallink-" + (socials[a]).toLowerCase()).href = !/^https?:\/\//i.test(socialMediaNew) ? `https://${socialMediaNew}` : socialMediaNew; // Adds HTTPS to the URL if it doesn't have it already
