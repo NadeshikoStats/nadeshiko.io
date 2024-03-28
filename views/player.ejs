@@ -9,9 +9,7 @@
   <script src="https://unpkg.com/card3d@2.6.5/dist/card3d.js"></script> <!-- unused u can remove it -->
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
-  <meta property="og:image" content="https://crafatar.com/avatars/<%= playerData.uuid %>?overlay=true">
-  <meta property="og:image:secure_url" content="https://crafatar.com/avatars/<%= playerData.uuid %>?overlay=true">
-  <meta property="og:image:alt" content="<%= playerData.name %>'s Minecraft skin">
+  <meta property="twitter:image" content="https://crafatar.com/avatars/<%= playerData.uuid %>?overlay=true">
   <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
 
   <% if (playerData && playerData.profile && playerData.profile.network_level) { %>
