@@ -26,6 +26,8 @@
 </head>
 
 <body>
+  <div class="background" id="background1"></div>
+  <div class="background" id="background2" style="opacity: 0"></div>  
   <div class="background-filter">
     <header>
       <div class="header"> <!-- site-wide header -->
@@ -45,10 +47,10 @@
           <p class="header-name unloaded" id="header-name"></p>
         </div>
         <div class="header-right">
-          <p class="header-game highlighted">Network</p>
-          <p class="header-game">Bed Wars</p>
-          <p class="header-game">Duels</p>
-          <p class="header-game">SkyWars</p>
+          <p class="header-game highlighted" onclick="switchStats('network')" id="button-network">Network</p>
+          <p class="header-game" onclick="switchStats('bedwars')"  id="button-bedwars">Bed Wars</p>
+          <p class="header-game" onclick="switchStats('duels')"  id="button-duels">Duels</p>
+          <p class="header-game" onclick="switchStats('skywars')"  id="button-skywars">SkyWars</p>
           <p class="header-down">⏷</p>
         </div>
       </div>
@@ -111,12 +113,11 @@
     <footer>
       Made with ♥&#xFE0E; by <a href="https://github.com/niqumu" target="_blank">kittycatchloe</a> and <a href="https://brookie.dev" target="_blank">BrookeAFK</a>.
     </footer>
-  </div>
-  
 
  
 <script>
   var playerData;
+  var currentGamemode = "network";
 
   const COLORS = {
     BLACK: "0",
@@ -403,6 +404,28 @@ document.addEventListener('keyup', function(event) {
     }
     return num + "th";
   }
+
+  function switchStats(gamemode) {
+    document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
+    currentGamemode = gamemode;
+    document.getElementById("button-" + currentGamemode).classList.add("highlighted");
+    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + gamemode));
+    setBackground(gamemode);
+  }
+
+  function setBackground(gamemode) { // Allows a fade between two backgrounds. Is this totally inefficient? Probably
+     const bg1 = document.getElementById("background1");
+     const bg2 = document.getElementById("background2");
+     if (bg1.style.opacity == '1' || bg1.style.opacity === '') {
+       bg2.style.backgroundImage = "url('/img/lobby/" + gamemode + ".png')";
+       bg1.style.opacity = '0';
+       bg2.style.opacity = '1';
+     } else {
+       bg1.style.backgroundImage = "url('/img/lobby/" + gamemode + ".png')";
+       bg2.style.opacity = '0';
+       bg1.style.opacity = '1';
+     }
+   }
 
   document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
     if (event.key === "Enter") { // Did the user press enter?
