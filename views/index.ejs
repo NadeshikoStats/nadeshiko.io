@@ -1,3 +1,120 @@
-hiiiiiii :3
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
+    <link rel="stylesheet" href="/css/stylesheet.css">
+    <meta name="theme-color" content="#f6adc6">
+    <meta property="og:site_name" content="nadeshiko.io">
+    <meta name="twitter:image:src" content="https://nadeshiko.io/img/banner.png">
+    <meta name="twitter:image" content="https://nadeshiko.io/img/logo.png">
+    <title>The simple, beautiful Hypixel stats website. | nadeshiko.io</title>
+    <meta name="description" content="🌸 View Hypixel stats and generate real-time stat cards, perfect for forums signatures or to show off to friends!">
+</head>
 
-<a href="player/brookeafk">click here!</a>
+<body>
+    <div class="background" id="background1" style="background-image: url('/img/lobby/home.png')"></div>
+    <div class="background-filter">
+    <header>
+        <div class="header"> <!-- site-wide header -->
+          <div class="header-left">
+            <img class="logo" src="/img/logo.png" alt="nadeshiko logo">
+            <p class="wordmark">nadeshiko</p>
+            <a href="/" class="header-button"><img src="/img/home.svg" class="header-icon">Home</a>
+            <a href="#about" class="header-button"><img src="/img/about.svg" class="header-icon">About</a>
+            <a href="#cards" class="header-button"><img src="/img/cards.svg" class="header-icon">Cards</a>
+          </div>
+          <div class="header-right">
+            <input type="search" class="searchbar" id="searchbar" placeholder="&#x1F50E;&#xFE0E;  Search for a player...">
+          </div>
+        </div>
+    </header>
+    <div class="everythingcenter">
+        <div class="home-page-container">
+            <span class="flex-two-item-vertical" style="margin: 30px;">
+                <span class="subtitle-home">Check out stats for</span>
+                <span class="title-home typing" id="typing">Bed Wars</span>
+            </span>
+            <section class="player-card-home">
+                <div class="flex-two-item">
+                    <input type="search" class="searchbar searchbar-home" id="searchbar2" placeholder="&#x1F50E;&#xFE0E;  Search for a player...">
+                    <span class="general-button" onclick="showMe()">Show me</span>
+                </div>
+            </section>
+        </div>
+    </div>
+<footer>
+    Made with ♥&#xFE0E; by <a href="https://github.com/niqumu" target="_blank">kittycatchloe</a> and <a href="https://brookie.dev" target="_blank">BrookeAFK</a>.
+  </footer>
+</div>
+
+
+
+<script>
+document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
+    if (event.key === "Enter") { // Did the user press enter?
+        event.preventDefault();
+        var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+        window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+    }
+});
+
+document.getElementById("searchbar2").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
+    if (event.key === "Enter") { // Did the user press enter?
+        event.preventDefault();
+        var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+        window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+    }
+});
+
+function showMe() {
+    var userInput = document.getElementById("searchbar2").value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+    if(userInput != "") window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+    else console.log(userInput)
+}
+
+
+let index = 0;
+let charIndex = 0;
+let direction = 1;
+
+var texts = ["Arcade", "Arena Brawl", "Bed Wars", "Blitz", "Build Battle", "Cops and Crims", "Duels", "Mega Walls", "Murder Mystery", "Paintball", "Pit", "Quakecraft", "SkyBlock", "SkyWars", "Smash Heroes", "Speed UHC", "TNT Games", "The Walls", "Turbo Kart Racers", "UHC", "VampireZ", "Warlords", "Wool Wars"];
+
+for (let i = texts.length - 1; i > 0; i--) { // Shuffles array
+        let j = Math.floor(Math.random() * (i + 1));
+        [texts[i], texts[j]] = [texts[j], texts[i]];
+}
+
+texts.unshift("Hypixel");
+
+function type() { // Writes typing
+
+  let currentText = texts[index];
+  
+  if (direction === 1) { // Forward
+    charIndex++;
+    if (charIndex > currentText.length) {
+      direction = 0;
+      setTimeout(type, 1500);
+      return;
+    }
+  } else { // Deleting backward
+    charIndex--;
+    if (charIndex === -1) {
+      direction = 1;
+      index = (index + 1) % texts.length; // Loop through texts
+      setTimeout(type, 500);
+      return;
+    }
+  }
+
+  document.getElementById('typing').textContent = currentText.substring(0, charIndex); // Update text in HTML
+
+  let speed = direction ? 180 : 80;
+  setTimeout(type, speed);
+}
+
+// Start typing effect
+type();
+</script>
+</body>
