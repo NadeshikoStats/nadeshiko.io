@@ -44,6 +44,9 @@
     /* White */
 }
 
+/* Stats */
+
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -204,6 +207,7 @@ footer>a:hover {
 
 .background {
     background-image: url(/img/lobby/network.png);
+    background-size: cover;
     background-position: center top;
     z-index: -2;
     width: 100%;
@@ -375,8 +379,26 @@ h1 {
 }
 
 @media (max-width: 768px) {
+    .avatar {
+        display: none;
+    }
+    .player-card {
+        width: unset;
+    }
     .player-info {
         flex-direction: column;
+    }
+    .header-button {
+        display: none;
+    }
+    .searchbar {
+        width: unset;
+    }
+    .searchbar:focus {
+        width: unset;
+    }
+    .header-game {
+        display: none;
     }
 }
 
@@ -727,12 +749,73 @@ h1 {
     color: #fff;
 }
 
-@media screen and (max-width: 600px) {
-    .avatar {
-        display: none;
-    }
 
-    .player-card {
-        width: unset;
-    }
+/* Home Page */
+
+.home-page-container {
+    width: 60%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    width: min(100%, 800px);
+    text-align: center;
 }
+
+.player-card-home {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    padding: 10px;
+}
+
+.title-home {
+    font-size: 32px;
+    color: white;
+    font-weight: 600;
+}
+
+.subtitle-home {
+    font-size: 17px;
+    color: #fffa;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.everythingcenter {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    height: 100%;
+    justify-content: space-around;
+}
+
+.searchbar-home {
+    width: unset !important;
+    flex-grow: 1;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.flex-two-item-vertical {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.typing {
+    white-space: nowrap;
+    border-right: 2px solid;
+    animation: blink 0.75s step-end infinite;
+    min-height: 40px;
+}
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
