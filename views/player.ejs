@@ -10,9 +10,10 @@
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
   <meta property="twitter:image" content="https://minotar.net/helm/<%= playerData.uuid %>.png">
-  <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
 
-  <% if (playerData && playerData.profile && playerData.profile.network_level) { %>
+
+  <% if (playerData && playerData.profile) { %>
+    <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
     <meta name="description" content="<%= playerData.status.online ? '🟢 Online!' : '🔴 Offline' %>
 
 ┌ 🌐 Network Level: <%-(playerData.profile.network_level).toFixed(2)%>
@@ -20,6 +21,9 @@
 ├ ☮️ Karma: <%-(playerData.profile.karma).toLocaleString()%>
 ├ 🏆 Achievement Points: <%-(playerData.profile.achievement_points).toLocaleString()%>
 └ 💸 Ranks Gifted: <%-(playerData.profile.ranks_gifted).toLocaleString()%>">
+  <% } else { %>
+    <title><%- (playerData["name"]) %> | nadeshiko.io</title> <!-- Fallback in case no stats -->
+    <meta name="description" content="🌸 View Hypixel stats and generate real-time stat cards, perfect for forums signatures or to show off to friends!">
   <% } %>
 </head>
 
@@ -46,32 +50,33 @@
         <div class="header-left">
           <p class="header-name unloaded" id="header-name"></p>
         </div>
-        <div class="header-right">
+        <div class="header-right" id="game-buttons">
           <p class="header-game highlighted" onclick="switchStats('network')" id="button-network">Network</p>
           <p class="header-game" onclick="switchStats('bedwars')"  id="button-bedwars">Bed Wars</p>
           <p class="header-game" onclick="switchStats('duels')"  id="button-duels">Duels</p>
           <p class="header-game" onclick="switchStats('skywars')"  id="button-skywars">SkyWars</p>
-          <p class="header-down">⏷</p>
+          <p class="header-down"><img class="dropdown-arrow" src="/img/arrow.svg"></p>
         </div>
       </div>
     </header>
     <div class="flex-container unloaded" id="flex-container-0"> <!-- general stats -->
       <canvas id="skin_container" class="avatar"></canvas>
-      <section class="player-card">
+      <section class="player-card" id="player-card">
         <div class="player-info">
           <div class="details">
             <div class="flex-two-item">
               <span class="player-name">
-                <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m6" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span><img class="special icon smallicon" id="special">
+                <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span><img class="special icon smallicon" id="special">
               </span>
               <span id="online-status"><span class="mc">Unknown</span></span>
             </div>
 
-            <div class="extended-card">
+            <div class="extended-card" id="extended-card">
+              <div id="real-stats">
               <p id="level-container-container"><span id="level-container">Level <span id="level" class="statistic"><span class="mc">Unknown</span></span></span> <span class="m8">(<span id="multiplier">1</span>&times;)</span></p>
               <div class="progress-bar">
                 <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
-                <div class="progress" style="width: 66%;" id="xp-progress-bar"></div>
+                <div class="progress" style="width: 0%;" id="xp-progress-bar"></div>
               </div>
               <div class="stats">
                 <div class="login-info flex-two-item">
@@ -98,10 +103,15 @@
                 </div>
               </div>
             </div>
-            <div class="flex-two-item socials-buttons">
+
+              <div id="network-error" style="display: none">
+                <p class="title-text" id="error-title">No Hypixel Stats</p>
+                <p class="subtitle-text" id="error-subtitle">This player has no Hypixel stats.</p>
+              </div>
+            </div>
+            <div class="flex-two-item socials-buttons" id="general-bottom-bar">
               <div class="buttons"><span class="general-button mright">Generate Card</span><span class="general-button">SkyBlock Stats</span></div>
-              <div class="socials flex-two-item flex-separated"><a target="_blank" id="sociallink-hypixel"><img src="/img/hypixel.svg" class="social-media-logo mright" id="social-hypixel"></a><a target="_blank" id="sociallink-youtube"><img src="/img/youtube.svg" class="social-media-logo mleft mright" id="social-youtube"></a><a target="_blank" id="sociallink-twitter"><img src="/img/twitter.svg" class="social-media-logo mright mleft" id="social-twitter"></a><a target="_blank" id="sociallink-tiktok"><img src="/img/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok"></a><a target="_blank" id="sociallink-twitch"><img src="/img/twitch.svg" class="social-media-logo mright  mleft" id="social-twitch"></a><a target="_blank" id="sociallink-discord"><img src="/img/discord.svg" class="mleft social-media-logo" id="social-discord"></a>
-                <p class="w500 mleft" id="social-discord-username"></p></span>
+              <div class="socials flex-two-item flex-separated"><a target="_blank" id="sociallink-hypixel"><img src="/img/hypixel.svg" class="social-media-logo mright" id="social-hypixel"></a><a target="_blank" id="sociallink-youtube"><img src="/img/youtube.svg" class="social-media-logo mleft mright" id="social-youtube"></a><a target="_blank" id="sociallink-twitter"><img src="/img/twitter.svg" class="social-media-logo mright mleft" id="social-twitter"></a><a target="_blank" id="sociallink-tiktok"><img src="/img/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok"></a><a target="_blank" id="sociallink-twitch"><img src="/img/twitch.svg" class="social-media-logo mright  mleft" id="social-twitch"></a><a target="_blank" id="sociallink-discord" style="display: flex; align-items: center"><img src="/img/discord.svg" class="mleft social-media-discord" id="social-discord"><p class="w500 mleft" id="social-discord-username"></p></a>
               </div>
             </div>
           </div>
@@ -312,87 +322,106 @@ document.addEventListener('keyup', function(event) {
 
       var dateNow = new Date();
 
-      var playerRank = profileStats["tag"];
-      var playerRankCute = cuteRank(playerRank, 1);
+      if(profileStats != undefined) {
+        var playerRank = profileStats["tag"];
+        var playerRankCute = cuteRank(playerRank, 1);
 
-      document.getElementById("card-rank").classList.add("rank-" + playerRankCute[0]); // Changes the rank to the player's rank colour
-      document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
+        document.getElementById("card-rank").classList.add("rank-" + playerRankCute[0]); // Changes the rank to the player's rank colour
+        document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
 
-      document.getElementById("card-ranktext").innerHTML = playerRankCute[1]; // Adds player's rank
-      console.log(playerRankCute)
+        document.getElementById("card-ranktext").innerHTML = playerRankCute[1]; // Adds player's rank
+        console.log(playerRankCute)
 
 
-      document.getElementById("card-name").innerText = playerData["name"];
-      document.getElementById("header-name").innerHTML = cuteRank(profileStats["tagged_name"], 0);
-      document.getElementById("achievement-points").innerText = (profileStats["achievement_points"]).toLocaleString();
-      document.getElementById("karma").innerText = (profileStats["karma"]).toLocaleString();
-      console.log((profileStats["karma"]).toLocaleString());
-      document.getElementById("quests-completed").innerText = (profileStats["quests_completed"]).toLocaleString();
-      document.getElementById("ranks-gifted").innerText = (und(profileStats["ranks_gifted"])).toLocaleString();
-      document.getElementById("multiplier").innerText = (profileStats["coin_multiplier"]).toLocaleString();
+        document.getElementById("card-name").innerText = playerData["name"];
+        document.getElementById("header-name").innerHTML = cuteRank(profileStats["tagged_name"], 0);
+        document.getElementById("achievement-points").innerText = (profileStats["achievement_points"]).toLocaleString();
+        document.getElementById("karma").innerText = (profileStats["karma"]).toLocaleString();
+        console.log((profileStats["karma"]).toLocaleString());
+        document.getElementById("quests-completed").innerText = (profileStats["quests_completed"]).toLocaleString();
+        document.getElementById("ranks-gifted").innerText = (und(profileStats["ranks_gifted"])).toLocaleString();
+        document.getElementById("multiplier").innerText = (profileStats["coin_multiplier"]).toLocaleString();
 
-      var firstLogin = new Date((profileStats["first_login"])); // Used for birthday calculation
-      document.getElementById("first-login").innerText = (firstLogin).toLocaleDateString(); // Gets first login in Unix time and turns it into a date
-      document.getElementById("first-login-ago").innerHTML = "(" + relativeTime(firstLogin) + ")";
+        var firstLogin = new Date((profileStats["first_login"])); // Used for birthday calculation
+        document.getElementById("first-login").innerText = (firstLogin).toLocaleDateString(); // Gets first login in Unix time and turns it into a date
+        document.getElementById("first-login-ago").innerHTML = "(" + relativeTime(firstLogin) + ")";
 
-      if((firstLogin.getMonth() == dateNow.getMonth()) && (firstLogin.getDate() == dateNow.getDate()) && (firstLogin.getYear() != dateNow.getYear())) {
-        document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
-        document.getElementById("birthday-text").innerText = ("Happy " + ordinal(dateNow.getYear() - firstLogin.getYear()) + " Hypixel anniversary!");
-        console.log("Happy birthday!");
-      }
-    
-      if(profileStats["last_login"] == 0) document.getElementById("last-login-container").style.display = "none";
-      else {
-        document.getElementById("last-login").innerText = (new Date((profileStats["last_login"]))).toLocaleDateString();
-        document.getElementById("last-login-ago").innerHTML = "(" + relativeTime(new Date(profileStats["last_login"])) + ")";
-      }
-      
-      if(playerData["status"]["online"]) { // Checks player's online status
-        document.getElementById("online-status").innerText = "Currently Online!";
-        document.getElementById("online-status").style.color = "var(--mca)";
-      }
-      else document.getElementById("online-status").innerText = "Currently Offline";
-
-      if(playerData["guild"] == undefined) {
-        console.log(playerData);
-        document.getElementById("guild-stats").style.display = "none";
-        document.getElementById("card-guild").style.display = "none";
-      }
-      else {
-        guildStats = playerData["guild"];
-          document.getElementById("guild-name").innerText = guildStats["name"];
-          document.getElementById("guild-tag").innerHTML = generateMinecraftText(guildStats["tag"]);
-          document.getElementById("card-guild").innerHTML = generateMinecraftText(guildStats["tag"]);
-          document.getElementById("guild-level").innerText = (Math.floor(guildStats["level"])).toLocaleString();
-          document.getElementById("guild-members").innerText = (guildStats["members"]).toLocaleString();
-          document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
-          document.getElementById("guild-joined-ago").innerText = "(" + relativeTime(new Date(guildStats["joined"])) + ")";
-      } 
-
-      hypixelLevel = profileStats["network_level"];
-      document.getElementById("level").innerText = Math.floor(hypixelLevel);
-      if(hypixelLevel >= 250) {
-        document.getElementById("level-container").style.color = "var(--gold-transparent)";
-        document.getElementById("level").style.color = "var(--gold)";
-      }
-
-      var xpProgress = ((hypixelLevel % 1) * 100).toFixed(0) + "%"; // Sets user's XP progress and progress bar
-      document.getElementById("xp-progress-bar").style.width = xpProgress;
-      document.getElementById("xp-progress-number").innerText = xpProgress;
-
-      
-      var socials = ["HYPIXEL", "YOUTUBE", "TWITTER", "TIKTOK", "TWITCH", "DISCORD"];
-      for(a = 0; a < socials.length; a++) { // Iterates through social media and hides icons that don't exist for the player
-        if(profileStats["social_media"][socials[a]] == undefined) {
-          document.getElementById("social-" + (socials[a]).toLowerCase()).style.display = "none";
-          console.log(profileStats["social_media"]);
-        } else if(socials[a] != "DISCORD") {
-          socialMediaNew = profileStats["social_media"][socials[a]];
-          document.getElementById("sociallink-" + (socials[a]).toLowerCase()).href = !/^https?:\/\//i.test(socialMediaNew) ? `https://${socialMediaNew}` : socialMediaNew; // Adds HTTPS to the URL if it doesn't have it already
-        } else {
-          document.getElementById("social-discord-username").innerText = profileStats["social_media"][socials[a]];
+        if((firstLogin.getMonth() == dateNow.getMonth()) && (firstLogin.getDate() == dateNow.getDate()) && (firstLogin.getYear() != dateNow.getYear())) {
+          document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
+          document.getElementById("birthday-text").innerText = ("Happy " + ordinal(dateNow.getYear() - firstLogin.getYear()) + " Hypixel anniversary!");
+          console.log("Happy anniversary!");
         }
+      
+        if(profileStats["last_login"] == 0) document.getElementById("last-login-container").style.display = "none";
+        else {
+          document.getElementById("last-login").innerText = (new Date((profileStats["last_login"]))).toLocaleDateString();
+          document.getElementById("last-login-ago").innerHTML = "(" + relativeTime(new Date(profileStats["last_login"])) + ")";
+        }
+        
+        if(playerData["status"]["online"]) { // Checks player's online status
+          document.getElementById("online-status").innerText = "Currently Online!";
+          document.getElementById("online-status").style.color = "var(--mca)";
+        }
+        else document.getElementById("online-status").innerText = "Currently Offline";
+
+        if(playerData["guild"] == undefined) {
+          console.log(playerData);
+          document.getElementById("guild-stats").style.display = "none";
+          document.getElementById("card-guild").style.display = "none";
+        }
+        else {
+          guildStats = playerData["guild"];
+            document.getElementById("guild-name").innerText = guildStats["name"];
+            document.getElementById("guild-tag").innerHTML = generateMinecraftText(guildStats["tag"]);
+            document.getElementById("card-guild").innerHTML = generateMinecraftText(guildStats["tag"]);
+            document.getElementById("guild-level").innerText = (Math.floor(guildStats["level"])).toLocaleString();
+            document.getElementById("guild-members").innerText = (guildStats["members"]).toLocaleString();
+            document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
+            document.getElementById("guild-joined-ago").innerText = "(" + relativeTime(new Date(guildStats["joined"])) + ")";
+        } 
+
+        hypixelLevel = profileStats["network_level"];
+        document.getElementById("level").innerText = Math.floor(hypixelLevel);
+        if(hypixelLevel >= 250) {
+          document.getElementById("level-container").style.color = "var(--gold-transparent)";
+          document.getElementById("level").style.color = "var(--gold)";
+        }
+
+        var xpProgress = ((hypixelLevel % 1) * 100).toFixed(0) + "%"; // Sets user's XP progress and progress bar
+        document.getElementById("xp-progress-bar").style.width = xpProgress;
+        document.getElementById("xp-progress-number").innerText = xpProgress;
+
+        
+        var socials = ["HYPIXEL", "YOUTUBE", "TWITTER", "TIKTOK", "TWITCH", "DISCORD"];
+        for(a = 0; a < socials.length; a++) { // Iterates through social media and hides icons that don't exist for the player
+          if(profileStats["social_media"][socials[a]] == undefined) {
+            document.getElementById("social-" + (socials[a]).toLowerCase()).style.display = "none";
+            console.log(profileStats["social_media"]);
+          } else if(socials[a] != "DISCORD") {
+            socialMediaNew = profileStats["social_media"][socials[a]];
+            document.getElementById("sociallink-" + (socials[a]).toLowerCase()).href = !/^https?:\/\//i.test(socialMediaNew) ? `https://${socialMediaNew}` : socialMediaNew; // Adds HTTPS to the URL if it doesn't have it already
+          } else {
+            document.getElementById("social-discord-username").innerText = profileStats["social_media"][socials[a]];
+          }
+        }
+      } else { // If no Hypixel stats, hide most buttons and show a warning
+        document.getElementById("general-bottom-bar").style.display = "none";
+        document.getElementById("card-name").innerText = playerData["name"];
+        document.getElementById("header-name").innerText = playerData["name"];
+        document.getElementById("game-buttons").style.display = "none";
+        document.getElementById("card-ranktext").style.display = "none";
+        document.getElementById("card-guild").style.display = "none";
+        document.getElementById("online-status").style.display = "none";
+        document.getElementById("real-stats").style.display = "none";
+        document.getElementById("network-error").style.display = "unset";
+        
+        document.getElementById("player-card").style.paddingLeft = "0px";
+        document.getElementById("player-card").style.paddingRight = "0px";
+        document.getElementById("player-card").style.paddingBottom = "0px";
+        document.getElementById("extended-card").style.marginBottom = "0px";
       }
+
+      
 
       document.getElementById("flex-container-0").classList.remove("unloaded");
       document.getElementById("header-name").classList.remove("unloaded");
@@ -434,6 +463,11 @@ document.addEventListener('keyup', function(event) {
       var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
       window.location.href = `/player/${userInput}`; // Redirect to the desired URL
     }
+  });
+
+  document.getElementById('sociallink-discord').addEventListener('click', function() {
+    const text = document.getElementById('social-discord-username').innerText;
+    navigator.clipboard.writeText(text);
   });
 </script> 
 </body>

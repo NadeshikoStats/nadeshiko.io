@@ -260,18 +260,38 @@ footer>a:hover {
     margin: 10px;
 }
 
-.social-media-logo {
+.dropdown-arrow {
+    height: 24px;
+    opacity: 0.5;
+    transition-duration: 0.5s;
+}
+
+.dropdown-arrow:hover {
+    opacity: 1;
+}
+
+.social-media-logo, #sociallink-discord {
     height: 24px;
     opacity: 0.5;
     transition-duration: 0.3s;
     cursor: pointer;
 }
 
+.social-media-discord, #sociallink-discord {
+    height: 24px;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+#social-discord-username {
+    color: white;
+}
+
 .social-media-logo:hover {
     opacity: 1;
 }
 
-#sociallink-discord:hover, #sociallink-discord:hover + p {
+#sociallink-discord:hover {
     opacity: 1;
 }
 
@@ -481,6 +501,21 @@ h1 {
     font-size: 22px;
     display: flex;
     align-items: center;
+}
+
+#network-error {
+    margin: 10px;
+}
+
+.title-text {
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+}
+
+.subtitle-text {
+    text-align: center;
 }
 
 .general-button {
@@ -788,7 +823,8 @@ h1 {
     align-items: center;
     align-content: center;
     height: 100%;
-    justify-content: space-around;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .searchbar-home {
@@ -805,6 +841,42 @@ h1 {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+}
+
+.home-error-container {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    padding-left: 0px;
+    margin: 10px;
+    color: white;
+    height: 70px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.home-error-message {
+    font-weight: bold;
+    background-color: #c9486a;
+    height: 70px;
+    padding: 8px;
+    margin-right: 8px;
+    border-radius: 25px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-error {
+    opacity: 0.9;
+    font-weight: 400;
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .typing {
