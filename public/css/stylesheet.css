@@ -528,6 +528,7 @@ h1 {
     font-weight: 500;
     transition-duration: 0.3s;
     min-width: max-content;
+    display: inline-block;
 }
 
 .general-button:hover {
