@@ -220,6 +220,7 @@ footer>a:hover {
 .background-filter {
     z-index: -1;
     backdrop-filter: blur(8px) brightness(0.45);
+    -webkit-backdrop-filter: blur(8px) brightness(0.45);
     display: flex;
     flex-flow: column;
     height: 100%;
