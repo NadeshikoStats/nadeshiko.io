@@ -226,6 +226,7 @@ footer>a:hover {
     height: 100%;
     width: 100%;
     position: absolute;
+    overflow: hidden;
 }
 
 .flex-two-item {
@@ -901,8 +902,24 @@ h1 {
     min-height: 40px;
 }
 
-  @keyframes blink {
+@keyframes blink {
     50% {
-      border-color: transparent;
+        border-color: transparent;
     }
-  }
+}
+
+.petal {
+    width:25px;
+    height:25px;
+    position:absolute;
+    background: url(/img/petal.png);
+    background-size: 100% 100%;
+}
+
+
+#petals {
+    position: absolute;
+    z-index: -4;
+    width: 100%;
+    height: 100%;
+}

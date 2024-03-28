@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
     <link rel="stylesheet" href="/css/stylesheet.css">
+    <script src="/external/gsap.min.js"></script>
+    <script src="/external/petals.js"></script>
     <meta name="theme-color" content="#f6adc6">
     <meta property="og:site_name" content="nadeshiko.io">
     <meta name="twitter:image" content="https://nadeshiko.io/img/logo.png">
@@ -52,6 +54,8 @@
         </div>
         <% } %>
     </div>
+    <div id="petals"></div>
+
 <footer>
     Made with ♥&#xFE0E; by <a href="https://github.com/niqumu" target="_blank">kittycatchloe</a> and <a href="https://brookie.dev" target="_blank">BrookeAFK</a>.
 </footer>
@@ -100,17 +104,17 @@ function type() { // Writes typing
 
   let currentText = texts[index];
   
-  if (direction === 1) { // Forward
+  if (direction) { // Forward
     charIndex++;
     if (charIndex > currentText.length) {
-      direction = 0;
+      direction = false;
       setTimeout(type, 1500);
       return;
     }
   } else { // Deleting backward
     charIndex--;
     if (charIndex === -1) {
-      direction = 1;
+      direction = true;
       index = (index + 1) % texts.length; // Loop through texts
       setTimeout(type, 500);
       return;
@@ -119,11 +123,17 @@ function type() { // Writes typing
 
   document.getElementById('typing').textContent = currentText.substring(0, charIndex); // Update text in HTML
 
-  let speed = direction ? 180 : 80;
+  let speed = direction ? 150 : 70;
   setTimeout(type, speed);
 }
 
 // Start typing effect
 type();
 </script>
+
 </body>
+  
+  
+
+  
+  
