@@ -4,7 +4,7 @@
     --pale-grey: #ffffff80;
     --gold: #e99a3f;
     --gold-transparent: #e99a3f90;
-    --accent: #bc6ff8;
+    --accent: var(--nadeshiko-dark);
     --accent-network: #bc6ff8;
     --accent-bedwars: #ff835c;
     --accent-duels: #6f85f8;
@@ -527,12 +527,25 @@ h1 {
     padding-right: 15px;
     font-weight: 500;
     transition-duration: 0.3s;
+    min-width: max-content;
 }
 
 .general-button:hover {
     background-color: var(--accent);
     color: #222;
     cursor: pointer;
+}
+
+.shiiyu {
+    height: 15px;
+    transition-duration: 0.5s;
+    margin-right: 8px;
+    position: relative;
+    top: 1px;
+}
+
+.general-button:hover .shiiyu {
+    filter: invert(0.875)
 }
 
 /* Rank backgrounds */

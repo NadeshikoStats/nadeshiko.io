@@ -1,0 +1,11 @@
+<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+   <defs>
+     <mask id="hole">
+       <rect width="120" height="120" rx="16" fill="white"/>
+       <rect rx="4" width="19" height="28" x="22" y="69" fill="black"/>
+       <rect rx="4" width="19" height="75" x="50" y="22" fill="black"/>
+       <rect rx="4" width="19" height="47" x="79" y="50" fill="black"/>
+     </mask>
+   </defs>
+   <rect width="120" height="120" fill="white" mask="url(#hole)"/>
+</svg>

@@ -110,7 +110,7 @@
               </div>
             </div>
             <div class="flex-two-item socials-buttons" id="general-bottom-bar">
-              <div class="buttons"><span class="general-button mright">Generate Card</span><span class="general-button">SkyBlock Stats</span></div>
+              <div class="buttons"><span class="general-button mright">Generate Card</span><a href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" style="text-decoration: none;"><span class="general-button"><img src="/img/skycrypt.svg" class="shiiyu">SkyBlock Stats</span></a></div>
               <div class="socials flex-two-item flex-separated"><a target="_blank" id="sociallink-hypixel"><img src="/img/hypixel.svg" class="social-media-logo mright" id="social-hypixel"></a><a target="_blank" id="sociallink-youtube"><img src="/img/youtube.svg" class="social-media-logo mleft mright" id="social-youtube"></a><a target="_blank" id="sociallink-twitter"><img src="/img/twitter.svg" class="social-media-logo mright mleft" id="social-twitter"></a><a target="_blank" id="sociallink-tiktok"><img src="/img/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok"></a><a target="_blank" id="sociallink-twitch"><img src="/img/twitch.svg" class="social-media-logo mright  mleft" id="social-twitch"></a><a target="_blank" id="sociallink-discord" style="display: flex; align-items: center"><img src="/img/discord.svg" class="mleft social-media-discord" id="social-discord"><p class="w500 mleft" id="social-discord-username"></p></a>
               </div>
             </div>
@@ -129,6 +129,7 @@
 <script>
   var playerData;
   var currentGamemode = "network";
+  document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
 
   const COLORS = {
     BLACK: "0",
@@ -330,8 +331,6 @@ document.addEventListener('keyup', function(event) {
         document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
 
         document.getElementById("card-ranktext").innerHTML = playerRankCute[1]; // Adds player's rank
-        console.log(playerRankCute)
-
 
         document.getElementById("card-name").innerText = playerData["name"];
         document.getElementById("header-name").innerHTML = cuteRank(profileStats["tagged_name"], 0);
