@@ -2,7 +2,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     TweenLite.set("#petals",{perspective:600})
 
-    var petalCount = 30;
+    var petalCount = 20;
+    var petalCount2 = 10;
     w = window.innerWidth,
     h = window.innerHeight;
 
@@ -17,6 +18,20 @@ document.addEventListener('DOMContentLoaded', function() {
             z: R(-200, 200)
         });
         document.getElementById("petals").appendChild(petal);
+        movePetal(petal);
+    }
+    
+    for (i = 0; i < petalCount2; i++) {
+        var petal = document.createElement('div');
+        TweenLite.set(petal, {
+            attr: {
+                class: 'petal'
+            },
+            x: R(0, w),
+            y: R(-200, -150),
+            z: R(-200, 200)
+        });
+        document.getElementById("petals2").appendChild(petal);
         movePetal(petal);
     }
     
