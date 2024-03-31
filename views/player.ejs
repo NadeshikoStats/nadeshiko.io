@@ -228,7 +228,7 @@
   }
 
 
-function isInputField(element) {
+function isInputField(element) { // Determines if the user's actively in an input field (so Quick Mode and easter eggs don't get messed up)
   return (
     element.tagName === 'INPUT' || 
     element.tagName === 'TEXTAREA' || 
