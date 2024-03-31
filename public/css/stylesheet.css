@@ -339,10 +339,6 @@ footer>a:hover {
     flex-wrap: wrap;
 }
 
-.half-and-half {
-    width: 50%;
-}
-
 .general-stats>p {
     margin: 10px;
 }
@@ -637,7 +633,9 @@ h1 {
     border-color: var(--nadeshiko) transparent transparent transparent;
 }
 
-
+#online-status {
+    text-align: right;
+}
 
 .w400 {
     font-weight: 400;
