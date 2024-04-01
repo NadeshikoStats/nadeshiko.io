@@ -1,8 +1,9 @@
-![nadeshiko_social](https://github.com/NadeshikoStats/nadeshiko.io/assets/146425360/0c06133e-4aca-48b0-ad07-e2389904bfb8)
+![Logo of nadeshiko. A pixelated duo of pink flowers is to the left of a stylized logo saying "nadeshiko.io". A blurred field of cherry blossom trees stand in the background.](https://github.com/NadeshikoStats/nadeshiko.io/assets/146425360/0c06133e-4aca-48b0-ad07-e2389904bfb8)
 
 <h1 align="center">nadeshiko – a beautiful Hypixel stats viewer</h1>
 
-![image](https://github.com/NadeshikoStats/nadeshiko.io/assets/146425360/e87cee8b-f9d5-4703-b270-91dd65c2ade1)
+![Image of the frontend running, displaying the Hypixel stats of a player named "kittycatchloe". Headers on the top allow users to switch from the "Home", "About", and "Cards", with a second header allowing users to pick the currently selected gamemode.](https://github.com/NadeshikoStats/nadeshiko.io/assets/96643991/f7865638-1efc-4346-a074-63f52210c939)
+
 
 
 ## Running
