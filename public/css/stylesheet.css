@@ -88,11 +88,19 @@
 body {
     font-family: Inter, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", "Roboto", sans-serif;
     color: var(--pale-grey);
+    height: 100vh;
+    position: relative;
+    z-index: -6;
 }
 
 .player-card {
     margin: 20px;
     padding: 10px;
+}
+
+.games {
+    position: relative;
+    flex-grow: 1;
 }
 
 header {
@@ -206,7 +214,7 @@ footer>a:hover {
 }
 
 .background {
-    background-image: url(/img/lobby/network.png);
+    background-image: url(/img/games/network.png);
     background-size: cover;
     background-position: center top;
     z-index: -2;
@@ -221,12 +229,22 @@ footer>a:hover {
     z-index: -1;
     backdrop-filter: blur(8px) brightness(0.45);
     -webkit-backdrop-filter: blur(8px) brightness(0.45);
-    display: flex;
-    flex-flow: column;
+    position: relative;
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     overflow: hidden;
+}
+
+.testing {
+    z-index: -1;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .flex-two-item {
@@ -324,10 +342,28 @@ footer>a:hover {
 .flex-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     align-content: space-between;
     flex: 1 1 auto;
     transition-duration: 1s;
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#flex-container-network {
+    align-items: center;
+}
+
+
+#flex-container-bedwars {
+    mask:
+    linear-gradient(to top,  transparent 10%, black 80%, transparent 100%),
+    linear-gradient(to bottom, transparent 10%, black 80%, transparent 100%);
+}
+
+#flex-container-bedwars * {
+    mask: unset;
 }
 
 .flex-item {
@@ -437,6 +473,10 @@ h1 {
 
 #birthday {
     display: none;
+}
+
+.unloaded {
+    pointer-events: none;
 }
 
 .header-name.unloaded {
@@ -943,4 +983,97 @@ h1 {
     z-index: 3;
     width: 100%;
     height: 100%;
+}
+
+/* Cards */
+
+.chip-container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow-y: scroll;
+    /*-webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); disabled by chloe because she hates me grr!!!
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);*/
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    padding-left: 12%;
+    padding-right: 12%;
+}
+
+.chip-small:first-child {
+    margin-top: 20px;
+}
+
+.chip-container > .chip-small {
+    flex: 40%;
+    width: 100%;
+}
+
+.chip-container > .but-big {
+    flex: 75%;
+    width: 100%;
+}
+
+.chip-small {
+    position: relative;
+    background-size: cover;
+    background-position: center top;
+    
+    border-radius: 20px;
+    padding: 20px;
+
+    width: 40%;
+    margin: 15px;
+}
+
+.but-big {
+    background-color: #0008;
+}
+
+.chip-small-background-filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(3px) brightness(0.3);
+    -webkit-backdrop-filter: blur(3px) brightness(0.3);
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.chip-small-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    color: white;
+
+    margin-left: 10px;
+    margin-bottom: 10px
+}
+
+.chip-small-container {
+    position: relative;
+    z-index: 2;
+    background-color: #000c;
+    padding: 20px;
+    border-radius: 20px;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.chip-small-statistic-row {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.chip-small-statistic-row > p {
+    flex: 1;
 }
