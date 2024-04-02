@@ -214,7 +214,7 @@ footer>a:hover {
 }
 
 .background {
-    background-image: url(/img/games/network.png);
+    background-image: url(/img/games/network/lobby.png);
     background-size: cover;
     background-position: center top;
     z-index: -2;
@@ -280,13 +280,13 @@ footer>a:hover {
     margin: 10px;
 }
 
-.dropdown-arrow {
+.chip-small-dropdown-arrow {
     height: 24px;
     opacity: 0.5;
     transition-duration: 0.5s;
 }
 
-.dropdown-arrow:hover {
+.chip-small-dropdown-arrow:hover {
     opacity: 1;
 }
 
@@ -361,10 +361,6 @@ footer>a:hover {
     mask:
     linear-gradient(to top,  transparent 10%, black 80%, transparent 100%),
     linear-gradient(to bottom, transparent 10%, black 80%, transparent 100%);
-}
-
-#flex-container-bedwars * {
-    mask: unset;
 }
 
 .flex-item {
@@ -994,8 +990,8 @@ h1 {
     flex-wrap: wrap;
     width: 100%;
     overflow-y: scroll;
-    /*-webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); disabled by chloe because she hates me grr!!!
-    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);*/
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
     padding-top: 30px;
     padding-bottom: 30px;
 
@@ -1053,18 +1049,26 @@ h1 {
     color: white;
 
     margin-left: 10px;
-    margin-bottom: 10px
+    margin-right: 8px;
+}
+
+.chip-small-subtitle {
+    font-size: 16px;
+    position: relative;
+    z-index: 2;
+    margin-left: 10px;
 }
 
 .chip-small-container {
     position: relative;
     z-index: 2;
-    background-color: #0008;
+    background-color: #000c;
     padding: 20px;
     border-radius: 20px;
 
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-top: 10px;
 }
 
 .chip-small-statistic-row {
@@ -1077,4 +1081,70 @@ h1 {
 
 .chip-small-statistic-row > p {
     flex: 1;
+    margin-right: 3px;
 }
+
+.chip-small-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chip-small-dropdown select {
+    all: unset;
+    width: 100%;
+    padding: 10px;
+    padding-left: 20px;
+    margin: 5px 0;
+    border: 1px solid #6b6b6b74;
+    border-radius: 100px;
+    background-color: #0008;
+    color: white;
+  }
+
+  .chip-small-dropdown option {
+    all: unset;
+    background-color: #0008;
+    border: none;
+    height: 10px;
+  }
+  
+  .chip-small-dropdown {
+    width: 200px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .chip-small-dropdown:after {
+    content: '\25BC';
+    color: white;
+    position: absolute;
+    right: -5px;
+    top: 18px;
+    pointer-events: none;
+  }
+
+
+/* Scrollbar CSS */
+
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: var(--accent) transparent;
+  }
+
+ /* width */
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent); 
+    border-radius: 99px;
+  }

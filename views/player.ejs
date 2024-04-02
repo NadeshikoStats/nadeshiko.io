@@ -14,7 +14,6 @@
   <meta property="og:site_name" content="nadeshiko.io">
   <meta property="twitter:image" content="https://minotar.net/helm/<%= playerData.uuid %>.png">
 
-
   <% if (playerData && playerData.profile) { %>
     <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
     <meta name="description" content="<%= playerData.status.online ? '🟢 Online!' : '🔴 Offline' %>
@@ -132,8 +131,6 @@
       
       <div class="flex-container unloaded" id="flex-container-bedwars">
         <!-- bed wars stats -->
-
-
         <div class="chip-container">
           <div class="chip-small but-big">
             <div class="chip-small-background-filter"></div>
@@ -166,9 +163,21 @@
                 </div>
             </div>
           </div>
+
+
             <div class="chip-small" style="background-image: url(/img/games/bedwars/solos.png);">
                 <div class="chip-small-background-filter"></div>
-                <p class="chip-small-title">Solo</p>
+                <div class="chip-small-top">
+                  <p class="chip-small-title">Solo</p> 
+                  <div class="chip-small-dropdown">
+                    <select>
+                      <option value="option1">Option 1</option>
+                      <option value="option2">Option 2</option>
+                      <option value="option3">Option 3</option>
+                    </select>
+                  </div>
+                </div>
+                <p class="chip-small-subtitle">Example Subtitle Here</p>
                 <div class="chip-small-container">
                     <div class="chip-small-statistic-row">
                         <p>Winstreak <span class="statistic">300,000</span></p>
@@ -290,7 +299,38 @@
               </div>
           </div>
       </div>
-      <div class="chip-small">
+      <div class="chip-small" style="background-image: url(/img/games/bedwars/4v4.png);">
+        <div class="chip-small-background-filter"></div>
+        <p class="chip-small-title">4v4</p>
+        <div class="chip-small-container">
+            <div class="chip-small-statistic-row">
+                <p>Winstreak <span class="statistic">300,000</span></p>
+                <p>idk <span class="statistic">200,000</span></p>
+                <p>idk <span class="statistic">200,000</span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+                <p>Wins <span class="statistic">300,000</span></p>
+                <p>Losses <span class="statistic">200,000</span></p>
+                <p>W L/R <span class="statistic">200,000</span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+                <p>Kills <span class="statistic">300,000</span></p>
+                <p>Deaths <span class="statistic">200,000</span></p>
+                <p>K/D R <span class="statistic">200,000</span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+                <p>Final Kills <span class="statistic">300,000</span></p>
+                <p>Final Deaths <span class="statistic">200,000</span></p>
+                <p>FK/D R <span class="statistic">200,000</span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+                <p>Bed Breaks <span class="statistic">300,000</span></p>
+                <p>Bed Losses <span class="statistic">200,000</span></p>
+                <p>BB/L R <span class="statistic">200,000</span></p>
+            </div>
+        </div>
+    </div>
+      <div class="chip-small" style="background-image: url(/img/games/bedwars/solos.png);">
         <div class="chip-small-background-filter"></div>
         <p class="chip-small-title">Dreams</p>
         <div class="chip-small-container">
@@ -337,7 +377,7 @@
  
 <script>
   var playerData;
-  var currentGamemode = "network";
+  var currentGamemode = "bedwars";
   switchStats(currentGamemode);
 
 
@@ -651,15 +691,17 @@ var skinViewer;
 
 
   function switchStats(gamemode) {
-    document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
-    document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");
-    
-    currentGamemode = gamemode;
+    //if(gamemode != currentGamemode) {
+      document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
+      document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");
+      
+      currentGamemode = gamemode;
 
-    document.getElementById("button-" + currentGamemode).classList.add("highlighted");
-    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
-    document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
-    setBackground(currentGamemode);
+      document.getElementById("button-" + currentGamemode).classList.add("highlighted");
+      document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+      document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
+      setBackground(currentGamemode);
+    //}
   }
 
   function setBackground(gamemode) { // Allows a fade between two backgrounds. Is this totally inefficient? Probably
