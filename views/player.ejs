@@ -128,10 +128,9 @@
       </div>
 
       
-      
       <div class="flex-container unloaded" id="flex-container-bedwars">
         <!-- bed wars stats -->
-        <div class="chip-container">
+        <div class="chip-container" id="bedwarschipcontaineridk">
           <div class="chip-small but-big">
             <div class="chip-small-background-filter"></div>
             <p class="chip-small-title">Bed Wars</p>
@@ -171,9 +170,6 @@
                   <p class="chip-small-title">Solo</p> 
                   <div class="chip-small-dropdown">
                     <select>
-                      <option value="option1">Option 1</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
                     </select>
                   </div>
                 </div>
@@ -205,7 +201,9 @@
                         <p>BB/L R <span class="statistic">200,000</span></p>
                     </div>
                 </div>
-            </div>
+            </div> 
+
+          
             <div class="chip-small" style="background-image: url(/img/games/bedwars/doubles.png);">
               <div class="chip-small-background-filter"></div>
               <p class="chip-small-title">Doubles</p>
@@ -486,6 +484,43 @@ function isInputField(element) { // Determines if the user's actively in an inpu
   );
 }
 
+
+
+var tiny_card_test = ["Solos", undefined, "/img/games/bedwars/doubles.png", [[true, ["Winstreak", 300],undefined,undefined],[false, ["Wins", 291], ["Losses", 2004],["W L/R", 94]],[false, ["Wins", 291], ["Losses", 2004],["W L/R", 94]],[false, ["Wins", 291], ["Losses", 2004],["W L/R", 94]]]] // rah 
+
+function generateTinyCard() {
+
+  var fullCard = "";
+
+  fullCard += `<div class="chip-small"` + (tiny_card_test[2] == undefined ? `>` : ` style="background-image: url(` + tiny_card_test[2] + `);">`); // Adds parent div, background
+
+  fullCard += `<div class="chip-small-background-filter"></div> <p class="chip-small-title">` + tiny_card_test[0] + `</p> <div class="chip-small-container">`; // Adds title
+
+  for(a = 0; a < tiny_card_test[3].length; a++) { // For each row in the chip
+    fullCard += `<div class="chip-small-statistic-row">`;
+    for(b = 1; b < tiny_card_test[3][a].length; b++) {
+      console.log(b)
+      tinyCardItem = tiny_card_test[3][a][b];
+      if(tinyCardItem != undefined) {
+        fullCard += `<p>` + tinyCardItem[0] + ` ` + `<span class="statistic">` + tinyCardItem[1] + `</span></p>`;
+      }
+    }
+    // add additional margin later
+    fullCard += `</div>`;
+
+  }
+
+  fullCard += `</div></div>`;
+
+
+  document.getElementById("bedwarschipcontaineridk").insertAdjacentHTML("beforeend", fullCard);
+  return fullCard;
+}
+
+//<div class="chip-small" style="background-image: url(/img/games/bedwars/solos.png);"> <div class="chip-small-background-filter"></div> <p class="chip-small-title">Dreams</p> <div class="chip-small-container"> <div class="chip-small-statistic-row"> <p>Winstreak <span class="statistic">300,000</span></p> <p>idk <span class="statistic">200,000</span></p> <p>idk <span class="statistic">200,000</span></p> </div> <div class="chip-small-statistic-row"> <p>Wins <span class="statistic">300,000</span></p> <p>Losses <span class="statistic">200,000</span></p> <p>W L/R <span class="statistic">200,000</span></p> </div> <div class="chip-small-statistic-row"> <p>Kills <span class="statistic">300,000</span></p> <p>Deaths <span class="statistic">200,000</span></p> <p>K/D R <span class="statistic">200,000</span></p> </div> <div class="chip-small-statistic-row"> <p>Final Kills <span class="statistic">300,000</span></p> <p>Final Deaths <span class="statistic">200,000</span></p> <p>FK/D R <span class="statistic">200,000</span></p> </div> <div class="chip-small-statistic-row"> <p>Bed Breaks <span class="statistic">300,000</span></p> <p>Bed Losses <span class="statistic">200,000</span></p> <p>BB/L R <span class="statistic">200,000</span></p> </div> </div> </div>
+
+
+
 var skinViewer;
 
  function insertLoadedData() {
@@ -573,7 +608,6 @@ var skinViewer;
  } catch (error) {
      console.error("Error loading SkinView3D!: " + error);
  }
-
 
       var playerStats = playerData["stats"];
       var profileStats = playerData["profile"];
