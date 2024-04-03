@@ -253,6 +253,10 @@ footer>a:hover {
     align-items: center;
 }
 
+.align-top {
+    align-items: flex-start;
+}
+
 .mright {
     margin-right: 10px;
 }
@@ -339,6 +343,15 @@ footer>a:hover {
     margin-bottom: 15px;
 }
 
+.margin10 {
+    margin: 10px;
+}
+
+.margin-top-bottom {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .flex-container {
     display: flex;
     justify-content: center;
@@ -376,12 +389,14 @@ footer>a:hover {
     margin: 10px;
 }
 
-.login-information {
-    margin-bottom: 20px;
+.super-subtitle {
+    font-size: 18px;
+    color: white;
+    font-weight: 500;
 }
 
-.login-duo {
-    margin: 10px;
+.login-information {
+    margin-bottom: 20px;
 }
 
 .details {
@@ -427,30 +442,6 @@ h1 {
 .statistic {
     font-weight: 500;
     color: white;
-}
-
-@media (max-width: 768px) {
-    .avatar {
-        display: none;
-    }
-    .player-card {
-        width: unset;
-    }
-    .player-info {
-        flex-direction: column;
-    }
-    .header-button {
-        display: none;
-    }
-    .searchbar {
-        width: unset;
-    }
-    .searchbar:focus {
-        width: unset;
-    }
-    .header-game {
-        display: none;
-    }
 }
 
 .icon {
@@ -1003,6 +994,14 @@ h1 {
     margin-top: 20px;
 }
 
+.card-big-stats {
+    flex: 60%;
+}
+
+.card-big-misc {
+    flex: 40%;
+}
+
 .chip-container > .chip-small {
     flex: 40%;
     width: 100%;
@@ -1023,6 +1022,7 @@ h1 {
 
     width: 40%;
     margin: 15px;
+    z-index: -2;
 }
 
 .but-big {
@@ -1038,6 +1038,7 @@ h1 {
     width: 100%;
     height: 100%;
     border-radius: 20px;
+    z-index: -1;
 }
 
 .chip-small-title {
@@ -1148,3 +1149,42 @@ h1 {
     background: var(--accent); 
     border-radius: 99px;
   }
+
+/* Media styles */
+
+  @media (max-width: 768px) {
+    .avatar {
+        display: none;
+    }
+    .player-card {
+        width: unset;
+    }
+    .player-info {
+        flex-direction: column;
+    }
+    .header-button {
+        display: none;
+    }
+    .searchbar {
+        width: unset;
+    }
+    .searchbar:focus {
+        width: unset;
+    }
+    .header-game {
+        display: none;
+    }
+    .chip-container > .chip-small {
+        flex: 60%;
+    }
+    .chip-container {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+    .flippable {
+        flex-direction: column;
+    }
+    .card-big-misc {
+        margin-top: 30px;
+    }
+}
