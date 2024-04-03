@@ -136,7 +136,9 @@
             <div class="chip-small-background-filter"></div>
             <p class="chip-small-title">Bed Wars</p>
             <div class="chip-small-container">
-              <p class="margin10">Level <span class="statistic" id="bed-wars-level">9,999</span></p>
+              <p class="margin10">
+                <span id="bed-wars-level-container" class="linear-gradient">Level <span class="w500" id="bed-wars-level"></span></span>
+              </p>
               <div class="progress-bar">
                 <span class="progress-number" id="bed-wars-xp-progress-number"><span class="mc">Unknown</span></span>
                 <div class="progress" style="width: 0%;" id="bed-wars-xp-progress-bar"></div>
@@ -145,39 +147,39 @@
                 <div class="card-big-stats">
                   <p class="super-subtitle">Stats</p>
                   <div class="chip-small-statistic-row">
-                      <p>Winstreak <span class="statistic" id="bed-wars-overall-winstreak">300,000</span></p>
+                      <p>Winstreak <span class="statistic" id="bed-wars-overall-winstreak"></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Wins <span class="statistic" id="bed-wars-overall-wins">300,000</span></p>
-                      <p>Losses <span class="statistic" id="bed-wars-overall-losses">200,000</span></p>
-                      <p>W L/R <span class="statistic" id="bed-wars-overall-wlr">200,000</span></p>
+                      <p>Wins <span class="statistic" id="bed-wars-overall-wins"><span class="mc">Unknown</span></span></p>
+                      <p>Losses <span class="statistic" id="bed-wars-overall-losses"><span class="mc">Unknown</span></span></p>
+                      <p>W L/R <span class="statistic" id="bed-wars-overall-wlr"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Kills <span class="statistic" id="bed-wars-overall-kills">300,000</span></p>
-                      <p>Deaths <span class="statistic" id="bed-wars-overall-deaths">200,000</span></p>
-                      <p>K/D R <span class="statistic" id="bed-wars-overall-kdr">200,000</span></p>
+                      <p>Kills <span class="statistic" id="bed-wars-overall-kills"><span class="mc">Unknown</span></span></p>
+                      <p>Deaths <span class="statistic" id="bed-wars-overall-deaths"><span class="mc">Unknown</span></span></p>
+                      <p>K/D R <span class="statistic" id="bed-wars-overall-kdr"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Final Kills <span class="statistic" id="bed-wars-overall-final_kills">300,000</span></p>
-                      <p>Final Deaths <span class="statistic" id="bed-wars-overall-final_deaths">200,000</span></p>
-                      <p>FK/D R <span class="statistic" id="bed-wars-overall-fkdr">200,000</span></p>
+                      <p>Final Kills <span class="statistic" id="bed-wars-overall-final_kills"><span class="mc">Unknown</span></span></p>
+                      <p>Final Deaths <span class="statistic" id="bed-wars-overall-final_deaths"><span class="mc">Unknown</span></span></p>
+                      <p>FK/D R <span class="statistic" id="bed-wars-overall-fkdr"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Beds Broken <span class="statistic" id="bed-wars-overall-beds_broken">300,000</span></p>
-                      <p>Beds Lost <span class="statistic" id="bed-wars-overall-beds_lost">200,000</span></p>
-                      <p>BB/L R <span class="statistic" id="bed-wars-overall-bblr">200,000</span></p>
+                      <p>Beds Broken <span class="statistic" id="bed-wars-overall-beds_broken"><span class="mc">Unknown</span></span></p>
+                      <p>Beds Lost <span class="statistic" id="bed-wars-overall-beds_lost"><span class="mc">Unknown</span></span></p>
+                      <p>BB/L R <span class="statistic" id="bed-wars-overall-bblr"><span class="mc">Unknown</span></span></p>
                   </div>
                 </div>
                 <div class="card-big-misc">
                   <p class="super-subtitle">Misc</p>
                   <div class="chip-small-statistic-row">
-                      <p>Tokens <span class="statistic" id="bed-wars-tokens">300,000</span></p>
+                      <p>Tokens <span class="statistic" id="bed-wars-tokens"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                    <p>Slumber Tickets <span class="statistic" id="bed-wars-slumber-tickets">300,000</span></p>
+                    <p>Slumber Tickets <span class="statistic" id="bed-wars-slumber-tickets">0</span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                    <p>Challenges Completed <span class="statistic" id="bed-wars-challenges-completed">300,000</span> <span class="m8" id="bed-wars-unique-challenges-completed"></span></p>
+                    <p>Challenges Completed <span class="statistic" id="bed-wars-challenges-completed"><span class="mc">Unknown</span></span> <span class="m8" id="bed-wars-unique-challenges-completed">(0/30)</span></p>
                   </div>
                 </div>
               </div>
@@ -200,8 +202,6 @@
   var playerData;
   var currentGamemode = "network";
   switchStats(currentGamemode);
-
-
 
   document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
 
@@ -316,35 +316,42 @@ function generateChip(stats_object, where) {
   var fullCard = "";
   var selectionItems = "";
 
-  fullCard += `<div class="chip-small"` + (stats_object[2] == undefined ? `>` : ` style="background-image: url(` + stats_object[2] + `);">`); // Adds parent div, background
+  fullCard += `<div class="chip-small"` + (stats_object[3] == undefined ? `>` : ` style="background-image: url(` + stats_object[3] + `);">`); // Adds parent div, background
 
-  for(c = 0; c < stats_object[3].length; c++) {
-    selectionItems += `<option value="` + c + `">` + stats_object[3][c][0] + `</option>`;
+  for(c = 0; c < stats_object[5].length; c++) {
+    selectionItems += `<option value="` + stats_object[5][c][1] + `">` + stats_object[5][c][0] + `</option>`;
   }
-  if(stats_object[3].length > 1) {
-    selectionItems = `<div class="chip-small-dropdown"><select>` + selectionItems + `</select></div>`;
+  if(stats_object[5].length > 0) {
+    selectionItems = `<div class="chip-small-dropdown"><select onchange="updateChipStats(event, '` + stats_object[0] + `')">` + selectionItems + `</select></div>`;
   } else {
     selectionItems = "";
   }
 
-  fullCard += `<div class="chip-small-top"><div class="chip-small-background-filter"></div> <p class="chip-small-title">` + stats_object[0] + `</p>` + selectionItems + `</div><p class="chip-small-subtitle">` + stats_object[1] + `</p><div class="chip-small-container">`; // Adds title
+  fullCard += `<div class="chip-small-top"><div class="chip-small-background-filter"></div> <p class="chip-small-title">` + stats_object[1] + `</p>` + selectionItems + `</div><p class="chip-small-subtitle">` + stats_object[2] + `</p><div class="chip-small-container" id="`+ stats_object[0] +`">`; // Adds title
 
-  for(a = 0; a < stats_object[3][0][1].length; a++) { // For each row in the chip
-    fullCard += `<div class="chip-small-statistic-row">`;
-    for(b = 1; b < stats_object[3][0][1][a].length; b++) {
-      tinyCardItem = stats_object[3][0][1][a][b];
-      if(tinyCardItem != undefined) {
-        fullCard += `<p>` + tinyCardItem[0] + ` ` + `<span class="statistic">` + tinyCardItem[1] + `</span></p>`;
-      }
-    }
-    // add additional margin later
-    fullCard += `</div>`;
-
-  }
+  fullCard += generateChipStats(stats_object[4]);
 
   fullCard += `</div></div>`;
 
   document.getElementById(where).insertAdjacentHTML("beforeend", fullCard);
+}
+
+function generateChipStats(chipStatsSub) {
+  let chipStats = "";
+
+  for(a = 0; a < chipStatsSub.length; a++) { // For each row in the chip
+    chipStats += `<div class="chip-small-statistic-row">`;
+    for(b = 1; b < chipStatsSub[a].length; b++) {
+      chipItem = chipStatsSub[a][b];
+      if(chipItem != undefined) {
+        chipStats += `<p>` + chipItem[0] + ` ` + `<span class="statistic">` + chipItem[1] + `</span></p>`;
+      }
+    }
+    // add additional margin later
+    chipStats += `</div>`;
+
+  }
+  return chipStats;
 }
 
 var skinViewer;

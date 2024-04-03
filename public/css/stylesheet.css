@@ -265,6 +265,12 @@ footer>a:hover {
     margin-left: 10px;
 }
 
+.linear-gradient {
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    color: transparent !important;
+}
+
 .searchbar {
     all: unset;
     font-size: 14px;
