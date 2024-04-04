@@ -432,18 +432,19 @@ h1 {
     text-align: center;
     margin-left: 10px;
     margin-right: 10px;
+    position: relative;
 }
 
 .progress-number {
     color: #fff;
     font-size: 15px;
     margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    text-align: center;
     position: absolute;
     font-weight: 700;
+    display: flex; 
+    justify-content: center;
+    align-content: center;
+    width: 100%;
 }
 
 .progress {

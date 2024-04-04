@@ -2,8 +2,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
   <link rel="stylesheet" href="/css/stylesheet.css">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
   <link rel="preload" href="/img/games/bedwars/lobby.png" as="image">
   <link rel="preload" href="/img/games/skywars/lobby.png" as="image">
   <link rel="preload" href="/img/games/network/lobby.png" as="image">
@@ -217,34 +217,13 @@
 
   document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
 
-  const COLORS = {
-    BLACK: "0",
-    DARK_BLUE: "1",
-    DARK_GREEN: "2",
-    DARK_AQUA: "3",
-    DARK_RED: "4",
-    DARK_PURPLE: "5",
-    GOLD: "6",
-    GRAY: "7",
-    DARK_GRAY: "8",
-    BLUE: "9",
-    GREEN: "a",
-    AQUA: "b",
-    RED: "c",
-    LIGHT_PURPLE: "d",
-    YELLOW: "e",
-    WHITE: "f",
-  };
-
   function und(text) { // Returns 0 in the case of a missing value
     if (text === null || text === undefined || Number.isNaN(text)) return 0;
     else return text;
   }
 
 
-  // Runs once the page is fully loaded.
-  document.addEventListener("DOMContentLoaded", function() {
-
+  document.addEventListener("DOMContentLoaded", function() { // Runs on page load
     playerName = "<%= name %>";
 
     playerData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(playerData)) %>"));
@@ -319,7 +298,7 @@ function isInputField(element) { // Determines if the user's actively in an inpu
   );
 }
 
-function generateChip(stats_object, where) {
+function generateChip(stats_object, where) { // Converts an array of stats into an HTML chip for stats viewing
 
   console.log("generating stats object")
 
@@ -346,7 +325,7 @@ function generateChip(stats_object, where) {
   document.getElementById(where).insertAdjacentHTML("beforeend", fullCard);
 }
 
-function generateChipStats(chipStatsSub) {
+function generateChipStats(chipStatsSub) { // Generates the stats inside of the chip
   let chipStats = "";
 
   for(a = 0; a < chipStatsSub.length; a++) { // For each row in the chip
@@ -362,6 +341,14 @@ function generateChipStats(chipStatsSub) {
 
   }
   return chipStats;
+}
+
+function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, switch to HTTPS
+  windowLocation = window.location;
+
+  if(!(windowLocation.protocol == "http:") && windowLocation.host != "localhost:8080") { // If the user's using HTTP (and it's not localhost)
+      window.location = "https://nadeshiko.io" + windowLocation.pathname + windowLocation.search;
+  }
 }
 
 var skinViewer;
@@ -456,6 +443,8 @@ var skinViewer;
       var profileStats = playerData["profile"];
 
       var dateNow = new Date();
+
+      redirectToHttps();
 
       if(profileStats != undefined) {
         var playerRank = profileStats["tag"];
