@@ -167,6 +167,15 @@ footer>a:hover {
     transition-duration: 0.5s;
 }
 
+.header-game:before {
+    content: '';
+    position: absolute;
+    height: 300%;
+    width: 150%;
+    right: -25%;
+    bottom: -100%;
+}
+
 .header-game:after {
     content: '';
     position: absolute;
