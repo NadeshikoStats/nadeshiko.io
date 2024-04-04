@@ -437,6 +437,11 @@ h1 {
 .progress-number {
     color: #fff;
     font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
     position: absolute;
     font-weight: 700;
 }
@@ -1129,6 +1134,7 @@ h1 {
     width: 200px;
     position: relative;
     z-index: 2;
+    cursor: pointer;
   }
   
   .chip-small-dropdown:after {
