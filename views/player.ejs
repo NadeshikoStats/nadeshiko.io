@@ -346,7 +346,7 @@ function generateChipStats(chipStatsSub) { // Generates the stats inside of the 
 function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, switch to HTTPS
   windowLocation = window.location;
 
-  if(!(windowLocation.protocol == "http:") && windowLocation.host != "localhost:8080") { // If the user's using HTTP (and it's not localhost)
+  if(windowLocation.protocol == "http:" && windowLocation.host != "localhost:8080") { // If the user's using HTTP (and it's not localhost)
       window.location = "https://nadeshiko.io" + windowLocation.pathname + windowLocation.search;
   }
 }
