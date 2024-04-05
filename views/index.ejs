@@ -18,20 +18,7 @@
     <div class="background" id="background1" style="background-image: url('/img/games/home.png')"></div>
     <div class="background-filter">
     <header>
-        <div class="header"> <!-- site-wide header -->
-          <div class="header-left">
-            <a href="/" style="display: flex;">
-                <img class="logo" src="/img/logo.png" alt="nadeshiko logo">
-                <p class="wordmark">nadeshiko</p>
-            </a>
-            <a href="/" class="header-button"><img src="/img/home.svg" class="header-icon">Home</a>
-            <a href="#about" class="header-button"><img src="/img/about.svg" class="header-icon">About</a>
-            <a href="#cards" class="header-button"><img src="/img/cards.svg" class="header-icon">Cards</a>
-          </div>
-          <div class="header-right">
-            <input type="search" class="searchbar" id="searchbar" placeholder="&#x1F50E;&#xFE0E;  Search for a player...">
-          </div>
-        </div>
+      <%- include('partials/header') %>
     </header>
     <div class="everythingcenter">
         <div class="home-page-container">
@@ -62,7 +49,7 @@
     <div id="petals2"></div>
 
 <footer>
-    Made with ♥&#xFE0E; by <a href="https://github.com/niqumu" target="_blank">kittycatchloe</a> and <a href="https://brookie.dev" target="_blank">BrookeAFK</a>.
+  <%- include('partials/footer') %>
 </footer>
 </div>
 
