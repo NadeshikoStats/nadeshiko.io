@@ -299,13 +299,14 @@ footer>a:hover {
     margin: 10px;
 }
 
-.chip-small-dropdown-arrow {
+.dropdown-arrow {
     height: 24px;
+    width: 24px;
     opacity: 0.5;
     transition-duration: 0.5s;
 }
 
-.chip-small-dropdown-arrow:hover {
+.dropdown-arrow:hover {
     opacity: 1;
 }
 
@@ -492,7 +493,7 @@ h1 {
     opacity: 0;
 }
 
-.flex-container.unloaded {
+.flex-container.unloaded, .avatar.unloaded {
     opacity: 0;
     transform: scale(0.8);
     filter: brightness(0.2);
@@ -536,6 +537,8 @@ h1 {
 
 .avatar {
     cursor: grab;
+    background-color: transparent;
+    transition-duration: 0.5s;
 }
 
 .socials-buttons {
@@ -586,6 +589,7 @@ h1 {
 
 .shiiyu {
     height: 15px;
+    width: 15px;
     transition-duration: 0.5s;
     margin-right: 8px;
     position: relative;

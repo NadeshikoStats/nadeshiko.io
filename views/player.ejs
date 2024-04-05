@@ -60,7 +60,7 @@
           <p class="header-game" onclick="switchStats('bedwars')"  id="button-bedwars">Bed Wars</p>
           <p class="header-game" onclick="switchStats('duels')"  id="button-duels">Duels</p>
           <p class="header-game" onclick="switchStats('skywars')"  id="button-skywars">SkyWars</p>
-          <p class="header-down"><img class="dropdown-arrow" src="/img/arrow.svg"></p>
+          <p class="header-down"><img class="dropdown-arrow" src="/img/arrow.svg" alt="More games"></p>
         </div>
       </div>
     </header>   
@@ -68,7 +68,7 @@
     <div class="games">
 
       <div class="flex-container unloaded" id="flex-container-network"> <!-- network stats -->
-        <canvas id="skin_container" class="avatar"></canvas>
+        <canvas id="skin-container" class="avatar unloaded" style="background-color: transparent"></canvas>
         <section class="player-card" id="player-card">
           <div class="player-info">
             <div class="details">
@@ -118,7 +118,7 @@
                 </div>
               </div>
               <div class="flex-two-item socials-buttons" id="general-bottom-bar">
-                <div class="buttons"><span class="general-button mright">Generate Card</span><a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" style="text-decoration: none;"><span class="general-button"><img src="/img/skycrypt.svg" class="shiiyu">SkyBlock Stats</span></a></div>
+                <div class="buttons"><span class="general-button mright">Generate Card</span><a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" style="text-decoration: none;"><span class="general-button"><img src="/img/skycrypt.svg" class="shiiyu" alt="SkyCrypt logo">SkyBlock Stats</span></a></div>
                 <div class="socials flex-two-item flex-separated"><a target="_blank" id="sociallink-hypixel"><img src="/img/hypixel.svg" class="social-media-logo mright" id="social-hypixel"></a><a target="_blank" id="sociallink-youtube"><img src="/img/youtube.svg" class="social-media-logo mleft mright" id="social-youtube"></a><a target="_blank" id="sociallink-twitter"><img src="/img/twitter.svg" class="social-media-logo mright mleft" id="social-twitter"></a><a target="_blank" id="sociallink-tiktok"><img src="/img/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok"></a><a target="_blank" id="sociallink-twitch"><img src="/img/twitch.svg" class="social-media-logo mright  mleft" id="social-twitch"></a><a target="_blank" id="sociallink-discord" style="display: flex; align-items: center"><img src="/img/discord.svg" class="mleft social-media-discord" id="social-discord"><p class="w500 mleft" id="social-discord-username"></p></a>
                 </div>
               </div>
@@ -222,13 +222,100 @@
     else return text;
   }
 
+  playerName = "<%= name %>";
+  playerData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(playerData)) %>"));
+  console.log(playerData);
+  insertLoadedData();
 
   document.addEventListener("DOMContentLoaded", function() { // Runs on page load
-    playerName = "<%= name %>";
+    try {
+     skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
+         canvas: document.getElementById("skin-container"),
+         width: 300,
+         height: 400,
+         model: (playerData["slim"] ? "slim" : "classic"),
+         skin: playerData["skin"],
+         cape: playerData["cape"]
+     });
 
-    playerData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(playerData)) %>"));
-    console.log(playerData);
-    insertLoadedData();
+     skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
+     skinViewer.animation = new skinview3d.IdleAnimation();
+     skinViewer.playerObject.cape.rotation.x = 1;
+
+     skinViewer.controls.enableZoom = false;
+
+
+     document.addEventListener('keydown', function(event) {
+         if (event.keyCode === 16 && !isInputField(document.activeElement)) { // If LSHIFT pressed, adjust skin to sneak based on constants from Mine-imator
+             skinViewer.animation.paused = true; // Cape can't move in the x direction while idle animation is on
+             let skinViewerObject = skinViewer.playerObject;
+             let skinViewerSkin = skinViewerObject.skin;
+
+             skinViewerSkin.head.position.y = -2.5;
+
+             skinViewerSkin.body.rotation.x = 0.4887;
+             skinViewerSkin.body.position.y = -7;
+             skinViewerSkin.body.position.z = -2;
+
+             skinViewerSkin.leftArm.rotation.x = 0.3491;
+             skinViewerSkin.leftArm.position.y = -3.5;
+
+             skinViewerSkin.rightArm.rotation.x = 0.3491;
+             skinViewerSkin.rightArm.position.y = -3.5;
+
+             skinViewerSkin.leftLeg.position.x = 2;
+             skinViewerSkin.leftLeg.position.y = -11;
+             skinViewerSkin.leftLeg.position.z = -3.5;
+
+             skinViewerSkin.rightLeg.position.x = -2;
+             skinViewerSkin.rightLeg.position.y = -11;
+             skinViewerSkin.rightLeg.position.z = -3.5;
+
+             skinViewerObject.cape.rotation.x = 0.4365;
+             skinViewerObject.cape.position.y = 7;
+             skinViewerObject.cape.position.z = -2;
+         }
+     });
+
+
+     document.addEventListener('keyup', function(event) {
+         if (event.keyCode === 16 && !isInputField(document.activeElement)) { // Removes sneak; sets values to defaults
+             skinViewer.animation.paused = false;
+             let skinViewerSkin = skinViewer.playerObject.skin;
+             let skinViewerObject = skinViewer.playerObject;
+
+             skinViewerSkin.head.position.y = 0;
+
+             skinViewerSkin.body.rotation.x = 0;
+             skinViewerSkin.body.position.y = -6;
+             skinViewerSkin.body.position.z = 0;
+
+             skinViewerSkin.leftArm.position.y = -2;
+             skinViewerSkin.leftArm.rotation.x = 0;
+
+             skinViewerSkin.rightArm.rotation.x = 0;
+             skinViewerSkin.rightArm.position.y = -2;
+
+             skinViewerSkin.leftLeg.position.x = 2;
+             skinViewerSkin.leftLeg.position.y = -12;
+             skinViewerSkin.leftLeg.position.z = 0;
+
+             skinViewerSkin.rightLeg.position.x = -2;
+             skinViewerSkin.rightLeg.position.y = -12;
+             skinViewerSkin.rightLeg.position.z = 0;
+
+             skinViewerObject.cape.rotation.x = 1.5714;
+             skinViewerObject.cape.position.y = 8;
+             skinViewerObject.cape.position.z = -2;
+         }
+     });
+
+     document.getElementById("skin-container").classList.remove("unloaded");
+ } catch (error) {
+     console.error("Error loading SkinView3D!: " + error);
+ }
+    document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
+      document.getElementById("header-name").classList.remove("unloaded");
   });
 
   function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past.
@@ -354,91 +441,6 @@ function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, 
 var skinViewer;
 
  function insertLoadedData() {
-  try {
-     skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
-         canvas: document.getElementById("skin_container"),
-         width: 300,
-         height: 400,
-         model: (playerData["slim"] ? "slim" : "classic"),
-         skin: playerData["skin"],
-         cape: playerData["cape"]
-     });
-
-     skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
-     skinViewer.animation = new skinview3d.IdleAnimation();
-     skinViewer.playerObject.cape.rotation.x = 1;
-
-     skinViewer.controls.enableZoom = false;
-
-
-     document.addEventListener('keydown', function(event) {
-         if (event.keyCode === 16 && !isInputField(document.activeElement)) { // If LSHIFT pressed, adjust skin to sneak based on constants from Mine-imator
-             skinViewer.animation.paused = true; // Cape can't move in the x direction while idle animation is on
-             let skinViewerObject = skinViewer.playerObject;
-             let skinViewerSkin = skinViewerObject.skin;
-
-             skinViewerSkin.head.position.y = -2.5;
-
-             skinViewerSkin.body.rotation.x = 0.4887;
-             skinViewerSkin.body.position.y = -7;
-             skinViewerSkin.body.position.z = -2;
-
-             skinViewerSkin.leftArm.rotation.x = 0.3491;
-             skinViewerSkin.leftArm.position.y = -3.5;
-
-             skinViewerSkin.rightArm.rotation.x = 0.3491;
-             skinViewerSkin.rightArm.position.y = -3.5;
-
-             skinViewerSkin.leftLeg.position.x = 2;
-             skinViewerSkin.leftLeg.position.y = -11;
-             skinViewerSkin.leftLeg.position.z = -3.5;
-
-             skinViewerSkin.rightLeg.position.x = -2;
-             skinViewerSkin.rightLeg.position.y = -11;
-             skinViewerSkin.rightLeg.position.z = -3.5;
-
-             skinViewerObject.cape.rotation.x = 0.4365;
-             skinViewerObject.cape.position.y = 7;
-             skinViewerObject.cape.position.z = -2;
-         }
-     });
-
-
-     document.addEventListener('keyup', function(event) {
-         if (event.keyCode === 16 && !isInputField(document.activeElement)) { // Removes sneak; sets values to defaults
-             skinViewer.animation.paused = false;
-             let skinViewerSkin = skinViewer.playerObject.skin;
-             let skinViewerObject = skinViewer.playerObject;
-
-             skinViewerSkin.head.position.y = 0;
-
-             skinViewerSkin.body.rotation.x = 0;
-             skinViewerSkin.body.position.y = -6;
-             skinViewerSkin.body.position.z = 0;
-
-             skinViewerSkin.leftArm.position.y = -2;
-             skinViewerSkin.leftArm.rotation.x = 0;
-
-             skinViewerSkin.rightArm.rotation.x = 0;
-             skinViewerSkin.rightArm.position.y = -2;
-
-             skinViewerSkin.leftLeg.position.x = 2;
-             skinViewerSkin.leftLeg.position.y = -12;
-             skinViewerSkin.leftLeg.position.z = 0;
-
-             skinViewerSkin.rightLeg.position.x = -2;
-             skinViewerSkin.rightLeg.position.y = -12;
-             skinViewerSkin.rightLeg.position.z = 0;
-
-             skinViewerObject.cape.rotation.x = 1.5714;
-             skinViewerObject.cape.position.y = 8;
-             skinViewerObject.cape.position.z = -2;
-         }
-     });
- } catch (error) {
-     console.error("Error loading SkinView3D!: " + error);
- }
-
       var playerStats = playerData["stats"];
       var profileStats = playerData["profile"];
 
@@ -542,8 +544,7 @@ var skinViewer;
         document.getElementById("extended-card").style.marginBottom = "0px";
       }      
 
-      document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
-      document.getElementById("header-name").classList.remove("unloaded");
+      console.log("Wow! All the stats are loaded!")
       generateBedWars();
 
   }
