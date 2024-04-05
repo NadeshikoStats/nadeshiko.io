@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +41,7 @@
       <div class="header"> <!-- site-wide header -->
         <div class="header-left">
           <a href="/" style="display: flex;">
-            <img class="logo" src="/img/logo.png" alt="nadeshiko logo">
+            <img class="logo icon" src="/img/nadeshiko_logo.png" alt="nadeshiko logo">
             <p class="wordmark">nadeshiko</p>
         </a>
           <a href="/" class="header-button"><img src="/img/home.svg" class="header-icon">Home</a>
@@ -74,7 +75,7 @@
             <div class="details">
               <div class="flex-two-item">
                 <span class="player-name">
-                  <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span><img class="special icon smallicon" id="special">
+                  <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span><img class="special icon smallicon unloaded" id="special" alt="User badge">
                 </span>
                 <span id="online-status"><span class="mc">Unknown</span></span>
               </div>
@@ -119,7 +120,7 @@
               </div>
               <div class="flex-two-item socials-buttons" id="general-bottom-bar">
                 <div class="buttons"><span class="general-button mright">Generate Card</span><a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" style="text-decoration: none;"><span class="general-button"><img src="/img/skycrypt.svg" class="shiiyu" alt="SkyCrypt logo">SkyBlock Stats</span></a></div>
-                <div class="socials flex-two-item flex-separated"><a target="_blank" id="sociallink-hypixel"><img src="/img/hypixel.svg" class="social-media-logo mright" id="social-hypixel"></a><a target="_blank" id="sociallink-youtube"><img src="/img/youtube.svg" class="social-media-logo mleft mright" id="social-youtube"></a><a target="_blank" id="sociallink-twitter"><img src="/img/twitter.svg" class="social-media-logo mright mleft" id="social-twitter"></a><a target="_blank" id="sociallink-tiktok"><img src="/img/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok"></a><a target="_blank" id="sociallink-twitch"><img src="/img/twitch.svg" class="social-media-logo mright  mleft" id="social-twitch"></a><a target="_blank" id="sociallink-discord" style="display: flex; align-items: center"><img src="/img/discord.svg" class="mleft social-media-discord" id="social-discord"><p class="w500 mleft" id="social-discord-username"></p></a>
+                <div class="socials flex-two-item flex-separated"><a target="_blank" id="sociallink-hypixel"><img src="/img/hypixel.svg" class="social-media-logo mright" id="social-hypixel"></a><a target="_blank" id="sociallink-youtube"><img src="/img/youtube.svg" class="social-media-logo mleft mright" id="social-youtube"></a><a target="_blank" id="sociallink-twitter"><img src="/img/twitter.svg" class="social-media-logo mright mleft" id="social-twitter"></a><a target="_blank" id="sociallink-tiktok"><img src="/img/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok"></a><a target="_blank" id="sociallink-twitch"><img src="/img/twitch.svg" class="social-media-logo mright mleft" id="social-twitch"></a><a target="_blank" id="sociallink-discord" style="display: flex; align-items: center"><img src="/img/discord.svg" class="mleft social-media-discord" id="social-discord"><p class="w500 mleft" id="social-discord-username"></p></a>
                 </div>
               </div>
             </div>
@@ -527,6 +528,9 @@ var skinViewer;
             document.getElementById("social-discord-username").innerText = profileStats["social_media"][socials[a]];
           }
         }
+
+        generateBedWars();
+
       } else { // If no Hypixel stats, hide most buttons and show a warning
         document.getElementById("general-bottom-bar").style.display = "none";
         document.getElementById("card-name").innerText = playerData["name"];
@@ -544,9 +548,7 @@ var skinViewer;
         document.getElementById("extended-card").style.marginBottom = "0px";
       }      
 
-      console.log("Wow! All the stats are loaded!")
-      generateBedWars();
-
+      console.log("Wow! All the stats are loaded!");
   }
 
   function ordinal(num) { // Returns the ordinal number format of an integer (3 → 3rd)

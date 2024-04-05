@@ -126,8 +126,9 @@ footer>a:hover {
 
 .logo {
     height: 25px;
-    padding-left: 10px;
-    padding-right: 5px;
+    width: 23.5px;
+    margin-left: 10px;
+    margin-right: 5px;
 }
 
 .wordmark {
@@ -205,9 +206,13 @@ footer>a:hover {
     color: #fff8;
 }
 
-.header-game,
-.header-down {
+.header-game, .header-down, .special {
     transition-duration: 0.3s;
+}
+
+.special {
+    width: 25px;
+    height: 25px;
 }
 
 .header-game:hover,
@@ -493,7 +498,7 @@ h1 {
     opacity: 0;
 }
 
-.flex-container.unloaded, .avatar.unloaded {
+.flex-container.unloaded, .avatar.unloaded, .special.unloaded {
     opacity: 0;
     transform: scale(0.8);
     filter: brightness(0.2);
@@ -503,36 +508,42 @@ h1 {
     font-family: Inter;
     src: url(/font/Inter-Bold.ttf);
     font-weight: bold;
+    font-display: swap;
 }
 
 @font-face {
     font-family: Inter;
     src: url(/font/Inter-Regular.ttf);
     font-weight: regular;
+    font-display: swap;
 }
 
 @font-face {
     font-family: Albert Sans;
     src: url(/font/AlbertSans-Regular.ttf);
     font-weight: regular;
+    font-display: swap;
 }
 
 @font-face {
     font-family: Albert Sans;
     src: url(/font/AlbertSans-Bold.ttf);
     font-weight: bold;
+    font-display: swap;
 }
 
 @font-face {
     font-family: Inter;
     src: url(/font/Inter-SemiBold.ttf);
     font-weight: 600;
+    font-display: swap;
 }
 
 @font-face {
     font-family: Inter;
     src: url(/font/Inter-Medium.ttf);
     font-weight: 500;
+    font-display: swap;
 }
 
 .avatar {
