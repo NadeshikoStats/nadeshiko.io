@@ -57,6 +57,7 @@ function linearGradient(colors) { // Generates a linear gradient based on an arr
 
 function generateBedWars() { // Generates stats and chips for Bed Wars
     bedWarsStats = playerData["stats"]["Bedwars"]; // add check if undefined
+    if(bedWarsStats != undefined) {
 
     var modes = ["eight_one", "eight_two", "four_three", "four_four", "two_four"];
     var modeNames = ["Solos", "Doubles", "Threes", "Fours", "4v4"];
@@ -123,9 +124,7 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
         bedWarsChips.push(bedWarsChip);
     }
 
-
-    //    var easyStats = ["wins", "losses", "kills", "deaths", "final_kills", "final_deaths", "beds_broken", "beds_lost"];
-    var totalDreamModeStatsCounts = [0, 0, 0, 0, 0, 0, 0, 0];
+    var totalDreamModeStatsCounts = [0, 0, 0, 0, 0, 0, 0, 0]; // Loops through all the Dreams mode stats to get overall Dreams stats
     var dreamModeWinstreak = 0;
     for(f = 0; f < dreamModes.length; f++) {
         for(g = 0; g < easyStats.length; g++) {
@@ -159,7 +158,7 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
         ]
     ];
 
-    bedWarsChips.push([
+    bedWarsChips.push([ // Generates the Dreams mode chip
         "bed-wars-stats-dreams",
         "Dreams",
         "",
@@ -169,11 +168,10 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
     ]);
 
     console.log(bedWarsChips);
-    for(d = 0; d < bedWarsChips.length; d++) {
-        generateChip(bedWarsChips[d], "bed-wars-chips");
+        for(d = 0; d < bedWarsChips.length; d++) {
+            generateChip(bedWarsChips[d], "bed-wars-chips");
+        }
     }
-
-
 }
 
 function getBedWarsModeStats(mode) {
@@ -198,8 +196,7 @@ function getBedWarsModeStats(mode) {
         ];
 }
 
-function updateChipStats(event, chipId) {
-
+function updateChipStats(event, chipId) { // Updates what a chip does when a dropdown is clicked
     newValue = event.target.value;
     console.log([chipId, newValue]);
     if(chipId = "bed-wars-stats-dreams") {

@@ -386,7 +386,7 @@ function generateChip(stats_object, where) { // Converts an array of stats into 
     selectionItems += `<option value="` + stats_object[5][c][1] + `">` + stats_object[5][c][0] + `</option>`;
   }
   if(stats_object[5].length > 0) {
-    selectionItems = `<div class="chip-small-dropdown"><select onchange="updateChipStats(event, '` + stats_object[0] + `')">` + selectionItems + `</select></div>`;
+    selectionItems = `<div class="chip-small-dropdown"><select aria-label="` + stats_object[1] +` Mode" onchange="updateChipStats(event, '` + stats_object[0] + `')">` + selectionItems + `</select></div>`;
   } else {
     selectionItems = "";
   }
