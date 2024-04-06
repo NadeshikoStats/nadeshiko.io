@@ -54,6 +54,13 @@
     padding: 10px;
     background-color: #000000cc;
     font-size: 18px;
+    position: relative;
+    backdrop-filter: blur(6px);
+}
+
+header {
+    position: relative;
+    z-index: 3;
 }
 
 .header-left,
@@ -101,6 +108,7 @@ body {
 .games {
     position: relative;
     flex-grow: 1;
+    transition-duration: 0.5s;
 }
 
 header {
@@ -253,13 +261,14 @@ footer>a:hover {
     overflow: hidden;
 }
 
-.testing {
+.nadeshiko-wrapper {
     z-index: -1;
     position: relative;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .flex-two-item {
@@ -384,8 +393,46 @@ footer>a:hover {
     height: 100%;
     width: 100%;
     transition-duration: 1s;
-
 }
+
+.quick-mode {
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    flex: 1 1 auto;
+    position: absolute;
+    width: 100%;
+    transition-duration: 0.5s;
+    bottom: 10%;
+    z-index: -3;
+}
+
+.flex-quick-mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quick-mode-game {
+    height: 48px;
+    width: 48px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    margin-left: 8px;
+    margin-right: 8px;
+    opacity: 30%;
+}
+
+.tooltip:nth-child(even) > .quick-mode-game:hover {
+    transform: rotate(10deg) scale(1.2);    
+    opacity: 100%;
+}
+
+.tooltip:nth-child(odd) > .quick-mode-game:hover {
+    transform: rotate(-10deg) scale(1.2);  
+    opacity: 100%;  
+}
+ 
 
 #flex-container-network {
     align-items: center;
@@ -426,8 +473,12 @@ footer>a:hover {
     padding: 10px;
 }
 
-h1 {
-    color: #333;
+.pushup {
+    transform: translateY(-300px);
+}
+
+.pushdown {
+    transform: translateY(300px);
 }
 
 .progress-bar {
@@ -658,17 +709,16 @@ h1 {
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted var(--nadeshiko);
 }
 
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 180px;
-    background-color: #F6ADC6D0;
-    color: #000d;
-    font-style: italic;
+    background-color: #000000d0;
+    color: #fff;
+    font-weight: 500;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 20px;
     padding: 5px 0;
     position: absolute;
     z-index: 1;
@@ -678,13 +728,16 @@ h1 {
     opacity: 0;
     transition: opacity 0.3s;
     padding: 10px;
-    font-weight: 400;
     font-size: 15px;
 }
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+.dashed-underline {
+    border-bottom: 1px dotted #fff8;
 }
 
 .tooltip .tooltiptext::after {
@@ -695,7 +748,7 @@ h1 {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: var(--nadeshiko) transparent transparent transparent;
+    border-color: #000000d0 transparent transparent transparent;
 }
 
 #online-status {
@@ -733,70 +786,6 @@ h1 {
 
 .w900 {
     font-weight: 900;
-}
-
-.p0 {
-    color: #000000;
-}
-
-.p1 {
-    color: #2b2b8f;
-}
-
-.p2 {
-    color: #1d7032;
-}
-
-.p3 {
-    color: #2e736f;
-}
-
-.p4 {
-    color: #702828;
-}
-
-.p5 {
-    color: #702f70;
-}
-
-.p6 {
-    color: #ca9837;
-}
-
-.p7 {
-    color: #9b9b9b;
-}
-
-.p8 {
-    color: #6d6d6d;
-}
-
-.p9 {
-    color: #4f4fa0;
-}
-
-.pa {
-    color: #64bc64;
-}
-
-.pb {
-    color: #67c6c6;
-}
-
-.pc {
-    color: #ca5353;
-}
-
-.pd {
-    color: #c852c8;
-}
-
-.pe {
-    color: #d1d161;
-}
-
-.pf {
-    color: #eeeeee;
 }
 
 .m0 {
@@ -861,6 +850,14 @@ h1 {
 
 .mf {
     color: #fff;
+}
+
+.o30 {
+    opacity: 30%;
+}
+
+.hidden {
+    opacity: 0;
 }
 
 

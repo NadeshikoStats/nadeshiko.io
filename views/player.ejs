@@ -36,7 +36,7 @@
   <div class="background" id="background2" style="opacity: 0"></div>  
   <div class="background-filter"></div>
 
-  <div class="testing">
+  <div class="nadeshiko-wrapper">
     <header>
       <%- include('partials/header') %>
       <div class="header2"> <!-- secondary header for game bar -->
@@ -53,7 +53,7 @@
       </div>
     </header>   
     
-    <div class="games">
+    <div class="games" id="games">
 
       <div class="flex-container unloaded" id="flex-container-network"> <!-- network stats -->
         <canvas id="skin-container" class="avatar unloaded" style="background-color: transparent"></canvas>
@@ -197,14 +197,41 @@
         <p class="subtitle-text">We'll be adding Duels to nadeshiko shortly.</p>
       </section>
     </div>
-    
+
+  </div>
+
+  <div class="quick-mode hidden pushdown" id="quick-mode">
+    <section class="player-card" id="player-card" style="align-content: center;">
+      <p class="title-text margin-top-bottom">Quick Mode</p>
+      <p class="subtitle-text">Click an icon to instantly go to that game's page for <span id="quick-mode-username"></span>.</p>
+      <p class="flex-quick-mode margin-top-bottom">
+        <span class="tooltip quick-mode-game-container"><img src="/img/icon/skyblock.png" class="quick-mode-game" onclick="switchStats('skyblock')"><span class="tooltiptext">SkyBlock</span></span></span>
+        <span class="tooltip"><img src="/img/icon/bedwars.png" class="quick-mode-game" onclick="switchStats('bedwars')"><span class="tooltiptext">Bed Wars</span></span></span>
+        <span class="tooltip"><img src="/img/icon/duels.png" class="quick-mode-game" onclick="switchStats('duels')"><span class="tooltiptext">Duels</span></span></span>
+        <span class="tooltip"><img src="/img/icon/skywars.png" class="quick-mode-game" onclick="switchStats('skywars')"><span class="tooltiptext">SkyWars</span></span>
+        <span class="tooltip"><img src="/img/icon/arcade.png" class="quick-mode-game" onclick="switchStats('arcade')"><span class="tooltiptext">Arcade</span></span></span>
+        <span class="tooltip"><img src="/img/icon/buildbattle.png" class="quick-mode-game" onclick="switchStats('buildbattle')"><span class="tooltiptext">Build Battle</span></span></span>
+        <span class="tooltip"><img src="/img/icon/murdermystery.png" class="quick-mode-game" onclick="switchStats('murdermystery')"><span class="tooltiptext">Murder Mystery</span></span></span>
+        <span class="tooltip"><img src="/img/icon/tntgames.png" class="quick-mode-game" onclick="switchStats('tntgames')"><span class="tooltiptext">TNT Games</span></span></span>
+        <span class="tooltip"><img src="/img/icon/pit.png" class="quick-mode-game" onclick="switchStats('pit')"><span class="tooltiptext">Pit</span></span></span>
+      </p>
+      <p class="flex-quick-mode margin-top-bottom">
+        <span class="tooltip"><img src="/img/icon/blitz.png" class="quick-mode-game" onclick="switchStats('blitz')"><span class="tooltiptext">Blitz</span></span></span>
+        <span class="tooltip"><img src="/img/icon/classic.png" class="quick-mode-game" onclick="switchStats('classic')"><span class="tooltiptext">Classic Games</span></span></span>
+        <span class="tooltip"><img src="/img/icon/copsandcrims.png" class="quick-mode-game" onclick="switchStats('copsandcrims')"><span class="tooltiptext">Cops and Crims</span></span></span>
+        <span class="tooltip"><img src="/img/icon/uhc.png" class="quick-mode-game" onclick="switchStats('uhc')"><span class="tooltiptext">UHC</span></span></span>
+        <span class="tooltip"><img src="/img/icon/smashheroes.png" class="quick-mode-game" onclick="switchStats('smashheroes')"><span class="tooltiptext">Smash Heroes</span></span></span>
+        <span class="tooltip"><img src="/img/icon/megawalls.png" class="quick-mode-game" onclick="switchStats('megawalls')"><span class="tooltiptext">Mega Walls</span></span></span>
+        <span class="tooltip"><img src="/img/icon/woolwars.png" class="quick-mode-game" onclick="switchStats('woolwars')"><span class="tooltiptext">Wool Wars</span></span></span>
+        <span class="tooltip"><img src="/img/icon/warlords.png" class="quick-mode-game" onclick="switchStats('warlords')"><span class="tooltiptext">Warlords</span></span></span>
+      </p>
+    </section>
   </div>
     <footer>
       <%- include('partials/footer') %>
     </footer>
   </div>
 
- 
 <script>
   var playerData;
   var currentGamemode = "network";
@@ -274,7 +301,7 @@
 
 
      document.addEventListener('keyup', function(event) {
-         if (event.keyCode === 16 && !isInputField(document.activeElement)) { // Removes sneak; sets values to defaults
+         if (event.keyCode === 16) { // Removes sneak; sets values to defaults
              skinViewer.animation.paused = false;
              let skinViewerSkin = skinViewer.playerObject.skin;
              let skinViewerObject = skinViewer.playerObject;
@@ -449,10 +476,12 @@ var skinViewer;
 
         document.getElementById("card-rank").classList.add("rank-" + playerRankCute[0]); // Changes the rank to the player's rank colour
         document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
+        document.getElementById("quick-mode-username").style.color = `var(--mc` + playerRankCute[0] + `)`;
 
         document.getElementById("card-ranktext").innerHTML = playerRankCute[1]; // Adds player's rank
 
         document.getElementById("card-name").innerText = playerData["name"];
+        document.getElementById("quick-mode-username").innerText = playerData["name"];
         document.getElementById("header-name").innerHTML = cuteRank(profileStats["tagged_name"], 0);
         document.getElementById("achievement-points").innerText = (profileStats["achievement_points"]).toLocaleString();
         document.getElementById("karma").innerText = (profileStats["karma"]).toLocaleString();
@@ -594,6 +623,50 @@ var skinViewer;
     const text = document.getElementById('social-discord-username').innerText;
     navigator.clipboard.writeText(text);
   });
+
+
+  function onShiftDown() {
+    console.log("Shift pressed");
+    document.getElementById("games").classList.add("pushup");
+    document.getElementById("games").classList.add("o30");
+    document.getElementById("quick-mode").classList.remove("pushdown");
+    document.getElementById("quick-mode").classList.remove("hidden");
+  }
+
+  function onShiftUp() {
+      console.log("Shift released");
+      document.getElementById("games").classList.remove("pushup");
+      document.getElementById("games").classList.remove("o30");
+      document.getElementById("quick-mode").classList.add("pushdown");
+      document.getElementById("quick-mode").classList.add("hidden");
+  }
+
+  let isShiftPressed = false;
+
+  function handleKeyDown(event) {
+      if (event.key === "Shift" && !isShiftPressed) {
+          isShiftPressed = true;
+          onShiftDown();
+      }
+  }
+
+  function handleKeyUp(event) {
+      if (event.key === "Shift" && isShiftPressed) {
+          isShiftPressed = false;
+          onShiftUp();
+      }
+  }
+
+  function handleVisibilityChange() {
+      if (document.visibilityState === 'visible' && isShiftPressed) {
+          isShiftPressed = false;
+          onShiftUp();
+      }
+  }
+
+  document.addEventListener('keydown', handleKeyDown);
+  document.addEventListener('keyup', handleKeyUp);
+  document.addEventListener('visibilitychange', handleVisibilityChange);
 </script> 
 </body>
 </html>
