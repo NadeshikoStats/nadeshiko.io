@@ -441,8 +441,8 @@ footer>a:hover {
 
 #flex-container-bedwars {
     mask:
-    linear-gradient(to top,  transparent 10%, black 80%, transparent 100%),
-    linear-gradient(to bottom, transparent 10%, black 80%, transparent 100%);
+    linear-gradient(to top,  transparent 5%, black 95%, transparent 100%),
+    linear-gradient(to bottom, transparent 5%, black 95%, transparent 100%);
 }
 
 .flex-item {
@@ -1015,8 +1015,8 @@ footer>a:hover {
     flex-wrap: wrap;
     width: 100%;
     overflow-y: scroll;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
     padding-top: 30px;
     padding-bottom: 30px;
 
