@@ -20,11 +20,11 @@
     <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
     <meta name="description" content="<%= playerData.status.online ? '🟢 Online!' : '🔴 Offline' %>
 
-┌ 🌐 Network Level: <%-(playerData.profile.network_level).toFixed(2)%>
-├ 📜 Quests Completed: <%-(playerData.profile.quests_completed).toLocaleString()%>
-├ ☮️ Karma: <%-(playerData.profile.karma).toLocaleString()%>
-├ 🏆 Achievement Points: <%-(playerData.profile.achievement_points).toLocaleString()%>
-└ 💸 Ranks Gifted: <%-(playerData.profile.ranks_gifted).toLocaleString()%>">
+• 🌐 Network Level: <%-(playerData.profile.network_level).toFixed(2)%>
+• 📜 Quests Completed: <%-(playerData.profile.quests_completed).toLocaleString()%>
+• ☮️ Karma: <%-(playerData.profile.karma).toLocaleString()%>
+• 🏆 Achievement Points: <%-(playerData.profile.achievement_points).toLocaleString()%>
+• 💸 Ranks Gifted: <%-(playerData.profile.ranks_gifted).toLocaleString()%>">
   <% } else { %>
     <title><%- (playerData["name"]) %> | nadeshiko.io</title> <!-- Fallback in case no stats -->
     <meta name="description" content="🌸 View Hypixel stats and generate real-time stat cards, perfect for forums signatures or to show off to friends!">
@@ -60,7 +60,7 @@
         <section class="player-card" id="player-card">
           <div class="player-info">
             <div class="details">
-              <div class="flex-two-item">
+              <div class="flex-two-item unless-tiny">
                 <span class="player-name">
                   <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span><img class="special icon smallicon unloaded" id="special" alt="User badge">
                 </span>
@@ -106,15 +106,29 @@
                 </div>
               </div>
               <div class="flex-two-item socials-buttons" id="general-bottom-bar">
-                <div class="buttons"><span class="general-button mright">Generate Card</span><a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" style="text-decoration: none;"><span class="general-button"><img src="/img/skycrypt.svg" class="shiiyu" alt="SkyCrypt logo">SkyBlock Stats</span></a></div>
+                <div class="buttons">
+                  <span class="general-button mright">Generate Card</span>
+                  
+                  <a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" class="mright" style="text-decoration: none;"><span class="general-button"><img src="/img/skycrypt.svg" class="shiiyu" alt="SkyCrypt logo">SkyBlock Stats</span></a>
+
+                  <div class="dropdown">
+                  <span class="general-button dropdown-button" onclick="" id="social-media-button">Socials</span>         <div class="dropdown-content unloaded" id="social-media-alternative">
+                    <a target="_blank" id="social-hypixel-alternative" aria-label="View Hypixel Forums profile"><span class="logo-container"><img src="/img/hypixel.svg" alt="" class="social-media-dropdown"></span> Hypixel</a>
+                    <a target="_blank" id="social-youtube-alternative" aria-label="View linked YouTube"><span class="logo-container"><img src="/img/youtube.svg" alt="" class="social-media-dropdown"></span> YouTube</a>
+                    <a target="_blank" id="social-twitter-alternative" aria-label="View linked Twitter"><span class="logo-container"><img src="/img/twitter.svg" alt="" class="social-media-dropdown"></span> Twitter</a>
+                    <a target="_blank" id="social-tiktok-alternative" aria-label="View linked TikTok"><span class="logo-container"><img src="/img/tiktok.svg" alt="" class="social-media-dropdown"></span> TikTok</a>
+                    <a target="_blank" id="social-twitch-alternative" aria-label="View linked Twitch"><span class="logo-container"><img src="/img/twitch.svg" alt="" class="social-media-dropdown"></span> Twitch</a>
+                    <a target="_blank" id="social-discord-alternative" onclick="copyText('social-discord-username', true)" aria-label="View linked Discord"><span class="logo-container"><img src="/img/discord.svg" alt="" class="social-media-dropdown"></span> <span id="social-discord-username-alternative">Discord</span></a>
+                </div></div>
+                </div>
                 
-                <div class="socials flex-two-item flex-separated">
+                <div class="socials flex-two-item flex-separated" id="social-media">
                   <a target="_blank" id="sociallink-hypixel" aria-label="View Hypixel Forums profile"><img src="/img/hypixel.svg" class="social-media-logo mright" id="social-hypixel" alt="Hypixel logo"></a>
                   <a target="_blank" id="sociallink-youtube" aria-label="View linked YouTube"><img src="/img/youtube.svg" class="social-media-logo mleft mright" id="social-youtube" alt="YouTube logo"></a>
                   <a target="_blank" id="sociallink-twitter" aria-label="View linked Twitter"><img src="/img/twitter.svg" class="social-media-logo mright mleft" id="social-twitter" alt="Twitter logo"></a>
                   <a target="_blank" id="sociallink-tiktok" aria-label="View linked TikTok"><img src="/img/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok" alt="TikTok logo"></a>
                   <a target="_blank" id="sociallink-twitch" aria-label="View linked Twitch"><img src="/img/twitch.svg" class="social-media-logo mright mleft" id="social-twitch" alt="Twitch logo"></a>
-                  <a target="_blank" id="sociallink-discord" aria-label="View linked Discord" style="display: flex; align-items: center"><img src="/img/discord.svg" class="mleft social-media-discord" id="social-discord" alt="Discord logo"><p class="w500 mleft" id="social-discord-username"></p></a>
+                  <a target="_blank" id="sociallink-discord" onclick="copyText('social-discord-username', true)" aria-label="View linked Discord" style="display: flex; align-items: center"><img src="/img/discord.svg" class="mleft social-media-discord" id="social-discord" alt="Discord logo"><p class="w500 mleft" id="social-discord-username"></p></a>
                 </div>
               </div>
             </div>
@@ -122,6 +136,7 @@
   
         </section>
       </div>
+
 
       
       <div class="flex-container unloaded" id="flex-container-bedwars">
@@ -236,6 +251,7 @@
   var playerData;
   var currentGamemode = "network";
   switchStats(currentGamemode);
+  var mobileMode = (document.documentElement.clientWidth < 800);
 
   document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
 
@@ -452,6 +468,46 @@ function generateChipStats(chipStatsSub) { // Generates the stats inside of the 
   return chipStats;
 }
 
+function openSelectedDropdown(dropdownId) {
+  console.log("removed" + dropdownId)
+
+  console.log(document.getElementById(dropdownId).classList)
+    document.getElementById(dropdownId).classList.remove("unloaded");
+    console.log(document.getElementById(dropdownId).classList)
+}
+
+document.querySelector('.dropdown-button').addEventListener('click', function() { // Opens dropdown on click (they need to make styles better)
+    var dropdownContent = this.nextElementSibling;
+
+    if (dropdownContent.classList.contains("unloaded")) { // If not visible
+      dropdownContent.style.bottom = 'auto';
+      dropdownContent.style.top = 'auto';
+      var dropdownRect = dropdownContent.getBoundingClientRect();
+      if (window.innerHeight - dropdownRect.bottom < 30 || mobileMode) { // Check if dropdown goes off the bottom of the page
+          dropdownContent.style.bottom = '100%'; // Adjust it if it does
+          dropdownContent.style.top = 'auto'; 
+      } else {
+        dropdownContent.style.bottom = 'auto';
+        dropdownContent.style.top = '100%';
+      }
+    }
+
+    dropdownContent.classList.toggle('unloaded');
+});
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('#social-media-button')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (!openDropdown.classList.contains("unloaded")) {
+        openDropdown.classList.add("unloaded");
+      }
+    }
+  }
+}
+
 function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, switch to HTTPS
   windowLocation = window.location;
 
@@ -539,19 +595,26 @@ var skinViewer;
         document.getElementById("xp-progress-bar").style.width = xpProgress;
         document.getElementById("xp-progress-number").innerText = xpProgress;
 
-        
+        if(Object.keys(profileStats["social_media"]).length != 0) {
+          document.getElementById("social-media-alternative").style.display = "";
+        }
         var socials = ["HYPIXEL", "YOUTUBE", "TWITTER", "TIKTOK", "TWITCH", "DISCORD"];
         for(a = 0; a < socials.length; a++) { // Iterates through social media and hides icons that don't exist for the player
           if(profileStats["social_media"][socials[a]] == undefined) {
             document.getElementById("social-" + (socials[a]).toLowerCase()).style.display = "none";
+            document.getElementById("social-" + (socials[a]).toLowerCase() + "-alternative").style.display = "none";
           } else if(socials[a] != "DISCORD") {
             socialMediaNew = profileStats["social_media"][socials[a]];
-            document.getElementById("sociallink-" + (socials[a]).toLowerCase()).href = !/^https?:\/\//i.test(socialMediaNew) ? `https://${socialMediaNew}` : socialMediaNew; // Adds HTTPS to the URL if it doesn't have it already
+            socialMediaNewUrl = !/^https?:\/\//i.test(socialMediaNew) ? `https://${socialMediaNew}` : socialMediaNew; // Adds HTTPS to the URL if it doesn't have it already
+
+            document.getElementById("sociallink-" + (socials[a]).toLowerCase()).href = socialMediaNewUrl;
+            document.getElementById("social-" + (socials[a]).toLowerCase() + "-alternative").href = socialMediaNewUrl;
           } else {
             document.getElementById("social-discord-username").innerText = profileStats["social_media"][socials[a]];
+            document.getElementById("social-discord-username-alternative").innerText = profileStats["social_media"][socials[a]];
           }
         }
-
+        
         generateBedWars();
 
       } else { // If no Hypixel stats, hide most buttons and show a warning
@@ -619,10 +682,13 @@ var skinViewer;
     }
   });
 
-  document.getElementById('sociallink-discord').addEventListener('click', function() {
-    const text = document.getElementById('social-discord-username').innerText;
-    navigator.clipboard.writeText(text);
-  });
+  function copyText(text, isDocumentId) {
+    if(isDocumentId) {
+      navigator.clipboard.writeText(document.getElementById(text).innerText);
+    } else {
+      navigator.clipboard.writeText(text);
+    }
+  }
 
 
   function onShiftDown() {

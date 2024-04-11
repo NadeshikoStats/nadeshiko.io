@@ -44,6 +44,14 @@
     /* White */
 }
 
+/* Media style to apply smaller font size */
+
+@media (max-width: 800px) {
+    html {
+        font-size: 14px;
+    }
+}
+
 /* Stats */
 
 
@@ -325,6 +333,11 @@ footer>a:hover {
     opacity: 1;
 }
 
+#social-media-button {
+    position: relative;
+    display: none;
+}
+
 .social-media-logo, #sociallink-discord {
     height: 24px;
     opacity: 0.5;
@@ -336,6 +349,24 @@ footer>a:hover {
     height: 24px;
     transition-duration: 0.3s;
     cursor: pointer;
+}
+
+.social-media-dropdown {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    transition-duration: 0.3s;
+}
+
+.logo-container {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle; 
+    margin-right: 5px;
 }
 
 #social-discord-username {
@@ -556,6 +587,58 @@ footer>a:hover {
     filter: brightness(0.2);
 }
 
+.dropdown-content.unloaded {
+    opacity: 0;
+    transform: translateY(-25px);
+}
+
+/* Dropdowns! (because the native ones are so uncustomizable!!) */
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: #000000d8;
+    min-width: 160px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2;
+    transition-duration: 0.5s;
+    left: 0;
+    bottom: 100%;
+    top: auto;
+}
+
+.dropdown-content a {
+    border-radius: 10px;
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition-duration: 0.5s;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--accent);
+    color: black;
+}
+
+.dropdown-content a:hover img {
+    filter: brightness(0);
+    opacity: 1;
+}
+
+.dropdown-content a img {
+    vertical-align: middle;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
 @font-face {
     font-family: Inter;
     src: url(/font/Inter-Bold.ttf);
@@ -614,6 +697,7 @@ footer>a:hover {
     font-size: 22px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 #network-error {
@@ -629,6 +713,12 @@ footer>a:hover {
 
 .subtitle-text {
     text-align: center;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
 }
 
 .general-button {
@@ -1187,7 +1277,7 @@ footer>a:hover {
 
 /* Media styles */
 
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     .avatar {
         display: none;
     }
@@ -1197,14 +1287,20 @@ footer>a:hover {
     .player-info {
         flex-direction: column;
     }
-    .header-button {
+    .header-button-text {
         display: none;
     }
+    .header-icon {
+        margin: 0;
+    }
+    .header-left a {
+        margin-right: 5px;
+    }
     .searchbar {
-        width: unset;
+        width: 100%;
     }
     .searchbar:focus {
-        width: unset;
+        width: 100%;
     }
     .header-game {
         display: none;
@@ -1221,5 +1317,31 @@ footer>a:hover {
     }
     .card-big-misc {
         margin-top: 30px;
+    }
+    #social-media {
+        display: none;
+    }
+    #social-media-button {
+        display: flex;
+    }
+    #social-media-alternative {
+        display: initial;
+        contain: content size;
+    }
+    #player-card {
+        overflow-y: scroll;
+        overflow-x: clip;
+    }
+    .unless-tiny {
+        display: initial;
+    }
+    #flex-container-network {
+        align-items: initial;
+    }
+    .general-button {
+        margin-top: 10px;
+    }
+    .buttons {
+        justify-content: space-around;
     }
 }
