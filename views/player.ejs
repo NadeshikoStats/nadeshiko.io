@@ -352,6 +352,7 @@
  } catch (error) {
      console.error("Error loading SkinView3D!: " + error);
  }
+
     document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
       document.getElementById("header-name").classList.remove("unloaded");
   });
@@ -673,14 +674,6 @@ var skinViewer;
        bg1.style.opacity = '1';
      }
    }
-
-  document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
-    if (event.key === "Enter") { // Did the user press enter?
-      event.preventDefault();
-      var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
-      window.location.href = `/player/${userInput}`; // Redirect to the desired URL
-    }
-  });
 
   function copyText(text, isDocumentId) {
     if(isDocumentId) {

@@ -9,6 +9,22 @@
         <a href="#cards" class="header-button"><img src="/img/cards.svg" class="header-icon" alt=""><span class="header-button-text">Cards</span></a>
     </div>
     <div class="header-right">
-        <input type="search" class="searchbar" id="searchbar" placeholder="&#x1F50E;&#xFE0E;  Search for a player...">
+        <span class="searchbar-container">
+            <img src="/img/search.svg" class="search-icon" id="search-icon">
+            <input type="search" class="searchbar" id="searchbar" placeholder=" Search for a player...">
+        </span>
     </div>
 </div>
+<script>
+document.getElementById('search-icon').addEventListener('click', function() {
+  document.getElementById('searchbar').focus();
+});
+
+document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
+    if (event.key === "Enter") { // Did the user press enter?
+      event.preventDefault();
+      var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+      window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+    }
+  });
+</script>

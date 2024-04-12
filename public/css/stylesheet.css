@@ -306,6 +306,21 @@ footer>a:hover {
 .searchbar {
     all: unset;
     font-size: 14px;
+    position: relative;
+    right: 0px;
+}
+
+.search-icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 5px;
+    opacity: 50%;
+    cursor: pointer;
+}
+
+.searchbar-container {
+    display: flex;
+    font-size: 14px;
     background-color: #222;
     color: white;
     transition-duration: 0.3s;
@@ -313,7 +328,7 @@ footer>a:hover {
     width: 300px;
     right: 0px;
     border-radius: 15px;
-    padding: 6px;
+    padding: 4px;
     padding-left: 15px;
     margin-right: 9px;
 }
@@ -381,7 +396,7 @@ footer>a:hover {
     opacity: 1;
 }
 
-.searchbar:focus {
+.searchbar-container:focus-within {
     outline: none;
     box-shadow: 0 0 10px rgba(200, 200, 200, 0.2);
     position: relative;
@@ -558,6 +573,11 @@ footer>a:hover {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+}
+
+.medium {
+    height: 26px;
+    width: 26px;
 }
 
 .smallicon {
@@ -1000,8 +1020,8 @@ footer>a:hover {
     flex-grow: 1;
     text-align: left;
     font-size: 16px;
-    padding: 10px;
     border-radius: 30px;
+    align-items: center;
 }
 
 .flex-two-item-vertical {
@@ -1296,10 +1316,7 @@ footer>a:hover {
     .header-left a {
         margin-right: 5px;
     }
-    .searchbar {
-        width: 100%;
-    }
-    .searchbar:focus {
+    .searchbar-container, .searchbar-container:focus-within, .searchbar:focus, .searchbar {
         width: 100%;
     }
     .header-game {
@@ -1343,5 +1360,8 @@ footer>a:hover {
     }
     .buttons {
         justify-content: space-around;
+    }
+    .wordmark {
+        display: none;
     }
 }

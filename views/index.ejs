@@ -28,7 +28,10 @@
             </span>
             <section class="player-card-home">
                 <div class="flex-two-item">
-                    <input type="search" class="searchbar searchbar-home" id="searchbar2" placeholder="&#x1F50E;&#xFE0E;  Search for a player...">
+                  <span class="searchbar-container searchbar-home">
+                    <img src="/img/search.svg" class="search-icon bigicon" id="search-icon2">
+                    <input type="search" class="searchbar" id="searchbar2" placeholder=" Search for a player..." style="font-size: 16px; flex: 1; padding: 7px 0px;">
+                  </span>
                     <span class="general-button" onclick="showMe()">Show me</span>
                 </div>
             </section>
@@ -64,7 +67,7 @@
 
 
 <script>
-document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
+document.getElementById("searchbar2").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
     if (event.key === "Enter") { // Did the user press enter?
         event.preventDefault();
         var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
@@ -72,12 +75,8 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
     }
 });
 
-document.getElementById("searchbar2").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
-    if (event.key === "Enter") { // Did the user press enter?
-        event.preventDefault();
-        var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
-        window.location.href = `/player/${userInput}`; // Redirect to the desired URL
-    }
+document.getElementById('search-icon2').addEventListener('click', function() {
+  document.getElementById('searchbar2').focus();
 });
 
 function showMe() {
