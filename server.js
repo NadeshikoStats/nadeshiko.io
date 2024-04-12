@@ -36,7 +36,7 @@ async function getVisageImage(uuid) {
 app.get('/player/:name', async (req, res) => {
   const name = req.params.name;
   var base64PlayerImage = "";
-  var computationError = "uh ho";
+  var computationError = "";
   
   try {
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
@@ -54,10 +54,11 @@ app.get('/player/:name', async (req, res) => {
     res.send('This is a test route!');
   });
 
-app.get('/card', async (req, res) => {
+  app.get('/card/:base64', async (req, res) => {
     try {
-      // Build the URL to forward the request to
-      const targetUrl = `http://localhost:2000/card?${new URLSearchParams(req.query).toString()}`;
+      const { base64 } = req.params;
+  
+      const targetUrl = `http://localhost:2000/card/${encodeURIComponent(base64)}`;
   
       // Use axios to forward the request
       const response = await axios.get(targetUrl, {
@@ -78,5 +79,5 @@ app.get('/card', async (req, res) => {
 });
   
   app.listen(port, () => {
-    console.log(`Listening at https://localhost:${port} !`);
+    console.log(`Listening at https://localhost:${port}!`);
   });
