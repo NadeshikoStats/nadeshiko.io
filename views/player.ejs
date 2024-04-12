@@ -107,7 +107,7 @@
               </div>
               <div class="flex-two-item socials-buttons" id="general-bottom-bar">
                 <div class="buttons">
-                  <span class="general-button mright">Generate Card</span>
+                  <span class="general-button mright" onclick="showCardWizard('NETWORK')">Generate Card</span>
                   
                   <a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" class="mright" style="text-decoration: none;"><span class="general-button"><img src="/img/skycrypt.svg" class="shiiyu" alt="SkyCrypt logo">SkyBlock Stats</span></a>
 
@@ -194,7 +194,7 @@
                 </div>
               </div>
             </div>
-            <span class="general-button mright margin-top-bottom">Generate Card</span>
+            <span class="general-button mright margin-top-bottom" onclick="showCardWizard('BEDWARS')">Generate Card</span>
           </div>
         </div>
     </div>
@@ -241,10 +241,47 @@
         <span class="tooltip"><img src="/img/icon/warlords.png" class="quick-mode-game" onclick="switchStats('warlords')"><span class="tooltiptext">Warlords</span></span></span>
       </p>
     </section>
-  </div>
+  </div>  
     <footer>
       <%- include('partials/footer') %>
     </footer>
+  </div>
+
+  <div id="modal-card-wizard" class="modal">
+    <div class="modal-content">
+      <p id="modal-card-wizard-close">&times;</p>
+      <div class="card-wizard-info">
+        <p class="stat-title mbottom">Card Wizard</p>
+        <p class="stat-subtitle">Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!</p>
+      </div>
+
+      <div class="flex-two-item-basic">
+      <p class="chip-small-subtitle">Username</p> 
+      <input type="text" placeholder="Player" id="card-wizard-name"></input>
+    </div>
+      
+      <div class="flex-two-item-basic">
+          <p class="tooltip"><span class="chip-small-subtitle">Game</span><span class="tooltiptext">The game to be used in the card.</span></p>
+          <div class="chip-small-dropdown">
+            <select aria-label="Game Dropdown" id="card-wizard-game">
+              <option value="NETWORK">Network</option>
+              <option value="BEDWARS">Bed Wars</option>
+              <option value="DUELS">Duels</option>
+            </select>
+          </div>
+      </div>
+
+    <div class="flex-two-item-basic">
+    <p class="chip-small-subtitle">Size</p>
+    <div class="chip-small-dropdown">
+      <select aria-label="Card Size" id="card-wizard-size">
+        <option value="FULL">Full</option>
+    </select>
+  </div>
+</div>
+
+  <span class="general-button" onclick="generateCard()">Generate Card</span>
+  <input type="text" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value="Edit this card first!">
   </div>
 
 <script>
@@ -716,6 +753,14 @@ var skinViewer;
       }
   }
 
+  function generateCard() {
+    cardName = document.getElementById("card-wizard-name").value
+    cardGame = document.getElementById("card-wizard-game").value
+    cardSize = document.getElementById("card-wizard-size").value
+
+    document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/` + btoa(`{"name": "${cardName}", "game": "${cardGame}", "size":"${cardSize}"}` )
+  }
+
   function handleVisibilityChange() {
       if (document.visibilityState === 'visible' && isShiftPressed) {
           isShiftPressed = false;
@@ -726,6 +771,26 @@ var skinViewer;
   document.addEventListener('keydown', handleKeyDown);
   document.addEventListener('keyup', handleKeyUp);
   document.addEventListener('visibilitychange', handleVisibilityChange);
+
+  function showCardWizard(game = "NETWORK") {
+    document.getElementById("card-wizard-game").value = game;
+    document.getElementById("card-wizard-name").value = playerData["name"];
+    document.getElementById("card-wizard-output").value = `Click "Generate Card" to generate a card!`;
+    document.getElementById("modal-card-wizard").style.opacity = "1";
+    document.getElementById("modal-card-wizard").style.pointerEvents = "all";
+  }
+
+  document.getElementById("modal-card-wizard-close").onclick = function() {
+    document.getElementById("modal-card-wizard").style.opacity = "0";
+    document.getElementById("modal-card-wizard").style.pointerEvents = "none";
+  }
+  
+  window.onclick = function(event) {
+    if (event.target == document.getElementById("modal-card-wizard")) {
+      document.getElementById("modal-card-wizard").style.opacity = "0";
+      document.getElementById("modal-card-wizard").style.pointerEvents = "none";
+    }
+  }
 </script> 
 </body>
 </html>

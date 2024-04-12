@@ -285,6 +285,11 @@ footer>a:hover {
     align-items: center;
 }
 
+.flex-two-item-basic {
+    display: flex;
+    align-items: center;
+}
+
 .align-top {
     align-items: flex-start;
 }
@@ -295,6 +300,10 @@ footer>a:hover {
 
 .mleft {
     margin-left: 10px;
+}
+
+.mbottom {
+    margin-bottom: 10px;
 }
 
 .linear-gradient {
@@ -1270,6 +1279,67 @@ footer>a:hover {
     pointer-events: none;
   }
 
+/* Modals */
+
+.modal {
+    background-color: #000c;
+    opacity: 0;
+    position: fixed;
+    z-index: 6;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    transition-duration: 0.5s;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+  
+  .modal-content {
+    background-color: #181818d9;
+    width: 100%;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  #modal-card-wizard-close {
+    color: red;
+    font-weight: 700;
+    float: right;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  #card-wizard-name {
+    all: unset;
+    background-color: #0008;
+    padding: 5px;
+    margin: 5px 0;
+    color: white;
+    border-radius: 15px;
+    border: 1px solid #6b6b6b74;
+  }
+
+  .card-wizard-info {
+    background-color: #0008;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card-wizard-output {
+    font-family: "Roboto Mono", ui-monospace, Menlo, "Cascadia Mono", "Segoe UI Mono", "Fira Mono", "Droid Sans Mono", monospace;;
+    border: 1px dashed rgb(196, 196, 196);
+    background-color: #505050;
+    padding: 5px;
+    font-size: 16px;
+    color: white;
+    width: 90%;
+  }
 
 /* Scrollbar CSS */
 
