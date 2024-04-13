@@ -319,6 +319,35 @@ function generateDuels() { // Generates stats and chips for Duels
     duelsStats = playerData["stats"]["Duels"];
     duelsChips = [];
 
+    let easyStats = ["wins", "losses", "kills", "deaths", "current_winstreak", "best_overall_winstreak", "coins", "melee_swings"]
+    for(e = 0; e < easyStats.length; e++) {
+        document.getElementById("duels-overall-" + easyStats[e]).innerText = checkAndFormat(duelsStats[easyStats[e]]);
+    }
+
+    document.getElementById("duels-overall-kdr").innerHTML = calculateRatio(duelsStats["kills"], duelsStats["deaths"]);
+    document.getElementById("duels-overall-wlr").innerHTML = calculateRatio(duelsStats["wins"], duelsStats["losses"]);
+    document.getElementById("duels-overall-damage-dealt").innerHTML = checkAndFormat(duelsStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`;
+
+    overallDuelsTitle = getDuelsTitle(und(duelsStats["wins"]));
+
+    let winsToGo = overallDuelsTitle[1];
+    let formattedWinsToGo;
+
+    if(winsToGo == -1) {
+        formattedWinsToGo = ``;
+    } else if(winsToGo == -2) {
+        formattedWinsToGo = `(MAXED!!!)`
+    } else {
+        formattedWinsToGo = (`(${checkAndFormat(winsToGo)} to go` + (winsToGo == 1 ? `!)` : `)`));
+    }
+
+    document.getElementById("duels-overall-title").innerHTML = overallDuelsTitle[0];
+    document.getElementById("duels-overall-to-go").innerHTML = formattedWinsToGo;
+
+    duelsProgress = ((overallDuelsTitle[2] - overallDuelsTitle[1]) / overallDuelsTitle[2])
+    document.getElementById("duels-overall-progress-number").innerText = Math.floor(duelsProgress * 100) + "%";
+    document.getElementById("duels-overall-progress-bar").style.width = (Math.floor(duelsProgress * 100) + "%");
+    
     var duelsModes = [
         ["UHC 1v1", "uhc_duel", "uhc", false],
         ["UHC 2v2", "uhc_doubles", "uhc", false],
@@ -415,7 +444,7 @@ function getDuelsTitle(wins, name = "") { // Generates a Duels title based on th
     multiplier = (name == "" ? 2 : 1); // Multiply required wins by 2 for general Duels titles
 
     const duelsTitles = [
-        { minimumWins: 0, increment: -1, title: "No Title", color: "8" },
+        { minimumWins: 0, increment: 50, title: "No Title", color: "8" },
         { minimumWins: 50, increment: 10, title: "Rookie", color: "8" },
         { minimumWins: 100, increment: 30, title: "Iron", color: "f" },
         { minimumWins: 250, increment: 50, title: "Gold", color: "6" },
@@ -441,7 +470,7 @@ function getDuelsTitle(wins, name = "") { // Generates a Duels title based on th
 
     let winsToGo = -1;
     let level = 0;
-    if (chosenTitle["increment"] > 0) {
+    if (chosenTitle["title"] != "No Title") {
         level = Math.floor((wins - (chosenTitle["minimumWins"] * multiplier)) / (chosenTitle["increment"] * multiplier)) + 1;
         winsToGo = (chosenTitle["minimumWins"] * multiplier + chosenTitle["increment"] * level * multiplier) - wins;
 
@@ -449,6 +478,8 @@ function getDuelsTitle(wins, name = "") { // Generates a Duels title based on th
             level = chosenTitle["max"];
             winsToGo = -2;
         }
+    } else {
+        winsToGo = 50 * multiplier - wins;
     }
 
     let romanSuffix = "";    
@@ -466,5 +497,5 @@ function getDuelsTitle(wins, name = "") { // Generates a Duels title based on th
 
     let rawDuelsTitle = name + chosenTitle["title"] + romanSuffix;
 
-    return [`<span class="m${chosenTitle["color"]}">` + (chosenTitle["bold"] ? `<strong>${rawDuelsTitle}</strong>` : rawDuelsTitle) + `</span>`, winsToGo];
+    return [`<span class="m${chosenTitle["color"]}">` + (chosenTitle["bold"] ? `<strong>${rawDuelsTitle}</strong>` : rawDuelsTitle) + `</span>`, winsToGo, chosenTitle["increment"] * multiplier];
 }

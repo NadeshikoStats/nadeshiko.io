@@ -27,7 +27,7 @@
 • 💸 Ranks Gifted: <%-(playerData.profile.ranks_gifted).toLocaleString()%>">
   <% } else { %>
     <title><%- (playerData["name"]) %> | nadeshiko.io</title> <!-- Fallback in case no stats -->
-    <meta name="description" content="🌸 View Hypixel stats and generate real-time stat cards, perfect for forums signatures or to show off to friends!">
+    <meta name="description" content="🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!">
   <% } %>
 </head>
 
@@ -139,7 +139,7 @@
 
 
       
-      <div class="flex-container unloaded" id="flex-container-bedwars">
+      <div class="flex-container unloaded minigame-flex-container" id="flex-container-bedwars">
         <!-- bed wars stats -->
         <div class="chip-container" id="bed-wars-chips">
           <div class="chip-small but-big">
@@ -199,20 +199,60 @@
         </div>
     </div>
 
-    <div class="flex-container unloaded" id="flex-container-skywars">
+    <div class="flex-container unloaded minigame-flex-container" id="flex-container-skywars">
+      <!-- skywars stats -->
       <section class="player-card" id="player-card" style="align-content: center;">
         <p class="title-text">Coming soon!</p>
         <p class="subtitle-text">We'll be adding SkyWars to nadeshiko shortly.</p>
       </section>
     </div>
 
-    <div class="flex-container unloaded" id="flex-container-duels">
+    <div class="flex-container unloaded minigame-flex-container" id="flex-container-duels">
         <!-- duels stats -->
         <div class="chip-container" id="duels-chips">
           <div class="chip-small but-big">
             <div class="chip-small-background-filter"></div>
             <p class="chip-small-title">Duels</p>
-            idk
+            <div class="chip-small-container">
+              <p class="margin10">
+                <span id="duels-overall-title"></span> <span id="duels-overall-to-go"></span>
+              </p>
+              <div class="progress-bar">
+                <span class="progress-number" id="duels-overall-progress-number"><span class="mc">Unknown</span></span>
+                <div class="progress" style="width: 0%;" id="duels-overall-progress-bar"></div>
+              </div>
+              <div class="flex-two-item align-top flippable margin10">
+                <div class="card-big-stats">
+                  <p class="super-subtitle">Stats</p>
+                  <div class="chip-small-statistic-row">
+                      <p>Winstreak <span class="statistic" id="duels-overall-current_winstreak"></span></p>
+                      <p>Best Winstreak <span class="statistic" id="duels-overall-best_overall_winstreak"></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                      <p>Wins <span class="statistic" id="duels-overall-wins"><span class="mc">Unknown</span></span></p>
+                      <p>Losses <span class="statistic" id="duels-overall-losses"><span class="mc">Unknown</span></span></p>
+                      <p>W L/R <span class="statistic" id="duels-overall-wlr"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                      <p>Kills <span class="statistic" id="duels-overall-kills"><span class="mc">Unknown</span></span></p>
+                      <p>Deaths <span class="statistic" id="duels-overall-deaths"><span class="mc">Unknown</span></span></p>
+                      <p>K/D R <span class="statistic" id="duels-overall-kdr"><span class="mc">Unknown</span></span></p>
+                  </div>
+                </div>
+                <div class="card-big-misc">
+                  <p class="super-subtitle">Misc</p>
+                  <div class="chip-small-statistic-row">
+                      <p>Tokens <span class="statistic" id="duels-overall-coins"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                    <p>Damage Dealt <span class="statistic" id="duels-overall-damage-dealt"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                    <p>Clicks <span class="statistic" id="duels-overall-melee_swings"><span class="mc">Unknown</span></span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
             <span class="general-button mright margin-top-bottom" onclick="showCardWizard('DUELS')">Generate Card</span>
           </div>
       </div>
@@ -436,7 +476,7 @@
     }
 
     if (years > 0) return `${years}y ago`;
-    if (months > 0) return `${months}m ago`;
+    if (months > 0) return `${months}mo ago`;
     if (days > 0) return `${days}d ago`;
     if (hours > 0) return `${hours}h ago`;
     if (minutes > 0) return `${minutes}min ago`;
@@ -500,7 +540,7 @@ function generateChipStats(chipStatsSub) { // Generates the stats inside of the 
   let chipStats = "";
 
   for(a = 0; a < chipStatsSub.length; a++) { // For each row in the chip
-    chipStats += `<div class="chip-small-statistic-row">`;
+    chipStats += `<div class="chip-small-statistic-row ${chipStatsSub[a][0] ? `more-margin` : ``}">`;
     for(b = 1; b < chipStatsSub[a].length; b++) {
       chipItem = chipStatsSub[a][b];
       if(chipItem != undefined) {
@@ -767,7 +807,7 @@ var skinViewer;
     cardGame = document.getElementById("card-wizard-game").value
     cardSize = document.getElementById("card-wizard-size").value
 
-    document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/` + btoa(`{"name": "${cardName}", "game": "${cardGame}", "size":"${cardSize}"}` )
+    document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/` + btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}` )
   }
 
   function handleVisibilityChange() {

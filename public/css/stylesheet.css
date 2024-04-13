@@ -494,7 +494,7 @@ footer>a:hover {
 }
 
 
-#flex-container-bedwars {
+.minigame-flex-container {
     mask:
     linear-gradient(to top,  transparent 5%, black 95%, transparent 100%),
     linear-gradient(to bottom, transparent 5%, black 95%, transparent 100%);
@@ -1233,6 +1233,10 @@ footer>a:hover {
     margin-bottom: 12px;
 }
 
+.more-margin {
+    margin-bottom: 18px;
+}
+
 .chip-small-statistic-row > p {
     flex: 1;
     margin-right: 3px;
@@ -1391,7 +1395,7 @@ footer>a:hover {
     .header-left a {
         margin-right: 5px;
     }
-    .searchbar-container, .searchbar-container:focus-within, .searchbar:focus, .searchbar {
+    .searchbar-container, .searchbar-container:focus-within, .searchbar:focus, .searchbar, .card-big-misc, .card-big-stats {
         width: 100%;
     }
     .header-game {
