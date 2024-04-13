@@ -1242,14 +1242,14 @@ footer>a:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 }
 
 .chip-small-dropdown select {
     all: unset;
-    width: 100%;
-    padding: 10px;
+    width: calc(100% - 25px);
+    padding: 5px;
     padding-left: 20px;
-    margin: 5px 0;
     border: 1px solid #6b6b6b74;
     border-radius: 100px;
     background-color: #0008;
@@ -1264,7 +1264,7 @@ footer>a:hover {
   }
   
   .chip-small-dropdown {
-    width: 200px;
+    width: min(100%, 200px);
     position: relative;
     z-index: 2;
     cursor: pointer;
@@ -1274,9 +1274,14 @@ footer>a:hover {
     content: '\25BC';
     color: white;
     position: absolute;
-    right: -5px;
-    top: 18px;
+    right: 13px;
+    top: 8px;
+    font-size: 12px;
     pointer-events: none;
+  }
+
+  .chip-icon {
+    margin-left: 5px;
   }
 
 /* Modals */

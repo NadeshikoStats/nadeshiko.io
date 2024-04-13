@@ -1,4 +1,5 @@
-var bedWarsStats, totalDreamModeStats; 
+var bedWarsStats, totalDreamModeStats, duelsStats; 
+var allDuelsStats = { };
 
 function calculateRatio(numerator, denominator, digits = 2) { // Calculates a ratio based on two stats
     return checkAndFormat((numerator) / (und(denominator) == 0 ? 1 : (denominator)), digits);
@@ -32,6 +33,23 @@ function getBedWarsLevel(exp) { // Calculates a player's Bed Wars level based on
     return level + exp / 5000;
 }
 
+
+function convertToRoman(num) {
+    const romanNumerals = {
+        M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XL: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1
+    };
+
+    let result = '';
+    
+    for (const numeral in romanNumerals) {
+        const count = Math.floor(num / romanNumerals[numeral]);
+        num -= count * romanNumerals[numeral];
+        result += numeral.repeat(count);
+    }
+    
+    return result;
+}
+
 function linearGradient(colors) { // Generates a linear gradient based on an array of hex colour or Minecraft colour code inputs
     var gradient = 'linear-gradient(90deg';
     var colorsLength = colors.length;
@@ -56,7 +74,7 @@ function linearGradient(colors) { // Generates a linear gradient based on an arr
 }
 
 function generateBedWars() { // Generates stats and chips for Bed Wars
-    bedWarsStats = playerData["stats"]["Bedwars"]; // add check if undefined
+    bedWarsStats = playerData["stats"]["Bedwars"];
     if(bedWarsStats != undefined) {
 
     var modes = ["eight_one", "eight_two", "four_three", "four_four", "two_four"];
@@ -113,13 +131,15 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
     }
 
     for(a = 0; a < modes.length; a++) { // Regular stats
-        bedWarsChip = [
+        let bedWarsChip = [
             ("bed-wars-stats-" + (modeNames[a]).toLowerCase()), // ID
             modeNames[a], // Title
             "", // Subtitle (none)
             ("/img/games/bedwars/" + (modeNames[a]).toLowerCase() + ".png"), // Image
             getBedWarsModeStats(modes[a]), // Displayed stats
-            [] // Other stats (shown in drop-down menu) (none here)
+            [], // Other stats (shown in drop-down menu) (none here)
+            "", // Icon
+            "bedwars" // Gamemode (used for dropdowns)
         ];
         bedWarsChips.push(bedWarsChip);
     }
@@ -164,7 +184,9 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
         "",
         "/img/games/bedwars/4v4.png",
         totalDreamModeStats,
-        dreamModes
+        dreamModes,
+        "",
+        "bedwars"
     ]);
 
     console.log(bedWarsChips);
@@ -196,10 +218,189 @@ function getBedWarsModeStats(mode) {
         ];
 }
 
-function updateChipStats(event, chipId) { // Updates what a chip does when a dropdown is clicked
+function getDuelsStats(mode, is_bridge = false, cuteName) {
+    importedDuelsStats = [
+        checkAndFormat(duelsStats["current_winstreak_mode_" + mode]),
+        checkAndFormat(duelsStats["best_winstreak_mode_" + mode]),
+        checkAndFormat(duelsStats[mode + "_wins"]),
+        checkAndFormat(duelsStats[mode + "_losses"]),
+        calculateRatio(duelsStats[mode + "_wins"], duelsStats[mode + "_losses"]),
+    ]
+
+    if(is_bridge) { // Bridge uses a different wins counter
+        importedDuelsStats.push(
+            checkAndFormat(duelsStats[mode + "_bridge_kills"]),
+            checkAndFormat(duelsStats[mode + "_bridge_deaths"]),
+            calculateRatio(duelsStats[mode + "_bridge_kills"], duelsStats[mode + "_bridge_deaths"]),
+        )
+    } else {
+        importedDuelsStats.push(
+            checkAndFormat(duelsStats[mode + "_kills"]),
+            checkAndFormat(duelsStats[mode + "_deaths"]),
+            calculateRatio(duelsStats[mode + "_kills"], duelsStats[mode + "_deaths"]),
+        )
+    }
+
+    return [[
+            [true, ["Winstreak", importedDuelsStats[0]], ["Best Winstreak", importedDuelsStats[1]]],
+            [false, ["Wins", importedDuelsStats[2]],
+                ["Losses", importedDuelsStats[3]],
+                ["W L/R", importedDuelsStats[4]]
+            ],
+            [false, ["Kills", importedDuelsStats[5]],
+                ["Deaths", importedDuelsStats[6]],
+                ["K D/R", importedDuelsStats[7]]
+            ],
+        ], getDuelsTitle(checkAndFormat(duelsStats[mode + "_wins"]), cuteName)];
+}
+
+function getDuelsOverallModeStats(modeArray, is_bridge = false, cuteName) {
+
+    if(is_bridge) {
+        roundRobinDuelsStatNames = ["wins", "losses", "bridge_kills", "bridge_deaths"];
+    } else {
+        roundRobinDuelsStatNames = ["wins", "losses", "kills", "deaths"];
+    }
+
+    roundRobinDuelsStatReverseNames = ["current_winstreak_mode", "best_winstreak_mode"]
+
+    roundRobinDuelsStats = sumStats(roundRobinDuelsStatNames, modeArray, duelsStats);
+    roundRobinDuelsStats2 = maxStats(roundRobinDuelsStatReverseNames, modeArray, duelsStats, "_", true);
+
+    importedDuelsStats = []
+
+    return [[
+        [true, ["Winstreak", checkAndFormat(roundRobinDuelsStats2[0])], ["Best Winstreak", checkAndFormat(roundRobinDuelsStats2[1])]],
+        [false, ["Wins", checkAndFormat(roundRobinDuelsStats[0])],
+            ["Losses", checkAndFormat(roundRobinDuelsStats[1])],
+            ["W L/R", calculateRatio(roundRobinDuelsStats[0], roundRobinDuelsStats[1])]
+        ],
+        [false, ["Kills", checkAndFormat(roundRobinDuelsStats[2])],
+            ["Deaths", checkAndFormat(roundRobinDuelsStats[3])],
+            ["K D/R", calculateRatio(roundRobinDuelsStats[2], roundRobinDuelsStats[3])]
+        ],
+    ], getDuelsTitle(roundRobinDuelsStats[0], cuteName)];
+}
+
+
+function sumStats(statNames, modeNames, statArray, separator = "_", reverse = false) { // Checks and adds stats, round-robin style
+    statSum = Array(statNames.length).fill(0);
+    for(aRow = 0; aRow < statNames.length; aRow++) {
+        for(aCol = 0; aCol < modeNames.length; aCol++) {
+            if(reverse) {
+                statSum[aRow] += und(statArray[statNames[aRow] + separator + modeNames[aCol]]);
+            } else {
+                statSum[aRow] += und(statArray[modeNames[aCol] + separator + statNames[aRow]]);
+            }
+        }
+    }
+    return statSum;
+}
+
+function maxStats(statNames, modeNames, statArray, separator = "_", reverse = false) { // Determines the maximum value of a stat, round-robin style
+    statMax = Array(statNames.length).fill(0)
+    for(aRow = 0; aRow < statNames.length; aRow++) {
+        for(aCol = 0; aCol < modeNames.length; aCol++) {
+            var testStat;
+            if(reverse) {
+                testStat = und(statArray[statNames[aRow] + separator + modeNames[aCol]])
+            } else {
+                testStat =  und(modeNames[aCol] + separator + statArray[statNames[aRow]])
+            }
+            if(testStat > statMax[aRow]) {
+                statMax[aRow] = testStat;
+            }
+        }
+    }
+    return statMax;
+}
+
+function generateDuels() { // Generates stats and chips for Duels
+    duelsStats = playerData["stats"]["Duels"];
+    duelsChips = [];
+
+    var duelsModes = [
+        ["UHC 1v1", "uhc_duel", "uhc", false],
+        ["UHC 2v2", "uhc_doubles", "uhc", false],
+        ["UHC 4v4", "uhc_four", "uhc", false],
+        ["UHC Deathmatch", "uhc_meetup", "uhc", false],
+        ["OP 1v1", "op_duel", "op", false],
+        ["OP 2v2", "op_doubles", "op", false],
+        ["SkyWars 1v1", "sw_duel", "sw", false],
+        ["SkyWars 2v2", "sw_doubles", "sw", false],
+        ["Bow", "bow_duel", "bow", false],
+        ["Blitz", "blitz_duel", "blitz", false],
+        ["Mega Walls", "mw_duel", "mw", false],
+        ["Mega Walls Doubles", "mw_doubles", "mw", false],
+        ["Sumo", "sumo_duel", "sumo", false],
+        ["Bow Spleef", "bowspleef_duel", "bowspleef", false],
+        ["Parkour", "parkour_eight", "parkour", false],
+        ["Boxing", "boxing_duel", "boxing", false],
+        ["Classic", "classic_duel", "classic", false],
+        ["NoDebuff", "potion_duel", "nodebuff", false],
+        ["Combo", "combo_duel", "combo", false],
+        ["Bridge 1v1", "bridge_duel", "bridge", true],
+        ["Bridge 2v2", "bridge_doubles", "bridge", true],
+        ["Bridge 3v3", "bridge_threes", "bridge", true],
+        ["Bridge 4v4", "bridge_four", "bridge", true],
+        ["Bridge 2v2v2v2", "bridge_2v2v2v2", "bridge", true],
+        ["Bridge 3v3v3v3", "bridge_3v3v3v3", "bridge", true],
+        ["Bridge CTF 3v3", "capture_threes", "bridge", true],
+        ["Duel Arena", "duel_arena", "arena", false]
+    ];
+
+    var duelsWithMultipleModes = [
+        ["bridge", "Bridge", ["bridge_duel", "bridge_doubles", "bridge_threes", "bridge_four", "bridge_2v2v2v2", "bridge_3v3v3v3", "capture_threes"]], ["mw", "Mega Walls", ["mw_duel", "mw_doubles"]], ["sw", "SkyWars", ["sw_duel", "sw_doubles"]], ["op", "OP", ["op_duel", "op_doubles"]], ["uhc", "UHC", ["uhc_duel", "uhc_doubles"]]]
+    
+        var duelsStatsToShow = [["bridge", "Bridge", [["Overall","bridge"],["1v1","bridge_duel"],["2v2","bridge_doubles"],["3v3","bridge_threes"],["4v4","bridge_four"],["2v2v2v2","bridge_2v2v2v2"],["3v3","bridge_3v3v3v3"],["CTF 3v3","capture_threes"]]], ["sw", "SkyWars", [["Overall","sw"],["1v1","sw_duel"],["2v2","sw_doubles"]]], ["classic_duel", "Classic", []], ["uhc", "UHC", [["Overall","uhc"],["1v1","uhc_duel"],["2v2","uhc_doubles"],["4v4","uhc_four"],["Deathmatch","uhc_meetup"]]], ["sumo_duel", "Sumo", []], ["parkour_eight", "Parkour", []], ["blitz_duel", "Blitz", []], ["bow_duel", "Bow", []], ["mw", "Mega Walls", [["Overall","mw"],["1v1","mw_duel"],["2v2","mw_doubles"]]], ["bowspleef_duel", "Bow Spleef", []], ["op", "OP", [["Overall","op"],["1v1","op_duel"],["2v2","op_doubles"]]], ["combo_duel", "Combo", []], ["boxing_duel", "Boxing", []], ["potion_duel", "Nodebuff", []], ["duel_arena", "Arena", []]];
+
+    for(a = 0; a < duelsModes.length; a++) {
+        allDuelsStats[duelsModes[a][1]] = getDuelsStats(duelsModes[a][1], duelsModes[a][3], duelsModes[a][0]);
+    }
+    for(a = 0; a < duelsWithMultipleModes.length; a++) {
+        allDuelsStats[duelsWithMultipleModes[a][0]] = getDuelsOverallModeStats(duelsWithMultipleModes[a][2], (duelsWithMultipleModes[a][0] === "bridge"), duelsWithMultipleModes[a][1]);
+    }
+
+
+    for(a = 0; a < duelsStatsToShow.length; a++) { // Regular stats
+        currentDuel = duelsStatsToShow[a];
+        currentDuelPrefix = allDuelsStats[currentDuel[0]][1];
+
+        winsToGo = currentDuelPrefix[1];
+        let formattedWinsToGo;
+
+        if(winsToGo == -1) {
+            formattedWinsToGo = ``;
+        } else if(winsToGo == -2) {
+            formattedWinsToGo = `(MAXED!!!)`
+        } else {
+            formattedWinsToGo = (`(${checkAndFormat(winsToGo)} to go` + (winsToGo == 1 ? `!)` : `)`));
+        }
+
+        duelsChip = [
+            ("duels-stats-" + (currentDuel[0]).toLowerCase()), // ID
+            currentDuel[1], // Title
+            `${currentDuelPrefix[0]} ${formattedWinsToGo}`, // Subtitle (none)
+            (`/img/games/home.png`), // Background image
+            allDuelsStats[currentDuel[0]][0], // Displayed stats
+            currentDuel[2], // Other stats (shown in drop-down menu)
+            (`/img/icon/duels/${currentDuel[0]}.png`), // Chip image
+            "duels", // gamemode
+        ];
+        duelsChips.push(duelsChip);
+    }
+
+    for(d = 0; d < duelsChips.length; d++) {
+        generateChip(duelsChips[d], "duels-chips");
+    }
+}
+
+function updateChipStats(event, chipId, gamemode) { // Updates what a chip does when a dropdown is clicked
     newValue = event.target.value;
     console.log([chipId, newValue]);
-    if(chipId = "bed-wars-stats-dreams") {
+    if(gamemode == "duels") {
+        document.getElementById(chipId).innerHTML = generateChipStats(allDuelsStats[newValue][0]);
+    } else if(gamemode = "bedwars") {
         if(newValue == "overall") {
             document.getElementById(chipId).innerHTML = generateChipStats(totalDreamModeStats);
         } else {
@@ -207,4 +408,63 @@ function updateChipStats(event, chipId) { // Updates what a chip does when a dro
             document.getElementById(chipId).innerHTML = generateChipStats(getBedWarsModeStats(newValue));
         }
     }
+}
+
+function getDuelsTitle(wins, name = "") { // Generates a Duels title based on the number of wins a player has in a certain gamemode
+
+    multiplier = (name == "" ? 2 : 1); // Multiply required wins by 2 for general Duels titles
+
+    const duelsTitles = [
+        { minimumWins: 0, increment: -1, title: "No Title", color: "8" },
+        { minimumWins: 50, increment: 10, title: "Rookie", color: "8" },
+        { minimumWins: 100, increment: 30, title: "Iron", color: "f" },
+        { minimumWins: 250, increment: 50, title: "Gold", color: "6" },
+        { minimumWins: 500, increment: 100, title: "Diamond", color: "3" },
+        { minimumWins: 1000, increment: 200, title: "Master", color: "2" },
+        { minimumWins: 2000, increment: 600, title: "Legend", color: "4", bold: true },
+        { minimumWins: 5000, increment: 1000, title: "Grandmaster", color: "e", bold: true },
+        { minimumWins: 10000, increment: 3000, title: "Godlike", color: "5", bold: true },
+        { minimumWins: 25000, increment: 5000, title: "CELESTIAL", color: "b", bold: true },
+        { minimumWins: 50000, increment: 10000, title: "DIVINE", color: "d", bold: true },
+        { minimumWins: 100000, increment: 10000, max: 50, title: "ASCENDED", color: "c", bold: true }
+    ];
+
+    let chosenTitle = duelsTitles[0];
+
+    for (let i = 0; i < duelsTitles.length; i++) {
+      if (wins >= duelsTitles[i]["minimumWins"] * multiplier) {
+        chosenTitle = duelsTitles[i];
+      } else {
+        break;
+      }
+    }
+
+    let winsToGo = -1;
+    let level = 0;
+    if (chosenTitle["increment"] > 0) {
+        level = Math.floor((wins - (chosenTitle["minimumWins"] * multiplier)) / (chosenTitle["increment"] * multiplier)) + 1;
+        winsToGo = (chosenTitle["minimumWins"] * multiplier + chosenTitle["increment"] * level * multiplier) - wins;
+
+        if ('max' in chosenTitle && level > chosenTitle["max"]) {
+            level = chosenTitle["max"];
+            winsToGo = -2;
+        }
+    }
+
+    let romanSuffix = "";    
+    if (level > 1) {
+        romanSuffix = " " + convertToRoman(level);
+    }
+
+    if(name != "") { // Adds a space to the name if it's not empty
+        name = `${name} `;
+    }
+
+    if(chosenTitle["title"] == "No Title") { // Remove name with no title so it just says "No Title"
+        name = "";
+    }
+
+    let rawDuelsTitle = name + chosenTitle["title"] + romanSuffix;
+
+    return [`<span class="m${chosenTitle["color"]}">` + (chosenTitle["bold"] ? `<strong>${rawDuelsTitle}</strong>` : rawDuelsTitle) + `</span>`, winsToGo];
 }

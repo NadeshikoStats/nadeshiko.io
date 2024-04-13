@@ -207,10 +207,15 @@
     </div>
 
     <div class="flex-container unloaded" id="flex-container-duels">
-      <section class="player-card" id="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding Duels to nadeshiko shortly.</p>
-      </section>
+        <!-- duels stats -->
+        <div class="chip-container" id="duels-chips">
+          <div class="chip-small but-big">
+            <div class="chip-small-background-filter"></div>
+            <p class="chip-small-title">Duels</p>
+            idk
+            <span class="general-button mright margin-top-bottom" onclick="showCardWizard('DUELS')">Generate Card</span>
+          </div>
+      </div>
     </div>
 
   </div>
@@ -471,15 +476,18 @@ function generateChip(stats_object, where) { // Converts an array of stats into 
   fullCard += `<div class="chip-small"` + (stats_object[3] == undefined ? `>` : ` style="background-image: url(` + stats_object[3] + `);">`); // Adds parent div, background
 
   for(c = 0; c < stats_object[5].length; c++) {
-    selectionItems += `<option value="` + stats_object[5][c][1] + `">` + stats_object[5][c][0] + `</option>`;
+    selectionItems += `<option value="${stats_object[5][c][1]}">${stats_object[5][c][0]}</option>`;
   }
   if(stats_object[5].length > 0) {
-    selectionItems = `<div class="chip-small-dropdown"><select aria-label="` + stats_object[1] +` Mode" onchange="updateChipStats(event, '` + stats_object[0] + `')">` + selectionItems + `</select></div>`;
+    selectionItems = `<div class="chip-small-dropdown"><select aria-label="${stats_object[1]} Mode" onchange="updateChipStats(event, '${stats_object[0]}', '${stats_object[7]}')">${selectionItems}</select></div>`;
   } else {
     selectionItems = "";
   }
 
-  fullCard += `<div class="chip-small-top"><div class="chip-small-background-filter"></div> <p class="chip-small-title">` + stats_object[1] + `</p>` + selectionItems + `</div><p class="chip-small-subtitle">` + stats_object[2] + `</p><div class="chip-small-container" id="`+ stats_object[0] +`">`; // Adds title
+  chipImage = ((stats_object[6] != undefined && stats_object[6] != "") ? `<img src="${stats_object[6]}" class="chip-icon">` : "")
+
+
+  fullCard += `<div class="chip-small-top"><div class="chip-small-background-filter"></div> <p class="chip-small-title">${stats_object[1]}</p>${selectionItems + chipImage}</div><p class="chip-small-subtitle">${stats_object[2]}</p><div class="chip-small-container" id="${stats_object[0]}">`; // Adds title
 
   fullCard += generateChipStats(stats_object[4]);
 
@@ -496,7 +504,7 @@ function generateChipStats(chipStatsSub) { // Generates the stats inside of the 
     for(b = 1; b < chipStatsSub[a].length; b++) {
       chipItem = chipStatsSub[a][b];
       if(chipItem != undefined) {
-        chipStats += `<p>` + chipItem[0] + ` ` + `<span class="statistic">` + chipItem[1] + `</span></p>`;
+        chipStats += `<p>${chipItem[0]} <span class="statistic">${chipItem[1]}</span></p>`;
       }
     }
     // add additional margin later
@@ -654,6 +662,7 @@ var skinViewer;
         }
         
         generateBedWars();
+        generateDuels();
 
       } else { // If no Hypixel stats, hide most buttons and show a warning
         document.getElementById("general-bottom-bar").style.display = "none";
