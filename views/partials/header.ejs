@@ -2,7 +2,9 @@
     <div class="header-left">
         <a href="/" style="display: flex;">
             <img class="logo icon" src="/img/nadeshiko_logo.png" alt="nadeshiko logo">
-            <p class="wordmark">nadeshiko</p>
+            <div class="wordmark" aria-hidden="true">
+              <span style="--delay: 0s">n</span><span style="--delay: 0.05s">a</span><span style="--delay: 0.1s">d</span><span style="--delay: 0.15s">e</span><span style="--delay: 0.2s">s</span><span style="--delay: 0.25s">h</span><span style="--delay: 0.3s">i</span><span style="--delay: 0.35s">k</span><span style="--delay: 0.4s">o</span>
+            </div>
         </a>
         <a href="/" class="header-button"><img src="/img/home.svg" class="header-icon" alt=""><span class="header-button-text">Home<span></a>
         <a href="#about" class="header-button"><img src="/img/about.svg" class="header-icon" alt=""><span class="header-button-text">About</span></a>
@@ -25,6 +27,14 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
       event.preventDefault();
       var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
       window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+    }
+  });
+
+  var wordmark = document.querySelector('.wordmark');
+  wordmark.addEventListener('mouseenter', function() {
+    if(!wordmark.classList.contains("animate")) {
+      wordmark.classList.add('animate');
+      setTimeout(function() { wordmark.classList.remove('animate'); }, 1800);
     }
   });
 </script>

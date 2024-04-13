@@ -154,6 +154,28 @@ footer>a:hover {
     font-weight: bold;
 }
 
+.wordmark.animate span {
+    display: inline-block;
+    animation: wave 1s;
+    animation-delay: var(--delay);
+}
+
+@keyframes wave {
+    0%, 100% {
+      transform: translateY(0);
+    }
+
+    25% {
+      transform: translateY(-10px) rotate(10deg);
+      color: var(--nadeshiko);
+    }
+
+    70% {
+        transform: translateY(10px) rotate(-10deg);
+        color: var(--nadeshiko);
+    }
+  }
+
 .header-button {
     transition-duration: 0.3s;
     background-color: #222;
