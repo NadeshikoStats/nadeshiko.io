@@ -33,6 +33,11 @@ async function getVisageImage(uuid) {
   }
 }
 
+app.get('/p/:name', (req, res) => {
+  const { name } = req.params;
+  res.redirect(`/player/${name}`);
+});
+
 app.get('/player/:name', async (req, res) => {
   const name = req.params.name;
   var base64PlayerImage = "";

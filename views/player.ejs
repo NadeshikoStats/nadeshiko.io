@@ -162,7 +162,7 @@
                   <div class="chip-small-statistic-row">
                       <p>Wins <span class="statistic" id="bed-wars-overall-wins"><span class="mc">Unknown</span></span></p>
                       <p>Losses <span class="statistic" id="bed-wars-overall-losses"><span class="mc">Unknown</span></span></p>
-                      <p>W L/R <span class="statistic" id="bed-wars-overall-wlr"><span class="mc">Unknown</span></span></p>
+                      <p>W/L R <span class="statistic" id="bed-wars-overall-wlr"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
                       <p>Kills <span class="statistic" id="bed-wars-overall-kills"><span class="mc">Unknown</span></span></p>
@@ -201,10 +201,52 @@
 
     <div class="flex-container unloaded minigame-flex-container" id="flex-container-skywars">
       <!-- skywars stats -->
-      <section class="player-card" id="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding SkyWars to nadeshiko shortly.</p>
-      </section>
+      <div class="chip-container" id="skywars-chips">
+        <div class="chip-small but-big">
+          <div class="chip-small-background-filter"></div>
+          <p class="chip-small-title">SkyWars</p>
+          <div class="chip-small-container">
+            <p class="margin10">
+              Level <span class="w500" id="skywars-level"></span>
+            </p>
+            <div class="progress-bar">
+              <span class="progress-number" id="skywars-xp-progress-number"><span class="mc">Unknown</span></span>
+              <div class="progress" style="width: 0%;" id="skywars-xp-progress-bar"></div>
+            </div>
+            <div class="flex-two-item align-top flippable margin10">
+              <div class="card-big-stats">
+                <p class="super-subtitle">Stats</p>
+                <div class="chip-small-statistic-row">
+                    <p>Wins <span class="statistic" id="skywars-overall-wins"><span class="mc">Unknown</span></span></p>
+                    <p>Losses <span class="statistic" id="skywars-overall-losses"><span class="mc">Unknown</span></span></p>
+                    <p>W/L R <span class="statistic" id="skywars-overall-wlr"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                    <p>Kills <span class="statistic" id="skywars-overall-kills"><span class="mc">Unknown</span></span></p>
+                    <p>Deaths <span class="statistic" id="skywars-overall-deaths"><span class="mc">Unknown</span></span></p>
+                    <p>K/D R <span class="statistic" id="skywars-overall-kdr"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+              <div class="card-big-misc">
+                <p class="super-subtitle">Misc</p>
+                <div class="chip-small-statistic-row">
+                    <p>Coins <span class="statistic" id="skywars-overall-coins"><span class="mc">Unknown</span></span></p>
+                    <p>Tokens <span class="statistic" id="skywars-overall-cosmetic_tokens"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                    <p>Heads <span class="statistic" id="skywars-overall-heads"><span class="mc">Unknown</span></span></p>
+                    <p>Corruption <span class="statistic" id="skywars-overall-corruption-chance"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                  <p>Chests <span class="statistic" id="skywars-overall-chests_opened"><span class="mc">Unknown</span></span></p>
+                  <p>Playtime <span class="statistic" id="skywars-overall-playtime"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="general-button mright margin-top-bottom" onclick="showCardWizard('SKYWARS')">Generate Card</span>
+        </div>
+      </div>
     </div>
 
     <div class="flex-container unloaded minigame-flex-container" id="flex-container-duels">
@@ -231,7 +273,7 @@
                   <div class="chip-small-statistic-row">
                       <p>Wins <span class="statistic" id="duels-overall-wins"><span class="mc">Unknown</span></span></p>
                       <p>Losses <span class="statistic" id="duels-overall-losses"><span class="mc">Unknown</span></span></p>
-                      <p>W L/R <span class="statistic" id="duels-overall-wlr"><span class="mc">Unknown</span></span></p>
+                      <p>W/L R <span class="statistic" id="duels-overall-wlr"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
                       <p>Kills <span class="statistic" id="duels-overall-kills"><span class="mc">Unknown</span></span></p>
@@ -508,7 +550,8 @@ function isInputField(element) { // Determines if the user's actively in an inpu
 
 function generateChip(stats_object, where) { // Converts an array of stats into an HTML chip for stats viewing
 
-  console.log("generating stats object")
+  console.log("generating stats object");
+  console.log(stats_object);
 
   var fullCard = "";
   var selectionItems = "";
@@ -703,6 +746,7 @@ var skinViewer;
         
         generateBedWars();
         generateDuels();
+        generateSkyWars();
 
       } else { // If no Hypixel stats, hide most buttons and show a warning
         document.getElementById("general-bottom-bar").style.display = "none";
@@ -769,9 +813,7 @@ var skinViewer;
     }
   }
 
-
   function onShiftDown() {
-    console.log("Shift pressed");
     document.getElementById("games").classList.add("pushup");
     document.getElementById("games").classList.add("o30");
     document.getElementById("quick-mode").classList.remove("pushdown");
@@ -779,7 +821,6 @@ var skinViewer;
   }
 
   function onShiftUp() {
-      console.log("Shift released");
       document.getElementById("games").classList.remove("pushup");
       document.getElementById("games").classList.remove("o30");
       document.getElementById("quick-mode").classList.add("pushdown");

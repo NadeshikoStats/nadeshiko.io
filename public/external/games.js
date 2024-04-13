@@ -18,6 +18,32 @@ function locale(number, digits = 2) {
     return number.toLocaleString(undefined, { minimumFractionDigits: digits, maximumFractionDigits: digits});
 } 
 
+function smallDuration(seconds) { // Converts a number of seconds into a human-readable duration of time
+    const MINUTE = 60;
+    const HOUR = 3600;
+    const DAY = 86400;
+    const YEAR = 31556952;
+
+    const years = Math.floor(seconds / YEAR);
+    const days = Math.floor((seconds % YEAR) / DAY);
+    const hours = Math.floor((seconds % DAY) / HOUR);
+    const minutes = Math.floor((seconds % HOUR) / MINUTE);
+    
+    if(years > 0) {
+        return `${years}y ${days}d`;
+    } else if(days > 0) {
+        return `${days}d ${hours}h`;
+    } else if(hours > 0) {
+        return `${hours}h ${minutes}m`;
+    } else if(minutes > 0) {
+        return `${minutes}m ${seconds % MINUTE}s`;
+    } else {
+        return `${seconds}s`;
+    }
+}
+
+
+
 function getBedWarsLevel(exp) { // Calculates a player's Bed Wars level based on their experience stat
     let level = 100 * Math.floor(exp / 487000);
     exp = exp % 487000;
@@ -31,6 +57,18 @@ function getBedWarsLevel(exp) { // Calculates a player's Bed Wars level based on
     level++;
     exp -= 7000;
     return level + exp / 5000;
+}
+
+function getSkyWarsLevel(exp) { // Calculates a player's SkyWars level based on their experience stat
+    const skyWarsXp = [0, 20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000];
+    if(exp >= 15000) {
+        return (exp - 15000) / 10000 + 12;
+    }
+    for(a = 0; a < skyWarsXp.length; a++) {
+        if(exp < skyWarsXp[a]) {
+            return a + (exp - skyWarsXp[a - 1]) / (skyWarsXp[a] - skyWarsXp[a - 1]);
+        }
+    }
 }
 
 
@@ -162,11 +200,11 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
         [true, ["Winstreak", checkAndFormat(dreamModeWinstreak)]],
         [false, ["Wins", checkAndFormat(totalDreamModeStatsCounts[0])],
             ["Losses", checkAndFormat(totalDreamModeStatsCounts[1])],
-            ["W L/R", (calculateRatio(totalDreamModeStatsCounts[0], totalDreamModeStatsCounts[1], 2))]
+            ["W/L R", (calculateRatio(totalDreamModeStatsCounts[0], totalDreamModeStatsCounts[1], 2))]
         ],
         [false, ["Kills", checkAndFormat(totalDreamModeStatsCounts[2])],
             ["Deaths", checkAndFormat(totalDreamModeStatsCounts[3])],
-            ["K D/R", (calculateRatio(totalDreamModeStatsCounts[2], totalDreamModeStatsCounts[3], 2))]
+            ["K/D R", (calculateRatio(totalDreamModeStatsCounts[2], totalDreamModeStatsCounts[3], 2))]
         ],
         [false, ["Final Kills", checkAndFormat(totalDreamModeStatsCounts[4])],
             ["Final Deaths", checkAndFormat(totalDreamModeStatsCounts[5])],
@@ -189,10 +227,50 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
         "bedwars"
     ]);
 
-    console.log(bedWarsChips);
-        for(d = 0; d < bedWarsChips.length; d++) {
+    for(d = 0; d < bedWarsChips.length; d++) {
             generateChip(bedWarsChips[d], "bed-wars-chips");
         }
+    }
+}
+
+function generateSkyWars() {
+    skyWarsStats = playerData["stats"]["SkyWars"];
+    document.getElementById("skywars-level").innerHTML = generateMinecraftText(skyWarsStats["levelFormatted"]);
+
+    easyStats = ["kills", "deaths", "wins", "losses", "coins", "cosmetic_tokens", "chests_opened", "heads"];
+    for(e = 0; e < easyStats.length; e++) {
+        document.getElementById("skywars-overall-" + easyStats[e]).innerText = checkAndFormat(skyWarsStats[easyStats[e]]);
+    }
+
+    skyWarsLevel = getSkyWarsLevel(und(skyWarsStats["skywars_experience"]));
+    document.getElementById("skywars-xp-progress-bar").style.width = (skyWarsLevel % 1 * 100) + "%";
+    document.getElementById("skywars-xp-progress-number").innerText = (skyWarsLevel % 1 * 100).toFixed(0) + "%";
+
+    document.getElementById("skywars-overall-kdr").innerText = calculateRatio(skyWarsStats["kills"], skyWarsStats["deaths"]);
+    document.getElementById("skywars-overall-wlr").innerText = calculateRatio(skyWarsStats["wins"], skyWarsStats["losses"]);
+    document.getElementById("skywars-overall-playtime").innerText = smallDuration(skyWarsStats["time_played"]);
+
+    document.getElementById("skywars-overall-corruption-chance").innerText = (und(skyWarsStats["angel_of_death_level"]) + und(skyWarsStats["angels_offering"]) + (skyWarsStats["packages"] != undefined ? skyWarsStats["packages"].includes("favor_of_the_angel") : 0)) + "%";
+
+    skyWarsChips = [];
+    skyWarsStatsToShow = [["Solo", "solo", [["Overall", "solo"],["Normal","solo_normal"],["Insane","solo_insane"]]], ["Team", "team", [["Overall", "team"],["Normal","team_normal"],["Insane","team_insane"]]], ["Mega", "mega", []], ["Lab", "lab", []]];
+
+    for(a = 0; a < skyWarsStatsToShow.length; a++) { // Regular stats
+        let skyWarsChip = [
+            ("skywars-stats-" + skyWarsStatsToShow[a][1]), // ID
+            skyWarsStatsToShow[a][0], // Title
+            "", // Subtitle (none)
+            ("/img/games/bedwars/threes.png"), // Image
+            getSkyWarsModeStats(skyWarsStatsToShow[a][1]), // Displayed stats
+            skyWarsStatsToShow[a][2], // Other stats (shown in drop-down menu)
+            "", // Icon
+            "skywars" // Gamemode (used for dropdowns)
+        ];
+        skyWarsChips.push(skyWarsChip);
+    }
+
+    for(d = 0; d < skyWarsChips.length; d++) {
+        generateChip(skyWarsChips[d], "skywars-chips");
     }
 }
 
@@ -201,11 +279,11 @@ function getBedWarsModeStats(mode) {
             [true, ["Winstreak", checkAndFormat(bedWarsStats[mode + "_winstreak"])]],
             [false, ["Wins", checkAndFormat(bedWarsStats[mode + "_wins_bedwars"])],
                 ["Losses", checkAndFormat(bedWarsStats[mode + "_losses_bedwars"])],
-                ["W L/R", (calculateRatio(bedWarsStats[mode + "_wins_bedwars"], bedWarsStats[mode + "_losses_bedwars"], 2))]
+                ["W/L R", (calculateRatio(bedWarsStats[mode + "_wins_bedwars"], bedWarsStats[mode + "_losses_bedwars"], 2))]
             ],
             [false, ["Kills", checkAndFormat(bedWarsStats[mode + "_kills_bedwars"])],
                 ["Deaths", checkAndFormat(bedWarsStats[mode + "_deaths_bedwars"])],
-                ["K D/R", (calculateRatio(bedWarsStats[mode + "_kills_bedwars"], bedWarsStats[mode + "_deaths_bedwars"], 2))]
+                ["K/D R", (calculateRatio(bedWarsStats[mode + "_kills_bedwars"], bedWarsStats[mode + "_deaths_bedwars"], 2))]
             ],
             [false, ["Final Kills", checkAndFormat(bedWarsStats[mode + "_final_kills_bedwars"])],
                 ["Final Deaths", checkAndFormat(bedWarsStats[mode + "_final_deaths_bedwars"])],
@@ -215,6 +293,19 @@ function getBedWarsModeStats(mode) {
                 ["Bed Losses", checkAndFormat(bedWarsStats[mode + "_beds_lost_bedwars"])],
                 ["BB/L R", (calculateRatio(bedWarsStats[mode + "_beds_broken_bedwars"], bedWarsStats[mode + "_beds_lost_bedwars"], 2))]
             ]
+        ];
+}
+
+function getSkyWarsModeStats(mode) {
+    return [
+            [false, ["Wins", checkAndFormat(skyWarsStats["wins_" + mode])],
+                ["Losses", checkAndFormat(skyWarsStats["losses_" + mode])],
+                ["W/L R", (calculateRatio(skyWarsStats["wins_" + mode], skyWarsStats["losses_" + mode], 2))],
+            ],
+            [false, ["Kills", checkAndFormat(skyWarsStats["kills_" + mode])],
+                ["Deaths", checkAndFormat(skyWarsStats["deaths_" + mode])],
+                ["K/D R", (calculateRatio(skyWarsStats["kills_" + mode], skyWarsStats["deaths_" + mode], 2))]
+            ],
         ];
 }
 
@@ -245,13 +336,13 @@ function getDuelsStats(mode, is_bridge = false, cuteName) {
             [true, ["Winstreak", importedDuelsStats[0]], ["Best Winstreak", importedDuelsStats[1]]],
             [false, ["Wins", importedDuelsStats[2]],
                 ["Losses", importedDuelsStats[3]],
-                ["W L/R", importedDuelsStats[4]]
+                ["W/L R", importedDuelsStats[4]]
             ],
             [false, ["Kills", importedDuelsStats[5]],
                 ["Deaths", importedDuelsStats[6]],
-                ["K D/R", importedDuelsStats[7]]
+                ["K/D R", importedDuelsStats[7]]
             ],
-        ], getDuelsTitle(checkAndFormat(duelsStats[mode + "_wins"]), cuteName)];
+        ], getDuelsTitle(und(duelsStats[mode + "_wins"]), cuteName)];
 }
 
 function getDuelsOverallModeStats(modeArray, is_bridge = false, cuteName) {
@@ -273,13 +364,13 @@ function getDuelsOverallModeStats(modeArray, is_bridge = false, cuteName) {
         [true, ["Winstreak", checkAndFormat(roundRobinDuelsStats2[0])], ["Best Winstreak", checkAndFormat(roundRobinDuelsStats2[1])]],
         [false, ["Wins", checkAndFormat(roundRobinDuelsStats[0])],
             ["Losses", checkAndFormat(roundRobinDuelsStats[1])],
-            ["W L/R", calculateRatio(roundRobinDuelsStats[0], roundRobinDuelsStats[1])]
+            ["W/L R", calculateRatio(roundRobinDuelsStats[0], roundRobinDuelsStats[1])]
         ],
         [false, ["Kills", checkAndFormat(roundRobinDuelsStats[2])],
             ["Deaths", checkAndFormat(roundRobinDuelsStats[3])],
             ["K D/R", calculateRatio(roundRobinDuelsStats[2], roundRobinDuelsStats[3])]
         ],
-    ], getDuelsTitle(roundRobinDuelsStats[0], cuteName)];
+    ], getDuelsTitle(und(roundRobinDuelsStats[0]), cuteName)];
 }
 
 
@@ -424,21 +515,6 @@ function generateDuels() { // Generates stats and chips for Duels
     }
 }
 
-function updateChipStats(event, chipId, gamemode) { // Updates what a chip does when a dropdown is clicked
-    newValue = event.target.value;
-    console.log([chipId, newValue]);
-    if(gamemode == "duels") {
-        document.getElementById(chipId).innerHTML = generateChipStats(allDuelsStats[newValue][0]);
-    } else if(gamemode = "bedwars") {
-        if(newValue == "overall") {
-            document.getElementById(chipId).innerHTML = generateChipStats(totalDreamModeStats);
-        } else {
-            console.log(newValue);
-            document.getElementById(chipId).innerHTML = generateChipStats(getBedWarsModeStats(newValue));
-        }
-    }
-}
-
 function getDuelsTitle(wins, name = "") { // Generates a Duels title based on the number of wins a player has in a certain gamemode
 
     multiplier = (name == "" ? 2 : 1); // Multiply required wins by 2 for general Duels titles
@@ -497,5 +573,24 @@ function getDuelsTitle(wins, name = "") { // Generates a Duels title based on th
 
     let rawDuelsTitle = name + chosenTitle["title"] + romanSuffix;
 
+    console.log([wins, name, `<span class="m${chosenTitle["color"]}">` + (chosenTitle["bold"] ? `<strong>${rawDuelsTitle}</strong>` : rawDuelsTitle) + `</span>`, winsToGo, chosenTitle["increment"] * multiplier])
+
     return [`<span class="m${chosenTitle["color"]}">` + (chosenTitle["bold"] ? `<strong>${rawDuelsTitle}</strong>` : rawDuelsTitle) + `</span>`, winsToGo, chosenTitle["increment"] * multiplier];
+}
+
+function updateChipStats(event, chipId, gamemode) { // Updates what a chip does when a dropdown is clicked
+    newValue = event.target.value;
+    console.log([chipId, newValue]);
+    if(gamemode == "duels") {
+        document.getElementById(chipId).innerHTML = generateChipStats(allDuelsStats[newValue][0]);
+    } else if(gamemode == "bedwars") {
+        if(newValue == "overall") {
+            document.getElementById(chipId).innerHTML = generateChipStats(totalDreamModeStats);
+        } else {
+            console.log(newValue);
+            document.getElementById(chipId).innerHTML = generateChipStats(getBedWarsModeStats(newValue));
+        }
+    } else if(gamemode == "skywars") {
+        document.getElementById(chipId).innerHTML = generateChipStats(getSkyWarsModeStats(newValue));
+    }
 }
