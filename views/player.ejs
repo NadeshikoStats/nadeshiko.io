@@ -48,13 +48,39 @@
           <p class="header-game" onclick="switchStats('bedwars')"  id="button-bedwars">Bed Wars</p>
           <p class="header-game" onclick="switchStats('duels')"  id="button-duels">Duels</p>
           <p class="header-game" onclick="switchStats('skywars')"  id="button-skywars">SkyWars</p>
-          <p class="header-down"><img class="dropdown-arrow" src="/img/arrow.svg" alt="More games"></p>
+          <div class="dropdown">
+            <p class="header-down dropdown-button">
+              <img class="dropdown-arrow" src="/img/arrow.svg" alt="More games">
+            </p>
+              <div class="dropdown-content unloaded">
+                <span class="mobile-exclusive">
+                  <a onclick="switchStats('network')" aria-label="View Network stats"><span class="logo-container"><img src="/img/hypixel_logo.png" alt="" class="social-media-dropdown icon"></span> Network</a>
+                  <a onclick="switchStats('bedwars')" aria-label="View Bed Wars stats"><span class="logo-container"><img src="/img/icon/minecraft/bedwars.png" alt="" class="social-media-dropdown icon"></span> Bed Wars</a>
+                  <a onclick="switchStats('duels')" aria-label="View Duels stats"><span class="logo-container"><img src="/img/icon/minecraft/duels.png" alt="" class="social-media-dropdown icon"></span> Duels</a>
+                  <a onclick="switchStats('skywars')" aria-label="View SkyWars stats"><span class="logo-container"><img src="/img/icon/minecraft/skywars.png" alt="" class="social-media-dropdown icon"></span> SkyWars</a>
+                </span>
+                <a onclick="switchStats('skyblock')" aria-label="View SkyBlock stats"><span class="logo-container"><img src="/img/icon/minecraft/skyblock.png" alt="" class="social-media-dropdown icon"></span> SkyBlock</a>
+                <a onclick="switchStats('arcade')" aria-label="View Arcade stats"><span class="logo-container"><img src="/img/icon/minecraft/arcade.png" alt="" class="social-media-dropdown icon"></span> Arcade</a>
+                <a onclick="switchStats('buildbattle')" aria-label="View Build Battle stats"><span class="logo-container"><img src="/img/icon/minecraft/buildbattle.png" alt="" class="social-media-dropdown icon"></span> Build Battle</a>
+                <a onclick="switchStats('murdermystery')" aria-label="View Murder Mystery stats"><span class="logo-container"><img src="/img/icon/minecraft/murdermystery.png" alt="" class="social-media-dropdown icon"></span> Murder Mystery</a>
+                <a onclick="switchStats('tntgames')" aria-label="View TNT Games stats"><span class="logo-container"><img src="/img/icon/minecraft/tntgames.png" alt="" class="social-media-dropdown icon"></span> TNT Games</a>
+                <a onclick="switchStats('pit')" aria-label="View Pit stats"><span class="logo-container"><img src="/img/icon/minecraft/pit.png" alt="" class="social-media-dropdown icon"></span> Pit</a>
+                <a onclick="switchStats('classic')" aria-label="View Classic stats"><span class="logo-container"><img src="/img/icon/minecraft/classic.png" alt="" class="social-media-dropdown icon"></span> Classic Games</a>
+                <a onclick="switchStats('megawalls')" aria-label="View Mega Walls stats"><span class="logo-container"><img src="/img/icon/minecraft/megawalls.png" alt="" class="social-media-dropdown icon"></span> Mega Walls</a>
+                <a onclick="switchStats('copsandcrims')" aria-label="View Cops and Crims stats"><span class="logo-container"><img src="/img/icon/minecraft/copsandcrims.png" alt="" class="social-media-dropdown icon"></span> Cops and Crims</a>
+                <a onclick="switchStats('uhc')" aria-label="View UHC stats"><span class="logo-container"><img src="/img/icon/minecraft/uhc.png" alt="" class="social-media-dropdown icon"></span> UHC</a>
+                <a onclick="switchStats('blitz')" aria-label="View Blitz stats"><span class="logo-container"><img src="/img/icon/minecraft/blitz.png" alt="" class="social-media-dropdown icon"></span> Blitz</a>
+                <a onclick="switchStats('woolwars')" aria-label="View Wool Wars stats"><span class="logo-container"><img src="/img/icon/minecraft/woolwars.png" alt="" class="social-media-dropdown icon"></span> Wool Wars</a>
+                <a onclick="switchStats('warlords')" aria-label="View Warlords stats"><span class="logo-container"><img src="/img/icon/minecraft/warlords.png" alt="" class="social-media-dropdown icon"></span> Warlords</a>
+                <a onclick="switchStats('smashheroes')" aria-label="View Smash Heroes stats"><span class="logo-container"><img src="/img/icon/minecraft/smash.png" alt="" class="social-media-dropdown icon"></span> Smash Heroes</a>
+              </div>
+            
+          </div>
         </div>
       </div>
     </header>   
     
     <div class="games" id="games">
-
       <div class="flex-container unloaded" id="flex-container-network"> <!-- network stats -->
         <canvas id="skin-container" class="avatar unloaded" style="background-color: transparent"></canvas>
         <section class="player-card" id="player-card">
@@ -300,6 +326,101 @@
       </div>
     </div>
 
+    <div class="flex-container unloaded" id="flex-container-skyblock">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming soon!</p>
+        <p class="subtitle-text">We'll be adding SkyBlock to nadeshiko shortly.</p>
+      </section>
+    </div>
+
+    <div class="flex-container unloaded" id="flex-container-arcade">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming soon!</p>
+        <p class="subtitle-text">We'll be adding Arcade to nadeshiko shortly.</p>
+      </section>
+    </div>
+
+    <div class="flex-container unloaded" id="flex-container-buildbattle">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming soon!</p>
+        <p class="subtitle-text">We'll be adding Build Battle to nadeshiko shortly.</p>
+      </section>
+    </div>
+
+    <div class="flex-container unloaded" id="flex-container-murdermystery">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming soon!</p>
+        <p class="subtitle-text">We'll be adding Murder Mystery to nadeshiko shortly.</p>
+      </section>
+    </div>
+
+    <div class="flex-container unloaded" id="flex-container-tntgames">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming soon!</p>
+        <p class="subtitle-text">We'll be adding the TNT Games to nadeshiko shortly.</p>
+      </section>
+    </div>
+
+    <div class="flex-container unloaded" id="flex-container-pit">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming soon!</p>
+        <p class="subtitle-text">We'll be adding Pit to nadeshiko shortly.</p>
+      </section>
+    </div>
+
+
+    <div class="flex-container unloaded" id="flex-container-blitz">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming eventually!</p>
+        <p class="subtitle-text">We'll be adding Blitz to nadeshiko sometime in the near future.</p>
+      </section>
+    </div>
+    <div class="flex-container unloaded" id="flex-container-classic">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming eventually!</p>
+        <p class="subtitle-text">We'll be adding Classic Games to nadeshiko sometime in the near future.</p>
+      </section>
+    </div>
+
+    <div class="flex-container unloaded" id="flex-container-copsandcrims">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming eventually!</p>
+        <p class="subtitle-text">We'll be adding Cops and Crims to nadeshiko sometime in the near future.</p>
+      </section>
+    </div>
+
+    <div class="flex-container unloaded" id="flex-container-uhc">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming eventually!</p>
+        <p class="subtitle-text">We'll be adding UHC to nadeshiko sometime in the near future.</p>
+      </section>
+    </div>
+    <div class="flex-container unloaded" id="flex-container-smashheroes">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming eventually!</p>
+        <p class="subtitle-text">We'll be adding Smash Heroes to nadeshiko sometime in the near future.</p>
+      </section>
+    </div>
+    <div class="flex-container unloaded" id="flex-container-megawalls">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming eventually!</p>
+        <p class="subtitle-text">We'll be adding Mega Walls to nadeshiko sometime in the near future.</p>
+      </section>
+    </div>
+
+    <div class="flex-container unloaded" id="flex-container-woolwars">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming eventually!</p>
+        <p class="subtitle-text">We'll be adding Wool Wars to nadeshiko sometime in the near future.</p>
+      </section>
+    </div>
+
+    <div class="flex-container unloaded" id="flex-container-warlords">
+      <section class="player-card" id="player-card" style="align-content: center;">
+        <p class="title-text">Coming eventually!</p>
+        <p class="subtitle-text">We'll be adding Warlords to nadeshiko sometime in the near future.</p>
+      </section>
+    </div>
   </div>
 
   <div class="quick-mode hidden pushdown" id="quick-mode">
@@ -307,25 +428,25 @@
       <p class="title-text margin-top-bottom">Quick Mode</p>
       <p class="subtitle-text">Click an icon to instantly go to that game's page for <span id="quick-mode-username"></span>.</p>
       <p class="flex-quick-mode margin-top-bottom">
-        <span class="tooltip quick-mode-game-container"><img src="/img/icon/skyblock.png" class="quick-mode-game" onclick="switchStats('skyblock')"><span class="tooltiptext">SkyBlock</span></span></span>
-        <span class="tooltip"><img src="/img/icon/bedwars.png" class="quick-mode-game" onclick="switchStats('bedwars')"><span class="tooltiptext">Bed Wars</span></span></span>
-        <span class="tooltip"><img src="/img/icon/duels.png" class="quick-mode-game" onclick="switchStats('duels')"><span class="tooltiptext">Duels</span></span></span>
-        <span class="tooltip"><img src="/img/icon/skywars.png" class="quick-mode-game" onclick="switchStats('skywars')"><span class="tooltiptext">SkyWars</span></span>
-        <span class="tooltip"><img src="/img/icon/arcade.png" class="quick-mode-game" onclick="switchStats('arcade')"><span class="tooltiptext">Arcade</span></span></span>
-        <span class="tooltip"><img src="/img/icon/buildbattle.png" class="quick-mode-game" onclick="switchStats('buildbattle')"><span class="tooltiptext">Build Battle</span></span></span>
-        <span class="tooltip"><img src="/img/icon/murdermystery.png" class="quick-mode-game" onclick="switchStats('murdermystery')"><span class="tooltiptext">Murder Mystery</span></span></span>
-        <span class="tooltip"><img src="/img/icon/tntgames.png" class="quick-mode-game" onclick="switchStats('tntgames')"><span class="tooltiptext">TNT Games</span></span></span>
-        <span class="tooltip"><img src="/img/icon/pit.png" class="quick-mode-game" onclick="switchStats('pit')"><span class="tooltiptext">Pit</span></span></span>
+        <span class="tooltip quick-mode-game-container"><img src="/img/icon/hypixel/skyblock.png" class="quick-mode-game" onclick="switchStats('skyblock')"><span class="tooltiptext">SkyBlock</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/bedwars.png" class="quick-mode-game" onclick="switchStats('bedwars')"><span class="tooltiptext">Bed Wars</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/duels.png" class="quick-mode-game" onclick="switchStats('duels')"><span class="tooltiptext">Duels</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/skywars.png" class="quick-mode-game" onclick="switchStats('skywars')"><span class="tooltiptext">SkyWars</span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/arcade.png" class="quick-mode-game" onclick="switchStats('arcade')"><span class="tooltiptext">Arcade</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/buildbattle.png" class="quick-mode-game" onclick="switchStats('buildbattle')"><span class="tooltiptext">Build Battle</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/murdermystery.png" class="quick-mode-game" onclick="switchStats('murdermystery')"><span class="tooltiptext">Murder Mystery</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/tntgames.png" class="quick-mode-game" onclick="switchStats('tntgames')"><span class="tooltiptext">TNT Games</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/pit.png" class="quick-mode-game" onclick="switchStats('pit')"><span class="tooltiptext">Pit</span></span></span>
       </p>
       <p class="flex-quick-mode margin-top-bottom">
-        <span class="tooltip"><img src="/img/icon/blitz.png" class="quick-mode-game" onclick="switchStats('blitz')"><span class="tooltiptext">Blitz</span></span></span>
-        <span class="tooltip"><img src="/img/icon/classic.png" class="quick-mode-game" onclick="switchStats('classic')"><span class="tooltiptext">Classic Games</span></span></span>
-        <span class="tooltip"><img src="/img/icon/copsandcrims.png" class="quick-mode-game" onclick="switchStats('copsandcrims')"><span class="tooltiptext">Cops and Crims</span></span></span>
-        <span class="tooltip"><img src="/img/icon/uhc.png" class="quick-mode-game" onclick="switchStats('uhc')"><span class="tooltiptext">UHC</span></span></span>
-        <span class="tooltip"><img src="/img/icon/smashheroes.png" class="quick-mode-game" onclick="switchStats('smashheroes')"><span class="tooltiptext">Smash Heroes</span></span></span>
-        <span class="tooltip"><img src="/img/icon/megawalls.png" class="quick-mode-game" onclick="switchStats('megawalls')"><span class="tooltiptext">Mega Walls</span></span></span>
-        <span class="tooltip"><img src="/img/icon/woolwars.png" class="quick-mode-game" onclick="switchStats('woolwars')"><span class="tooltiptext">Wool Wars</span></span></span>
-        <span class="tooltip"><img src="/img/icon/warlords.png" class="quick-mode-game" onclick="switchStats('warlords')"><span class="tooltiptext">Warlords</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/classic.png" class="quick-mode-game" onclick="switchStats('classic')"><span class="tooltiptext">Classic Games</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/megawalls.png" class="quick-mode-game" onclick="switchStats('megawalls')"><span class="tooltiptext">Mega Walls</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/copsandcrims.png" class="quick-mode-game" onclick="switchStats('copsandcrims')"><span class="tooltiptext">Cops and Crims</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/uhc.png" class="quick-mode-game" onclick="switchStats('uhc')"><span class="tooltiptext">UHC</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/blitz.png" class="quick-mode-game" onclick="switchStats('blitz')"><span class="tooltiptext">Blitz</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/woolwars.png" class="quick-mode-game" onclick="switchStats('woolwars')"><span class="tooltiptext">Wool Wars</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/warlords.png" class="quick-mode-game" onclick="switchStats('warlords')"><span class="tooltiptext">Warlords</span></span></span>
+        <span class="tooltip"><img src="/img/icon/hypixel/smashheroes.png" class="quick-mode-game" onclick="switchStats('smashheroes')"><span class="tooltiptext">Smash Heroes</span></span></span>
       </p>
     </section>
   </div>  
@@ -605,28 +726,56 @@ function openSelectedDropdown(dropdownId) {
     console.log(document.getElementById(dropdownId).classList)
 }
 
-document.querySelector('.dropdown-button').addEventListener('click', function() { // Opens dropdown on click (they need to make styles better)
+document.querySelectorAll('.dropdown-button').forEach(function(button) {
+  button.addEventListener('click', function() {
+  console.log("Dropdown button clicked")
     var dropdownContent = this.nextElementSibling;
 
     if (dropdownContent.classList.contains("unloaded")) { // If not visible
-      dropdownContent.style.bottom = 'auto';
-      dropdownContent.style.top = 'auto';
-      var dropdownRect = dropdownContent.getBoundingClientRect();
-      if (window.innerHeight - dropdownRect.bottom < 30 || mobileMode) { // Check if dropdown goes off the bottom of the page
-          dropdownContent.style.bottom = '100%'; // Adjust it if it does
-          dropdownContent.style.top = 'auto'; 
-      } else {
+    // Reset styles first
+    dropdownContent.style.right = 'auto';
+    dropdownContent.style.left = 'auto';
+    dropdownContent.style.bottom = 'auto';
+    dropdownContent.style.top = 'auto';
+
+    // Get the bounding rectangle of the dropdown
+    var dropdownRect = dropdownContent.getBoundingClientRect();
+
+    // Check bottom edge
+    if (window.innerHeight - dropdownRect.bottom < 30 || mobileMode) {
+        // Adjust it upwards if it goes off bottom or in mobile mode
+        dropdownContent.style.bottom = '100%';
+        dropdownContent.style.top = 'auto';
+    } else {
         dropdownContent.style.bottom = 'auto';
         dropdownContent.style.top = '100%';
-      }
     }
 
+    dropdownRect = dropdownContent.getBoundingClientRect();
+    if (dropdownRect.top < 0) { // If it still doesn't fit, call for desperate measures
+        dropdownContent.style.top = '50%';
+        dropdownContent.style.bottom = 'auto';
+        dropdownContent.style.maxHeight = (window.innerHeight * 0.7) + 'px';
+        dropdownContent.style.overflowY = 'scroll';
+    }
+
+    if (window.innerWidth - dropdownRect.right < 30) { // Check right edge
+        dropdownContent.style.right = '0'; // Adjust it leftwards if it goes off right edge
+        dropdownContent.style.left = 'auto';
+    } else {
+        dropdownContent.style.right = 'auto';
+        dropdownContent.style.left = '0';
+    }
+}
+
     dropdownContent.classList.toggle('unloaded');
+  });
 });
 
 
-window.onclick = function(event) {
-  if (!event.target.matches('#social-media-button')) {
+window.addEventListener('click', function(event) {
+  if (!event.target.matches('.dropdown-button') && !event.target.parentElement.matches('.dropdown-button')) {
+    console.log(event.target)
     var dropdowns = document.getElementsByClassName("dropdown-content");
     for (var i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
@@ -635,7 +784,7 @@ window.onclick = function(event) {
       }
     }
   }
-}
+});
 
 function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, switch to HTTPS
   windowLocation = window.location;
@@ -778,13 +927,18 @@ var skinViewer;
 
 
   function switchStats(gamemode) {
+      gamesWithEasilyClickableButtons = ["network", "bedwars", "skywars", "duels"];
     //if(gamemode != currentGamemode) {
-      document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
+      if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
+        document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
+      }
       document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");
       
       currentGamemode = gamemode;
 
-      document.getElementById("button-" + currentGamemode).classList.add("highlighted");
+      if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
+        document.getElementById("button-" + currentGamemode).classList.add("highlighted");
+      }
       document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
       document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
       setBackground(currentGamemode);
@@ -844,11 +998,11 @@ var skinViewer;
   }
 
   function generateCard() {
-    cardName = document.getElementById("card-wizard-name").value
-    cardGame = document.getElementById("card-wizard-game").value
-    cardSize = document.getElementById("card-wizard-size").value
+    cardName = document.getElementById("card-wizard-name").value;
+    cardGame = document.getElementById("card-wizard-game").value;
+    cardSize = document.getElementById("card-wizard-size").value;
 
-    document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/` + btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}` )
+    document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/` + btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
   }
 
   function handleVisibilityChange() {

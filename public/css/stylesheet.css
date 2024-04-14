@@ -90,10 +90,13 @@ header {
     background-color: #000000a0;
     font-size: 18px;
     backdrop-filter: blur(4px);
-    overflow: hidden;
+    height: 55px;
 }
 
-/* what is she cooking? nothing good */
+#game-buttons {
+    height: 55px;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -167,7 +170,7 @@ footer>a:hover {
 
     25% {
       transform: translateY(-10px) rotate(10deg);
-      color: var(--nadeshiko);
+      color: var(--accent);
     }
 
     70% {
@@ -220,7 +223,7 @@ footer>a:hover {
     position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%) translateY(16.5px);
+    transform: translateX(-50%) translateY(17px);
     opacity: 0;
     width: 120%;
     height: 5px;
@@ -368,6 +371,10 @@ footer>a:hover {
     margin: 10px;
 }
 
+.mobile-exclusive {
+    display: none;
+}
+
 .dropdown-arrow {
     height: 24px;
     width: 24px;
@@ -509,7 +516,7 @@ footer>a:hover {
     transform: rotate(-10deg) scale(1.2);  
     opacity: 100%;  
 }
- 
+
 
 #flex-container-network {
     align-items: center;
@@ -660,6 +667,7 @@ footer>a:hover {
     left: 0;
     bottom: 100%;
     top: auto;
+    overflow-y: scroll;
 }
 
 .dropdown-content a {
@@ -909,7 +917,7 @@ footer>a:hover {
 }
 
 .highlighted::after {
-    transform: translateX(-50%) translateY(16.5px);
+    transform: translateX(-50%) translateY(17px);
     opacity: 1;
 }
 
@@ -1441,6 +1449,9 @@ footer>a:hover {
     }
     #social-media-button {
         display: flex;
+    }
+    .mobile-exclusive {
+        display: initial;
     }
     #social-media-alternative {
         display: initial;
