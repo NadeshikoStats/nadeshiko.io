@@ -42,7 +42,120 @@ function smallDuration(seconds) { // Converts a number of seconds into a human-r
     }
 }
 
+function generateNetwork() { // Inserts general/network stats into the DOM
+    var profileStats = playerData["profile"];
+    var dateNow = new Date();
 
+    if(profileStats != undefined) {
+        var playerRank = profileStats["tag"];
+        var playerRankCute = cuteRank(playerRank, 1);
+
+        document.getElementById("card-rank").classList.add("rank-" + playerRankCute[0]); // Changes the rank to the player's rank colour
+        document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
+        document.getElementById("quick-mode-username").style.color = `var(--mc` + playerRankCute[0] + `)`;
+
+        document.getElementById("card-ranktext").innerHTML = playerRankCute[1]; // Adds player's rank
+
+        document.getElementById("card-name").innerText = playerData["name"];
+        document.getElementById("quick-mode-username").innerText = playerData["name"];
+        document.getElementById("header-name").innerHTML = cuteRank(profileStats["tagged_name"], 0);
+        document.getElementById("achievement-points").innerText = (profileStats["achievement_points"]).toLocaleString();
+        document.getElementById("karma").innerText = (profileStats["karma"]).toLocaleString();
+        console.log((profileStats["karma"]).toLocaleString());
+        document.getElementById("quests-completed").innerText = (profileStats["quests_completed"]).toLocaleString();
+        document.getElementById("ranks-gifted").innerText = (und(profileStats["ranks_gifted"])).toLocaleString();
+        document.getElementById("multiplier").innerText = (profileStats["coin_multiplier"]).toLocaleString();
+
+        var firstLogin = new Date((profileStats["first_login"])); // Used for birthday calculation
+        document.getElementById("first-login").innerText = (firstLogin).toLocaleDateString(); // Gets first login in Unix time and turns it into a date
+        document.getElementById("first-login-ago").innerHTML = "(" + relativeTime(firstLogin) + ")";
+
+        if((firstLogin.getMonth() == dateNow.getMonth()) && (firstLogin.getDate() == dateNow.getDate()) && (firstLogin.getYear() != dateNow.getYear())) {
+          document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
+          document.getElementById("birthday-text").innerText = ("Happy " + ordinal(dateNow.getYear() - firstLogin.getYear()) + " Hypixel anniversary!");
+          console.log("Happy anniversary!");
+        }
+      
+        if(profileStats["last_login"] == 0) document.getElementById("last-login-container").style.display = "none";
+        else {
+          document.getElementById("last-login").innerText = (new Date((profileStats["last_login"]))).toLocaleDateString();
+          document.getElementById("last-login-ago").innerHTML = "(" + relativeTime(new Date(profileStats["last_login"])) + ")";
+        }
+        
+        if(playerData["status"]["online"]) { // Checks player's online status
+          document.getElementById("online-status").innerText = "Currently Online!";
+          document.getElementById("online-status").style.color = "var(--mca)";
+        }
+        else document.getElementById("online-status").innerText = "Currently Offline";
+
+        if(playerData["guild"] == undefined) {
+          console.log(playerData);
+          document.getElementById("guild-stats").style.display = "none";
+          document.getElementById("card-guild").style.display = "none";
+        } else {
+          guildStats = playerData["guild"];
+            document.getElementById("guild-name").innerText = guildStats["name"];
+            document.getElementById("guild-tag").innerHTML = generateMinecraftText(guildStats["tag"]);
+            document.getElementById("card-guild").innerHTML = generateMinecraftText(guildStats["tag"]);
+            document.getElementById("guild-level").innerText = (Math.floor(guildStats["level"])).toLocaleString();
+            document.getElementById("guild-members").innerText = (guildStats["members"]).toLocaleString();
+            document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
+            document.getElementById("guild-joined-ago").innerText = "(" + relativeTime(new Date(guildStats["joined"])) + ")";
+        } 
+
+        hypixelLevel = profileStats["network_level"];
+        document.getElementById("level").innerText = Math.floor(hypixelLevel);
+        if(hypixelLevel >= 250) {
+          document.getElementById("level-container").style.color = "var(--gold-transparent)";
+          document.getElementById("level").style.color = "var(--gold)";
+        }
+
+        var xpProgress = ((hypixelLevel % 1) * 100).toFixed(0) + "%"; // Sets user's XP progress and progress bar
+        document.getElementById("xp-progress-bar").style.width = xpProgress;
+        document.getElementById("xp-progress-number").innerText = xpProgress;
+
+        if(Object.keys(profileStats["social_media"]).length != 0) {
+          document.getElementById("social-media-alternative").style.display = "";
+        }
+        var socials = ["HYPIXEL", "YOUTUBE", "TWITTER", "TIKTOK", "TWITCH", "DISCORD"];
+        for(a = 0; a < socials.length; a++) { // Iterates through social media and hides icons that don't exist for the player
+          if(profileStats["social_media"][socials[a]] == undefined) {
+            document.getElementById("social-" + (socials[a]).toLowerCase()).style.display = "none";
+            document.getElementById("social-" + (socials[a]).toLowerCase() + "-alternative").style.display = "none";
+          } else if(socials[a] != "DISCORD") {
+            socialMediaNew = profileStats["social_media"][socials[a]];
+            socialMediaNewUrl = !/^https?:\/\//i.test(socialMediaNew) ? `https://${socialMediaNew}` : socialMediaNew; // Adds HTTPS to the URL if it doesn't have it already
+
+            document.getElementById("sociallink-" + (socials[a]).toLowerCase()).href = socialMediaNewUrl;
+            document.getElementById("social-" + (socials[a]).toLowerCase() + "-alternative").href = socialMediaNewUrl;
+          } else {
+            document.getElementById("social-discord-username").innerText = profileStats["social_media"][socials[a]];
+            document.getElementById("social-discord-username-alternative").innerText = profileStats["social_media"][socials[a]];
+          }
+        }
+        
+        generateBedWars();
+        generateDuels();
+        generateSkyWars();
+        generateBuildBattle();
+
+      } else { // If no Hypixel stats, hide most buttons and show a warning
+        document.getElementById("general-bottom-bar").style.display = "none";
+        document.getElementById("card-name").innerText = playerData["name"];
+        document.getElementById("header-name").innerText = playerData["name"];
+        document.getElementById("game-buttons").style.display = "none";
+        document.getElementById("card-ranktext").style.display = "none";
+        document.getElementById("card-guild").style.display = "none";
+        document.getElementById("online-status").style.display = "none";
+        document.getElementById("real-stats").style.display = "none";
+        document.getElementById("network-error").style.display = "unset";
+        
+        document.getElementById("player-card").style.paddingLeft = "0px";
+        document.getElementById("player-card").style.paddingRight = "0px";
+        document.getElementById("player-card").style.paddingBottom = "0px";
+        document.getElementById("extended-card").style.marginBottom = "0px";
+      }   
+}
 
 function getBedWarsLevel(exp) { // Calculates a player's Bed Wars level based on their experience stat
     let level = 100 * Math.floor(exp / 487000);
@@ -498,7 +611,7 @@ function generateDuels() { // Generates stats and chips for Duels
         }
 
         duelsChip = [
-            ("duels-stats-" + (currentDuel[0]).toLowerCase()), // ID
+            ("duels-stats-" + currentDuel[0]), // ID
             currentDuel[1], // Title
             `${currentDuelPrefix[0]} ${formattedWinsToGo}`, // Subtitle (none)
             (`/img/games/home.png`), // Background image
@@ -513,6 +626,99 @@ function generateDuels() { // Generates stats and chips for Duels
     for(d = 0; d < duelsChips.length; d++) {
         generateChip(duelsChips[d], "duels-chips");
     }
+}
+
+function generateBuildBattle() { // Generates stats and chips for Build Battle
+
+    let buildBattleStats = playerData["stats"]["BuildBattle"];
+
+
+    buildBattleTitle = getBuildBattleTitle(und(buildBattleStats["score"]));
+    document.getElementById("buildbattle-overall-title").innerHTML = buildBattleTitle[0];
+    document.getElementById("buildbattle-overall-to-go").innerHTML = `(${checkAndFormat(buildBattleTitle[1])} to go)`;
+
+    document.getElementById("buildbattle-overall-progress-number").innerText = Math.floor(buildBattleTitle[2] * 100) + "%";
+    document.getElementById("buildbattle-overall-progress-bar").style.width = (buildBattleTitle[2] * 100) + "%";
+    
+    document.getElementById("buildbattle-overall-losses").innerText = checkAndFormat(buildBattleStats["games-played"] - buildBattleStats["wins"]);
+    document.getElementById("buildbattle-overall-wlr").innerText = calculateRatio(buildBattleStats["wins"], buildBattleStats["games_played"] - buildBattleStats["wins"]);
+
+    let easyStats = ["score", "wins", "total_votes", "coins"];
+    for(e = 0; e < easyStats.length; e++) {
+        document.getElementById("buildbattle-overall-" + easyStats[e]).innerText = checkAndFormat(buildBattleStats[easyStats[e]]);
+    }
+
+
+    let buildBattleModes = [["Solo", "solo_normal", []], ["Teams", "teams_normal", []], ["Pro", "solo_pro", []], ["Guess The Build", "guess_the_build", []], ];
+
+    buildBattleChips = []
+    for(a = 0; a < buildBattleModes.length; a++) {
+
+        currentBuildBattleMode = buildBattleModes[a];
+        console.log(currentBuildBattleMode);
+
+        buildBattleModeStats = [[false, ["Wins", checkAndFormat(buildBattleStats[`wins_${currentBuildBattleMode[1]}`])]]];
+
+        if(currentBuildBattleMode[1] == "guess_the_build") {
+            buildBattleModeStats[0].push(["Correct Guesses", checkAndFormat(buildBattleStats[`correct_guesses`])]);
+        }
+
+        console.log(buildBattleModeStats);
+
+        buildBattleChip = [
+            ("buildbattle-stats-" + (buildBattleModes[a][1])), // ID
+            buildBattleModes[a][0], // Title
+            ``, // Subtitle (none)
+            (`/img/games/home.png`), // Background image
+            buildBattleModeStats, // Displayed stats
+            [], // Other stats (shown in drop-down menu)
+            ``, // Chip image
+            "buildbattle", // gamemode
+        ];
+        buildBattleChips.push(buildBattleChip);
+    }
+
+    for(d = 0; d < buildBattleChips.length; d++) {
+        generateChip(buildBattleChips[d], "buildbattle-chips");
+    }
+}
+
+function getBuildBattleTitle(score) { // Gets player's Build Battle title based on an amount of score
+    let buildBattleTitles = [
+        { minimumScore: 0, difference: 100, title: "Rookie", color: "f" },
+        { minimumScore: 100, difference: 150, title: "Untrained", color: "8" },
+        { minimumScore: 250, difference: 250, title: "Amateur", color: "e" },
+        { minimumScore: 500, difference: 500, title: "Apprentice", color: "a" },
+        { minimumScore: 1000, difference: 1000, title: "Experienced", color: "d" },
+        { minimumScore: 2000, difference: 1500, title: "Seasoned", color: "9" },
+        { minimumScore: 3500, difference: 4000, title: "Skilled", color: "3" },
+        { minimumScore: 7500, difference: 2500, title: "Talented", color: "c" },
+        { minimumScore: 10000, difference: 5000, title: "Professional", color: "5" },
+        { minimumScore: 15000, difference: 5000, title: "Expert", color: "1" },
+        { minimumScore: 20000, difference: -1, title: "Master", color: "4" },        
+    ];
+    
+    let scoreToGo; 
+    let chosenTitle = buildBattleTitles[0];
+    for(a = 0; a < buildBattleTitles.length; a++) {
+      if(score >= buildBattleTitles[a]["minimumScore"]) {
+        if(a === buildBattleTitles.length - 1) {
+          scoreToGo = -1;
+        } else {
+          scoreToGo = buildBattleTitles[a + 1]["minimumScore"] - score;
+        }
+        chosenTitle = buildBattleTitles[a];
+      }
+    }
+
+    let nextTitlePercentage;
+    if(chosenTitle["difference"] == -1) {
+        nextTitlePercentage = 1;
+    } else {
+        nextTitlePercentage = ((score - chosenTitle["minimumScore"]) / chosenTitle["difference"]);
+    }
+
+    return [`<span class="m${chosenTitle["color"]}">${chosenTitle["title"]}</span>`, scoreToGo, nextTitlePercentage];
 }
 
 function getDuelsTitle(wins, name = "") { // Generates a Duels title based on the number of wins a player has in a certain gamemode

@@ -340,12 +340,50 @@
       </section>
     </div>
 
-    <div class="flex-container unloaded" id="flex-container-buildbattle">
-      <section class="player-card" id="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding Build Battle to nadeshiko shortly.</p>
-      </section>
+    <div class="flex-container unloaded minigame-flex-container" id="flex-container-buildbattle">
+      <!-- duels stats -->
+      <div class="chip-container" id="buildbattle-chips">
+        <div class="chip-small but-big">
+          <div class="chip-small-background-filter"></div>
+          <p class="chip-small-title">Build Battle</p>
+          <div class="chip-small-container">
+            <p class="margin10">
+              <span id="buildbattle-overall-title"><span class="mc">Unknown</span></span> <span id="buildbattle-overall-to-go"></span>
+            </p>
+            <div class="progress-bar">
+              <span class="progress-number" id="buildbattle-overall-progress-number"><span class="mc">Unknown</span></span>
+              <div class="progress" style="width: 0%;" id="buildbattle-overall-progress-bar"></div>
+            </div>
+            <div class="flex-two-item align-top flippable margin10">
+              <div class="card-big-stats">
+                <p class="super-subtitle">Stats</p>
+                <div class="chip-small-statistic-row">
+                    <p>Score <span class="statistic" id="buildbattle-overall-score"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                    <p>Wins <span class="statistic" id="buildbattle-overall-wins"><span class="mc">Unknown</span></span></p>
+                    <p>Losses <span class="statistic" id="buildbattle-overall-losses"><span class="mc">Unknown</span></span></p>
+                    <p>W/L R <span class="statistic" id="buildbattle-overall-wlr"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+              <div class="card-big-misc">
+                <p class="super-subtitle">Misc</p>
+                <div class="chip-small-statistic-row">
+                    <p>Tokens <span class="statistic" id="buildbattle-overall-coins"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                  <p>Votes <span class="statistic" id="buildbattle-overall-total_votes"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                  <p>Highest Score <span class="statistic" id="buildbattle-overall-highest-score"><span class="mc">chloe plz add achievements to nadeshiko api</span></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="general-button mright margin-top-bottom" onclick="showCardWizard('BUILDBATTLE')">Generate Card</span>
+        </div>
     </div>
+  </div>
 
     <div class="flex-container unloaded" id="flex-container-murdermystery">
       <section class="player-card" id="player-card" style="align-content: center;">
@@ -797,122 +835,9 @@ function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, 
 var skinViewer;
 
  function insertLoadedData() {
-      var playerStats = playerData["stats"];
-      var profileStats = playerData["profile"];
-
-      var dateNow = new Date();
-
       redirectToHttps();
-
-      if(profileStats != undefined) {
-        var playerRank = profileStats["tag"];
-        var playerRankCute = cuteRank(playerRank, 1);
-
-        document.getElementById("card-rank").classList.add("rank-" + playerRankCute[0]); // Changes the rank to the player's rank colour
-        document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
-        document.getElementById("quick-mode-username").style.color = `var(--mc` + playerRankCute[0] + `)`;
-
-        document.getElementById("card-ranktext").innerHTML = playerRankCute[1]; // Adds player's rank
-
-        document.getElementById("card-name").innerText = playerData["name"];
-        document.getElementById("quick-mode-username").innerText = playerData["name"];
-        document.getElementById("header-name").innerHTML = cuteRank(profileStats["tagged_name"], 0);
-        document.getElementById("achievement-points").innerText = (profileStats["achievement_points"]).toLocaleString();
-        document.getElementById("karma").innerText = (profileStats["karma"]).toLocaleString();
-        console.log((profileStats["karma"]).toLocaleString());
-        document.getElementById("quests-completed").innerText = (profileStats["quests_completed"]).toLocaleString();
-        document.getElementById("ranks-gifted").innerText = (und(profileStats["ranks_gifted"])).toLocaleString();
-        document.getElementById("multiplier").innerText = (profileStats["coin_multiplier"]).toLocaleString();
-
-        var firstLogin = new Date((profileStats["first_login"])); // Used for birthday calculation
-        document.getElementById("first-login").innerText = (firstLogin).toLocaleDateString(); // Gets first login in Unix time and turns it into a date
-        document.getElementById("first-login-ago").innerHTML = "(" + relativeTime(firstLogin) + ")";
-
-        if((firstLogin.getMonth() == dateNow.getMonth()) && (firstLogin.getDate() == dateNow.getDate()) && (firstLogin.getYear() != dateNow.getYear())) {
-          document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
-          document.getElementById("birthday-text").innerText = ("Happy " + ordinal(dateNow.getYear() - firstLogin.getYear()) + " Hypixel anniversary!");
-          console.log("Happy anniversary!");
-        }
       
-        if(profileStats["last_login"] == 0) document.getElementById("last-login-container").style.display = "none";
-        else {
-          document.getElementById("last-login").innerText = (new Date((profileStats["last_login"]))).toLocaleDateString();
-          document.getElementById("last-login-ago").innerHTML = "(" + relativeTime(new Date(profileStats["last_login"])) + ")";
-        }
-        
-        if(playerData["status"]["online"]) { // Checks player's online status
-          document.getElementById("online-status").innerText = "Currently Online!";
-          document.getElementById("online-status").style.color = "var(--mca)";
-        }
-        else document.getElementById("online-status").innerText = "Currently Offline";
-
-        if(playerData["guild"] == undefined) {
-          console.log(playerData);
-          document.getElementById("guild-stats").style.display = "none";
-          document.getElementById("card-guild").style.display = "none";
-        }
-        else {
-          guildStats = playerData["guild"];
-            document.getElementById("guild-name").innerText = guildStats["name"];
-            document.getElementById("guild-tag").innerHTML = generateMinecraftText(guildStats["tag"]);
-            document.getElementById("card-guild").innerHTML = generateMinecraftText(guildStats["tag"]);
-            document.getElementById("guild-level").innerText = (Math.floor(guildStats["level"])).toLocaleString();
-            document.getElementById("guild-members").innerText = (guildStats["members"]).toLocaleString();
-            document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
-            document.getElementById("guild-joined-ago").innerText = "(" + relativeTime(new Date(guildStats["joined"])) + ")";
-        } 
-
-        hypixelLevel = profileStats["network_level"];
-        document.getElementById("level").innerText = Math.floor(hypixelLevel);
-        if(hypixelLevel >= 250) {
-          document.getElementById("level-container").style.color = "var(--gold-transparent)";
-          document.getElementById("level").style.color = "var(--gold)";
-        }
-
-        var xpProgress = ((hypixelLevel % 1) * 100).toFixed(0) + "%"; // Sets user's XP progress and progress bar
-        document.getElementById("xp-progress-bar").style.width = xpProgress;
-        document.getElementById("xp-progress-number").innerText = xpProgress;
-
-        if(Object.keys(profileStats["social_media"]).length != 0) {
-          document.getElementById("social-media-alternative").style.display = "";
-        }
-        var socials = ["HYPIXEL", "YOUTUBE", "TWITTER", "TIKTOK", "TWITCH", "DISCORD"];
-        for(a = 0; a < socials.length; a++) { // Iterates through social media and hides icons that don't exist for the player
-          if(profileStats["social_media"][socials[a]] == undefined) {
-            document.getElementById("social-" + (socials[a]).toLowerCase()).style.display = "none";
-            document.getElementById("social-" + (socials[a]).toLowerCase() + "-alternative").style.display = "none";
-          } else if(socials[a] != "DISCORD") {
-            socialMediaNew = profileStats["social_media"][socials[a]];
-            socialMediaNewUrl = !/^https?:\/\//i.test(socialMediaNew) ? `https://${socialMediaNew}` : socialMediaNew; // Adds HTTPS to the URL if it doesn't have it already
-
-            document.getElementById("sociallink-" + (socials[a]).toLowerCase()).href = socialMediaNewUrl;
-            document.getElementById("social-" + (socials[a]).toLowerCase() + "-alternative").href = socialMediaNewUrl;
-          } else {
-            document.getElementById("social-discord-username").innerText = profileStats["social_media"][socials[a]];
-            document.getElementById("social-discord-username-alternative").innerText = profileStats["social_media"][socials[a]];
-          }
-        }
-        
-        generateBedWars();
-        generateDuels();
-        generateSkyWars();
-
-      } else { // If no Hypixel stats, hide most buttons and show a warning
-        document.getElementById("general-bottom-bar").style.display = "none";
-        document.getElementById("card-name").innerText = playerData["name"];
-        document.getElementById("header-name").innerText = playerData["name"];
-        document.getElementById("game-buttons").style.display = "none";
-        document.getElementById("card-ranktext").style.display = "none";
-        document.getElementById("card-guild").style.display = "none";
-        document.getElementById("online-status").style.display = "none";
-        document.getElementById("real-stats").style.display = "none";
-        document.getElementById("network-error").style.display = "unset";
-        
-        document.getElementById("player-card").style.paddingLeft = "0px";
-        document.getElementById("player-card").style.paddingRight = "0px";
-        document.getElementById("player-card").style.paddingBottom = "0px";
-        document.getElementById("extended-card").style.marginBottom = "0px";
-      }      
+      generateNetwork();
 
       console.log("Wow! All the stats are loaded!");
   }

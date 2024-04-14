@@ -342,6 +342,7 @@ footer>a:hover {
     font-size: 14px;
     position: relative;
     right: 0px;
+    width: 100%;
 }
 
 .search-icon {
