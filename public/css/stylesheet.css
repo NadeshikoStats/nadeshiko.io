@@ -671,24 +671,25 @@ footer>a:hover {
     overflow-y: scroll;
 }
 
-.dropdown-content a {
+.dropdown-content a, .dropdown-content div {
     border-radius: 10px;
     color: #fff;
     padding: 12px 16px;
     text-decoration: none;
     display: flex;
+    flex-grow: 1;
     align-items: center;
     transition-duration: 0.5s;
     cursor: pointer;
     font-weight: 500;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover, .dropdown-content div:hover {
     background-color: var(--accent);
     color: black;
 }
 
-.dropdown-content a:hover img {
+.dropdown-content a:hover img, .dropdown-content div:hover img {
     filter: brightness(0);
     opacity: 1;
 }

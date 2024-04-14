@@ -138,6 +138,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         generateDuels();
         generateSkyWars();
         generateBuildBattle();
+        generateMurderMystery();
 
       } else { // If no Hypixel stats, hide most buttons and show a warning
         document.getElementById("general-bottom-bar").style.display = "none";
@@ -632,7 +633,6 @@ function generateBuildBattle() { // Generates stats and chips for Build Battle
 
     let buildBattleStats = playerData["stats"]["BuildBattle"];
 
-
     buildBattleTitle = getBuildBattleTitle(und(buildBattleStats["score"]));
     document.getElementById("buildbattle-overall-title").innerHTML = buildBattleTitle[0];
     document.getElementById("buildbattle-overall-to-go").innerHTML = `(${checkAndFormat(buildBattleTitle[1])} to go)`;
@@ -655,7 +655,6 @@ function generateBuildBattle() { // Generates stats and chips for Build Battle
     for(a = 0; a < buildBattleModes.length; a++) {
 
         currentBuildBattleMode = buildBattleModes[a];
-        console.log(currentBuildBattleMode);
 
         buildBattleModeStats = [[false, ["Wins", checkAndFormat(buildBattleStats[`wins_${currentBuildBattleMode[1]}`])]]];
 
@@ -682,6 +681,68 @@ function generateBuildBattle() { // Generates stats and chips for Build Battle
         generateChip(buildBattleChips[d], "buildbattle-chips");
     }
 }
+
+function generateMurderMystery() { // Generates stats and chips for Murder Mystery
+    let murderMysteryStats = playerData["stats"]["MurderMystery"];
+    let easyStats = ["kills", "deaths", "wins", "coins", "coins_pickedup", "murderer_wins", "detective_wins", "kills_as_murderer", "was_hero"];
+
+    for(e = 0; e < easyStats.length; e++) {
+      document.getElementById("murdermystery-overall-" + easyStats[e]).innerText = checkAndFormat(murderMysteryStats[easyStats[e]]);
+    }
+
+    document.getElementById("murdermystery-overall-losses").innerText = checkAndFormat(murderMysteryStats["games"] - murderMysteryStats["wins"]);
+    document.getElementById("murdermystery-overall-wlr").innerText = calculateRatio(murderMysteryStats["wins"], murderMysteryStats["games"] - murderMysteryStats["wins"]);
+    document.getElementById("murdermystery-overall-kdr").innerText = checkAndFormat(murderMysteryStats["games"] - murderMysteryStats["wins"]);
+
+    document.getElementById("murdermystery-overall-quickest_murderer_win_time_seconds").innerText = smallDuration(und(murderMysteryStats["quickest_murderer_win_time_seconds"]));
+    document.getElementById("murdermystery-overall-quickest_detective_win_time_seconds").innerText = smallDuration(und(murderMysteryStats["quickest_detective_win_time_seconds"]));
+
+    murderMysteryModes = [["Classic","MURDER_CLASSIC",[]],["Double Up!","MURDER_DOUBLE_UP",[]],["Assassins","MURDER_ASSASSINS",[]],["Infection","MURDER_INFECTION",[]]];
+    murderMysteryChips = [];
+
+    for(a = 0; a < murderMysteryModes.length; a++) {
+
+      currentMurderMysteryMode = murderMysteryModes[a];
+
+      let murderMysteryModeStats;
+
+      murderMysteryModeStats = [[false, ["Wins", checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])], ["Losses", checkAndFormat(murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])], ["W/L R", calculateRatio(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`], murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])]], [false, ["Kills", checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])], ["Deaths", checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`])], ["K/D R", calculateRatio(checkAndFormat(murderMysteryStats[`kills_${currentMurderMysteryMode[1]}`]), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`]))]]];
+
+
+      if(currentMurderMysteryMode[1] == "MURDER_CLASSIC" || currentMurderMysteryMode[1] == "MURDER_DOUBLE_UP") {
+
+        murderMysteryModeStats.push([false, ["Wins (Murderer)", checkAndFormat(murderMysteryStats[`murderer_wins_${currentMurderMysteryMode[1]}`])], ["Wins (Detective)", checkAndFormat(murderMysteryStats[`detective_wins_${currentMurderMysteryMode[1]}`])]],[false, ["Kills (Murderer)", checkAndFormat(murderMysteryStats[`kills_as_murderer_${currentMurderMysteryMode[1]}`])], ["Wins (Hero)", checkAndFormat(murderMysteryStats[`was_hero_${currentMurderMysteryMode[1]}`])]]);
+
+      } else if(currentMurderMysteryMode[1] == "MURDER_ASSASSINS") {
+        
+        // idk
+
+      } else if(currentMurderMysteryMode[1] == "MURDER_INFECTION") {
+        
+        murderMysteryModeStats.push([false, ["Wins (Survivor)", checkAndFormat(murderMysteryStats[`survivor_wins_${currentMurderMysteryMode[1]}`])], ["Total Time Survived", smallDuration(und(murderMysteryStats[`total_time_survived_seconds_${currentMurderMysteryMode[1]}`]))]],[false, ["Kills (Infected)", checkAndFormat(murderMysteryStats[`kills_as_infected_${currentMurderMysteryMode[1]}`])], ["Kills (Survivor)", checkAndFormat(murderMysteryStats[`kills_as_survivor_${currentMurderMysteryMode[1]}`])]]);
+
+      }
+
+      murderMysteryModeStats.push([false, ["Gold Picked Up", checkAndFormat(murderMysteryStats[`coins_pickedup_${currentMurderMysteryMode[1]}`])]]);
+
+      murderMysteryChip = [
+          ("murdermystery-stats-" + (currentMurderMysteryMode[1])), // ID
+          currentMurderMysteryMode[0], // Title
+          ``, // Subtitle (none)
+          (`/img/games/home.png`), // Background image
+          murderMysteryModeStats, // Displayed stats
+          [], // Other stats (shown in drop-down menu)
+          ``, // Chip image
+          "murdermystery", // gamemode
+      ];
+      murderMysteryChips.push(murderMysteryChip);
+  }
+
+  for(d = 0; d < murderMysteryChips.length; d++) {
+    generateChip(murderMysteryChips[d], "murdermystery-chips");
+  }
+}
+
 
 function getBuildBattleTitle(score) { // Gets player's Build Battle title based on an amount of score
     let buildBattleTitles = [
@@ -722,7 +783,6 @@ function getBuildBattleTitle(score) { // Gets player's Build Battle title based 
 }
 
 function getDuelsTitle(wins, name = "") { // Generates a Duels title based on the number of wins a player has in a certain gamemode
-
     multiplier = (name == "" ? 2 : 1); // Multiply required wins by 2 for general Duels titles
 
     const duelsTitles = [
