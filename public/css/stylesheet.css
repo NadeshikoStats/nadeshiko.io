@@ -1382,25 +1382,22 @@ footer>a:hover {
     width: 90%;
   }
 
-/* Scrollbar CSS */
+	/* Scrollbar CSS */
+	@-moz-document url-prefix() {
+		* {
+			scrollbar-width: auto;
+			scrollbar-color: var(--accent) transparent;
+		}
+	}
 
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: var(--accent) transparent;
-  }
-
- /* width */
-::-webkit-scrollbar {
-    width: 20px;
+  ::-webkit-scrollbar {
+    width: 9px;
   }
   
-  /* Track */
   ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
     border-radius: 10px;
   }
    
-  /* Handle */
   ::-webkit-scrollbar-thumb {
     background: var(--accent); 
     border-radius: 99px;
