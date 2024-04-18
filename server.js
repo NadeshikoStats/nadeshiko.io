@@ -33,11 +33,6 @@ async function getVisageImage(uuid) {
   }
 }
 
-app.get('/p/:name', (req, res) => {
-  const { name } = req.params;
-  res.redirect(`/player/${name}`);
-});
-
 app.get('/player/:name', async (req, res) => {
   const name = req.params.name;
   var base64PlayerImage = "";
@@ -82,6 +77,11 @@ app.get('/player/:name', async (req, res) => {
       res.status(500).send('Error forwarding request');
     }
 });
+
+  app.get('/:name', (req, res) => {
+    const { name } = req.params;
+    res.redirect(`/player/${name}`);
+  });
   
   app.listen(port, () => {
     console.log(`Listening at https://localhost:${port}!`);
