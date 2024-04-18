@@ -650,7 +650,7 @@ function generateBuildBattle() { // Generates stats and chips for Build Battle
 
     buildBattleTitle = getBuildBattleTitle(und(buildBattleStats["score"]));
     updateElement("buildbattle-overall-title", buildBattleTitle[0], true);
-    updateElement("buildbattle-overall-to-go", `(${checkAndFormat(buildBattleTitle[1])} to go)`);
+    updateElement("buildbattle-overall-to-go", buildBattleTitle[1] == -1 ? `(Max title!)` : `${checkAndFormat(buildBattleTitle[1])} to go)`);
     updateElement("buildbattle-overall-progress-number", Math.floor(buildBattleTitle[2] * 100) + "%");
     document.getElementById("buildbattle-overall-progress-bar").style.width = (buildBattleTitle[2] * 100) + "%";
     

@@ -209,7 +209,7 @@ footer>a:hover {
     transition-duration: 0.5s;
 }
 
-.header-game:before {
+.header-game:before, .header-down:before {
     content: '';
     position: absolute;
     height: 300%;
@@ -383,7 +383,7 @@ footer>a:hover {
     transition-duration: 0.5s;
 }
 
-.dropdown-arrow:hover {
+.header-down:hover > img {
     opacity: 1;
 }
 
