@@ -14,6 +14,17 @@ function und(text) { // Checks if a number is zero
     return text;
 }
 
+function updateElement(id, value, useInnerHTML = false) {
+    const element = document.getElementById(id);
+    if (element) {
+        if (useInnerHTML) {
+            element.innerHTML = value;
+        } else {
+            element.textContent = value;
+        }
+    }
+}
+
 function locale(number, digits = 2) {
     return number.toLocaleString(undefined, { minimumFractionDigits: digits, maximumFractionDigits: digits});
 } 
@@ -54,39 +65,38 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
         document.getElementById("quick-mode-username").style.color = `var(--mc` + playerRankCute[0] + `)`;
 
-        document.getElementById("card-ranktext").innerHTML = playerRankCute[1]; // Adds player's rank
+        updateElement("card-ranktext", playerRankCute[1], true); // Adds player's rank
+        updateElement("card-name", playerData["name"]);
+        updateElement("quick-mode-username", playerData["name"]);
+        updateElement("header-name", cuteRank(profileStats["tagged_name"], 0), true);
+        updateElement("achievement-points", profileStats["achievement_points"].toLocaleString());
+        updateElement("karma", profileStats["karma"].toLocaleString());
+        updateElement("quests-completed", profileStats["quests_completed"].toLocaleString());
+        updateElement("ranks-gifted", und(profileStats["ranks_gifted"]).toLocaleString());
+        updateElement("multiplier", profileStats["coin_multiplier"].toLocaleString());
 
-        document.getElementById("card-name").innerText = playerData["name"];
-        document.getElementById("quick-mode-username").innerText = playerData["name"];
-        document.getElementById("header-name").innerHTML = cuteRank(profileStats["tagged_name"], 0);
-        document.getElementById("achievement-points").innerText = (profileStats["achievement_points"]).toLocaleString();
-        document.getElementById("karma").innerText = (profileStats["karma"]).toLocaleString();
-        console.log((profileStats["karma"]).toLocaleString());
-        document.getElementById("quests-completed").innerText = (profileStats["quests_completed"]).toLocaleString();
-        document.getElementById("ranks-gifted").innerText = (und(profileStats["ranks_gifted"])).toLocaleString();
-        document.getElementById("multiplier").innerText = (profileStats["coin_multiplier"]).toLocaleString();
 
         var firstLogin = new Date((profileStats["first_login"])); // Used for birthday calculation
-        document.getElementById("first-login").innerText = (firstLogin).toLocaleDateString(); // Gets first login in Unix time and turns it into a date
-        document.getElementById("first-login-ago").innerHTML = "(" + relativeTime(firstLogin) + ")";
+        updateElement("first-login", (firstLogin).toLocaleDateString()); // Gets first login in Unix time and turns it into a date
+        updateElement("first-login-ago", `(${relativeTime(firstLogin)})`, true);
 
         if((firstLogin.getMonth() == dateNow.getMonth()) && (firstLogin.getDate() == dateNow.getDate()) && (firstLogin.getYear() != dateNow.getYear())) {
           document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
-          document.getElementById("birthday-text").innerText = ("Happy " + ordinal(dateNow.getYear() - firstLogin.getYear()) + " Hypixel anniversary!");
+          updateElement("birthday-text", `Happy ${ordinal(dateNow.getYear() - firstLogin.getYear())} Hypixel anniversary!`);
           console.log("Happy anniversary!");
         }
       
         if(profileStats["last_login"] == 0) document.getElementById("last-login-container").style.display = "none";
         else {
-          document.getElementById("last-login").innerText = (new Date((profileStats["last_login"]))).toLocaleDateString();
-          document.getElementById("last-login-ago").innerHTML = "(" + relativeTime(new Date(profileStats["last_login"])) + ")";
+          updateElement("last-login", (new Date((profileStats["last_login"]))).toLocaleDateString());
+          updateElement("last-login-ago", `(${relativeTime(new Date(profileStats["last_login"]))})`);
         }
         
         if(playerData["status"]["online"]) { // Checks player's online status
-          document.getElementById("online-status").innerText = "Currently Online!";
+          updateElement("online-status", "Currently Online!");
           document.getElementById("online-status").style.color = "var(--mca)";
         }
-        else document.getElementById("online-status").innerText = "Currently Offline";
+        else updateElement("online-status", "Currently Offline");
 
         if(playerData["guild"] == undefined) {
           console.log(playerData);
@@ -94,17 +104,17 @@ function generateNetwork() { // Inserts general/network stats into the DOM
           document.getElementById("card-guild").style.display = "none";
         } else {
           guildStats = playerData["guild"];
-            document.getElementById("guild-name").innerText = guildStats["name"];
-            document.getElementById("guild-tag").innerHTML = generateMinecraftText(guildStats["tag"]);
-            document.getElementById("card-guild").innerHTML = generateMinecraftText(guildStats["tag"]);
-            document.getElementById("guild-level").innerText = (Math.floor(guildStats["level"])).toLocaleString();
-            document.getElementById("guild-members").innerText = (guildStats["members"]).toLocaleString();
-            document.getElementById("guild-joined").innerText = new Date(guildStats["joined"]).toLocaleDateString();
-            document.getElementById("guild-joined-ago").innerText = "(" + relativeTime(new Date(guildStats["joined"])) + ")";
+            updateElement("guild-name", guildStats["name"]);
+            updateElement("guild-tag", generateMinecraftText(guildStats["tag"]), true);
+            updateElement("card-guild", generateMinecraftText(guildStats["tag"]), true);
+            updateElement("guild-level", Math.floor(guildStats["level"]).toLocaleString());
+            updateElement("guild-members", guildStats["members"].toLocaleString());
+            updateElement("guild-joined", new Date(guildStats["joined"]).toLocaleDateString());
+            updateElement("guild-joined-ago", `(${relativeTime(new Date(guildStats["joined"]))})`);
         } 
 
         hypixelLevel = profileStats["network_level"];
-        document.getElementById("level").innerText = Math.floor(hypixelLevel);
+        updateElement("level", Math.floor(hypixelLevel).toLocaleString());
         if(hypixelLevel >= 250) {
           document.getElementById("level-container").style.color = "var(--gold-transparent)";
           document.getElementById("level").style.color = "var(--gold)";
@@ -112,7 +122,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
 
         var xpProgress = ((hypixelLevel % 1) * 100).toFixed(0) + "%"; // Sets user's XP progress and progress bar
         document.getElementById("xp-progress-bar").style.width = xpProgress;
-        document.getElementById("xp-progress-number").innerText = xpProgress;
+        updateElement("xp-progress-number", xpProgress);
 
         if(Object.keys(profileStats["social_media"]).length != 0) {
           document.getElementById("social-media-alternative").style.display = "";
@@ -129,8 +139,8 @@ function generateNetwork() { // Inserts general/network stats into the DOM
             document.getElementById("sociallink-" + (socials[a]).toLowerCase()).href = socialMediaNewUrl;
             document.getElementById("social-" + (socials[a]).toLowerCase() + "-alternative").href = socialMediaNewUrl;
           } else {
-            document.getElementById("social-discord-username").innerText = profileStats["social_media"][socials[a]];
-            document.getElementById("social-discord-username-alternative").innerText = profileStats["social_media"][socials[a]];
+            updateElement("social-discord-username", profileStats["social_media"][socials[a]]);
+            updateElement("social-discord-username-alternative", profileStats["social_media"][socials[a]]);
           }
         }
         
@@ -142,8 +152,8 @@ function generateNetwork() { // Inserts general/network stats into the DOM
 
       } else { // If no Hypixel stats, hide most buttons and show a warning
         document.getElementById("general-bottom-bar").style.display = "none";
-        document.getElementById("card-name").innerText = playerData["name"];
-        document.getElementById("header-name").innerText = playerData["name"];
+        updateElement("card-name", playerData["name"]);
+        updateElement("header-name", playerData["name"]);
         document.getElementById("game-buttons").style.display = "none";
         document.getElementById("card-ranktext").style.display = "none";
         document.getElementById("card-guild").style.display = "none";
@@ -254,32 +264,32 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
 
     let bedWarsLevel = getBedWarsLevel(bedWarsStats["Experience"]);
 
-    document.getElementById("bed-wars-level").innerText = checkAndFormat(bedWarsLevel, 0);
+    updateElement("bed-wars-level", checkAndFormat(bedWarsLevel, 0));
     document.getElementById("bed-wars-level-container").style.background = linearGradient(bedWarsPrestigeColors[Math.floor(Math.max(bedWarsLevel / 100), 49)]);
    document.getElementById("bed-wars-xp-progress-bar").style.width = (bedWarsLevel % 1 * 100).toFixed(0) + "%";
-   document.getElementById("bed-wars-xp-progress-number").innerText = (bedWarsLevel % 1 * 100).toFixed(0) + "%";
+   updateElement("bed-wars-xp-progress-number", (bedWarsLevel % 1 * 100).toFixed(0) + "%");
 
     var bedWarsChips = [];
 
     for(e = 0; e < easyStats.length; e++) {
-        document.getElementById("bed-wars-overall-" + easyStats[e]).innerText = checkAndFormat(bedWarsStats[easyStats[e] + "_bedwars"]);
+        updateElement("bed-wars-overall-" + easyStats[e], checkAndFormat(bedWarsStats[easyStats[e] + "_bedwars"]));
     }
-    document.getElementById("bed-wars-overall-winstreak").innerText = checkAndFormat(bedWarsStats["winstreak"]);
-    document.getElementById("bed-wars-overall-wlr").innerText = calculateRatio(bedWarsStats["wins_bedwars"], bedWarsStats["losses_bedwars"]);
-    document.getElementById("bed-wars-overall-kdr").innerText = calculateRatio(bedWarsStats["kills_bedwars"], bedWarsStats["deaths_bedwars"]);
-    document.getElementById("bed-wars-overall-fkdr").innerText = calculateRatio(bedWarsStats["final_kills_bedwars"], bedWarsStats["final_deaths_bedwars"]);
-    document.getElementById("bed-wars-overall-bblr").innerText = calculateRatio(bedWarsStats["beds_broken_bedwars"], bedWarsStats["beds_lost_bedwars"]);
-    document.getElementById("bed-wars-tokens").innerText = checkAndFormat(bedWarsStats["coins"]);
-    document.getElementById("bed-wars-challenges-completed").innerText = checkAndFormat(bedWarsStats["total_challenges_completed"]);
-    
-    document.getElementById("bed-wars-unique-challenges-completed").innerText = `(` + checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]) + `/30)`;
+    updateElement("bed-wars-overall-winstreak", checkAndFormat(bedWarsStats["winstreak"]));
+    updateElement("bed-wars-overall-wlr", calculateRatio(bedWarsStats["wins_bedwars"], bedWarsStats["losses_bedwars"]));
+    updateElement("bed-wars-overall-kdr", calculateRatio(bedWarsStats["kills_bedwars"], bedWarsStats["deaths_bedwars"]));
+    updateElement("bed-wars-overall-fkdr", calculateRatio(bedWarsStats["final_kills_bedwars"], bedWarsStats["final_deaths_bedwars"]));
+    updateElement("bed-wars-overall-bblr", calculateRatio(bedWarsStats["beds_broken_bedwars"], bedWarsStats["beds_lost_bedwars"]));
+    updateElement("bed-wars-tokens", checkAndFormat(bedWarsStats["coins"]));
+    updateElement("bed-wars-challenges-completed", checkAndFormat(bedWarsStats["total_challenges_completed"]));
+
+    updateElement("bed-wars-unique-challenges-completed", `(` + checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]) + `/30)`);
     
     if(bedWarsStats["bw_unique_challenges_completed"] == 30) {
         document.getElementById("bed-wars-unique-challenges-completed").style.color = `var(--gold)`;
     }
 
     if(bedWarsStats["slumber"] != undefined) {
-        document.getElementById("bed-wars-slumber-tickets").innerText = checkAndFormat(bedWarsStats["slumber"]["tickets"]);
+        updateElement("bed-wars-slumber-tickets", checkAndFormat(bedWarsStats["slumber"]["tickets"]));
     }
 
     for(a = 0; a < modes.length; a++) { // Regular stats
@@ -307,8 +317,6 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
             dreamModeWinstreak = winstreakTest;
         }
     }
-    console.log("Dreams stats:")
-    console.log(totalDreamModeStatsCounts);
 
     totalDreamModeStats = [
         [true, ["Winstreak", checkAndFormat(dreamModeWinstreak)]],
@@ -349,22 +357,26 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
 
 function generateSkyWars() {
     skyWarsStats = playerData["stats"]["SkyWars"];
-    document.getElementById("skywars-level").innerHTML = generateMinecraftText(skyWarsStats["levelFormatted"]);
+    if(skyWarsStats != undefined) {
+
+    if(skyWarsStats["levelFormatted"] != undefined) {
+        updateElement("skywars-level", generateMinecraftText(skyWarsStats["levelFormatted"]), true);
+    }
 
     easyStats = ["kills", "deaths", "wins", "losses", "coins", "cosmetic_tokens", "chests_opened", "heads"];
     for(e = 0; e < easyStats.length; e++) {
-        document.getElementById("skywars-overall-" + easyStats[e]).innerText = checkAndFormat(skyWarsStats[easyStats[e]]);
+        updateElement("skywars-overall-" + easyStats[e], checkAndFormat(skyWarsStats[easyStats[e]]));
     }
 
     skyWarsLevel = getSkyWarsLevel(und(skyWarsStats["skywars_experience"]));
     document.getElementById("skywars-xp-progress-bar").style.width = (skyWarsLevel % 1 * 100) + "%";
-    document.getElementById("skywars-xp-progress-number").innerText = (skyWarsLevel % 1 * 100).toFixed(0) + "%";
+    updateElement("skywars-xp-progress-number", (skyWarsLevel % 1 * 100).toFixed(0) + "%");
 
-    document.getElementById("skywars-overall-kdr").innerText = calculateRatio(skyWarsStats["kills"], skyWarsStats["deaths"]);
-    document.getElementById("skywars-overall-wlr").innerText = calculateRatio(skyWarsStats["wins"], skyWarsStats["losses"]);
-    document.getElementById("skywars-overall-playtime").innerText = smallDuration(skyWarsStats["time_played"]);
+    updateElement("skywars-overall-kdr", calculateRatio(skyWarsStats["kills"], skyWarsStats["deaths"]));
+    updateElement("skywars-overall-wlr", calculateRatio(skyWarsStats["wins"], skyWarsStats["losses"]));
+    updateElement("skywars-overall-playtime", smallDuration(skyWarsStats["time_played"]));
 
-    document.getElementById("skywars-overall-corruption-chance").innerText = (und(skyWarsStats["angel_of_death_level"]) + und(skyWarsStats["angels_offering"]) + (skyWarsStats["packages"] != undefined ? skyWarsStats["packages"].includes("favor_of_the_angel") : 0)) + "%";
+    updateElement("skywars-overall-corruption-chance", (und(skyWarsStats["angel_of_death_level"]) + und(skyWarsStats["angels_offering"]) + (skyWarsStats["packages"] != undefined ? skyWarsStats["packages"].includes("favor_of_the_angel") : 0)) + "%");
 
     skyWarsChips = [];
     skyWarsStatsToShow = [["Solo", "solo", [["Overall", "solo"],["Normal","solo_normal"],["Insane","solo_insane"]]], ["Team", "team", [["Overall", "team"],["Normal","team_normal"],["Insane","team_insane"]]], ["Mega", "mega", []], ["Lab", "lab", []]];
@@ -385,6 +397,7 @@ function generateSkyWars() {
 
     for(d = 0; d < skyWarsChips.length; d++) {
         generateChip(skyWarsChips[d], "skywars-chips");
+    }
     }
 }
 
@@ -522,16 +535,17 @@ function maxStats(statNames, modeNames, statArray, separator = "_", reverse = fa
 
 function generateDuels() { // Generates stats and chips for Duels
     duelsStats = playerData["stats"]["Duels"];
+    if(duelsStats != undefined) {
     duelsChips = [];
 
     let easyStats = ["wins", "losses", "kills", "deaths", "current_winstreak", "best_overall_winstreak", "coins", "melee_swings"]
     for(e = 0; e < easyStats.length; e++) {
-        document.getElementById("duels-overall-" + easyStats[e]).innerText = checkAndFormat(duelsStats[easyStats[e]]);
+        updateElement("duels-overall-" + easyStats[e], checkAndFormat(duelsStats[easyStats[e]]));
     }
 
-    document.getElementById("duels-overall-kdr").innerHTML = calculateRatio(duelsStats["kills"], duelsStats["deaths"]);
-    document.getElementById("duels-overall-wlr").innerHTML = calculateRatio(duelsStats["wins"], duelsStats["losses"]);
-    document.getElementById("duels-overall-damage-dealt").innerHTML = checkAndFormat(duelsStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`;
+    updateElement("duels-overall-kdr", calculateRatio(duelsStats["kills"], duelsStats["deaths"]));
+    updateElement("duels-overall-wlr", calculateRatio(duelsStats["wins"], duelsStats["losses"]));
+    document.getElementById("duels-overall-damage-dealt").innerText = checkAndFormat(duelsStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`;
 
     overallDuelsTitle = getDuelsTitle(und(duelsStats["wins"]));
 
@@ -546,11 +560,10 @@ function generateDuels() { // Generates stats and chips for Duels
         formattedWinsToGo = (`(${checkAndFormat(winsToGo)} to go` + (winsToGo == 1 ? `!)` : `)`));
     }
 
-    document.getElementById("duels-overall-title").innerHTML = overallDuelsTitle[0];
-    document.getElementById("duels-overall-to-go").innerHTML = formattedWinsToGo;
-
-    duelsProgress = ((overallDuelsTitle[2] - overallDuelsTitle[1]) / overallDuelsTitle[2])
-    document.getElementById("duels-overall-progress-number").innerText = Math.floor(duelsProgress * 100) + "%";
+    updateElement("duels-overall-title", overallDuelsTitle[0], true);
+    updateElement("duels-overall-to-go", formattedWinsToGo);
+    duelsProgress = ((overallDuelsTitle[2] - overallDuelsTitle[1]) / overallDuelsTitle[2]);
+    updateElement("duels-overall-progress-number", Math.floor(duelsProgress * 100) + "%");
     document.getElementById("duels-overall-progress-bar").style.width = (Math.floor(duelsProgress * 100) + "%");
     
     var duelsModes = [
@@ -627,29 +640,30 @@ function generateDuels() { // Generates stats and chips for Duels
     for(d = 0; d < duelsChips.length; d++) {
         generateChip(duelsChips[d], "duels-chips");
     }
+    }
 }
 
 function generateBuildBattle() { // Generates stats and chips for Build Battle
 
     let buildBattleStats = playerData["stats"]["BuildBattle"];
+    if(buildBattleStats != undefined) {
 
     buildBattleTitle = getBuildBattleTitle(und(buildBattleStats["score"]));
-    document.getElementById("buildbattle-overall-title").innerHTML = buildBattleTitle[0];
-    document.getElementById("buildbattle-overall-to-go").innerHTML = `(${checkAndFormat(buildBattleTitle[1])} to go)`;
-
-    document.getElementById("buildbattle-overall-progress-number").innerText = Math.floor(buildBattleTitle[2] * 100) + "%";
+    updateElement("buildbattle-overall-title", buildBattleTitle[0], true);
+    updateElement("buildbattle-overall-to-go", `(${checkAndFormat(buildBattleTitle[1])} to go)`);
+    updateElement("buildbattle-overall-progress-number", Math.floor(buildBattleTitle[2] * 100) + "%");
     document.getElementById("buildbattle-overall-progress-bar").style.width = (buildBattleTitle[2] * 100) + "%";
     
-    document.getElementById("buildbattle-overall-losses").innerText = checkAndFormat(buildBattleStats["games-played"] - buildBattleStats["wins"]);
-    document.getElementById("buildbattle-overall-wlr").innerText = calculateRatio(buildBattleStats["wins"], buildBattleStats["games_played"] - buildBattleStats["wins"]);
+    updateElement("buildbattle-overall-losses", checkAndFormat(buildBattleStats["games_played"] - buildBattleStats["wins"]));
+    updateElement("buildbattle-overall-wlr", calculateRatio(buildBattleStats["wins"], buildBattleStats["games_played"] - buildBattleStats["wins"]));
 
     let easyStats = ["score", "wins", "total_votes", "coins"];
     for(e = 0; e < easyStats.length; e++) {
-        document.getElementById("buildbattle-overall-" + easyStats[e]).innerText = checkAndFormat(buildBattleStats[easyStats[e]]);
+        updateElement("buildbattle-overall-" + easyStats[e], checkAndFormat(buildBattleStats[easyStats[e]]));
     }
 
 
-    let buildBattleModes = [["Solo", "solo_normal", []], ["Teams", "teams_normal", []], ["Pro", "solo_pro", []], ["Guess The Build", "guess_the_build", []], ];
+    let buildBattleModes = [["Solo", "solo_normal", []], ["Teams", "teams_normal", []], ["Pro", "solo_pro", []], ["Guess The Build", "guess_the_build", []]];
 
     buildBattleChips = []
     for(a = 0; a < buildBattleModes.length; a++) {
@@ -680,22 +694,25 @@ function generateBuildBattle() { // Generates stats and chips for Build Battle
     for(d = 0; d < buildBattleChips.length; d++) {
         generateChip(buildBattleChips[d], "buildbattle-chips");
     }
+    }   
 }
 
 function generateMurderMystery() { // Generates stats and chips for Murder Mystery
     let murderMysteryStats = playerData["stats"]["MurderMystery"];
+    if(murderMysteryStats != undefined) {
+
     let easyStats = ["kills", "deaths", "wins", "coins", "coins_pickedup", "murderer_wins", "detective_wins", "kills_as_murderer", "was_hero"];
 
     for(e = 0; e < easyStats.length; e++) {
-      document.getElementById("murdermystery-overall-" + easyStats[e]).innerText = checkAndFormat(murderMysteryStats[easyStats[e]]);
+      updateElement("murdermystery-overall-" + easyStats[e], checkAndFormat(murderMysteryStats[easyStats[e]]));
     }
 
-    document.getElementById("murdermystery-overall-losses").innerText = checkAndFormat(murderMysteryStats["games"] - murderMysteryStats["wins"]);
-    document.getElementById("murdermystery-overall-wlr").innerText = calculateRatio(murderMysteryStats["wins"], murderMysteryStats["games"] - murderMysteryStats["wins"]);
-    document.getElementById("murdermystery-overall-kdr").innerText = checkAndFormat(murderMysteryStats["games"] - murderMysteryStats["wins"]);
+    updateElement("murdermystery-overall-losses", checkAndFormat(murderMysteryStats["games"] - murderMysteryStats["wins"]));
+    updateElement("murdermystery-overall-wlr", calculateRatio(murderMysteryStats["wins"], murderMysteryStats["games"] - murderMysteryStats["wins"]));
+    updateElement("murdermystery-overall-kdr", checkAndFormat(murderMysteryStats["games"] - murderMysteryStats["wins"]));
 
-    document.getElementById("murdermystery-overall-quickest_murderer_win_time_seconds").innerText = smallDuration(und(murderMysteryStats["quickest_murderer_win_time_seconds"]));
-    document.getElementById("murdermystery-overall-quickest_detective_win_time_seconds").innerText = smallDuration(und(murderMysteryStats["quickest_detective_win_time_seconds"]));
+    updateElement("murdermystery-overall-quickest_murderer_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_murderer_win_time_seconds"])));
+    updateElement("murdermystery-overall-quickest_detective_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_detective_win_time_seconds"])));
 
     murderMysteryModes = [["Classic","MURDER_CLASSIC",[]],["Double Up!","MURDER_DOUBLE_UP",[]],["Assassins","MURDER_ASSASSINS",[]],["Infection","MURDER_INFECTION",[]]];
     murderMysteryChips = [];
@@ -740,6 +757,8 @@ function generateMurderMystery() { // Generates stats and chips for Murder Myste
 
   for(d = 0; d < murderMysteryChips.length; d++) {
     generateChip(murderMysteryChips[d], "murdermystery-chips");
+  }
+
   }
 }
 
@@ -848,15 +867,15 @@ function updateChipStats(event, chipId, gamemode) { // Updates what a chip does 
     newValue = event.target.value;
     console.log([chipId, newValue]);
     if(gamemode == "duels") {
-        document.getElementById(chipId).innerHTML = generateChipStats(allDuelsStats[newValue][0]);
+        updateElement(chipId, generateChipStats(allDuelsStats[newValue][0]), true);
     } else if(gamemode == "bedwars") {
         if(newValue == "overall") {
-            document.getElementById(chipId).innerHTML = generateChipStats(totalDreamModeStats);
+            updateElement(chipId, generateChipStats(totalDreamModeStats), true);
         } else {
             console.log(newValue);
-            document.getElementById(chipId).innerHTML = generateChipStats(getBedWarsModeStats(newValue));
+            updateElement(chipId, generateChipStats(getBedWarsModeStats(newValue)), true);
         }
     } else if(gamemode == "skywars") {
-        document.getElementById(chipId).innerHTML = generateChipStats(getSkyWarsModeStats(newValue));
+        updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
     }
 }
