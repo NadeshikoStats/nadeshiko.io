@@ -76,20 +76,32 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         updateElement("multiplier", profileStats["coin_multiplier"].toLocaleString());
 
 
-        var firstLogin = new Date((profileStats["first_login"])); // Used for birthday calculation
-        updateElement("first-login", (firstLogin).toLocaleDateString()); // Gets first login in Unix time and turns it into a date
-        updateElement("first-login-ago", `(${relativeTime(firstLogin)})`, true);
+        firstLoginDate = new Date((profileStats["first_login"])); // Used for birthday calculation
+        updateElement("first-login", (firstLoginDate).toLocaleDateString()); // Gets first login in Unix time and turns it into a date
+        updateElement("first-login-ago", `(${relativeTime(firstLoginDate)})`, true);
+        updateElement("first-login-ago-full", 
+        new Intl.DateTimeFormat("default", { 
+          dateStyle: 'long',
+					timeStyle: 'long'
+        }).format(new Date(firstLoginDate)));
 
-        if((firstLogin.getMonth() == dateNow.getMonth()) && (firstLogin.getDate() == dateNow.getDate()) && (firstLogin.getYear() != dateNow.getYear())) {
+        if((firstLoginDate.getMonth() == dateNow.getMonth()) && (firstLoginDate.getDate() == dateNow.getDate()) && (firstLoginDate.getYear() != dateNow.getYear())) {
           document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
-          updateElement("birthday-text", `Happy ${ordinal(dateNow.getYear() - firstLogin.getYear())} Hypixel anniversary!`);
+          updateElement("birthday-text", `Happy ${ordinal(dateNow.getYear() - firstLoginDate.getYear())} Hypixel anniversary!`);
           console.log("Happy anniversary!");
         }
       
-        if(profileStats["last_login"] == 0) document.getElementById("last-login-container").style.display = "none";
+				lastLogin = profileStats["last_login"];
+				lastLoginDate = new Date(lastLogin);
+        if(lastLogin == 0) document.getElementById("last-login-container").style.display = "none";
         else {
-          updateElement("last-login", (new Date((profileStats["last_login"]))).toLocaleDateString());
-          updateElement("last-login-ago", `(${relativeTime(new Date(profileStats["last_login"]))})`);
+          updateElement("last-login", (lastLoginDate).toLocaleDateString());
+          updateElement("last-login-ago", `(${relativeTime(lastLoginDate)})`);
+					updateElement("last-login-ago-full", 
+        new Intl.DateTimeFormat("default", { 
+          dateStyle: 'long',
+					timeStyle: 'long'
+        }).format(lastLoginDate));
         }
         
         if(playerData["status"]["online"]) { // Checks player's online status
@@ -282,7 +294,7 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
     updateElement("bed-wars-tokens", checkAndFormat(bedWarsStats["coins"]));
     updateElement("bed-wars-challenges-completed", checkAndFormat(bedWarsStats["total_challenges_completed"]));
 
-    updateElement("bed-wars-unique-challenges-completed", `(` + checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]) + `/30)`);
+    updateElement("bed-wars-unique-challenges-completed", `(` + checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]) + `/30 unique)`);
     
     if(bedWarsStats["bw_unique_challenges_completed"] == 30) {
         document.getElementById("bed-wars-unique-challenges-completed").style.color = `var(--gold)`;
@@ -545,7 +557,7 @@ function generateDuels() { // Generates stats and chips for Duels
 
     updateElement("duels-overall-kdr", calculateRatio(duelsStats["kills"], duelsStats["deaths"]));
     updateElement("duels-overall-wlr", calculateRatio(duelsStats["wins"], duelsStats["losses"]));
-    document.getElementById("duels-overall-damage-dealt").innerText = checkAndFormat(duelsStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`;
+    updateElement("duels-overall-damage-dealt", checkAndFormat(duelsStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`, true);
 
     overallDuelsTitle = getDuelsTitle(und(duelsStats["wins"]));
 

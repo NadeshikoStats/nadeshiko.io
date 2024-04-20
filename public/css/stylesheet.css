@@ -860,12 +860,17 @@ footer>a:hover {
 .tooltip {
     position: relative;
     display: inline-block;
+    cursor: help;
+}
+
+.tooltip > :not(:last-child) {
+    text-decoration: underline dotted #fff8;
 }
 
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 180px;
-    background-color: #000000d0;
+    background-color: #222222d0;
     color: #fff;
     font-weight: 500;
     text-align: center;
@@ -877,14 +882,21 @@ footer>a:hover {
     left: 50%;
     margin-left: -90px;
     opacity: 0;
-    transition: opacity 0.3s;
+    transform: translateY(-10px);
+    transition-duration: 0.3s;
     padding: 10px;
     font-size: 15px;
+}
+
+.widetooltip { 
+    width: 280px !important;
+    margin-left: -140px !important;
 }
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+    transform: translateY(0px);
 }
 
 .dashed-underline {
@@ -899,7 +911,7 @@ footer>a:hover {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #000000d0 transparent transparent transparent;
+    border-color: #222222d0 transparent transparent transparent;
 }
 
 #online-status {
