@@ -131,10 +131,11 @@ footer {
     padding: 10px;
 }
 
-footer>a {
+footer a {
     all: unset;
     color: var(--nadeshiko);
     text-decoration: underline;
+    cursor: pointer;
     transition-duration: 0.3s;
 }
 
