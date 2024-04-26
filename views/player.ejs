@@ -167,7 +167,7 @@
       
       <div class="flex-container unloaded minigame-flex-container" id="flex-container-bedwars">
         <!-- bed wars stats -->
-        <div class="chip-container" id="bed-wars-chips">
+        <div class="chip-container">
           <div class="chip-small but-big">
             <div class="chip-small-background-filter"></div>
             <p class="chip-small-title">Bed Wars</p>
@@ -222,12 +222,18 @@
             </div>
             <span class="general-button mright margin-top-bottom" onclick="showCardWizard('BEDWARS')">Generate Card</span>
           </div>
+          <div class="flex-two-item chip-container-duo-parent" id="bed-wars-chips">
+            <div id="bed-wars-chips-1" class="chip-container-duo">
+            </div>
+            <div id="bed-wars-chips-2" class="chip-container-duo">
+            </div>
+          </div>
         </div>
     </div>
 
     <div class="flex-container unloaded minigame-flex-container" id="flex-container-skywars">
       <!-- skywars stats -->
-      <div class="chip-container" id="skywars-chips">
+      <div class="chip-container">
         <div class="chip-small but-big">
           <div class="chip-small-background-filter"></div>
           <p class="chip-small-title">SkyWars</p>
@@ -272,12 +278,18 @@
           </div>
           <span class="general-button mright margin-top-bottom" onclick="showCardWizard('SKYWARS')">Generate Card</span>
         </div>
+        <div class="flex-two-item chip-container-duo-parent" id="skywars-chips">
+          <div id="skywars-chips-1" class="chip-container-duo">
+          </div>
+          <div id="skywars-chips-2" class="chip-container-duo">
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="flex-container unloaded minigame-flex-container" id="flex-container-duels">
         <!-- duels stats -->
-        <div class="chip-container" id="duels-chips">
+        <div class="chip-container">
           <div class="chip-small but-big">
             <div class="chip-small-background-filter"></div>
             <p class="chip-small-title">Duels</p>
@@ -322,6 +334,12 @@
               </div>
             </div>
             <span class="general-button mright margin-top-bottom" onclick="showCardWizard('DUELS')">Generate Card</span>
+          </div>
+          <div class="flex-two-item chip-container-duo-parent" id="duels-chips">
+            <div id="duels-chips-1" class="chip-container-duo">
+            </div>
+            <div id="duels-chips-2" class="chip-container-duo">
+            </div>
           </div>
       </div>
     </div>
@@ -382,12 +400,18 @@
           </div>
           <span class="general-button mright margin-top-bottom" onclick="showCardWizard('BUILDBATTLE')">Generate Card</span>
         </div>
+        <div class="flex-two-item chip-container-duo-parent" id="buildbattle-chips">
+          <div id="buildbattle-chips-1" class="chip-container-duo">
+          </div>
+          <div id="buildbattle-chips-2" class="chip-container-duo">
+          </div>
+        </div>
     </div>
   </div>
 
   <div class="flex-container unloaded minigame-flex-container" id="flex-container-murdermystery">
     <!-- murder mystery stats -->
-    <div class="chip-container" id="murdermystery-chips">
+    <div class="chip-container">
       <div class="chip-small but-big">
         <div class="chip-small-background-filter"></div>
         <p class="chip-small-title">Murder Mystery</p>
@@ -430,6 +454,12 @@
           </div>
         </div>
         <span class="general-button mright margin-top-bottom" onclick="showCardWizard('MURDERMYSTERY')">Generate Card</span>
+      </div>
+      <div class="flex-two-item chip-container-duo-parent" id="murdermystery-chips">
+        <div id="murdermystery-chips-1" class="chip-container-duo">
+        </div>
+        <div id="murdermystery-chips-2" class="chip-container-duo">
+        </div>
       </div>
   </div>
 </div>
@@ -589,6 +619,8 @@
   playerData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(playerData)) %>"));
   console.log(playerData);
   insertLoadedData();
+
+  window.addEventListener("resize", checkMobileMode);
 
   document.addEventListener("DOMContentLoaded", function() { // Runs on page load
     try {
@@ -880,6 +912,7 @@ var skinViewer;
       redirectToHttps();
       
       generateNetwork();
+      checkMobileMode(event, true);
 
       console.log("Wow! All the stats are loaded!");
   }
@@ -1002,6 +1035,59 @@ var skinViewer;
       document.getElementById("modal-card-wizard").style.pointerEvents = "none";
     }
   }
+
+  function checkMobileMode(event, override = false) {
+    if (window.innerWidth < 800) {
+      if (!mobileMode || override) {
+        console.log("Mobile mode activated!" + override);
+        mobileMode = true;
+        const duoParents = document.querySelectorAll('.chip-container-duo-parent');
+
+        duoParents.forEach(duoParent => {
+          const parent1 = duoParent.children[0];
+          const parent2 = duoParent.children[1];
+          const children1 = Array.from(parent1.children);
+          const children2 = Array.from(parent2.children);
+
+          let maxLength = Math.max(children1.length, children2.length);
+          for (let i = 0; i < maxLength; i++) {
+            if (children1[i]) {
+              parent1.appendChild(children1[i]);
+            }
+            if (children2[i]) {
+              parent1.appendChild(children2[i]);
+            }
+          }
+
+          parent2.style.display = 'none';
+        });
+      }
+    } else {
+      if (mobileMode) {
+        mobileMode = false;
+        const duoParents = document.querySelectorAll('.chip-container-duo-parent');
+
+        duoParents.forEach(duoParent => {
+          const parent1 = duoParent.children[0];
+          const parent2 = duoParent.children[1];
+          const children1 = Array.from(parent1.children);
+
+          parent1.innerHTML = ''
+          parent2.innerHTML = '';
+
+          children1.forEach((child, index) => {
+            if (index % 2 === 0) {
+              parent1.appendChild(child);
+            } else {
+              parent2.appendChild(child);
+            }
+          });
+
+          parent2.style.display = '';
+        });
+      }
+    }
+  }
 </script> 
 </body>
-</html>
+</html>b

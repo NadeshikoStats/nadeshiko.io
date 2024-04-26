@@ -1188,6 +1188,13 @@ footer>a:hover {
     padding-right: 12%;
 }
 
+.chip-sub-container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
 .chip-small:first-child {
     margin-top: 20px;
 }
@@ -1218,9 +1225,9 @@ footer>a:hover {
     border-radius: 20px;
     padding: 20px;
 
-    width: 40%;
-    margin: 15px;
-    z-index: -2;
+    margin: 15px 0px;
+    width: 100%;
+    z-index: 3;
 }
 
 .but-big {
@@ -1276,6 +1283,27 @@ footer>a:hover {
 
     margin-top: 12px;
     margin-bottom: 12px;
+}
+
+.chip-container-duo-parent {
+    width: 100%;
+}
+
+.chip-container-duo {
+    flex-direction: column;
+    align-items: start;
+    display: flex;
+    height: 100%;
+    flex: 1;
+    margin: 0px 15px;
+}
+
+.chip-container-duo:nth-child(1) {
+    margin-left: 0px;
+}
+
+.chip-container-duo:nth-child(2) {
+    margin-right: 0px;
 }
 
 .more-margin {
@@ -1452,6 +1480,9 @@ footer>a:hover {
     }
     .flippable {
         flex-direction: column;
+    }
+    .chip-container-duo:nth-child(1) {
+        margin-right: 0;
     }
     .card-big-misc {
         margin-top: 30px;

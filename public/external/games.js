@@ -361,10 +361,8 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
         "bedwars"
     ]);
 
-    for(d = 0; d < bedWarsChips.length; d++) {
-            generateChip(bedWarsChips[d], "bed-wars-chips");
-        }
-    }
+    generateChips(bedWarsChips, "bed-wars-chips");
+  }
 }
 
 function generateSkyWars() {
@@ -408,7 +406,7 @@ function generateSkyWars() {
     }
 
     for(d = 0; d < skyWarsChips.length; d++) {
-        generateChip(skyWarsChips[d], "skywars-chips");
+        generateChip(skyWarsChips[d], (d % 2 == 0 ? "skywars-chips-1" : "skywars-chips-2"));
     }
     }
 }
@@ -650,7 +648,7 @@ function generateDuels() { // Generates stats and chips for Duels
     }
 
     for(d = 0; d < duelsChips.length; d++) {
-        generateChip(duelsChips[d], "duels-chips");
+        generateChip(duelsChips[d], (d % 2 == 0 ? "duels-chips-1" : "duels-chips-2"));
     }
     }
 }
@@ -704,7 +702,7 @@ function generateBuildBattle() { // Generates stats and chips for Build Battle
     }
 
     for(d = 0; d < buildBattleChips.length; d++) {
-        generateChip(buildBattleChips[d], "buildbattle-chips");
+        generateChip(buildBattleChips[d], (d % 2 == 0 ? "buildbattle-chips-1" : "buildbattle-chips-2"));
     }
     }   
 }
@@ -768,7 +766,7 @@ function generateMurderMystery() { // Generates stats and chips for Murder Myste
   }
 
   for(d = 0; d < murderMysteryChips.length; d++) {
-    generateChip(murderMysteryChips[d], "murdermystery-chips");
+    generateChip(murderMysteryChips[d], (d % 2 == 0 ? "murdermystery-chips-1" : "murdermystery-chips-2"));
   }
 
   }
@@ -873,6 +871,12 @@ function getDuelsTitle(wins, name = "") { // Generates a Duels title based on th
     console.log([wins, name, `<span class="m${chosenTitle["color"]}">` + (chosenTitle["bold"] ? `<strong>${rawDuelsTitle}</strong>` : rawDuelsTitle) + `</span>`, winsToGo, chosenTitle["increment"] * multiplier])
 
     return [`<span class="m${chosenTitle["color"]}">` + (chosenTitle["bold"] ? `<strong>${rawDuelsTitle}</strong>` : rawDuelsTitle) + `</span>`, winsToGo, chosenTitle["increment"] * multiplier];
+}
+
+function generateChips(chipArray, prefix) { // Generates all chips from an array
+  for(d = 0; d < chipArray.length; d++) {
+    generateChip(chipArray[d], (d % 2 == 0 ? prefix + "-1" : prefix + "-2"));
+  }
 }
 
 function updateChipStats(event, chipId, gamemode) { // Updates what a chip does when a dropdown is clicked
