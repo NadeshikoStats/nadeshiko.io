@@ -630,7 +630,7 @@
          height: 400,
          model: (playerData["slim"] ? "slim" : "classic"),
          skin: playerData["skin"].replace("http:", "https:"),
-         cape: playerData["cape"].replace("http:", "https:")
+         cape: playerData["cape"]?.replace("http:", "https:") ?? undefined
      });
 
      skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
