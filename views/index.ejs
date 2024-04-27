@@ -36,6 +36,9 @@
                 </div>
             </section>
         </div>
+        <div id="recent-searches">
+          <span id="recent-search-label">Recent Searches</span>
+        </div>
       <div class="in-development" style="text-align: center;">
           <span style="padding: 20px;">⚠️ <b>It's not a bug – nadeshiko's early in development!</b><br><br>Most things here aren't completed yet, but check our <a href="https://github.com/NadeshikoStats/" target="_blank" style="color: var(--nadeshiko)">GitHub</a> to watch the site grow!</span>
         </div>
@@ -58,7 +61,6 @@
     </div>
     <div id="petals"></div>
     <div id="petals2"></div>
-
 <footer>
   <%- include('partials/footer') %>
 </footer>
@@ -135,8 +137,22 @@ function type() { // Writes typing
   setTimeout(type, speed);
 }
 
-// Start typing effect
-type();
+type(); // Start typing effect
+if(document.documentElement.clientWidth >= 800) {
+  document.getElementById('searchbar2').focus();
+  document.getElementById('searchbar2').select();
+}
+
+
+recentSearches = JSON.parse(localStorage.getItem("recent-searches"));
+if(recentSearches != null) {
+  document.getElementById("recent-search-label").style.display = "initial";
+  for(let a = 0; a < recentSearches.length; a++) {
+    recentSearchItem = `<a href="/player/${recentSearches[a][0]}" class="m${recentSearches[a][1]}">${recentSearches[a][0]}</a>`
+    document.getElementById("recent-searches").insertAdjacentHTML("beforeend", recentSearchItem);
+  }
+}
+
 </script>
 
 </body>

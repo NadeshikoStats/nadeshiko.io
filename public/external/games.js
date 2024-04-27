@@ -82,7 +82,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         updateElement("first-login-ago-full", 
         new Intl.DateTimeFormat("default", { 
           dateStyle: 'long',
-					timeStyle: 'long'
+                    timeStyle: 'long'
         }).format(new Date(firstLoginDate)));
 
         if((firstLoginDate.getMonth() == dateNow.getMonth()) && (firstLoginDate.getDate() == dateNow.getDate()) && (firstLoginDate.getYear() != dateNow.getYear())) {
@@ -91,16 +91,16 @@ function generateNetwork() { // Inserts general/network stats into the DOM
           console.log("Happy anniversary!");
         }
       
-				lastLogin = profileStats["last_login"];
-				lastLoginDate = new Date(lastLogin);
+                lastLogin = profileStats["last_login"];
+                lastLoginDate = new Date(lastLogin);
         if(lastLogin == 0) document.getElementById("last-login-container").style.display = "none";
         else {
           updateElement("last-login", (lastLoginDate).toLocaleDateString());
           updateElement("last-login-ago", `(${relativeTime(lastLoginDate)})`);
-					updateElement("last-login-ago-full", 
+                    updateElement("last-login-ago-full", 
         new Intl.DateTimeFormat("default", { 
           dateStyle: 'long',
-					timeStyle: 'long'
+                    timeStyle: 'long'
         }).format(lastLoginDate));
         }
         
@@ -161,7 +161,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         generateSkyWars();
         generateBuildBattle();
         generateMurderMystery();
-
+        addRecentPlayer(playerData["name"], playerRankCute[0]);
       } else { // If no Hypixel stats, hide most buttons and show a warning
         document.getElementById("general-bottom-bar").style.display = "none";
         updateElement("card-name", playerData["name"]);
@@ -177,6 +177,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         document.getElementById("player-card").style.paddingRight = "0px";
         document.getElementById("player-card").style.paddingBottom = "0px";
         document.getElementById("extended-card").style.marginBottom = "0px";
+        addRecentPlayer(playerData["name"]);
       }   
 }
 
@@ -206,7 +207,6 @@ function getSkyWarsLevel(exp) { // Calculates a player's SkyWars level based on 
         }
     }
 }
-
 
 function convertToRoman(num) {
     const romanNumerals = {
@@ -894,4 +894,38 @@ function updateChipStats(event, chipId, gamemode) { // Updates what a chip does 
     } else if(gamemode == "skywars") {
         updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
     }
+}
+
+function addRecentPlayer(player, colorCode = 7) {
+  recentPlayers = JSON.parse(localStorage.getItem(`recent-searches`));
+        newRecentPlayer = ([player, colorCode]);
+        
+        if(recentPlayers == null) {
+          console.log("Creating new array")
+          recentPlayers = [newRecentPlayer];
+        } else {
+
+          foundDuplicate = -1;
+          for(let a = 0; a < recentPlayers.length; a++) {
+            if(recentPlayers[a][0] == newRecentPlayer[0]) {
+              foundDuplicate = a;
+              break;
+            }
+          }
+
+          if(foundDuplicate != -1) {
+            console.log("Removing duplicate")
+            recentPlayers.splice(foundDuplicate, 1);
+          }
+          console.log(recentPlayers.indexOf(newRecentPlayer))
+          console.log(JSON.stringify(newRecentPlayer))
+          console.log(JSON.stringify(recentPlayers))
+          console.log("Adding new player")
+          recentPlayers.unshift(newRecentPlayer);
+          if(recentPlayers.length > 5) {
+            recentPlayers.pop();
+          }
+        }
+
+        localStorage.setItem(`recent-searches`, JSON.stringify(recentPlayers));
 }
