@@ -43,7 +43,9 @@
     /* Yellow */
     --mcf: #FFFFFF;
     /* White */
+    --transition-large: 1s;
     --transition: 0.5s;
+    --transition-small: 0.3s;
 }
 
 /* Media style to apply smaller font size */
@@ -113,6 +115,14 @@ body {
     z-index: -6;
 }
 
+kbd {
+  all: unset;
+  border: 1px solid #ccc8;
+  background-color: #4448;
+  border-radius: 4px;
+  padding: 4px;
+}
+
 .player-card {
     margin: 20px;
     padding: 10px;
@@ -121,7 +131,7 @@ body {
 .games {
     position: relative;
     flex-grow: 1;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
 }
 
 header {
@@ -138,7 +148,7 @@ footer a {
     color: var(--nadeshiko);
     text-decoration: underline;
     cursor: pointer;
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
 }
 
 footer>a:hover {
@@ -167,7 +177,7 @@ footer>a:hover {
 
 .wordmark.animate span {
     display: inline-block;
-    animation: wave 1s;
+    animation: wave var(--transition-large);
     animation-delay: var(--delay);
 }
 
@@ -188,7 +198,7 @@ footer>a:hover {
   }
 
 .header-button {
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
     background-color: #222;
     border-radius: 99px;
     padding: 7px;
@@ -198,7 +208,7 @@ footer>a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
     font-size: 14px;
 }
 
@@ -214,7 +224,7 @@ footer>a:hover {
     color: var(--pale-grey);
     font-weight: 500;
     position: relative;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
 }
 
 .header-game:before, .header-down:before {
@@ -238,7 +248,7 @@ footer>a:hover {
     background-color: var(--accent);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
 }
 
 .header-name {
@@ -247,7 +257,7 @@ footer>a:hover {
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 30px;
-    transition-duration: 1s;
+    transition-duration: var(--transition-large);
 }
 
 .header-down {
@@ -256,7 +266,7 @@ footer>a:hover {
 }
 
 .header-game, .header-down, .special {
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
 }
 
 .special {
@@ -285,8 +295,8 @@ footer>a:hover {
     width: 100%;
     height: 100%;
     position: absolute;
-    transition-duration: 0.5s;
-    transition: opacity 0.5s ease-in-out;
+    transition-duration: var(--transition);
+    transition: opacity var(--transition) ease-in-out;
 }
 
 .background-filter {
@@ -368,7 +378,7 @@ footer>a:hover {
     font-size: 14px;
     background-color: #222;
     color: white;
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
     position: relative;
     width: 300px;
     right: 0px;
@@ -390,7 +400,7 @@ footer>a:hover {
     height: 24px;
     width: 24px;
     opacity: 0.5;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
 }
 
 .header-down:hover > img {
@@ -405,13 +415,13 @@ footer>a:hover {
 .social-media-logo, #sociallink-discord {
     height: 24px;
     opacity: 0.5;
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
     cursor: pointer;
 }
 
 .social-media-discord, #sociallink-discord {
     height: 24px;
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
     cursor: pointer;
 }
 
@@ -423,7 +433,7 @@ footer>a:hover {
     top: 50%;
     transform: translateY(-50%);
     opacity: 0.5;
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
 }
 
 .logo-container {
@@ -487,7 +497,7 @@ footer>a:hover {
     position: absolute;
     height: 100%;
     width: 100%;
-    transition-duration: 1s;
+    transition-duration: var(--transition-large);
 }
 
 .quick-mode {
@@ -497,7 +507,7 @@ footer>a:hover {
     flex: 1 1 auto;
     position: absolute;
     width: 100%;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
     bottom: 10%;
     z-index: -3;
 }
@@ -512,7 +522,7 @@ footer>a:hover {
     height: 48px;
     width: 48px;
     cursor: pointer;
-    transition-duration: 0.2s;
+    transition-duration: var(--transition-small);
     margin-left: 8px;
     margin-right: 8px;
     opacity: 30%;
@@ -604,7 +614,7 @@ footer>a:hover {
     background-color: var(--accent);
     height: 20px;
     border-radius: 15px;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
 }
 
 .stat-title {
@@ -674,7 +684,7 @@ footer>a:hover {
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 2;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
     left: 0;
     bottom: 100%;
     top: auto;
@@ -689,7 +699,7 @@ footer>a:hover {
     display: flex;
     flex-grow: 1;
     align-items: center;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
     cursor: pointer;
     font-weight: 500;
 }
@@ -755,7 +765,7 @@ footer>a:hover {
 .avatar {
     cursor: grab;
     background-color: transparent;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
 }
 
 .socials-buttons {
@@ -800,7 +810,7 @@ footer>a:hover {
     padding-left: 15px;
     padding-right: 15px;
     font-weight: 500;
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
     min-width: max-content;
     display: inline-block;
 }
@@ -814,7 +824,7 @@ footer>a:hover {
 .shiiyu {
     height: 15px;
     width: 15px;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
     margin-right: 8px;
     position: relative;
     top: 1px;
@@ -893,7 +903,7 @@ footer>a:hover {
     margin-left: -90px;
     opacity: 0;
     transform: translateY(-15px);
-    transition-duration: 0.3s;
+    transition-duration: var(--transition-small);
     padding: 10px;
     font-size: 15px;
     cursor: text;
@@ -1089,7 +1099,7 @@ footer>a:hover {
     padding: 10px;
     border-radius: 80px;
     text-decoration: none;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
     margin: 3px 5px;
 }
 
@@ -1174,7 +1184,7 @@ footer>a:hover {
 .typing {
     white-space: nowrap;
     border-right: 2px solid;
-    animation: blink 0.75s step-end infinite;
+    animation: blink var(--transition-large) step-end infinite;
     min-height: 40px;
 }
 
@@ -1410,7 +1420,7 @@ footer>a:hover {
     width: 100%;
     height: 100%;
     overflow: auto;
-    transition-duration: 0.5s;
+    transition-duration: var(--transition);
     pointer-events: none;
     display: flex;
     align-items: center;
@@ -1483,6 +1493,16 @@ footer>a:hover {
   }
 
 /* Media styles */
+
+  @media (prefers-reduced-motion) {
+    :root {
+      --transition: 0s;
+    }
+    .petal {
+      display: none;
+    }
+  }
+  
 
   @media (max-width: 800px) {
     .avatar {
