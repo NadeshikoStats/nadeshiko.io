@@ -582,7 +582,6 @@
           <p class="tooltip"><p class="chip-small-subtitle">Game</p><span class="tooltiptext">The game to be used in the card.</span></p>
           <div class="chip-small-dropdown">
             <select aria-label="Game Dropdown" id="card-wizard-game">
-              <option value="NETWORK">Network</option>
               <option value="BEDWARS">Bed Wars</option>
               <option value="DUELS">Duels</option>
             </select>
@@ -984,7 +983,7 @@ var skinViewer;
   let isShiftPressed = false;
 
   function handleKeyDown(event) {
-      if (event.key === "Shift" && !isShiftPressed) {
+      if (event.key === "Shift" && !isShiftPressed && !isInputField(document.activeElement)) {
           isShiftPressed = true;
           onShiftDown();
       }
@@ -1090,4 +1089,4 @@ var skinViewer;
   }
 </script> 
 </body>
-</html>b
+</html>

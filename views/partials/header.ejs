@@ -14,7 +14,7 @@
     <div class="header-right">
         <span class="searchbar-container">
             <img src="/img/search.svg" alt="" class="search-icon" id="search-icon">
-            <input type="search" class="searchbar" id="searchbar" placeholder=" Search for a player..."   spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off">
+            <input type="search" class="searchbar" id="searchbar" placeholder=" Search for a player..." spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off">
         </span>
     </div>
 </div>
@@ -27,6 +27,7 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
     if (event.key === "Enter") { // Did the user press enter?
       event.preventDefault();
       var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+      if(userInput.length == 0) return;
       window.location.href = `/player/${userInput}`; // Redirect to the desired URL
     }
   });

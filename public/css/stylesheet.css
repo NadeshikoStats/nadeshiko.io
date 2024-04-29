@@ -1,9 +1,10 @@
 :root {
-    --nadeshiko: #F6ADC6;
+    --nadeshiko: #f6adc6;
     --nadeshiko-dark: #872d4d;
     --pale-grey: #ffffff80;
     --gold: #e99a3f;
     --gold-transparent: #e99a3f90;
+    --default: #00000080;
     --accent: var(--nadeshiko-dark);
     --accent-network: #bc6ff8;
     --accent-bedwars: #ff835c;
@@ -42,6 +43,7 @@
     /* Yellow */
     --mcf: #FFFFFF;
     /* White */
+    --transition: 0.5s;
 }
 
 /* Media style to apply smaller font size */
@@ -142,6 +144,10 @@ footer a {
 footer>a:hover {
     color: #ffffff;
     cursor: pointer;
+}
+
+.version-number {
+    text-align: right;
 }
 
 .logo {
@@ -1031,11 +1037,10 @@ footer>a:hover {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-    width: min(100%, 800px);
+    width: min(calc(100% - 20px), 800px);
     text-align: center;
-
-    margin-top: 30px;
-    margin-bottom: 10px;
+    padding: 0px 10px;
+    margin: 30px 5px 10px 5px;
 }
 
 .player-card-home {
@@ -1071,15 +1076,21 @@ footer>a:hover {
 
 #recent-searches {
     margin: 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0px 10px;
+    width: 100%;
 }
 
 #recent-searches > a {
-    background-color: #0008;
+    background-color: var(--default);
     padding: 10px;
     border-radius: 80px;
     text-decoration: none;
     transition-duration: 0.5s;
-    margin: 0px 5px;
+    margin: 3px 5px;
 }
 
 #recent-search-label {
@@ -1087,6 +1098,7 @@ footer>a:hover {
     font-weight: 500;
     margin-right: 5px;
     display: none;
+    text-wrap: nowrap;
 }
 
 #recent-searches > a:hover {
@@ -1256,7 +1268,7 @@ footer>a:hover {
 }
 
 .but-big {
-    background-color: #0008;
+    background-color: var(--default);
 }
 
 .chip-small-background-filter {
@@ -1354,13 +1366,13 @@ footer>a:hover {
     padding-left: 20px;
     border: 1px solid #6b6b6b74;
     border-radius: 100px;
-    background-color: #0008;
+    background-color: var(--default);
     color: white;
   }
 
   .chip-small-dropdown option {
     all: unset;
-    background-color: #0008;
+    background-color: var(--default);
     border: none;
     height: 10px;
   }
@@ -1423,7 +1435,7 @@ footer>a:hover {
 
   #card-wizard-name {
     all: unset;
-    background-color: #0008;
+    background-color: var(--default);
     padding: 5px;
     padding-left: 15px;
     margin: 5px 0;
@@ -1433,7 +1445,7 @@ footer>a:hover {
   }
 
   .card-wizard-info {
-    background-color: #0008;
+    background-color: var(--default);
     border-radius: 15px;
     padding: 10px;
     margin-bottom: 10px;
@@ -1484,6 +1496,9 @@ footer>a:hover {
     }
     .header-button-text {
         display: none;
+    }
+    .logo {
+        margin-left: 5px;
     }
     .header-icon {
         margin: 0;
