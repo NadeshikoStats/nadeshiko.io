@@ -58,6 +58,11 @@
 
 /* Stats */
 
+a {
+  color: var(--nadeshiko);
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .header {
     display: flex;
@@ -95,6 +100,53 @@ header {
     font-size: 18px;
     backdrop-filter: blur(4px);
     height: 55px;
+}
+
+#about {
+    position: absolute;
+    background-color: #000c;
+    border-radius: 15px;
+    padding: 15px;
+    opacity: 1;
+    transition-duration: var(--transition);
+    z-index: 4;
+    transform: translateY(0px);
+    clip-path: circle(100vh at 50% 0);
+    height: max-content;
+    max-height: 80vh;
+    overflow-y: scroll;
+    color: white;
+    margin: 10px;
+    width: 40%;
+    pointer-events: auto;
+    backdrop-filter: blur(5px);
+    overflow-y: scroll;
+}
+
+#about > p {
+    margin: 10px;
+}
+
+.about-flex {
+  flex-wrap: wrap;
+}
+
+.about-flex > * {
+    margin-right: 5px;
+}
+
+.about-title {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 15px auto;
+}
+
+.about-icon {
+    height: 14px;
+    width: 14px;
+    border-radius: 14px;
+    object-fit: contain;
 }
 
 #game-buttons {
@@ -445,6 +497,7 @@ footer>a:hover {
 
 #social-discord-username {
     color: white;
+    text-decoration: none;
 }
 
 .social-media-logo:hover {
@@ -656,6 +709,12 @@ footer>a:hover {
     pointer-events: none;
 }
 
+#about.unloaded {
+    opacity: 0;
+    transform: translateY(-25px);
+    clip-path: circle(0% at 50% 0);
+}
+
 .header-name.unloaded {
     opacity: 0;
 }
@@ -669,6 +728,7 @@ footer>a:hover {
 .dropdown-content.unloaded {
     opacity: 0;
     transform: translateY(-25px);
+    clip-path: circle(0% at 50% 0);
 }
 
 /* Dropdowns! (because the native ones are so uncustomizable!!) */
@@ -689,6 +749,7 @@ footer>a:hover {
     bottom: 100%;
     top: auto;
     overflow-y: scroll;
+    clip-path: circle(100vh at 50% 0);
 }
 
 .dropdown-content a, .dropdown-content div {
@@ -1425,6 +1486,7 @@ footer>a:hover {
     display: flex;
     align-items: center;
     align-content: center;
+    backdrop-filter: blur(5px);
   }
   
   .modal-content {
@@ -1579,5 +1641,8 @@ footer>a:hover {
     }
     .wordmark {
         display: none;
+    }
+    #about {
+      width: min(calc(100% - 30px), max(400px, 40%));
     }
 }

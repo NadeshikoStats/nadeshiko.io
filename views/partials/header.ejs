@@ -7,7 +7,7 @@
             </div>
         </a>
         <a href="/" class="header-button"><img src="/img/home.svg" class="header-icon" alt=""><span class="header-button-text">Home<span></a>
-        <a href="#about" class="header-button"><img src="/img/about.svg" class="header-icon" alt=""><span class="header-button-text">About</span></a>
+        <p style="cursor: pointer" class="header-button" onclick="showAbout()" id="button-about"><img src="/img/about.svg" class="header-icon" alt=""><span class="header-button-text">About</span></p>
         <p style="cursor: pointer" class="header-button" onclick="showCardWizard()"><img src="/img/cards.svg" class="header-icon" alt=""><span class="header-button-text">Cards</span></p>
         <p style="cursor: pointer" class="header-button" onclick="showSettings()"><img src="/img/settings.svg" class="header-icon" alt=""><span class="header-button-text">Settings</span></p>
     </div>
@@ -18,10 +18,114 @@
         </span>
     </div>
 </div>
+<div id="modal-card-wizard" class="modal">
+  <div class="modal-content">
+    <p id="modal-card-wizard-close">&times;</p>
+    <div class="card-wizard-info">
+      <p class="stat-title mbottom">Card Wizard</p>
+      <p class="stat-subtitle">Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!</p>
+    </div>
+
+    <div class="flex-two-item-basic">
+    <p class="chip-small-subtitle">Username</p> 
+    <input type="text" placeholder="Player" id="card-wizard-name"></input>
+  </div>
+    
+    <div class="flex-two-item-basic">
+        <p class="tooltip"><span class="chip-small-subtitle">Game</span><span class="tooltiptext">The game to be used in the card.</span></p>
+        <div class="chip-small-dropdown">
+          <select aria-label="Game Dropdown" id="card-wizard-game">
+            <option value="BEDWARS">Bed Wars</option>
+            <option value="DUELS">Duels</option>
+          </select>
+        </div>
+    </div>
+
+  <div class="flex-two-item-basic">
+  <p class="tooltip"><span class="chip-small-subtitle">Size</span><span class="tooltiptext">The height of the card.</span></p>
+    <div class="chip-small-dropdown">
+    <select aria-label="Card Size" id="card-wizard-size">
+      <option value="FULL">Full</option>
+  </select>
+</div>
+</div>
+
+<span class="general-button" onclick="generateCard()">Generate Card</span>
+<input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value="Edit this card first!">
+</div>
+</div>
+
+<div id="about" class="unloaded">
+  <p><b style="color: var(--nadeshiko)">nadeshiko</b> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
+  <p>Find a bug or need some assistance? Please report it on our <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
+  <hr style="margin: 20px auto">
+  <p class="about-title">Credits</p>
+  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/146425360?v=4" class="about-icon"> <strong><a href="https://github.com/niqumu" target="_blank">kittycatchloe</a></strong> &ndash; Backend Developer</p>
+
+  <p class="flex-two-item-basic about-flex"><img src="https://cdn.discordapp.com/avatars/380758536927576066/759273d019881ebc5eca23dc54dfa9bf.png?size=64" class="about-icon"> <strong><a href="https://brookie.dev" target="_blank">BrookeAFK</a></strong> &ndash; Frontend Developer</p>
+  <hr style="opacity: 0">
+
+  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/37259779?s=48&v=4" class="about-icon"> <strong><a href="https://github.com/bs-community/skinview3d" target="_blank">skinview3d</a></strong> by Blessing Skin</p>
+
+  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/2386673?s=48&v=4" class="about-icon"> <strong><a href="https://gsap.com/" target="_blank">GSAP</a></strong> <span>by GreenSock</span></p>
+
+  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/46097560?s=48&v=4" class="about-icon"> <strong><a href="https://visage.surgeplay.com/" target="_blank">Visage</a></strong> <span>by Una</span></p>
+
+  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/5984724?s=48&v=4" class="about-icon"> <strong><a href="https://minotar.net/" target="_blank">Minotar</a></strong> <span>by The Minotar Team </span></p>
+
+  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/68933003?s=48&v=4" class="about-icon"> <strong><a href="https://github.com/SkyCryptWebsite/SkyCrypt" target="_blank">SkyCrypt</a></strong> <span>by Shiiyu and friends</span></p>
+
+  <p class="flex-two-item-basic about-flex"><img src="https://media.forgecdn.net/avatars/875/480/638298072228596362.png" class="about-icon"> <strong><a href="https://www.curseforge.com/minecraft/shaders/complementary-unbound" target="_blank">Complementary Shaders</a></strong> by EminGT</p>
+
+  <p class="flex-two-item-basic about-flex"><img src="https://assets.codepen.io/183204/internal/avatars/users/default.png?height=64&width=64" class="about-icon"> <strong><a href="https://codepen.io/MAW" target="_blank">GSAP Tutorials</a></strong> <span>by Diaco M Lotfolahi on CodePen</span></p>
+
+  <hr style="opacity: 0">
+
+  <p class="flex-two-item-basic about-flex"><img src="/img/hypixel_logo.png" class="about-icon"> <strong><a href="https://api.hypixel.net/" target="_blank">Hypixel API</a></strong> by Hypixel</p>
+
+  <hr style="opacity: 0">
+  <p style="opacity: 0.7; font-size: 14px">nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.</p>
+
+
+</div>
 <script>
 document.getElementById('search-icon').addEventListener('click', function() {
   document.getElementById('searchbar').focus();
 });
+
+function showCardWizard(game = "NETWORK") {
+  document.getElementById("card-wizard-game").value = game;
+  if(typeof playerData !== "undefined" && playerData["name"] !== undefined) {
+    document.getElementById("card-wizard-name").value = playerData["name"];
+  }
+  document.getElementById("card-wizard-output").value = `Click "Generate Card" to generate a card!`;
+  document.getElementById("modal-card-wizard").style.opacity = "1";
+  document.getElementById("modal-card-wizard").style.pointerEvents = "all";
+}
+
+  document.getElementById("modal-card-wizard-close").onclick = function() {
+    document.getElementById("modal-card-wizard").style.opacity = "0";
+    document.getElementById("modal-card-wizard").style.pointerEvents = "none";
+  }
+
+  let aboutExpanded = false;
+  function showAbout() {
+    if(!aboutExpanded) {
+      document.getElementById("about").classList.remove("unloaded");
+      aboutExpanded = true;
+    } else {
+      document.getElementById("about").classList.add("unloaded");
+      aboutExpanded = false;
+    }
+  }
+
+  function generateCard() {
+    cardName = document.getElementById("card-wizard-name").value;
+    cardGame = document.getElementById("card-wizard-game").value;
+    cardSize = document.getElementById("card-wizard-size").value;
+
+    document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/` + btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
+  }
 
 document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
     if (event.key === "Enter") { // Did the user press enter?
@@ -39,4 +143,17 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
       setTimeout(function() { wordmark.classList.remove('animate'); }, 1800);
     }
   });
+
+  window.onclick = function(event) {
+    if (!event.target.closest('#button-about') && !event.target.closest('#about')) {
+      if(!document.getElementById("about").classList.contains("unloaded")) {
+        document.getElementById("about").classList.add("unloaded");
+      }
+    }
+
+    if (event.target == document.getElementById("modal-card-wizard")) {
+      document.getElementById("modal-card-wizard").style.opacity = "0";
+      document.getElementById("modal-card-wizard").style.pointerEvents = "none";
+    }
+  }
 </script>
