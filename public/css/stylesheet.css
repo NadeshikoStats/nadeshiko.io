@@ -102,7 +102,7 @@ header {
     height: 55px;
 }
 
-#about {
+.about {
     position: absolute;
     background-color: #000c;
     border-radius: 15px;
@@ -123,7 +123,7 @@ header {
     overflow-y: scroll;
 }
 
-#about > p {
+.about > p {
     margin: 10px;
 }
 
@@ -146,6 +146,13 @@ header {
     height: 14px;
     width: 14px;
     border-radius: 14px;
+    object-fit: contain;
+}
+
+.settings-icon {
+    height: 18px;
+    width: 18px;
+    border-radius: 18px;
     object-fit: contain;
 }
 
@@ -262,6 +269,7 @@ footer>a:hover {
     justify-content: center;
     transition-duration: var(--transition-small);
     font-size: 14px;
+    cursor: pointer;
 }
 
 .header-button:hover {
@@ -709,7 +717,7 @@ footer>a:hover {
     pointer-events: none;
 }
 
-#about.unloaded {
+.about.unloaded {
     opacity: 0;
     transform: translateY(-25px);
     clip-path: circle(0% at 50% 0);
