@@ -1559,6 +1559,8 @@ footer>a:hover {
   @media (prefers-reduced-motion) {
     :root {
       --transition: 0s;
+      --transition-small: 0s;
+      --transition-large: 0s;
     }
     .petal {
       display: none;
@@ -1645,4 +1647,4 @@ footer>a:hover {
     #about {
       width: min(calc(100% - 30px), max(400px, 40%));
     }
-}
+  }

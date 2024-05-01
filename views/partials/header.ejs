@@ -57,7 +57,7 @@
 
 <div id="about" class="unloaded">
   <p><b style="color: var(--nadeshiko)">nadeshiko</b> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
-  <p>Find a bug or need some assistance? Please report it on our <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
+  <p>Find a bug or need some assistance? Please let us know on the project's <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
   <hr style="margin: 20px auto">
   <p class="about-title">Credits</p>
   <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/146425360?v=4" class="about-icon"> <strong><a href="https://github.com/niqumu" target="_blank">kittycatchloe</a></strong> &ndash; Backend Developer</p>
@@ -148,6 +148,7 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
     if (!event.target.closest('#button-about') && !event.target.closest('#about')) {
       if(!document.getElementById("about").classList.contains("unloaded")) {
         document.getElementById("about").classList.add("unloaded");
+        aboutExpanded = false;
       }
     }
 
