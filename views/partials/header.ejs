@@ -156,6 +156,24 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
     }
   });
 
+  
+  document.addEventListener('keydown', function(event) { // Close modals on escape key
+    if(event.key === "Escape") {
+      if(!document.getElementById("about").classList.contains("unloaded")) {
+        document.getElementById("about").classList.add("unloaded");
+        aboutExpanded = false;
+      }
+      if(!document.getElementById("settings").classList.contains("unloaded")) {
+        document.getElementById("settings").classList.add("unloaded");
+        settingsExpanded = false;
+      }
+      if(document.getElementById("modal-card-wizard").style.opacity == "1") {
+        document.getElementById("modal-card-wizard").style.opacity = "0";
+        document.getElementById("modal-card-wizard").style.pointerEvents = "none";
+      }
+    }
+  });
+
   var wordmark = document.querySelector('.wordmark');
   wordmark.addEventListener('mouseenter', function() {
     if(!wordmark.classList.contains("animate")) {

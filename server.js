@@ -35,7 +35,12 @@ async function getVisageImage(uuid) {
 
 app.get('/player/:name/:game?', async (req, res) => {
   const name = req.params.name;
-  const game = req.params.game;
+  
+  let game = req.params.game;
+  if (game) {
+    game = game.toLowerCase();
+  }
+  
   var base64PlayerImage = "";
   var computationError = "";
   
