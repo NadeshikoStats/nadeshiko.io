@@ -567,7 +567,19 @@
 
 <script>
   var playerData;
-  var currentGamemode = "network";
+  let playerName = "<%= name %>";
+  var currentGamemode = "<%= game %>";
+  let validGames = ["network", "skyblock", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolwars", "warlords", "smashheroes"]
+
+
+  if (!validGames.includes(currentGamemode)) {
+    console.log("Invalid game mode, defaulting to network.")
+    currentGamemode = "network";
+    console.log(currentGamemode)
+    window.history.replaceState({}, null, `/player/${playerName}${currentGamemode == "network" ? "" : `/${currentGamemode}`}`);
+  }
+
+  console.log(currentGamemode)
   switchStats(currentGamemode);
   var mobileMode = (document.documentElement.clientWidth < 800);
 
@@ -578,9 +590,9 @@
     else return text;
   }
 
-  playerName = "<%= name %>";
   playerData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(playerData)) %>"));
   console.log(playerData);
+
   insertLoadedData();
 
   window.addEventListener("resize", checkMobileMode);
@@ -905,6 +917,11 @@ var skinViewer;
       document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
       document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
       setBackground(currentGamemode);
+
+      // Change the URL to reflect the current gamemode
+      if (history.replaceState && playerData != undefined) {
+        window.history.replaceState({}, null, `/player/${playerData["name"]}${currentGamemode == "network" ? "" : `/${currentGamemode}`}`);
+      }
     //}
   }
 

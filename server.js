@@ -33,8 +33,9 @@ async function getVisageImage(uuid) {
   }
 }
 
-app.get('/player/:name', async (req, res) => {
+app.get('/player/:name/:game?', async (req, res) => {
   const name = req.params.name;
+  const game = req.params.game;
   var base64PlayerImage = "";
   var computationError = "";
   
@@ -42,7 +43,7 @@ app.get('/player/:name', async (req, res) => {
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
        base64PlayerImage = await getVisageImage(playerData["uuid"]);      
-      res.render('player', { name, playerData, base64PlayerImage });
+      res.render('player', { name, playerData, base64PlayerImage, game });
    } catch(error) {
        console.error("Fetching player data failed! → ", error);
        computationError = `Could not find stats of player ${name} (${error})`;
@@ -78,9 +79,9 @@ app.get('/player/:name', async (req, res) => {
     }
 });
 
-  app.get('/:name', (req, res) => {
-    const { name } = req.params;
-    res.redirect(`/player/${name}`);
+  app.get('/:name/:game?', (req, res) => {
+    const { name, game } = req.params;
+    res.redirect(`/player/${name}/${game == undefined ? '' : game}`);
   });
   
   app.listen(port, () => {

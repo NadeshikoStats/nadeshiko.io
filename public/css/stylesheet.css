@@ -1636,6 +1636,7 @@ footer>a:hover {
     #player-card {
         overflow-y: scroll;
         overflow-x: clip;
+        /*height: fit-content;*/
     }
     .unless-tiny {
         display: initial;
