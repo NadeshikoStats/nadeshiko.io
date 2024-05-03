@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/stylesheet.css">
   <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
-  <link rel="preload" href="/img/games/bedwars/lobby.png" as="image">
-  <link rel="preload" href="/img/games/skywars/lobby.png" as="image">
-  <link rel="preload" href="/img/games/network/lobby.png" as="image">
-  <link rel="preload" href="/img/games/duels/lobby.png" as="image">
+  <link rel="preload" href="/img/games/bedwars/lobby.avif" as="image">
+  <link rel="preload" href="/img/games/skywars/lobby.avif" as="image">
+  <link rel="preload" href="/img/games/network/lobby.avif" as="image">
+  <link rel="preload" href="/img/games/duels/lobby.avif" as="image">
+  <script src="/external/aviftest.js" type="module"></script>
   <script src="/external/skinview3d.bundle.js" type="module"></script>
   <script src="/external/minecrafttext.js"></script>
   <script src="/external/games.js"></script>
@@ -569,31 +570,30 @@
   var playerData;
   let playerName = "<%= name %>";
   var currentGamemode = "<%= game %>";
+  let imageFileType;
   let validGames = ["network", "skyblock", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolwars", "warlords", "smashheroes"]
-
-
-  if (!validGames.includes(currentGamemode)) {
-    console.log("Invalid game mode, defaulting to network.")
-    currentGamemode = "network";
-    console.log(currentGamemode)
-    window.history.replaceState({}, null, `/player/${playerName}${currentGamemode == "network" ? "" : `/${currentGamemode}`}`);
-  }
-
-  console.log(currentGamemode)
-  switchStats(currentGamemode);
-  var mobileMode = (document.documentElement.clientWidth < 800);
-
-  document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
-
-  function und(text) { // Returns 0 in the case of a missing value
-    if (text === null || text === undefined || Number.isNaN(text)) return 0;
-    else return text;
-  }
 
   playerData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(playerData)) %>"));
   console.log(playerData);
 
-  insertLoadedData();
+  if (!validGames.includes(currentGamemode)) {
+      console.log("Invalid game mode; defaulting to network" + " " + performance.now())
+      currentGamemode = "network";
+      window.history.replaceState({}, null, `/player/${playerName}${currentGamemode == "network" ? "" : `/${currentGamemode}`}`);
+  }
+
+  var mobileMode = (document.documentElement.clientWidth < 800);
+
+  function und(text) { // Returns 0 in the case of a missing value
+      if (text === null || text === undefined || Number.isNaN(text)) return 0;
+      else return text;
+    }
+
+  function beginGeneration() {
+    switchStats(currentGamemode);
+    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+    insertLoadedData();
+  }
 
   window.addEventListener("resize", checkMobileMode);
 
@@ -941,11 +941,11 @@ var skinViewer;
      const bg1 = document.getElementById("background1");
      const bg2 = document.getElementById("background2");
      if (bg1.style.opacity == '1' || bg1.style.opacity === '') {
-       bg2.style.backgroundImage = "url('/img/games/" + gamemode + "/lobby.png')";
+       bg2.style.backgroundImage = `url('/img/games/${gamemode}/lobby.${imageFileType}')`;
        bg1.style.opacity = '0';
        bg2.style.opacity = '1';
      } else {
-       bg1.style.backgroundImage = "url('/img/games/" + gamemode + "/lobby.png')";
+       bg1.style.backgroundImage = `url('/img/games/${gamemode}/lobby.${imageFileType}')`;
        bg2.style.opacity = '0';
        bg1.style.opacity = '1';
      }

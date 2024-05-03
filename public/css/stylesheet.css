@@ -826,42 +826,28 @@ footer>a:hover {
 
 @font-face {
     font-family: Inter;
-    src: url(/font/Inter-Bold.ttf);
+    src: url(/font/Inter-Bold.woff2);
     font-weight: bold;
     font-display: swap;
 }
 
 @font-face {
     font-family: Inter;
-    src: url(/font/Inter-Regular.ttf);
+    src: url(/font/Inter-Regular.woff2);
     font-weight: regular;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: Albert Sans;
-    src: url(/font/AlbertSans-Regular.ttf);
-    font-weight: regular;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: Albert Sans;
-    src: url(/font/AlbertSans-Bold.ttf);
-    font-weight: bold;
     font-display: swap;
 }
 
 @font-face {
     font-family: Inter;
-    src: url(/font/Inter-SemiBold.ttf);
+    src: url(/font/Inter-SemiBold.woff2);
     font-weight: 600;
     font-display: swap;
 }
 
 @font-face {
     font-family: Inter;
-    src: url(/font/Inter-Medium.ttf);
+    src: url(/font/Inter-Medium.woff2);
     font-weight: 500;
     font-display: swap;
 }

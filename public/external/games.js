@@ -309,7 +309,7 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
             ("bed-wars-stats-" + (modeNames[a]).toLowerCase()), // ID
             modeNames[a], // Title
             "", // Subtitle (none)
-            ("/img/games/bedwars/" + (modeNames[a]).toLowerCase() + ".png"), // Image
+            (`/img/games/bedwars/${(modeNames[a]).toLowerCase()}.${imageFileType}`), // Image
             getBedWarsModeStats(modes[a]), // Displayed stats
             [], // Other stats (shown in drop-down menu) (none here)
             "", // Icon
