@@ -8,7 +8,7 @@
         </a>
         <a href="/" class="header-button"><img src="/img/home.svg" class="header-icon" alt=""><span class="header-button-text">Home<span></a>
         <p class="header-button" onclick="showAbout()" id="button-about"><img src="/img/about.svg" class="header-icon" alt=""><span class="header-button-text">About</span></p>
-        <p class="header-button" onclick="showCardWizard()"><img src="/img/cards.svg" class="header-icon" alt=""><span class="header-button-text">Cards</span></p>
+        <p class="header-button" onclick="showCardWizard()" id="button-card-wizard"><img src="/img/cards.svg" class="header-icon" alt=""><span class="header-button-text">Cards</span></p>
         <p class="header-button" onclick="showSettings()" id="button-settings"><img src="/img/settings.svg" class="header-icon" alt=""><span class="header-button-text">Settings</span></p>
     </div>
     <div class="header-right">
@@ -18,18 +18,16 @@
         </span>
     </div>
 </div>
-<div id="modal-card-wizard" class="modal">
-  <div class="modal-content">
+<div id="modal-card-wizard" class="modal unloaded">
+  <div class="about" id="card-wizard-ui">
     <p id="modal-card-wizard-close">&times;</p>
-    <div class="card-wizard-info">
-      <p class="stat-title mbottom">Card Wizard</p>
+      <p class="about-title">Card Wizard</p>
       <p class="stat-subtitle">Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!</p>
-    </div>
-
+      <hr style="margin: 20px auto">
     <div class="flex-two-item-basic">
-    <p class="chip-small-subtitle">Username</p> 
-    <input type="text" placeholder="Player" id="card-wizard-name"></input>
-  </div>
+      <p class="chip-small-subtitle">Username</p> 
+      <input type="text" placeholder="Player" id="card-wizard-name"></input>
+    </div>
     
     <div class="flex-two-item-basic">
         <p class="tooltip"><span class="chip-small-subtitle">Game</span><span class="tooltiptext">The game to be used in the card.</span></p>
@@ -41,60 +39,61 @@
         </div>
     </div>
 
-  <div class="flex-two-item-basic">
-  <p class="tooltip"><span class="chip-small-subtitle">Size</span><span class="tooltiptext">The height of the card.</span></p>
-    <div class="chip-small-dropdown">
-    <select aria-label="Card Size" id="card-wizard-size">
-      <option value="FULL">Full</option>
-  </select>
-</div>
-</div>
+    <div class="flex-two-item-basic">
+      <p class="tooltip"><span class="chip-small-subtitle">Size</span><span class="tooltiptext">The height of the card.</span></p>
+      <div class="chip-small-dropdown">
+      <select aria-label="Card Size" id="card-wizard-size">
+        <option value="FULL">Full</option>
+      </select>
+      </div>
+    </div>
 
 <span class="general-button" onclick="generateCard()">Generate Card</span>
 <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value="Edit this card first!">
 </div>
 </div>
 
-<div id="about" class="about unloaded">
-  <p><b style="color: var(--nadeshiko)">nadeshiko</b> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
-  <p>Find a bug or need some assistance? Please let us know on the project's <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
-  <hr style="margin: 20px auto">
-  <p class="about-title">Credits</p>
-  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/146425360?v=4" class="about-icon"> <strong><a href="https://github.com/niqumu" target="_blank">kittycatchloe</a></strong> &ndash; Backend Developer</p>
+<div class="modal unloaded" id="about">
+  <div class="about" id="about-ui">
+    <p><b style="color: var(--nadeshiko)">nadeshiko</b> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
+    <p>Find a bug or need some assistance? Please let us know on the project's <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
+    <hr style="margin: 20px auto">
+    <p class="about-title">Credits</p>
+    <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/146425360?v=4" class="about-icon"> <strong><a href="https://github.com/niqumu" target="_blank">kittycatchloe</a></strong> &ndash; Backend Developer</p>
 
-  <p class="flex-two-item-basic about-flex"><img src="https://cdn.discordapp.com/avatars/380758536927576066/759273d019881ebc5eca23dc54dfa9bf.png?size=64" class="about-icon"> <strong><a href="https://brookie.dev" target="_blank">BrookeAFK</a></strong> &ndash; Frontend Developer</p>
-  <hr style="opacity: 0">
+    <p class="flex-two-item-basic about-flex"><img src="https://cdn.discordapp.com/avatars/380758536927576066/759273d019881ebc5eca23dc54dfa9bf.png?size=64" class="about-icon"> <strong><a href="https://brookie.dev" target="_blank">BrookeAFK</a></strong> &ndash; Frontend Developer</p>
+    <hr style="opacity: 0">
 
-  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/37259779?s=48&v=4" class="about-icon"> <strong><a href="https://github.com/bs-community/skinview3d" target="_blank">skinview3d</a></strong> by Blessing Skin</p>
+    <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/37259779?s=48&v=4" class="about-icon"> <strong><a href="https://github.com/bs-community/skinview3d" target="_blank">skinview3d</a></strong> by Blessing Skin</p>
 
-  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/2386673?s=48&v=4" class="about-icon"> <strong><a href="https://gsap.com/" target="_blank">GSAP</a></strong> <span>by GreenSock</span></p>
+    <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/2386673?s=48&v=4" class="about-icon"> <strong><a href="https://gsap.com/" target="_blank">GSAP</a></strong> <span>by GreenSock</span></p>
 
-  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/46097560?s=48&v=4" class="about-icon"> <strong><a href="https://visage.surgeplay.com/" target="_blank">Visage</a></strong> <span>by Una</span></p>
+    <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/46097560?s=48&v=4" class="about-icon"> <strong><a href="https://visage.surgeplay.com/" target="_blank">Visage</a></strong> <span>by Una</span></p>
 
-  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/5984724?s=48&v=4" class="about-icon"> <strong><a href="https://minotar.net/" target="_blank">Minotar</a></strong> <span>by The Minotar Team </span></p>
+    <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/5984724?s=48&v=4" class="about-icon"> <strong><a href="https://minotar.net/" target="_blank">Minotar</a></strong> <span>by The Minotar Team </span></p>
 
-  <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/68933003?s=48&v=4" class="about-icon"> <strong><a href="https://github.com/SkyCryptWebsite/SkyCrypt" target="_blank">SkyCrypt</a></strong> <span>by Shiiyu and friends</span></p>
+    <p class="flex-two-item-basic about-flex"><img src="https://avatars.githubusercontent.com/u/68933003?s=48&v=4" class="about-icon"> <strong><a href="https://github.com/SkyCryptWebsite/SkyCrypt" target="_blank">SkyCrypt</a></strong> <span>by Shiiyu and friends</span></p>
 
-  <p class="flex-two-item-basic about-flex"><img src="https://media.forgecdn.net/avatars/875/480/638298072228596362.png" class="about-icon"> <strong><a href="https://www.curseforge.com/minecraft/shaders/complementary-unbound" target="_blank">Complementary Shaders</a></strong> by EminGT</p>
+    <p class="flex-two-item-basic about-flex"><img src="https://media.forgecdn.net/avatars/875/480/638298072228596362.png" class="about-icon"> <strong><a href="https://www.curseforge.com/minecraft/shaders/complementary-unbound" target="_blank">Complementary Shaders</a></strong> by EminGT</p>
 
-  <p class="flex-two-item-basic about-flex"><img src="https://assets.codepen.io/183204/internal/avatars/users/default.png?height=64&width=64" class="about-icon"> <strong><a href="https://codepen.io/MAW" target="_blank">GSAP Tutorials</a></strong> <span>by Diaco M Lotfolahi on CodePen</span></p>
+    <p class="flex-two-item-basic about-flex"><img src="https://assets.codepen.io/183204/internal/avatars/users/default.png?height=64&width=64" class="about-icon"> <strong><a href="https://codepen.io/MAW" target="_blank">GSAP Tutorials</a></strong> <span>by Diaco M Lotfolahi on CodePen</span></p>
 
-  <hr style="opacity: 0">
+    <hr style="opacity: 0">
 
-  <p class="flex-two-item-basic about-flex"><img src="/img/hypixel_logo.png" class="about-icon"> <strong><a href="https://api.hypixel.net/" target="_blank">Hypixel API</a></strong> by Hypixel</p>
+    <p class="flex-two-item-basic about-flex"><img src="/img/hypixel_logo.png" class="about-icon"> <strong><a href="https://api.hypixel.net/" target="_blank">Hypixel API</a></strong> by Hypixel</p>
 
-  <hr style="opacity: 0">
-  <p style="opacity: 0.7; font-size: 14px">nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.</p>
-
-
+    <hr style="opacity: 0">
+    <p style="opacity: 0.7; font-size: 14px">nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.</p>
+  </div>
 </div>
 
-<div id="settings" class="about unloaded">
-  <p class="about-title">Settings</p>
-  <hr style="margin: 20px auto">
-  <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/globe.svg"><span class="w600">Language</span></p>
-  <p style="opacity: 0.7; font-size: 14px">Soon!</p>
-
+<div class="modal unloaded" id="settings">
+  <div class="about" id="settings-ui">
+    <p class="about-title">Settings</p>
+    <hr style="margin: 20px auto">
+    <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/globe.svg"><span class="w600">Language</span></p>
+    <p style="opacity: 0.7; font-size: 14px">Soon!</p>
+  </div>
 </div>
 
 <script>
@@ -102,104 +101,127 @@ document.getElementById('search-icon').addEventListener('click', function() {
   document.getElementById('searchbar').focus();
 });
 
+let aboutExpanded = false;
+let settingsExpanded = false;
+let cardWizardExpanded = false;
+
 function showCardWizard(game = "NETWORK") {
-  document.getElementById("card-wizard-game").value = game;
-  if(typeof playerData !== "undefined" && playerData["name"] !== undefined) {
-    document.getElementById("card-wizard-name").value = playerData["name"];
+  if(!cardWizardExpanded) {
+    document.getElementById("card-wizard-game").value = game;
+    if(typeof playerData !== "undefined" && playerData["name"] !== undefined) {
+      document.getElementById("card-wizard-name").value = playerData["name"];
+    }
+    document.getElementById("card-wizard-output").value = `Click "Generate Card" to generate a card!`;
+    document.getElementById("modal-card-wizard").classList.remove("unloaded");
+    document.getElementById("button-card-wizard").classList.add("selected");
+    cardWizardExpanded = true;
+  } else {
+    document.getElementById("modal-card-wizard").classList.add("unloaded");
+    document.getElementById("button-card-wizard").classList.remove("selected");
+    cardWizardExpanded = false;
   }
-  document.getElementById("card-wizard-output").value = `Click "Generate Card" to generate a card!`;
-  document.getElementById("modal-card-wizard").style.opacity = "1";
-  document.getElementById("modal-card-wizard").style.pointerEvents = "all";
 }
 
-  document.getElementById("modal-card-wizard-close").onclick = function() {
-    document.getElementById("modal-card-wizard").style.opacity = "0";
-    document.getElementById("modal-card-wizard").style.pointerEvents = "none";
-  }
+document.getElementById("modal-card-wizard-close").onclick = function() {
+  document.getElementById("modal-card-wizard").classList.add("unloaded");
+  document.getElementById("button-card-wizard").classList.remove("selected");
+  cardWizardExpanded = false;
+}
 
-  let aboutExpanded = false;
-  let settingsExpanded = false;
-  function showAbout() {
-    if(!aboutExpanded) {
-      document.getElementById("about").classList.remove("unloaded");
-      aboutExpanded = true;
-    } else {
+function showAbout() {
+  if(!aboutExpanded) {
+    document.getElementById("about").classList.remove("unloaded");
+    document.getElementById("button-about").classList.add("selected");
+    aboutExpanded = true;
+  } else {
+    document.getElementById("about").classList.add("unloaded");
+    document.getElementById("button-about").classList.remove("selected");
+    aboutExpanded = false;
+  }
+}
+
+function showSettings() {
+  if(!settingsExpanded) {
+    document.getElementById("settings").classList.remove("unloaded");
+    document.getElementById("button-settings").classList.add("selected");
+    settingsExpanded = true;
+  } else {
+    document.getElementById("settings").classList.add("unloaded");
+    document.getElementById("button-settings").classList.remove("selected");
+    settingsExpanded = false;
+  }
+}
+
+function generateCard() {
+  cardName = document.getElementById("card-wizard-name").value;
+  cardGame = document.getElementById("card-wizard-game").value;
+  cardSize = document.getElementById("card-wizard-size").value;
+
+  document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/` + btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
+}
+
+document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
+  if (event.key === "Enter") { // Did the user press enter?
+    event.preventDefault();
+    var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+    if(userInput.length == 0) return;
+    window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+  }
+});
+
+document.addEventListener('keydown', function(event) { // Close modals on escape key
+  if(event.key === "Escape") {
+    if(aboutExpanded) {
       document.getElementById("about").classList.add("unloaded");
+      document.getElementById("button-about").classList.remove("selected");
+      aboutExpanded = false;
+    }
+    if(settingsExpanded) {
+      document.getElementById("settings").classList.add("unloaded");
+      document.getElementById("button-settings").classList.remove("selected");
+      settingsExpanded = false;
+    }
+    if(cardWizardExpanded) {
+      document.getElementById("modal-card-wizard").classList.add("unloaded");
+      document.getElementById("button-card-wizard").classList.remove("selected");
+      cardWizardExpanded = false;
+    }
+  }
+});
+
+var wordmark = document.querySelector('.wordmark');
+wordmark.addEventListener('mouseenter', function() {
+  if(!wordmark.classList.contains("animate")) {
+    wordmark.classList.add('animate');
+    setTimeout(function() { wordmark.classList.remove('animate'); }, 1800);
+  }
+});
+
+window.onclick = function(event) {
+  if (!event.target.closest('#button-about') && !event.target.closest('#about-ui')) {
+    if(aboutExpanded) {
+      document.getElementById("about").classList.add("unloaded");
+      document.getElementById("button-about").classList.remove("selected");
       aboutExpanded = false;
     }
   }
 
-  function showSettings() {
-    if(!settingsExpanded) {
-      document.getElementById("settings").classList.remove("unloaded");
-      settingsExpanded = true;
-    } else {
+  if (!event.target.closest('#button-settings') && !event.target.closest('#settings-ui')) {
+    if(settingsExpanded) {
       document.getElementById("settings").classList.add("unloaded");
+      document.getElementById("button-settings").classList.remove("selected");
       settingsExpanded = false;
     }
   }
 
-  function generateCard() {
-    cardName = document.getElementById("card-wizard-name").value;
-    cardGame = document.getElementById("card-wizard-game").value;
-    cardSize = document.getElementById("card-wizard-size").value;
-
-    document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/` + btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
-  }
-
-document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
-    if (event.key === "Enter") { // Did the user press enter?
-      event.preventDefault();
-      var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
-      if(userInput.length == 0) return;
-      window.location.href = `/player/${userInput}`; // Redirect to the desired URL
-    }
-  });
-
-  
-  document.addEventListener('keydown', function(event) { // Close modals on escape key
-    if(event.key === "Escape") {
-      if(!document.getElementById("about").classList.contains("unloaded")) {
-        document.getElementById("about").classList.add("unloaded");
-        aboutExpanded = false;
-      }
-      if(!document.getElementById("settings").classList.contains("unloaded")) {
-        document.getElementById("settings").classList.add("unloaded");
-        settingsExpanded = false;
-      }
-      if(document.getElementById("modal-card-wizard").style.opacity == "1") {
-        document.getElementById("modal-card-wizard").style.opacity = "0";
-        document.getElementById("modal-card-wizard").style.pointerEvents = "none";
-      }
-    }
-  });
-
-  var wordmark = document.querySelector('.wordmark');
-  wordmark.addEventListener('mouseenter', function() {
-    if(!wordmark.classList.contains("animate")) {
-      wordmark.classList.add('animate');
-      setTimeout(function() { wordmark.classList.remove('animate'); }, 1800);
-    }
-  });
-
-  window.onclick = function(event) {
-    if (!event.target.closest('#button-about') && !event.target.closest('#about')) {
-      if(!document.getElementById("about").classList.contains("unloaded")) {
-        document.getElementById("about").classList.add("unloaded");
-        aboutExpanded = false;
-      }
-    }
-
-    if (!event.target.closest('#button-settings') && !event.target.closest('#settings')) {
-      if(!document.getElementById("settings").classList.contains("unloaded")) {
-        document.getElementById("settings").classList.add("unloaded");
-        settingsExpanded = false;
-      }
-    }
-
-    if (event.target == document.getElementById("modal-card-wizard")) {
-      document.getElementById("modal-card-wizard").style.opacity = "0";
-      document.getElementById("modal-card-wizard").style.pointerEvents = "none";
+  if (!event.target.closest('#button-card-wizard') && !event.target.closest('#card-wizard-ui')) {
+    if(cardWizardExpanded) {
+      document.getElementById("modal-card-wizard").classList.add("unloaded");
+      document.getElementById("button-card-wizard").classList.remove("selected");
+      cardWizardExpanded = false;
     }
   }
+
+  console.log(event.target)
+}
 </script>

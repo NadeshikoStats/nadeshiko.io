@@ -43,6 +43,7 @@
     /* Yellow */
     --mcf: #FFFFFF;
     /* White */
+    --header-height: 51px;
     --transition-large: 1s;
     --transition: 0.5s;
     --transition-small: 0.3s;
@@ -73,6 +74,7 @@ a {
     font-size: 18px;
     position: relative;
     backdrop-filter: blur(6px);
+    height: var(--header-height);
 }
 
 header {
@@ -121,6 +123,7 @@ header {
     pointer-events: auto;
     backdrop-filter: blur(5px);
     overflow-y: scroll;
+    top: 0;
 }
 
 .about > p {
@@ -272,10 +275,27 @@ footer>a:hover {
     cursor: pointer;
 }
 
+.header-button > * {
+    transition-duration: var(--transition-small);
+}
+
 .header-button:hover {
     padding-left: 30px;
     padding-right: 30px;
     background-color: var(--nadeshiko-dark);
+}
+
+.header-button.selected {
+    background-color: var(--nadeshiko-dark);
+}
+
+
+.header-button:hover span, .header-button.selected span {
+    color: white;
+}
+
+.header-button:hover img, .header-button.selected img {
+    opacity: 1;
 }
 
 .header-game {
@@ -423,6 +443,11 @@ footer>a:hover {
     width: 100%;
 }
 
+::placeholder {
+    color: var(--pale-grey);
+    opacity: 1;
+}
+
 .search-icon {
     height: 15px;
     width: 15px;
@@ -522,6 +547,10 @@ footer>a:hover {
     position: relative;
     width: 325px;
     background-color: var(--nadeshiko-dark);
+}
+
+.searchbar-container:focus-within > .search-icon {
+    opacity: 100%;
 }
 
 .player-card {
@@ -731,6 +760,12 @@ footer>a:hover {
     opacity: 0;
     transform: scale(0.8);
     filter: brightness(0.2);
+}
+
+.modal.unloaded {
+    opacity: 0;
+    clip-path: circle(0% at 0 0);
+    pointer-events: none;
 }
 
 .dropdown-content.unloaded {
@@ -1480,14 +1515,12 @@ footer>a:hover {
 /* Modals */
 
 .modal {
-    background-color: #000c;
-    opacity: 0;
+    background-color: #0005;
     position: fixed;
     z-index: 6;
     left: 0;
-    top: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - var(--header-height));
     overflow: auto;
     transition-duration: var(--transition);
     pointer-events: none;
@@ -1495,6 +1528,10 @@ footer>a:hover {
     align-items: center;
     align-content: center;
     backdrop-filter: blur(5px);
+    opacity: 1;
+    clip-path: circle(calc((100vh + 100vh) * 1.42) at 0 0);
+    top: var(--header-height);
+    pointer-events: all;
   }
   
   .modal-content {
@@ -1653,7 +1690,7 @@ footer>a:hover {
     .wordmark {
         display: none;
     }
-    #about {
+    .about {
       width: min(calc(100% - 30px), max(400px, 40%));
     }
   }

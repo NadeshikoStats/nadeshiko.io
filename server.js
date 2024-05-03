@@ -48,7 +48,7 @@ app.get('/player/:name/:game?', async (req, res) => {
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
        base64PlayerImage = await getVisageImage(playerData["uuid"]);      
-      res.render('player', { name, playerData, base64PlayerImage, game });
+       res.render('player', { name, playerData, base64PlayerImage, game });
    } catch(error) {
        console.error("Fetching player data failed! → ", error);
        computationError = `Could not find stats of player ${name} (${error})`;
