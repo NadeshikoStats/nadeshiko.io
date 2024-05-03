@@ -354,7 +354,7 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
         "bed-wars-stats-dreams",
         "Dreams",
         "",
-        "/img/games/bedwars/4v4.png",
+        `/img/games/bedwars/4v4.${imageFileType}`,
         totalDreamModeStats,
         dreamModes,
         "",
@@ -396,7 +396,7 @@ function generateSkyWars() {
             ("skywars-stats-" + skyWarsStatsToShow[a][1]), // ID
             skyWarsStatsToShow[a][0], // Title
             "", // Subtitle (none)
-            ("/img/games/bedwars/threes.png"), // Image
+            (`/img/games/bedwars/threes.${imageFileType}`), // Image
             getSkyWarsModeStats(skyWarsStatsToShow[a][1]), // Displayed stats
             skyWarsStatsToShow[a][2], // Other stats (shown in drop-down menu)
             "", // Icon

@@ -2,13 +2,16 @@
 
   console.log("Begin AVIF testing " + performance.now());
   img.onload = function() {
-    if (img.naturalWidth > 0 || img.naturalHeight > 0) {
-      imageFileType = "avif";
-    } else {
-      imageFileType = "png";
-    }
+    imageFileType = "avif";
     console.log(imageFileType + " " + performance.now());
-    document.getElementById("supports-avif").innerText = "Supports AVIF: " + (imageFileType === "avif");
+    document.getElementById("supports-avif").innerText = "Supports AVIF ";
+    beginGeneration();
+  };
+
+  img.onerror = function() {
+    imageFileType = "png";
+    console.log(imageFileType + " " + performance.now());
+    document.getElementById("supports-avif").innerText = "Outdated browser ";
     beginGeneration();
   };
   
