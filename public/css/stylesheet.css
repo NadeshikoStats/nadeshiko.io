@@ -175,6 +175,7 @@ body {
     height: 100vh;
     position: relative;
     z-index: -6;
+    font-feature-settings: "cv02" on
 }
 
 kbd {
@@ -628,11 +629,9 @@ footer>a:hover {
     opacity: 100%;  
 }
 
-
 #flex-container-network {
     align-items: center;
 }
-
 
 .minigame-flex-container {
     mask:

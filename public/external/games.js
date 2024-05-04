@@ -1,5 +1,6 @@
 var bedWarsStats, totalDreamModeStats, duelsStats; 
 var allDuelsStats = { };
+var allTNTWizardStats = { };
 
 function calculateRatio(numerator, denominator, digits = 2) { // Calculates a ratio based on two stats
     return checkAndFormat((numerator) / (und(denominator) == 0 ? 1 : (denominator)), digits);
@@ -161,6 +162,8 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         generateSkyWars();
         generateBuildBattle();
         generateMurderMystery();
+        generateTNTGames();
+
         addRecentPlayer(playerData["name"], playerRankCute[0]);
       } else { // If no Hypixel stats, hide most buttons and show a warning
         document.getElementById("general-bottom-bar").style.display = "none";
@@ -384,7 +387,7 @@ function generateSkyWars() {
 
     updateElement("skywars-overall-kdr", calculateRatio(skyWarsStats["kills"], skyWarsStats["deaths"]));
     updateElement("skywars-overall-wlr", calculateRatio(skyWarsStats["wins"], skyWarsStats["losses"]));
-    updateElement("skywars-overall-playtime", smallDuration(skyWarsStats["time_played"]));
+    updateElement("skywars-overall-playtime", smallDuration(und(skyWarsStats["time_played"])));
 
     updateElement("skywars-overall-corruption-chance", (und(skyWarsStats["angel_of_death_level"]) + und(skyWarsStats["angels_offering"]) + (skyWarsStats["packages"] != undefined ? skyWarsStats["packages"].includes("favor_of_the_angel") : 0)) + "%");
 
@@ -772,6 +775,124 @@ function generateMurderMystery() { // Generates stats and chips for Murder Myste
   }
 }
 
+function generateTNTGames() { // Generates stats and chips for TNT Games
+  let tntGamesStats = playerData["stats"]["TNTGames"];
+  if(tntGamesStats != undefined) {
+    let easyStats = ["wins", "coins"];
+
+    for(e = 0; e < easyStats.length; e++) {
+      updateElement("tntgames-overall-" + easyStats[e], checkAndFormat(tntGamesStats[easyStats[e]]));
+    }
+
+    // Get kills, deaths with sumStats
+    let tntGamesKills = sumStats(["kills"], ["tntrun", "pvprun", "tntag", "capture", "bowspleef"], tntGamesStats, "_", true);
+    let tntGamesDeaths = sumStats(["deaths"], ["tntrun", "pvprun", "tntag", "capture", "bowspleef"], tntGamesStats, "_", true);
+    
+    updateElement("tntgames-overall-kills", checkAndFormat(tntGamesKills));
+    updateElement("tntgames-overall-deaths", checkAndFormat(tntGamesDeaths));
+    updateElement("tntgames-overall-kdr", calculateRatio(tntGamesKills, tntGamesDeaths));
+  }
+
+  let tntRunCard = [
+    "tntgames-stats-tntrun", // ID
+    "TNT Run", // Title
+    "", // Subtitle
+    "/img/games/home.png", // Background image
+    [
+      [false, ["Wins", checkAndFormat(tntGamesStats["wins_tntrun"])], ["Losses", checkAndFormat(tntGamesStats["deaths_tntrun"])], ["W/L R", calculateRatio(tntGamesStats["wins_tntrun"], tntGamesStats["deaths_tntrun"])]],
+      [false, ["Blocks Ran", "Missing From API"], ["Best Time", smallDuration(und(tntGamesStats["record_tntrun"]))]],
+    ], // Displayed stats
+    [], // Other stats (shown in drop-down menu)
+    "/img/icon/tntgames/tntrun.png", // Chip image
+    "tntgames" // gamemode
+  ];
+
+  let pvpRunCard = [
+    "tntgames-stats-pvprun", // ID
+    "PvP Run", // Title
+    "", // Subtitle
+    "/img/games/home.png", // Background image
+    [
+      [false, ["Wins", checkAndFormat(tntGamesStats["wins_pvprun"])], ["Losses", checkAndFormat(tntGamesStats["deaths_pvprun"])], ["W/L R", calculateRatio(tntGamesStats["wins_pvprun"], tntGamesStats["deaths_pvprun"])]],
+      [false, ["Kills", checkAndFormat(tntGamesStats["kills_pvprun"])], ["Deaths", checkAndFormat(tntGamesStats["deaths_pvprun"])], ["K/D R", calculateRatio(tntGamesStats["kills_pvprun"], tntGamesStats["deaths_pvprun"])]],
+      [false, ["Best Time", smallDuration(und(tntGamesStats["record_pvprun"]))]],
+    ], // Displayed stats
+    [], // Other stats (shown in drop-down menu)
+    "/img/icon/tntgames/pvprun.png", // Chip image
+    "tntgames" // gamemode
+  ]
+
+  let tntTagCard = [
+    "tntgames-stats-tntag", // ID
+    "TNT Tag", // Title
+    "", // Subtitle
+    "/img/games/home.png", // Background image
+    [
+      [false, ["Wins", checkAndFormat(tntGamesStats["wins_tntag"])], ["Losses", checkAndFormat(tntGamesStats["deaths_tntag"])], ["W/L R", calculateRatio(tntGamesStats["wins_tntag"], tntGamesStats["deaths_tntag"])]],
+      [false, ["Kills", checkAndFormat(tntGamesStats["kills_tntag"])], ["Deaths", checkAndFormat(tntGamesStats["deaths_tntag"])], ["K/D R", calculateRatio(tntGamesStats["kills_tntag"], tntGamesStats["deaths_tntag"])]],
+      [false, ["Tags", "Missing From API"]]
+    ], // Displayed stats
+    [], // Other stats (shown in drop-down menu)
+    "/img/icon/tntgames/tntag.png", // Chip image
+    "tntgames" // gamemode
+  ]
+
+  let bowSpleefCard = [
+    "tntgames-stats-bowspleef", // ID
+    "Bow Spleef", // Title
+    "", // Subtitle
+    "/img/games/home.png", // Background image
+    [
+      [false, ["Wins", checkAndFormat(tntGamesStats["wins_bowspleef"])], ["Losses", checkAndFormat(tntGamesStats["deaths_bowspleef"])], ["W/L R", calculateRatio(tntGamesStats["wins_bowspleef"], tntGamesStats["deaths_bowspleef"])]],
+      [false, ["Arrows Shot", checkAndFormat(tntGamesStats["tags_bowspleef"])]]
+    ], // Displayed stats
+    [], // Other stats (shown in drop-down menu)
+    "/img/icon/tntgames/bowspleef.png", // Chip image
+    "tntgames" // gamemode
+  ]
+
+  let wizardsList = [["Overall", "overall"], ["Ancient", "new_ancientwizard"], ["Arcane", "arcane_wizard"], ["Blood", "new_bloodwizard"], ["Fire", "new_firewizard"], ["Hydro", "new_hydrowizard"], ["Ice", "new_icewizard"], ["Kinetic", "new_kineticwizard"], ["Storm", "new_stormwizard"], ["Toxic", "new_toxicwizard"], ["Wither", "new_witherwizard"]];
+
+  let totalWizardStats = sumStats(["kills", "deaths", "healing", "damage_taken", "assists"], wizardsList.map(x => x[1]), tntGamesStats, "_", false);
+
+  allTNTWizardStats["overall"] = [
+    [false, ["Overall Wins", checkAndFormat(tntGamesStats["wins_capture"])], ["Overall Captures", checkAndFormat(tntGamesStats["points_capture"])]],
+    [false, ["Kills", checkAndFormat(totalWizardStats[0])], ["Deaths", checkAndFormat(totalWizardStats[1])], ["K/D R", calculateRatio(totalWizardStats[0], totalWizardStats[1])]],
+    [false, ["Healing", checkAndFormat(totalWizardStats[2])], ["Damage Taken", checkAndFormat(totalWizardStats[3])], ["Assists", checkAndFormat(tntGamesStats["assists_capture"])]],
+  ];
+
+  for(let a = 1; a < wizardsList.length; a++) {
+    thisWizard = wizardsList[a][1];
+
+    allTNTWizardStats[thisWizard] = [
+        [false, ["Overall Wins", checkAndFormat(tntGamesStats["wins_capture"])], ["Overall Captures", checkAndFormat(tntGamesStats["points_capture"])]],
+        [false, ["Kills", checkAndFormat(tntGamesStats[thisWizard + "_kills"])], ["Deaths", checkAndFormat(tntGamesStats[thisWizard + "_deaths"])], ["K/D R", calculateRatio(tntGamesStats[thisWizard + "_kills"], tntGamesStats[thisWizard + "_deaths"])]],
+        [false, ["Healing", checkAndFormat(tntGamesStats[thisWizard + "_healing"])], ["Damage Taken", checkAndFormat(tntGamesStats[thisWizard + "_damage_taken"])], ["Assists", checkAndFormat(tntGamesStats[thisWizard + "_assists"])]],
+    ];
+  }
+ 
+  console.log(allTNTWizardStats);
+
+  let wizardsCard = [
+    "tntgames-stats-wizards", // ID
+    "Wizards", // Title
+    "", // Subtitle
+    "/img/games/home.png", // Background image
+    allTNTWizardStats["overall"], // Displayed stats
+    wizardsList, // Other stats (shown in drop-down menu)
+    "/img/icon/tntgames/wizards.png", // Chip image
+    "tntgames" // gamemode
+
+  ]
+
+  // Generate cards
+  tntGamesCards = [tntRunCard, pvpRunCard, tntTagCard, bowSpleefCard, wizardsCard];
+  for(d = 0; d < tntGamesCards.length; d++) {
+    generateChip(tntGamesCards[d], (d % 2 == 0 ? "tntgames-chips-1" : "tntgames-chips-2"));
+  }
+
+}
+
 
 function getBuildBattleTitle(score) { // Gets player's Build Battle title based on an amount of score
     let buildBattleTitles = [
@@ -893,6 +1014,8 @@ function updateChipStats(event, chipId, gamemode) { // Updates what a chip does 
         }
     } else if(gamemode == "skywars") {
         updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
+    } else if(gamemode == "tntgames") {
+        updateElement(chipId, generateChipStats(allTNTWizardStats[newValue]), true);
     }
 }
 

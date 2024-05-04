@@ -394,7 +394,7 @@
                   <p>Votes <span class="statistic" id="buildbattle-overall-total_votes"><span class="mc">Unknown</span></span></p>
                 </div>
                 <div class="chip-small-statistic-row">
-                  <p>Highest Score <span class="statistic" id="buildbattle-overall-highest-score"><span class="mc">chloe plz add achievements to nadeshiko api</span></span></p>
+                  <p>Highest Score <span class="statistic" id="buildbattle-overall-highest-score"><span class="mc">chloe Missing From API</span></span></p>
                 </div>
               </div>
             </div>
@@ -465,12 +465,49 @@
   </div>
 </div>
 
-    <div class="flex-container unloaded" id="flex-container-tntgames">
-      <section class="player-card" id="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding the TNT Games to nadeshiko shortly.</p>
-      </section>
+<div class="flex-container unloaded minigame-flex-container" id="flex-container-tntgames">
+  <!-- tnt games stats -->
+  <div class="chip-container">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title">TNT Games</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle">Stats</p>
+            <div class="chip-small-statistic-row">
+                <p>Wins <span class="statistic" id="tntgames-overall-wins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+                <p>Kills <span class="statistic" id="tntgames-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p>Deaths <span class="statistic" id="tntgames-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p>K/D R <span class="statistic" id="tntgames-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p>Tokens <span class="statistic" id="tntgames-overall-coins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Powerups Collected <span class="statistic" id="tntgames-powerups-collected"><span class="mc">Missing From API</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Playtime <span class="statistic" id="tntgames-overall-playtime"><span class="mc">Missing From API</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright margin-top-bottom" onclick="showCardWizard('TNTGAMES')">Generate Card</span>
     </div>
+    <div class="flex-two-item chip-container-duo-parent" id="skywars-chips">
+      <div id="tntgames-chips-1" class="chip-container-duo">
+      </div>
+      <div id="tntgames-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+  </div>
+</div>
 
     <div class="flex-container unloaded" id="flex-container-pit">
       <section class="player-card" id="player-card" style="align-content: center;">
