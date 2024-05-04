@@ -10,6 +10,9 @@
     --accent-bedwars: #ff835c;
     --accent-duels: #6f85f8;
     --accent-skywars: #90ff5c;
+    --accent-tntgames: #c55757;
+    --accent-arcade: #8e2d7f;
+    --accent-skyblock: #4ace38;
     --grey: #888;
     --mc0: #000000;
     /* Black */
@@ -482,13 +485,6 @@ footer>a:hover {
     display: none;
 }
 
-.dropdown-arrow {
-    height: 24px;
-    width: 24px;
-    opacity: 0.5;
-    transition-duration: var(--transition);
-}
-
 .header-down:hover > img {
     opacity: 1;
 }
@@ -777,6 +773,7 @@ footer>a:hover {
 
 .dropdown {
     position: relative;
+    transition-duration: var(--transition-small);
 }
 
 .dropdown-content {
@@ -785,7 +782,7 @@ footer>a:hover {
     min-width: 160px;
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 2;
+    z-index: 5;
     transition-duration: var(--transition);
     left: 0;
     bottom: 100%;
@@ -822,6 +819,44 @@ footer>a:hover {
     margin-right: 8px;
     flex-shrink: 0;
 }
+
+
+.dropdown-arrow {
+    height: 24px;
+    width: 24px;
+    opacity: 0.5;
+    transition-duration: var(--transition);
+    pointer-events: none;
+}
+
+.dropdown-item.selected {
+    color: var(--accent);
+    border: 2px dashed var(--accent);
+}
+
+.chip-dropdown-button {
+    background-color: var(--default);
+    padding: 5px 15px;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition-duration: var(--transition-small);
+}
+
+/* Adds dropdown arrow after .chip-dropdown-button */
+.chip-dropdown-button:after {
+    content: '';
+    background-image: url(/img/arrow.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    display: inline-block;
+}
+
 
 @font-face {
     font-family: Inter;
@@ -1356,7 +1391,7 @@ footer>a:hover {
 .chip-small {
     position: relative;
     background-size: cover;
-    background-position: center top;
+    background-position: center center;
     
     border-radius: 20px;
     padding: 20px;

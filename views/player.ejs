@@ -53,7 +53,7 @@
             <p class="header-down dropdown-button">
               <img class="dropdown-arrow" src="/img/arrow.svg" alt="More games">
             </p>
-              <div class="dropdown-content unloaded">
+              <div class="dropdown-content dropdown-games unloaded">
                 <span class="mobile-exclusive">
                   <div onclick="switchStats('network')" aria-label="View Network stats"><span class="logo-container"><img src="/img/hypixel_logo.png" alt="" class="social-media-dropdown icon"></span> Network</div>
                   <div onclick="switchStats('bedwars')" aria-label="View Bed Wars stats"><span class="logo-container"><img src="/img/icon/minecraft/bedwars.png" alt="" class="social-media-dropdown icon"></span> Bed Wars</div>
@@ -394,7 +394,7 @@
                   <p>Votes <span class="statistic" id="buildbattle-overall-total_votes"><span class="mc">Unknown</span></span></p>
                 </div>
                 <div class="chip-small-statistic-row">
-                  <p>Highest Score <span class="statistic" id="buildbattle-overall-highest-score"><span class="mc">chloe Missing From API</span></span></p>
+                  <p>Highest Score <span class="statistic" id="buildbattle-overall-highest-score"><span class="mc">Missing From API</span></span></p>
                 </div>
               </div>
             </div>
@@ -794,6 +794,7 @@ function isInputField(element) { // Determines if the user's actively in an inpu
 }
 
 function generateChip(stats_object, where) { // Converts an array of stats into an HTML chip for stats viewing
+  console.log(stats_object)
 
   console.log("generating stats object");
   console.log(stats_object);
@@ -804,16 +805,16 @@ function generateChip(stats_object, where) { // Converts an array of stats into 
   fullCard += `<div class="chip-small"` + (stats_object[3] == undefined ? `>` : ` style="background-image: url(` + stats_object[3] + `);">`); // Adds parent div, background
 
   for(c = 0; c < stats_object[5].length; c++) {
-    selectionItems += `<option value="${stats_object[5][c][1]}">${stats_object[5][c][0]}</option>`;
+    selectionItems += `<div class="dropdown-item ${c == 0 ? "selected" : ""}" data-item="${stats_object[5][c][1]}">${stats_object[5][c][0]}</div>`;
   }
+  
   if(stats_object[5].length > 0) {
-    selectionItems = `<div class="chip-small-dropdown"><select aria-label="${stats_object[1]} Mode" onchange="updateChipStats(event, '${stats_object[0]}', '${stats_object[7]}')">${selectionItems}</select></div>`;
+    selectionItems = `<div class="dropdown"><p class="dropdown-button chip-dropdown-button">${stats_object[5][0][0]}</p><div class="dropdown-content unloaded dropdown-chip" data-modify="${stats_object[0]}" data-game="${stats_object[7]}">${selectionItems}</div></div>`;
   } else {
     selectionItems = "";
   }
 
   chipImage = ((stats_object[6] != undefined && stats_object[6] != "") ? `<img src="${stats_object[6]}" class="chip-icon" alt="">` : "")
-
 
   fullCard += `<div class="chip-small-top"><div class="chip-small-background-filter"></div> <p class="chip-small-title">${stats_object[1]}</p>${selectionItems + chipImage}</div><p class="chip-small-subtitle">${stats_object[2]}</p><div class="chip-small-container" id="${stats_object[0]}">`; // Adds title
 
@@ -850,10 +851,10 @@ function openSelectedDropdown(dropdownId) {
     console.log(document.getElementById(dropdownId).classList)
 }
 
-document.querySelectorAll('.dropdown-button').forEach(function(button) {
-  button.addEventListener('click', function() {
-  console.log("Dropdown button clicked")
-    var dropdownContent = this.nextElementSibling;
+document.addEventListener('click', function(event) {
+  if (event.target.matches('.dropdown-button')) {
+    console.log("Dropdown button clicked")
+    var dropdownContent = event.target.nextElementSibling;
 
     if (dropdownContent.classList.contains("unloaded")) { // If not visible
     // Reset styles first
@@ -864,6 +865,19 @@ document.querySelectorAll('.dropdown-button').forEach(function(button) {
 
     // Get the bounding rectangle of the dropdown
     var dropdownRect = dropdownContent.getBoundingClientRect();
+
+    if(dropdownContent.classList.contains("dropdown-chip")) {
+      chipBox = dropdownContent.parentElement.parentElement.parentElement;
+      dropdownContent.style.overflowY = 'scroll';
+
+      if(chipBox) {
+        dropdownContent.style.maxHeight = `calc(${getComputedStyle(chipBox).height} - 65px)`;
+      } else {
+        console.error("Chip box missing!");
+      }
+    }
+
+    dropdownRect = dropdownContent.getBoundingClientRect();
 
     // Check bottom edge
     if (window.innerHeight - dropdownRect.bottom < 30 || mobileMode) {
@@ -876,8 +890,8 @@ document.querySelectorAll('.dropdown-button').forEach(function(button) {
     }
 
     dropdownRect = dropdownContent.getBoundingClientRect();
-    if (dropdownRect.top < 0) { // If it still doesn't fit, call for desperate measures
-        dropdownContent.style.top = '50%';
+    if (dropdownRect.top < 0 && dropdownContent.classList.contains("dropdown-games")) { // If it still doesn't fit, call for desperate measures
+        dropdownContent.style.top = '100%';
         dropdownContent.style.bottom = 'auto';
         dropdownContent.style.maxHeight = (window.innerHeight * 0.7) + 'px';
         dropdownContent.style.overflowY = 'scroll';
@@ -893,10 +907,39 @@ document.querySelectorAll('.dropdown-button').forEach(function(button) {
 }
 
     dropdownContent.classList.toggle('unloaded');
-  });
-});
+  }
 
-document.addEventListener('keydown', function(event) { // Close dropdowns if escape pressed
+  if (event.target.classList.contains('dropdown-item')) {
+    const selectedItem = event.target;
+    const dropdownContainer = selectedItem.closest('.dropdown-content');
+    const gameName = dropdownContainer.dataset.game;
+    const modifyId = dropdownContainer.dataset.modify;
+    const selectedItemText = selectedItem.dataset.item;
+    // data-modify="${stats_object[0]}" data-game="${stats_object[7]}
+
+    const button = dropdownContainer.previousElementSibling; // Selects the button
+    if (button.classList.contains('chip-dropdown-button')) {
+      button.textContent = selectedItem.textContent;
+
+      button.style.width = 'auto';
+      var naturalWidth = button.clientWidth + 1; // Get the natural content width
+
+      // Reset to the initial width then set to natural width to enable transition
+      button.style.width = ""; // Remove any inline width style
+      getComputedStyle(button).width; // Force reflow to clear any previous transition
+      button.style.width = naturalWidth + 'px';
+    }
+    // Call the update function
+    updateChipStats(selectedItemText, modifyId, gameName);
+
+    dropdownContainer.querySelectorAll('.dropdown-item').forEach(div => {
+      div.classList.remove('selected');
+    });
+    selectedItem.classList.add('selected'); // Selects the clicked item
+  }
+})
+
+document.addEventListener('keydown', function(event) { // Close all dropdowns if escape pressed
   if (event.key === "Escape") {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     for (var i = 0; i < dropdowns.length; i++) {
