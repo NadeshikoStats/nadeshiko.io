@@ -6,14 +6,14 @@
               <span style="--delay: 0s">n</span><span style="--delay: 0.05s">a</span><span style="--delay: 0.1s">d</span><span style="--delay: 0.15s">e</span><span style="--delay: 0.2s">s</span><span style="--delay: 0.25s">h</span><span style="--delay: 0.3s">i</span><span style="--delay: 0.35s">k</span><span style="--delay: 0.4s">o</span>
             </div>
         </a>
-        <a href="/" class="header-button"><img src="/img/home.svg" class="header-icon" alt=""><span class="header-button-text">Home<span></a>
-        <p class="header-button" onclick="showAbout()" id="button-about"><img src="/img/about.svg" class="header-icon" alt=""><span class="header-button-text">About</span></p>
-        <p class="header-button" onclick="showCardWizard()" id="button-card-wizard"><img src="/img/cards.svg" class="header-icon" alt=""><span class="header-button-text">Cards</span></p>
-        <p class="header-button" onclick="showSettings()" id="button-settings"><img src="/img/settings.svg" class="header-icon" alt=""><span class="header-button-text">Settings</span></p>
+        <a href="/" class="header-button"><img src="/img/svg/home.svg" class="header-icon" alt=""><span class="header-button-text">Home<span></a>
+        <p class="header-button" onclick="showAbout()" id="button-about"><img src="/img/svg/about.svg" class="header-icon" alt=""><span class="header-button-text">About</span></p>
+        <p class="header-button" onclick="showCardWizard()" id="button-card-wizard"><img src="/img/svg/cards.svg" class="header-icon" alt=""><span class="header-button-text">Cards</span></p>
+        <p class="header-button" onclick="showSettings()" id="button-settings"><img src="/img/svg/settings.svg" class="header-icon" alt=""><span class="header-button-text">Settings</span></p>
     </div>
     <div class="header-right">
         <span class="searchbar-container">
-            <img src="/img/search.svg" alt="" class="search-icon" id="search-icon">
+            <img src="/img/svg/search.svg" alt="" class="search-icon" id="search-icon">
             <input type="search" class="searchbar" id="searchbar" placeholder=" Search for a player..." spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off">
         </span>
     </div>
@@ -55,8 +55,8 @@
 
 <div class="modal unloaded" id="about">
   <div class="about" id="about-ui">
-    <p><b style="color: var(--nadeshiko)">nadeshiko</b> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
-    <p>Find a bug or need some assistance? Please let us know on the project's <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
+    <p class="margin10"><b style="color: var(--nadeshiko)">nadeshiko</b> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
+    <p class="margin10">Find a bug or need some assistance? Please let us know on the project's <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
     <hr style="margin: 20px auto">
     <p class="about-title">Credits</p>
     <p class="flex-two-item-basic about-flex"><img src="/img/credits/kittycatchloe.png" class="about-icon"> <strong><a href="https://github.com/niqumu" target="_blank">kittycatchloe</a></strong> &ndash; Backend Developer</p>
@@ -79,7 +79,7 @@
 
     <hr style="opacity: 0">
 
-    <p class="flex-two-item-basic about-flex"><img src="/img/hypixel_logo.png" class="about-icon"> <strong><a href="https://api.hypixel.net/" target="_blank">Hypixel API</a></strong> by Hypixel</p>
+    <p class="flex-two-item-basic about-flex"><img src="/img/logo/hypixel_logo.png" class="about-icon"> <strong><a href="https://api.hypixel.net/" target="_blank">Hypixel API</a></strong> by Hypixel</p>
 
     <hr style="opacity: 0">
     <p style="opacity: 0.7; font-size: 14px">nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.</p>
@@ -90,8 +90,19 @@
   <div class="about" id="settings-ui">
     <p class="about-title">Settings</p>
     <hr style="margin: 20px auto">
-    <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/globe.svg"><span class="w600">Language</span></p>
-    <p style="opacity: 0.7; font-size: 14px">Soon?</p>
+
+    <div class="mtop mbottom">
+      <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/globe.svg"><span class="w600">Language</span></p>
+      <p class="settings-description">Soon?</p>
+    </div>
+    
+    <div class="mtop mbottom">
+    <div class="flex-two-item">
+      <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/gauge.svg"><span class="w600">Quick Mode</span></p>
+      <input type="checkbox" id="checkbox-quick-mode" class="switch-checkbox" data-setting="quick-mode"><label for="checkbox-quick-mode" class="switch-label"><span class="switch-inner"></span></label>
+    </div>
+    <p class="settings-description">Enables the ability to quickly access a gamemode selector by holding <kbd>Shift</kbd>.</p>
+    </div>
   </div>
 </div>
 
@@ -103,6 +114,20 @@ document.getElementById('search-icon').addEventListener('click', function() {
 let aboutExpanded = false;
 let settingsExpanded = false;
 let cardWizardExpanded = false;
+
+let settings = localStorage.getItem("settings");
+if (settings === null) {
+    settings = {
+        "quick-mode": true,
+    };
+    localStorage.setItem("settings", JSON.stringify(settings));
+} else {
+    settings = JSON.parse(settings);
+}
+
+for (const [key, value] of Object.entries(settings)) {
+    document.getElementById(`checkbox-${key}`).checked = value;
+}
 
 function showCardWizard(game = "NETWORK") {
   if(!cardWizardExpanded) {
@@ -166,6 +191,30 @@ document.getElementById("searchbar").addEventListener("keypress", function(event
     if(userInput.length == 0) return;
     window.location.href = `/player/${userInput}`; // Redirect to the desired URL
   }
+});
+
+function updateSetting(settingKey, settingValue) { // Updates a desired setting in the localStorage
+  console.log(`Setting ${settingKey} to ${settingValue}`);
+  let currentSettings = localStorage.getItem("settings");
+  if(currentSettings === null) {
+    currentSettings = {};
+    console.error("Settings were not found in localStorage; this should never happen!")
+  } else {
+    currentSettings = JSON.parse(currentSettings);
+  }
+  currentSettings[settingKey] = settingValue;
+  settings = currentSettings;
+  localStorage.setItem("settings", JSON.stringify(currentSettings));
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var checkbox = document.getElementById('checkbox-quick-mode');
+
+  checkbox.addEventListener('change', function() {
+    var settingKey = this.getAttribute('data-setting');
+    var settingValue = this.checked;
+    updateSetting(settingKey, settingValue);
+  });
 });
 
 document.addEventListener('keydown', function(event) { // Close modals on escape key

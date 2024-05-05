@@ -111,7 +111,7 @@ header {
     position: absolute;
     background-color: #000c;
     border-radius: 15px;
-    padding: 15px;
+    padding: 15px 25px;
     opacity: 1;
     transition-duration: var(--transition);
     z-index: 4;
@@ -129,12 +129,9 @@ header {
     top: 0;
 }
 
-.about > p {
-    margin: 10px;
-}
-
 .about-flex {
   flex-wrap: wrap;
+  margin: 10px auto;
 }
 
 .about-flex > * {
@@ -162,6 +159,12 @@ header {
     object-fit: contain;
 }
 
+.settings-description {
+    opacity: 0.7;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
 #game-buttons {
     height: 55px;
 }
@@ -186,7 +189,11 @@ kbd {
   border: 1px solid #ccc8;
   background-color: #4448;
   border-radius: 4px;
-  padding: 4px;
+  padding: 3px 5px 5px;
+  box-shadow: inset 0 -4px 0 #000c;
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 2px;
 }
 
 .player-card {
@@ -1598,7 +1605,43 @@ footer>a:hover {
     width: 90%;
   }
 
-	/* Scrollbar CSS */
+/* Check boxes */  
+  .switch-checkbox {
+    display: none;
+  }
+  
+  .switch-label {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    background-color: #6668;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color var(--transition-small);
+  }
+  
+  .switch-label .switch-inner {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #fffc;
+    transition: transform var(--transition-small);
+  }
+  
+  .switch-checkbox:checked + .switch-label {
+    background-color: var(--nadeshiko-dark);
+  }
+  
+  .switch-checkbox:checked + .switch-label .switch-inner {
+    transform: translateX(20px);
+  }
+
+
+/* Scrollbar CSS */
 	@-moz-document url-prefix() {
 		* {
 			scrollbar-width: auto;
