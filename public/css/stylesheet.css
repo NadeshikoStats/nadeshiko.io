@@ -131,7 +131,7 @@ header {
 
 .about-flex {
   flex-wrap: wrap;
-  margin: 10px auto;
+  margin: 10px 0;
 }
 
 .about-flex > * {
