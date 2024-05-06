@@ -368,7 +368,7 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
         "bed-wars-stats-dreams",
         "Dreams",
         "",
-        `/img/games/404.png`,
+        `/img/games/404.${imageFileType}`,
         totalDreamModeStats,
         dreamModes,
         "",
@@ -410,7 +410,7 @@ function generateSkyWars() {
             ("skywars-stats-" + skyWarsStatsToShow[a][1]), // ID
             skyWarsStatsToShow[a][0], // Title
             "", // Subtitle (none)
-            (`/img/games/404.png`), // Image
+            (`/img/games/404.${imageFileType}`), // Image
             getSkyWarsModeStats(skyWarsStatsToShow[a][1]), // Displayed stats
             skyWarsStatsToShow[a][2], // Other stats (shown in drop-down menu)
             "", // Icon
@@ -652,7 +652,7 @@ function generateDuels() { // Generates stats and chips for Duels
             ("duels-stats-" + currentDuel[0]), // ID
             currentDuel[1], // Title
             `${currentDuelPrefix[0]} ${formattedWinsToGo}`, // Subtitle (none)
-            (`/img/games/404.png`), // Background image
+            (`/img/games/404.${imageFileType}`), // Background image
             allDuelsStats[currentDuel[0]][0], // Displayed stats
             currentDuel[2], // Other stats (shown in drop-down menu)
             (`/img/icon/duels/${currentDuel[0]}.png`), // Chip image
@@ -706,7 +706,7 @@ function generateBuildBattle() { // Generates stats and chips for Build Battle
             ("buildbattle-stats-" + (buildBattleModes[a][1])), // ID
             buildBattleModes[a][0], // Title
             ``, // Subtitle (none)
-            (`/img/games/404.png`), // Background image
+            (`/img/games/404.${imageFileType}`), // Background image
             buildBattleModeStats, // Displayed stats
             [], // Other stats (shown in drop-down menu)
             ``, // Chip image
@@ -770,7 +770,7 @@ function generateMurderMystery() { // Generates stats and chips for Murder Myste
           ("murdermystery-stats-" + (currentMurderMysteryMode[1])), // ID
           currentMurderMysteryMode[0], // Title
           ``, // Subtitle (none)
-          (`/img/games/404.png`), // Background image
+          (`/img/games/404.${imageFileType}`), // Background image
           murderMysteryModeStats, // Displayed stats
           [], // Other stats (shown in drop-down menu)
           ``, // Chip image
@@ -839,7 +839,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
         }
       }
     }
-    
+
     if(chosenPrefix["internalId"] != "rainbow") { 
       return `<span class="m${chosenPrefix["color"]}">${"[" + num_wins + "]"}</span>`;
     } else {
@@ -851,7 +851,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "tntgames-stats-tntrun", // ID
     "TNT Run", // Title
     "", // Subtitle
-    "/img/games/404.png", // Background image
+    `/img/games/404.${imageFileType}`, // Background image
     [
       [false, ["Wins", getTNTGamesPrefix(und(tntGamesStats["wins_tntrun"]), "tntrun")], ["Losses", checkAndFormat(tntGamesStats["deaths_tntrun"])], ["W/L R", calculateRatio(tntGamesStats["wins_tntrun"], tntGamesStats["deaths_tntrun"])]],
       [false, ["Blocks Ran", "Missing From API"], ["Best Time", smallDuration(und(tntGamesStats["record_tntrun"]))]],
@@ -865,7 +865,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "tntgames-stats-pvprun", // ID
     "PvP Run", // Title
     "", // Subtitle
-    "/img/games/404.png", // Background image
+    `/img/games/404.${imageFileType}`, // Background image
     [
       [false, ["Wins", getTNTGamesPrefix(und(tntGamesStats["wins_pvprun"]), "pvprun")], ["Losses", checkAndFormat(tntGamesStats["deaths_pvprun"])], ["W/L R", calculateRatio(tntGamesStats["wins_pvprun"], tntGamesStats["deaths_pvprun"])]],
       [false, ["Kills", checkAndFormat(tntGamesStats["kills_pvprun"])], ["Deaths", checkAndFormat(tntGamesStats["deaths_pvprun"])], ["K/D R", calculateRatio(tntGamesStats["kills_pvprun"], tntGamesStats["deaths_pvprun"])]],
@@ -880,7 +880,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "tntgames-stats-tntag", // ID
     "TNT Tag", // Title
     "", // Subtitle
-    "/img/games/404.png", // Background image
+    `/img/games/404.${imageFileType}`, // Background image
     [
       [false, ["Wins", getTNTGamesPrefix(und(tntGamesStats["wins_tntag"]), "tntag")], ["Losses", checkAndFormat(tntGamesStats["deaths_tntag"])], ["W/L R", calculateRatio(tntGamesStats["wins_tntag"], tntGamesStats["deaths_tntag"])]],
       [false, ["Kills", checkAndFormat(tntGamesStats["kills_tntag"])], ["Deaths", checkAndFormat(tntGamesStats["deaths_tntag"])], ["K/D R", calculateRatio(tntGamesStats["kills_tntag"], tntGamesStats["deaths_tntag"])]],
@@ -895,7 +895,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "tntgames-stats-bowspleef", // ID
     "Bow Spleef", // Title
     "", // Subtitle
-    "/img/games/404.png", // Background image
+    `/img/games/404.${imageFileType}`, // Background image
     [
       [false, ["Wins", getTNTGamesPrefix(und(tntGamesStats["wins_bowspleef"]), "bowspleef")], ["Losses", checkAndFormat(tntGamesStats["deaths_bowspleef"])], ["W/L R", calculateRatio(tntGamesStats["wins_bowspleef"], tntGamesStats["deaths_bowspleef"])]],
       [false, ["Arrows Shot", checkAndFormat(tntGamesStats["tags_bowspleef"])]]
@@ -929,7 +929,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "tntgames-stats-wizards", // ID
     "Wizards", // Title
     "", // Subtitle
-    "/img/games/404.png", // Background image
+    `/img/games/404.${imageFileType}`, // Background image
     allTNTWizardStats["overall"], // Displayed stats
     wizardsList, // Other stats (shown in drop-down menu)
     "/img/icon/minecraft/blaze_rod.png", // Chip image

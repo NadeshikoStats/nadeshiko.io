@@ -688,6 +688,8 @@ footer>a:hover {
     margin-left: 10px;
     margin-right: 10px;
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .progress-number {
@@ -786,7 +788,6 @@ footer>a:hover {
 .dropdown-content {
     position: absolute;
     background-color: #000000d8;
-    min-width: 160px;
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 5;
@@ -796,6 +797,14 @@ footer>a:hover {
     top: auto;
     overflow-y: scroll;
     clip-path: circle(100vh at 50% 0);
+}
+
+.dropdown-games {
+    min-width: 160px;
+}
+
+.dropdown-chip {
+    min-width: 108px;
 }
 
 .dropdown-content a, .dropdown-content div {
@@ -872,30 +881,10 @@ footer>a:hover {
 
 @font-face {
     font-family: Inter;
-    src: url(/font/Inter-Bold.woff2);
-    font-weight: bold;
+    font-style: normal;
+    font-weight: 100 900;
     font-display: swap;
-}
-
-@font-face {
-    font-family: Inter;
-    src: url(/font/Inter-Regular.woff2);
-    font-weight: regular;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: Inter;
-    src: url(/font/Inter-SemiBold.woff2);
-    font-weight: 600;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: Inter;
-    src: url(/font/Inter-Medium.woff2);
-    font-weight: 500;
-    font-display: swap;
+    src: url('/font/InterVariable.woff2') format('woff2');
 }
 
 .avatar {
@@ -1764,5 +1753,27 @@ footer>a:hover {
     }
     .about {
       width: min(calc(100% - 30px), max(400px, 40%));
+    }
+    .chip-small-title {
+      font-size: 18px;
+    }
+    .progress-number {
+      font-size: 13px;
+    }
+    .super-subtitle {
+      font-size: 16px;
+    }
+    .header-name {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-height: 625px) {
+    #flex-container-network {
+      align-items: initial;
+    }
+    #player-card {
+      overflow-y: scroll;
+      overflow-x: clip;
     }
   }
