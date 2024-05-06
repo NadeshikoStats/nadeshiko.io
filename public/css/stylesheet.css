@@ -131,7 +131,7 @@ header {
 
 .about-flex {
   flex-wrap: wrap;
-  margin: 10px 0;
+  margin: 6px 0;
 }
 
 .about-flex > * {
@@ -162,7 +162,7 @@ header {
 .settings-description {
     opacity: 0.7;
     font-size: 14px;
-    margin-top: 6px;
+    margin-top: 3px;
 }
 
 #game-buttons {
@@ -855,7 +855,7 @@ footer>a:hover {
 /* Adds dropdown arrow after .chip-dropdown-button */
 .chip-dropdown-button:after {
     content: '';
-    background-image: url(/img/arrow.svg);
+    background-image: url(/img/svg/arrow.svg);
     background-size: contain;
     background-repeat: no-repeat;
     height: 20px;
@@ -864,6 +864,11 @@ footer>a:hover {
     display: inline-block;
 }
 
+.chip-dropdown-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
 
 @font-face {
     font-family: Inter;
@@ -1162,6 +1167,10 @@ footer>a:hover {
     color: #fff;
 }
 
+.shadowf {
+    text-shadow: 0 0 10px #fff;
+}
+
 .o30 {
     opacity: 30%;
 }
@@ -1227,7 +1236,7 @@ footer>a:hover {
 
 #recent-searches > a {
     background-color: var(--default);
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 80px;
     text-decoration: none;
     transition-duration: var(--transition);
