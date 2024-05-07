@@ -516,6 +516,10 @@ footer>a:hover {
     cursor: pointer;
 }
 
+#social-media-dropdown-container {
+    display: none;
+}   
+
 .social-media-dropdown {
     width: 24px;
     height: 24px;
@@ -1736,7 +1740,7 @@ footer>a:hover {
         display: none;
     }
     #social-media-button {
-        display: flex;
+        display: none;
     }
     .mobile-exclusive {
         display: initial;
@@ -1748,7 +1752,6 @@ footer>a:hover {
     #player-card {
         overflow-y: scroll;
         overflow-x: clip;
-        /*height: fit-content;*/
     }
     .unless-tiny {
         display: initial;

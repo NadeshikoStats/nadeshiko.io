@@ -149,7 +149,8 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         updateElement("xp-progress-number", xpProgress);
 
         if(Object.keys(profileStats["social_media"]).length != 0) {
-          document.getElementById("social-media-alternative").style.display = "";
+          document.getElementById("social-media-button").style.display = "initial";
+          document.getElementById("social-media-dropdown-container").style.display = "flex";
         }
         var socials = ["HYPIXEL", "YOUTUBE", "TWITTER", "TIKTOK", "TWITCH", "DISCORD"];
         for(a = 0; a < socials.length; a++) { // Iterates through social media and hides icons that don't exist for the player
