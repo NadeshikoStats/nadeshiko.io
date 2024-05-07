@@ -599,14 +599,29 @@
 
   document.addEventListener("DOMContentLoaded", function() { // Runs on page load
     try {
-     skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
-         canvas: document.getElementById("skin-container"),
-         width: 300,
-         height: 400,
-         model: (playerData["slim"] ? "slim" : "classic"),
-         skin: playerData["skin"].replace("http:", "https:"),
-         cape: playerData["cape"]?.replace("http:", "https:") ?? undefined
-     });
+      var skinViewModel = "classic";
+      if (playerData["slim"]) {
+        skinViewModel = "slim";
+      }
+
+      var skinUrl = playerData["skin"];
+      if (skinUrl && skinUrl.startsWith("http:")) {
+        skinUrl = skinUrl.replace("http:", "https:");
+      }
+
+      var capeUrl = undefined;
+      if (playerData["cape"] && playerData["cape"].startsWith("http:")) {
+        capeUrl = playerData["cape"].replace("http:", "https:");
+      }
+
+      skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
+        canvas: document.getElementById("skin-container"),
+        width: 300,
+        height: 400,
+        model: skinViewModel,
+        skin: skinUrl,
+        cape: capeUrl
+      });
 
      skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
      skinViewer.animation = new skinview3d.IdleAnimation();
