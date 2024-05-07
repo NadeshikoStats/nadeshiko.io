@@ -316,6 +316,7 @@ footer>a:hover {
     font-weight: 500;
     position: relative;
     transition-duration: var(--transition);
+    white-space: nowrap;
 }
 
 .header-game:before, .header-down:before {
@@ -349,6 +350,7 @@ footer>a:hover {
     padding-bottom: 5px;
     padding-left: 30px;
     transition-duration: var(--transition-large);
+    white-space: nowrap;
 }
 
 .header-down {
@@ -606,10 +608,18 @@ footer>a:hover {
     z-index: -3;
 }
 
+.quick-mode > section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .flex-quick-mode {
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 577px;
+    flex-wrap: wrap;
 }
 
 .quick-mode-game {
@@ -617,8 +627,7 @@ footer>a:hover {
     width: 48px;
     cursor: pointer;
     transition-duration: var(--transition-small);
-    margin-left: 8px;
-    margin-right: 8px;
+    margin: 5px 8px;
     opacity: 30%;
 }
 
@@ -630,6 +639,11 @@ footer>a:hover {
 .tooltip:nth-child(odd) > .quick-mode-game:hover {
     transform: rotate(-10deg) scale(1.2);  
     opacity: 100%;  
+}
+
+.picture-credits {
+    display: flex;
+    justify-content: center;
 }
 
 #flex-container-network {
@@ -1764,6 +1778,9 @@ footer>a:hover {
       font-size: 16px;
     }
     .header-name {
+      font-size: 18px;
+    }
+    .title-text {
       font-size: 18px;
     }
   }

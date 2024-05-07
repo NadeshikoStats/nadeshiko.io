@@ -167,6 +167,107 @@ function generateNetwork() { // Inserts general/network stats into the DOM
             updateElement("social-discord-username-alternative", profileStats["social_media"][socials[a]]);
           }
         }
+
+
+        const quickModeGames = [
+          { id: 'network', name: 'Network' },
+          { id: 'skyblock', name: 'SkyBlock' },
+          { id: 'bedwars', name: 'Bed Wars' },
+          { id: 'duels', name: 'Duels' },
+          { id: 'skywars', name: 'SkyWars' },
+          { id: 'arcade', name: 'Arcade' },
+          { id: 'buildbattle', name: 'Build Battle' },
+          { id: 'murdermystery', name: 'Murder Mystery' },
+          { id: 'tntgames', name: 'TNT Games' },
+          { id: 'pit', name: 'Pit' },
+          { id: 'classic', name: 'Classic Games' },
+          { id: 'megawalls', name: 'Mega Walls' },
+          { id: 'copsandcrims', name: 'Cops and Crims' },
+          { id: 'uhc', name: 'UHC' },
+          { id: 'blitz', name: 'Blitz' },
+          { id: 'woolwars', name: 'Wool Wars' },
+          { id: 'warlords', name: 'Warlords' },
+          { id: 'smashheroes', name: 'Smash Heroes' }
+        ];
+
+        const quickModeGameContainer = document.getElementById("quick-mode-games");
+        const gameSwitchMobileContainer = document.getElementById("game-switch-mobile");
+        const gameSwitchContainer = document.getElementById("game-switch");
+
+        quickModeGames.slice(1).forEach(game => {
+          const spanTooltip = document.createElement('span');
+          spanTooltip.className = 'tooltip';
+          
+          const img = document.createElement('img');
+          img.src = `/img/icon/hypixel/${game.id}.webp`;
+          img.alt = "";
+          img.className = "quick-mode-game";
+          img.onclick = function() { switchStats(game.id) };
+      
+          const spanText = document.createElement('span');
+          spanText.className = 'tooltiptext';
+          spanText.textContent = game.name;
+      
+          spanTooltip.appendChild(img);
+          spanTooltip.appendChild(spanText);
+          quickModeGameContainer.appendChild(spanTooltip);
+        });
+
+        quickModeGames.forEach((game, index) => {
+          let container = document.createElement('div');
+          container.setAttribute("onclick", `switchStats('${game.id}')`);
+          container.setAttribute("aria-label", `View ${game.name} stats`);
+      
+          let span = document.createElement('span');
+          span.className = 'logo-container';
+      
+          let img = document.createElement('img');
+          if(game.id == "network") {
+            img.src = `/img/logo/hypixel_logo.${imageFileType}`;
+          } else {
+            img.src = `/img/icon/minecraft_hypixel/${game.id}.${imageFileType}`;
+          }
+          img.alt = '';
+          img.classList.add('social-media-dropdown', 'icon');
+      
+          span.appendChild(img);
+          container.appendChild(span);
+      
+          let text = document.createTextNode(game.name);
+          container.appendChild(text);
+          
+          if(index < 5 && game.id != "skyblock") {
+            gameSwitchMobileContainer.appendChild(container);
+          } else {
+            gameSwitchContainer.appendChild(container);
+          }
+        });
+
+
+
+        /*<span class="mobile-exclusive" id="game-switch-mobile">
+                  <div onclick="switchStats('network')" aria-label="View Network stats"><span class="logo-container"><img src="/img/logo/hypixel_logo.png" alt="" class="social-media-dropdown icon"></span> Network</div>
+                  <div onclick="switchStats('bedwars')" aria-label="View Bed Wars stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/bedwars.png" alt="" class="social-media-dropdown icon"></span> Bed Wars</div>
+                  <div onclick="switchStats('duels')" aria-label="View Duels stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/duels.png" alt="" class="social-media-dropdown icon"></span> Duels</div>
+                  <div onclick="switchStats('skywars')" aria-label="View SkyWars stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/skywars.png" alt="" class="social-media-dropdown icon"></span> SkyWars</div>
+                </span>
+                <span id="game-switch">
+                  <div onclick="switchStats('skyblock')" aria-label="View SkyBlock stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/skyblock.png" alt="" class="social-media-dropdown icon"></span> SkyBlock</div>
+                  <div onclick="switchStats('arcade')" aria-label="View Arcade stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/arcade.png" alt="" class="social-media-dropdown icon"></span> Arcade</div>
+                  <div onclick="switchStats('buildbattle')" aria-label="View Build Battle stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/buildbattle.png" alt="" class="social-media-dropdown icon"></span> Build Battle</div>
+                  <div onclick="switchStats('murdermystery')" aria-label="View Murder Mystery stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/murdermystery.png" alt="" class="social-media-dropdown icon"></span> Murder Mystery</div>
+                  <div onclick="switchStats('tntgames')" aria-label="View TNT Games stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/tntgames.png" alt="" class="social-media-dropdown icon"></span> TNT Games</div>
+                  <div onclick="switchStats('pit')" aria-label="View Pit stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/pit.png" alt="" class="social-media-dropdown icon"></span> Pit</div>
+                  <div onclick="switchStats('classic')" aria-label="View Classic stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/classic.png" alt="" class="social-media-dropdown icon"></span> Classic Games</div>
+                  <div onclick="switchStats('megawalls')" aria-label="View Mega Walls stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/megawalls.png" alt="" class="social-media-dropdown icon"></span> Mega Walls</div>
+                  <div onclick="switchStats('copsandcrims')" aria-label="View Cops and Crims stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/copsandcrims.png" alt="" class="social-media-dropdown icon"></span> Cops and Crims</div>
+                  <div onclick="switchStats('uhc')" aria-label="View UHC stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/uhc.png" alt="" class="social-media-dropdown icon"></span> UHC</div>
+                  <div onclick="switchStats('blitz')" aria-label="View Blitz stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/blitz.png" alt="" class="social-media-dropdown icon"></span> Blitz</div>
+                  <div onclick="switchStats('woolwars')" aria-label="View Wool Wars stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/woolwars.png" alt="" class="social-media-dropdown icon"></span> Wool Wars</div>
+                  <div onclick="switchStats('warlords')" aria-label="View Warlords stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/warlords.png" alt="" class="social-media-dropdown icon"></span> Warlords</div>
+                  <div onclick="switchStats('smashheroes')" aria-label="View Smash Heroes stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/smash.png" alt="" class="social-media-dropdown icon"></span> Smash Heroes</div>
+                </span>*/
+      
         
         generateBedWars();
         generateDuels();

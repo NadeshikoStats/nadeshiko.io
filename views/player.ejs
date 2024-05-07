@@ -54,26 +54,10 @@
               <img class="dropdown-arrow" src="/img/svg/arrow.svg" alt="More games">
             </p>
               <div class="dropdown-content dropdown-games unloaded">
-                <span class="mobile-exclusive">
-                  <div onclick="switchStats('network')" aria-label="View Network stats"><span class="logo-container"><img src="/img/logo/hypixel_logo.png" alt="" class="social-media-dropdown icon"></span> Network</div>
-                  <div onclick="switchStats('bedwars')" aria-label="View Bed Wars stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/bedwars.png" alt="" class="social-media-dropdown icon"></span> Bed Wars</div>
-                  <div onclick="switchStats('duels')" aria-label="View Duels stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/duels.png" alt="" class="social-media-dropdown icon"></span> Duels</div>
-                  <div onclick="switchStats('skywars')" aria-label="View SkyWars stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/skywars.png" alt="" class="social-media-dropdown icon"></span> SkyWars</div>
+                <span class="mobile-exclusive" id="game-switch-mobile">
                 </span>
-                <div onclick="switchStats('skyblock')" aria-label="View SkyBlock stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/skyblock.png" alt="" class="social-media-dropdown icon"></span> SkyBlock</div>
-                <div onclick="switchStats('arcade')" aria-label="View Arcade stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/arcade.png" alt="" class="social-media-dropdown icon"></span> Arcade</div>
-                <div onclick="switchStats('buildbattle')" aria-label="View Build Battle stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/buildbattle.png" alt="" class="social-media-dropdown icon"></span> Build Battle</div>
-                <div onclick="switchStats('murdermystery')" aria-label="View Murder Mystery stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/murdermystery.png" alt="" class="social-media-dropdown icon"></span> Murder Mystery</div>
-                <div onclick="switchStats('tntgames')" aria-label="View TNT Games stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/tntgames.png" alt="" class="social-media-dropdown icon"></span> TNT Games</div>
-                <div onclick="switchStats('pit')" aria-label="View Pit stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/pit.png" alt="" class="social-media-dropdown icon"></span> Pit</div>
-                <div onclick="switchStats('classic')" aria-label="View Classic stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/classic.png" alt="" class="social-media-dropdown icon"></span> Classic Games</div>
-                <div onclick="switchStats('megawalls')" aria-label="View Mega Walls stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/megawalls.png" alt="" class="social-media-dropdown icon"></span> Mega Walls</div>
-                <div onclick="switchStats('copsandcrims')" aria-label="View Cops and Crims stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/copsandcrims.png" alt="" class="social-media-dropdown icon"></span> Cops and Crims</div>
-                <div onclick="switchStats('uhc')" aria-label="View UHC stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/uhc.png" alt="" class="social-media-dropdown icon"></span> UHC</div>
-                <div onclick="switchStats('blitz')" aria-label="View Blitz stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/blitz.png" alt="" class="social-media-dropdown icon"></span> Blitz</div>
-                <div onclick="switchStats('woolwars')" aria-label="View Wool Wars stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/woolwars.png" alt="" class="social-media-dropdown icon"></span> Wool Wars</div>
-                <div onclick="switchStats('warlords')" aria-label="View Warlords stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/warlords.png" alt="" class="social-media-dropdown icon"></span> Warlords</div>
-                <div onclick="switchStats('smashheroes')" aria-label="View Smash Heroes stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/smash.png" alt="" class="social-media-dropdown icon"></span> Smash Heroes</div>
+                <span id="game-switch">
+                </span>
               </div>
             
           </div>
@@ -346,14 +330,14 @@
     </div>
 
     <div class="flex-container unloaded" id="flex-container-skyblock">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming soon!</p>
         <p class="subtitle-text">We'll be adding SkyBlock to nadeshiko shortly.</p>
       </section>
     </div>
 
     <div class="flex-container unloaded" id="flex-container-arcade">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming soon!</p>
         <p class="subtitle-text">We'll be adding Arcade to nadeshiko shortly.</p>
       </section>
@@ -507,7 +491,7 @@
 </div>
 
     <div class="flex-container unloaded" id="flex-container-pit">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming soon!</p>
         <p class="subtitle-text">We'll be adding Pit to nadeshiko shortly.</p>
       </section>
@@ -515,53 +499,53 @@
 
 
     <div class="flex-container unloaded" id="flex-container-blitz">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming eventually!</p>
         <p class="subtitle-text">We'll be adding Blitz to nadeshiko sometime in the near future.</p>
       </section>
     </div>
     <div class="flex-container unloaded" id="flex-container-classic">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming eventually!</p>
         <p class="subtitle-text">We'll be adding Classic Games to nadeshiko sometime in the near future.</p>
       </section>
     </div>
 
     <div class="flex-container unloaded" id="flex-container-copsandcrims">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming eventually!</p>
         <p class="subtitle-text">We'll be adding Cops and Crims to nadeshiko sometime in the near future.</p>
       </section>
     </div>
 
     <div class="flex-container unloaded" id="flex-container-uhc">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming eventually!</p>
         <p class="subtitle-text">We'll be adding UHC to nadeshiko sometime in the near future.</p>
       </section>
     </div>
     <div class="flex-container unloaded" id="flex-container-smashheroes">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming eventually!</p>
         <p class="subtitle-text">We'll be adding Smash Heroes to nadeshiko sometime in the near future.</p>
       </section>
     </div>
     <div class="flex-container unloaded" id="flex-container-megawalls">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming eventually!</p>
         <p class="subtitle-text">We'll be adding Mega Walls to nadeshiko sometime in the near future.</p>
       </section>
     </div>
 
     <div class="flex-container unloaded" id="flex-container-woolwars">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming eventually!</p>
         <p class="subtitle-text">We'll be adding Wool Wars to nadeshiko sometime in the near future.</p>
       </section>
     </div>
 
     <div class="flex-container unloaded" id="flex-container-warlords">
-      <section class="player-card" id="player-card" style="align-content: center;">
+      <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming eventually!</p>
         <p class="subtitle-text">We'll be adding Warlords to nadeshiko sometime in the near future.</p>
       </section>
@@ -569,29 +553,11 @@
   </div>
 
   <div class="quick-mode hidden pushdown" id="quick-mode">
-    <section class="player-card" id="player-card" style="align-content: center;">
-      <p class="title-text margin-top-bottom">Quick Mode</p>
+    <section class="player-card" style="align-content: center;">
+      <p class="title-text margin-top-bottom">Quick Mode <kbd>SHIFT</kbd></p>
       <p class="subtitle-text">Click an icon to instantly go to that game's page for <span id="quick-mode-username"></span>.</p>
-      <p class="flex-quick-mode margin-top-bottom">
-        <span class="tooltip quick-mode-game-container"><img src="/img/icon/hypixel/skyblock.png" alt="" class="quick-mode-game" onclick="switchStats('skyblock')"><span class="tooltiptext">SkyBlock</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/bedwars.png" alt="" class="quick-mode-game" onclick="switchStats('bedwars')"><span class="tooltiptext">Bed Wars</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/duels.png" alt="" class="quick-mode-game" onclick="switchStats('duels')"><span class="tooltiptext">Duels</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/skywars.png" alt="" class="quick-mode-game" onclick="switchStats('skywars')"><span class="tooltiptext">SkyWars</span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/arcade.png" alt="" class="quick-mode-game" onclick="switchStats('arcade')"><span class="tooltiptext">Arcade</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/buildbattle.png" alt="" class="quick-mode-game" onclick="switchStats('buildbattle')"><span class="tooltiptext">Build Battle</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/murdermystery.png" alt="" class="quick-mode-game" onclick="switchStats('murdermystery')"><span class="tooltiptext">Murder Mystery</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/tntgames.png" alt="" class="quick-mode-game" onclick="switchStats('tntgames')"><span class="tooltiptext">TNT Games</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/pit.png" alt="" class="quick-mode-game" onclick="switchStats('pit')"><span class="tooltiptext">Pit</span></span></span>
-      </p>
-      <p class="flex-quick-mode margin-top-bottom">
-        <span class="tooltip"><img src="/img/icon/hypixel/classic.png" alt="" class="quick-mode-game" onclick="switchStats('classic')"><span class="tooltiptext">Classic Games</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/megawalls.png" alt="" class="quick-mode-game" onclick="switchStats('megawalls')"><span class="tooltiptext">Mega Walls</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/copsandcrims.png" alt="" class="quick-mode-game" onclick="switchStats('copsandcrims')"><span class="tooltiptext">Cops and Crims</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/uhc.png" alt="" class="quick-mode-game" onclick="switchStats('uhc')"><span class="tooltiptext">UHC</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/blitz.png" alt="" class="quick-mode-game" onclick="switchStats('blitz')"><span class="tooltiptext">Blitz</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/woolwars.png" alt="" class="quick-mode-game" onclick="switchStats('woolwars')"><span class="tooltiptext">Wool Wars</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/warlords.png" alt="" class="quick-mode-game" onclick="switchStats('warlords')"><span class="tooltiptext">Warlords</span></span></span>
-        <span class="tooltip"><img src="/img/icon/hypixel/smashheroes.png" alt="" class="quick-mode-game" onclick="switchStats('smashheroes')"><span class="tooltiptext">Smash Heroes</span></span></span>
+      <p class="flex-quick-mode margin-top-bottom" id="quick-mode-games">
+        
       </p>
     </section>
   </div>  
