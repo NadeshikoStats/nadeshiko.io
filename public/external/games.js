@@ -655,7 +655,7 @@ function generateDuels() { // Generates stats and chips for Duels
             (`/img/games/404.${imageFileType}`), // Background image
             allDuelsStats[currentDuel[0]][0], // Displayed stats
             currentDuel[2], // Other stats (shown in drop-down menu)
-            (`/img/icon/duels/${currentDuel[0]}.png`), // Chip image
+            (`/img/icon/duels/${currentDuel[0]}.${imageFileType}`), // Chip image
             "duels", // gamemode
         ];
         duelsChips.push(duelsChip);

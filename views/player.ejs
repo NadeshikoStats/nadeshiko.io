@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/stylesheet.css">
   <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
-  <link rel="preload" href="/img/games/bedwars/lobby.avif" as="image">
-  <link rel="preload" href="/img/games/skywars/lobby.avif" as="image">
-  <link rel="preload" href="/img/games/network/lobby.avif" as="image">
-  <link rel="preload" href="/img/games/duels/lobby.avif" as="image">
-  <script src="/external/aviftest.js" type="module"></script>
+  <link rel="preload" href="/img/games/bedwars/lobby.webp" as="image">
+  <link rel="preload" href="/img/games/skywars/lobby.webp" as="image">
+  <link rel="preload" href="/img/games/network/lobby.webp" as="image">
+  <link rel="preload" href="/img/games/duels/lobby.webp" as="image">
+  <script src="/external/webptest.js" type="module"></script>
   <script src="/external/skinview3d.bundle.js" type="module"></script>
   <script src="/external/minecrafttext.js"></script>
   <script src="/external/games.js"></script>
@@ -803,7 +803,6 @@ function generateChip(stats_object, where) { // Converts an array of stats into 
 
   for(c = 0; c < stats_object[5].length; c++) {
     dropdownItem = stats_object[5][c];
-    console.warn(dropdownItem);
 
     selectionItems += `<div class="dropdown-item ${c == 0 ? "selected" : ""}" data-item="${dropdownItem[1]}">${dropdownItem[2] == undefined || dropdownItem[2] == "" ? "" : `<img src="${dropdownItem[2]}" alt="" class="chip-dropdown-icon">`}${dropdownItem[0]}</div>`;
   }

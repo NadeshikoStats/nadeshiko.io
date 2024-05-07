@@ -379,7 +379,7 @@ footer>a:hover {
 }
 
 .background {
-    background-image: url(/img/games/network/lobby.png);
+    background-image: url(/img/games/network/lobby.webp);
     background-size: cover;
     background-position: center top;
     z-index: -2;
