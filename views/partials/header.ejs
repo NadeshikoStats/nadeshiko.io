@@ -162,10 +162,18 @@
     <div class="mtop mbottom">
     <div class="flex-two-item">
       <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/gauge.svg" alt=""><span class="w600">Quick Mode</span></p>
-      <input type="checkbox" id="checkbox-quick-mode" class="switch-checkbox" data-setting="quick-mode"><label for="checkbox-quick-mode" class="switch-label"><span class="switch-inner"></span></label>
+      <input type="checkbox" id="checkbox-quick-mode" class="switch-checkbox settings-checkbox" data-setting="quick-mode"><label for="checkbox-quick-mode" class="switch-label"><span class="switch-inner"></span></label>
     </div>
     <p class="settings-description">Enables the ability to quickly access a gamemode selector by holding <kbd>Shift</kbd>.</p>
     </div>
+
+    <div class="mtop mbottom">
+      <div class="flex-two-item">
+        <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/gauge.svg" alt=""><span class="w600">Developer  Mode</span></p>
+        <input type="checkbox" id="checkbox-developer-mode" class="switch-checkbox settings-checkbox" data-setting="developer-mode"><label for="checkbox-developer-mode" class="switch-label"><span class="switch-inner"></span></label>
+      </div>
+      <p class="settings-description">Shows UUIDs and version information.</p>
+      </div>
   </div>
 </div>
 
@@ -177,20 +185,6 @@ document.getElementById('search-icon').addEventListener('click', function() {
 let aboutExpanded = false;
 let settingsExpanded = false;
 let cardWizardExpanded = false;
-
-let settings = localStorage.getItem("settings");
-if (settings === null) {
-    settings = {
-        "quick-mode": true,
-    };
-    localStorage.setItem("settings", JSON.stringify(settings));
-} else {
-    settings = JSON.parse(settings);
-}
-
-for (const [key, value] of Object.entries(settings)) {
-    document.getElementById(`checkbox-${key}`).checked = value;
-}
 
 function showCardWizard(game = "NETWORK") {
   if(!cardWizardExpanded) {
@@ -266,18 +260,51 @@ function updateSetting(settingKey, settingValue) { // Updates a desired setting 
     currentSettings = JSON.parse(currentSettings);
   }
   currentSettings[settingKey] = settingValue;
+
+  updateSettingFunctionality(settingKey, settingValue);
+
   settings = currentSettings;
   localStorage.setItem("settings", JSON.stringify(currentSettings));
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  var checkbox = document.getElementById('checkbox-quick-mode');
+function updateSettingFunctionality(setting, settingValue) { // Updates the functionality of a changed setting
+  document.getElementById(`checkbox-${setting}`).checked = settingValue;
+  if(setting == "developer-mode") {
+    if(settingValue) {
+      document.getElementById("card-uuid").style.display = "initial";
+      document.getElementById("developer-info").style.display = "initial";
+    } else {
+      document.getElementById("card-uuid").style.display = "none";
+      document.getElementById("developer-info").style.display = "none";
+    }
+  }
+}
 
-  checkbox.addEventListener('change', function() {
-    var settingKey = this.getAttribute('data-setting');
-    var settingValue = this.checked;
-    updateSetting(settingKey, settingValue);
+document.addEventListener('DOMContentLoaded', function() {
+  var checkboxes = document.querySelectorAll('.settings-checkbox');
+
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      var settingKey = this.getAttribute('data-setting');
+      var settingValue = this.checked;
+      updateSetting(settingKey, settingValue);
+    });
   });
+
+  let settings = localStorage.getItem("settings");
+  if (settings === null) {
+      settings = {
+        "quick-mode": true,
+        "developer-mode": false,
+      };
+      localStorage.setItem("settings", JSON.stringify(settings));
+  } else {
+    settings = JSON.parse(settings);
+  }
+
+  for (const [key, value] of Object.entries(settings)) {
+    updateSettingFunctionality(key, value);
+  }
 });
 
 document.addEventListener('keydown', function(event) { // Close modals on escape key

@@ -9,6 +9,9 @@
   <link rel="preload" href="/img/games/skywars/lobby.webp" as="image">
   <link rel="preload" href="/img/games/network/lobby.webp" as="image">
   <link rel="preload" href="/img/games/duels/lobby.webp" as="image">
+  <link rel="preload" href="/img/games/tntgames/lobby.webp" as="image">
+  <link rel="preload" href="/img/games/arcade/lobby.webp" as="image">
+  <link rel="preload" href="/img/games/skyblock/lobby.webp" as="image">
   <script src="/external/webptest.js" type="module"></script>
   <script src="/external/skinview3d.bundle.js" type="module"></script>
   <script src="/external/minecrafttext.js"></script>
@@ -72,9 +75,12 @@
           <div class="player-info">
             <div class="details">
               <div class="flex-two-item unless-tiny">
-                <span class="player-name">
-                  <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span><img class="special icon smallicon unloaded" id="special" alt="User badge">
-                </span>
+                <div class="flex-vertical">
+                  <span class="player-name">
+                    <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span><img class="special icon smallicon" id="special" alt="User badge">
+                  </span>
+                  <span id="card-uuid"></span>
+                </div>
                 <span id="online-status"><span class="mc">Unknown</span></span>
               </div>
   
@@ -337,10 +343,35 @@
     </div>
 
     <div class="flex-container unloaded" id="flex-container-arcade">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding Arcade to nadeshiko shortly.</p>
-      </section>
+        <div class="chip-container">
+          <div class="chip-small but-big">
+            <div class="chip-small-background-filter"></div>
+            <p class="chip-small-title">Arcade</p>
+            <div class="chip-small-container">
+              <div class="flex-two-item align-top flippable margin10">
+                <div class="card-big-stats">
+                  <p class="super-subtitle">Stats</p>
+                  <div class="chip-small-statistic-row">
+                      <p>Wins <span class="statistic" id="arcade-overall-wins"><span class="mc">Unknown</span></span></p>
+                  </div>
+                <div class="card-big-misc">
+                  <p class="super-subtitle">Misc</p>
+                  <div class="chip-small-statistic-row">
+                    <p>Coins <span class="statistic" id="arcade-overall-coins"><span class="mc">Unknown</span></span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="general-button mright margin-top-bottom" onclick="showCardWizard('ARCADE')">Generate Card</span>
+          </div>
+          <div class="flex-two-item chip-container-duo-parent" id="skywars-chips">
+            <div id="arcade-chips-1" class="chip-container-duo">
+            </div>
+            <div id="arcade-chips-2" class="chip-container-duo">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="flex-container unloaded minigame-flex-container" id="flex-container-buildbattle">

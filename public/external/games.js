@@ -78,6 +78,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
         document.getElementById("quick-mode-username").style.color = `var(--mc` + playerRankCute[0] + `)`;
 
+        updateElement("card-uuid", playerData["uuid"]);
         updateElement("card-ranktext", playerRankCute[1], true); // Adds player's rank
         updateElement("card-name", playerData["name"]);
         updateElement("quick-mode-username", playerData["name"]);
@@ -243,32 +244,6 @@ function generateNetwork() { // Inserts general/network stats into the DOM
             gameSwitchContainer.appendChild(container);
           }
         });
-
-
-
-        /*<span class="mobile-exclusive" id="game-switch-mobile">
-                  <div onclick="switchStats('network')" aria-label="View Network stats"><span class="logo-container"><img src="/img/logo/hypixel_logo.png" alt="" class="social-media-dropdown icon"></span> Network</div>
-                  <div onclick="switchStats('bedwars')" aria-label="View Bed Wars stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/bedwars.png" alt="" class="social-media-dropdown icon"></span> Bed Wars</div>
-                  <div onclick="switchStats('duels')" aria-label="View Duels stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/duels.png" alt="" class="social-media-dropdown icon"></span> Duels</div>
-                  <div onclick="switchStats('skywars')" aria-label="View SkyWars stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/skywars.png" alt="" class="social-media-dropdown icon"></span> SkyWars</div>
-                </span>
-                <span id="game-switch">
-                  <div onclick="switchStats('skyblock')" aria-label="View SkyBlock stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/skyblock.png" alt="" class="social-media-dropdown icon"></span> SkyBlock</div>
-                  <div onclick="switchStats('arcade')" aria-label="View Arcade stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/arcade.png" alt="" class="social-media-dropdown icon"></span> Arcade</div>
-                  <div onclick="switchStats('buildbattle')" aria-label="View Build Battle stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/buildbattle.png" alt="" class="social-media-dropdown icon"></span> Build Battle</div>
-                  <div onclick="switchStats('murdermystery')" aria-label="View Murder Mystery stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/murdermystery.png" alt="" class="social-media-dropdown icon"></span> Murder Mystery</div>
-                  <div onclick="switchStats('tntgames')" aria-label="View TNT Games stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/tntgames.png" alt="" class="social-media-dropdown icon"></span> TNT Games</div>
-                  <div onclick="switchStats('pit')" aria-label="View Pit stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/pit.png" alt="" class="social-media-dropdown icon"></span> Pit</div>
-                  <div onclick="switchStats('classic')" aria-label="View Classic stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/classic.png" alt="" class="social-media-dropdown icon"></span> Classic Games</div>
-                  <div onclick="switchStats('megawalls')" aria-label="View Mega Walls stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/megawalls.png" alt="" class="social-media-dropdown icon"></span> Mega Walls</div>
-                  <div onclick="switchStats('copsandcrims')" aria-label="View Cops and Crims stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/copsandcrims.png" alt="" class="social-media-dropdown icon"></span> Cops and Crims</div>
-                  <div onclick="switchStats('uhc')" aria-label="View UHC stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/uhc.png" alt="" class="social-media-dropdown icon"></span> UHC</div>
-                  <div onclick="switchStats('blitz')" aria-label="View Blitz stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/blitz.png" alt="" class="social-media-dropdown icon"></span> Blitz</div>
-                  <div onclick="switchStats('woolwars')" aria-label="View Wool Wars stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/woolwars.png" alt="" class="social-media-dropdown icon"></span> Wool Wars</div>
-                  <div onclick="switchStats('warlords')" aria-label="View Warlords stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/warlords.png" alt="" class="social-media-dropdown icon"></span> Warlords</div>
-                  <div onclick="switchStats('smashheroes')" aria-label="View Smash Heroes stats"><span class="logo-container"><img src="/img/icon/minecraft_hypixel/smash.png" alt="" class="social-media-dropdown icon"></span> Smash Heroes</div>
-                </span>*/
-      
         
         generateBedWars();
         generateDuels();
@@ -276,6 +251,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         generateBuildBattle();
         generateMurderMystery();
         generateTNTGames();
+        //generateArcade();
 
         addRecentPlayer(playerData["name"], playerRankCute[0]);
       } else { // If no Hypixel stats, hide most buttons and show a warning
@@ -1043,7 +1019,101 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
   for(d = 0; d < tntGamesCards.length; d++) {
     generateChip(tntGamesCards[d], (d % 2 == 0 ? "tntgames-chips-1" : "tntgames-chips-2"));
   }
+}
 
+function generateArcade() {
+  let arcadeStats = playerData["stats"]["Arcade"];
+
+  updateElement("arcade-overall-coins", checkAndFormat(arcadeStats["coins"]));
+
+  // Blocking Dead
+  let blockingDeadCard = [
+    "arcade-stats-blockingdead", // ID
+    "Blocking Dead", // Title
+    "", // Subtitle
+    `/img/games/404.${imageFileType}`, // Background image
+    [
+      [false, ["Wins", checkAndFormat(arcadeStats["wins_dayone"])]],
+      [false, ["Kills", checkAndFormat(arcadeStats["kills_dayone"])], ["Headshots", checkAndFormat(arcadeStats["headshots_dayone"])]],
+    ], // Displayed stats
+    [], // Other stats (shown in drop-down menu)
+    "/img/icon/minecraft/idk.png", // Chip image
+    "arcade" // gamemode
+  ]
+
+  // Bounty Hunters
+  let bountyHuntersCard = [
+    "arcade-stats-bountyhunters", // ID
+    "Bounty Hunters", // Title
+    "", // Subtitle
+    `/img/games/404.${imageFileType}`, // Background image
+    [
+      [false, ["Wins", checkAndFormat(arcadeStats["wins_oneinthequiver"])]],
+      [false, ["Kills", checkAndFormat(arcadeStats["kills_oneinthequiver"])], ["Deaths", checkAndFormat(arcadeStats["deaths_oneinthequiver"])], ["K/D R", calculateRatio(arcadeStats["kills_oneinthequiver"], arcadeStats["deaths_oneinthequiver"])]],
+      [false, ["Bounty Kills", checkAndFormat(arcadeStats["bounty_kills_oneinthequiver"])], ["Bow Kills", checkAndFormat(arcadeStats["bow_kills_oneinthequiver"])], ["Sword Kills", checkAndFormat(arcadeStats["sword_kills_oneinthequiver"])]] 
+
+    ], // Displayed stats
+    [], // Other stats (shown in drop-down menu)
+    "/img/icon/minecraft/idk.png", // Chip image
+    "arcade" // gamemode
+  ]
+
+  let captureTheWoolCard = [
+
+  ]
+
+  let creeperAttackCard = [
+  ]
+
+  let dragonWarsCard = [
+  ]
+
+  let dropperCard = [
+  ]
+
+  let enderSpleefCard = [
+  ]
+
+  let farmHuntCard = [
+  ]
+
+  let footballCard = [
+  ]
+
+  let galaxyWarsCard = [
+  ]
+
+  let hideAndSeekCard = [
+  ]
+
+  let holeInTheWallCard = [
+  ]
+
+  let hypixelSaysCard = [
+  ]
+
+  let miniWallsCard = [
+  ]
+
+  let partyGamesCard = [
+  ]
+
+  let pixelPartyCard = [
+  ]
+
+  let throwOutCard = [
+  ]
+
+  let zombiesCard = [
+  ]
+
+  let seasonalCard = [
+  ]
+
+  arcadeCards = [blockingDeadCard, bountyHuntersCard, captureTheWoolCard];
+  for(d = 0; d < arcadeCards.length; d++) {
+    generateChip(arcadeCards[d], (d % 2 == 0 ? "arcade-chips-1" : "arcade-chips-2"));
+  }
 }
 
 

@@ -60,6 +60,14 @@
     }
 }
 
+@font-face {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/font/InterVariable.woff2') format('woff2');
+}
+
 /* Stats */
 
 a {
@@ -365,6 +373,7 @@ footer>a:hover {
 .special {
     width: 25px;
     height: 25px;
+    display: none;
 }
 
 .header-game:hover,
@@ -424,6 +433,11 @@ footer>a:hover {
 .flex-two-item-basic {
     display: flex;
     align-items: center;
+}
+
+.flex-vertical {
+    display: flex;
+    flex-direction: column;
 }
 
 .align-top {
@@ -897,14 +911,6 @@ footer>a:hover {
     margin-right: 5px;
 }
 
-@font-face {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('/font/InterVariable.woff2') format('woff2');
-}
-
 .avatar {
     cursor: grab;
     background-color: transparent;
@@ -1016,6 +1022,13 @@ footer>a:hover {
 #card-name {
     margin-left: 6px;
     margin-right: 6px;
+}
+
+#card-uuid {
+    font-family: monospace;
+    font-size: 16px;
+    margin-left: 3px;
+    margin-top: 3px;
 }
 
 /* Tooltips */
