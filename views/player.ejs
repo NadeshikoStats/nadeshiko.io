@@ -129,7 +129,7 @@
                   <a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" class="mright" style="text-decoration: none;"><span class="general-button"><img src="/img/logo/skycrypt.svg" class="shiiyu" alt="SkyCrypt logo">SkyBlock Stats</span></a>
 
                   <div class="dropdown" id="social-media-dropdown-container">
-                  <span class="general-button dropdown-button" onclick="" id="social-media-button">Socials</span>         <div class="dropdown-content unloaded" id="social-media-alternative">
+                  <span class="general-button dropdown-button unloaded" onclick="" id="social-media-button">Socials</span>         <div class="dropdown-content unloaded" id="social-media-alternative">
                     <a target="_blank" id="social-hypixel-alternative" aria-label="View Hypixel Forums profile"><span class="logo-container"><img src="/img/logo/hypixel.svg" alt="" class="social-media-dropdown"></span> Hypixel</a>
                     <a target="_blank" id="social-youtube-alternative" aria-label="View linked YouTube"><span class="logo-container"><img src="/img/logo/youtube.svg" alt="" class="social-media-dropdown"></span> YouTube</a>
                     <a target="_blank" id="social-twitter-alternative" aria-label="View linked Twitter"><span class="logo-container"><img src="/img/logo/twitter.svg" alt="" class="social-media-dropdown"></span> Twitter</a>
@@ -342,37 +342,38 @@
       </section>
     </div>
 
-    <div class="flex-container unloaded" id="flex-container-arcade">
-        <div class="chip-container">
-          <div class="chip-small but-big">
-            <div class="chip-small-background-filter"></div>
-            <p class="chip-small-title">Arcade</p>
-            <div class="chip-small-container">
-              <div class="flex-two-item align-top flippable margin10">
-                <div class="card-big-stats">
-                  <p class="super-subtitle">Stats</p>
-                  <div class="chip-small-statistic-row">
-                      <p>Wins <span class="statistic" id="arcade-overall-wins"><span class="mc">Unknown</span></span></p>
-                  </div>
-                <div class="card-big-misc">
-                  <p class="super-subtitle">Misc</p>
-                  <div class="chip-small-statistic-row">
-                    <p>Coins <span class="statistic" id="arcade-overall-coins"><span class="mc">Unknown</span></span></p>
-                  </div>
+    <div class="flex-container unloaded minigame-flex-container" id="flex-container-arcade">
+      <!-- arcade stats -->
+      <div class="chip-container" id="arcade-chips">
+        <div class="chip-small but-big">
+          <div class="chip-small-background-filter"></div>
+          <p class="chip-small-title">Arcade</p>
+          <div class="chip-small-container">
+            <div class="flex-two-item align-top flippable margin10">
+              <div class="card-big-stats">
+                <p class="super-subtitle">Stats</p>
+                <div class="chip-small-statistic-row">
+                  <p>Wins <span class="statistic" id="arcade-overall-wins"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+              <div class="card-big-misc">
+                <p class="super-subtitle">Misc</p>
+                <div class="chip-small-statistic-row">
+                  <p>Coins <span class="statistic" id="arcade-overall-coins"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
             </div>
-            <span class="general-button mright margin-top-bottom" onclick="showCardWizard('ARCADE')">Generate Card</span>
           </div>
-          <div class="flex-two-item chip-container-duo-parent" id="skywars-chips">
-            <div id="arcade-chips-1" class="chip-container-duo">
-            </div>
-            <div id="arcade-chips-2" class="chip-container-duo">
-            </div>
+          <span class="general-button mright margin-top-bottom" onclick="showCardWizard('ARCADE')">Generate Card</span>
+        </div>
+        <div class="flex-two-item chip-container-duo-parent" id="buildbattle-chips">
+          <div id="arcade-chips-1" class="chip-container-duo">
+          </div>
+          <div id="arcade-chips-2" class="chip-container-duo">
           </div>
         </div>
-      </div>
     </div>
+  </div>
 
     <div class="flex-container unloaded minigame-flex-container" id="flex-container-buildbattle">
       <!-- build battle stats -->
@@ -615,10 +616,10 @@
 
   var mobileMode = (document.documentElement.clientWidth < 800);
 
-  function und(text) { // Returns 0 in the case of a missing value
-      if (text === null || text === undefined || Number.isNaN(text)) return 0;
-      else return text;
-    }
+  function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in the case of a missing value
+    if (text === null || text === undefined || Number.isNaN(text)) return undefinedValue;
+    else return text;
+  }
 
   function beginGeneration() {
     switchStats(currentGamemode);
