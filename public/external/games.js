@@ -173,24 +173,24 @@ function generateNetwork() { // Inserts general/network stats into the DOM
 
 
         const quickModeGames = [
-          { id: 'network', name: 'Network' },
-          { id: 'skyblock', name: 'SkyBlock' },
-          { id: 'bedwars', name: 'Bed Wars' },
-          { id: 'duels', name: 'Duels' },
-          { id: 'skywars', name: 'SkyWars' },
-          { id: 'arcade', name: 'Arcade' },
-          { id: 'buildbattle', name: 'Build Battle' },
-          { id: 'murdermystery', name: 'Murder Mystery' },
-          { id: 'tntgames', name: 'TNT Games' },
-          { id: 'pit', name: 'Pit' },
-          { id: 'classic', name: 'Classic Games' },
-          { id: 'megawalls', name: 'Mega Walls' },
-          { id: 'copsandcrims', name: 'Cops and Crims' },
-          { id: 'uhc', name: 'UHC' },
-          { id: 'blitz', name: 'Blitz' },
-          { id: 'woolwars', name: 'Wool Wars' },
-          { id: 'warlords', name: 'Warlords' },
-          { id: 'smashheroes', name: 'Smash Heroes' }
+          { id: 'network', name: 'Network', minecraftId: 'hypixel_logo'},
+          { id: 'skyblock', name: 'SkyBlock', minecraftId: 'head_skyblock'},
+          { id: 'bedwars', name: 'Bed Wars', minecraftId: 'red_bed'},
+          { id: 'duels', name: 'Duels', minecraftId: 'fishing_rod'},
+          { id: 'skywars', name: 'SkyWars', minecraftId: 'ender_eye'},
+          { id: 'arcade', name: 'Arcade', minecraftId: 'slime_ball'},
+          { id: 'buildbattle', name: 'Build Battle', minecraftId: 'crafting_table'},
+          { id: 'murdermystery', name: 'Murder Mystery', minecraftId: 'bow' },
+          { id: 'tntgames', name: 'TNT Games', minecraftId: 'tnt' },
+          { id: 'pit', name: 'Pit', minecraftId: 'dirt' },
+          { id: 'classic', name: 'Classic Games', minecraftId: 'jukebox' },
+          { id: 'megawalls', name: 'Mega Walls', minecraftId: 'soul_sand' },
+          { id: 'copsandcrims', name: 'Cops and Crims', minecraftId: 'iron_bars' },
+          { id: 'uhc', name: 'UHC', minecraftId: 'golden_apple' },
+          { id: 'blitz', name: 'Blitz', minecraftId: 'diamond_sword' },
+          { id: 'woolwars', name: 'Wool Wars', minecraftId: 'white_wool' },
+          { id: 'warlords', name: 'Warlords', minecraftId: 'stone_axe' },
+          { id: 'smashheroes', name: 'Smash Heroes', minecraftId: 'head_smashheroes' }
         ];
 
         const quickModeGameContainer = document.getElementById("quick-mode-games");
@@ -228,7 +228,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
           if(game.id == "network") {
             img.src = `/img/logo/hypixel_logo.${imageFileType}`;
           } else {
-            img.src = `/img/icon/minecraft_hypixel/${game.id}.${imageFileType}`;
+            img.src = `/img/icon/minecraft/${game.minecraftId}.${imageFileType}`;
           }
           img.alt = '';
           img.classList.add('social-media-dropdown', 'icon');
@@ -717,7 +717,7 @@ function generateDuels() { // Generates stats and chips for Duels
     var duelsWithMultipleModes = [
         ["bridge", "Bridge", ["bridge_duel", "bridge_doubles", "bridge_threes", "bridge_four", "bridge_2v2v2v2", "bridge_3v3v3v3", "capture_threes"]], ["mw", "Mega Walls", ["mw_duel", "mw_doubles"]], ["sw", "SkyWars", ["sw_duel", "sw_doubles"]], ["op", "OP", ["op_duel", "op_doubles"]], ["uhc", "UHC", ["uhc_duel", "uhc_doubles"]]]
     
-        var duelsStatsToShow = [["bridge", "Bridge", [["Overall","bridge"],["1v1","bridge_duel"],["2v2","bridge_doubles"],["3v3","bridge_threes"],["4v4","bridge_four"],["2v2v2v2","bridge_2v2v2v2"],["3v3","bridge_3v3v3v3"],["CTF 3v3","capture_threes"]]], ["sw", "SkyWars", [["Overall","sw"],["1v1","sw_duel"],["2v2","sw_doubles"]]], ["classic_duel", "Classic", []], ["uhc", "UHC", [["Overall","uhc"],["1v1","uhc_duel"],["2v2","uhc_doubles"],["4v4","uhc_four"],["Deathmatch","uhc_meetup"]]], ["sumo_duel", "Sumo", []], ["parkour_eight", "Parkour", []], ["blitz_duel", "Blitz", []], ["bow_duel", "Bow", []], ["mw", "Mega Walls", [["Overall","mw"],["1v1","mw_duel"],["2v2","mw_doubles"]]], ["bowspleef_duel", "Bow Spleef", []], ["op", "OP", [["Overall","op"],["1v1","op_duel"],["2v2","op_doubles"]]], ["combo_duel", "Combo", []], ["boxing_duel", "Boxing", []], ["potion_duel", "Nodebuff", []], ["duel_arena", "Arena", []]];
+        var duelsStatsToShow = [["bridge", "Bridge", [["Overall","bridge"],["1v1","bridge_duel"],["2v2","bridge_doubles"],["3v3","bridge_threes"],["4v4","bridge_four"],["2v2v2v2","bridge_2v2v2v2"],["3v3","bridge_3v3v3v3"],["CTF 3v3","capture_threes"]], "blue_terracotta"], ["sw", "SkyWars", [["Overall","sw"],["1v1","sw_duel"],["2v2","sw_doubles"]], "ender_eye"], ["classic_duel", "Classic", [], "fishing_rod"], ["uhc", "UHC", [["Overall","uhc"],["1v1","uhc_duel"],["2v2","uhc_doubles"],["4v4","uhc_four"],["Deathmatch","uhc_meetup"]], "head_uhc"], ["sumo_duel", "Sumo", [], "slime_ball"], ["parkour_eight", "Parkour", [], "feather"], ["blitz_duel", "Blitz", [], "diamond_sword"], ["bow_duel", "Bow", [], "bow"], ["mw", "Mega Walls", [["Overall","mw"],["1v1","mw_duel"],["2v2","mw_doubles"]], "soul_sand"], ["bowspleef_duel", "Bow Spleef", [], "tnt"], ["op", "OP", [["Overall","op"],["1v1","op_duel"],["2v2","op_doubles"]], "diamond_chestplate"], ["combo_duel", "Combo", [], "potion_weakness"], ["boxing_duel", "Boxing", [], "head_boxing"], ["potion_duel", "Nodebuff", [], "potion_fire_resistance"], ["duel_arena", "Arena", [], "beacon"]];
 
     for(a = 0; a < duelsModes.length; a++) {
         allDuelsStats[duelsModes[a][1]] = getDuelsStats(duelsModes[a][1], duelsModes[a][3], duelsModes[a][0]);
@@ -749,7 +749,7 @@ function generateDuels() { // Generates stats and chips for Duels
             (`/img/games/404.${imageFileType}`), // Background image
             allDuelsStats[currentDuel[0]][0], // Displayed stats
             currentDuel[2], // Other stats (shown in drop-down menu)
-            (`/img/icon/duels/${currentDuel[0]}.${imageFileType}`), // Chip image
+            (`/img/icon/minecraft/${currentDuel[3]}.${imageFileType}`), // Chip image
             "duels", // gamemode
         ];
         duelsChips.push(duelsChip);
