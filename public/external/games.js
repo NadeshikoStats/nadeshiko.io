@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats; 
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats; 
 var allDuelsStats = { };
 var allTNTWizardStats = { };
 
@@ -539,6 +539,21 @@ function getSkyWarsModeStats(mode) {
         ];
 }
 
+function getZombiesStats(map) {
+  if(map == "overall") {
+    map = "";
+  } else {
+    map = "_" + map;
+  }
+
+  return [
+    [false, ["Wins", checkAndFormat(arcadeStats["wins_zombies" + map])]],
+    [false, ["Kills", checkAndFormat(arcadeStats["zombie_kills_zombies" + map])], ["Deaths", checkAndFormat(arcadeStats["deaths_zombies" + map])], ["K/D R", calculateRatio(arcadeStats["zombie_kills_zombies" + map], arcadeStats["deaths_zombies" + map])]],
+    [false, ["Downs", checkAndFormat(arcadeStats["times_knocked_down_zombies" + map])], ["Revives", checkAndFormat(arcadeStats["revives_zombies" + map])], ["Rounds Survived", checkAndFormat(arcadeStats["total_rounds_survived_zombies" + map])]],
+    [false, ["Doors Opened", checkAndFormat(arcadeStats["doors_opened_zombies" + map])], ["Windows Repaired", checkAndFormat(arcadeStats["windows_repaired_zombies" + map])]]
+  ]
+}       
+
 function getDuelsStats(mode, is_bridge = false, cuteName) {
     importedDuelsStats = [
         checkAndFormat(duelsStats["current_winstreak_mode_" + mode]),
@@ -1023,7 +1038,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
 }
 
 function generateArcade() {
-  let arcadeStats = playerData["stats"]["Arcade"];
+  arcadeStats = playerData["stats"]["Arcade"];
 
   updateElement("arcade-overall-coins", checkAndFormat(arcadeStats["coins"]));
 
@@ -1102,6 +1117,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/dragon_egg.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let dropperStats = arcadeStats["dropper"] || {};
@@ -1118,6 +1134,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/hopper.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let enderSpleefCard = [
@@ -1131,6 +1148,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/ender_pearl.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let farmHuntCard = [
@@ -1148,6 +1166,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/sheep_spawn_egg.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let footballCard = [
@@ -1161,6 +1180,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/football.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let galaxyWarsCard = [
@@ -1174,7 +1194,8 @@ function generateArcade() {
       [false, ["Kills (Empire)", checkAndFormat(arcadeStats["sw_empire_kills"])], ["Kills (Rebel)", checkAndFormat(arcadeStats["sw_rebel_kills"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
-    `/img/icon/minecraft/firework.${imageFileType}`, // Chip image
+    `/img/icon/minecraft/firework_rocket.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let hideAndSeekCard = [
@@ -1192,6 +1213,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/blaze_rod.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let holeInTheWallCard = [
@@ -1206,6 +1228,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/bricks.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let hypixelSaysCard = [
@@ -1219,6 +1242,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/cookie.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let miniWallsCard = [
@@ -1233,6 +1257,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/mini_walls.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let partyGamesCard = [
@@ -1242,10 +1267,11 @@ function generateArcade() {
     `/img/games/404.${imageFileType}`, // Background image
     [
       [false, ["Wins", checkAndFormat(arcadeStats["wins_party"])]],
-      [false, ["Round Wins", checkAndFormat(arcadeStats["round_wins_party"])], ["Stars Earned", checkAndFormat(arcadeStats["deaths_party"])], ["Stars Earned", checkAndFormat(arcadeStats["total_stars_party"])]],
+      [false, ["Round Wins", checkAndFormat(arcadeStats["round_wins_party"])], ["Stars Earned", checkAndFormat(arcadeStats["total_stars_party"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/cake.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let pixelPaintersCard = [
@@ -1258,6 +1284,7 @@ function generateArcade() {
     ],
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/pink_dye.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   pixelPartyStats = arcadeStats["pixel_party"] || {};
@@ -1272,6 +1299,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/disc_13.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let throwOutCard = [
@@ -1285,6 +1313,7 @@ function generateArcade() {
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/snowball.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let zombiesCard = [
@@ -1298,8 +1327,14 @@ function generateArcade() {
       [false, ["Downs", checkAndFormat(arcadeStats["times_knocked_down_zombies"])], ["Revives", checkAndFormat(arcadeStats["revives_zombies"])], ["Rounds Survived", checkAndFormat(arcadeStats["total_rounds_survived_zombies"])]],
       [false, ["Doors Opened", checkAndFormat(arcadeStats["doors_opened_zombies"])], ["Windows Repaired", checkAndFormat(arcadeStats["windows_repaired_zombies"])]]
     ], // Displayed stats
-    [], // Other stats (shown in drop-down menu]
+    [
+      ["Overall", "overall"],
+      ["Dead End", "deadend"],
+      ["Bad Blood", "badblood"],
+      ["Alien Arcadium", "alienarcadium"],
+    ], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/zombie_head.${imageFileType}`, // Chip image
+    "arcade" // gamemode
   ]
 
   let seasonalCard = [
@@ -1423,18 +1458,20 @@ function updateChipStats(name, chipId, gamemode) { // Updates what a chip does w
     newValue = name;
     console.log([newValue, chipId, gamemode]);
     if(gamemode == "duels") {
-        updateElement(chipId, generateChipStats(allDuelsStats[newValue][0]), true);
+      updateElement(chipId, generateChipStats(allDuelsStats[newValue][0]), true);
     } else if(gamemode == "bedwars") {
-        if(newValue == "overall") {
-            updateElement(chipId, generateChipStats(totalDreamModeStats), true);
-        } else {
-            console.log(newValue);
-            updateElement(chipId, generateChipStats(getBedWarsModeStats(newValue)), true);
-        }
+      if(newValue == "overall") {
+        updateElement(chipId, generateChipStats(totalDreamModeStats), true);
+      } else {
+        console.log(newValue);
+        updateElement(chipId, generateChipStats(getBedWarsModeStats(newValue)), true);
+      }
     } else if(gamemode == "skywars") {
-        updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
+      updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
     } else if(gamemode == "tntgames") {
-        updateElement(chipId, generateChipStats(allTNTWizardStats[newValue]), true);
+      updateElement(chipId, generateChipStats(allTNTWizardStats[newValue]), true);
+    } else if(gamemode == "arcade") {
+      updateElement(chipId, generateChipStats(getZombiesStats(newValue)), true);
     }
 }
 
