@@ -26,7 +26,6 @@ function locale(number, digits = 2) {
 } 
 
 function smallDuration(seconds, ms = false) { // Converts a number of seconds into a human-readable duration of time
-  console.warn(seconds);
   if(seconds == -1) {
     return "N/A";
   }
@@ -549,10 +548,61 @@ function getZombiesStats(map) {
   return [
     [false, ["Wins", checkAndFormat(arcadeStats["wins_zombies" + map])]],
     [false, ["Kills", checkAndFormat(arcadeStats["zombie_kills_zombies" + map])], ["Deaths", checkAndFormat(arcadeStats["deaths_zombies" + map])], ["K/D R", calculateRatio(arcadeStats["zombie_kills_zombies" + map], arcadeStats["deaths_zombies" + map])]],
-    [false, ["Downs", checkAndFormat(arcadeStats["times_knocked_down_zombies" + map])], ["Revives", checkAndFormat(arcadeStats["revives_zombies" + map])], ["Rounds Survived", checkAndFormat(arcadeStats["total_rounds_survived_zombies" + map])]],
+    [false, ["Downs", checkAndFormat(arcadeStats["times_knocked_down_zombies" + map])], ["Revives", checkAndFormat(arcadeStats["players_revived_zombies" + map])], ["Rounds Survived", checkAndFormat(arcadeStats["total_rounds_survived_zombies" + map])]],
     [false, ["Doors Opened", checkAndFormat(arcadeStats["doors_opened_zombies" + map])], ["Windows Repaired", checkAndFormat(arcadeStats["windows_repaired_zombies" + map])]]
   ]
-}       
+}  
+
+function getArcadeHideAndSeekStats(mode) {
+  if(mode == "overall") {
+    mode = "";
+  } else {
+    mode = mode + "_";
+  }
+
+  return [
+    [false, ["Wins", sumStatsBasic([mode + "hider_wins_hide_and_seek", mode + "seeker_wins_hide_and_seek"], arcadeStats)]],
+    [false, ["Wins (Hider)", checkAndFormat(arcadeStats[mode + "hider_wins_hide_and_seek"])], ["Wins (Seeker)", checkAndFormat(arcadeStats[mode + "seeker_wins_hide_and_seek"])]],
+    // party_pooper_seeker_wins_hide_and_seek
+  ]
+}
+
+function getArcadeSeasonalStats(game) {
+  if(game == "overall") {
+    return [
+      [false, ["Wins", checkAndFormat(sumStats(["wins"], ["santa_simulator", "scuba_simulator", "halloween_simulator", "grinch_simulator_v2", "easter_simulator"], arcadeStats, "_", true))]],
+      [false, ["Items Found", checkAndFormat(sumStatsBasic(["delivered_santa_simulator", "items_found_scuba_simulator", "candy_found_halloween_simulator", "gifts_grinch_simulator_v2", "eggs_found_easter_simulator"], arcadeStats))]]
+    ]
+  } else {
+    if(game == "grinch_simulator_v2") {
+      return [
+        [false, ["Wins", checkAndFormat(arcadeStats["wins_grinch_simulator_v2"])]],
+        [false, ["Gifts Stolen", checkAndFormat(arcadeStats["gifts_grinch_simulator_v2"])]]   
+      ]
+    } else if(game == "scuba_simulator") {
+      return [
+        [false, ["Wins", checkAndFormat(arcadeStats["wins_scuba_simulator"])]],
+        [false, ["Items Found", checkAndFormat(arcadeStats["items_found_scuba_simulator"])], ["Total Points", checkAndFormat(arcadeStats["total_points_scuba_simulator"])]],   
+      ]
+    } else if(game == "santa_simulator") {
+      return [
+        [false, ["Wins", checkAndFormat(arcadeStats["wins_santa_simulator"])]],
+        [false, ["Gifts Delivered", checkAndFormat(arcadeStats["delivered_santa_simulator"])], ["Times Spotted", checkAndFormat(arcadeStats["spotted_santa_simulator"])]],   
+      ]
+    } else if(game == "halloween_simulator") {
+      return [
+        [false, ["Wins", checkAndFormat(arcadeStats["wins_halloween_simulator"])]],
+        [false, ["Candy Found", checkAndFormat(arcadeStats["candy_found_halloween_simulator"])]],   
+      ]
+    } else if(game == "easter_simulator") {
+      return [
+        [false, ["Wins", checkAndFormat(arcadeStats["wins_easter_simulator"])]],
+        [false, ["Eggs Found", checkAndFormat(arcadeStats["eggs_found_easter_simulator"])]],   
+      ]
+    }
+
+  }
+}
 
 function getDuelsStats(mode, is_bridge = false, cuteName) {
     importedDuelsStats = [
@@ -620,6 +670,7 @@ function getDuelsOverallModeStats(modeArray, is_bridge = false, cuteName) {
 
 
 function sumStats(statNames, modeNames, statArray, separator = "_", reverse = false) { // Checks and adds stats, round-robin style
+// Usage example: sumStats(["wins", "losses"], ["uhc_duel", "uhc_doubles", "uhc_four"], duelsStats, "_", false)
     statSum = Array(statNames.length).fill(0);
     for(aRow = 0; aRow < statNames.length; aRow++) {
         for(aCol = 0; aCol < modeNames.length; aCol++) {
@@ -631,6 +682,14 @@ function sumStats(statNames, modeNames, statArray, separator = "_", reverse = fa
         }
     }
     return statSum;
+}
+
+function sumStatsBasic(statNames, statArray) { // Adds stats and returns a result
+  let statSum = 0;
+  for(a = 0; a < statNames.length; a++) {
+    statSum += und(statArray[statNames[a]]);
+  }
+  return statSum;
 }
 
 function maxStats(statNames, modeNames, statArray, separator = "_", reverse = false) { // Determines the maximum value of a stat, round-robin style
@@ -999,7 +1058,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "tntgames" // gamemode
   ]
 
-  let wizardsList = [["Overall", "overall", "/img/icon/minecraft/tnt.png"], ["Ancient", "new_ancientwizard", "/img/icon/minecraft/magma_cream.png"], ["Arcane", "arcane_wizard", "/img/icon/minecraft/disc_11.png"], ["Blood", "new_bloodwizard", "/img/icon/minecraft/bone.png"], ["Fire", "new_firewizard", "/img/icon/minecraft/blaze_rod.png"], ["Hydro", "new_hydrowizard", "/img/icon/minecraft/lapis_lazuli.png"], ["Ice", "new_icewizard", "/img/icon/minecraft/diamond_hoe.png"], ["Kinetic", "new_kineticwizard", "/img/icon/minecraft/iron_hoe.png"], ["Storm", "new_stormwizard", "/img/icon/minecraft/gold_sword.png"], ["Toxic", "new_toxicwizard", "/img/icon/minecraft/ghast_tear.png"], ["Wither", "new_witherwizard", "/img/icon/minecraft/gold_axe.png"]];
+  let wizardsList = [["Overall", "overall", `/img/icon/minecraft/tnt.${imageFileType}`], ["Ancient", "new_ancientwizard", `/img/icon/minecraft/magma_cream.${imageFileType}`], ["Arcane", "arcane_wizard", `/img/icon/minecraft/disc_11.${imageFileType}`], ["Blood", "new_bloodwizard", `/img/icon/minecraft/bone.${imageFileType}`], ["Fire", "new_firewizard", `/img/icon/minecraft/blaze_rod.${imageFileType}`], ["Hydro", "new_hydrowizard", `/img/icon/minecraft/lapis_lazuli.${imageFileType}`], ["Ice", "new_icewizard", `/img/icon/minecraft/diamond_hoe.${imageFileType}`], ["Kinetic", "new_kineticwizard", `/img/icon/minecraft/iron_hoe.${imageFileType}`], ["Storm", "new_stormwizard", `/img/icon/minecraft/gold_sword.${imageFileType}`], ["Toxic", "new_toxicwizard", `/img/icon/minecraft/ghast_tear.${imageFileType}`], ["Wither", "new_witherwizard", `/img/icon/minecraft/gold_axe.${imageFileType}`]];
 
   let totalWizardStats = sumStats(["kills", "deaths", "healing", "damage_taken", "assists"], wizardsList.map(x => x[1]), tntGamesStats, "_", false);
 
@@ -1038,8 +1097,13 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
 }
 
 function generateArcade() {
-  arcadeStats = playerData["stats"]["Arcade"];
+  arcadeStats = playerData["stats"]["Arcade"] || {};
+  let dropperStats = arcadeStats["dropper"] || {};
+  let pixelPartyStats = arcadeStats["pixel_party"] || {};
 
+  let easyWins = sumStatsBasic(["wins_dayone", "wins_oneinthequiver", "woolhunt_participated_wins", "wins_dragonwars2", "wins_ender", "wins_farm_hunt", "wins_soccer", "sw_game_wins", "hider_wins_hide_and_seek", "seeker_wins_hide_and_seek", "wins_hole_in_the_wall", "wins_mini_walls", "wins_party", "wins_simon_says", "wins_draw_their_thing", "wins_throw_out", "wins_zombies", "wins_easter_simulator", "wins_halloween_simulator", "wins_santa_simulator", "wins_scuba_simulator", "wins_grinch_simulator_v2"], arcadeStats);
+
+  updateElement("arcade-overall-wins", checkAndFormat(easyWins + und(dropperStats["wins"]) + und(pixelPartyStats["wins"])), arcadeStats);
   updateElement("arcade-overall-coins", checkAndFormat(arcadeStats["coins"]));
 
   // Blocking Dead
@@ -1120,13 +1184,12 @@ function generateArcade() {
     "arcade" // gamemode
   ]
 
-  let dropperStats = arcadeStats["dropper"] || {};
   console.log(dropperStats);
   let dropperCard = [
     "arcade-stats-dropper", // ID
     "Dropper", // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/dropper.${imageFileType}`, // Background image
     [
       [false, ["Wins", checkAndFormat(dropperStats["wins"])], ["Losses", locale(und(dropperStats["games_played"]) - und(dropperStats["wins"]), 0)], ["W/L R", calculateRatio(dropperStats["wins"], und(dropperStats["games_played"]) - und(dropperStats["wins"]))]],
       [false, ["Maps Completed", checkAndFormat(dropperStats["maps_completed"])], ["Fails", checkAndFormat(dropperStats["fails"])]],
@@ -1179,7 +1242,7 @@ function generateArcade() {
       [false, ["Goals", checkAndFormat(arcadeStats["goals_soccer"])], ["Kicks", checkAndFormat(arcadeStats["kicks_soccer"])], ["Power Kicks", checkAndFormat(arcadeStats["powerkicks_soccer"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
-    `/img/icon/minecraft/football.${imageFileType}`, // Chip image
+    `/img/icon/minecraft/head_football.${imageFileType}`, // Chip image
     "arcade" // gamemode
   ]
 
@@ -1203,17 +1266,14 @@ function generateArcade() {
     "Hide and Seek", // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
+    getArcadeHideAndSeekStats("overall"), // Displayed stats
     [
-      [false, ["Wins (Hider)", checkAndFormat(arcadeStats["hider_wins_hide_and_seek"])], ["Wins (Seeker)", checkAndFormat(arcadeStats["seeker_wins_hide_and_seek"])]],
-
-      [false, ["Wins (Party Pooper Seeker)", checkAndFormat(arcadeStats["party_pooper_seeker_wins_hide_and_seek"])], ["Wins (Party Pooper Hider)", checkAndFormat(arcadeStats["party_pooper_hider_wins_hide_and_seek"])]],
-      [false, ["Wins (Prop Hunt Seeker)", checkAndFormat(arcadeStats["prop_hunt_seeker_wins_hide_and_seek"])], ["Wins (Prop Hunt Hider)", checkAndFormat(arcadeStats["prop_hunt_hider_wins_hide_and_seek"])]],
-
-      
-    ], // Displayed stats
-    [], // Other stats (shown in drop-down menu]
+      ["Overall", "overall", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
+      ["Party Pooper", "party_pooper", `/img/icon/minecraft/tnt.${imageFileType}`],
+      ["Prop Hunt", "prop_hunt", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
+    ], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/blaze_rod.${imageFileType}`, // Chip image
-    "arcade" // gamemode
+    "arcade_hide_and_seek" // gamemode
   ]
 
   let holeInTheWallCard = [
@@ -1256,7 +1316,7 @@ function generateArcade() {
       [false, ["Final Kills", checkAndFormat(arcadeStats["final_kills_mini_walls"])], ["Wither Kills", checkAndFormat(arcadeStats["wither_kills_mini_walls"])], ["Wither Damage", checkAndFormat(arcadeStats["wither_damage_mini_walls"] / 2) + ` ♥&#xFE0E;`]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
-    `/img/icon/minecraft/mini_walls.${imageFileType}`, // Chip image
+    `/img/icon/minecraft/head_miniwalls.${imageFileType}`, // Chip image
     "arcade" // gamemode
   ]
 
@@ -1287,7 +1347,6 @@ function generateArcade() {
     "arcade" // gamemode
   ]
 
-  pixelPartyStats = arcadeStats["pixel_party"] || {};
   let pixelPartyCard = [
     "arcade-stats-pixelparty", // ID
     "Pixel Party", // Title
@@ -1321,12 +1380,7 @@ function generateArcade() {
     "Zombies", // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
-    [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_zombies"])]],
-      [false, ["Kills", checkAndFormat(arcadeStats["zombie_kills_zombies"])], ["Deaths", checkAndFormat(arcadeStats["deaths_zombies"])], ["K/D R", calculateRatio(arcadeStats["zombie_kills_zombies"], arcadeStats["deaths_zombies"])]],
-      [false, ["Downs", checkAndFormat(arcadeStats["times_knocked_down_zombies"])], ["Revives", checkAndFormat(arcadeStats["revives_zombies"])], ["Rounds Survived", checkAndFormat(arcadeStats["total_rounds_survived_zombies"])]],
-      [false, ["Doors Opened", checkAndFormat(arcadeStats["doors_opened_zombies"])], ["Windows Repaired", checkAndFormat(arcadeStats["windows_repaired_zombies"])]]
-    ], // Displayed stats
+    getZombiesStats("overall"), // Displayed stats
     [
       ["Overall", "overall"],
       ["Dead End", "deadend"],
@@ -1334,14 +1388,28 @@ function generateArcade() {
       ["Alien Arcadium", "alienarcadium"],
     ], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/zombie_head.${imageFileType}`, // Chip image
-    "arcade" // gamemode
+    "arcade_zombies" // gamemode
   ]
 
   let seasonalCard = [
-    "", "", "", "", [], [], "",
+    "arcade-stats-seasonal", // ID
+    "Seasonal Games", // Title
+    "", // Subtitle
+    `/img/games/404.${imageFileType}`, // Background image
+    getArcadeSeasonalStats("overall"), // Displayed stats
+    [
+      ["Overall", "overall"],
+      ["Grinch Simulator", "grinch_simulator_v2", `/img/icon/minecraft/head_grinchsimulator.${imageFileType}`],
+      ["Easter Simulator", "easter_simulator", `/img/icon/minecraft/head_eastersimulator.${imageFileType}`],
+      ["Halloween Simulator", "halloween_simulator", `/img/icon/minecraft/head_halloweensimulator.${imageFileType}`],
+      ["Scuba Simulator", "scuba_simulator", `/img/icon/minecraft/head_scubasimulator.${imageFileType}`],
+      ["Santa Simulator", "santa_simulator", `/img/icon/minecraft/head_santasimulator.${imageFileType}`],
+    ], // Other stats (shown in drop-down menu]
+    `/img/icon/minecraft/head_seasonal.${imageFileType}`, // Chip image
+    "arcade_seasonal" // gamemode
   ]
 
-  arcadeCards = [blockingDeadCard, bountyHuntersCard, captureTheWoolCard, creeperAttackCard, dragonWarsCard, dropperCard, enderSpleefCard, farmHuntCard, footballCard, galaxyWarsCard, hideAndSeekCard, holeInTheWallCard, hypixelSaysCard, miniWallsCard, partyGamesCard, pixelPartyCard, throwOutCard, zombiesCard, seasonalCard];
+  arcadeCards = [blockingDeadCard, bountyHuntersCard, captureTheWoolCard, creeperAttackCard, dragonWarsCard, dropperCard, enderSpleefCard, farmHuntCard, footballCard, galaxyWarsCard, hideAndSeekCard, holeInTheWallCard, hypixelSaysCard, miniWallsCard, partyGamesCard, pixelPaintersCard, pixelPartyCard, throwOutCard, zombiesCard, seasonalCard];
   for(d = 0; d < arcadeCards.length; d++) {
     generateChip(arcadeCards[d], (d % 2 == 0 ? "arcade-chips-1" : "arcade-chips-2"));
   }
@@ -1470,8 +1538,12 @@ function updateChipStats(name, chipId, gamemode) { // Updates what a chip does w
       updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
     } else if(gamemode == "tntgames") {
       updateElement(chipId, generateChipStats(allTNTWizardStats[newValue]), true);
-    } else if(gamemode == "arcade") {
+    } else if(gamemode == "arcade_zombies") {
       updateElement(chipId, generateChipStats(getZombiesStats(newValue)), true);
+    } else if(gamemode == "arcade_seasonal") {
+      updateElement(chipId, generateChipStats(getArcadeSeasonalStats(newValue)), true);
+    } else if(gamemode == "arcade_hide_and_seek") {
+      updateElement(chipId, generateChipStats(getArcadeHideAndSeekStats(newValue)), true);
     }
 }
 
