@@ -80,6 +80,11 @@ function generateNetwork() { // Inserts general/network stats into the DOM
 
         updateElement("card-uuid", playerData["uuid"]);
         updateElement("card-ranktext", playerRankCute[1], true); // Adds player's rank
+
+        if(playerRankCute[1] == "") {
+          document.getElementById("card-rank").style.display = "none";
+        }
+
         updateElement("card-name", playerData["name"]);
         updateElement("quick-mode-username", playerData["name"]);
         updateElement("header-name", cuteRank(profileStats["tagged_name"], 0), true);
@@ -479,7 +484,7 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
 }
 
 function generateSkyWars() {
-    skyWarsStats = playerData["stats"]["SkyWars"];
+    skyWarsStats = playerData["stats"]["SkyWars"] || {};
     if(skyWarsStats != undefined) {
 
     if(skyWarsStats["levelFormatted"] != undefined) {
@@ -732,7 +737,7 @@ function maxStats(statNames, modeNames, statArray, separator = "_", reverse = fa
 }
 
 function generateDuels() { // Generates stats and chips for Duels
-    duelsStats = playerData["stats"]["Duels"];
+    duelsStats = playerData["stats"]["Duels"] || {};
     if(duelsStats != undefined) {
     duelsChips = [];
 
@@ -843,12 +848,12 @@ function generateDuels() { // Generates stats and chips for Duels
 
 function generateBuildBattle() { // Generates stats and chips for Build Battle
 
-    let buildBattleStats = playerData["stats"]["BuildBattle"];
+    let buildBattleStats = playerData["stats"]["BuildBattle"] || {};
     if(buildBattleStats != undefined) {
 
     buildBattleTitle = getBuildBattleTitle(und(buildBattleStats["score"]));
     updateElement("buildbattle-overall-title", buildBattleTitle[0], true);
-    updateElement("buildbattle-overall-to-go", buildBattleTitle[1] == -1 ? `(Max title!)` : `${checkAndFormat(buildBattleTitle[1])} to go)`);
+    updateElement("buildbattle-overall-to-go", buildBattleTitle[1] == -1 ? `(Max title!)` : `(${checkAndFormat(buildBattleTitle[1])} to go)`);
     updateElement("buildbattle-overall-progress-number", Math.floor(buildBattleTitle[2] * 100) + "%");
     document.getElementById("buildbattle-overall-progress-bar").style.width = (buildBattleTitle[2] * 100) + "%";
     
