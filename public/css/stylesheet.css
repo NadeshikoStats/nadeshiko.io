@@ -836,7 +836,7 @@ footer>a:hover {
 }
 
 .dropdown-chip {
-    min-width: 108px;
+    min-width: 160px;
 }
 
 .dropdown-content a, .dropdown-content div {
@@ -890,7 +890,9 @@ footer>a:hover {
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     transition-duration: var(--transition-small);
+    min-width: 160px;
 }
 
 /* Adds dropdown arrow after .chip-dropdown-button */

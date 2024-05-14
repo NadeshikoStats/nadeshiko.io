@@ -16,6 +16,7 @@
   <script src="/external/skinview3d.bundle.js" type="module"></script>
   <script src="/external/minecrafttext.js"></script>
   <script src="/external/games.js"></script>
+  <script src="/external/gamenames.js"></script>
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
   <meta property="twitter:image" content="https://minotar.net/helm/<%= playerData.uuid %>.png">
@@ -81,7 +82,15 @@
                   </span>
                   <span id="card-uuid"></span>
                 </div>
-                <span id="online-status"><span class="mc">Unknown</span></span>
+
+                <span id="online-status-wrapper">
+                  <span id="online-status">
+                    <span class="mc">Unknown</span>
+                  </span>
+                  <span class="tooltiptext">
+                    <span id="online-status-location"></span>
+                  </span>
+                </span>
               </div>
   
               <div class="extended-card" id="extended-card">

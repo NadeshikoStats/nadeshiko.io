@@ -110,16 +110,37 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         else {
           updateElement("last-login", (lastLoginDate).toLocaleDateString());
           updateElement("last-login-ago", `(${relativeTime(lastLoginDate)})`);
-                    updateElement("last-login-ago-full", 
-        new Intl.DateTimeFormat("default", { 
-          dateStyle: 'long',
-                    timeStyle: 'long'
-        }).format(lastLoginDate));
+          updateElement("last-login-ago-full", new Intl.DateTimeFormat("default", { 
+            dateStyle: 'long',
+            timeStyle: 'long'
+          }).format(lastLoginDate));
         }
+
+        
         
         if(playerData["status"]["online"]) { // Checks player's online status
           updateElement("online-status", "Currently Online!");
           document.getElementById("online-status").style.color = "var(--mca)";
+
+          document.getElementById("online-status-wrapper").classList.add("tooltip");
+
+          // If the player is online, show the game and mode
+
+          let gameType = gameNames[playerData["status"]["game"]];
+          let gameModes = gameType["modeNames"] || {};
+          
+          let gameMode = "";
+          if(playerData["status"]["mode"] == "LOBBY") {
+            gameMode = "Lobby";
+          } else {
+            gameMode = (gameModes[playerData["status"]["mode"]]) || "";
+          }
+
+          if(gameMode != "") {
+            gameMode = " – " + gameMode;
+          }
+
+          updateElement("online-status-location", gameType["name"] + gameMode);
         }
         else updateElement("online-status", "Currently Offline");
 
