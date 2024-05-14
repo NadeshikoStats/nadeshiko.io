@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="/css/stylesheet.css">
     <script src="/external/gsap.min.js"></script>
     <script src="/external/petals.js"></script>
-    <script src="/external/odometer.min.js"></script>
-    <link rel="stylesheet" href="/css/odometer.css">
     <meta name="theme-color" content="#f6adc6">
     <meta property="og:site_name" content="nadeshiko.io">
     <meta name="twitter:image" content="https://nadeshiko.io/img/logo.png">
@@ -42,7 +40,7 @@
           <span id="recent-search-label">Recent Searches</span>
         </div>
       <div class="in-development" style="text-align: center;">
-          <span style="padding: 20px;">⚠️ <b>Web development on nadeshiko has been paused until the <a href="https://github.com/niqumu" target="_blank" style="color: var(--nadeshiko)">backend developer</a> resumes work on the project.</b><br><br>Last <a href="https://github.com/NadeshikoStats/NadeshikoBackend" target="_blank" style="color: var(--nadeshiko)">backend</a> update: <span class="odometer" id="last-update-days"></span>d <span class="odometer" id="last-update-hours"></span>h <span class="odometer" id="last-update-minutes"></span>m <span class="odometer" id="last-update-minutes"></span>s ago</span>
+          <span style="padding: 20px;">⚠️ <b>It's not a bug – nadeshiko's early in development!</b><br><br>Most things here aren't completed yet, but check our <a href="https://github.com/NadeshikoStats/" target="_blank" style="color: var(--nadeshiko)">GitHub</a> to watch the site grow!</span>
         </div>
         <% if(typeof computationError !== 'undefined') { %>
           <div class="home-error-container">
@@ -155,49 +153,6 @@ if(recentSearches != null) {
     document.getElementById("recent-searches").insertAdjacentHTML("beforeend", recentSearchItem);
   }
 }
-
-function apz(num, size) {
-  num = num.toString();
-  while (num.length < size) num = "0" + num;
-  return num;
-}
-
-let lastUpdate = 1712982693000
-let days, hours, minutes, seconds;
-function calculateTimeSinceLastUpdate() {
-  let time = (new Date().getTime() - lastUpdate);
-  days = Math.floor(time / (1000 * 60 * 60 * 24));
-  time -= days * (1000 * 60 * 60 * 24);
-  hours = Math.floor(time / (1000 * 60 * 60));
-  time -= hours * (1000 * 60 * 60);
-  minutes = Math.floor(time / (1000 * 60));
-  time -= minutes * (1000 * 60);
-  seconds = Math.floor(time / 1000);
-  return [days, hours, minutes, seconds];
-}
-
-var els = document.querySelectorAll('.odometer');
-ods = [];
-for (var i = 0; i < els.length; i++) {
-  ods.push(new Odometer({
-    el: els[i],
-    value: calculateTimeSinceLastUpdate()[i],
-    format: '',
-    theme: 'minimal',
-    duration: 300,
-    minIntegerLen: 2
-  }));
-}
-
-setInterval(function() {
-  let days, hours, minutes, seconds;
-  [days, hours, minutes, seconds] = calculateTimeSinceLastUpdate();
-  ods[0].update(days);
-  ods[1].update(hours);
-  ods[2].update(minutes);
-  ods[3].update(seconds);
-}, 1000);
-
 
 </script>
 

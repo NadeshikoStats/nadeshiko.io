@@ -133,13 +133,6 @@
       </picture>
       <strong><a href="https://codepen.io/MAW" target="_blank">GSAP Tutorials</a></strong> <span>by Diaco M Lotfolahi on CodePen</span>
     </p>
-
-    <p class="flex-two-item-basic about-flex">
-      <picture class="picture-credits">
-        <source srcset="/img/credits/isometricrenders.webp" type="image/webp">
-        <img src="/img/credits/isometricrenders.png" class="about-icon" alt="" />
-      </picture>
-      <strong><a href="https://github.com/glisco03/isometric-renders" target="_blank">Isometric Renders</a></strong> by gliscowo
     
     <hr style="opacity: 0;" />
     
@@ -278,10 +271,10 @@ function updateSettingFunctionality(setting, settingValue) { // Updates the func
   document.getElementById(`checkbox-${setting}`).checked = settingValue;
   if(setting == "developer-mode") {
     if(settingValue) {
-      //document.getElementById("card-uuid").style.display = "initial";
+      document.getElementById("card-uuid").style.display = "initial";
       document.getElementById("developer-info").style.display = "initial";
     } else {
-      //document.getElementById("card-uuid").style.display = "none";
+      document.getElementById("card-uuid").style.display = "none";
       document.getElementById("developer-info").style.display = "none";
     }
   }
