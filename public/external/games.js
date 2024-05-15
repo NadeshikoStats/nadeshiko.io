@@ -278,6 +278,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         generateMurderMystery();
         generateTNTGames();
         generateArcade();
+        generatePit();
 
         addRecentPlayer(playerData["name"], playerRankCute[0]);
       } else { // If no Hypixel stats, hide most buttons and show a warning
@@ -1441,6 +1442,219 @@ function generateArcade() {
   }
 }
 
+function generatePit() {
+  pitStats = playerData["stats"]["Pit"] || {};
+  pitProfileStats = pitStats["profile"] || {};
+  pitPtlStats = pitStats["pit_stats_ptl"] || {};
+
+  let pitXpMap = [15, 30, 50, 75, 125, 300, 600, 800, 900, 1000, 1200, 1500, 0];
+  let pitPrestiges = [100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000, 2400, 2800, 3200, 3600, 4000, 4500, 5000, 7500, 10000, 10100, 10100, 10100, 10100, 10100, 20000, 30000, 40000, 50000, 75000, 100000, 125000, 150000, 175000, 200000, 300000, 500000, 1000000, 5000000, 10000000,];
+  let pitPrestigeXp = [65950, 138510, 217680, 303430, 395760, 494700, 610140, 742040, 906930, 1104780, 1368580, 1698330, 2094030, 2555680, 3083280, 3676830, 4336330, 5127730, 6051030, 7106230, 8293330, 9612330, 11195130, 13041730, 15152130, 17526330, 20164330, 23132080, 26429580, 31375830, 37970830, 44631780, 51292730, 57953680, 64614630, 71275580, 84465580, 104250580, 130630580, 163605580, 213068080, 279018080, 361455580, 460380580,575793080, 707693080, 905543080, 1235293080, 1894793080, 5192293080, 11787293080];
+  let pitPrestigeGold = [10000, 20000, 20000, 20000, 30000, 35000, 40000, 45000, 50000, 60000, 70000, 80000, 90000, 100000, 125000, 150000, 175000, 200000, 250000, 300000, 350000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000, 2000000];
+  let pitPrestigeColors = ["§7", "§9", "§e", "§6", "§c", "§5", "§d", "§f", "§b", "§1", "§0", "§4", "§8",];
+  let pitLevelColors = [ "§7", "§9", "§3", "§2", "§a", "§e", "§6", "§c", "§4", "§5", "§d", "§f", "§b"];
+
+  function pitXpToLevel(experience, data_type) {
+    x_prestige = 0;
+    x_level = 120;
+    x_120level = 0;
+
+    /* Data Types:
+        0: Unformatted      - "[I-26]"
+        1: Formatting codes - "§9[§eI§9-..."
+        2: Just prestige    - 1
+        3: Just level       - 26
+        4: [120] of pres XP - 138510
+    */
+
+    for (; x_prestige < 50; x_prestige++) {
+        if (experience <= pitPrestigeXp[x_prestige]) {
+            break;
+        }
+    }
+
+    x_120level = pitPrestigeXp[x_prestige];
+
+    while (x_120level > experience) {
+        x_level = x_level - 1;
+        x_120level = x_120level - Math.ceil((pitXpMap[Math.floor(x_level / 10)] * pitPrestiges[x_prestige]) / 100);
+    }
+
+    x_levelcolor = pitLevelColors[Math.floor(x_level / 10)]
+    if(x_level >= 60) {
+      x_levelcolor += "§l";
+    }
+
+    if (x_prestige === 0) {
+      x_prestigecolor = pitPrestigeColors[0];
+    } else if (x_prestige === 48 || x_prestige === 49) {
+      x_prestigecolor = pitPrestigeColors[11];
+    } else if (x_prestige === 50) {
+      x_prestigecolor = pitPrestigeColors[12];
+    } else {
+      x_prestigecolor = pitPrestigeColors[Math.floor(x_prestige / 5) + 1];
+    }
+
+    if(data_type == 2) {
+        return x_prestige;
+    } else if(data_type == 3) {
+        return x_level;
+    } else if(x_prestige == 0) {
+        if(data_type == 0) {
+            return "[" + x_level + "]";
+        } else if(data_type == 1) {
+            return `§7[${x_levelcolor}${x_level}§7]`;
+        }
+
+    } else {
+        if(data_type == 0) {
+            return "[" + convertToRoman(x_prestige) + "-" + x_level + "]" 
+        } else {
+            return `${x_prestigecolor}[§e${convertToRoman(x_prestige)}-${x_levelcolor}${x_level}${x_prestigecolor}]`
+        }
+    }
+  }
+ /* 
+// Decode NBT function
+async function decodeNBT(raw) {
+  return new Promise((resolve, reject) => {
+    nbt.parse(raw, function (error, data) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
+
+const kvl = pitStats["profile"]["inv_enderchest"]["data"];
+const newKvl = kvl.map(x => x < 0 ? x + 256 : x);
+
+const compressedByteArray = new Uint8Array(newKvl);
+const decompressedData = pako.inflate(compressedByteArray);
+
+decodeNBT(decompressedData.buffer)
+.then(decodedData => console.warn(decodedData))
+.catch(error => console.error('Error decoding NBT data:', error));
+
+    console.warn(pitStats["profile"]["inv_enderchest"]["data"]);
+  console.log(pitStats);*/
+  let pitXp = und(pitProfileStats["xp"]);
+  let pitPrestige = pitXpToLevel(pitXp, 2);
+
+  let pitXpProgress;
+  if(pitPrestige == 0) {
+    pitXpProgress = (pitXp / pitPrestigeXp[pitPrestige]) * 100;
+  } else {
+    pitXpProgress = ((pitXp - pitPrestigeXp[pitPrestige - 1]) / (pitPrestigeXp[pitPrestige] - pitPrestigeXp[pitPrestige - 1])) * 100;
+  }
+
+  updateElement("pit-prestige", generateMinecraftText(pitXpToLevel(pitXp, 1)), true);
+  updateElement("pit-progress-number", `${Math.floor(pitXpProgress)}%`, true);
+  document.getElementById("pit-progress-bar").style.width = `${pitXpProgress}%`;
+
+  updateElement("pit-overall-gold", checkAndFormat(pitProfileStats["cash"]) + "g");
+  updateElement("pit-overall-kills", checkAndFormat(pitPtlStats["kills"]));
+  updateElement("pit-overall-assists", checkAndFormat(pitPtlStats["assists"]));
+  updateElement("pit-overall-deaths", checkAndFormat(pitPtlStats["deaths"]));
+  updateElement("pit-overall-kdr", calculateRatio(und(pitPtlStats["kills"]), und(pitPtlStats["deaths"])));
+  updateElement("pit-overall-playtime", smallDuration(und(pitPtlStats["playtime_minutes"]) * 60));
+  updateElement("pit-overall-joins", checkAndFormat(pitPtlStats["joins"]));
+  updateElement("pit-overall-renown", checkAndFormat(pitProfileStats["renown"]));
+  updateElement("pit-overall-clicks", checkAndFormat(pitPtlStats["left_clicks"]));
+  updateElement("pit-overall-highest-killstreak", checkAndFormat(pitPtlStats["max_streak"]));
+
+  updateElement("pit-overall-damage-dealt", checkAndFormat(pitPtlStats["damage_dealt"] / 2) + " ♥\uFE0E");
+  updateElement("pit-overall-damage-taken", checkAndFormat(pitPtlStats["damage_received"] / 2) + " ♥\uFE0E");
+
+  let combatChip = [
+    "pit-combat",
+    "Combat",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Sword Hits", checkAndFormat(pitPtlStats["sword_hits"])]],
+      [false, ["Arrows Shot", checkAndFormat(pitPtlStats["arrows_fired"])], ["Arrows Hit", checkAndFormat(pitPtlStats["arrow_hits"])]],
+      [false, ["Night Quests", checkAndFormat(pitPtlStats["night_quests_completed"])]]
+    ],
+    [],
+    ``
+  ];
+
+  let performanceChip = [
+    "pit-performance",
+    "Performance",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["XP", checkAndFormat(pitProfileStats["xp"])], ["Lifetime Gold", checkAndFormat(pitPtlStats["cash_earned"]) + "g"]],
+      [false, ["Contracts Started", checkAndFormat(pitPtlStats["contracts_started"])], ["Contracts Completed", checkAndFormat(pitPtlStats["contracts_completed"])]],
+    ],
+    [],
+    ``
+  ];
+
+  let perkChip = [
+    "pit-perks",
+    "Perks",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Golden Apples Eaten", checkAndFormat(pitPtlStats["gapple_eaten"])], ["Golden Heads Eaten", checkAndFormat(pitPtlStats["ghead_eaten"])]],
+      [false, ["Blocks Placed", checkAndFormat(pitPtlStats["blocks_placed"])], ["Blocks Broken", checkAndFormat(pitPtlStats["blocks_broken"])]],
+      [false, ["Fishing Rod Launches", checkAndFormat(pitPtlStats["fishing_rod_launched"])], ["Lava Bucket Empties", checkAndFormat(pitPtlStats["lava_bucket_emptied"])]],
+      [false, ["Soups Drank", checkAndFormat(pitPtlStats["soups_drank"])]],
+    ],
+    [],
+    ``
+  ];
+
+  let mysticsChip = [
+    "pit-mystics",
+    "Mystics",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Mystics Enchanted", locale(sumStatsBasic(["enchanted_tier1", "enchanted_tier2", "enchanted_tier3"], pitPtlStats), 0)], ["Dark Pants Created", checkAndFormat(pitPtlStats["dark_pants_crated"])]],
+      [false, ["Tier 1s", checkAndFormat(pitPtlStats["enchanted_tier1"])], ["Tier 2s", checkAndFormat(pitPtlStats["enchanted_tier2"])], ["Tier 3s", checkAndFormat(pitPtlStats["enchanted_tier3"])]],
+    ],
+    [],
+    ``
+  ];
+
+  let farmingChip = [
+    "pit-farming",
+    "Farming",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Wheat Farmed", checkAndFormat(pitPtlStats["wheat_farmed"])]],
+      [false, ["Items Fished", checkAndFormat(pitPtlStats["fished_anything"])], ["Fish Fished", checkAndFormat(pitPtlStats["fishes_fished"])]],
+    ],
+    [],
+    ``
+  ];
+
+  let miscChip = [
+    "pit-misc",
+    "Miscellaneous",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Chat Messages", checkAndFormat(pitPtlStats["chat_messages"])], ["Ingots Picked Up", checkAndFormat(pitPtlStats["ingots_picked_up"])]],
+      [false, ["Pit Jumps", checkAndFormat(pitPtlStats["jumped_into_pit"])], ["Launcher Launches", locale(sumStatsBasic(["launched_by_launchers", "launched_by_angel_spawn", "launched_by_demon_spawn"], pitPtlStats), 0)]],
+      [false, ["Sewer Treasures", checkAndFormat(pitPtlStats["sewer_treasures_found"])], ["King's Quest Completions", checkAndFormat(pitPtlStats["king_quest_completion"])]]
+    ],
+    [],
+    ``
+  ];
+
+  let pitChips = [combatChip, performanceChip, perkChip, mysticsChip, farmingChip, miscChip];
+  for(d = 0; d < pitChips.length; d++) {
+    generateChip(pitChips[d], (d % 2 == 0 ? "pit-chips-1" : "pit-chips-2"));
+  }
+}
 
 function getBuildBattleTitle(score) { // Gets player's Build Battle title based on an amount of score
     let buildBattleTitles = [

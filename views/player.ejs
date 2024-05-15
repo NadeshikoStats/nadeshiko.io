@@ -17,6 +17,8 @@
   <script src="/external/minecrafttext.js"></script>
   <script src="/external/games.js"></script>
   <script src="/external/gamenames.js"></script>
+  <script src="/external/nbt.js"></script>
+  <script src="/external/pako.min.js"></script>
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
   <meta property="twitter:image" content="https://minotar.net/helm/<%= playerData.uuid %>.png">
@@ -278,7 +280,7 @@
           </div>
           <span class="general-button mright margin-top-bottom" onclick="showCardWizard('SKYWARS')">Generate Card</span>
         </div>
-        <div class="flex-two-item chip-container-duo-parent" id="skywars-chips">
+        <div class="flex-two-item chip-container-duo-parent">
           <div id="skywars-chips-1" class="chip-container-duo">
           </div>
           <div id="skywars-chips-2" class="chip-container-duo">
@@ -522,7 +524,7 @@
       </div>
       <span class="general-button mright margin-top-bottom" onclick="showCardWizard('TNTGAMES')">Generate Card</span>
     </div>
-    <div class="flex-two-item chip-container-duo-parent" id="skywars-chips">
+    <div class="flex-two-item chip-container-duo-parent">
       <div id="tntgames-chips-1" class="chip-container-duo">
       </div>
       <div id="tntgames-chips-2" class="chip-container-duo">
@@ -531,12 +533,65 @@
   </div>
 </div>
 
-    <div class="flex-container unloaded" id="flex-container-pit">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding Pit to nadeshiko shortly.</p>
-      </section>
+<div class="flex-container unloaded minigame-flex-container" id="flex-container-pit">
+  <!-- pit stats -->
+  <div class="chip-container" id="pit-chips">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title">Pit</p>
+      <div class="chip-small-container">
+        <p class="margin10">
+          Level <span id="pit-prestige"><span class="mc">Unknown</span></span> <span id="pit-xp-to-go"></span>
+        </p>
+        <div class="progress-bar">
+          <span class="progress-number" id="pit-progress-number"><span class="mc">Unknown</span></span>
+          <div class="progress" style="width: 0%;" id="pit-progress-bar"></div>
+        </div>
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle">Stats</p>
+            <div class="chip-small-statistic-row">
+                <p>Kills <span class="statistic" id="pit-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p>Deaths <span class="statistic" id="pit-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p>K/D R <span class="statistic" id="pit-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Assists <span class="statistic" id="pit-overall-assists"><span class="mc">Unknown</span></span></p>
+              <p>Highest Killstreak <span class="statistic" id="pit-overall-highest-killstreak"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Damage Dealt <span class="statistic" id="pit-overall-damage-dealt"><span class="mc">Unknown</span></span></p>
+              <p>Damage Taken <span class="statistic" id="pit-overall-damage-taken"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p>Gold <span class="statistic" id="pit-overall-gold"><span class="mc">Unknown</span></span></p>
+              <p>Renown <span class="statistic" id="pit-overall-renown"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Playtime <span class="statistic" id="pit-overall-playtime"><span class="mc">Unknown</span></span></p>
+              <p>Joins <span class="statistic" id="pit-overall-joins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Left Clicks <span class="statistic" id="pit-overall-clicks"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright margin-top-bottom" onclick="showCardWizard('PIT')">Generate Card</span>
     </div>
+    <div class="flex-two-item chip-container-duo-parent" id="buildbattle-chips">
+      <div id="pit-chips-1" class="chip-container-duo">
+      </div>
+      <div id="pit-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>
+</div>
 
 
     <div class="flex-container unloaded" id="flex-container-blitz">
