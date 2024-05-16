@@ -192,6 +192,12 @@ body {
     font-feature-settings: "cv02" on
 }
 
+@supports (height: 100dvh) {
+    body {
+        height: 100dvh;
+    }
+}
+
 kbd {
   all: unset;
   border: 1px solid #ccc8;
@@ -831,8 +837,15 @@ footer>a:hover {
     clip-path: circle(100vh at 50% 0);
 }
 
+.game-switch-hr {
+    margin: 5px 0px;
+    opacity: 0.5;
+    display: none;
+}
+
 .dropdown-games {
-    min-width: 160px;
+    min-width: min(220px, 100vw);
+    max-height: 70vh;
 }
 
 .dropdown-chip {
@@ -1715,9 +1728,6 @@ footer>a:hover {
     .dropdown-chip {
         min-width: 100px;
     }
-    .dropdown-games {
-        min-width: 100px;
-    }
     #social-media-button {
         display: initial;
     }
@@ -1813,6 +1823,9 @@ footer>a:hover {
     }
     .title-text {
       font-size: 18px;
+    }
+    .game-switch-hr {
+        display: block;
     }
   }
 

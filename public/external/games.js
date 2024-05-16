@@ -199,48 +199,51 @@ function generateNetwork() { // Inserts general/network stats into the DOM
 
         const quickModeGames = [
           { id: 'network', name: 'Network', minecraftId: 'hypixel_logo'},
-          { id: 'skyblock', name: 'SkyBlock', minecraftId: 'head_skyblock'},
-          { id: 'bedwars', name: 'Bed Wars', minecraftId: 'red_bed'},
-          { id: 'duels', name: 'Duels', minecraftId: 'fishing_rod'},
-          { id: 'skywars', name: 'SkyWars', minecraftId: 'ender_eye'},
           { id: 'arcade', name: 'Arcade', minecraftId: 'slime_ball'},
-          { id: 'buildbattle', name: 'Build Battle', minecraftId: 'crafting_table'},
-          { id: 'murdermystery', name: 'Murder Mystery', minecraftId: 'bow' },
-          { id: 'tntgames', name: 'TNT Games', minecraftId: 'tnt' },
-          { id: 'pit', name: 'Pit', minecraftId: 'dirt' },
-          { id: 'classic', name: 'Classic Games', minecraftId: 'jukebox' },
-          { id: 'megawalls', name: 'Mega Walls', minecraftId: 'soul_sand' },
-          { id: 'copsandcrims', name: 'Cops and Crims', minecraftId: 'iron_bars' },
-          { id: 'uhc', name: 'UHC', minecraftId: 'golden_apple' },
+          { id: 'bedwars', name: 'Bed Wars', minecraftId: 'red_bed'},
           { id: 'blitz', name: 'Blitz', minecraftId: 'diamond_sword' },
-          { id: 'woolwars', name: 'Wool Wars', minecraftId: 'white_wool' },
+          { id: 'buildbattle', name: 'Build Battle', minecraftId: 'crafting_table'},
+          { id: 'classic', name: 'Classic Games', minecraftId: 'jukebox' },
+          { id: 'copsandcrims', name: 'Cops and Crims', minecraftId: 'iron_bars' },
+          { id: 'duels', name: 'Duels', minecraftId: 'fishing_rod'},
+          { id: 'megawalls', name: 'Mega Walls', minecraftId: 'soul_sand' },
+          { id: 'murdermystery', name: 'Murder Mystery', minecraftId: 'bow' },
+          { id: 'pit', name: 'Pit', minecraftId: 'dirt' },
+          { id: 'skyblock', name: 'SkyBlock', minecraftId: 'head_skyblock'},
+          { id: 'skywars', name: 'SkyWars', minecraftId: 'ender_eye'},
+          { id: 'smashheroes', name: 'Smash Heroes', minecraftId: 'head_smashheroes' },
+          { id: 'tntgames', name: 'TNT Games', minecraftId: 'tnt' },
+          { id: 'uhc', name: 'UHC', minecraftId: 'golden_apple' },
           { id: 'warlords', name: 'Warlords', minecraftId: 'stone_axe' },
-          { id: 'smashheroes', name: 'Smash Heroes', minecraftId: 'head_smashheroes' }
+          { id: 'woolwars', name: 'Wool Wars', minecraftId: 'white_wool' },
         ];
 
         const quickModeGameContainer = document.getElementById("quick-mode-games");
         const gameSwitchMobileContainer = document.getElementById("game-switch-mobile");
         const gameSwitchContainer = document.getElementById("game-switch");
 
-        quickModeGames.slice(1).forEach(game => {
-          const spanTooltip = document.createElement('span');
-          spanTooltip.className = 'tooltip';
-          
-          const img = document.createElement('img');
-          img.src = `/img/icon/hypixel/${game.id}.webp`;
-          img.alt = "";
-          img.className = "quick-mode-game";
-          img.onclick = function() { switchStats(game.id) };
-      
-          const spanText = document.createElement('span');
-          spanText.className = 'tooltiptext';
-          spanText.textContent = game.name;
-      
-          spanTooltip.appendChild(img);
-          spanTooltip.appendChild(spanText);
-          quickModeGameContainer.appendChild(spanTooltip);
+        quickModeGames.forEach(game => {
+          if(game.id != "network") {
+            const spanTooltip = document.createElement('span');
+            spanTooltip.className = 'tooltip';
+            
+            const img = document.createElement('img');
+            img.src = `/img/icon/hypixel/${game.id}.webp`;
+            img.alt = "";
+            img.className = "quick-mode-game";
+            img.onclick = function() { switchStats(game.id) };
+        
+            const spanText = document.createElement('span');
+            spanText.className = 'tooltiptext';
+            spanText.textContent = game.name;
+        
+            spanTooltip.appendChild(img);
+            spanTooltip.appendChild(spanText);
+            quickModeGameContainer.appendChild(spanTooltip);
+          }
         });
 
+        let headerGames = ["network", "bedwars", "duels", "skywars"];
         quickModeGames.forEach((game, index) => {
           let container = document.createElement('div');
           container.setAttribute("onclick", `switchStats('${game.id}')`);
@@ -264,7 +267,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
           let text = document.createTextNode(game.name);
           container.appendChild(text);
           
-          if(index < 5 && game.id != "skyblock") {
+          if(headerGames.includes(game.id)) {
             gameSwitchMobileContainer.appendChild(container);
           } else {
             gameSwitchContainer.appendChild(container);
