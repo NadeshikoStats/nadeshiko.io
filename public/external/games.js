@@ -367,7 +367,7 @@ function linearGradient(colors) { // Generates a linear gradient based on an arr
 }
 
 function generateBedWars() { // Generates stats and chips for Bed Wars
-    bedWarsStats = playerData["stats"]["Bedwars"];
+    bedWarsStats = playerData["stats"]["Bedwars"] || {};
     if(bedWarsStats != undefined) {
 
     var modes = ["eight_one", "eight_two", "four_three", "four_four", "two_four"];
@@ -391,9 +391,9 @@ function generateBedWars() { // Generates stats and chips for Bed Wars
       ];
     var easyStats = ["wins", "losses", "kills", "deaths", "final_kills", "final_deaths", "beds_broken", "beds_lost"];
 
-    var bedWarsPrestigeColors = [["7"],["f"],["6"],["b"],["2"],["5"],["c"],["d"],["9"],["5"],["c","6","e","a","b","d","5"],["7","f","f","f","f","7","7"],["7","e","e","e","e","6","7"],["7","b","b","b","b","5","7"],["7","a","a","a","a","2","7"],["7","5","5","5","5","9","7"],["7","c","c","c","c","4","7"],["7","d","d","d","d","5","7"],["7","9","9","9","9","1","7"],["7","5","5","5","5","8","7"],["8","7","f","f","7","7","8"],["f","f","e","e","6","6","6"],["6","6","f","f","b","5","5"],["5","5","d","d","6","f","f"],["b","b","f","f","7","7","8"],["f","f","a","a","2","2","2"],["4","4","c","c","d","d","5"],["e","e","f","f","8","8","8"],["a","a","2","2","6","6","e"],["b","b","5","5","9","9","1"],["f","f","6","6","c","c","4"],["9","9","5","5","6","6","e"],["c","4","7","7","4","c","c"],["9","9","9","d","c","c","4"],["2","a","d","d","5","5","2"],["c","c","4","4","2","a","a"],["a","a","a","b","9","9","1"],["4","4","c","c","b","3","3"],["1","1","b","5","5","d","1"],["c","c","a","a","3","9","9"],["5","5","c","c","6","6","e"],["e","e","6","c","d","d","5"],["1","9","3","b","f","7","7"],["0","5","8","8","5","5","0"],["2","2","a","e","6","5","d"],["f","f","b","b","3","3","3"],["3","b","e","e","6","d","5"],["f","4","c","c","9","1","9"],["5","5","c","6","f","b","5"],["2","a","f","f","a","a","2"],["c","c","5","9","9","1","0"]];
+    var bedWarsPrestigeColors = [["7"],["f"],["6"],["b"],["2"],["3"],["4"],["d"],["9"],["5"],["c","6","e","a","b","d","5"],["7","f","f","f","f","7","7"],["7","e","e","e","e","6","7"],["7","b","b","b","b","5","7"],["7","a","a","a","a","2","7"],["7","5","5","5","5","9","7"],["7","c","c","c","c","4","7"],["7","d","d","d","d","5","7"],["7","9","9","9","9","1","7"],["7","5","5","5","5","8","7"],["8","7","f","f","7","7","8"],["f","f","e","e","6","6","6"],["6","6","f","f","b","5","5"],["5","5","d","d","6","f","f"],["b","b","f","f","7","7","8"],["f","f","a","a","2","2","2"],["4","4","c","c","d","d","5"],["e","e","f","f","8","8","8"],["a","a","2","2","6","6","e"],["b","b","5","5","9","9","1"],["f","f","6","6","c","c","4"],["9","9","5","5","6","6","e"],["c","4","7","7","4","c","c"],["9","9","9","d","c","c","4"],["2","a","d","d","5","5","2"],["c","c","4","4","2","a","a"],["a","a","a","b","9","9","1"],["4","4","c","c","b","3","3"],["1","1","b","5","5","d","1"],["c","c","a","a","3","9","9"],["5","5","c","c","6","6","e"],["e","e","6","c","d","d","5"],["1","9","3","b","f","7","7"],["0","5","8","8","5","5","0"],["2","2","a","e","6","5","d"],["f","f","b","b","3","3","3"],["3","b","e","e","6","d","5"],["f","4","c","c","9","1","9"],["5","5","c","6","f","b","5"],["2","a","f","f","a","a","2"],["c","c","5","9","9","1","0"]];
 
-    let bedWarsLevel = getBedWarsLevel(bedWarsStats["Experience"]);
+    let bedWarsLevel = getBedWarsLevel(und(bedWarsStats["Experience"]));
 
     updateElement("bed-wars-level", checkAndFormat(bedWarsLevel, 0));
     document.getElementById("bed-wars-level-container").style.background = linearGradient(bedWarsPrestigeColors[Math.floor(Math.max(bedWarsLevel / 100), 49)]);
@@ -902,7 +902,7 @@ function generateBuildBattle() { // Generates stats and chips for Build Battle
 }
 
 function generateMurderMystery() { // Generates stats and chips for Murder Mystery
-    let murderMysteryStats = playerData["stats"]["MurderMystery"];
+    let murderMysteryStats = playerData["stats"]["MurderMystery"] || {};
     if(murderMysteryStats != undefined) {
 
     let easyStats = ["kills", "deaths", "wins", "coins", "coins_pickedup", "murderer_wins", "detective_wins", "kills_as_murderer", "was_hero"];
@@ -967,7 +967,7 @@ function generateMurderMystery() { // Generates stats and chips for Murder Myste
 }
 
 function generateTNTGames() { // Generates stats and chips for TNT Games
-  let tntGamesStats = playerData["stats"]["TNTGames"];
+  let tntGamesStats = playerData["stats"]["TNTGames"] || {};
   if(tntGamesStats != undefined) {
     let easyStats = ["wins", "coins"];
 
