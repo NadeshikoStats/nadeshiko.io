@@ -999,7 +999,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
       { minimumWinsHigh: 15000, minimumWinsLow: 10000, internalId: "rainbow", color: "rainbow" },
     ]
 
-    let chosenPrefix;
+    let chosenPrefix = tntGamesPrefixes[0];
     if(tntGamesStats[`prefix_${game}`] != undefined) {
       chosenPrefix = tntGamesPrefixes.find(x => x.internalId == tntGamesStats[`prefix_${game}`]);
     } else {

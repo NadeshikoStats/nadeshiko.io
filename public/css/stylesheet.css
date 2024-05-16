@@ -1027,7 +1027,7 @@ footer>a:hover {
 #card-uuid {
     font-family: monospace;
     font-size: 16px;
-    margin-left: 3px;
+    margin-left: 6px;
     margin-top: 3px;
 }
 
@@ -1088,6 +1088,8 @@ footer>a:hover {
 
 #online-status {
     text-align: right;
+    margin-left: 6px;
+    margin-top: 3px;
 }
 
 .w400 {
@@ -1706,6 +1708,23 @@ footer>a:hover {
     }
   }
   
+  @media (max-width: 950px) {
+    .chip-dropdown-button {
+        min-width: 100px;
+    }
+    .dropdown-chip {
+        min-width: 100px;
+    }
+    .dropdown-games {
+        min-width: 100px;
+    }
+    #social-media-button {
+        display: initial;
+    }
+    #social-media {
+        display: none;
+    }
+  }
 
   @media (max-width: 800px) {
     .avatar {
@@ -1750,12 +1769,6 @@ footer>a:hover {
     }
     .card-big-misc {
         margin-top: 30px;
-    }
-    #social-media {
-        display: none;
-    }
-    #social-media-button {
-        display: initial;
     }
     .mobile-exclusive {
         display: initial;

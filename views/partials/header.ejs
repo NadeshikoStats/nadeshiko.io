@@ -353,7 +353,7 @@ window.onclick = function(event) {
     }
   }
 
-  if (!event.target.closest('#button-card-wizard') && !event.target.closest('#card-wizard-ui')) {
+  if (!event.target.closest('#button-card-wizard') && !event.target.closest('#card-wizard-ui') && !event.target.closest('.general-button')) {
     if(cardWizardExpanded) {
       document.getElementById("modal-card-wizard").classList.add("unloaded");
       document.getElementById("button-card-wizard").classList.remove("selected");
