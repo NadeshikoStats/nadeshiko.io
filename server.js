@@ -7,7 +7,7 @@ const port = 8080;
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
-
+/*
 app.use(minify({
   cache: false,
   js_match: /javascript/,
@@ -15,7 +15,7 @@ app.use(minify({
   ejs_match: /ejs/,
 }));
 console.log("Minify enabled!");
-
+*/
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
