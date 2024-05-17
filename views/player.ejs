@@ -21,6 +21,8 @@
   <script src="/external/pako.min.js"></script>
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
+  <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+  <script>eruda.init();</script>
   <meta property="twitter:image" content="https://minotar.net/helm/<%= playerData.uuid %>.png">
 
   <% if (playerData && playerData.profile) { %>
@@ -1049,11 +1051,6 @@ function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, 
       window.location = "https://nadeshiko.io" + windowLocation.pathname + windowLocation.search;
   }
 }
-
-window.onerror = function(message, source, lineno, colno, error) {
-  alert(`Error: ${message}\nSource: ${source}\nLine: ${lineno}\nColumn: ${colno}`);
-  return true; // Prevent default error handling
-};
 
 var skinViewer;
 
