@@ -883,8 +883,6 @@ function generateBuildBattle() { // Generates stats and chips for Build Battle
             buildBattleModeStats[0].push(["Correct Guesses", checkAndFormat(buildBattleStats[`correct_guesses`])]);
         }
 
-        console.log(buildBattleModeStats);
-
         buildBattleChip = [
             ("buildbattle-stats-" + (buildBattleModes[a][1])), // ID
             buildBattleModes[a][0], // Title
@@ -1214,7 +1212,6 @@ function generateArcade() {
     "arcade" // gamemode
   ]
 
-  console.log(dropperStats);
   let dropperCard = [
     "arcade-stats-dropper", // ID
     "Dropper", // Title
@@ -1753,8 +1750,6 @@ function getDuelsTitle(wins, name = "") { // Generates a Duels title based on th
     }
 
     let rawDuelsTitle = name + chosenTitle["title"] + romanSuffix;
-
-    console.log([wins, name, `<span class="m${chosenTitle["color"]}">` + (chosenTitle["bold"] ? `<strong>${rawDuelsTitle}</strong>` : rawDuelsTitle) + `</span>`, winsToGo, chosenTitle["increment"] * multiplier])
 
     return [`<span class="m${chosenTitle["color"]}">` + (chosenTitle["bold"] ? `<strong>${rawDuelsTitle}</strong>` : rawDuelsTitle) + `</span>`, winsToGo, chosenTitle["increment"] * multiplier];
 }

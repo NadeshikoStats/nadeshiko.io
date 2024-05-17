@@ -1050,6 +1050,11 @@ function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, 
   }
 }
 
+window.onerror = function(message, source, lineno, colno, error) {
+  alert(`Error: ${message}\nSource: ${source}\nLine: ${lineno}\nColumn: ${colno}`);
+  return true; // Prevent default error handling
+};
+
 var skinViewer;
 
  function insertLoadedData() {
