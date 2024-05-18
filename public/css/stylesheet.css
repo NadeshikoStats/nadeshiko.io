@@ -481,6 +481,10 @@ footer>a:hover {
     opacity: 1;
 }
 
+.faded {
+    opacity: 0.5;
+}
+
 .search-icon {
     height: 15px;
     width: 15px;

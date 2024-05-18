@@ -21,8 +21,6 @@
   <script src="/external/pako.min.js"></script>
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
-  <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-  <script>eruda.init();</script>
   <meta property="twitter:image" content="https://minotar.net/helm/<%= playerData.uuid %>.png">
 
   <% if (playerData && playerData.profile) { %>
@@ -603,12 +601,46 @@
         <p class="subtitle-text">We'll be adding Blitz to nadeshiko sometime in the near future.</p>
       </section>
     </div>
-    <div class="flex-container unloaded" id="flex-container-classic">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming eventually!</p>
-        <p class="subtitle-text">We'll be adding Classic Games to nadeshiko sometime in the near future.</p>
-      </section>
+
+<div class="flex-container unloaded minigame-flex-container" id="flex-container-classic">
+  <!-- classic stats -->
+  <div class="chip-container" id="pit-chips">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title">Classic Games</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p>Wins <span class="statistic" id="classic-overall-kills"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Kills <span class="statistic" id="classic-overall-kills"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p>Classic Tokens <span class="statistic" id="classic-overall-tokens"><span class="mc">Unknown</span></span></p>
+              <p>Lifetime Tokens <span class="statistic" id="classic-overall-total_tokens"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Playtime <span class="statistic" id="classic-overall-playtime"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright margin-top-bottom" onclick="showCardWizard('CLASSIC')">Generate Card</span>
     </div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="classic-chips-1" class="chip-container-duo">
+      </div>
+      <div id="classic-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>
+</div>
 
     <div class="flex-container unloaded" id="flex-container-copsandcrims">
       <section class="player-card" style="align-content: center;">

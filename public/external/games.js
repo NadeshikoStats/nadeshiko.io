@@ -1,6 +1,7 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats; 
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats; 
 var allDuelsStats = { };
 var allTNTWizardStats = { };
+
 
 function calculateRatio(numerator, denominator, digits = 2) { // Calculates a ratio based on two stats
     return checkAndFormat((numerator) / (und(denominator) == 0 ? 1 : (denominator)), digits);
@@ -175,27 +176,27 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         document.getElementById("xp-progress-bar").style.width = xpProgress;
         updateElement("xp-progress-number", xpProgress);
 
-        if(Object.keys(profileStats["social_media"]).length != 0) {
+        let socialMediaList = profileStats["social_media"] || {};
+        if(Object.keys(socialMediaList).length != 0) {
           document.getElementById("social-media-button").classList.remove("unloaded");
           document.getElementById("social-media-dropdown-container").style.display = "flex";
         }
         var socials = ["HYPIXEL", "YOUTUBE", "TWITTER", "TIKTOK", "TWITCH", "DISCORD"];
         for(a = 0; a < socials.length; a++) { // Iterates through social media and hides icons that don't exist for the player
-          if(profileStats["social_media"][socials[a]] == undefined) {
+          if(socialMediaList[socials[a]] == undefined) {
             document.getElementById("social-" + (socials[a]).toLowerCase()).style.display = "none";
             document.getElementById("social-" + (socials[a]).toLowerCase() + "-alternative").style.display = "none";
           } else if(socials[a] != "DISCORD") {
-            socialMediaNew = profileStats["social_media"][socials[a]];
+            socialMediaNew = socialMediaList[socials[a]];
             socialMediaNewUrl = !/^https?:\/\//i.test(socialMediaNew) ? `https://${socialMediaNew}` : socialMediaNew; // Adds HTTPS to the URL if it doesn't have it already
 
             document.getElementById("sociallink-" + (socials[a]).toLowerCase()).href = socialMediaNewUrl;
             document.getElementById("social-" + (socials[a]).toLowerCase() + "-alternative").href = socialMediaNewUrl;
           } else {
-            updateElement("social-discord-username", profileStats["social_media"][socials[a]]);
-            updateElement("social-discord-username-alternative", profileStats["social_media"][socials[a]]);
+            updateElement("social-discord-username", socialMediaList[socials[a]]);
+            updateElement("social-discord-username-alternative", socialMediaList[socials[a]]);
           }
         }
-
 
         const quickModeGames = [
           { id: 'network', name: 'Network', minecraftId: 'hypixel_logo'},
@@ -282,6 +283,7 @@ function generateNetwork() { // Inserts general/network stats into the DOM
         generateTNTGames();
         generateArcade();
         generatePit();
+        generateClassic();
 
         addRecentPlayer(playerData["name"], playerRankCute[0]);
       } else { // If no Hypixel stats, hide most buttons and show a warning
@@ -597,6 +599,67 @@ function getArcadeHideAndSeekStats(mode) {
   ]
 }
 
+function getArenaBrawlStats(mode) {
+  let arenaModeStats = [];
+  let formattedArenaModeStats = [];
+  if(mode == "overall") {
+    arenaModeStats = sumStats(["wins", "losses", "kills", "deaths", "damage", "healed"], ["1v1", "2v2", "4v4"], arenaStats, "_", true);
+  } else {
+    arenaModeStats = [
+      und(arenaStats["wins_" + mode]),
+      und(arenaStats["losses_" + mode]),
+      und(arenaStats["kills_" + mode]),
+      und(arenaStats["deaths_" + mode]),
+      und(arenaStats["damage_" + mode]),
+      und(arenaStats["healed_" + mode])
+    ]
+    console.log(arenaModeStats);
+  }
+
+  for(let a = 0; a < arenaModeStats.length; a++) {
+    formattedArenaModeStats[a] = checkAndFormat(arenaModeStats[a]);
+  }
+
+  return [
+    [false, ["Coins", checkAndFormat(arenaStats["coins"])]],
+    [false, ["Wins", formattedArenaModeStats[0]], ["Losses", formattedArenaModeStats[1]], ["W/L R", calculateRatio(arenaModeStats[0], arenaModeStats[1])]],
+    [false, ["Kills", formattedArenaModeStats[2]], ["Deaths", formattedArenaModeStats[3]], ["K/D R", calculateRatio(arenaModeStats[2], arenaModeStats[3])]],
+    [false, ["Damage Dealt", formattedArenaModeStats[4] + " HP"], ["Damage Healed", formattedArenaModeStats[5] + " HP"]],
+    [false, ["Magical Keys", checkAndFormat(arenaStats["keys"])], ["Magical Chests", checkAndFormat(arenaStats["magical_chest"])]]
+  ]
+}
+
+function getQuakeStats(mode) {
+  let quakeModeStats = [];
+  let formattedQuakeModeStats = [];
+  if(mode == "overall") {
+    quakeModeStats = sumStats(["kills", "deaths", "wins", "headshots", "killstreaks", "shots_fired", "distance_travelled"], ["", "_teams"], quakeStats, "", true);
+  } else {
+    quakeModeStats = [
+      und(quakeStats["kills" + mode]),
+      und(quakeStats["deaths" + mode]),
+      und(quakeStats["wins" + mode]),
+      und(quakeStats["headshots" + mode]),
+      und(quakeStats["killstreaks" + mode]),
+      und(quakeStats["shots_fired" + mode]),
+      und(quakeStats["distance_travelled" + mode])
+    ]
+  }
+
+  for(let a = 0; a < quakeModeStats.length; a++) {
+    formattedQuakeModeStats[a] = checkAndFormat(quakeModeStats[a]);
+  }
+
+  return [
+    [false, ["Coins", checkAndFormat(quakeStats["coins"])]],
+    [false, ["Wins", formattedQuakeModeStats[2]]],
+    [false, ["Kills", formattedQuakeModeStats[0]], ["Deaths", formattedQuakeModeStats[1]], ["K/D R", calculateRatio(quakeModeStats[0], quakeModeStats[1])]],
+    [false, ["Headshots", formattedQuakeModeStats[3]], ["Killstreaks", formattedQuakeModeStats[4]]],
+    [false, ["Shots Fired", formattedQuakeModeStats[5]], ["Distance Travelled", formattedQuakeModeStats[6] + "m"]],
+    [false, ["Godlikes", `<span class="mc">Missing from API</span>`]]
+  ]
+}
+
 function getArcadeSeasonalStats(game) {
   if(game == "overall") {
     return [
@@ -699,12 +762,12 @@ function getDuelsOverallModeStats(modeArray, is_bridge = false, cuteName) {
 }
 
 
-function sumStats(statNames, modeNames, statArray, separator = "_", reverse = false) { // Checks and adds stats, round-robin style
+function sumStats(statNames, modeNames, statArray, separator = "_", statNamesFirst = false) { // Checks and adds stats, round-robin style
 // Usage example: sumStats(["wins", "losses"], ["uhc_duel", "uhc_doubles", "uhc_four"], duelsStats, "_", false)
     statSum = Array(statNames.length).fill(0);
     for(aRow = 0; aRow < statNames.length; aRow++) {
         for(aCol = 0; aCol < modeNames.length; aCol++) {
-            if(reverse) {
+            if(statNamesFirst) {
                 statSum[aRow] += und(statArray[statNames[aRow] + separator + modeNames[aCol]]);
             } else {
                 statSum[aRow] += und(statArray[modeNames[aCol] + separator + statNames[aRow]]);
@@ -1656,6 +1719,287 @@ decodeNBT(decompressedData.buffer)
   }
 }
 
+function generateClassic() {
+  classicStats = playerData["stats"]["Legacy"] || {};
+  arenaStats = playerData["stats"]["Arena"] || {};
+  paintballStats = playerData["stats"]["Paintball"] || {};
+  quakeStats = playerData["stats"]["Quake"] || {};
+  vampireZStats = playerData["stats"]["VampireZ"] || {};
+  tkrStats = playerData["stats"]["GingerBread"] || {};
+  wallsStats = playerData["stats"]["Walls"] || {};
+
+  updateElement("classic-overall-tokens", checkAndFormat(classicStats["tokens"]));
+  updateElement("classic-overall-total_tokens", checkAndFormat(classicStats["total_tokens"]));
+  updateElement("classic-overall-playtime", smallDuration(sumStatsBasic(["arena_tokens", "gingerbread_tokens", "walls_tokens", "quakecraft_tokens", "paintball_tokens", "vampirez_tokens"], classicStats) * 120));
+
+
+  let arenaWinPrefixes = [
+    { req: 0, internalId: "dark_gray", color: "§8" },
+    { req: 500, internalId: "gray", color: "§7" },
+    { req: 1000, internalId: "green", color: "§a" },
+    { req: 2000, internalId: "dark_green", color: "§2" },
+    { req: 3000, internalId: "pink", color: "§d" },
+    { req: 4000, internalId: "purple", color: "§5" },
+    { req: 5000, internalId: "red", color: "§c" },
+    { req: 7500, internalId: "dark_red", color: "§4" },
+    { req: 10000, internalId: "gold", color: "§6" },
+    { req: 15000, internalId: "rainbow", color: "rainbow" },
+  ]
+
+  let arenaTitle = getGenericWinsPrefix(und(arenaStats["wins"]), arenaWinPrefixes, arenaStats["prefix_color"]);
+  let arenaChip = [
+    "classic-arena",
+    "Arena Brawl",
+    `${arenaTitle}`,
+    `/img/games/404.${imageFileType}`,
+    getArenaBrawlStats("overall"),
+    [
+      ["Overall", "overall"],
+      ["1v1", "1v1"],
+      ["2v2", "2v2"],
+      ["4v4", "4v4"],
+    ],
+    `/img/icon/minecraft/blaze_powder.${imageFileType}`,
+    "arena"
+  ];
+
+  let paintballTitle = getPaintballTitle(und(paintballStats["kills"]));
+  let paintballChip = [
+    "classic-paintball",
+    "Paintball",
+    `${paintballTitle}`,
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Coins", checkAndFormat(paintballStats["coins"])]],
+      [false, ["Wins", checkAndFormat(paintballStats["wins"])]],
+      [false, ["Kills", checkAndFormat(paintballStats["kills"])], ["Deaths", checkAndFormat(paintballStats["deaths"])], ["K/D R", calculateRatio(paintballStats["kills"], paintballStats["deaths"])]],
+      [false, ["Shots Fired", checkAndFormat(paintballStats["shots_fired"])], ["Killstreaks", checkAndFormat(paintballStats["killstreaks"])]],
+    ],
+    [],
+    `/img/icon/minecraft/snowball.${imageFileType}`,
+    "paintball"
+  ]
+  
+  let tkrGamesPlayed = sumStatsBasic(["retro_plays", "canyon_plays", "junglerush_plays", "hypixelgp_plays", "olympus_plays"], tkrStats);
+  let tkrChip = [
+    "classic-tkr",
+    "Turbo Kart Racers",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Coins", checkAndFormat(tkrStats["coins"])]],
+      [false, ["Trophies", checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats))], ["Laps", checkAndFormat(tkrStats["laps_completed"])]],
+      [false, ["Gold Trophies", checkAndFormat(tkrStats["gold_trophy"])], ["Silver Trophies", checkAndFormat(tkrStats["silver_trophy"])], ["Bronze Trophies", checkAndFormat(tkrStats["bronze_trophy"])]],
+      [false, ["Games Played", locale(tkrGamesPlayed, 0)], ["Trophy Rate", checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats) / tkrGamesPlayed * 100, 1) + "%"]],
+    ],
+    [],
+    `/img/icon/minecraft/minecart.${imageFileType}`,
+  ]
+
+  let quakecraftChip = [
+    "classic-quakecraft",
+    "Quakecraft",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getQuakeStats("overall"),
+    [
+      ["Overall", "overall"],
+      ["Solo", ""],
+      ["Teams", "_teams"],
+    ],
+    `/img/icon/minecraft/firework_rocket.${imageFileType}`,
+    "quake"
+  ]
+
+  
+  let vampireZHumanPrefixes = [
+    { req: 0, color: "§8" },
+    { req: 20, color: "§7" },
+    { req: 50, color: "§f" },
+    { req: 100, color: "§6" },
+    { req: 150, color: "§e" },
+    { req: 200, color: "§2" },
+    { req: 250, color: "§a" },
+    { req: 300, color: "§5" },
+    { req: 500, color: "§d" },
+    { req: 750, color: "§1" },
+    { req: 1000, color: "§1§l" },
+    { req: 1500, color: "§9§l" },
+    { req: 2000, color: "§3§l" },
+    { req: 2500, color: "§b§l" },
+    { req: 3000, color: "§c§l" },
+    { req: 5000, color: "§4§l" },
+    { req: 10000, color: "§0§l" },
+    { req: 15000, color: "rainbow" },
+  ];
+
+  let vampireZVampirePrefixes = [
+    { req: 0, color: "§8" },
+    { req: 50, color: "§f" },
+    { req: 100, color: "§e" },
+    { req: 250, color: "§a" },
+    { req: 500, color: "§d" },
+    { req: 750, color: "§b" },
+    { req: 1000, color: "§c" },
+    { req: 1500, color: "§6" },
+    { req: 2000, color: "§3" },
+    { req: 2500, color: "§a" },
+    { req: 3000, color: "§2" },
+    { req: 5000, color: "§9" },
+    { req: 7500, color: "§1" },
+    { req: 10000, color: "§1§l"},
+    { req: 20000, color: "§4" },
+    { req: 30000, color: "§4§l"},
+    { req: 40000, color: "§5§l"},
+    { req: 50000, color: "§0§l"},
+    { req: 100000, color: "rainbow", bold: true },
+  ];
+  
+  let vampireZHumanTitle = getGenericWinsPrefix(und(vampireZStats["human_wins"]), vampireZHumanPrefixes);
+  let vampireZVampireTitle = getGenericWinsPrefix(und(vampireZStats["human_kills"]), vampireZVampirePrefixes);
+  let vampireZChip = [
+    "classic-vampirez",
+    "VampireZ",
+    `${vampireZHumanTitle} / ${vampireZVampireTitle}`,
+    `/img/games/404.${imageFileType}`,
+    [],
+    [],
+    `/img/icon/minecraft/wither_skeleton_skull.${imageFileType}`,
+    "vampirez"
+  ]
+
+  let wallsChip = [
+    "classic-walls",
+    "The Walls",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Coins", checkAndFormat(wallsStats["coins"])]],
+      [false, ["Wins", checkAndFormat(wallsStats["wins"])], ["Losses", checkAndFormat(wallsStats["losses"])], ["W/L R", calculateRatio(wallsStats["wins"], wallsStats["losses"])]],
+      [false, ["Kills", checkAndFormat(wallsStats["kills"])], ["Deaths", checkAndFormat(wallsStats["deaths"])], ["K/D R", calculateRatio(wallsStats["kills"], wallsStats["deaths"])]],  
+      [false, ["Assists", checkAndFormat(wallsStats["assists"])]]
+    ],
+    [],
+    `/img/icon/minecraft/sand.${imageFileType}`,
+    "walls"
+  ]
+    
+
+  let classicChips = [arenaChip, paintballChip, quakecraftChip, tkrChip, vampireZChip, wallsChip];
+  for(d = 0; d < classicChips.length; d++) {
+    generateChip(classicChips[d], (d % 2 == 0 ? "classic-chips-1" : "classic-chips-2"));
+  }
+  
+  
+  function getArenaTitle(wins) { // Generates an Arena Brawl title based on the number of wins a player has
+    let arenaTitles = [
+      { wins: 0, internalId: "dark_gray", color: "8" },
+      { wins: 500, internalId: "gray", color: "7" },
+      { wins: 1000, internalId: "green", color: "a" },
+      { wins: 2000, internalId: "dark_green", color: "2" },
+      { wins: 3000, internalId: "pink", color: "d" },
+      { wins: 4000, internalId: "purple", color: "5" },
+      { wins: 5000, internalId: "red", color: "c" },
+      { wins: 7500, internalId: "dark_red", color: "4" },
+      { wins: 10000, internalId: "gold", color: "6" },
+      { wins: 15000, internalId: "rainbow", color: "rainbow" },
+    ]
+
+    let chosenTitle = arenaTitles[0];
+    let nextTitleWins; // number of wins to next title
+    for (let i = 0; i < arenaTitles.length; i++) {
+      if (wins >= arenaTitles[i].wins) {
+        chosenTitle = arenaTitles[i];
+      }
+    }
+
+    if(wins >= 15000) {
+      nextTitleWins = "Max title!";
+    } else {
+      nextTitleWins = `${checkAndFormat(arenaTitles[arenaTitles.indexOf(chosenTitle) + 1]["wins"] - wins)} to go`;
+    }
+
+    if(arenaStats["prefix_color"] != undefined) {
+      chosenTitle = arenaTitles.find(x => x.internalId == arenaStats["prefix_color"]);
+    }
+
+    if(chosenTitle["internalId"] != "rainbow") {
+      return `<span class="m${chosenTitle["color"]}">[${wins}]</span> (${nextTitleWins})`;
+    } else {
+      return `${generateMinecraftText(rainbowText("[" + wins.toString() + "]"))} (Max title!)`;
+    }
+  }
+
+  function getPaintballTitle(kills) { // Generates a Paintball title based on the number of kills a player has
+    let paintballTitles = [
+      { kills: 0, internalId: "DARK_GRAY", color: "8" },
+      { kills: 1000, internalId: "GRAY", color: "7" },
+      { kills: 2500, internalId: "WHITE", color: "f" },
+      { kills: 5000, internalId: "DARK_GREEN", color: "2" },
+      { kills: 10000, internalId: "YELLOW", color: "e" },
+      { kills: 20000, internalId: "GREEN", color: "a" },
+      { kills: 50000, internalId: "BLUE", color: "9" },
+      { kills: 75000, internalId: "AQUA", color: "b" },
+      { kills: 100000, internalId: "PINK", color: "d" },
+      { kills: 200000, internalId: "PURPLE", color: "5" },
+      { kills: 500000, internalId: "RED", color: "c" },
+      { kills: 1000000, internalId: "GOLD", color: "6" },
+    ]
+
+    let chosenTitle = paintballTitles[0];
+    let nextTitleKills; // number of kills to next title
+    for(let i = 0; i < paintballTitles.length; i++) {
+      if(kills >= paintballTitles[i]["kills"]) {
+        chosenTitle = paintballTitles[i];
+      }
+    }
+
+    if(kills >= 1000000) {
+      nextTitleKills = "Max title!";
+    } else {
+      nextTitleKills = `${checkAndFormat(paintballTitles[paintballTitles.indexOf(chosenTitle) + 1]["kills"] - kills)} to go`;
+    }
+
+    if(paintballStats["prefix_color"] != undefined) {
+      chosenTitle = paintballTitles.find(x => x.internalId == paintballStats["prefix_color"]);
+    }
+
+    return `<span class="m${chosenTitle["color"]}">[${kills}]</span> (${nextTitleKills})`;
+  }
+}
+
+
+function getGenericWinsPrefix(wins, winsObject, definedColor) {
+  let chosenTitle = winsObject[0];
+  let nextTitleWins; // number of wins to next title
+
+  for(let i = 0; i < winsObject.length; i++) {
+    if(wins >= winsObject[i]["req"]) {
+      chosenTitle = winsObject[i];
+      console.log("found title #" + i);
+    }
+  }
+
+  // If the player has the more wins than the wins in the bottommost title, they have "Max title!"
+  if(wins >= winsObject[winsObject.length - 1]["req"]) {
+    nextTitleWins = "Max title!";
+  } else {
+    nextTitleWins = `${checkAndFormat(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins)} to go`;
+    console.log(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"]);
+  }
+
+  if(definedColor != undefined) {
+    chosenTitle = winsObject.find(x => x.internalId == definedColor);
+  }
+
+  if(chosenTitle["color"] != "rainbow") {
+    return `${generateMinecraftText(`${chosenTitle["color"]}[${wins.toString()}]`)} (${nextTitleWins})`;
+  } else {
+    return `${generateMinecraftText(rainbowText("[" + wins.toString() + "]"))} (${nextTitleWins})`;
+  }
+}
+
+
 function getBuildBattleTitle(score) { // Gets player's Build Battle title based on an amount of score
     let buildBattleTitles = [
         { minimumScore: 0, difference: 100, title: "Rookie", color: "f" },
@@ -1782,8 +2126,15 @@ function updateChipStats(name, chipId, gamemode) { // Updates what a chip does w
       updateElement(chipId, generateChipStats(getArcadeSeasonalStats(newValue)), true);
     } else if(gamemode == "arcade_hide_and_seek") {
       updateElement(chipId, generateChipStats(getArcadeHideAndSeekStats(newValue)), true);
+    } else if(gamemode == "arena") {
+      updateElement(chipId, generateChipStats(getArenaBrawlStats(newValue)), true);
+    } else if(gamemode == "quake") {
+      updateElement(chipId, generateChipStats(getQuakeStats(newValue)), true);
+    } else if(gamemode == "vampirez") {
+      updateElement(chipId, generateChipStats(getVampireZStats(newValue)), true);
     }
 }
+
 
 function addRecentPlayer(player, colorCode = 7) {
   recentPlayers = JSON.parse(localStorage.getItem(`recent-searches`));
