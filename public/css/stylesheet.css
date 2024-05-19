@@ -462,6 +462,11 @@ footer>a:hover {
     margin-bottom: 10px;
 }
 
+.mtop {
+    margin-top: 10px;
+}
+
+
 .linear-gradient {
     background-clip: text !important;
     -webkit-background-clip: text !important;
@@ -869,6 +874,14 @@ footer>a:hover {
     font-weight: 500;
 }
 
+.dropdown-wizard {
+    min-width: 200px !important;
+}
+
+.dropdown-wizard div {
+    padding: 6px 16px;
+}
+
 .dropdown-content a:hover, .dropdown-content div:hover {
     background-color: var(--accent);
     color: black;
@@ -1070,7 +1083,7 @@ footer>a:hover {
     border-radius: 20px;
     padding: 5px 0;
     position: absolute;
-    z-index: 1;
+    z-index: 6;
     bottom: 100%;
     left: 50%;
     margin-left: -90px;
@@ -1207,7 +1220,7 @@ footer>a:hover {
 }
 
 .shadowf {
-    text-shadow: 0 0 10px #fff;
+    text-shadow: 0 0 10px #fff, 0 0 15px #fff;
 }
 
 .o30 {
@@ -1445,8 +1458,6 @@ footer>a:hover {
 
 .chip-small {
     position: relative;
-    background-size: cover;
-    background-position: center center;
     
     border-radius: 20px;
     padding: 20px;
@@ -1454,6 +1465,7 @@ footer>a:hover {
     margin: 15px 0px;
     width: 100%;
     z-index: 3;
+    overflow: hidden;
 }
 
 .but-big {
@@ -1464,12 +1476,14 @@ footer>a:hover {
     position: absolute;
     top: 0;
     left: 0;
-    backdrop-filter: blur(3px) brightness(0.3);
-    -webkit-backdrop-filter: blur(3px) brightness(0.3);
+    filter: blur(3px) brightness(0.3);
     width: 100%;
     height: 100%;
     border-radius: 20px;
     z-index: -1;
+    background-size: cover;
+    background-position: center center;
+    transform: scale(1.1);
 }
 
 .chip-small-title {
@@ -1488,7 +1502,6 @@ footer>a:hover {
     font-size: 16px;
     position: relative;
     z-index: 2;
-    margin-left: 10px;
 }
 
 .chip-small-container {
@@ -1632,10 +1645,17 @@ footer>a:hover {
     background-color: var(--default);
     padding: 5px;
     padding-left: 15px;
-    margin: 5px 0;
     color: white;
     border-radius: 15px;
     border: 1px solid #6b6b6b74;
+    width: 180px;
+  }
+
+  #card-wizard-preview {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .card-wizard-info {
@@ -1645,14 +1665,68 @@ footer>a:hover {
     margin-bottom: 10px;
   }
 
+  .card-wizard-subtitle {
+    font-size: 16px;
+    position: relative;
+    z-index: 2;
+    margin: 8px 10px;
+    width: 80px;
+    display: inline-block;
+  }
+
+  .card-wizard-button {
+    border: 1px solid #6b6b6b74;
+    width: 200px;
+    padding: 3.4px 15px;
+  }
+
+  #card-wizard-preview-message {
+    position: absolute;
+    padding-left: 60px;
+    padding-right: 60px;
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  #card-wizard-image {
+    width: 100%;
+    display: none;
+  }
+
+  #generate-card {
+    margin-top: 0px !important;
+  }
+
   .card-wizard-output {
     font-family: "Roboto Mono", ui-monospace, Menlo, "Cascadia Mono", "Segoe UI Mono", "Fira Mono", "Droid Sans Mono", monospace;;
-    border: 1px dashed rgb(196, 196, 196);
-    background-color: #505050;
-    padding: 5px;
+    border: 2px dashed #414141;
+    background-color: #1b1b1b;
+    padding: 8.8px 15px;
     font-size: 16px;
     color: white;
     width: 90%;
+    border-radius: 25px;
+    margin-left: 10px;
+    text-overflow: "...";
+  }
+
+  #card-wizard-game {
+    max-height: 130px;
+  }
+
+  .progress-ring {
+    width: 100%;
+    height: auto;
+  }
+
+  .progress-ring-circle {
+    transition-duration: 0.5s;
+    fill: transparent;
+    stroke-width: 6;
+    stroke-dasharray: 1912;
+    stroke-dashoffset: 0;
+    stroke: #2d2d2d;
+    transform-origin: center;
   }
 
 /* Check boxes */  
@@ -1830,6 +1904,9 @@ footer>a:hover {
     }
     .game-switch-hr {
         display: block;
+    }
+    .card-wizard-output {
+        padding: 7.6px 15px;
     }
   }
 

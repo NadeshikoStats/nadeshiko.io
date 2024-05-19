@@ -1,4 +1,4 @@
-function generateMinecraftText(minecraftText) {
+function generateMinecraftText(minecraftText, blackShadow = false) { // Generates HTML from Minecraft text
     const regex = /[^§&]*[^§&]|[§&][0-9a-z][^§&]*/g;
     const brokenUpStrings = minecraftText.match(regex) || [];
     let returnString = "";
@@ -14,7 +14,12 @@ function generateMinecraftText(minecraftText) {
         const validColors = [`0`,`1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,`a`,`b`,`c`,`d`,`e`,`f`];
   
         if (validColors.includes(actualCode)) {
-          returnString += `<span class="m${actualCode}">`;
+
+          if(blackShadow && actualCode == "0") { // Adds shadow to black text
+            returnString += `<span class="m0 shadowf">`;
+          } else {
+            returnString += `<span class="m${actualCode}">`;
+          }
           ending += "</span>";
         } else {
           switch(actualCode) {

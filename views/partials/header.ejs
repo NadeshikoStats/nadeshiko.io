@@ -22,35 +22,64 @@
   <div class="about" id="card-wizard-ui">
     <p id="modal-card-wizard-close">&times;</p>
       <p class="about-title">Card Wizard</p>
-      <p class="stat-subtitle">Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!</p>
+      <p class="stat-subtitle">Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!<br><br>Cards update in real time as your stats change, so you never have to worry about them!</p>
       <hr style="margin: 20px auto">
     <div class="flex-two-item-basic">
-      <p class="chip-small-subtitle">Username</p> 
+      <p class="card-wizard-subtitle">Username</p> 
       <input type="text" placeholder="Player" id="card-wizard-name"></input>
     </div>
     
     <div class="flex-two-item-basic">
-        <p class="tooltip"><span class="chip-small-subtitle">Game</span><span class="tooltiptext">The game to be used in the card.</span></p>
-        <div class="chip-small-dropdown">
-          <select aria-label="Game Dropdown" id="card-wizard-game">
-            <option value="NETWORK">Network</option>
-            <option value="BEDWARS">Bed Wars</option>
-            <option value="DUELS">Duels</option>
-          </select>
+        <p class="tooltip"><span class="card-wizard-subtitle">Game</span><span class="tooltiptext">The game to be used in the card.</span></p>
+        <div class="dropdown">
+          <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-game-button">Network</p>
+          <div class="dropdown-content unloaded dropdown-chip dropdown-wizard" id="card-wizard-game" data-game="wizard" data-modify="game">
+            <div class="dropdown-item selected" data-item="NETWORK">Network</div>
+            <div class="dropdown-item" data-item="BEDWARS">Bed Wars</div>
+            <div class="dropdown-item" data-item="DUELS">Duels</div>
+            <div class="dropdown-item" data-item="SKYWARS">SkyWars</div>
+          </div>
         </div>
     </div>
 
     <div class="flex-two-item-basic">
-      <p class="tooltip"><span class="chip-small-subtitle">Size</span><span class="tooltiptext">The height of the card.</span></p>
-      <div class="chip-small-dropdown">
-      <select aria-label="Card Size" id="card-wizard-size">
-        <option value="FULL">Full</option>
-      </select>
+      <p class="tooltip"><span class="card-wizard-subtitle">Size</span><span class="tooltiptext">The height of the card.</span></p>
+      <div class="dropdown">
+        <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-size-button">Full</p>
+        <div class="dropdown-content unloaded dropdown-chip dropdown-wizard" id="card-wizard-size" data-game="wizard" data-modify="size">
+          <div class="dropdown-item selected" data-item="FULL">Full</div>
+        </div>
       </div>
     </div>
 
-<span class="general-button" onclick="generateCard()">Generate Card</span>
-<input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value="Edit this card first!">
+    <div class="flex-two-item-basic">
+      <p class="tooltip"><span class="card-wizard-subtitle">Format</span><span class="tooltiptext">Where you want to show the card.</span></p>
+      <div class="dropdown">
+        <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-format-button">Hypixel Forums</p>
+        <div class="dropdown-content unloaded dropdown-chip dropdown-wizard" id="card-wizard-format" data-game="wizard" data-modify="format">
+          <div class="dropdown-item selected" data-item="bbcode">Hypixel Forums</div>
+          <div class="dropdown-item" data-item="full">Raw Link</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-two-item mtop mbottom">
+      <span class="general-button" id="generate-card" onclick="generateCard()" style="padding: 10px 20px">Generate Card</span>
+      <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value="Edit this card first!">
+    </div>
+
+    <div id="card-wizard-preview">
+    <svg class="progress-ring" viewBox="0 0 600 200" preserveAspectRatio="xMinYMin meet" id="progress-ring-svg">
+      <path class="progress-ring-circle" id="progress-ring" d="
+          M 11, 11
+           L 589, 11
+           L 589, 189
+           L 11, 189
+           L 11, 11" style="stroke-dashoffset: 0px;"></path>
+    </svg>
+      <p id="card-wizard-preview-message">Click "Generate Card" and a preview will appear here.</p>
+      <img src="" id="card-wizard-image" class="card-wizard-image" alt="">
+    </div>
 </div>
 </div>
 
@@ -186,10 +215,26 @@ document.getElementById('search-icon').addEventListener('click', function() {
 let aboutExpanded = false;
 let settingsExpanded = false;
 let cardWizardExpanded = false;
+let svgCycleCounter = 0;
+let cardWizardSettings = {
+  "game": "NETWORK",
+  "size": "FULL",
+  "format": "bbcode"
+};
 
 function showCardWizard(game = "NETWORK") {
   if(!cardWizardExpanded) {
-    document.getElementById("card-wizard-game").value = game;
+    cardWizardSettings["game"] = game;
+    let children = document.getElementById("card-wizard-game").children;
+    for (let i = 0; i < children.length; i++) {
+      if(children[i].getAttribute("data-item") == game) {
+        children[i].classList.add("selected");
+        document.getElementById("card-wizard-game-button").innerText = children[i].innerText;
+      } else {
+        children[i].classList.remove("selected");
+      }
+    }
+
     if(typeof playerData !== "undefined" && playerData["name"] !== undefined) {
       document.getElementById("card-wizard-name").value = playerData["name"];
     }
@@ -236,10 +281,34 @@ function showSettings() {
 
 function generateCard() {
   cardName = document.getElementById("card-wizard-name").value;
-  cardGame = document.getElementById("card-wizard-game").value;
-  cardSize = document.getElementById("card-wizard-size").value;
+  cardGame = cardWizardSettings["game"];
+  cardSize = cardWizardSettings["size"];
+  cardFormat = cardWizardSettings["format"];
 
-  document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/` + btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
+  base64Card = btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
+
+  document.getElementById("progress-ring").style.strokeDasharray = "40";
+  document.getElementById("progress-ring-svg").style.display = "initial";
+  document.getElementById("card-wizard-image").style.display = "none";
+  document.getElementById("card-wizard-preview-message").innerText = "Loading preview...";
+  document.getElementById("card-wizard-image").src = `https://nadeshiko.io/card/${base64Card}`;
+  let svgImageMoving = setInterval(function() {
+      svgCycleCounter++;
+      document.getElementById("progress-ring").style.strokeDashoffset = `${120 * svgCycleCounter}`;
+  }, 1000); 
+  // When the image loads
+  document.getElementById("card-wizard-image").onload = function() {
+    clearInterval(svgImageMoving);
+    document.getElementById("card-wizard-preview-message").innerText = "";
+    document.getElementById("progress-ring-svg").style.display = "none";
+    document.getElementById("card-wizard-image").style.display = "initial";
+  }
+
+  if(cardFormat == "bbcode") {
+    document.getElementById("card-wizard-output").value = `[URL='https://nadeshiko.io/player/${cardName}/${cardGame}'][IMG]https://nadeshiko.io/card/${base64Card}[/IMG][/URL]`;
+  } else {
+    document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/${base64Card}`;
+  }
 }
 
 document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box

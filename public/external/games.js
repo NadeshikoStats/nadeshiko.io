@@ -646,6 +646,48 @@ function getArenaBrawlStats(mode) {
   ]
 }
 
+function getTKRStats(mode) {
+  let tkrTitles = [
+    { req: 0, color: "§8", internalId: "dark_gray"},
+    { req: 5, color: "§7", internalId: "gray"},
+    { req: 25, color: "§f", internalId: "white"},
+    { req: 50, color: "§b", internalId: "aqua"},
+    { req: 100, color: "§a", internalId: "green"},
+    { req: 200, color: "§e", internalId: "yellow"},
+    { req: 300, color: "§9", internalId: "blue"},
+    { req: 400, color: "§d", internalId: "pink"},
+    { req: 500, color: "§6", internalId: "gold"},
+    { req: 750, color: "§2", internalId: "dark_green"},
+    { req: 1000, color: "§1", internalId: "dark_blue"},
+    { req: 2500, color: "§5", internalId: "purple"},
+    { req: 5000, color: "§4", internalId: "dark_red"},
+    { req: 10000, color: "§0", internalId: "black"},
+  ]
+
+  if(mode == "overall") {
+    let tkrGamesPlayed = sumStatsBasic(["retro_plays", "canyon_plays", "junglerush_plays", "hypixelgp_plays", "olympus_plays"], tkrStats);
+
+    return [
+      [false, ["Coins", checkAndFormat(tkrStats["coins"])]],
+      [false, ["Trophies", checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats))], ["Laps", checkAndFormat(tkrStats["laps_completed"])]],
+      [false, ["Golds", getGenericWinsPrefix(tkrStats["gold_trophy"], tkrTitles, tkrStats["prefix_color"], false, "✪")], ["Silvers", checkAndFormat(tkrStats["silver_trophy"])], ["Bronzes", checkAndFormat(tkrStats["bronze_trophy"])]],
+      [false, ["Games Played", locale(tkrGamesPlayed, 0)], ["Trophy Rate", checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats) / tkrGamesPlayed * 100, 1) + "%"]],
+      [false, ["Box Pickups", checkAndFormat(tkrStats["box_pickups"])], ["Coins Picked Up", checkAndFormat(tkrStats["coins_picked_up"])]],
+    ]
+  } else {
+    let tkrGamesPlayed = und(tkrStats[mode + "_plays"]);
+    mode = "_" + mode;
+
+    return [
+      [false, ["Coins", checkAndFormat(tkrStats["coins"])]],
+      [false, ["Trophies", checkAndFormat(sumStatsBasic(["gold_trophy" + mode, "silver_trophy" + mode, "bronze_trophy" + mode], tkrStats))]],
+      [false, ["Golds", checkAndFormat(tkrStats["gold_trophy" + mode])], ["Silvers", checkAndFormat(tkrStats["silver_trophy" + mode])], ["Bronzes", checkAndFormat(tkrStats["bronze_trophy"+ mode])]],
+      [false, ["Games Played", locale(tkrGamesPlayed, 0)], ["Trophy Rate", checkAndFormat(sumStatsBasic(["gold_trophy" + mode, "silver_trophy" + mode, "bronze_trophy" + mode], tkrStats) / tkrGamesPlayed * 100, 1) + "%"]],
+      [false, ["Box Pickups", checkAndFormat(tkrStats["box_pickups" + mode])]],
+    ]
+  }
+}
+
 function getVampireZStats(mode) {
 
   if(mode == "human") {
@@ -844,7 +886,7 @@ function getDuelsOverallModeStats(modeArray, is_bridge = false, cuteName) {
         ],
         [false, ["Kills", checkAndFormat(roundRobinDuelsStats[2])],
             ["Deaths", checkAndFormat(roundRobinDuelsStats[3])],
-            ["K D/R", calculateRatio(roundRobinDuelsStats[2], roundRobinDuelsStats[3])]
+            ["K/D R", calculateRatio(roundRobinDuelsStats[2], roundRobinDuelsStats[3])]
         ],
     ], getDuelsTitle(und(roundRobinDuelsStats[0]), cuteName)];
 }
@@ -965,7 +1007,6 @@ function generateDuels() { // Generates stats and chips for Duels
     for(a = 0; a < duelsWithMultipleModes.length; a++) {
         allDuelsStats[duelsWithMultipleModes[a][0]] = getDuelsOverallModeStats(duelsWithMultipleModes[a][2], (duelsWithMultipleModes[a][0] === "bridge"), duelsWithMultipleModes[a][1]);
     }
-
 
     for(a = 0; a < duelsStatsToShow.length; a++) { // Regular stats
         currentDuel = duelsStatsToShow[a];
@@ -1816,6 +1857,8 @@ function generateClassic() {
   tkrStats = playerData["stats"]["GingerBread"] || {};
   wallsStats = playerData["stats"]["Walls"] || {};
 
+  updateElement("classic-overall-wins", checkAndFormat(und(arenaStats["wins"]) + und(paintballStats["wins"]) + und(quakeStats["wins"]) + und(vampireZStats["wins_human"]) + und(vampireZStats["wins_vampire"]) + und(tkrStats["wins"]) + und(wallsStats["wins"])));
+  updateElement("classic-overall-kills", checkAndFormat(und(arenaStats["kills_1v1"]) + und(arenaStats["kills_2v2"]) + und(arenaStats["kills_4v4"]) + und(paintballStats["kills"]) + und(quakeStats["kills"]) + und(quakeStats["kills_teams"]) + und(vampireZStats["human_kills"]) + und(vampireZStats["vampire_kills"]) + und(wallsStats["kills"])));
   updateElement("classic-overall-tokens", checkAndFormat(classicStats["tokens"]));
   updateElement("classic-overall-total_tokens", checkAndFormat(classicStats["total_tokens"]));
   updateElement("classic-overall-playtime", smallDuration(sumStatsBasic(["arena_tokens", "gingerbread_tokens", "walls_tokens", "quakecraft_tokens", "paintball_tokens", "vampirez_tokens"], classicStats) * 120));
@@ -1867,38 +1910,23 @@ function generateClassic() {
     `/img/icon/minecraft/snowball.${imageFileType}`,
     "paintball"
   ]
-
-  let tkrTitles = [
-    { req: 0, color: "§8", internalId: "dark_gray"},
-    { req: 5, color: "§7", internalId: "gray"},
-    { req: 25, color: "§f", internalId: "white"},
-    { req: 50, color: "§b", internalId: "aqua"},
-    { req: 100, color: "§a", internalId: "green"},
-    { req: 200, color: "§e", internalId: "yellow"},
-    { req: 300, color: "§9", internalId: "blue"},
-    { req: 400, color: "§d", internalId: "pink"},
-    { req: 500, color: "§6", internalId: "gold"},
-    { req: 750, color: "§2", internalId: "dark_green"},
-    { req: 1000, color: "§1", internalId: "dark_blue"},
-    { req: 2500, color: "§5", internalId: "purple"},
-    { req: 5000, color: "§4", internalId: "dark_red"},
-    { req: 10000, color: "§0", internalId: "black"},
-  ]
   
-  let tkrGamesPlayed = sumStatsBasic(["retro_plays", "canyon_plays", "junglerush_plays", "hypixelgp_plays", "olympus_plays"], tkrStats);
   let tkrChip = [
     "classic-tkr",
     "Turbo Kart Racers",
     "",
     `/img/games/404.${imageFileType}`,
+    getTKRStats("overall"),
     [
-      [false, ["Coins", checkAndFormat(tkrStats["coins"])]],
-      [false, ["Trophies", checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats))], ["Laps", checkAndFormat(tkrStats["laps_completed"])]],
-      [false, ["Gold Trophies", getGenericWinsPrefix(tkrStats["gold_trophy"], tkrTitles, tkrStats["prefix_color"], false, "✪")], ["Silver Trophies", checkAndFormat(tkrStats["silver_trophy"])], ["Bronze Trophies", checkAndFormat(tkrStats["bronze_trophy"])]],
-      [false, ["Games Played", locale(tkrGamesPlayed, 0)], ["Trophy Rate", checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats) / tkrGamesPlayed * 100, 1) + "%"]],
+      ["Overall", "overall"],
+      ["Canyon", "canyon"],
+      ["Hypixel GP", "hypixelgp"],
+      ["Jungle Rush", "junglerush"],
+      ["Olympus", "olympus"],
+      ["Retro", "retro"],
     ],
-    [],
     `/img/icon/minecraft/minecart.${imageFileType}`,
+    "tkr"
   ]
 
   let quakecraftChip = [
@@ -1995,9 +2023,9 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
 
 
   if(chosenTitle["color"] != "rainbow") {
-    return `${generateMinecraftText(`${chosenTitle["color"]}[${wins.toString()}${suffix}]`)}${nextTitleWins}`;
+    return `${generateMinecraftText(`${chosenTitle["color"]}[${wins.toString()}${suffix}]`, true)}${nextTitleWins}`;
   } else {
-    return `${generateMinecraftText(rainbowText("[" + wins.toString() + suffix + "]"))}${nextTitleWins}`;
+    return `${generateMinecraftText(rainbowText("[" + wins.toString() + suffix + "]"), true)}${nextTitleWins}`;
   }
 }
 
@@ -2134,6 +2162,10 @@ function updateChipStats(name, chipId, gamemode) { // Updates what a chip does w
       updateElement(chipId, generateChipStats(getQuakeStats(newValue)), true);
     } else if(gamemode == "vampirez") {
       updateElement(chipId, generateChipStats(getVampireZStats(newValue)), true);
+    } else if(gamemode == "tkr") {
+      updateElement(chipId, generateChipStats(getTKRStats(newValue)), true);
+    } else if(gamemode == "wizard") {
+      cardWizardSettings[chipId] = newValue;
     }
 }
 
