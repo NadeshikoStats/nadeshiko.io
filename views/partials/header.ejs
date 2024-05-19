@@ -182,7 +182,7 @@
   </div>
 </div>
 
-<div class="modal unloaded" id="settings">
+<div class="modal unloaded" id="modal-settings">
   <div class="about" id="settings-ui">
     <p class="about-title">Settings</p>
     <hr style="margin: 20px auto">
@@ -224,6 +224,7 @@ let cardWizardSettings = {
   "size": "FULL",
   "format": "bbcode"
 };
+let settings;
 
 function showCardWizard(game = "NETWORK") {
   if(!cardWizardExpanded) {
@@ -271,11 +272,11 @@ function showAbout() {
 
 function showSettings() {
   if(!settingsExpanded) {
-    document.getElementById("settings").classList.remove("unloaded");
+    document.getElementById("modal-settings").classList.remove("unloaded");
     document.getElementById("button-settings").classList.add("selected");
     settingsExpanded = true;
   } else {
-    document.getElementById("settings").classList.add("unloaded");
+    document.getElementById("modal-settings").classList.add("unloaded");
     document.getElementById("button-settings").classList.remove("selected");
     settingsExpanded = false;
   }
@@ -344,11 +345,16 @@ function updateSetting(settingKey, settingValue) { // Updates a desired setting 
 function updateSettingFunctionality(setting, settingValue) { // Updates the functionality of a changed setting
   document.getElementById(`checkbox-${setting}`).checked = settingValue;
   if(setting == "developer-mode") {
+    cardUuid = document.getElementById("card-uuid");
     if(settingValue) {
-      document.getElementById("card-uuid").style.display = "initial";
+      if(cardUuid) {
+        cardUuid.style.display = "initial";
+      }
       document.getElementById("developer-info").style.display = "initial";
     } else {
-      document.getElementById("card-uuid").style.display = "none";
+      if(cardUuid) {
+        cardUuid.style.display = "none";
+      }
       document.getElementById("developer-info").style.display = "none";
     }
   }
@@ -365,15 +371,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  let settings = localStorage.getItem("settings");
-  if (settings === null) {
+  localStorageSettings = localStorage.getItem("settings");
+  if (localStorageSettings === null) {
       settings = {
         "quick-mode": true,
         "developer-mode": false,
       };
       localStorage.setItem("settings", JSON.stringify(settings));
   } else {
-    settings = JSON.parse(settings);
+    settings = JSON.parse(localStorageSettings);
   }
 
   for (const [key, value] of Object.entries(settings)) {
@@ -389,7 +395,7 @@ document.addEventListener('keydown', function(event) { // Close modals on escape
       aboutExpanded = false;
     }
     if(settingsExpanded) {
-      document.getElementById("settings").classList.add("unloaded");
+      document.getElementById("modal-settings").classList.add("unloaded");
       document.getElementById("button-settings").classList.remove("selected");
       settingsExpanded = false;
     }
@@ -420,7 +426,7 @@ window.onclick = function(event) {
 
   if (!event.target.closest('#button-settings') && !event.target.closest('#settings-ui')) {
     if(settingsExpanded) {
-      document.getElementById("settings").classList.add("unloaded");
+      document.getElementById("modal-settings").classList.add("unloaded");
       document.getElementById("button-settings").classList.remove("selected");
       settingsExpanded = false;
     }
