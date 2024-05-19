@@ -65,10 +65,13 @@
 
     <div class="flex-two-item mtop mbottom">
       <span class="general-button" id="generate-card" onclick="generateCard()" style="padding: 10px 20px">Generate Card</span>
-      <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value="Edit this card first!">
+      <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value="Click &quot;Generate Card&quot; and a link will appear here!">
     </div>
 
     <div id="card-wizard-preview">
+    <div id="card-wizard-preview-watermark">
+       PREVIEW
+    </div>
     <svg class="progress-ring" viewBox="0 0 600 200" preserveAspectRatio="xMinYMin meet" id="progress-ring-svg">
       <path class="progress-ring-circle" id="progress-ring" d="
           M 11, 11
@@ -238,7 +241,6 @@ function showCardWizard(game = "NETWORK") {
     if(typeof playerData !== "undefined" && playerData["name"] !== undefined) {
       document.getElementById("card-wizard-name").value = playerData["name"];
     }
-    document.getElementById("card-wizard-output").value = `Click "Generate Card" to generate a card!`;
     document.getElementById("modal-card-wizard").classList.remove("unloaded");
     document.getElementById("button-card-wizard").classList.add("selected");
     cardWizardExpanded = true;
@@ -288,13 +290,14 @@ function generateCard() {
   base64Card = btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
 
   document.getElementById("progress-ring").style.strokeDasharray = "40";
+  document.getElementById("card-wizard-preview-watermark").style.display = "none";
   document.getElementById("progress-ring-svg").style.display = "initial";
   document.getElementById("card-wizard-image").style.display = "none";
   document.getElementById("card-wizard-preview-message").innerText = "Loading preview...";
   document.getElementById("card-wizard-image").src = `https://nadeshiko.io/card/${base64Card}`;
   let svgImageMoving = setInterval(function() {
       svgCycleCounter++;
-      document.getElementById("progress-ring").style.strokeDashoffset = `${120 * svgCycleCounter}`;
+      document.getElementById("progress-ring").style.strokeDashoffset = `${110 * svgCycleCounter}`;
   }, 1000); 
   // When the image loads
   document.getElementById("card-wizard-image").onload = function() {
@@ -302,6 +305,7 @@ function generateCard() {
     document.getElementById("card-wizard-preview-message").innerText = "";
     document.getElementById("progress-ring-svg").style.display = "none";
     document.getElementById("card-wizard-image").style.display = "initial";
+    document.getElementById("card-wizard-preview-watermark").style.display = "flex";
   }
 
   if(cardFormat == "bbcode") {

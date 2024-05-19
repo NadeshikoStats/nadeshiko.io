@@ -1997,6 +1997,7 @@ function generateClassic() {
 
 function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "") { // Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
   let chosenTitle = winsObject[0];
+  wins = und(wins);
   let nextTitleWins = ``; // number of wins to next title
 
   for(let i = 0; i < winsObject.length; i++) {
