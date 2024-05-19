@@ -1177,48 +1177,33 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     updateElement("tntgames-overall-kdr", calculateRatio(tntGamesKills, tntGamesDeaths));
   }
 
-  function getTNTGamesPrefix(num_wins, game) {
-    const tntGamesPrefixes = [
-      { minimumWinsHigh: 0, minimumWinsLow: 0, internalId: "dark_gray", color: "8" },
-      { minimumWinsHigh: 25, minimumWinsLow: 15,  internalId: "gray", color: "7" },
-      { minimumWinsHigh: 100, minimumWinsLow: 50, internalId: "white", color: "f" },
-      { minimumWinsHigh: 250, minimumWinsLow: 100, internalId: "dark_green", color: "2" },
-      { minimumWinsHigh: 500, minimumWinsLow: 250, internalId: "green", color: "a" },
-      { minimumWinsHigh: 1000, minimumWinsLow: 500, internalId: "blue", color: "9" },
-      { minimumWinsHigh: 2500, minimumWinsLow: 1000, internalId: "dark_purple", color: "5" },
-      { minimumWinsHigh: 5000, minimumWinsLow: 1500, internalId: "gold", color: "6" },
-      { minimumWinsHigh: 7500, minimumWinsLow: 2000, internalId: "red", color: "c" },
-      { minimumWinsHigh: 10000, minimumWinsLow: 5000, internalId: "black", color: "0" },
-      { minimumWinsHigh: 15000, minimumWinsLow: 10000, internalId: "rainbow", color: "rainbow" },
-    ]
+  const tntGamesLowPrefixes = [
+    { req: 0, internalId: "dark_gray", color: "§8" },
+    { req: 15, internalId: "gray", color: "§7" },
+    { req: 50, internalId: "white", color: "§f" },
+    { req: 100, internalId: "dark_green", color: "§2" },
+    { req: 250, internalId: "green", color: "§a" },
+    { req: 500, internalId: "blue", color: "§9" },
+    { req: 1000, internalId: "dark_purple", color: "§5" },
+    { req: 1500, internalId: "gold", color: "§6" },
+    { req: 2000, internalId: "red", color: "§c" },
+    { req: 5000, internalId: "black", color: "§0" },
+    { req: 10000, internalId: "rainbow", color: "rainbow" },
+  ]
 
-    let chosenPrefix = tntGamesPrefixes[0];
-    if(tntGamesStats[`prefix_${game}`] != undefined) {
-      chosenPrefix = tntGamesPrefixes.find(x => x.internalId == tntGamesStats[`prefix_${game}`]);
-    } else {
-      const winCategories = { // Different games require different amounts of wins for each title
-        "capture": "Low",
-        "tntag": "Low",
-        "pvprun": "High",
-        "tntrun": "High",
-        "bowspleef": "High",
-      }
-
-      let winCategory = winCategories[game];
-      chosenPrefix = tntGamesPrefixes[0];
-      for (let i = 0; i < tntGamesPrefixes.length; i++) {
-        if (num_wins >= tntGamesPrefixes[i][`minimumWins${winCategory}`]) {
-          chosenPrefix = tntGamesPrefixes[i];
-        }
-      }
-    }
-
-    if(chosenPrefix["internalId"] != "rainbow") { 
-      return `<span class="m${chosenPrefix["color"]}">${"[" + num_wins + "]"}</span>`;
-    } else {
-      return generateMinecraftText(rainbowText("[" + num_wins.toString() + "]"));
-    }
-  }
+  const tntGamesHighPrefixes = [
+    { req: 0, internalId: "dark_gray", color: "§8" },
+    { req: 25, internalId: "gray", color: "§7" },
+    { req: 100, internalId: "white", color: "§f" },
+    { req: 250, internalId: "dark_green", color: "§2" },
+    { req: 500, internalId: "green", color: "§a" },
+    { req: 1000, internalId: "blue", color: "§9" },
+    { req: 2500, internalId: "dark_purple", color: "§5" },
+    { req: 5000, internalId: "gold", color: "§6" },
+    { req: 7500, internalId: "red", color: "§c" },
+    { req: 10000, internalId: "black", color: "§0" },
+    { req: 15000, internalId: "rainbow", color: "rainbow" },
+  ]
 
   let tntRunCard = [
     "tntgames-stats-tntrun", // ID
@@ -1226,7 +1211,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", getTNTGamesPrefix(und(tntGamesStats["wins_tntrun"]), "tntrun")], ["Losses", checkAndFormat(tntGamesStats["deaths_tntrun"])], ["W/L R", calculateRatio(tntGamesStats["wins_tntrun"], tntGamesStats["deaths_tntrun"])]],
+      [false, ["Wins", getGenericWinsPrefix(tntGamesStats["wins_tntrun"], tntGamesHighPrefixes, tntGamesStats["prefix_tntrun"], false, "")], ["Losses", checkAndFormat(tntGamesStats["deaths_tntrun"])], ["W/L R", calculateRatio(tntGamesStats["wins_tntrun"], tntGamesStats["deaths_tntrun"])]],
       [false, ["Blocks Ran", "Missing From API"], ["Best Time", smallDuration(und(tntGamesStats["record_tntrun"]))]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
@@ -1240,7 +1225,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", getTNTGamesPrefix(und(tntGamesStats["wins_pvprun"]), "pvprun")], ["Losses", checkAndFormat(tntGamesStats["deaths_pvprun"])], ["W/L R", calculateRatio(tntGamesStats["wins_pvprun"], tntGamesStats["deaths_pvprun"])]],
+      [false, ["Wins", getGenericWinsPrefix(tntGamesStats["wins_pvprun"], tntGamesHighPrefixes, tntGamesStats["prefix_pvprun"], false, "")], ["Losses", checkAndFormat(tntGamesStats["deaths_pvprun"])], ["W/L R", calculateRatio(tntGamesStats["wins_pvprun"], tntGamesStats["deaths_pvprun"])]],
       [false, ["Kills", checkAndFormat(tntGamesStats["kills_pvprun"])], ["Deaths", checkAndFormat(tntGamesStats["deaths_pvprun"])], ["K/D R", calculateRatio(tntGamesStats["kills_pvprun"], tntGamesStats["deaths_pvprun"])]],
       [false, ["Best Time", smallDuration(und(tntGamesStats["record_pvprun"]))]],
     ], // Displayed stats
@@ -1255,7 +1240,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", getTNTGamesPrefix(und(tntGamesStats["wins_tntag"]), "tntag")], ["Losses", checkAndFormat(tntGamesStats["deaths_tntag"])], ["W/L R", calculateRatio(tntGamesStats["wins_tntag"], tntGamesStats["deaths_tntag"])]],
+      [false, ["Wins", getGenericWinsPrefix(tntGamesStats["wins_tntag"], tntGamesLowPrefixes, tntGamesStats["prefix_tntag"], false, "")], ["Losses", checkAndFormat(tntGamesStats["deaths_tntag"])], ["W/L R", calculateRatio(tntGamesStats["wins_tntag"], tntGamesStats["deaths_tntag"])]],
       [false, ["Kills", checkAndFormat(tntGamesStats["kills_tntag"])], ["Deaths", checkAndFormat(tntGamesStats["deaths_tntag"])], ["K/D R", calculateRatio(tntGamesStats["kills_tntag"], tntGamesStats["deaths_tntag"])]],
       [false, ["Tags", "Missing From API"], ["Powerups", "Missing From API"], ]
     ], // Displayed stats
@@ -1270,7 +1255,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", getTNTGamesPrefix(und(tntGamesStats["wins_bowspleef"]), "bowspleef")], ["Losses", checkAndFormat(tntGamesStats["deaths_bowspleef"])], ["W/L R", calculateRatio(tntGamesStats["wins_bowspleef"], tntGamesStats["deaths_bowspleef"])]],
+      [false, ["Wins", getGenericWinsPrefix(tntGamesStats["wins_bowspleef"], tntGamesHighPrefixes, tntGamesStats["prefix_bowspleef"], false, "")], ["Losses", checkAndFormat(tntGamesStats["deaths_bowspleef"])], ["W/L R", calculateRatio(tntGamesStats["wins_bowspleef"], tntGamesStats["deaths_bowspleef"])]],
       [false, ["Arrows Shot", checkAndFormat(tntGamesStats["tags_bowspleef"])]]
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
@@ -1283,7 +1268,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
   let totalWizardStats = sumStats(["kills", "deaths", "healing", "damage_taken", "assists"], wizardsList.map(x => x[1]), tntGamesStats, "_", false);
 
   allTNTWizardStats["overall"] = [
-    [false, ["Overall Wins", getTNTGamesPrefix(und(tntGamesStats["wins_capture"]), "capture")], ["Overall Captures", checkAndFormat(tntGamesStats["points_capture"])]],
+    [false, ["Overall Wins", getGenericWinsPrefix(tntGamesStats["wins_capture"], tntGamesHighPrefixes, tntGamesStats["prefix_capture"], false, "")], ["Overall Captures", checkAndFormat(tntGamesStats["points_capture"])]],
     [false, ["Kills", checkAndFormat(totalWizardStats[0])], ["Deaths", checkAndFormat(totalWizardStats[1])], ["K/D R", calculateRatio(totalWizardStats[0], totalWizardStats[1])]],
     [false, ["Healing", checkAndFormat(totalWizardStats[2] / 2) + ` ♥&#xFE0E;`], ["Damage Taken", checkAndFormat(totalWizardStats[3] / 2) + ` ♥&#xFE0E;`], ["Assists", checkAndFormat(tntGamesStats["assists_capture"])]],
   ];
@@ -1292,7 +1277,7 @@ function generateTNTGames() { // Generates stats and chips for TNT Games
     thisWizard = wizardsList[a][1];
 
     allTNTWizardStats[thisWizard] = [
-        [false, ["Overall Wins", getTNTGamesPrefix(und(tntGamesStats["wins_capture"]), "capture")], ["Overall Captures", checkAndFormat(tntGamesStats["points_capture"])]],
+        [false, ["Overall Wins", getGenericWinsPrefix(tntGamesStats["wins_capture"], tntGamesHighPrefixes, tntGamesStats["prefix_capture"], false, "")], ["Overall Captures", checkAndFormat(tntGamesStats["points_capture"])]],
         [false, ["Kills", checkAndFormat(tntGamesStats[thisWizard + "_kills"])], ["Deaths", checkAndFormat(tntGamesStats[thisWizard + "_deaths"])], ["K/D R", calculateRatio(tntGamesStats[thisWizard + "_kills"], tntGamesStats[thisWizard + "_deaths"])]],
         [false, ["Healing", checkAndFormat(tntGamesStats[thisWizard + "_healing"] / 2) + ` ♥&#xFE0E;`], ["Damage Taken", checkAndFormat(tntGamesStats[thisWizard + "_damage_taken"] / 2) + ` ♥&#xFE0E;`], ["Assists", checkAndFormat(tntGamesStats[thisWizard + "_assists"])]],
     ];
