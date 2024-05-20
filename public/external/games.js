@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats;
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats;
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
@@ -29,7 +29,7 @@ function locale(number, digits = 2) {
 
 function smallDuration(seconds, ms = false) {
   // Converts a number of seconds into a human-readable duration of time
-  if (seconds == -1) {
+  if (seconds == -1 || seconds == undefined || isNaN(seconds)) {
     return "N/A";
   }
 
@@ -301,6 +301,7 @@ function generateNetwork() {
     generateArcade();
     generatePit();
     generateClassic();
+    generateCopsAndCrims();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
   } else {
@@ -882,7 +883,7 @@ function getQuakeStats(mode) {
       [false, ["Wins", checkAndFormat(quakeModeStats[2])]],
       [false, ["Kills", getGenericWinsPrefix(quakeModeStats[0], quakeTitles, undefined, false)], ["Deaths", checkAndFormat(quakeModeStats[1]), ["K/D R", calculateRatio(quakeModeStats[0], quakeModeStats[1])]]],
       [false, ["Headshots", checkAndFormat(quakeModeStats[3])], ["Killstreaks", checkAndFormat(quakeModeStats[4])]],
-      [false, ["Shots Fired", checkAndFormat(quakeModeStats[5])], ["Distance Travelled", checkAndFormat(quakeModeStats[6]) + "m"]],
+      [false, ["Shots", checkAndFormat(quakeModeStats[5])], ["Distance Travelled", checkAndFormat(quakeModeStats[6]) + "m"]],
       [false, ["Godlikes", `<span class="mc">Missing from API</span>`]],
     ];
   } else {
@@ -891,7 +892,7 @@ function getQuakeStats(mode) {
       [false, ["Wins", checkAndFormat(quakeStats["wins" + mode])]],
       [false, ["Kills", checkAndFormat(quakeStats["kills" + mode])], ["Deaths", checkAndFormat(quakeStats["deaths" + mode]), ["K/D R", calculateRatio(quakeStats["kills" + mode], quakeStats["deaths" + mode])]]],
       [false, ["Headshots", checkAndFormat(quakeStats["headshots" + mode])], ["Killstreaks", checkAndFormat(quakeStats["killstreaks" + mode])]],
-      [false, ["Shots Fired", checkAndFormat(quakeStats["shots_fired" + mode])], ["Distance Travelled", checkAndFormat(quakeStats["distance_travelled" + mode]) + "m"]],
+      [false, ["Shots", checkAndFormat(quakeStats["shots_fired" + mode])], ["Distance Travelled", checkAndFormat(quakeStats["distance_travelled" + mode]) + "m"]],
       [false, ["Godlikes", `<span class="mc">Missing from API</span>`]],
     ];
   }
@@ -2374,7 +2375,7 @@ function generateClassic() {
         ["Deaths", checkAndFormat(paintballStats["deaths"])],
         ["K/D R", calculateRatio(paintballStats["kills"], paintballStats["deaths"])],
       ],
-      [false, ["Shots Fired", checkAndFormat(paintballStats["shots_fired"])], ["Killstreaks", checkAndFormat(paintballStats["killstreaks"])]],
+      [false, ["Shots", checkAndFormat(paintballStats["shots_fired"])], ["Killstreaks", checkAndFormat(paintballStats["killstreaks"])]],
     ],
     [],
     `/img/icon/minecraft/snowball.${imageFileType}`,
@@ -2465,6 +2466,101 @@ function generateClassic() {
   }
 }
 
+function generateCopsAndCrims() {
+  copsAndCrimsStats = playerData["stats"]["MCGO"] || {};
+
+  let easyStats = ["game_wins", "kills", "deaths", "round_wins", "bombs_planted", "bombs_defused", "assists"];
+
+  let copsAndCrimsBasicStats = sumStats(easyStats, ["", "_gungame", "_deathmatch"], copsAndCrimsStats, "", true);
+
+  for (let e = 0; e < easyStats.length; e++) {
+    updateElement(`copsandcrims-overall-${easyStats[e]}`, checkAndFormat(copsAndCrimsBasicStats[e]));
+  }
+
+  updateElement("copsandcrims-overall-kdr", calculateRatio(copsAndCrimsBasicStats[1], copsAndCrimsBasicStats[2]));
+  updateElement("copsandcrims-overall-coins", checkAndFormat(copsAndCrimsStats["coins"]));
+
+  let defusalChip = [
+    "copsandcrims-defusal",
+    "Defusal",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Wins", checkAndFormat(copsAndCrimsStats["game_wins"])]],
+      [false, ["Kills", checkAndFormat(copsAndCrimsStats["kills"])], ["Deaths", checkAndFormat(copsAndCrimsStats["deaths"])], ["K/D R", calculateRatio(copsAndCrimsStats["kills"], copsAndCrimsStats["deaths"])]],
+      [false, ["Assists", checkAndFormat(copsAndCrimsStats["assists"])], ["Headshot Kills", checkAndFormat(copsAndCrimsStats["headshot_kills"])], ["Shots", checkAndFormat(copsAndCrimsStats["shots_fired"])]],
+      [false, ["Bombs Defused", checkAndFormat(copsAndCrimsStats["bombs_defused"])], ["Bombs Planted", checkAndFormat(copsAndCrimsStats["bombs_planted"])], ["Round Wins", checkAndFormat(copsAndCrimsStats["round_wins"])]],
+    ],
+    [],
+    ``,
+    "copsandcrims",
+  ];
+
+  let deathmatchChip = [
+    "copsandcrims-deathmatch",
+    "Deathmatch",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Wins", checkAndFormat(copsAndCrimsStats["game_wins_deathmatch"])]],
+      [false, ["Kills", checkAndFormat(copsAndCrimsStats["kills_deathmatch"])], ["Deaths", checkAndFormat(copsAndCrimsStats["deaths_deathmatch"])], ["K/D R", calculateRatio(copsAndCrimsStats["kills_deathmatch"], copsAndCrimsStats["deaths_deathmatch"])]],
+      [false, ["Assists", checkAndFormat(copsAndCrimsStats["assists_deathmatch"])]],
+    ],
+    [],
+    ``,
+    "copsandcrims",
+  ]
+
+  let gunGameChip = [
+    "copsandcrims-gungame",
+    "Gun Game",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Wins", checkAndFormat(copsAndCrimsStats["game_wins_gungame"])]],
+      [false, ["Kills", checkAndFormat(copsAndCrimsStats["kills_gungame"])], ["Deaths", checkAndFormat(copsAndCrimsStats["deaths_gungame"])], ["K/D R", calculateRatio(copsAndCrimsStats["kills_gungame"], copsAndCrimsStats["deaths_gungame"])]],
+      [false, ["Assists", checkAndFormat(copsAndCrimsStats["assists_gungame"])], ["Fastest Win", smallDuration(copsAndCrimsStats["fastest_win_gungame"] / 1000, true)]]
+    ],
+    [],
+    ``,
+    "copsandcrims",
+  ];
+
+  let gunsChip = [
+    "copsandcrims-guns",
+    "Guns",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getCopsAndCrimsGunStats("autoShotgun"),
+    [
+      ["Auto Shotgun", "autoShotgun"],
+      ["Bullpup", "bullpup"],
+      ["Carbine", "carbine"],
+      ["Handgun", "handgun"],
+      ["Magnum", "magnum"],
+      ["Pistol", "pistol"],
+      ["Rifle", "rifle"],
+      ["Scoped Rifle", "scopedRifle"],
+      ["Shotgun", "shotgun"],
+      ["SMG", "smg"],
+      ["Sniper", "sniper"],
+    ],
+    ``,
+    "copsandcrims_guns",
+  ];
+
+  let copsAndCrimsChips = [defusalChip, deathmatchChip, gunGameChip, gunsChip];
+  for (d = 0; d < copsAndCrimsChips.length; d++) {
+    generateChip(copsAndCrimsChips[d], d % 2 == 0 ? "copsandcrims-chips-1" : "copsandcrims-chips-2");
+  }
+}
+
+function getCopsAndCrimsGunStats(gun) {
+  return [
+    [false, ["Kills", checkAndFormat(copsAndCrimsStats[`${gun}Kills`])], ["Headshots", checkAndFormat(copsAndCrimsStats[`${gun}Headshots`])]],
+  ];
+}  
+
 function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "") {
   // Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
   let chosenTitle = winsObject[0];
@@ -2490,8 +2586,6 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
   if (definedColor != undefined) {
     chosenTitle = winsObject.find((x) => x.internalId == definedColor) || { color: "§f" };
   }
-
-  console.warn(chosenTitle);
 
   if (chosenTitle["color"] != "rainbow") {
     return `${generateMinecraftText(`${chosenTitle["color"]}[${wins.toString()}${suffix}]`, true)}${nextTitleWins}`;
@@ -2642,6 +2736,8 @@ function updateChipStats(name, chipId, gamemode) {
     updateElement(chipId, generateChipStats(getTKRStats(newValue)), true);
   } else if (gamemode == "wizard") {
     cardWizardSettings[chipId] = newValue;
+  } else if (gamemode == "copsandcrims_guns") {
+    updateElement(chipId, generateChipStats(getCopsAndCrimsGunStats(newValue)), true);
   }
 }
 

@@ -881,6 +881,10 @@
     cursor: pointer;
     font-weight: 500;
   }
+
+  .dropdown-chip div {
+    padding: 6px 16px;
+  }
   
   .dropdown-wizard {
     min-width: 200px !important;
