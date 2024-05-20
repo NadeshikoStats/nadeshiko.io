@@ -596,14 +596,6 @@
 </div>
 </div>
 
-
-    <div class="flex-container unloaded" id="flex-container-blitz">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming eventually!</p>
-        <p class="subtitle-text">We'll be adding Blitz to nadeshiko sometime in the near future.</p>
-      </section>
-    </div>
-
 <div class="flex-container unloaded minigame-flex-container" id="flex-container-classic">
   <!-- classic stats -->
   <div class="chip-container" id="pit-chips">
@@ -685,35 +677,85 @@
 </div>
 </div>
 
+  <div class="flex-container unloaded" id="flex-container-blitz">
+    <section class="player-card" style="align-content: center;">
+      <p class="title-text">Coming soon!</p>
+      <p class="subtitle-text">We'll be adding Blitz to nadeshiko sometime in the near future.</p>
+    </section>
+  </div>
+
     <div class="flex-container unloaded" id="flex-container-uhc">
       <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming eventually!</p>
+        <p class="title-text">Coming soon!</p>
         <p class="subtitle-text">We'll be adding UHC to nadeshiko sometime in the near future.</p>
       </section>
     </div>
     <div class="flex-container unloaded" id="flex-container-smashheroes">
       <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming eventually!</p>
+        <p class="title-text">Coming soon!</p>
         <p class="subtitle-text">We'll be adding Smash Heroes to nadeshiko sometime in the near future.</p>
       </section>
     </div>
     <div class="flex-container unloaded" id="flex-container-megawalls">
       <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming eventually!</p>
+        <p class="title-text">Coming soon!</p>
         <p class="subtitle-text">We'll be adding Mega Walls to nadeshiko sometime in the near future.</p>
       </section>
     </div>
 
-    <div class="flex-container unloaded" id="flex-container-woolwars">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming eventually!</p>
-        <p class="subtitle-text">We'll be adding Wool Wars to nadeshiko sometime in the near future.</p>
-      </section>
+    <div class="flex-container unloaded minigame-flex-container" id="flex-container-woolwars">
+      <!-- wool games(?) stats -->
+      <div class="chip-container" id="woolwars-chips">
+        <div class="chip-small but-big">
+          <div class="chip-small-background-filter"></div>
+          <p class="chip-small-title">Wool Games</p>
+          <div class="chip-small-container">
+            <p class="margin10">
+              Level <span id="woolwars-level"><span class="mc">Unknown</span></span>
+            </p>
+            <div class="progress-bar">
+              <span class="progress-number" id="woolwars-progress-number"><span class="mc">Unknown</span></span>
+              <div class="progress" style="width: 0%;" id="woolwars-progress-bar"></div>
+            </div>
+            <div class="flex-two-item align-top flippable margin10">
+              <div class="card-big-stats">
+                <p class="super-subtitle">Stats</p>
+                <div class="chip-small-statistic-row">
+                  <p>Wins <span class="statistic" id="woolwars-overall-wins"><span class="mc">Unknown</span></span></p>
+                  <p>Losses <span class="statistic" id="woolwars-overall-losses"><span class="mc">Unknown</span></span></p>
+                  <p>W/L R <span class="statistic" id="woolwars-overall-wlr"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                  <p>Kills <span class="statistic" id="woolwars-overall-kills"><span class="mc">Unknown</span></span></p>
+                  <p>Deaths <span class="statistic" id="woolwars-overall-deaths"><span class="mc">Unknown</span></span></p>
+                  <p>K/D R <span class="statistic" id="woolwars-overall-kdr"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+              <div class="card-big-misc">
+                <p class="super-subtitle">Misc</p>
+                <div class="chip-small-statistic-row">
+                  <p>Wool <span class="statistic" id="woolwars-overall-coins"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                  <p>Layers <span class="statistic" id="woolwars-overall-available_layers"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="general-button mright margin-top-bottom" onclick="showCardWizard('WOOLWARS')">Generate Card</span>
+        </div>
+        <div class="flex-two-item chip-container-duo-parent">
+          <div id="woolwars-chips-1" class="chip-container-duo">
+          </div>
+          <div id="woolwars-chips-2" class="chip-container-duo">
+          </div>
+        </div>
     </div>
+  </div>
 
     <div class="flex-container unloaded" id="flex-container-warlords">
       <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming eventually!</p>
+        <p class="title-text">Coming soon!</p>
         <p class="subtitle-text">We'll be adding Warlords to nadeshiko sometime in the near future.</p>
       </section>
     </div>

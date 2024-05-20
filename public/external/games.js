@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats;
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, woolWarsNumericalStats;
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
@@ -302,6 +302,7 @@ function generateNetwork() {
     generatePit();
     generateClassic();
     generateCopsAndCrims();
+    generateWoolGames();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
   } else {
@@ -2561,6 +2562,66 @@ function getCopsAndCrimsGunStats(gun) {
   ];
 }  
 
+function generateWoolGames() {
+  let woolGamesStats = playerData["stats"]["WoolGames"] || {};
+  let woolWarsStats = woolGamesStats["wool_wars"] || {};
+  let woolGamesProgression = woolGamesStats["progression"] || {};
+  woolWarsNumericalStats = woolWarsStats["stats"] || {};
+
+  updateElement("woolwars-overall-wins", checkAndFormat(woolWarsNumericalStats["wins"]));
+  updateElement("woolwars-overall-losses", checkAndFormat(woolWarsNumericalStats["games_played"] - woolWarsNumericalStats["wins"]));
+  updateElement("woolwars-overall-kills", checkAndFormat(woolWarsNumericalStats["kills"]));
+  updateElement("woolwars-overall-deaths", checkAndFormat(woolWarsNumericalStats["deaths"]));
+  updateElement("woolwars-overall-kdr", calculateRatio(woolWarsNumericalStats["kills"], woolWarsNumericalStats["deaths"]));
+  updateElement("woolwars-overall-wlr", calculateRatio(woolWarsNumericalStats["wins"], woolWarsNumericalStats["games_played"] - woolWarsNumericalStats["wins"]));
+
+  updateElement("woolwars-overall-coins", checkAndFormat(woolGamesStats["coins"]));
+  updateElement("woolwars-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
+
+  let woolWarsChip = [
+    "woolwars",
+    "Wool Wars",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getWoolWarsStats("overall"),
+    [
+      ["Overall", "overall"],
+      ["Archer", "archer"],
+      ["Assult", "assault"],
+      ["Engineer", "engineer"],
+      ["Golem", "golem"],
+      ["Swordsman", "swordsman"],
+      ["Tank", "tank"],
+    ],
+    `/img/icon/minecraft/white_wool.${imageFileType}`,
+    "woolwars",
+  ];
+
+  let woolGamesChips = [woolWarsChip];
+  for (d = 0; d < woolGamesChips.length; d++) {
+    generateChip(woolGamesChips[d], d % 2 == 0 ? "woolwars-chips-1" : "woolwars-chips-2");
+  }
+}
+
+function getWoolWarsStats(mode) {
+  let woolWarsModeStats, woolWarsWinStats;
+  if(mode == "overall") {
+    woolWarsModeStats = woolWarsNumericalStats;
+    woolWarsWinStats = [false, ["Wins", checkAndFormat(woolWarsModeStats["wins"])], ["Losses", checkAndFormat(woolWarsModeStats["games_played"] - woolWarsModeStats["wins"])], ["W/L R", calculateRatio(woolWarsModeStats["wins"], woolWarsModeStats["games_played"] - woolWarsModeStats["wins"])]];
+  } else {
+    woolWarsClassStats = woolWarsNumericalStats["classes"] || {};
+    woolWarsModeStats = woolWarsClassStats[mode] || {};
+    woolWarsWinStats = [false, ["Games Played", checkAndFormat(woolWarsModeStats["games_played"])]]
+  }
+
+  return [
+    woolWarsWinStats,
+    [false, ["Kills", checkAndFormat(woolWarsModeStats["kills"])], ["Deaths", checkAndFormat(woolWarsModeStats["deaths"])],  ["K/D R", calculateRatio(woolWarsModeStats["kills"], woolWarsModeStats["deaths"])]],
+    [false, ["Assists", checkAndFormat(woolWarsModeStats["assists"])], ["Powerups", checkAndFormat(woolWarsModeStats["powerups_gotten"])]],
+    [false, ["Wool Placed", checkAndFormat(woolWarsModeStats["wool_placed"])], ["Blocks Broken", checkAndFormat(woolWarsModeStats["blocks_broken"])]],
+  ]
+}
+
 function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "") {
   // Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
   let chosenTitle = winsObject[0];
@@ -2738,6 +2799,8 @@ function updateChipStats(name, chipId, gamemode) {
     cardWizardSettings[chipId] = newValue;
   } else if (gamemode == "copsandcrims_guns") {
     updateElement(chipId, generateChipStats(getCopsAndCrimsGunStats(newValue)), true);
+  } else if (gamemode == "woolwars") {
+    updateElement(chipId, generateChipStats(getWoolWarsStats(newValue)), true);
   }
 }
 
