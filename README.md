@@ -4,7 +4,8 @@
 
 ![The frontend running, displaying the Hypixel stats of a player named "kittycatchloe". Headers on the top allow users to switch from the "Home", "About", "Cards", and "Settings", with a second header allowing users to pick the currently selected gamemode.](https://github.com/NadeshikoStats/nadeshiko.io/assets/96643991/fba77ec1-f126-4be4-a4f4-b8730e1deda8)
 
-![A nadeshiko network card generated for the player "llamaloverbella" by using the card wizard.](https://github.com/NadeshikoStats/nadeshiko.io/assets/96643991/3062f9f5-32ad-4db4-bc8a-d83ec4844d7e)
+![A nadeshiko Bed Wars card generated for the player "brookeafk" by using the card wizard.](https://github.com/NadeshikoStats/nadeshiko.io/assets/96643991/e3cea29a-2c03-4aa0-abab-cfe7a08b1e83)
+
 
 
 
