@@ -486,7 +486,18 @@ function generateBedWars() {
 
     let bedWarsLevel = getBedWarsLevel(und(bedWarsStats["Experience"]));
 
-    updateElement("bed-wars-level", checkAndFormat(bedWarsLevel, 0));
+    let prefixIcon;
+    if (bedWarsLevel < 1100) {
+      prefixIcon = '✫';
+    } else if (bedWarsLevel < 2100) {
+      prefixIcon = '✪';
+    } else if (bedWarsLevel < 3100) {
+      prefixIcon = '⚝';
+    } else {
+      prefixIcon = '✥';
+    }
+
+    updateElement("bed-wars-level", checkAndFormat(Math.floor(bedWarsLevel)) + prefixIcon);
     document.getElementById("bed-wars-level-container").style.background = linearGradient(bedWarsPrestigeColors[Math.floor(Math.max(bedWarsLevel / 100), 49)]);
     document.getElementById("bed-wars-xp-progress-bar").style.width = ((bedWarsLevel % 1) * 100).toFixed(0) + "%";
     updateElement("bed-wars-xp-progress-number", ((bedWarsLevel % 1) * 100).toFixed(0) + "%");
@@ -884,7 +895,7 @@ function getQuakeStats(mode) {
       [false, ["Kills", getGenericWinsPrefix(quakeModeStats[0], quakeTitles, undefined, false)], ["Deaths", checkAndFormat(quakeModeStats[1]), ["K/D R", calculateRatio(quakeModeStats[0], quakeModeStats[1])]]],
       [false, ["Headshots", checkAndFormat(quakeModeStats[3])], ["Killstreaks", checkAndFormat(quakeModeStats[4])]],
       [false, ["Shots", checkAndFormat(quakeModeStats[5])], ["Distance Travelled", checkAndFormat(quakeModeStats[6]) + "m"]],
-      [false, ["Godlikes", `<span class="mc">Missing from API</span>`]],
+      [false, ["Godlikes", checkAndFormat(playerAchievements["quake_godlikes"])]],
     ];
   } else {
     return [
@@ -893,7 +904,7 @@ function getQuakeStats(mode) {
       [false, ["Kills", checkAndFormat(quakeStats["kills" + mode])], ["Deaths", checkAndFormat(quakeStats["deaths" + mode]), ["K/D R", calculateRatio(quakeStats["kills" + mode], quakeStats["deaths" + mode])]]],
       [false, ["Headshots", checkAndFormat(quakeStats["headshots" + mode])], ["Killstreaks", checkAndFormat(quakeStats["killstreaks" + mode])]],
       [false, ["Shots", checkAndFormat(quakeStats["shots_fired" + mode])], ["Distance Travelled", checkAndFormat(quakeStats["distance_travelled" + mode]) + "m"]],
-      [false, ["Godlikes", `<span class="mc">Missing from API</span>`]],
+      [false, ["Godlikes", checkAndFormat(playerAchievements["quake_godlikes"])]],
     ];
   }
 }
@@ -1225,6 +1236,7 @@ function generateBuildBattle() {
 
     updateElement("buildbattle-overall-losses", locale(und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"]), 0));
     updateElement("buildbattle-overall-wlr", calculateRatio(buildBattleStats["wins"], und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"])));
+    updateElement("buildbattle-overall-highest-score", checkAndFormat(playerAchievements["buildbattle_build_battle_points"]));
 
     let easyStats = ["score", "wins", "total_votes", "coins"];
     for (e = 0; e < easyStats.length; e++) {
@@ -1368,6 +1380,7 @@ function generateTNTGames() {
     updateElement("tntgames-overall-kills", checkAndFormat(tntGamesKills));
     updateElement("tntgames-overall-deaths", checkAndFormat(tntGamesDeaths));
     updateElement("tntgames-overall-kdr", calculateRatio(tntGamesKills, tntGamesDeaths));
+    updateElement("tntgames-overall-playtime", smallDuration(playerAchievements["tntgames_tnt_triathlon"] * 60));
   }
 
   const tntGamesLowPrefixes = [
@@ -1410,7 +1423,7 @@ function generateTNTGames() {
         ["Losses", checkAndFormat(tntGamesStats["deaths_tntrun"])],
         ["W/L R", calculateRatio(tntGamesStats["wins_tntrun"], tntGamesStats["deaths_tntrun"])],
       ],
-      [false, ["Blocks Ran", "Missing From API"], ["Best Time", smallDuration(und(tntGamesStats["record_tntrun"]))]],
+      [false, ["Blocks Ran", checkAndFormat(playerAchievements["tntgames_block_runner"])], ["Best Time", smallDuration(und(tntGamesStats["record_tntrun"]))]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     "/img/icon/minecraft/diamond_boots.png", // Chip image
@@ -1450,7 +1463,7 @@ function generateTNTGames() {
         ["W/L R", calculateRatio(tntGamesStats["wins_tntag"], tntGamesStats["deaths_tntag"])],
       ],
       [false, ["Kills", checkAndFormat(tntGamesStats["kills_tntag"])], ["Deaths", checkAndFormat(tntGamesStats["deaths_tntag"])], ["K/D R", calculateRatio(tntGamesStats["kills_tntag"], tntGamesStats["deaths_tntag"])]],
-      [false, ["Tags", "Missing From API"], ["Powerups", "Missing From API"]],
+      [false, ["Tags", checkAndFormat(playerAchievements["tntgames_clinic"])], ["Powerups", checkAndFormat(playerAchievements["tntgames_the_upper_hand"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     "/img/icon/minecraft/tnt.png", // Chip image
@@ -2630,7 +2643,6 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
   for (let i = 0; i < winsObject.length; i++) {
     if (wins >= winsObject[i]["req"]) {
       chosenTitle = winsObject[i];
-      console.log("found title #" + i);
     }
   }
 
@@ -2820,12 +2832,9 @@ function addRecentPlayer(player, colorCode = 7) {
     }
 
     if (foundDuplicate != -1) {
-      console.log("Removing duplicate");
+      console.log("Removing duplicate player");
       recentPlayers.splice(foundDuplicate, 1);
     }
-    console.log(recentPlayers.indexOf(newRecentPlayer));
-    console.log(JSON.stringify(newRecentPlayer));
-    console.log(JSON.stringify(recentPlayers));
     console.log("Adding new player");
     recentPlayers.unshift(newRecentPlayer);
     if (recentPlayers.length > 5) {

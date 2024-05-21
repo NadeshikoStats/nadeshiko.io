@@ -722,6 +722,7 @@
     flex: 1;
     content: '';
     margin: 0px 15px 0px 15px;
+    transition-duration: var(--transition);
   }
   
   .login-information {
@@ -783,6 +784,7 @@
   .statistic {
     font-weight: 600;
     color: white;
+    margin-left: 3px;
   }
   
   .icon {
