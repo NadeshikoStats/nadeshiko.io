@@ -610,7 +610,6 @@
     background-color: rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     padding: 10px;
-    margin: 5px;
     margin-top: 15px;
     margin-bottom: 15px;
   }
@@ -711,6 +710,18 @@
     font-size: 18px;
     color: white;
     font-weight: 500;
+    text-transform: uppercase;
+
+    display: flex;
+    align-items: center;
+  }
+
+  .super-subtitle:after {
+    background: var(--accent);
+    height: 1px;
+    flex: 1;
+    content: '';
+    margin: 0px 15px 0px 15px;
   }
   
   .login-information {
@@ -770,7 +781,7 @@
   }
   
   .statistic {
-    font-weight: 500;
+    font-weight: 600;
     color: white;
   }
   
@@ -1452,10 +1463,12 @@
   
   .card-big-stats {
     flex: 60%;
+    margin-right: 15px;
   }
   
   .card-big-misc {
     flex: 40%;
+    margin-left: 15px;
   }
   
   .chip-container > .chip-small {
@@ -1472,7 +1485,7 @@
     position: relative;
   
     border-radius: 20px;
-    padding: 20px;
+    padding: 15px;
   
     margin: 15px 0px;
     width: 100%;
@@ -1514,6 +1527,7 @@
     font-size: 16px;
     position: relative;
     z-index: 2;
+    margin-left: 10px;
   }
   
   .chip-small-container {
@@ -1521,7 +1535,7 @@
     z-index: 2;
     background-color: #000c;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 13px;
   
     padding-top: 10px;
     padding-bottom: 10px;
@@ -1871,6 +1885,12 @@
     .card-big-misc,
     .card-big-stats {
       width: 100%;
+    }
+    .card-big-stats {
+      margin-right: 0px;
+    }
+    .card-big-misc {
+      margin-left: 0px;
     }
     .header-game {
       display: none;

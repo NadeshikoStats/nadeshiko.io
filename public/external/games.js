@@ -225,7 +225,6 @@ function generateNetwork() {
       { id: "megawalls", name: "Mega Walls", minecraftId: "soul_sand" },
       { id: "murdermystery", name: "Murder Mystery", minecraftId: "bow" },
       { id: "pit", name: "Pit", minecraftId: "dirt" },
-      { id: "skyblock", name: "SkyBlock", minecraftId: "head_skyblock" },
       { id: "skywars", name: "SkyWars", minecraftId: "ender_eye" },
       { id: "smashheroes", name: "Smash Heroes", minecraftId: "head_smashheroes" },
       { id: "tntgames", name: "TNT Games", minecraftId: "tnt" },
@@ -2587,7 +2586,7 @@ function generateWoolGames() {
     [
       ["Overall", "overall"],
       ["Archer", "archer"],
-      ["Assult", "assault"],
+      ["Assault", "assault"],
       ["Engineer", "engineer"],
       ["Golem", "golem"],
       ["Swordsman", "swordsman"],
@@ -2611,7 +2610,7 @@ function getWoolWarsStats(mode) {
   } else {
     woolWarsClassStats = woolWarsNumericalStats["classes"] || {};
     woolWarsModeStats = woolWarsClassStats[mode] || {};
-    woolWarsWinStats = [false, ["Games Played", checkAndFormat(woolWarsModeStats["games_played"])]]
+    woolWarsWinStats = []
   }
 
   return [

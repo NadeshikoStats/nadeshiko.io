@@ -98,7 +98,7 @@
   
               <div class="extended-card" id="extended-card">
                 <div id="real-stats">
-                <p id="level-container-container"><span id="level-container">Level <span id="level" class="statistic"><span class="mc">Unknown</span></span></span> <span class="m8">(<span id="multiplier">1</span>&times;)</span></p>
+                <p id="level-container-container"><span id="level-container">Level <span id="level" class="statistic"><span class="mc">Unknown</span></span></span> <span class="tooltip"><span class="m8">(<span id="multiplier">1</span>&times;)</span><span class="tooltiptext">Coin Multiplier</span></span></p>
                 <div class="progress-bar">
                   <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
                   <div class="progress" style="width: 0%;" id="xp-progress-bar"></div>
@@ -225,7 +225,7 @@
                 </div>
               </div>
             </div>
-            <span class="general-button mright margin-top-bottom" onclick="showCardWizard('BEDWARS')">Generate Card</span>
+            <span class="general-button mright mtop" onclick="showCardWizard('BEDWARS')">Generate Card</span>
           </div>
           <div class="flex-two-item chip-container-duo-parent" id="bed-wars-chips">
             <div id="bed-wars-chips-1" class="chip-container-duo">
@@ -281,7 +281,7 @@
               </div>
             </div>
           </div>
-          <span class="general-button mright margin-top-bottom" onclick="showCardWizard('SKYWARS')">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('SKYWARS')">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="skywars-chips-1" class="chip-container-duo">
@@ -338,7 +338,7 @@
                 </div>
               </div>
             </div>
-            <span class="general-button mright margin-top-bottom" onclick="showCardWizard('DUELS')">Generate Card</span>
+            <span class="general-button mright mtop" onclick="showCardWizard('DUELS')">Generate Card</span>
           </div>
           <div class="flex-two-item chip-container-duo-parent" id="duels-chips">
             <div id="duels-chips-1" class="chip-container-duo">
@@ -378,7 +378,7 @@
               </div>
             </div>
           </div>
-          <span class="general-button mright margin-top-bottom" onclick="showCardWizard('ARCADE')">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('ARCADE')">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="arcade-chips-1" class="chip-container-duo">
@@ -429,7 +429,7 @@
               </div>
             </div>
           </div>
-          <span class="general-button mright margin-top-bottom" onclick="showCardWizard('BUILDBATTLE')">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('BUILDBATTLE')">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="buildbattle-chips-1" class="chip-container-duo">
@@ -484,7 +484,7 @@
             </div>
           </div>
         </div>
-        <span class="general-button mright margin-top-bottom" onclick="showCardWizard('MURDERMYSTERY')">Generate Card</span>
+        <span class="general-button mright mtop" onclick="showCardWizard('MURDERMYSTERY')">Generate Card</span>
       </div>
       <div class="flex-two-item chip-container-duo-parent">
         <div id="murdermystery-chips-1" class="chip-container-duo">
@@ -525,7 +525,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright margin-top-bottom" onclick="showCardWizard('TNTGAMES')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('TNTGAMES')">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="tntgames-chips-1" class="chip-container-duo">
@@ -585,7 +585,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright margin-top-bottom" onclick="showCardWizard('PIT')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('PIT')">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent" id="buildbattle-chips">
       <div id="pit-chips-1" class="chip-container-duo">
@@ -625,7 +625,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright margin-top-bottom" onclick="showCardWizard('CLASSIC')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('CLASSIC')">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="classic-chips-1" class="chip-container-duo">
@@ -666,7 +666,7 @@
         </div>
       </div>
     </div>
-    <span class="general-button mright margin-top-bottom" onclick="showCardWizard('COPSANDCRIMS')">Generate Card</span>
+    <span class="general-button mright mtop" onclick="showCardWizard('COPSANDCRIMS')">Generate Card</span>
   </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="copsandcrims-chips-1" class="chip-container-duo">
@@ -721,28 +721,13 @@
               <div class="card-big-stats">
                 <p class="super-subtitle">Stats</p>
                 <div class="chip-small-statistic-row">
-                  <p>Wins <span class="statistic" id="woolwars-overall-wins"><span class="mc">Unknown</span></span></p>
-                  <p>Losses <span class="statistic" id="woolwars-overall-losses"><span class="mc">Unknown</span></span></p>
-                  <p>W/L R <span class="statistic" id="woolwars-overall-wlr"><span class="mc">Unknown</span></span></p>
-                </div>
-                <div class="chip-small-statistic-row">
-                  <p>Kills <span class="statistic" id="woolwars-overall-kills"><span class="mc">Unknown</span></span></p>
-                  <p>Deaths <span class="statistic" id="woolwars-overall-deaths"><span class="mc">Unknown</span></span></p>
-                  <p>K/D R <span class="statistic" id="woolwars-overall-kdr"><span class="mc">Unknown</span></span></p>
-                </div>
-              </div>
-              <div class="card-big-misc">
-                <p class="super-subtitle">Misc</p>
-                <div class="chip-small-statistic-row">
                   <p>Wool <span class="statistic" id="woolwars-overall-coins"><span class="mc">Unknown</span></span></p>
-                </div>
-                <div class="chip-small-statistic-row">
                   <p>Layers <span class="statistic" id="woolwars-overall-available_layers"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
             </div>
           </div>
-          <span class="general-button mright margin-top-bottom" onclick="showCardWizard('WOOLWARS')">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('WOOLWARS')">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="woolwars-chips-1" class="chip-container-duo">
