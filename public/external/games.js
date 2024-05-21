@@ -2228,7 +2228,7 @@ decodeNBT(decompressedData.buffer)
     "pit-combat",
     "Combat",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/pit/combat.${imageFileType}`,
     [
       [false, ["Sword Hits", checkAndFormat(pitPtlStats["sword_hits"])]],
       [false, ["Arrows Shot", checkAndFormat(pitPtlStats["arrows_fired"])], ["Arrows Hit", checkAndFormat(pitPtlStats["arrow_hits"])]],
@@ -2242,7 +2242,7 @@ decodeNBT(decompressedData.buffer)
     "pit-performance",
     "Performance",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/pit/perfomance.${imageFileType}`,
     [
       [false, ["XP", checkAndFormat(pitProfileStats["xp"])], ["Lifetime Gold", checkAndFormat(pitPtlStats["cash_earned"]) + "g"]],
       [false, ["Contracts Started", checkAndFormat(pitPtlStats["contracts_started"])], ["Contracts Completed", checkAndFormat(pitPtlStats["contracts_completed"])]],
@@ -2255,7 +2255,7 @@ decodeNBT(decompressedData.buffer)
     "pit-perks",
     "Perks",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/pit/perks.${imageFileType}`,
     [
       [false, ["Golden Apples Eaten", checkAndFormat(pitPtlStats["gapple_eaten"])], ["Golden Heads Eaten", checkAndFormat(pitPtlStats["ghead_eaten"])]],
       [false, ["Blocks Placed", checkAndFormat(pitPtlStats["blocks_placed"])], ["Blocks Broken", checkAndFormat(pitPtlStats["blocks_broken"])]],
@@ -2270,7 +2270,7 @@ decodeNBT(decompressedData.buffer)
     "pit-mystics",
     "Mystics",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/pit/mystics.${imageFileType}`,
     [
       [false, ["Mystics Enchanted", locale(sumStatsBasic(["enchanted_tier1", "enchanted_tier2", "enchanted_tier3"], pitPtlStats), 0)], ["Dark Pants Created", checkAndFormat(pitPtlStats["dark_pants_crated"])]],
       [false, ["Tier 1s", checkAndFormat(pitPtlStats["enchanted_tier1"])], ["Tier 2s", checkAndFormat(pitPtlStats["enchanted_tier2"])], ["Tier 3s", checkAndFormat(pitPtlStats["enchanted_tier3"])]],
@@ -2283,7 +2283,7 @@ decodeNBT(decompressedData.buffer)
     "pit-farming",
     "Farming",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/pit/farming.${imageFileType}`,
     [
       [false, ["Wheat Farmed", checkAndFormat(pitPtlStats["wheat_farmed"])]],
       [false, ["Items Fished", checkAndFormat(pitPtlStats["fished_anything"])], ["Fish Fished", checkAndFormat(pitPtlStats["fishes_fished"])]],
@@ -2296,7 +2296,7 @@ decodeNBT(decompressedData.buffer)
     "pit-misc",
     "Miscellaneous",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/pit/miscellaneous.${imageFileType}`,
     [
       [false, ["Chat Messages", checkAndFormat(pitPtlStats["chat_messages"])], ["Ingots Picked Up", checkAndFormat(pitPtlStats["ingots_picked_up"])]],
       [false, ["Pit Jumps", checkAndFormat(pitPtlStats["jumped_into_pit"])], ["Launcher Launches", locale(sumStatsBasic(["launched_by_launchers", "launched_by_angel_spawn", "launched_by_demon_spawn"], pitPtlStats), 0)]],
