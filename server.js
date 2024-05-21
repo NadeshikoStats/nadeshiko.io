@@ -56,14 +56,18 @@ app.get('/player/:name/:game?', async (req, res) => {
        base64PlayerImage = await getVisageImage(playerData["uuid"]);      
        res.render('player', { name, playerData, base64PlayerImage, game });
    } catch(error) {
-       console.error("Fetching player data failed! → ", error);
-       computationError = `Could not find stats of player ${name} (${error})`;
-       res.render('index', { computationError });
+      if(error.response.status == 404) {
+        computationError = `No player by the name of ${name} was found :(`;
+      } else {
+        computationError = `Could not find stats of player ${name} (${error})`;
+      }
+      console.error("Fetching player data failed! → ", error);
+      res.render('index', { computationError });
    }
 });
 
-  app.get('/test', (req, res) => {
-    res.send('This is a test route!');
+  app.get('/isnadeshikodown', (req, res) => {
+    res.send('No (probably)');
   });
 
   app.get('/card/:base64', async (req, res) => {
