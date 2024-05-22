@@ -2575,6 +2575,36 @@ function getCopsAndCrimsGunStats(gun) {
 }  
 
 function generateWoolGames() {
+
+  function getWoolWarsLevel(exp) {
+    // Calculates a player's Wool Wars level based on their experience stat
+    let level = 100 * Math.floor(exp / 490000) + 1;
+    exp = exp % 490000;
+    if (exp < 1000) return level + exp / 500;
+    level++;
+    if (exp < 3000) return level + (exp - 500) / 1000;
+    level++;
+    if (exp < 6000) return level + (exp - 1500) / 2000;
+    level++;
+    if (exp < 10000) return level + (exp - 3500) / 3500;
+    level++;
+    exp -= 10000;
+    return level + exp / 5000;
+  }
+
+  let woolWarsPrestigeIcons = {
+    HEART: {icon: "❤\uFE0E", minStars: 0 },
+    PLUS: {icon: "✙\uFE0E", minStars: 100 },
+    STAR: {icon: "✫\uFE0E", minStars: 200 },
+    PLANE: {icon: "✈\uFE0E", minStars: 300 },
+    CROSS: {icon: "✠\uFE0E", minStars: 400 },
+    CROWN: {icon: "♕\uFE0E", minStars: 500 },
+    LIGHTNING: {icon: "⚡\uFE0E", minStars: 600 },
+    NUKE: {icon: "☢\uFE0E", minStars: 700 },
+    PENCIL: {icon: "✏\uFE0E", minStars: 900 },
+    YIN_YANG: {icon: "☯\uFE0E", minStars: 1000 },
+  }
+  
   let woolGamesStats = playerData["stats"]["WoolGames"] || {};
   let woolWarsStats = woolGamesStats["wool_wars"] || {};
   let woolGamesProgression = woolGamesStats["progression"] || {};
@@ -2589,6 +2619,42 @@ function generateWoolGames() {
 
   updateElement("woolwars-overall-coins", checkAndFormat(woolGamesStats["coins"]));
   updateElement("woolwars-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
+
+  let woolGamesLevel = getWoolWarsLevel(und(woolGamesProgression["experience"]));
+  updateElement("woolwars-progress-number", `${Math.floor(woolGamesLevel % 1 * 100)}%`, true);
+  document.getElementById("woolwars-progress-bar").style.width = `${woolGamesLevel % 1 * 100}%`;
+
+  let woolGamesPrestigeIcon;
+
+  if(woolGamesStats["wool_wars_prestige_icon"] != undefined) {
+    selectedWoolGamesPrestige = woolWarsPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolWarsPrestigeIcons["HEART"];
+    woolGamesPrestigeIcon = selectedWoolGamesPrestige["icon"];
+  } else {
+    // Use the prestige icon based on the user's level (minStars)
+    for (const [key, value] of Object.entries(woolWarsPrestigeIcons)) {
+      if(woolGamesLevel >= value["minStars"]) {
+        woolGamesPrestigeIcon = value["icon"];
+      }
+    }
+  }
+
+  let woolWarsLevels = [
+    { req: 0, color: "§7" },
+    { req: 100, color: "§f" },
+    { req: 200, color: "§c" },
+    { req: 300, color: "§6" },
+    { req: 400, color: "§e" },
+    { req: 500, color: "§a" },
+    { req: 600, color: "§3" },
+    { req: 700, color: "§5" },
+    { req: 800, color: "§d" },
+    { req: 900, color: "rainbow" },
+    { req: 1000, color: "§f", bracketColor: "§0" },
+  ]
+
+  let formattedWoolWarsLevel = getGenericWinsPrefix(Math.floor(woolGamesLevel), woolWarsLevels, undefined, false, woolGamesPrestigeIcon, true);
+
+  updateElement("woolwars-level", formattedWoolWarsLevel, true);
 
   let woolWarsChip = [
     "woolwars",
@@ -2634,10 +2700,11 @@ function getWoolWarsStats(mode) {
   ]
 }
 
-function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "") {
+function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false) {
   // Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
   let chosenTitle = winsObject[0];
   wins = und(wins);
+  let chosenBracketColor;
   let nextTitleWins = ``; // number of wins to next title
 
   for (let i = 0; i < winsObject.length; i++) {
@@ -2659,8 +2726,14 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
     chosenTitle = winsObject.find((x) => x.internalId == definedColor) || { color: "§f" };
   }
 
+  if(useDifferentBracketColors) {
+    chosenBracketColor = chosenTitle["bracketColor"] || chosenTitle["color"];
+  } else {
+    chosenBracketColor = chosenTitle["color"];
+  }
+
   if (chosenTitle["color"] != "rainbow") {
-    return `${generateMinecraftText(`${chosenTitle["color"]}[${wins.toString()}${suffix}]`, true)}${nextTitleWins}`;
+    return `${generateMinecraftText(`${chosenBracketColor}[${chosenTitle["color"]}${wins.toString()}${suffix}${chosenBracketColor}]`, true)}${nextTitleWins}`;
   } else {
     return `${generateMinecraftText(rainbowText("[" + wins.toString() + suffix + "]"), true)}${nextTitleWins}`;
   }
