@@ -11,7 +11,8 @@
   <link rel="preload" href="/img/games/duels/lobby.webp" as="image">
   <link rel="preload" href="/img/games/tntgames/lobby.webp" as="image">
   <link rel="preload" href="/img/games/arcade/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/skyblock/lobby.webp" as="image">
+  <link rel="preload" href="/img/games/pit/lobby.webp" as="image">
+
   <script src="/external/webptest.js" type="module"></script>
   <script src="/external/skinview3d.bundle.js" type="module"></script>
   <script src="/external/minecrafttext.js"></script>
@@ -178,7 +179,7 @@
             <p class="chip-small-title">Bed Wars</p>
             <div class="chip-small-container">
               <p class="margin10">
-                <span id="bed-wars-level-container" class="linear-gradient">Level <span class="w500" id="bed-wars-level"></span></span>
+                <span id="bed-wars-level-container">Level <span class="statistic linear-gradient" id="bed-wars-level"></span></span>
               </p>
               <div class="progress-bar">
                 <span class="progress-number" id="bed-wars-xp-progress-number"><span class="mc">Unknown</span></span>
@@ -217,7 +218,7 @@
                       <p>Tokens <span class="statistic" id="bed-wars-tokens"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                    <p>Slumber Tickets <span class="statistic" id="bed-wars-slumber-tickets">0</span></p>
+                    <p>Slumber Tickets <span class="statistic" id="bed-wars-slumber-tickets">0</span></p> 
                   </div>
                   <div class="chip-small-statistic-row">
                     <p>Challenges Completed <span class="statistic" id="bed-wars-challenges-completed"><span class="mc">Unknown</span></span> <span class="m8" id="bed-wars-unique-challenges-completed">(0/30)</span></p>
@@ -594,7 +595,7 @@
 
 <div class="flex-container unloaded minigame-flex-container" id="flex-container-classic">
   <!-- classic stats -->
-  <div class="chip-container" id="pit-chips">
+  <div class="chip-container" id="classic-chips">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
       <p class="chip-small-title">Classic Games</p>
@@ -673,12 +674,65 @@
 </div>
 </div>
 
-  <div class="flex-container unloaded" id="flex-container-blitz">
-    <section class="player-card" style="align-content: center;">
-      <p class="title-text">Coming soon!</p>
-      <p class="subtitle-text">We'll be adding Blitz to nadeshiko sometime in the near future.</p>
-    </section>
-  </div>
+
+<div class="flex-container unloaded minigame-flex-container" id="flex-container-blitz">
+  <!-- blitz stats -->
+  <div class="chip-container" id="blitz-chips">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title">Blitz SG</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p>Wins <span class="statistic" id="blitz-overall-wins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Kills <span class="statistic" id="blitz-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p>Deaths <span class="statistic" id="blitz-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p>K/D R <span class="statistic" id="blitz-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Wins (Solo) <span class="statistic" id="blitz-overall-wins_solo_normal"><span class="mc">Unknown</span></span></p>
+              <p>Wins (Teams) <span class="statistic" id="blitz-overall-wins_teams_normal"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Kills (Solo) <span class="statistic" id="blitz-overall-kills_solo_normal"><span class="mc">Unknown</span></span></p>
+              <p>Kills (Teams) <span class="statistic" id="blitz-overall-kills_teams_normal"><span class="mc">Unknown</span></span></p>
+              <p>Taunt Kills <span class="statistic" id="blitz-overall-taunt_kills"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p>Coins <span class="statistic" id="blitz-overall-coins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Arrows Hit <span class="statistic" id="blitz-overall-arrows_hit"><span class="mc">Unknown</span></span></p>
+              <p>Damage Dealt <span class="statistic" id="blitz-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Potions Thrown <span class="statistic" id="blitz-overall-potions_thrown"><span class="mc">Unknown</span></span></p>
+              <p>Mobs Spawned <span class="statistic" id="blitz-overall-mobs_spawned"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Chests Opened <span class="statistic" id="blitz-overall-chests_opened"><span class="mc">Unknown</span></span></p>
+              <p>Playtime <span class="statistic" id="blitz-overall-playtime"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('BLITZ')">Generate Card</span>
+    </div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="blitz-chips-1" class="chip-container-duo">
+      </div>
+      <div id="blitz-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>
+</div>
 
     <div class="flex-container unloaded" id="flex-container-uhc">
       <section class="player-card" style="align-content: center;">

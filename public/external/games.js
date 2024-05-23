@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, woolWarsNumericalStats;
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, woolWarsNumericalStats;
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
@@ -301,6 +301,7 @@ function generateNetwork() {
     generatePit();
     generateClassic();
     generateCopsAndCrims();
+    generateBlitz();
     generateWoolGames();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
@@ -498,7 +499,7 @@ function generateBedWars() {
     }
 
     updateElement("bed-wars-level", checkAndFormat(Math.floor(bedWarsLevel)) + prefixIcon);
-    document.getElementById("bed-wars-level-container").style.background = linearGradient(bedWarsPrestigeColors[Math.floor(Math.max(bedWarsLevel / 100), 49)]);
+    document.getElementById("bed-wars-level").style.background = linearGradient(bedWarsPrestigeColors[Math.floor(Math.max(bedWarsLevel / 100), 49)]);
     document.getElementById("bed-wars-xp-progress-bar").style.width = ((bedWarsLevel % 1) * 100).toFixed(0) + "%";
     updateElement("bed-wars-xp-progress-number", ((bedWarsLevel % 1) * 100).toFixed(0) + "%");
 
@@ -1122,7 +1123,7 @@ function generateDuels() {
           ["3v3", "bridge_threes"],
           ["4v4", "bridge_four"],
           ["2v2v2v2", "bridge_2v2v2v2"],
-          ["3v3", "bridge_3v3v3v3"],
+          ["3v3v3v3", "bridge_3v3v3v3"],
           ["CTF 3v3", "capture_threes"],
         ],
         "blue_terracotta",
@@ -2574,6 +2575,86 @@ function getCopsAndCrimsGunStats(gun) {
   ];
 }  
 
+function generateBlitz() {
+  blitzStats = playerData["stats"]["HungerGames"] || {};
+
+  let easyStats = ["deaths", "wins_solo_normal", "wins_teams_normal", "kills_teams_normal", "taunt_kills", "coins", "arrows_hit", "potions_thrown", "mobs_spawned", "chests_opened"];
+
+  for(let e = 0; e < easyStats.length; e++) {
+    updateElement(`blitz-overall-${easyStats[e]}`, checkAndFormat(blitzStats[easyStats[e]]));
+  }
+  updateElement("blitz-overall-wins", checkAndFormat(blitzStats["wins_solo_normal"] + blitzStats["wins_teams_normal"]));
+  updateElement("blitz-overall-kdr", calculateRatio(blitzStats["kills"], blitzStats["deaths"]));
+  updateElement("blitz-overall-kills_solo_normal", checkAndFormat(blitzStats["kills"] - blitzStats["kills_teams_normal"]));
+
+  updateElement("blitz-overall-playtime", smallDuration(blitzStats["time_played"]));
+  updateElement("blitz-overall-damage_dealt", checkAndFormat(blitzStats["damage"] / 2) + " ♥\uFE0E");
+
+  let blitzPrefixes = [
+    { req: 0, color: "§e", internalId: 1 },
+    { req: 0, color: "§7", bracketColor: "§f", internalId: 2 },
+    { req: 25000, color: "§a", internalId: 3 },
+    { req: 50000, color: "§c", internalId: 4 },
+    { req: 75000, color: "§b", internalId: 5 },
+    { req: 100000, color: "§6§l", internalId: 6 },
+    { req: 150000, color: "§5§l", internalId: 7 },
+    { req: 200000, color: "§4§l", internalId: 8 },
+    { req: 250000, color: "§9§l", internalId: 9 },
+    { req: 300000, color: "§2§l", internalId: 10 },
+  ];
+
+  updateElement("blitz-overall-kills", getGenericWinsPrefix(blitzStats["kills"], blitzPrefixes, blitzStats["togglekillcounter"], false, "", true), true);
+
+  let blitzKitsChip = [
+    "blitz-kits",
+    "Kits",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getBlitzKitsStats("arachnologist"),
+    [ ["Arachnologist", "arachnologist"], ["Archer", "archer"], ["Armorer", "armorer"], ["Astronaut", "astronaut"], ["Baker", "baker"], ["Blaze", "blaze"], ["Creepertamer", "creepertamer"], ["Diver", "diver"], ["Donkeytamer", "donkeytamer"], ["Farmer", "farmer"], ["Fisherman", "fisherman"], ["Florist", "florist"], ["Golem", "golem"], ["Guardian", "guardian"], ["Horsetamer", "horsetamer"], ["Hunter", "hunter"], ["Hype Train", "hypetrain"], ["Jockey", "jockey"], ["Knight", "knight"], ["Meatmaster", "meatmaster"], ["Milkman", "milkman"], ["Necromancer", "necromancer"], ["Paladin", "paladin"], ["Phoenix", "phoenix"], ["Pigman", "pigman"], ["Rambo", "rambo"], ["Random", "random"], ["Ranger", "ranger"], ["Reaper", "reaper"], ["Reddragon", "reddragon"], ["Rogue", "rogue"], ["Scout", "scout"], ["Shadow Knight", "shadowknight"], ["Shark", "shark"], ["SlimeySlime", "slimeyslime"], ["Snowman", "snowman"], ["Speleologist", "speleologist"], ["Tim", "tim"], ["Toxicologist", "toxicologist"], ["Troll", "troll"], ["Viking", "viking"], ["Warlock", "warlock"], ["Warrior", "warrior"], ["Wolftamer", "wolftamer"] ],
+    ``,
+    "blitz",
+  ]
+
+  generateChip(blitzKitsChip, "blitz-chips-1");
+}
+
+function getBlitzKitLevel(kit) {
+  let kitLevel = und(blitzStats[kit]) + 1;
+  let kitPrestige = und(blitzStats[`p${kit}`]);
+  if(kitPrestige > 0) {
+    // return 1 ✫ for each prestige
+    return generateMinecraftText("§6✫".repeat(kitPrestige));
+  } else {
+    return convertToRoman(kitLevel);
+  }
+}
+
+function getBlitzKitsStats(kit) {
+  let topRowChipStats;
+  if(kit == "random" || kit == "rambo") { // Random and Rambo kits don't have levels
+    topRowChipStats = [false, ["EXP", checkAndFormat(blitzStats["exp_" + kit])]];
+  } else {
+    topRowChipStats = [false, ["Level", getBlitzKitLevel(kit)], ["EXP", checkAndFormat(blitzStats["exp_" + kit])]];
+  }
+
+
+  let blitzKitStats = [
+    topRowChipStats,
+    [false, ["Wins", checkAndFormat(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], ["Losses", checkAndFormat(und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], ["W/L R", calculateRatio(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats), und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))]],
+    [false, ["Kills", checkAndFormat(blitzStats["kills_" + kit])], ["Taunt Kills", checkAndFormat(blitzStats["taunt_kills_" + kit])]],
+    [false, ["Arrows Hit", checkAndFormat(blitzStats["arrows_hit_" + kit])], ["Damage Dealt", checkAndFormat(blitzStats["damage_" + kit] / 2) + " ♥\uFE0E"]],
+    [false, ["Potions Thrown", checkAndFormat(blitzStats["potions_thrown_" + kit])], ["Mobs Spawned", checkAndFormat(blitzStats["mobs_spawned_" + kit])]],
+    [false, ["Chests Opened", checkAndFormat(blitzStats["chests_opened_" + kit])], ["Playtime", smallDuration(und(blitzStats["time_played_" + kit]))]],
+  ];
+
+  if(kit != "rambo") { // Rambo kit doesn't have a team mode
+    blitzKitStats.splice(1, 0, [false, ["Wins (Solo)", checkAndFormat(blitzStats["wins_" + kit])], ["Wins (Teams)", checkAndFormat(blitzStats["wins_teams_" + kit])]]);
+  }
+
+  return blitzKitStats;
+}
+
 function generateWoolGames() {
 
   function getWoolWarsLevel(exp) {
@@ -2885,6 +2966,8 @@ function updateChipStats(name, chipId, gamemode) {
     updateElement(chipId, generateChipStats(getCopsAndCrimsGunStats(newValue)), true);
   } else if (gamemode == "woolwars") {
     updateElement(chipId, generateChipStats(getWoolWarsStats(newValue)), true);
+  } else if (gamemode == "blitz") {
+    updateElement(chipId, generateChipStats(getBlitzKitsStats(newValue)), true);
   }
 }
 
