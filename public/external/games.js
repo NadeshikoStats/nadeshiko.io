@@ -583,6 +583,26 @@ function generateSkyWars() {
   if (skyWarsStats != undefined) {
     if (skyWarsStats["levelFormatted"] != undefined) {
       updateElement("skywars-level", generateMinecraftText(skyWarsStats["levelFormatted"]), true);
+    } else {
+      let skyWarsLevels = [
+        { req: 0, color: "§7" },
+        { req: 5, color: "§f" },
+        { req: 10, color: "§6" },
+        { req: 15, color: "§b" },
+        { req: 20, color: "§2" },
+        { req: 25, color: "§3" },
+        { req: 30, color: "§4" },
+        { req: 35, color: "§d" },
+        { req: 40, color: "§9" },
+        { req: 45, color: "§5" },
+        { req: 50, color: "rainbow" },
+      ]
+
+      let skywarsEstimatedExperience = und(skyWarsStats["wins"]) * 10 + und(skyWarsStats["kills"]);
+      let skyWarsEstimatedLevel = Math.floor(getSkyWarsLevel(skywarsEstimatedExperience));
+
+      updateElement("skywars-level", getGenericWinsPrefix(skyWarsEstimatedLevel, skyWarsLevels, undefined, false, "⋆", false, false), true);
+
     }
 
     easyStats = ["kills", "deaths", "wins", "losses", "coins", "cosmetic_tokens", "chests_opened", "heads"];
@@ -2154,6 +2174,10 @@ function generatePit() {
       x_prestigecolor = pitPrestigeColors[Math.floor(x_prestige / 5) + 1];
     }
 
+    if (level == 0) {
+      level = 1;
+    }
+
     if (data_type == 2) {
       return x_prestige;
     } else if (data_type == 3) {
@@ -2943,12 +2967,17 @@ function getWoolWarsStats(mode) {
   ]
 }
 
-function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false) {
+function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true) {
   // Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
   let chosenTitle = winsObject[0];
   wins = und(wins);
   let chosenBracketColor;
   let nextTitleWins = ``; // number of wins to next title
+  let brackets = ["[", "]"];
+
+  if (!useBrackets) {
+    brackets = ["", ""];
+  }
 
   for (let i = 0; i < winsObject.length; i++) {
     if (wins >= winsObject[i]["req"]) {
@@ -2976,9 +3005,9 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
   }
 
   if (chosenTitle["color"] != "rainbow") {
-    return `${generateMinecraftText(`${chosenBracketColor}[${chosenTitle["color"]}${wins.toString()}${suffix}${chosenBracketColor}]`, true)}${nextTitleWins}`;
+    return `${generateMinecraftText(`${chosenBracketColor}${brackets[0]}${chosenTitle["color"]}${wins.toString()}${suffix}${chosenBracketColor}${brackets[1]}`, true)}${nextTitleWins}`;
   } else {
-    return `${generateMinecraftText(rainbowText("[" + wins.toString() + suffix + "]"), true)}${nextTitleWins}`;
+    return `${generateMinecraftText(rainbowText(brackets[0] + wins.toString() + suffix + brackets[1]), true)}${nextTitleWins}`;
   }
 }
 
