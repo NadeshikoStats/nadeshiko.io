@@ -405,6 +405,10 @@ document.addEventListener('keydown', function(event) { // Close modals on escape
       cardWizardExpanded = false;
     }
   }
+  if(event.key === "/" && !isInputField(event.target)) {
+    event.preventDefault();
+    document.getElementById('searchbar').focus();
+  }
 });
 
 var wordmark = document.querySelector('.wordmark');
@@ -441,5 +445,13 @@ window.onclick = function(event) {
   }
 
   console.log(event.target)
+}
+
+function isInputField(element) { // Determines if the user's actively in an input field (so Quick Mode and easter eggs don't get messed up)
+  return (
+    element.tagName === 'INPUT' || 
+    element.tagName === 'TEXTAREA' || 
+    element.isContentEditable
+  );
 }
 </script>
