@@ -1556,6 +1556,10 @@
   .chip-container-duo-parent {
     width: 100%;
   }
+
+  .ignore {
+    margin-left: 3px;
+  }
   
   .chip-container-duo {
     flex-direction: column;

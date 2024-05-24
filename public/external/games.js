@@ -2606,7 +2606,7 @@ function generateBlitz() {
 
   updateElement("blitz-overall-kills", getGenericWinsPrefix(blitzStats["kills"], blitzPrefixes, blitzStats["togglekillcounter"], false, "", true), true);
 
-  let blitzKits = [ ["Arachnologist", "arachnologist"], ["Archer", "archer"], ["Armorer", "armorer"], ["Astronaut", "astronaut"], ["Baker", "baker"], ["Blaze", "blaze"], ["Creepertamer", "creepertamer"], ["Diver", "diver"], ["Donkeytamer", "donkeytamer"], ["Farmer", "farmer"], ["Fisherman", "fisherman"], ["Florist", "florist"], ["Golem", "golem"], ["Guardian", "guardian"], ["Horsetamer", "horsetamer"], ["Hunter", "hunter"], ["Hype Train", "hype train"], ["Jockey", "jockey"], ["Knight", "knight"], ["Meatmaster", "meatmaster"], ["Milkman", "milkman"], ["Necromancer", "necromancer"], ["Paladin", "paladin"], ["Phoenix", "phoenix"], ["Pigman", "pigman"], ["Rambo", "rambo"], ["Random", "random"], ["Ranger", "ranger"], ["Reaper", "reaper"], ["Reddragon", "reddragon"], ["Rogue", "rogue"], ["Scout", "scout"], ["Shadow Knight", "shadow knight"], ["Shark", "shark"], ["SlimeySlime", "slimeyslime"], ["Snowman", "snowman"], ["Speleologist", "speleologist"], ["Tim", "tim"], ["Toxicologist", "toxicologist"], ["Troll", "troll"], ["Viking", "viking"], ["Warlock", "warlock"], ["Warrior", "warrior"], ["Wolftamer", "wolftamer"] ];
+  let blitzKits = [ ["Arachnologist", "arachnologist"], ["Archer", "archer"], ["Armorer", "armorer"], ["Astronaut", "astronaut"], ["Baker", "baker"], ["Blaze", "blaze"], ["Creepertamer", "creepertamer"], ["Diver", "diver"], ["Donkeytamer", "donkeytamer"], ["Farmer", "farmer"], ["Fisherman", "fisherman"], ["Florist", "florist"], ["Golem", "golem"], ["Guardian", "guardian"], ["Horsetamer", "horsetamer"], ["Hunter", "hunter"], ["Hype Train", "hype train"], ["Jockey", "jockey"], ["Knight", "knight"], ["Meatmaster", "meatmaster"], ["Milkman", "milkman"], ["Necromancer", "necromancer"], ["Paladin", "paladin"], ["Phoenix", "phoenix"], ["Pigman", "pigman"], ["Ranger", "ranger"], ["Reaper", "reaper"], ["Reddragon", "reddragon"], ["Rogue", "rogue"], ["Scout", "scout"], ["Shadow Knight", "shadow knight"], ["Shark", "shark"], ["SlimeySlime", "slimeyslime"], ["Snowman", "snowman"], ["Speleologist", "speleologist"], ["Tim", "tim"], ["Toxicologist", "toxicologist"], ["Troll", "troll"], ["Viking", "viking"], ["Warlock", "warlock"], ["Warrior", "warrior"], ["Wolftamer", "wolftamer"], ["Rambo", "rambo"], ["Random", "random"], ];
 
   // Add kit level to each kit name
   for(let k = 0; k < blitzKits.length; k++) {
@@ -2689,6 +2689,7 @@ function generateMegaWalls() {
   updateElement("megawalls-overall-playtime", smallDuration(megaWallsStats["time_played"] * 60));
   updateElement("megawalls-overall-damage_dealt", checkAndFormat(megaWallsStats["damage_dealt"] / 2) + " ♥\uFE0E");
 
+
   let megaWallsClasses = {
     arcanist: {name: "Arcanist", abilities: [] },
     assassin: {name: "Assassin", abilities: [] },
@@ -2715,6 +2716,15 @@ function generateMegaWalls() {
     werewolf: {name: "Werewolf", abilities: [] },
     zombie: {name: "Zombie", abilities: [] },
   }
+
+  // Iterate through megaWallsClasses
+  for (let key in megaWallsClasses) {
+    let megaWallsPrestige = getMegaWallsPrestige(key);
+    if(megaWallsPrestige[0]) {
+      megaWallsClasses[key]["name"] = megaWallsClasses[key]["name"] + `<span class="ignore">${megaWallsPrestige[1]}</span>`;
+    }
+  }
+
 
   let megaWallsClassesFormatted = Object.entries(megaWallsClasses).map(([key, value]) => [value["name"], key]);
   let megaWallsClassesFormattedWithOverall = [["Overall", ""]].concat(megaWallsClassesFormatted);
@@ -2760,9 +2770,22 @@ function generateMegaWalls() {
   }
 }
 
+function getMegaWallsPrestige(className) {
+  let megaWallsClassStats = megaWallsStats["classes"] || {};
+  let megaWallsChosenClassStats = megaWallsClassStats[className] || {};
+
+  if (megaWallsChosenClassStats["prestige"] > 0) {
+
+    // Make first item of array
+    return [true, generateMinecraftText("§6✫".repeat(megaWallsChosenClassStats["prestige"])), und(megaWallsChosenClassStats["enderchest_rows"], 3)];
+  } else {
+    return [false, `${und(megaWallsChosenClassStats["skill_level_d"], 1)} &ndash; ${und(megaWallsChosenClassStats["skill_level_a"], 1)} &ndash; ${und(megaWallsChosenClassStats["skill_level_b"], 1)} &ndash; ${und(megaWallsChosenClassStats["skill_level_c"], 1)} &ndash; ${und(megaWallsChosenClassStats["skill_level_g"], 1)}`, und(megaWallsChosenClassStats["enderchest_rows"], 3)];
+  }
+}
 
 function getMegaWallsClassStats(className = "", modeName = "") {
 
+  let trueClassName = className;
   if(className != "") {
     className = `${className}_`;
   }
@@ -2772,14 +2795,25 @@ function getMegaWallsClassStats(className = "", modeName = "") {
   }
 
 
-  return [
+  megaWallsClassChipStats = [
     [false, ["Wins", checkAndFormat(megaWallsStats[`${className}wins${modeName}`])], ["Losses", checkAndFormat(megaWallsStats[`${className}losses${modeName}`])], ["W/L R", calculateRatio(megaWallsStats[`${className}wins${modeName}`], megaWallsStats[`${className}losses${modeName}`])]],
     [false, ["Final Kills", checkAndFormat(megaWallsStats[`${className}final_kills${modeName}`])], ["Final Deaths", checkAndFormat(megaWallsStats[`${className}final_deaths${modeName}`])], ["FK/D R", calculateRatio(megaWallsStats[`${className}final_kills${modeName}`], megaWallsStats[`${className}final_deaths${modeName}`])]],
     [false, ["Kills", checkAndFormat(megaWallsStats[`${className}kills${modeName}`])], ["Deaths", checkAndFormat(megaWallsStats[`${className}deaths${modeName}`])], ["K/D R", calculateRatio(megaWallsStats[`${className}kills${modeName}`], megaWallsStats[`${className}deaths${modeName}`])]],
     [false, ["Final Assists", checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], ["Assists", checkAndFormat(megaWallsStats[`${className}assists${modeName}`])]],
     [false, ["Class Points", checkAndFormat(megaWallsStats[`${className}wins${modeName}`] * 10 + megaWallsStats[`${className}final_kills${modeName}`])], ["Playtime", smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]],
     [false, ["Wither Kills", checkAndFormat(megaWallsStats[`${className}wither_kills${modeName}`])], ["Damage Dealt", checkAndFormat(megaWallsStats[`${className}damage_dealt${modeName}`] / 2) + " ♥\uFE0E"]],
-  ]
+  ];
+
+  if(modeName == "" && className != "") {
+    let megaWallsPrestige = getMegaWallsPrestige(trueClassName);
+    if(megaWallsPrestige[0]) {
+      megaWallsClassChipStats.unshift([true, ["Prestige", megaWallsPrestige[1]], ["Ender Chest Rows", megaWallsPrestige[2]]]);
+    } else {
+      megaWallsClassChipStats.unshift([false, ["Upgrades", megaWallsPrestige[1]], ["Ender Chest Rows", megaWallsPrestige[2]]]);
+    }
+  }
+  
+  return megaWallsClassChipStats;
 
 }
 
