@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, woolWarsNumericalStats;
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, woolWarsNumericalStats;
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
@@ -302,6 +302,7 @@ function generateNetwork() {
     generateClassic();
     generateCopsAndCrims();
     generateBlitz();
+    generateMegaWalls();
     generateWoolGames();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
@@ -2605,13 +2606,22 @@ function generateBlitz() {
 
   updateElement("blitz-overall-kills", getGenericWinsPrefix(blitzStats["kills"], blitzPrefixes, blitzStats["togglekillcounter"], false, "", true), true);
 
+  let blitzKits = [ ["Arachnologist", "arachnologist"], ["Archer", "archer"], ["Armorer", "armorer"], ["Astronaut", "astronaut"], ["Baker", "baker"], ["Blaze", "blaze"], ["Creepertamer", "creepertamer"], ["Diver", "diver"], ["Donkeytamer", "donkeytamer"], ["Farmer", "farmer"], ["Fisherman", "fisherman"], ["Florist", "florist"], ["Golem", "golem"], ["Guardian", "guardian"], ["Horsetamer", "horsetamer"], ["Hunter", "hunter"], ["Hype Train", "hype train"], ["Jockey", "jockey"], ["Knight", "knight"], ["Meatmaster", "meatmaster"], ["Milkman", "milkman"], ["Necromancer", "necromancer"], ["Paladin", "paladin"], ["Phoenix", "phoenix"], ["Pigman", "pigman"], ["Rambo", "rambo"], ["Random", "random"], ["Ranger", "ranger"], ["Reaper", "reaper"], ["Reddragon", "reddragon"], ["Rogue", "rogue"], ["Scout", "scout"], ["Shadow Knight", "shadow knight"], ["Shark", "shark"], ["SlimeySlime", "slimeyslime"], ["Snowman", "snowman"], ["Speleologist", "speleologist"], ["Tim", "tim"], ["Toxicologist", "toxicologist"], ["Troll", "troll"], ["Viking", "viking"], ["Warlock", "warlock"], ["Warrior", "warrior"], ["Wolftamer", "wolftamer"] ];
+
+  // Add kit level to each kit name
+  for(let k = 0; k < blitzKits.length; k++) {
+    if(blitzKits[k][1] != "random" && blitzKits[k][1] != "rambo") {
+      blitzKits[k][0] = blitzKits[k][0] + ` <span class="ignore">${getBlitzKitLevel(blitzKits[k][1])}</span>`;
+    }
+  }
+
   let blitzKitsChip = [
     "blitz-kits",
     "Kits",
     "",
     `/img/games/404.${imageFileType}`,
     getBlitzKitsStats("arachnologist"),
-    [ ["Arachnologist", "arachnologist"], ["Archer", "archer"], ["Armorer", "armorer"], ["Astronaut", "astronaut"], ["Baker", "baker"], ["Blaze", "blaze"], ["Creepertamer", "creepertamer"], ["Diver", "diver"], ["Donkeytamer", "donkeytamer"], ["Farmer", "farmer"], ["Fisherman", "fisherman"], ["Florist", "florist"], ["Golem", "golem"], ["Guardian", "guardian"], ["Horsetamer", "horsetamer"], ["Hunter", "hunter"], ["Hype Train", "hypetrain"], ["Jockey", "jockey"], ["Knight", "knight"], ["Meatmaster", "meatmaster"], ["Milkman", "milkman"], ["Necromancer", "necromancer"], ["Paladin", "paladin"], ["Phoenix", "phoenix"], ["Pigman", "pigman"], ["Rambo", "rambo"], ["Random", "random"], ["Ranger", "ranger"], ["Reaper", "reaper"], ["Reddragon", "reddragon"], ["Rogue", "rogue"], ["Scout", "scout"], ["Shadow Knight", "shadowknight"], ["Shark", "shark"], ["SlimeySlime", "slimeyslime"], ["Snowman", "snowman"], ["Speleologist", "speleologist"], ["Tim", "tim"], ["Toxicologist", "toxicologist"], ["Troll", "troll"], ["Viking", "viking"], ["Warlock", "warlock"], ["Warrior", "warrior"], ["Wolftamer", "wolftamer"] ],
+    blitzKits,
     ``,
     "blitz",
   ]
@@ -2638,7 +2648,6 @@ function getBlitzKitsStats(kit) {
     topRowChipStats = [false, ["Level", getBlitzKitLevel(kit)], ["EXP", checkAndFormat(blitzStats["exp_" + kit])]];
   }
 
-
   let blitzKitStats = [
     topRowChipStats,
     [false, ["Wins", checkAndFormat(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], ["Losses", checkAndFormat(und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], ["W/L R", calculateRatio(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats), und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))]],
@@ -2649,10 +2658,129 @@ function getBlitzKitsStats(kit) {
   ];
 
   if(kit != "rambo") { // Rambo kit doesn't have a team mode
-    blitzKitStats.splice(1, 0, [false, ["Wins (Solo)", checkAndFormat(blitzStats["wins_" + kit])], ["Wins (Teams)", checkAndFormat(blitzStats["wins_teams_" + kit])]]);
+    blitzKitStats.splice(2, 0, [false, ["Wins (Solo)", checkAndFormat(blitzStats["wins_" + kit])], ["Wins (Teams)", checkAndFormat(blitzStats["wins_teams_" + kit])]]);
   }
 
   return blitzKitStats;
+}
+
+function generateMegaWalls() {
+  megaWallsStats = playerData["stats"]["Walls3"] || {};
+
+  let easyStats = ["kills", "deaths", "wins", "losses", "final_assists", "mythic_favor", "wither_kills", "assists", "coins"];
+
+  for(let e = 0; e < easyStats.length; e++) {
+    updateElement(`megawalls-overall-${easyStats[e]}`, checkAndFormat(megaWallsStats[easyStats[e]]));
+  }
+
+  updateElement("megawalls-overall-wlr", calculateRatio(megaWallsStats["wins"], megaWallsStats["losses"]));
+
+  let megaWallsFinalKills = sumStatsBasic(["final_kills", "finalKills"], megaWallsStats);
+  let megaWallsFinalDeaths = sumStatsBasic(["final_deaths", "finalDeaths"], megaWallsStats);
+
+  updateElement("megawalls-overall-final_kills", checkAndFormat(megaWallsFinalKills));
+  updateElement("megawalls-overall-final_deaths", checkAndFormat(megaWallsFinalDeaths));
+
+  updateElement("megawalls-overall-fkdr", calculateRatio(megaWallsFinalKills, megaWallsFinalDeaths));
+  updateElement("megawalls-overall-kdr", calculateRatio(megaWallsStats["kills"], megaWallsStats["deaths"]));
+  updateElement("megawalls-overall-points", checkAndFormat(und(megaWallsStats["wins"]) * 10 + megaWallsFinalKills));
+  updateElement("megawalls-selected_class", und(megaWallsStats["chosen_class"], "None"));
+
+  updateElement("megawalls-overall-playtime", smallDuration(megaWallsStats["time_played"] * 60));
+  updateElement("megawalls-overall-damage_dealt", checkAndFormat(megaWallsStats["damage_dealt"] / 2) + " ♥\uFE0E");
+
+  let megaWallsClasses = {
+    arcanist: {name: "Arcanist", abilities: [] },
+    assassin: {name: "Assassin", abilities: [] },
+    automaton: {name: "Automaton", abilities: [] },
+    blaze: {name: "Blaze", abilities: [] },
+    cow: {name: "Cow", abilities: [] },
+    creeper: {name: "Creeper", abilities: [] },
+    dreadlord: {name: "Dreadlord", abilities: [] },
+    enderman: {name: "Enderman", abilities: [] },
+    golem: {name: "Golem", abilities: [] },
+    herobrine: {name: "Herobrine", abilities: [] },
+    hunter: {name: "Hunter", abilities: [] },
+    moleman: {name: "Moleman", abilities: [] },
+    phoenix: {name: "Phoenix", abilities: [] },
+    pigman: {name: "Pigman", abilities: [] },
+    pirate: {name: "Pirate", abilities: [] },
+    renegade: {name: "Renegade", abilities: [] },
+    shaman: {name: "Shaman", abilities: [] },
+    shark: {name: "Shark", abilities: [] },
+    skeleton: {name: "Skeleton", abilities: [] },
+    snowman: {name: "Snowman", abilities: [] },
+    spider: {name: "Spider", abilities: [] },
+    squid: {name: "Squid", abilities: [] },
+    werewolf: {name: "Werewolf", abilities: [] },
+    zombie: {name: "Zombie", abilities: [] },
+  }
+
+  let megaWallsClassesFormatted = Object.entries(megaWallsClasses).map(([key, value]) => [value["name"], key]);
+  let megaWallsClassesFormattedWithOverall = [["Overall", ""]].concat(megaWallsClassesFormatted);
+
+  let megaWallsClassChip = [
+    "megawalls-classes",
+    "Classes",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getMegaWallsClassStats("arcanist"),
+    megaWallsClassesFormatted,
+    ``,
+    "megawalls",
+  ]
+
+  let megaWallsStandardChip = [
+    "megawalls-standard",
+    "Standard",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getMegaWallsClassStats("", "standard"),
+    megaWallsClassesFormattedWithOverall,
+    ``,
+    "megawalls",
+  ]
+
+  let megaWallsFaceOffChip = [
+    "megawalls-faceoff",
+    "Face Off",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getMegaWallsClassStats("", "face_off"),
+    megaWallsClassesFormattedWithOverall,
+    ``,
+    "megawalls",
+  ]
+
+  generateChip(megaWallsClassChip, "megawalls-chips");
+
+  let megaWallsChips = [megaWallsStandardChip, megaWallsFaceOffChip];
+  for (let d = 0; d < megaWallsChips.length; d++) {
+    generateChip(megaWallsChips[d], d % 2 == 0 ? "megawalls-chips-1" : "megawalls-chips-2");
+  }
+}
+
+
+function getMegaWallsClassStats(className = "", modeName = "") {
+
+  if(className != "") {
+    className = `${className}_`;
+  }
+
+  if(modeName != "") {
+    modeName = `_${modeName}`;
+  }
+
+
+  return [
+    [false, ["Wins", checkAndFormat(megaWallsStats[`${className}wins${modeName}`])], ["Losses", checkAndFormat(megaWallsStats[`${className}losses${modeName}`])], ["W/L R", calculateRatio(megaWallsStats[`${className}wins${modeName}`], megaWallsStats[`${className}losses${modeName}`])]],
+    [false, ["Final Kills", checkAndFormat(megaWallsStats[`${className}final_kills${modeName}`])], ["Final Deaths", checkAndFormat(megaWallsStats[`${className}final_deaths${modeName}`])], ["FK/D R", calculateRatio(megaWallsStats[`${className}final_kills${modeName}`], megaWallsStats[`${className}final_deaths${modeName}`])]],
+    [false, ["Kills", checkAndFormat(megaWallsStats[`${className}kills${modeName}`])], ["Deaths", checkAndFormat(megaWallsStats[`${className}deaths${modeName}`])], ["K/D R", calculateRatio(megaWallsStats[`${className}kills${modeName}`], megaWallsStats[`${className}deaths${modeName}`])]],
+    [false, ["Final Assists", checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], ["Assists", checkAndFormat(megaWallsStats[`${className}assists${modeName}`])]],
+    [false, ["Class Points", checkAndFormat(megaWallsStats[`${className}wins${modeName}`] * 10 + megaWallsStats[`${className}final_kills${modeName}`])], ["Playtime", smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]],
+    [false, ["Wither Kills", checkAndFormat(megaWallsStats[`${className}wither_kills${modeName}`])], ["Damage Dealt", checkAndFormat(megaWallsStats[`${className}damage_dealt${modeName}`] / 2) + " ♥\uFE0E"]],
+  ]
+
 }
 
 function generateWoolGames() {
@@ -2968,6 +3096,15 @@ function updateChipStats(name, chipId, gamemode) {
     updateElement(chipId, generateChipStats(getWoolWarsStats(newValue)), true);
   } else if (gamemode == "blitz") {
     updateElement(chipId, generateChipStats(getBlitzKitsStats(newValue)), true);
+  } else if (gamemode == "megawalls") {
+    if (chipId == "megawalls-classes") {
+      updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue)), true);
+    } else if (chipId == "megawalls-standard") {
+      updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, "standard")), true);
+    } else if (chipId == "megawalls-faceoff") {
+      updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, "face_off")), true);
+    }
+    
   }
 }
 

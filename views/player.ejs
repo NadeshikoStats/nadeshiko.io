@@ -740,18 +740,75 @@
         <p class="subtitle-text">We'll be adding UHC to nadeshiko sometime in the near future.</p>
       </section>
     </div>
+
     <div class="flex-container unloaded" id="flex-container-smashheroes">
       <section class="player-card" style="align-content: center;">
         <p class="title-text">Coming soon!</p>
         <p class="subtitle-text">We'll be adding Smash Heroes to nadeshiko sometime in the near future.</p>
       </section>
     </div>
-    <div class="flex-container unloaded" id="flex-container-megawalls">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding Mega Walls to nadeshiko sometime in the near future.</p>
-      </section>
+
+<div class="flex-container unloaded minigame-flex-container" id="flex-container-megawalls">
+  <!-- mega walls stats -->
+  <div class="chip-container">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title">Mega Walls</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p>Wins <span class="statistic" id="megawalls-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p>Losses <span class="statistic" id="megawalls-overall-losses"><span class="mc">Unknown</span></span></p>
+              <p>W/L R <span class="statistic" id="megawalls-overall-wlr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Final Kills <span class="statistic" id="megawalls-overall-final_kills"><span class="mc">Unknown</span></span></p>
+              <p>Final Deaths <span class="statistic" id="megawalls-overall-final_deaths"><span class="mc">Unknown</span></span></p>
+              <p>FK/D R <span class="statistic" id="megawalls-overall-fkdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Kills <span class="statistic" id="megawalls-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p>Deaths <span class="statistic" id="megawalls-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p>K/D R <span class="statistic" id="megawalls-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Final Assists <span class="statistic" id="megawalls-overall-final_assists"><span class="mc">Unknown</span></span></p>
+              <p>Assists <span class="statistic" id="megawalls-overall-assists"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p>Selected Class <span class="statistic" id="megawalls-selected_class"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Coins <span class="statistic" id="megawalls-overall-coins"><span class="mc">Unknown</span></span></p>
+              <p>Mythic Favor <span class="statistic" id="megawalls-overall-mythic_favor"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Points <span class="statistic" id="megawalls-overall-points"><span class="mc">Unknown</span></span></p>
+              <p>Playtime <span class="statistic" id="megawalls-overall-playtime"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Wither Kills <span class="statistic" id="megawalls-overall-wither_kills"><span class="mc">Unknown</span></span></p>
+              <p>Damage Dealt <span class="statistic" id="megawalls-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('MEGAWALLS')">Generate Card</span>
     </div>
+    <div id="megawalls-chips" class="chip-container-duo-parent"></div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="megawalls-chips-1" class="chip-container-duo">
+      </div>
+      <div id="megawalls-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>
+</div>
 
     <div class="flex-container unloaded minigame-flex-container" id="flex-container-woolwars">
       <!-- wool games(?) stats -->
