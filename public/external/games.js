@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, woolWarsNumericalStats;
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, warlordsStats, woolWarsNumericalStats;
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
@@ -68,6 +68,15 @@ function rainbowText(text, colorCodes = ["c", "6", "e", "a", "b", "d", "5"]) {
   }
 
   return coloredText;
+}
+
+function veryLargeNumber(number) { // Changes number to compact notation if it's over a million
+  number = und(number);
+  if (number >= 1000000) {
+    return new Intl.NumberFormat("default", { notation: "compact", compactDisplay: "short", maximumSignificantDigits: 4 }).format(number);
+  } else {
+    return locale(number, 0);
+  }
 }
 
 function generateNetwork() {
@@ -303,6 +312,7 @@ function generateNetwork() {
     generateCopsAndCrims();
     generateBlitz();
     generateMegaWalls();
+    generateWarlords();
     generateWoolGames();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
@@ -2841,6 +2851,150 @@ function getMegaWallsClassStats(className = "", modeName = "") {
 
 }
 
+function generateWarlords() {
+  warlordsStats = playerData["stats"]["Battleground"] || {};
+
+  let easyStats = ["kills", "deaths", "wins", "assists", "coins", "void_shards", "magic_dust", "repaired", "powerups_collected"];
+
+  for(let e = 0; e < easyStats.length; e++) {
+    updateElement(`warlords-overall-${easyStats[e]}`, checkAndFormat(warlordsStats[easyStats[e]]));
+  }
+
+  let warlordsGamesPlayed = sumStatsBasic(["mage_plays", "warrior_plays", "paladin_plays", "shaman_plays"], warlordsStats);
+  updateElement("warlords-overall-losses", checkAndFormat(warlordsGamesPlayed - warlordsStats["wins"]));
+  updateElement("warlords-overall-wlr", calculateRatio(warlordsStats["wins"], warlordsGamesPlayed - warlordsStats["wins"]));
+  updateElement("warlords-overall-kdr", calculateRatio(warlordsStats["kills"], warlordsStats["deaths"]));
+  updateElement("warlords-overall-damage", veryLargeNumber(warlordsStats["damage"]) + " HP");
+  updateElement("warlords-overall-heal", veryLargeNumber(warlordsStats["heal"]) + " HP");
+
+  let warlordsClassesChip = [
+    "warlords-classes",
+    "Classes",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getWarlordsClassStats("mage"),
+    [
+      ["Mage", "mage"],
+        ["Pyromancer", "pyromancer"],
+        ["Cryomancer", "cryomancer"],
+        ["Aquamancer", "aquamancer"],
+      ["Warrior", "warrior"],
+        ["Berserker", "berserker"],
+        ["Defender", "defender"],
+        ["Revenant", "revenant"],
+      ["Paladin", "paladin"],
+        ["Avenger", "avenger"],
+        ["Crusader", "crusader"],
+        ["Protector", "protector"],
+      ["Shaman", "shaman"],
+        ["Thunderlord", "thunderlord"],
+        ["Spiritguard", "spiritguard"],
+        ["Earthwarden", "earthwarden"],
+    ],
+    ``,
+    "warlords",
+  ]
+
+  let warlordsCaptureTheFlagChip = [
+    "warlords-capturetheflag",
+    "Capture the Flag",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Wins", checkAndFormat(warlordsStats["wins_capturetheflag"])]],
+      [false, ["Kills", checkAndFormat(warlordsStats["kills_capturetheflag"])]],
+      [false, ["Flags Returned", checkAndFormat(warlordsStats["flag_returns"])]]
+    ],
+    [],
+    ``,
+    "warlords",
+  ]
+
+  let warlordsTeamDeathmatchChip = [
+    "warlords-teamdeathmatch",
+    "Team Deathmatch",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Wins", checkAndFormat(warlordsStats["wins_teamdeathmatch"])]],
+      [false, ["Kills", checkAndFormat(warlordsStats["kills_teamdeathmatch"])]],
+    ],
+    [],
+    ``,
+    "warlords",
+  ]
+
+  let warlordsDominationChip = [
+    "warlords-domination",
+    "Domination",
+    "",
+    `/img/games/404.${imageFileType}`,
+    [
+      [false, ["Wins", checkAndFormat(warlordsStats["wins_domination"])]],
+      [false, ["Kills", checkAndFormat(warlordsStats["kills_domination"])]],
+      [false, ["Total Score", checkAndFormat(warlordsStats["total_domination_score"])], ["Captures", checkAndFormat(warlordsStats["dom_point_captures"])]],
+    ],
+    [],
+    ``,
+    "warlords",
+  ]
+
+  generateChip(warlordsClassesChip, "warlords-chips");
+
+  let warlordsChips = [warlordsCaptureTheFlagChip, warlordsDominationChip, warlordsTeamDeathmatchChip];
+  for (let d = 0; d < warlordsChips.length; d++) {
+    generateChip(warlordsChips[d], d % 2 == 0 ? "warlords-chips-1" : "warlords-chips-2");
+  }
+
+}
+
+function getWarlordsClassStats(specName) {
+  let lookupName = specName;
+
+  let warlordsClasses = {
+    mage: ["pyromancer", "cryomancer", "aquamancer"],
+    paladin: ["protector", "crusader", "avenger"],
+    shaman: ["spiritguard", "earthwarden", "thunderlord"],
+    warrior: ["berserker", "defender", "revenant"],
+  }
+  let className;
+
+  for (let [key, value] of Object.entries(warlordsClasses)) {
+    // If the "specName" was actually a class name
+    if (value.includes(specName)) {
+      className = key;
+    }
+    if (key == specName) {
+      className = key;
+      lookupName = key;
+    }
+  }
+
+  let warlordsClassLevel = sumStatsBasic([`${className}_skill1`, `${className}_skill2`, `${className}_skill3`, `${className}_skill4`, `${className}_skill5`, `${className}_health`, `${className}_energy`, `${className}_cooldown`, `${className}_critchance`, `${className}_critmultiplier`, ], warlordsStats);
+  let formattedWarlordsClassLevel;
+
+
+  let warlordsPrestigedClasses = warlordsStats["prestiged"] || [];
+  // check if the array contains the class
+  if(warlordsPrestigedClasses.includes(lookupName)) {
+    formattedWarlordsClassLevel = generateMinecraftText(`§8[§6${warlordsClassLevel}§8]`);
+  } else {
+    formattedWarlordsClassLevel = generateMinecraftText(`§8[§7${warlordsClassLevel}§8]`);
+  }
+
+  let warlordsClassStats = [
+    [false, ["Level", formattedWarlordsClassLevel]],
+    [false, ["Wins", checkAndFormat(warlordsStats[`wins_${lookupName}`])], ["Losses", checkAndFormat(warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])], ["W/L R", calculateRatio(warlordsStats[`wins_${lookupName}`], warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])]],
+    [false, ["Damage Dealt", veryLargeNumber(warlordsStats[`damage_${lookupName}`]) + " HP"], ["Healing Done", veryLargeNumber(warlordsStats[`heal_${lookupName}`]) + " HP"]],
+  ]
+
+  if(className == "mage") {
+    warlordsClassStats[2].push(["Damage Prevented", veryLargeNumber(warlordsStats[`damage_prevented_${lookupName}`]) + " HP"]);
+  }
+
+  return warlordsClassStats;
+}
+
 function generateWoolGames() {
 
   function getWoolWarsLevel(exp) {
@@ -3167,7 +3321,8 @@ function updateChipStats(name, chipId, gamemode) {
     } else if (chipId == "megawalls-faceoff") {
       updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, "face_off")), true);
     }
-    
+  } else if (gamemode == "warlords") {
+    updateElement(chipId, generateChipStats(getWarlordsClassStats(newValue)), true);
   }
 }
 

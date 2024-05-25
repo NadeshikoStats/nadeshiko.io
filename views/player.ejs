@@ -736,15 +736,15 @@
 
     <div class="flex-container unloaded" id="flex-container-uhc">
       <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding UHC to nadeshiko sometime in the near future.</p>
+        <p class="title-text">Coming very soon!</p>
+        <p class="subtitle-text">We'll be adding UHC to nadeshiko soon.</p>
       </section>
     </div>
 
     <div class="flex-container unloaded" id="flex-container-smashheroes">
       <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding Smash Heroes to nadeshiko sometime in the near future.</p>
+        <p class="title-text">Coming very soon!</p>
+        <p class="subtitle-text">We'll be adding Smash Heroes to nadeshiko soon.</p>
       </section>
     </div>
 
@@ -845,13 +845,65 @@
     </div>
   </div>
 
-    <div class="flex-container unloaded" id="flex-container-warlords">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming soon!</p>
-        <p class="subtitle-text">We'll be adding Warlords to nadeshiko sometime in the near future.</p>
-      </section>
-    </div>
+  <div class="flex-container unloaded minigame-flex-container" id="flex-container-warlords">
+    <!-- warlords stats -->
+    <div class="chip-container">
+      <div class="chip-small but-big">
+        <div class="chip-small-background-filter"></div>
+        <p class="chip-small-title">Warlords</p>
+        <div class="chip-small-container">
+          <div class="flex-two-item align-top flippable margin10">
+            <div class="card-big-stats">
+              <p class="super-subtitle">Stats</p>
+              <div class="chip-small-statistic-row">
+                <p>Wins <span class="statistic" id="warlords-overall-wins"><span class="mc">Unknown</span></span></p>
+                <p>Losses <span class="statistic" id="warlords-overall-losses"><span class="mc">Unknown</span></span></p>
+                <p>W/L R <span class="statistic" id="warlords-overall-wlr"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p>Kills <span class="statistic" id="warlords-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p>Deaths <span class="statistic" id="warlords-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p>K/D R <span class="statistic" id="warlords-overall-kdr"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p>Assists <span class="statistic" id="warlords-overall-assists"><span class="mc">Unknown</span></span></p>
+
+                <p>Damage Dealt <span class="statistic" id="warlords-overall-damage"><span class="mc">Unknown</span></span></p>
+                <p>Healing Done <span class="statistic" id="warlords-overall-heal"><span class="mc">Unknown</span></span></p>
+
+              </div>
+              <div class="chip-small-statistic-row">
+              </div>
+            </div>
+            <div class="card-big-misc">
+              <p class="super-subtitle">Misc</p>
+              <div class="chip-small-statistic-row">
+                <p>Coins <span class="statistic" id="warlords-overall-coins"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p>Magic Dust <span class="statistic" id="warlords-overall-magic_dust"><span class="mc">Unknown</span></span></p>
+                <p>Void Shards <span class="statistic" id="warlords-overall-void_shards"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p>Weapons Repaired <span class="statistic" id="warlords-overall-repaired"><span class="mc">Unknown</span></span></p>
+                <p>Powerups Collected <span class="statistic" id="warlords-overall-powerups_collected"><span class="mc">Unknown</span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="general-button mright mtop" onclick="showCardWizard('WARLORDS')">Generate Card</span>
+      </div>
+      <div id="warlords-chips" class="chip-container-duo-parent"></div>
+      <div class="flex-two-item chip-container-duo-parent">
+        <div id="warlords-chips-1" class="chip-container-duo">
+        </div>
+        <div id="warlords-chips-2" class="chip-container-duo">
+        </div>
+      </div>
   </div>
+  </div>
+
+</div>
 
   <div class="quick-mode hidden pushdown" id="quick-mode">
     <section class="player-card" style="align-content: center;">
