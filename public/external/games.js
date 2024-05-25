@@ -79,6 +79,14 @@ function veryLargeNumber(number) { // Changes number to compact notation if it's
   }
 }
 
+function addPrefixZero(number, totalLength) { // Adds zeroes to the start of a number to make it a certain length
+  let numberStr = number.toString();
+  while (numberStr.length < totalLength) {
+    numberStr = '0' + numberStr;
+  }
+  return numberStr;
+}
+
 function generateNetwork() {
   // Inserts general/network stats into the DOM
   var profileStats = playerData["profile"];
@@ -2908,7 +2916,7 @@ function generateWarlords() {
     [],
     ``,
     "warlords",
-  ]
+  ];
 
   let warlordsTeamDeathmatchChip = [
     "warlords-teamdeathmatch",
@@ -2922,7 +2930,7 @@ function generateWarlords() {
     [],
     ``,
     "warlords",
-  ]
+  ];
 
   let warlordsDominationChip = [
     "warlords-domination",
@@ -2937,7 +2945,7 @@ function generateWarlords() {
     [],
     ``,
     "warlords",
-  ]
+  ];
 
   generateChip(warlordsClassesChip, "warlords-chips");
 
@@ -2977,9 +2985,9 @@ function getWarlordsClassStats(specName) {
   let warlordsPrestigedClasses = warlordsStats["prestiged"] || [];
   // check if the array contains the class
   if(warlordsPrestigedClasses.includes(lookupName)) {
-    formattedWarlordsClassLevel = generateMinecraftText(`§8[§6${warlordsClassLevel}§8]`);
+    formattedWarlordsClassLevel = generateMinecraftText(`§8[§6${addPrefixZero(warlordsClassLevel, 2)}§8]`);
   } else {
-    formattedWarlordsClassLevel = generateMinecraftText(`§8[§7${warlordsClassLevel}§8]`);
+    formattedWarlordsClassLevel = generateMinecraftText(`§8[§7${addPrefixZero(warlordsClassLevel, 2)}§8]`);
   }
 
   let warlordsClassStats = [
