@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, warlordsStats, woolWarsNumericalStats;
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, warlordsStats, uhcStats, speedUHCStats, woolWarsNumericalStats;
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
@@ -321,6 +321,7 @@ function generateNetwork() {
     generateBlitz();
     generateMegaWalls();
     generateWarlords();
+    generateUHC();
     generateWoolGames();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
@@ -2668,7 +2669,7 @@ function generateBlitz() {
     "blitz",
   ]
 
-  generateChip(blitzKitsChip, "blitz-chips-1");
+  generateChip(blitzKitsChip, "blitz-chips");
 }
 
 function getBlitzKitLevel(kit) {
@@ -3003,6 +3004,156 @@ function getWarlordsClassStats(specName) {
   return warlordsClassStats;
 }
 
+function generateUHC() {
+  uhcStats = playerData["stats"]["UHC"] || {};
+  speedUHCStats = playerData["stats"]["SpeedUHC"] || {};
+  
+  updateElement("uhc-overall-wins", locale(und(uhcStats["wins"]) + und(speedUHCStats["wins"]), 0));
+  updateElement("uhc-overall-score", checkAndFormat(und(uhcStats["score"]) + und(speedUHCStats["score"])));
+  updateElement("uhc-overall-coins", checkAndFormat(und(uhcStats["coins"])));
+
+  let uhcPrefixes = [
+    { req: 0, color: "§6", altName: "1" },
+    { req: 10, color: "§6", altName: "2" },
+    { req: 60, color: "§6", altName: "3" },
+    { req: 210, color: "§6", altName: "4" },
+    { req: 460, color: "§6", altName: "5" },
+    { req: 960, color: "§6", altName: "6" },
+    { req: 1710, color: "§6", altName: "7" },
+    { req: 2710, color: "§6", altName: "8" },
+    { req: 5210, color: "§6", altName: "9" },
+    { req: 10210, color: "§6", altName: "10" },
+    { req: 13210, color: "§6", altName: "11" },
+    { req: 16210, color: "§6", altName: "12" },
+    { req: 19210, color: "§6", altName: "13" },
+    { req: 22210, color: "§6", altName: "14" },
+    { req: 25210, color: "§6", altName: "15" },
+  ]
+
+  let speedUHCPrefixes = [
+    { req: 0, color: "§d", altName: "1" },
+    { req: 50, color: "§d", altName: "2" },
+    { req: 300, color: "§d", altName: "3" },
+    { req: 1050, color: "§d", altName: "4" },
+    { req: 2560, color: "§d", altName: "5" },
+    { req: 5550, color: "§d", altName: "6" },
+    { req: 15550, color: "§d", altName: "7" },
+    { req: 30550, color: "§d", altName: "8" },
+    { req: 55550, color: "§d", altName: "9" },
+    { req: 85550, color: "§d", altName: "10" },
+  ]
+
+  let uhcChip = [
+    "uhc-champions",
+    "UHC Champions",
+    getGenericWinsPrefix(uhcStats["score"], uhcPrefixes, undefined, true, "✫", false, true, true),
+    `/img/games/404.${imageFileType}`,
+    getUHCModeStats("overall"),
+    [
+      ["Overall", "overall"],
+      ["Solo", "solo"],
+      ["Teams of 3", ""],
+      ["nadeshiko-internal", "hr"],
+      ["Red vs. Blue", "red_vs_blue"],
+      ["No Diamonds", "no_diamonds"],
+      ["Brawl", "brawl"],
+      ["Solo Brawl", "solo_brawl"],
+      ["Duo Brawl", "duo_brawl"],
+      ["Vanilla Doubles", "vanilla_doubles"],
+    ],
+    `/img/icon/minecraft/golden_apple.png`,
+    "uhc",
+  ]
+
+  let speedUHCChip = [
+    "speed-uhc",
+    "Speed UHC",
+    getGenericWinsPrefix(speedUHCStats["score"], speedUHCPrefixes, undefined, true, "❋", false, true, true),
+    `/img/games/404.${imageFileType}`,
+    getSpeedUHCModeStats("overall"),
+    [
+      ["Overall", "overall"],
+      ["Solo", "solo"],
+      ["Teams", "team"],
+      ["nadeshiko-internal", "hr"],
+      ["Berserk", "mastery_berserk"],
+      ["Fortune", "mastery_fortune"],
+      ["Guardian", "mastery_guardian"],
+      ["Huntsman", "mastery_huntsman"],
+      ["Invigorate", "mastery_invigorate"],
+      ["Master Baker", "mastery_master_baker"],
+      ["Sniper", "mastery_sniper"],
+      ["Vampirisim", "mastery_vampirism"],
+      ["Wild Specialist", "mastery_wild_specialist"],
+    ],
+    `/img/icon/minecraft/golden_carrot.png`,
+    "speeduhc",
+  ]
+
+  let uhcChips = [uhcChip, speedUHCChip];
+  for (let d = 0; d < uhcChips.length; d++) {
+    generateChip(uhcChips[d], d % 2 == 0 ? "uhc-chips-1" : "uhc-chips-2");
+  }
+}
+
+function getUHCModeStats(mode) {
+  let uhcModeStats;
+
+  if(mode == "overall") {
+    uhcUnformattedModeStats = sumStats(["wins", "kills", "deaths", "heads_eaten", "ultimates_crafted"], ["_solo", "", "_no_diamonds", "_brawl", "_solo_brawl", "_duo_brawl", "_vanilla_doubles"], uhcStats, "", true); // red_vs_blue is not included in UHC's overall stats, so it's not included here.
+
+    uhcModeStats = {
+      "wins": uhcUnformattedModeStats[0],
+      "kills": uhcUnformattedModeStats[1],
+      "deaths": uhcUnformattedModeStats[2],
+      "kdr": calculateRatio(uhcUnformattedModeStats[1], uhcUnformattedModeStats[2]),
+      "heads_eaten": uhcUnformattedModeStats[3],
+      "ultimates_crafted": uhcUnformattedModeStats[4],
+    }
+  } else {
+    if(mode != "") {
+      mode = `_${mode}`;
+    }
+
+    uhcModeStats = {
+      "wins": uhcStats[`wins${mode}`],
+      "kills": uhcStats[`kills${mode}`],
+      "deaths": uhcStats[`deaths${mode}`],
+      "kdr": calculateRatio(uhcStats[`kills${mode}`], uhcStats[`deaths${mode}`]),
+      "heads_eaten": uhcStats[`heads_eaten${mode}`],
+      "ultimates_crafted": uhcStats[`ultimates_crafted${mode}`],
+    }
+  }
+
+  uhcModeStatsArray = [
+    [false, ["Wins", checkAndFormat(uhcModeStats["wins"])]],
+    [false, ["Kills", checkAndFormat(uhcModeStats["kills"])], ["Deaths", checkAndFormat(uhcModeStats["deaths"])], ["K/D R", uhcModeStats["kdr"]]],
+    [false, ["Heads Eaten", checkAndFormat(uhcModeStats["heads_eaten"])], ["Ultimates Crafted", checkAndFormat(uhcModeStats["ultimates_crafted"])]],
+  ]
+
+  if(mode == "overall") {
+    uhcModeStatsArray[0].push(["Score", checkAndFormat(uhcStats["score"])]);
+  }
+
+  return uhcModeStatsArray;
+}
+
+function getSpeedUHCModeStats(mode) {
+  // Does not work at all like UHC
+  if(mode == "overall") {
+    mode = "";
+  } else {
+    mode = `_${mode}`;
+  }
+
+  return [
+    [false, ["Score", checkAndFormat(speedUHCStats[`score`])]],
+    [false, ["Wins", checkAndFormat(speedUHCStats[`wins${mode}`])], ["Losses", checkAndFormat(speedUHCStats[`losses${mode}`])], ["W/L R", calculateRatio(speedUHCStats[`wins${mode}`], speedUHCStats[`losses${mode}`])]],
+    [false, ["Kills", checkAndFormat(speedUHCStats[`kills${mode}`])], ["Deaths", checkAndFormat(speedUHCStats[`deaths${mode}`])], ["K/D R", calculateRatio(speedUHCStats[`kills${mode}`], speedUHCStats[`deaths${mode}`])]],
+  ]
+}
+
+
 function generateWoolGames() {
 
   function getWoolWarsLevel(exp) {
@@ -3129,13 +3280,14 @@ function getWoolWarsStats(mode) {
   ]
 }
 
-function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true) {
+function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false) {
   // Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
   let chosenTitle = winsObject[0];
   wins = und(wins);
   let chosenBracketColor;
   let nextTitleWins = ``; // number of wins to next title
   let brackets = ["[", "]"];
+  let winsPrefixText = wins.toString();
 
   if (!useBrackets) {
     brackets = ["", ""];
@@ -3166,10 +3318,14 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
     chosenBracketColor = chosenTitle["color"];
   }
 
+  if (alternativeNaming) {
+    winsPrefixText = chosenTitle["altName"] || winsPrefixText;
+  }
+
   if (chosenTitle["color"] != "rainbow") {
-    return `${generateMinecraftText(`${chosenBracketColor}${brackets[0]}${chosenTitle["color"]}${wins.toString()}${suffix}${chosenBracketColor}${brackets[1]}`, true)}${nextTitleWins}`;
+    return `${generateMinecraftText(`${chosenBracketColor}${brackets[0]}${chosenTitle["color"]}${winsPrefixText}${suffix}${chosenBracketColor}${brackets[1]}`, true)}${nextTitleWins}`;
   } else {
-    return `${generateMinecraftText(rainbowText(brackets[0] + wins.toString() + suffix + brackets[1]), true)}${nextTitleWins}`;
+    return `${generateMinecraftText(rainbowText(brackets[0] + winsPrefixText + suffix + brackets[1]), true)}${nextTitleWins}`;
   }
 }
 
@@ -3331,6 +3487,10 @@ function updateChipStats(name, chipId, gamemode) {
     }
   } else if (gamemode == "warlords") {
     updateElement(chipId, generateChipStats(getWarlordsClassStats(newValue)), true);
+  } else if (gamemode == "uhc") {
+    updateElement(chipId, generateChipStats(getUHCModeStats(newValue)), true);
+  } else if (gamemode == "speeduhc") {
+    updateElement(chipId, generateChipStats(getSpeedUHCModeStats(newValue)), true);
   }
 }
 

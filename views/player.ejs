@@ -677,7 +677,7 @@
 
 <div class="flex-container unloaded minigame-flex-container" id="flex-container-blitz">
   <!-- blitz stats -->
-  <div class="chip-container" id="blitz-chips">
+  <div class="chip-container">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
       <p class="chip-small-title">Blitz SG</p>
@@ -725,21 +725,46 @@
       </div>
       <span class="general-button mright mtop" onclick="showCardWizard('BLITZ')">Generate Card</span>
     </div>
-    <div class="flex-two-item chip-container-duo-parent">
-      <div id="blitz-chips-1" class="chip-container-duo">
+    <div id="blitz-chips" class="width-100"></div>
+</div>
+</div>
+
+
+
+<div class="flex-container unloaded minigame-flex-container" id="flex-container-uhc">
+  <!-- uhc stats -->
+  <div class="chip-container">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title">UHC</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p>Wins <span class="statistic" id="uhc-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p>Score <span class="statistic" id="uhc-overall-score"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p>Coins <span class="statistic" id="uhc-overall-coins"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div id="blitz-chips-2" class="chip-container-duo">
+      <span class="general-button mright mtop" onclick="showCardWizard('UHC')">Generate Card</span>
+    </div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="uhc-chips-1" class="chip-container-duo">
+      </div>
+      <div id="uhc-chips-2" class="chip-container-duo">
       </div>
     </div>
 </div>
 </div>
 
-    <div class="flex-container unloaded" id="flex-container-uhc">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming very soon!</p>
-        <p class="subtitle-text">We'll be adding UHC to nadeshiko soon.</p>
-      </section>
-    </div>
 
     <div class="flex-container unloaded" id="flex-container-smashheroes">
       <section class="player-card" style="align-content: center;">
@@ -800,7 +825,7 @@
       </div>
       <span class="general-button mright mtop" onclick="showCardWizard('MEGAWALLS')">Generate Card</span>
     </div>
-    <div id="megawalls-chips" class="chip-container-duo-parent"></div>
+    <div id="megawalls-chips" class="width-100"></div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="megawalls-chips-1" class="chip-container-duo">
       </div>
@@ -893,7 +918,7 @@
         </div>
         <span class="general-button mright mtop" onclick="showCardWizard('WARLORDS')">Generate Card</span>
       </div>
-      <div id="warlords-chips" class="chip-container-duo-parent"></div>
+      <div id="warlords-chips" class="width-100"></div>
       <div class="flex-two-item chip-container-duo-parent">
         <div id="warlords-chips-1" class="chip-container-duo">
         </div>
@@ -1128,12 +1153,20 @@ function generateChip(stats_object, where) { // Converts an array of stats into 
   var fullCard = "";
   var selectionItems = "";
 
+  console.warn(stats_object);
+
   fullCard += `<div class="chip-small">`; // Adds parent div
 
-  for(c = 0; c < stats_object[5].length; c++) {
+  for (c = 0; c < stats_object[5].length; c++) {
     dropdownItem = stats_object[5][c];
 
-    selectionItems += `<div class="dropdown-item ${c == 0 ? "selected" : ""}" data-item="${dropdownItem[1]}">${dropdownItem[2] == undefined || dropdownItem[2] == "" ? "" : `<img src="${dropdownItem[2]}" alt="" class="chip-dropdown-icon">`}${dropdownItem[0]}</div>`;
+    if (dropdownItem[0] == "nadeshiko-internal") {
+      if (dropdownItem[1] == "hr") {
+        selectionItems += `<hr class="dropdown-hr">`;
+      }
+    } else {
+      selectionItems += `<div class="dropdown-item ${c == 0 ? "selected" : ""}" data-item="${dropdownItem[1]}">${dropdownItem[2] == undefined || dropdownItem[2] == "" ? "" : `<img src="${dropdownItem[2]}" alt="" class="chip-dropdown-icon">`}${dropdownItem[0]}</div>`;
+    }
   }
   
   if(stats_object[5].length > 0) {

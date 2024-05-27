@@ -867,9 +867,12 @@
     clip-path: circle(100vh at 50% 0);
   }
   
-  .game-switch-hr {
+  .game-switch-hr, .dropdown-hr {
     margin: 5px 0px;
     opacity: 0.5;
+  }
+
+  .game-switch-hr {
     display: none;
   }
   
@@ -1554,6 +1557,10 @@
   }
   
   .chip-container-duo-parent {
+    width: 100%;
+  }
+  
+  .width-100 {
     width: 100%;
   }
 
