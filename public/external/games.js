@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, warlordsStats, uhcStats, speedUHCStats, woolWarsNumericalStats;
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, warlordsStats, uhcStats, speedUHCStats, woolWarsNumericalStats, smashStats;
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
@@ -322,6 +322,7 @@ function generateNetwork() {
     generateMegaWalls();
     generateWarlords();
     generateUHC();
+    generateSmash();
     generateWoolGames();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
@@ -3132,7 +3133,7 @@ function getUHCModeStats(mode) {
   ]
 
   if(mode == "overall") {
-    uhcModeStatsArray[0].push(["Score", checkAndFormat(uhcStats["score"])]);
+    uhcModeStatsArray.unshift([false, ["Score", checkAndFormat(uhcStats["score"])]]);
   }
 
   return uhcModeStatsArray;
@@ -3153,6 +3154,223 @@ function getSpeedUHCModeStats(mode) {
   ]
 }
 
+function generateSmash() {
+  smashStats = playerData["stats"]["SuperSmash"] || {};
+
+  let easyStats = ["kills", "deaths", "wins", "losses", "coins", "assists", "damage_dealt"];
+
+  let smashClasses = {
+    BOTMUM: {name: "Botmun"},
+    CAKE_MONSTER: {name: "Cake Monster"},
+    DUSK_CRAWLER: {name: "Void Crawler"},
+    FROSTY: {name: "Cryomancer"},
+    GENERAL_CLUCK: {name: "General Cluck"},
+    GOKU: {name: "Karakot"},
+    GREEN_HOOD: {name: "Green Hood"},
+    MARAUDER: {name: "Marauder"},
+    PUG: {name: "Pug"},
+    SANIC: {name: "Sanic"},
+    SERGEANT_SHIELD: {name: "Sgt. Shield"},
+    SHOOP_DA_WHOOP: {name: "Shoop"},
+    SKULLFIRE: {name: "Skullfire"},
+    SPODERMAN: {name: "Spooderman"},
+    THE_BULK: {name: "Bulk"},
+    TINMAN: {name: "Tinman"},
+
+    NONE: {name: "None"},
+  }
+
+  let smashClassesArray = [
+    ["Overall", "overall"],
+    ["Botmun", "BOTMUN"],
+    ["Bulk", "THE_BULK"],
+    ["Cake Monster", "CAKE_MONSTER"],
+    ["Cryomancer", "FROSTY"],
+    ["General Cluck", "GENERAL_CLUCK"],
+    ["Green Hood", "GREEN_HOOD"],
+    ["Karakot", "GOKU"],
+    ["Marauder", "MARAUDER"],
+    ["Pug", "PUG"],
+    ["Sanic", "SANIC"],
+    ["Sgt. Shield", "SERGEANT_SHIELD"],
+    ["Shoop", "SHOOP_DA_WHOOP"],
+    ["Skullfire", "SKULLFIRE"],
+    ["Spooderman", "SPODERMAN"],
+    ["Tinman", "TINMAN"],
+    ["Void Crawler", "DUSK_CRAWLER"],
+  ]
+
+  for(let e = 0; e < easyStats.length; e++) {
+    updateElement(`smashheroes-overall-${easyStats[e]}`, checkAndFormat(smashStats[easyStats[e]]));
+  }
+
+  updateElement("smashheroes-overall-wlr", calculateRatio(smashStats["wins"], smashStats["losses"]));
+  updateElement("smashheroes-overall-kdr", calculateRatio(smashStats["kills"], smashStats["deaths"]));
+  updateElement("smashheroes-overall-smash_level", checkAndFormat(smashStats["smashLevel"]));
+  updateElement("smashheroes-overall-damage_dealt", veryLargeNumber(smashStats["damage_dealt"]) + " HP");
+
+  let smashActiveClass = smashStats["active_class"] || "NONE";
+  updateElement("smashheroes-active_class", smashClasses[smashActiveClass]["name"]);
+
+  let smashClassesChip = [
+    "smashheroes-classes",
+    "Classes",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getSmashStats("class", "BOTMUN"),
+    [
+      ["Botmun", "BOTMUN"],
+      ["Bulk", "THE_BULK"],
+      ["Cake Monster", "CAKE_MONSTER"],
+      ["Cryomancer", "FROSTY"],
+      ["General Cluck", "GENERAL_CLUCK"],
+      ["Green Hood", "GREEN_HOOD"],
+      ["Karakot", "GOKU"],
+      ["Marauder", "MARAUDER"],
+      ["Pug", "PUG"],
+      ["Sanic", "SANIC"],
+      ["Sgt. Shield", "SERGEANT_SHIELD"],
+      ["Shoop", "SHOOP_DA_WHOOP"],
+      ["Skullfire", "SKULLFIRE"],
+      ["Spooderman", "SPODERMAN"],
+      ["Tinman", "TINMAN"],
+      ["Void Crawler", "DUSK_CRAWLER"],
+    ],
+    ``,
+    "smashheroes",
+  ]
+
+  let smashSoloChip = [
+    "smashheroes-solo",
+    "Solo",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getSmashStats("normal", "overall"),
+    smashClassesArray,
+    ``,
+    "smashheroes",
+  ]
+
+  let smashTeamChip = [
+    "smashheroes-team",
+    "Team",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getSmashStats("teams", "overall"),
+    smashClassesArray,
+    ``,
+    "smashheroes",
+  ]
+
+  let smash2v2Chip = [
+    "smashheroes-2v2",
+    "2v2",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getSmashStats("2v2", "overall"),
+    smashClassesArray,
+    ``,
+    "smashheroes",
+  ]
+
+  let smash1v1Chip = [
+    "smashheroes-1v1",
+    "1v1",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getSmashStats("one_v_one", "overall"),
+    smashClassesArray,
+    ``,
+    "smashheroes",
+  ]
+
+  let smashFriendChip = [
+    "smashheroes-friend",
+    "Friends",
+    "",
+    `/img/games/404.${imageFileType}`,
+    getSmashStats("friend", "overall"),
+    smashClassesArray,
+    ``,
+    "smashheroes",
+  ]
+
+  generateChip(smashClassesChip, "smashheroes-chips");
+
+  let smashChips = [smashSoloChip, smashTeamChip, smash2v2Chip, smash1v1Chip, smashFriendChip];
+  for (let d = 0; d < smashChips.length; d++) {
+    generateChip(smashChips[d], d % 2 == 0 ? "smashheroes-chips-1" : "smashheroes-chips-2");
+  }
+}
+
+function getSmashStats(modeName = "", className = "") {
+
+  if(modeName == "class") {
+    let smashAllClassStats = smashStats["class_stats"] || {};
+    let smashClassStats = smashAllClassStats[className] || {};
+
+    console.warn(JSON.stringify(smashAllClassStats));
+    console.warn(smashClassStats);
+
+    let smashClassLevel = smashStats[`lastLevel_${className}`] || 0;
+    let smashClassPrestige = smashStats[`pg_${className}`] || 0;
+
+    let smashPrestigeIcons = {
+      0: "",
+      1: " §f①",
+      2: " §2②",
+      3: " §9③",
+      4: " §5④",
+      5: " §6⑤",
+    }
+
+    let formattedSmashClassLevel = generateMinecraftText(`§b${addPrefixZero(smashClassLevel, 2)}${smashPrestigeIcons[smashClassPrestige]}`);
+
+    return  [
+      [false, ["Level", formattedSmashClassLevel]],
+      [false, ["Wins", checkAndFormat(smashClassStats["wins"])], ["Losses", checkAndFormat(smashClassStats["losses"])], ["W/L R", calculateRatio(smashClassStats["wins"], smashClassStats["losses"])]],
+      [false, ["Kills", checkAndFormat(smashClassStats["kills"])], ["Deaths", checkAndFormat(smashClassStats["deaths"])], ["K/D R", calculateRatio(smashClassStats["kills"], smashClassStats["deaths"])]],
+      [false, ["Damage Dealt", veryLargeNumber(smashClassStats["damage_dealt"]) + " HP"]]
+    ]
+  } else if (className == "overall") { // Overall stats are stored in a different place than class stats
+    if(modeName != "one_v_one" && modeName != "friend") {
+      return [
+        [false, ["Wins", checkAndFormat(smashStats[`wins_${modeName}`])], ["Losses", checkAndFormat(smashStats[`losses_${modeName}`])], ["W/L R", calculateRatio(smashStats[`wins_${modeName}`], smashStats[`losses_${modeName}`])]],
+        [false, ["Kills", checkAndFormat(smashStats[`kills_${modeName}`])], ["Deaths", checkAndFormat(smashStats[`deaths_${modeName}`])], ["K/D R", calculateRatio(smashStats[`kills_${modeName}`], smashStats[`deaths_${modeName}`])]],
+        [false, ["Damage Dealt", veryLargeNumber(smashStats[`damage_dealt_${modeName}`]) + " HP"]]
+      ]
+    } else { // 1v1 and friend stats aren't correctly put in the API, so you have to sum the stats of all classes to get the overall stats
+      let smashAllClassStats = smashStats["class_stats"] || {};
+      
+      let statWins = 0;
+      let statLosses = 0;
+
+      for (let [key, value] of Object.entries(smashAllClassStats)) {
+        statWins += und(value[`${modeName}_wins`]);
+        statLosses += und(value[`${modeName}_losses`]);
+      }
+
+      return [
+        [false, ["Wins", checkAndFormat(statWins)], ["Losses", checkAndFormat(statLosses)], ["W/L R", calculateRatio(statWins, statLosses)]]
+      ]
+    }
+  } else { // specified class and mode
+    let smashAllClassStats = smashStats["class_stats"] || {};
+    let smashClassStats = smashAllClassStats[className] || {};
+
+    if(modeName != "one_v_one" && modeName != "friend") { // These modes are formatted differently :(
+      return [
+        [false, ["Wins", checkAndFormat(smashClassStats[`wins_${modeName}`])], ["Losses", checkAndFormat(smashClassStats[`losses_${modeName}`])], ["W/L R", calculateRatio(smashClassStats[`wins_${modeName}`], smashClassStats[`losses_${modeName}`])]],
+        [false, ["Kills", checkAndFormat(smashClassStats[`kills_${modeName}`])], ["Deaths", checkAndFormat(smashClassStats[`deaths_${modeName}`])], ["K/D R", calculateRatio(smashClassStats[`kills_${modeName}`], smashClassStats[`deaths_${modeName}`])]],
+        [false, ["Damage Dealt", veryLargeNumber(smashClassStats[`damage_dealt_${modeName}`]) + " HP"]]
+      ];
+    } else {
+      return [
+        [false, ["Wins", checkAndFormat(smashClassStats[`${modeName}_wins`])], ["Losses", checkAndFormat(smashClassStats[`${modeName}_losses`])], ["W/L R", calculateRatio(smashClassStats[`${modeName}_wins`], smashClassStats[`${modeName}_losses`])]],
+      ];
+    }
+  }
+}
 
 function generateWoolGames() {
 
@@ -3491,6 +3709,20 @@ function updateChipStats(name, chipId, gamemode) {
     updateElement(chipId, generateChipStats(getUHCModeStats(newValue)), true);
   } else if (gamemode == "speeduhc") {
     updateElement(chipId, generateChipStats(getSpeedUHCModeStats(newValue)), true);
+  } else if (gamemode == "smashheroes") {
+    if (chipId == "smashheroes-classes") {
+      updateElement(chipId, generateChipStats(getSmashStats("class", newValue)), true);
+    } else if (chipId == "smashheroes-solo") {
+      updateElement(chipId, generateChipStats(getSmashStats("normal", newValue)), true);
+    } else if (chipId == "smashheroes-team") {
+      updateElement(chipId, generateChipStats(getSmashStats("teams", newValue)), true);
+    } else if (chipId == "smashheroes-2v2") {
+      updateElement(chipId, generateChipStats(getSmashStats("2v2", newValue)), true);
+    } else if (chipId == "smashheroes-1v1") {
+      updateElement(chipId, generateChipStats(getSmashStats("one_v_one", newValue)), true);
+    } else if (chipId == "smashheroes-friend") {
+      updateElement(chipId, generateChipStats(getSmashStats("friend", newValue)), true);
+    }
   }
 }
 

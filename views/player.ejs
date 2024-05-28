@@ -729,8 +729,6 @@
 </div>
 </div>
 
-
-
 <div class="flex-container unloaded minigame-flex-container" id="flex-container-uhc">
   <!-- uhc stats -->
   <div class="chip-container">
@@ -766,12 +764,59 @@
 </div>
 
 
-    <div class="flex-container unloaded" id="flex-container-smashheroes">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming very soon!</p>
-        <p class="subtitle-text">We'll be adding Smash Heroes to nadeshiko soon.</p>
-      </section>
+<div class="flex-container unloaded minigame-flex-container" id="flex-container-smashheroes">
+  <!-- smashheroes stats -->
+  <div class="chip-container">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title">Smash Heroes</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p>Smash Level <span class="statistic" id="smashheroes-overall-smash_level"><span class="mc">Unknown</span></span> <span class="m6">✶</span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Wins <span class="statistic" id="smashheroes-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p>Losses <span class="statistic" id="smashheroes-overall-losses"><span class="mc">Unknown</span></span></p>
+              <p>W/L R <span class="statistic" id="smashheroes-overall-wlr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Kills <span class="statistic" id="smashheroes-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p>Deaths <span class="statistic" id="smashheroes-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p>K/D R <span class="statistic" id="smashheroes-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Assists <span class="statistic" id="smashheroes-overall-assists"><span class="mc">Unknown</span></span></p>
+              <p>Damage Dealt <span class="statistic" id="smashheroes-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p>Selected Hero <span class="statistic" id="smashheroes-active_class"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Coins <span class="statistic" id="smashheroes-overall-coins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Total XP <span class="statistic" id="smashheroes-overall-xp"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('SMASHHEROES')">Generate Card</span>
     </div>
+    <div id="smashheroes-chips" class="width-100"></div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="smashheroes-chips-1" class="chip-container-duo">
+      </div>
+      <div id="smashheroes-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>
+</div>
 
 <div class="flex-container unloaded minigame-flex-container" id="flex-container-megawalls">
   <!-- mega walls stats -->
@@ -1152,8 +1197,6 @@ function isInputField(element) { // Determines if the user's actively in an inpu
 function generateChip(stats_object, where) { // Converts an array of stats into an HTML chip for stats viewing
   var fullCard = "";
   var selectionItems = "";
-
-  console.warn(stats_object);
 
   fullCard += `<div class="chip-small">`; // Adds parent div
 
