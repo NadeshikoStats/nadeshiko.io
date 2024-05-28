@@ -3209,6 +3209,12 @@ function generateSmash() {
   updateElement("smashheroes-overall-smash_level", checkAndFormat(smashStats["smashLevel"]));
   updateElement("smashheroes-overall-damage_dealt", veryLargeNumber(smashStats["damage_dealt"]) + " HP");
 
+  smashTotalXP = 0;
+  for (let key in smashClasses) {
+    smashTotalXP += smashStats[`xp_${key}`] || 0;
+  }
+  updateElement("smashheroes-overall-xp", veryLargeNumber(smashTotalXP));
+
   let smashActiveClass = smashStats["active_class"] || "NONE";
   updateElement("smashheroes-active_class", smashClasses[smashActiveClass]["name"]);
 
