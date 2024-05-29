@@ -1202,18 +1202,23 @@ function generateChip(stats_object, where) { // Converts an array of stats into 
 
   for (c = 0; c < stats_object[5].length; c++) {
     dropdownItem = stats_object[5][c];
+    /* A typical dropdownItem looks like this:
+     * ["Overall", "overall", "/img/overall.png"]
+     * In this case, the first element is the display name, the second is the name in the API, and the third is the image URL.
+     * However, if the first element is "nadeshiko-internal", the dropdown item is a special item that doesn't have a game mode, which is used to add items like horizontal rules.
+     */
 
     if (dropdownItem[0] == "nadeshiko-internal") {
       if (dropdownItem[1] == "hr") {
         selectionItems += `<hr class="dropdown-hr">`;
       }
     } else {
-      selectionItems += `<div class="dropdown-item ${c == 0 ? "selected" : ""}" data-item="${dropdownItem[1]}">${dropdownItem[2] == undefined || dropdownItem[2] == "" ? "" : `<img src="${dropdownItem[2]}" alt="" class="chip-dropdown-icon">`}${dropdownItem[0]}</div>`;
+      selectionItems += `<div class="dropdown-item${c == 0 ? " selected" : ""}" data-item="${dropdownItem[1]}">${dropdownItem[2] == undefined || dropdownItem[2] == "" ? "" : `<img src="${dropdownItem[2]}" alt="" class="chip-dropdown-icon icon">`}<span class="dropdown-item-text">${dropdownItem[0]}</span></div>`;
     }
   }
   
   if(stats_object[5].length > 0) {
-    selectionItems = `<div class="dropdown"><p class="dropdown-button chip-dropdown-button">${stats_object[5][0][0]}</p><div class="dropdown-content unloaded dropdown-chip" data-modify="${stats_object[0]}" data-game="${stats_object[7]}">${selectionItems}</div></div>`;
+    selectionItems = `<div class="dropdown"><p class="dropdown-button chip-dropdown-button"><span>${stats_object[5][0][0]}</span></p><div class="dropdown-content unloaded dropdown-chip" data-modify="${stats_object[0]}" data-game="${stats_object[7]}">${selectionItems}</div></div>`;
   } else {
     selectionItems = "";
   }
@@ -1246,129 +1251,6 @@ function generateChipStats(chipStatsSub) { // Generates the stats inside of the 
   }
   return chipStats;
 }
-
-function openSelectedDropdown(dropdownId) {
-  console.log("removed" + dropdownId)
-
-  console.log(document.getElementById(dropdownId).classList)
-    document.getElementById(dropdownId).classList.remove("unloaded");
-    console.log(document.getElementById(dropdownId).classList)
-}
-
-document.addEventListener('click', function(event) {
-  if (event.target.matches('.dropdown-button')) {
-    console.log("Dropdown button clicked")
-    var dropdownContent = event.target.nextElementSibling;
-
-    if (dropdownContent.classList.contains("unloaded")) { // If not visible
-    // Reset styles first
-    dropdownContent.style.right = 'auto';
-    dropdownContent.style.left = 'auto';
-    dropdownContent.style.bottom = 'auto';
-    dropdownContent.style.top = 'auto';
-
-    // Get the bounding rectangle of the dropdown
-    var dropdownRect = dropdownContent.getBoundingClientRect();
-
-    if(dropdownContent.classList.contains("dropdown-chip") && !dropdownContent.classList.contains("dropdown-wizard")) {
-      chipBox = dropdownContent.parentElement.parentElement.parentElement.parentElement;
-      dropdownContent.style.overflowY = 'scroll';
-
-      if(chipBox) {
-        dropdownContent.style.maxHeight = `calc(${getComputedStyle(chipBox).height} - 65px)`;
-      } else {
-        console.error("Chip box missing!");
-      }
-    }
-
-    dropdownRect = dropdownContent.getBoundingClientRect();
-
-    // Check bottom edge
-    if ((window.innerHeight - dropdownRect.bottom < 30 || mobileMode) && !dropdownContent.classList.contains("dropdown-chip")) {
-        // Adjust it upwards if it goes off bottom or in mobile mode
-        dropdownContent.style.bottom = '100%';
-        dropdownContent.style.top = 'auto';
-    } else {
-        dropdownContent.style.bottom = 'auto';
-        dropdownContent.style.top = '100%';
-    }
-
-    dropdownRect = dropdownContent.getBoundingClientRect();
-    if (dropdownRect.top < 0 && dropdownContent.classList.contains("dropdown-games")) { // If it still doesn't fit, call for desperate measures
-        dropdownContent.style.top = '100%';
-        dropdownContent.style.bottom = 'auto';
-        dropdownContent.style.maxHeight = (window.innerHeight * 0.7) + 'px';
-        dropdownContent.style.overflowY = 'scroll';
-    }
-
-    if (window.innerWidth - dropdownRect.right < 30) { // Check right edge
-        dropdownContent.style.right = '0'; // Adjust it leftwards if it goes off right edge
-        dropdownContent.style.left = 'auto';
-    } else {
-        dropdownContent.style.right = 'auto';
-        dropdownContent.style.left = '0';
-    }
-}
-
-    dropdownContent.classList.toggle('unloaded');
-  }
-
-  if (event.target.classList.contains('dropdown-item')) {
-    const selectedItem = event.target;
-    const dropdownContainer = selectedItem.closest('.dropdown-content');
-    const gameName = dropdownContainer.dataset.game;
-    const modifyId = dropdownContainer.dataset.modify;
-    const selectedItemText = selectedItem.dataset.item;
-
-    const button = dropdownContainer.previousElementSibling; // Selects the button
-    if (button.classList.contains('chip-dropdown-button')) {
-      button.textContent = selectedItem.textContent;
-      
-    if(!button.classList.contains('card-wizard-button')) {
-      button.style.width = 'auto';
-      var naturalWidth = button.clientWidth + 1; // Get the natural content width
-
-      // Reset to the initial width then set to natural width to enable transition
-      button.style.width = ""; // Remove any inline width style
-      getComputedStyle(button).width; // Force reflow to clear any previous transition
-      button.style.width = naturalWidth + 'px';
-      }
-    }
-    // Call the update function
-    updateChipStats(selectedItemText, modifyId, gameName);
-
-    dropdownContainer.querySelectorAll('.dropdown-item').forEach(div => {
-      div.classList.remove('selected');
-    });
-    selectedItem.classList.add('selected'); // Selects the clicked item
-  }
-})
-
-document.addEventListener('keydown', function(event) { // Close all dropdowns if escape pressed
-  if (event.key === "Escape") {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    for (var i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (!openDropdown.classList.contains("unloaded")) {
-        openDropdown.classList.add("unloaded");
-      }
-    }
-  }
-});
-
-
-window.addEventListener('click', function(event) {
-  if (!event.target.matches('.dropdown-button') && !event.target.parentElement.matches('.dropdown-button')) {
-    console.log(event.target)
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    for (var i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (!openDropdown.classList.contains("unloaded")) {
-        openDropdown.classList.add("unloaded");
-      }
-    }
-  }
-});
 
 function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, switch to HTTPS
   windowLocation = window.location;

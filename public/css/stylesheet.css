@@ -941,6 +941,10 @@
     color: var(--accent);
     border: 2px dashed var(--accent);
   }
+
+  .dropdown-item-text {
+    white-space: nowrap;
+  }
   
   .chip-dropdown-button {
     background-color: var(--default);
@@ -1562,10 +1566,6 @@
   
   .width-100 {
     width: 100%;
-  }
-
-  .ignore {
-    margin-left: 3px;
   }
   
   .chip-container-duo {

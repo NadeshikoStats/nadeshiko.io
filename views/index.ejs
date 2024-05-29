@@ -145,7 +145,7 @@ if(document.documentElement.clientWidth >= 800) {
 }
 
 
-recentSearches = JSON.parse(localStorage.getItem("recent-searches"));
+  recentSearches = JSON.parse(localStorage.getItem("recent-searches"));
 if(recentSearches != null) {
   document.getElementById("recent-search-label").style.display = "initial";
   for(let a = 0; a < recentSearches.length; a++) {
@@ -153,7 +153,6 @@ if(recentSearches != null) {
     document.getElementById("recent-searches").insertAdjacentHTML("beforeend", recentSearchItem);
   }
 }
-
 </script>
 
 </body>

@@ -454,4 +454,130 @@ function isInputField(element) { // Determines if the user's actively in an inpu
     element.isContentEditable
   );
 }
+
+
+function openSelectedDropdown(dropdownId) {
+  console.log("removed" + dropdownId)
+
+  console.log(document.getElementById(dropdownId).classList)
+    document.getElementById(dropdownId).classList.remove("unloaded");
+    console.log(document.getElementById(dropdownId).classList)
+}
+
+document.addEventListener('click', function(event) {
+  let dropdownButton = event.target.closest('.dropdown-button');
+  if (dropdownButton) {
+    console.log("Dropdown button clicked");
+    var dropdownContent = dropdownButton.nextElementSibling;
+    console.warn(dropdownContent);
+
+    if (dropdownContent.classList.contains("unloaded")) { // If not visible
+    // Reset styles first
+    dropdownContent.style.right = 'auto';
+    dropdownContent.style.left = 'auto';
+    dropdownContent.style.bottom = 'auto';
+    dropdownContent.style.top = 'auto';
+
+    // Get the bounding rectangle of the dropdown
+    var dropdownRect = dropdownContent.getBoundingClientRect();
+
+    if(dropdownContent.classList.contains("dropdown-chip") && !dropdownContent.classList.contains("dropdown-wizard")) {
+      chipBox = dropdownContent.parentElement.parentElement.parentElement.parentElement;
+      dropdownContent.style.overflowY = 'scroll';
+
+      if(chipBox) {
+        dropdownContent.style.maxHeight = `calc(${getComputedStyle(chipBox).height} - 65px)`;
+      } else {
+        console.error("Chip box missing!");
+      }
+    }
+
+    dropdownRect = dropdownContent.getBoundingClientRect();
+
+    // Check bottom edge
+    if ((window.innerHeight - dropdownRect.bottom < 30 || mobileMode) && !dropdownContent.classList.contains("dropdown-chip")) {
+        // Adjust it upwards if it goes off bottom or in mobile mode
+        dropdownContent.style.bottom = '100%';
+        dropdownContent.style.top = 'auto';
+    } else {
+        dropdownContent.style.bottom = 'auto';
+        dropdownContent.style.top = '100%';
+    }
+
+    dropdownRect = dropdownContent.getBoundingClientRect();
+    if (dropdownRect.top < 0 && dropdownContent.classList.contains("dropdown-games")) { // If it still doesn't fit, call for desperate measures
+        dropdownContent.style.top = '100%';
+        dropdownContent.style.bottom = 'auto';
+        dropdownContent.style.maxHeight = (window.innerHeight * 0.7) + 'px';
+        dropdownContent.style.overflowY = 'scroll';
+    }
+
+    if (window.innerWidth - dropdownRect.right < 30) { // Check right edge
+        dropdownContent.style.right = '0'; // Adjust it leftwards if it goes off right edge
+        dropdownContent.style.left = 'auto';
+    } else {
+        dropdownContent.style.right = 'auto';
+        dropdownContent.style.left = '0';
+    }
+}
+    dropdownContent.classList.toggle('unloaded');
+  }
+
+  // If the event or any of its ancestors (parent, grandparent, etc). has a class of dropdown-item, then it's a dropdown item
+  let selectedItem = event.target.closest('.dropdown-item');
+  if (selectedItem) {
+    const dropdownContainer = selectedItem.closest('.dropdown-content');
+    const gameName = dropdownContainer.dataset.game;
+    const modifyId = dropdownContainer.dataset.modify;
+    const selectedItemText = selectedItem.dataset.item;
+
+    const button = dropdownContainer.previousElementSibling; // Selects the button
+    if (button.classList.contains('chip-dropdown-button')) {
+      button.innerHTML = selectedItem.innerHTML;
+      
+    if(!button.classList.contains('card-wizard-button')) {
+      button.style.width = 'auto';
+      var naturalWidth = button.clientWidth + 1; // Get the natural content width
+
+      // Reset to the initial width then set to natural width to enable transition
+      button.style.width = ""; // Remove any inline width style
+      getComputedStyle(button).width; // Force reflow to clear any previous transition
+      button.style.width = naturalWidth + 'px';
+      }
+    }
+    // Call the update function
+    updateChipStats(selectedItemText, modifyId, gameName);
+
+    dropdownContainer.querySelectorAll('.dropdown-item').forEach(div => {
+      div.classList.remove('selected');
+    });
+    selectedItem.classList.add('selected'); // Selects the clicked item
+  }
+})
+
+document.addEventListener('keydown', function(event) { // Close all dropdowns if escape pressed
+  if (event.key === "Escape") {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (!openDropdown.classList.contains("unloaded")) {
+        openDropdown.classList.add("unloaded");
+      }
+    }
+  }
+});
+
+
+window.addEventListener('click', function(event) {
+  if (!event.target.closest(".dropdown-button")) { // If the doesn't click on a dropdown button, close all dropdowns
+    console.log(event.target)
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (!openDropdown.classList.contains("unloaded")) {
+        openDropdown.classList.add("unloaded");
+      }
+    }
+  }
+});
 </script>

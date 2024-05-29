@@ -2655,7 +2655,7 @@ function generateBlitz() {
   // Add kit level to each kit name
   for(let k = 0; k < blitzKits.length; k++) {
     if(blitzKits[k][1] != "random" && blitzKits[k][1] != "rambo") {
-      blitzKits[k][0] = blitzKits[k][0] + ` <span class="ignore">${getBlitzKitLevel(blitzKits[k][1])}</span>`;
+      blitzKits[k][0] = blitzKits[k][0] + ` ${getBlitzKitLevel(blitzKits[k][1])}`;
     }
   }
 
@@ -2765,7 +2765,7 @@ function generateMegaWalls() {
   for (let key in megaWallsClasses) {
     let megaWallsPrestige = getMegaWallsPrestige(key);
     if(megaWallsPrestige[0]) {
-      megaWallsClasses[key]["name"] = megaWallsClasses[key]["name"] + `<span class="ignore">${megaWallsPrestige[1]}</span>`;
+      megaWallsClasses[key]["name"] = megaWallsClasses[key]["name"] + `${megaWallsPrestige[1]}`;
     }
   }
 
@@ -3160,7 +3160,7 @@ function generateSmash() {
   let easyStats = ["kills", "deaths", "wins", "losses", "coins", "assists", "damage_dealt"];
 
   let smashClasses = {
-    BOTMUM: {name: "Botmun"},
+    BOTMUN: {name: "Botmun"},
     CAKE_MONSTER: {name: "Cake Monster"},
     DUSK_CRAWLER: {name: "Void Crawler"},
     FROSTY: {name: "Cryomancer"},
@@ -3213,7 +3213,7 @@ function generateSmash() {
   for (let key in smashClasses) {
     smashTotalXP += smashStats[`xp_${key}`] || 0;
   }
-  updateElement("smashheroes-overall-xp", veryLargeNumber(smashTotalXP));
+  updateElement("smashheroes-overall-xp", checkAndFormat(smashTotalXP));
 
   let smashActiveClass = smashStats["active_class"] || "NONE";
   updateElement("smashheroes-active_class", smashClasses[smashActiveClass]["name"]);
@@ -3314,9 +3314,6 @@ function getSmashStats(modeName = "", className = "") {
   if(modeName == "class") {
     let smashAllClassStats = smashStats["class_stats"] || {};
     let smashClassStats = smashAllClassStats[className] || {};
-
-    console.warn(JSON.stringify(smashAllClassStats));
-    console.warn(smashClassStats);
 
     let smashClassLevel = smashStats[`lastLevel_${className}`] || 0;
     let smashClassPrestige = smashStats[`pg_${className}`] || 0;
@@ -3528,7 +3525,6 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
       nextTitleWins = " (Max title!)";
     } else {
       nextTitleWins = ` (${checkAndFormat(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins)} to go)`;
-      console.log(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"]);
     }
   }
 
