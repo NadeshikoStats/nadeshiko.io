@@ -39,12 +39,55 @@ async function getVisageImage(uuid) {
   }
 }
 
+let gameAliases = {
+  network: ["hypixel", "overall"],
+  arcade: ["a"],
+  bedwars: ["b", "bw", "bed"],
+  blitz: ["bsg", "sg", "hungergames"],
+  buildbattle: ["bb", "build"],
+  classic: ["legacy", "ab", "arena", "arenabrawl", "pb", "paint", "paintball", "q", "qc", "quake", "quakecraft", "tkr", "turbo", "gingerbread", "turbokartracers", "vz", "vampire", "vampirez", "vampz", "walls"],
+  copsandcrims: ["cac", "cvc", "cops", "mcgo"],
+  duels: ["d", "duel"],
+  megawalls: ["mw", "megawall", "megawalls", "mega", "walls3"],
+  murdermystery: ["mm", "murder"],
+  pit: ["thepit"],
+  smashheroes: ["smash", "supersmash"],
+  skywars: ["s", "sw", "sky"],
+  tntgames: ["tnt"],
+  uhc: ["speeduhc", "suhc", "speed"],
+  warlords: ["w", "war", "wl", "bg", "battleground"],
+  woolwars: ["ww", "wool", "woolgames"],
+}
+
+function getMetaDescription(game) {
+  switch(game) {
+    case 'skywars':
+      return "SkyWars player stats";
+    case 'bedwars':
+      return "Bed Wars player stats";
+    case 'duels':
+      return "Duels player stats";
+    case 'blitz':
+      return "Blitz player stats";
+    case 'buildbattle':
+      return "Build Battle player stats";
+  }
+}
+
 app.get('/player/:name/:game?', async (req, res) => {
   const name = req.params.name;
   
   let game = req.params.game;
   if (game) {
     game = game.toLowerCase();
+
+    // Check if the specified game name is an alias
+    for (let key in gameAliases) {
+      if (gameAliases[key].includes(game)) {
+        game = key;
+        break;
+      }
+    }
   }
   
   var base64PlayerImage = "";
@@ -54,6 +97,8 @@ app.get('/player/:name/:game?', async (req, res) => {
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
        base64PlayerImage = await getVisageImage(playerData["uuid"]);      
+
+
        res.render('player', { name, playerData, base64PlayerImage, game });
    } catch(error) {
       if(error.response.status == 404) {
