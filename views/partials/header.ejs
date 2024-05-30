@@ -4,8 +4,7 @@
     <a href="/" style="display: flex;">
       <img class="logo icon" src="/img/nadeshiko_logo.png" alt="nadeshiko logo" />
       <div class="wordmark" aria-hidden="true">
-        <span style="--delay: 0s;">n</span><span style="--delay: 0.05s;">a</span><span style="--delay: 0.1s;">d</span><span style="--delay: 0.15s;">e</span><span style="--delay: 0.2s;">s</span><span style="--delay: 0.25s;">h</span>
-        <span style="--delay: 0.3s;">i</span><span style="--delay: 0.35s;">k</span><span style="--delay: 0.4s;">o</span>
+        <span style="--delay: 0s;">n</span><span style="--delay: 0.05s;">a</span><span style="--delay: 0.1s;">d</span><span style="--delay: 0.15s;">e</span><span style="--delay: 0.2s;">s</span><span style="--delay: 0.25s;">h</span><span style="--delay: 0.3s;">i</span><span style="--delay: 0.35s;">k</span><span style="--delay: 0.4s;">o</span>
       </div>
     </a>
     <a href="/" class="header-button" aria-label="Link to home page"><img src="/img/svg/home.svg" class="header-icon" alt="" /><span class="header-button-text">Home</span></a>
@@ -39,11 +38,10 @@
       <p class="tooltip"><span class="card-wizard-subtitle">Game</span><span class="tooltiptext">The game to be used in the card.</span></p>
       <div class="dropdown">
         <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-game-button">Network</p>
-        <div class="dropdown-content unloaded dropdown-chip dropdown-wizard" id="card-wizard-game" data-game="wizard" data-modify="game">
+        <div class="dropdown-content unloaded dropdown-chip dropdown-wizard dropdown-header" id="card-wizard-game" data-game="wizard" data-modify="game">
           <div class="dropdown-item selected" data-item="NETWORK">Network</div>
           <div class="dropdown-item" data-item="BEDWARS">Bed Wars</div>
           <div class="dropdown-item" data-item="DUELS">Duels</div>
-          <div class="dropdown-item" data-item="SKYWARS">SkyWars</div>
         </div>
       </div>
     </div>
@@ -52,7 +50,7 @@
       <p class="tooltip"><span class="card-wizard-subtitle">Size</span><span class="tooltiptext">The height of the card.</span></p>
       <div class="dropdown">
         <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-size-button">Full</p>
-        <div class="dropdown-content unloaded dropdown-chip dropdown-wizard" id="card-wizard-size" data-game="wizard" data-modify="size">
+        <div class="dropdown-content unloaded dropdown-chip dropdown-wizard dropdown-header" id="card-wizard-size" data-game="wizard" data-modify="size">
           <div class="dropdown-item selected" data-item="FULL">Full</div>
         </div>
       </div>
@@ -62,7 +60,7 @@
       <p class="tooltip"><span class="card-wizard-subtitle">Format</span><span class="tooltiptext">Where you want to show the card.</span></p>
       <div class="dropdown">
         <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-format-button">Hypixel Forums</p>
-        <div class="dropdown-content unloaded dropdown-chip dropdown-wizard" id="card-wizard-format" data-game="wizard" data-modify="format">
+        <div class="dropdown-content unloaded dropdown-chip dropdown-wizard dropdown-header" id="card-wizard-format" data-game="wizard" data-modify="format">
           <div class="dropdown-item selected" data-item="bbcode">Hypixel Forums</div>
           <div class="dropdown-item" data-item="full">Raw Link</div>
         </div>
@@ -213,7 +211,38 @@
 
     <div class="mtop mbottom">
       <div class="flex-two-item">
-        <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/gauge.svg" alt="" /><span class="w600">Developer Mode</span></p>
+        <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/settings.svg" alt="" /><span class="w600">Default Game</span></p>
+        <div class="dropdown">
+          <p class="dropdown-button chip-dropdown-button" id="dropdown-default-game-button">Network</p>
+          <div class="dropdown-content unloaded dropdown-chip settings-dropdown dropdown-header" id="dropdown-default-game" data-game="settings" data-modify="default-game">
+            <div class="dropdown-item selected" data-item="network">Network</div>
+            <div class="dropdown-item" data-item="bedwars">Bed Wars</div>
+            <div class="dropdown-item" data-item="duels">Duels</div>
+            <div class="dropdown-item" data-item="skywars">SkyWars</div>
+            <hr class="dropdown-hr" />
+            <div class="dropdown-item" data-item="arcade">Arcade</div>
+            <div class="dropdown-item" data-item="blitz">Blitz</div>
+            <div class="dropdown-item" data-item="buildbattle">Build Battle</div>
+            <div class="dropdown-item" data-item="classic">Classic Games</div>
+            <div class="dropdown-item" data-item="copsandcrims">Cops and Crims</div>
+            <div class="dropdown-item" data-item="megawalls">Mega Walls</div>
+            <div class="dropdown-item" data-item="murdermystery">Murder Mystery</div>
+            <div class="dropdown-item" data-item="pit">Pit</div>
+            <div class="dropdown-item" data-item="smashheroes">Smash Heroes</div>
+            <div class="dropdown-item" data-item="tntgames">TNT Games</div>
+            <div class="dropdown-item" data-item="uhc">UHC</div>
+            <div class="dropdown-item" data-item="warlords">Warlords</div>
+            <div class="dropdown-item" data-item="woolwars">Wool Wars</div>
+          </div>
+        </div>
+      </div>
+      <p class="settings-description">Changes the first page that's shown when searching a player.</p>
+    </div>
+
+    
+    <div class="mtop mbottom">
+      <div class="flex-two-item">
+        <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/settings.svg" alt="" /><span class="w600">Developer Mode</span></p>
         <input type="checkbox" id="checkbox-developer-mode" class="switch-checkbox settings-checkbox" data-setting="developer-mode" /><label for="checkbox-developer-mode" class="switch-label"><span class="switch-inner"></span></label>
       </div>
       <p class="settings-description">Shows UUIDs and version information.</p>
@@ -236,6 +265,38 @@
     format: "bbcode",
   };
   let settings;
+
+  let hypixelGames = {
+    network: "Network",
+    bedwars: "Bed Wars",
+    duels: "Duels",
+    skywars: "SkyWars",
+    arcade: "Arcade",
+    blitz: "Blitz",
+    buildbattle: "Build Battle",
+    classic: "Classic Games",
+    copsandcrims: "Cops and Crims",
+    murdermystery: "Murder Mystery",
+    megawalls: "Mega Walls",
+    smashheroes: "Smash Heroes",
+    pit: "Pit",
+    tntgames: "TNT Games",
+    uhc: "UHC",
+    woolwars: "Wool Wars",
+    warlords: "Warlords",
+  }
+
+  localStorageSettings = localStorage.getItem("settings");
+  if (localStorageSettings === null) {
+    settings = {
+      "quick-mode": true,
+      "default-game": "network",
+      "developer-mode": false,
+    };
+    localStorage.setItem("settings", JSON.stringify(settings));
+  } else {
+    settings = JSON.parse(localStorageSettings);
+  }
 
   function showCardWizard(game = "NETWORK") {
     if (!cardWizardExpanded) {
@@ -358,7 +419,24 @@
 
   function updateSettingFunctionality(setting, settingValue) {
     // Updates the functionality of a changed setting
-    document.getElementById(`checkbox-${setting}`).checked = settingValue;
+    if(document.getElementById(`checkbox-${setting}`)) {
+      document.getElementById(`checkbox-${setting}`).checked = settingValue;
+    }
+    if(document.getElementById(`dropdown-${setting}-button`)) {
+      if(setting == "default-game") {
+        let children = document.getElementById("dropdown-default-game").children;
+        for (let i = 0; i < children.length; i++) {
+          if (children[i].getAttribute("data-item") == settingValue) {
+            children[i].classList.add("selected");
+            document.getElementById("dropdown-default-game-button").innerText = children[i].innerText;
+          } else {
+            children[i].classList.remove("selected");
+          }
+        }
+      } else {
+        document.getElementById(`dropdown-${setting}-button`).innerText = settingValue;
+      }
+    }
     if (setting == "developer-mode") {
       cardUuid = document.getElementById("card-uuid");
       if (settingValue) {
@@ -385,17 +463,6 @@
         updateSetting(settingKey, settingValue);
       });
     });
-
-    localStorageSettings = localStorage.getItem("settings");
-    if (localStorageSettings === null) {
-      settings = {
-        "quick-mode": true,
-        "developer-mode": false,
-      };
-      localStorage.setItem("settings", JSON.stringify(settings));
-    } else {
-      settings = JSON.parse(localStorageSettings);
-    }
 
     for (const [key, value] of Object.entries(settings)) {
       updateSettingFunctionality(key, value);
@@ -496,7 +563,7 @@
         // Get the bounding rectangle of the dropdown
         var dropdownRect = dropdownContent.getBoundingClientRect();
 
-        if (dropdownContent.classList.contains("dropdown-chip") && !dropdownContent.classList.contains("dropdown-wizard")) {
+        if (dropdownContent.classList.contains("dropdown-chip") && !dropdownContent.classList.contains("dropdown-header")) {
           chipBox = dropdownContent.parentElement.parentElement.parentElement.parentElement;
           dropdownContent.style.overflowY = "scroll";
 

@@ -3205,7 +3205,6 @@ function generateSmash() {
     let smashPrestige = generateMinecraftText(getSmashPrestige(smashClassesArray[c][1]));
     smashFormattedClassesArray.push([`${smashClassesArray[c][0]}${smashPrestige}`, smashClassesArray[c][1]]);
   }
-  console.warn(smashFormattedClassesArray);
 
   for(let e = 0; e < easyStats.length; e++) {
     updateElement(`smashheroes-overall-${easyStats[e]}`, checkAndFormat(smashStats[easyStats[e]]));
@@ -3688,8 +3687,6 @@ function updateChipStats(name, chipId, gamemode) {
     updateElement(chipId, generateChipStats(getVampireZStats(newValue)), true);
   } else if (gamemode == "tkr") {
     updateElement(chipId, generateChipStats(getTKRStats(newValue)), true);
-  } else if (gamemode == "wizard") {
-    cardWizardSettings[chipId] = newValue;
   } else if (gamemode == "copsandcrims_guns") {
     updateElement(chipId, generateChipStats(getCopsAndCrimsGunStats(newValue)), true);
   } else if (gamemode == "woolwars") {
@@ -3724,6 +3721,11 @@ function updateChipStats(name, chipId, gamemode) {
     } else if (chipId == "smashheroes-friend") {
       updateElement(chipId, generateChipStats(getSmashStats("friend", newValue)), true);
     }
+  } else if (gamemode == "wizard") {
+    cardWizardSettings[chipId] = newValue;
+  } else if (gamemode == "settings") {
+    settings[chipId] = newValue;
+    updateSetting(chipId, newValue);
   }
 }
 

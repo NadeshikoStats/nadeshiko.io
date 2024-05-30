@@ -994,15 +994,32 @@
   let playerName = "<%= name %>";
   var currentGamemode = "<%= game %>";
   let imageFileType;
-  let validGames = ["network", "skyblock", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolwars", "warlords", "smashheroes"]
+
+  let validGames = ["network", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolwars", "warlords", "smashheroes"];
 
   playerData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(playerData)) %>"));
+
   let playerAchievements = playerData["achievements"] || {};
 
   if (!validGames.includes(currentGamemode)) {
-      console.log("Invalid game mode; defaulting to network" + " " + performance.now())
-      currentGamemode = "network";
-      window.history.replaceState({}, null, `/player/${playerName}${currentGamemode == "network" ? "" : `/${currentGamemode}`}`);
+    let defaultGame;
+    if(settings) {
+      defaultGame = settings["default-game"];
+      if(!validGames.includes(defaultGame)) {
+        defaultGame = "network";
+      }
+    } else {
+      defaultGame = "network";
+      console.error("Settings not found; this should not happen");
+    }
+
+    console.log(`Invalid game mode; defaulting to the default game (${defaultGame})`);
+    currentGamemode = defaultGame;
+    window.history.replaceState({}, null, `/player/${playerName}${currentGamemode == "network" ? "" : `/${currentGamemode}`}`);
+  }
+
+  if (playerData["profile"] == undefined) {
+    currentGamemode = "network";
   }
 
   var mobileMode = (document.documentElement.clientWidth < 800);
@@ -1279,8 +1296,16 @@ var skinViewer;
     return num + "th";
   }
 
-
+  /**
+   * Changes the current gamemode (background, highlighted button, etc.) to the specified gamemode
+   * @param {string} gamemode The gamemode to switch to
+   */
   function switchStats(gamemode) {
+    // if not in validGames 
+    if (!validGames.includes(gamemode)) {
+      console.error(`Invalid game mode "${gamemode}"!`);
+      return;
+    }
       gamesWithEasilyClickableButtons = ["network", "bedwars", "skywars", "duels"];
     //if(gamemode != currentGamemode) {
       if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
@@ -1299,7 +1324,7 @@ var skinViewer;
 
       // Change the URL to reflect the current gamemode
       if (history.replaceState && playerData != undefined) {
-        window.history.replaceState({}, null, `/player/${playerData["name"]}${currentGamemode == "network" ? "" : `/${currentGamemode}`}`);
+        window.history.replaceState({}, null, `/player/${playerData["name"]}/${currentGamemode}`);
       }
     //}
   }
