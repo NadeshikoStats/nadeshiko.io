@@ -1,45 +1,51 @@
-<div class="header"> <!-- site-wide header -->
-    <div class="header-left">
-        <a href="/" style="display: flex;">
-            <img class="logo icon" src="/img/nadeshiko_logo.png" alt="nadeshiko logo">
-            <div class="wordmark" aria-hidden="true">
-              <span style="--delay: 0s">n</span><span style="--delay: 0.05s">a</span><span style="--delay: 0.1s">d</span><span style="--delay: 0.15s">e</span><span style="--delay: 0.2s">s</span><span style="--delay: 0.25s">h</span><span style="--delay: 0.3s">i</span><span style="--delay: 0.35s">k</span><span style="--delay: 0.4s">o</span>
-            </div>
-        </a>
-        <a href="/" class="header-button" aria-label="Link to home page"><img src="/img/svg/home.svg" class="header-icon" alt=""><span class="header-button-text">Home<span></a>
-        <p class="header-button" onclick="showAbout()" id="button-about"><img src="/img/svg/about.svg" class="header-icon" alt=""><span class="header-button-text">About</span></p>
-        <p class="header-button" onclick="showCardWizard()" id="button-card-wizard"><img src="/img/svg/cards.svg" class="header-icon" alt=""><span class="header-button-text">Cards</span></p>
-        <p class="header-button" onclick="showSettings()" id="button-settings"><img src="/img/svg/settings.svg" class="header-icon" alt=""><span class="header-button-text">Settings</span></p>
-    </div>
-    <div class="header-right">
-        <span class="searchbar-container">
-            <img src="/img/svg/search.svg" alt="" class="search-icon" id="search-icon">
-            <input type="search" class="searchbar" id="searchbar" placeholder=" Search for a player..." spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off">
-        </span>
-    </div>
+<div class="header">
+  <!-- site-wide header -->
+  <div class="header-left">
+    <a href="/" style="display: flex;">
+      <img class="logo icon" src="/img/nadeshiko_logo.png" alt="nadeshiko logo" />
+      <div class="wordmark" aria-hidden="true">
+        <span style="--delay: 0s;">n</span><span style="--delay: 0.05s;">a</span><span style="--delay: 0.1s;">d</span><span style="--delay: 0.15s;">e</span><span style="--delay: 0.2s;">s</span><span style="--delay: 0.25s;">h</span>
+        <span style="--delay: 0.3s;">i</span><span style="--delay: 0.35s;">k</span><span style="--delay: 0.4s;">o</span>
+      </div>
+    </a>
+    <a href="/" class="header-button" aria-label="Link to home page"><img src="/img/svg/home.svg" class="header-icon" alt="" /><span class="header-button-text">Home</span></a>
+    <p class="header-button" onclick="showAbout()" id="button-about"><img src="/img/svg/about.svg" class="header-icon" alt="" /><span class="header-button-text">About</span></p>
+    <p class="header-button" onclick="showCardWizard()" id="button-card-wizard"><img src="/img/svg/cards.svg" class="header-icon" alt="" /><span class="header-button-text">Cards</span></p>
+    <p class="header-button" onclick="showSettings()" id="button-settings"><img src="/img/svg/settings.svg" class="header-icon" alt="" /><span class="header-button-text">Settings</span></p>
+  </div>
+  <div class="header-right">
+    <span class="searchbar-container">
+      <img src="/img/svg/search.svg" alt="" class="search-icon" id="search-icon" />
+      <input type="search" class="searchbar" id="searchbar" placeholder=" Search for a player..." spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
+    </span>
+  </div>
 </div>
 <div id="modal-card-wizard" class="modal unloaded">
   <div class="about" id="card-wizard-ui">
     <p id="modal-card-wizard-close">&times;</p>
-      <p class="about-title">Card Wizard</p>
-      <p class="stat-subtitle">Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!<br><br>Cards update in real time as your stats change, so you never have to worry about them!</p>
-      <hr style="margin: 20px auto">
+    <p class="about-title">Card Wizard</p>
+    <p class="stat-subtitle">
+      Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!<br />
+      <br />
+      Cards update in real time as your stats change, so you never have to worry about them!
+    </p>
+    <hr style="margin: 20px auto;" />
     <div class="flex-two-item-basic">
-      <p class="card-wizard-subtitle">Username</p> 
-      <input type="text" placeholder="Player" id="card-wizard-name"></input>
+      <p class="card-wizard-subtitle">Username</p>
+      <input type="text" placeholder="Player" id="card-wizard-name" />
     </div>
-    
+
     <div class="flex-two-item-basic">
-        <p class="tooltip"><span class="card-wizard-subtitle">Game</span><span class="tooltiptext">The game to be used in the card.</span></p>
-        <div class="dropdown">
-          <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-game-button">Network</p>
-          <div class="dropdown-content unloaded dropdown-chip dropdown-wizard" id="card-wizard-game" data-game="wizard" data-modify="game">
-            <div class="dropdown-item selected" data-item="NETWORK">Network</div>
-            <div class="dropdown-item" data-item="BEDWARS">Bed Wars</div>
-            <div class="dropdown-item" data-item="DUELS">Duels</div>
-            <div class="dropdown-item" data-item="SKYWARS">SkyWars</div>
-          </div>
+      <p class="tooltip"><span class="card-wizard-subtitle">Game</span><span class="tooltiptext">The game to be used in the card.</span></p>
+      <div class="dropdown">
+        <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-game-button">Network</p>
+        <div class="dropdown-content unloaded dropdown-chip dropdown-wizard" id="card-wizard-game" data-game="wizard" data-modify="game">
+          <div class="dropdown-item selected" data-item="NETWORK">Network</div>
+          <div class="dropdown-item" data-item="BEDWARS">Bed Wars</div>
+          <div class="dropdown-item" data-item="DUELS">Duels</div>
+          <div class="dropdown-item" data-item="SKYWARS">SkyWars</div>
         </div>
+      </div>
     </div>
 
     <div class="flex-two-item-basic">
@@ -64,520 +70,532 @@
     </div>
 
     <div class="flex-two-item mtop mbottom">
-      <span class="general-button" id="generate-card" onclick="generateCard()" style="padding: 10px 20px">Generate Card</span>
-      <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value="Click &quot;Generate Card&quot; and a link will appear here!">
+      <span class="general-button" id="generate-card" onclick="generateCard()" style="padding: 10px 20px;">Generate Card</span>
+      <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value='Click "Generate Card" and a link will appear here!' />
     </div>
 
     <div id="card-wizard-preview">
-    <div id="card-wizard-preview-watermark">
-       PREVIEW
-    </div>
-    <svg class="progress-ring" viewBox="0 0 600 200" preserveAspectRatio="xMinYMin meet" id="progress-ring-svg">
-      <path class="progress-ring-circle" id="progress-ring" d="
+      <div id="card-wizard-preview-watermark">
+        PREVIEW
+      </div>
+      <svg class="progress-ring" viewBox="0 0 600 200" preserveAspectRatio="xMinYMin meet" id="progress-ring-svg">
+        <path
+          class="progress-ring-circle"
+          id="progress-ring"
+          d="
           M 11, 11
            L 589, 11
            L 589, 189
            L 11, 189
-           L 11, 11" style="stroke-dashoffset: 0px;"></path>
-    </svg>
+           L 11, 11"
+          style="stroke-dashoffset: 0px;"
+        ></path>
+      </svg>
       <p id="card-wizard-preview-message">Click "Generate Card" and a preview will appear here.</p>
-      <img src="" id="card-wizard-image" class="card-wizard-image" alt="">
+      <img src="" id="card-wizard-image" class="card-wizard-image" alt="" />
     </div>
-</div>
+  </div>
 </div>
 
 <div class="modal unloaded" id="about">
   <div class="about" id="about-ui">
-    <p class="margin10"><b style="color: var(--nadeshiko)">nadeshiko</b> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
+    <p class="margin10"><b style="color: var(--nadeshiko);">nadeshiko</b> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
     <p class="margin10">Find a bug or need some assistance? Please let us know on the project's <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
-    <hr style="margin: 20px auto">
+    <hr style="margin: 20px auto;" />
     <p class="about-title">Credits</p>
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/kittycatchloe.webp" type="image/webp">
-        <img src="/img/credits/kittycatchloe.png" alt="" class="about-icon"/>
+        <source srcset="/img/credits/kittycatchloe.webp" type="image/webp" />
+        <img src="/img/credits/kittycatchloe.png" alt="" class="about-icon" />
       </picture>
       <strong><a href="https://github.com/niqumu" target="_blank">kittycatchloe</a></strong>
       &ndash; Backend Developer
     </p>
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/brookeafk.webp" type="image/webp">
-        <img src="/img/credits/brookeafk.png" alt="" class="about-icon"/>
+        <source srcset="/img/credits/brookeafk.webp" type="image/webp" />
+        <img src="/img/credits/brookeafk.png" alt="" class="about-icon" />
       </picture>
       <strong><a href="https://brookie.dev" target="_blank">BrookeAFK</a></strong> &ndash; Frontend Developer
     </p>
     <hr style="opacity: 0;" />
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/skinview3d.webp" type="image/webp">
-        <img src="/img/credits/skinview3d.png" alt="" class="about-icon"/>
+        <source srcset="/img/credits/skinview3d.webp" type="image/webp" />
+        <img src="/img/credits/skinview3d.png" alt="" class="about-icon" />
       </picture>
       <strong><a href="https://github.com/bs-community/skinview3d" target="_blank">skinview3d</a></strong> by Blessing Skin
     </p>
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/gsap.webp" type="image/webp">
+        <source srcset="/img/credits/gsap.webp" type="image/webp" />
         <img src="/img/credits/gsap.png" class="about-icon" alt="" />
       </picture>
       <strong><a href="https://gsap.com/" target="_blank">GSAP</a></strong> <span>by GreenSock</span>
     </p>
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/visage.webp" type="image/webp">
+        <source srcset="/img/credits/visage.webp" type="image/webp" />
         <img src="/img/credits/visage.png" class="about-icon" alt="" />
       </picture>
       <strong><a href="https://visage.surgeplay.com/" target="_blank">Visage</a></strong> <span>by Una</span>
     </p>
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/minotar.webp" type="image/webp">
+        <source srcset="/img/credits/minotar.webp" type="image/webp" />
         <img src="/img/credits/minotar.png" class="about-icon" alt="" />
       </picture>
       <strong><a href="https://minotar.net/" target="_blank">Minotar</a></strong> <span>by The Minotar Team </span>
     </p>
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/skycrypt.webp" type="image/webp">
+        <source srcset="/img/credits/skycrypt.webp" type="image/webp" />
         <img src="/img/credits/skycrypt.png" class="about-icon" alt="" />
       </picture>
       <strong><a href="https://github.com/SkyCryptWebsite/SkyCrypt" target="_blank">SkyCrypt</a></strong> <span>by Shiiyu and friends</span>
     </p>
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/complementary.webp" type="image/webp">
+        <source srcset="/img/credits/complementary.webp" type="image/webp" />
         <img src="/img/credits/complementary.png" class="about-icon" alt="" />
       </picture>
       <strong><a href="https://www.curseforge.com/minecraft/shaders/complementary-unbound" target="_blank">Complementary Shaders</a></strong> by EminGT
     </p>
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/lotfolahi.webp" type="image/webp">
+        <source srcset="/img/credits/lotfolahi.webp" type="image/webp" />
         <img src="/img/credits/lotfolahi.png" class="about-icon" alt="" />
       </picture>
       <strong><a href="https://codepen.io/MAW" target="_blank">GSAP Tutorials</a></strong> <span>by Diaco M Lotfolahi on CodePen</span>
     </p>
-    
+
     <hr style="opacity: 0;" />
-    
+
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/logo/hypixel_logo.webp" type="image/webp">
+        <source srcset="/img/logo/hypixel_logo.webp" type="image/webp" />
         <img src="/img/logo/hypixel_logo.png" class="about-icon" alt="" />
       </picture>
       <strong><a href="https://api.hypixel.net/" target="_blank">Hypixel API</a></strong> by Hypixel
     </p>
-    
+
     <hr style="opacity: 0;" />
-    <p style="opacity: 0.7; font-size: 14px; margin-top: 10px;">nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.</p>    
+    <p style="opacity: 0.7; font-size: 14px; margin-top: 10px;">nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.</p>
   </div>
 </div>
 
 <div class="modal unloaded" id="modal-settings">
   <div class="about" id="settings-ui">
     <p class="about-title">Settings</p>
-    <hr style="margin: 20px auto">
+    <hr style="margin: 20px auto;" />
 
     <div class="mtop mbottom">
-      <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/globe.svg" alt="" ><span class="w600">Language</span></p>
+      <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/globe.svg" alt="" /><span class="w600">Language</span></p>
       <p class="settings-description">Soon?</p>
-    </div>
-    
-    <div class="mtop mbottom">
-    <div class="flex-two-item">
-      <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/gauge.svg" alt=""><span class="w600">Quick Mode</span></p>
-      <input type="checkbox" id="checkbox-quick-mode" class="switch-checkbox settings-checkbox" data-setting="quick-mode"><label for="checkbox-quick-mode" class="switch-label"><span class="switch-inner"></span></label>
-    </div>
-    <p class="settings-description">Enables the ability to quickly access a gamemode selector by holding <kbd>Shift</kbd>.</p>
     </div>
 
     <div class="mtop mbottom">
       <div class="flex-two-item">
-        <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/gauge.svg" alt=""><span class="w600">Developer  Mode</span></p>
-        <input type="checkbox" id="checkbox-developer-mode" class="switch-checkbox settings-checkbox" data-setting="developer-mode"><label for="checkbox-developer-mode" class="switch-label"><span class="switch-inner"></span></label>
+        <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/gauge.svg" alt="" /><span class="w600">Quick Mode</span></p>
+        <input type="checkbox" id="checkbox-quick-mode" class="switch-checkbox settings-checkbox" data-setting="quick-mode" /><label for="checkbox-quick-mode" class="switch-label"><span class="switch-inner"></span></label>
+      </div>
+      <p class="settings-description">Enables the ability to quickly access a gamemode selector by holding <kbd>Shift</kbd>.</p>
+    </div>
+
+    <div class="mtop mbottom">
+      <div class="flex-two-item">
+        <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/gauge.svg" alt="" /><span class="w600">Developer Mode</span></p>
+        <input type="checkbox" id="checkbox-developer-mode" class="switch-checkbox settings-checkbox" data-setting="developer-mode" /><label for="checkbox-developer-mode" class="switch-label"><span class="switch-inner"></span></label>
       </div>
       <p class="settings-description">Shows UUIDs and version information.</p>
-      </div>
+    </div>
   </div>
 </div>
 
 <script>
-document.getElementById('search-icon').addEventListener('click', function() {
-  document.getElementById('searchbar').focus();
-});
+  document.getElementById("search-icon").addEventListener("click", function () {
+    document.getElementById("searchbar").focus();
+  });
 
-let aboutExpanded = false;
-let settingsExpanded = false;
-let cardWizardExpanded = false;
-let svgCycleCounter = 0;
-let cardWizardSettings = {
-  "game": "NETWORK",
-  "size": "FULL",
-  "format": "bbcode"
-};
-let settings;
+  let aboutExpanded = false;
+  let settingsExpanded = false;
+  let cardWizardExpanded = false;
+  let svgCycleCounter = 0;
+  let cardWizardSettings = {
+    game: "NETWORK",
+    size: "FULL",
+    format: "bbcode",
+  };
+  let settings;
 
-function showCardWizard(game = "NETWORK") {
-  if(!cardWizardExpanded) {
-    cardWizardSettings["game"] = game;
-    let children = document.getElementById("card-wizard-game").children;
-    for (let i = 0; i < children.length; i++) {
-      if(children[i].getAttribute("data-item") == game) {
-        children[i].classList.add("selected");
-        document.getElementById("card-wizard-game-button").innerText = children[i].innerText;
-      } else {
-        children[i].classList.remove("selected");
+  function showCardWizard(game = "NETWORK") {
+    if (!cardWizardExpanded) {
+      cardWizardSettings["game"] = game;
+      let children = document.getElementById("card-wizard-game").children;
+      for (let i = 0; i < children.length; i++) {
+        if (children[i].getAttribute("data-item") == game) {
+          children[i].classList.add("selected");
+          document.getElementById("card-wizard-game-button").innerText = children[i].innerText;
+        } else {
+          children[i].classList.remove("selected");
+        }
       }
-    }
 
-    if(typeof playerData !== "undefined" && playerData["name"] !== undefined) {
-      document.getElementById("card-wizard-name").value = playerData["name"];
+      if (typeof playerData !== "undefined" && playerData["name"] !== undefined) {
+        document.getElementById("card-wizard-name").value = playerData["name"];
+      }
+      document.getElementById("modal-card-wizard").classList.remove("unloaded");
+      document.getElementById("button-card-wizard").classList.add("selected");
+      cardWizardExpanded = true;
+    } else {
+      document.getElementById("modal-card-wizard").classList.add("unloaded");
+      document.getElementById("button-card-wizard").classList.remove("selected");
+      cardWizardExpanded = false;
     }
-    document.getElementById("modal-card-wizard").classList.remove("unloaded");
-    document.getElementById("button-card-wizard").classList.add("selected");
-    cardWizardExpanded = true;
-  } else {
+  }
+
+  document.getElementById("modal-card-wizard-close").onclick = function () {
     document.getElementById("modal-card-wizard").classList.add("unloaded");
     document.getElementById("button-card-wizard").classList.remove("selected");
     cardWizardExpanded = false;
-  }
-}
+  };
 
-document.getElementById("modal-card-wizard-close").onclick = function() {
-  document.getElementById("modal-card-wizard").classList.add("unloaded");
-  document.getElementById("button-card-wizard").classList.remove("selected");
-  cardWizardExpanded = false;
-}
-
-function showAbout() {
-  if(!aboutExpanded) {
-    document.getElementById("about").classList.remove("unloaded");
-    document.getElementById("button-about").classList.add("selected");
-    aboutExpanded = true;
-  } else {
-    document.getElementById("about").classList.add("unloaded");
-    document.getElementById("button-about").classList.remove("selected");
-    aboutExpanded = false;
-  }
-}
-
-function showSettings() {
-  if(!settingsExpanded) {
-    document.getElementById("modal-settings").classList.remove("unloaded");
-    document.getElementById("button-settings").classList.add("selected");
-    settingsExpanded = true;
-  } else {
-    document.getElementById("modal-settings").classList.add("unloaded");
-    document.getElementById("button-settings").classList.remove("selected");
-    settingsExpanded = false;
-  }
-}
-
-function generateCard() {
-  cardName = document.getElementById("card-wizard-name").value;
-  cardGame = cardWizardSettings["game"];
-  cardSize = cardWizardSettings["size"];
-  cardFormat = cardWizardSettings["format"];
-
-  base64Card = btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
-
-  document.getElementById("progress-ring").style.strokeDasharray = "40";
-  document.getElementById("card-wizard-preview-watermark").style.display = "none";
-  document.getElementById("progress-ring-svg").style.display = "initial";
-  document.getElementById("card-wizard-image").style.display = "none";
-  document.getElementById("card-wizard-preview-message").innerText = "Loading preview...";
-  document.getElementById("card-wizard-image").src = `https://nadeshiko.io/card/${base64Card}`;
-  let svgImageMoving = setInterval(function() {
-      svgCycleCounter++;
-      document.getElementById("progress-ring").style.strokeDashoffset = `${110 * svgCycleCounter}`;
-  }, 1000); 
-  // When the image loads
-  document.getElementById("card-wizard-image").onload = function() {
-    clearInterval(svgImageMoving);
-    document.getElementById("card-wizard-preview-message").innerText = "";
-    document.getElementById("progress-ring-svg").style.display = "none";
-    document.getElementById("card-wizard-image").style.display = "initial";
-    document.getElementById("card-wizard-preview-watermark").style.display = "flex";
-  }
-
-  if(cardFormat == "bbcode") {
-    document.getElementById("card-wizard-output").value = `[URL='https://nadeshiko.io/player/${cardName}/${cardGame}'][IMG]https://nadeshiko.io/card/${base64Card}[/IMG][/URL]`;
-  } else {
-    document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/${base64Card}`;
-  }
-}
-
-document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
-  if (event.key === "Enter") { // Did the user press enter?
-    event.preventDefault();
-    var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
-    if(userInput.length == 0) return;
-    window.location.href = `/player/${userInput}`; // Redirect to the desired URL
-  }
-});
-
-function updateSetting(settingKey, settingValue) { // Updates a desired setting in the localStorage
-  console.log(`Setting ${settingKey} to ${settingValue}`);
-  let currentSettings = localStorage.getItem("settings");
-  if(currentSettings === null) {
-    currentSettings = {};
-    console.error("Settings were not found in localStorage; this should never happen!")
-  } else {
-    currentSettings = JSON.parse(currentSettings);
-  }
-  currentSettings[settingKey] = settingValue;
-
-  updateSettingFunctionality(settingKey, settingValue);
-
-  settings = currentSettings;
-  localStorage.setItem("settings", JSON.stringify(currentSettings));
-}
-
-function updateSettingFunctionality(setting, settingValue) { // Updates the functionality of a changed setting
-  document.getElementById(`checkbox-${setting}`).checked = settingValue;
-  if(setting == "developer-mode") {
-    cardUuid = document.getElementById("card-uuid");
-    if(settingValue) {
-      if(cardUuid) {
-        cardUuid.style.display = "initial";
-      }
-      document.getElementById("developer-info").style.display = "initial";
+  function showAbout() {
+    if (!aboutExpanded) {
+      document.getElementById("about").classList.remove("unloaded");
+      document.getElementById("button-about").classList.add("selected");
+      aboutExpanded = true;
     } else {
-      if(cardUuid) {
-        cardUuid.style.display = "none";
-      }
-      document.getElementById("developer-info").style.display = "none";
+      document.getElementById("about").classList.add("unloaded");
+      document.getElementById("button-about").classList.remove("selected");
+      aboutExpanded = false;
     }
   }
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-  var checkboxes = document.querySelectorAll('.settings-checkbox');
+  function showSettings() {
+    if (!settingsExpanded) {
+      document.getElementById("modal-settings").classList.remove("unloaded");
+      document.getElementById("button-settings").classList.add("selected");
+      settingsExpanded = true;
+    } else {
+      document.getElementById("modal-settings").classList.add("unloaded");
+      document.getElementById("button-settings").classList.remove("selected");
+      settingsExpanded = false;
+    }
+  }
 
-  checkboxes.forEach(function(checkbox) {
-    checkbox.addEventListener('change', function() {
-      var settingKey = this.getAttribute('data-setting');
-      var settingValue = this.checked;
-      updateSetting(settingKey, settingValue);
-    });
+  function generateCard() {
+    cardName = document.getElementById("card-wizard-name").value;
+    cardGame = cardWizardSettings["game"];
+    cardSize = cardWizardSettings["size"];
+    cardFormat = cardWizardSettings["format"];
+
+    base64Card = btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
+
+    document.getElementById("progress-ring").style.strokeDasharray = "40";
+    document.getElementById("card-wizard-preview-watermark").style.display = "none";
+    document.getElementById("progress-ring-svg").style.display = "initial";
+    document.getElementById("card-wizard-image").style.display = "none";
+    document.getElementById("card-wizard-preview-message").innerText = "Loading preview...";
+    document.getElementById("card-wizard-image").src = `https://nadeshiko.io/card/${base64Card}`;
+    let svgImageMoving = setInterval(function () {
+      svgCycleCounter++;
+      document.getElementById("progress-ring").style.strokeDashoffset = `${110 * svgCycleCounter}`;
+    }, 1000);
+    // When the image loads
+    document.getElementById("card-wizard-image").onload = function () {
+      clearInterval(svgImageMoving);
+      document.getElementById("card-wizard-preview-message").innerText = "";
+      document.getElementById("progress-ring-svg").style.display = "none";
+      document.getElementById("card-wizard-image").style.display = "initial";
+      document.getElementById("card-wizard-preview-watermark").style.display = "flex";
+    };
+
+    if (cardFormat == "bbcode") {
+      document.getElementById("card-wizard-output").value = `[URL='https://nadeshiko.io/player/${cardName}/${cardGame}'][IMG]https://nadeshiko.io/card/${base64Card}[/IMG][/URL]`;
+    } else {
+      document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/${base64Card}`;
+    }
+  }
+
+  document.getElementById("searchbar").addEventListener("keypress", function (event) {
+    // Check if the user's typing in the search box
+    if (event.key === "Enter") {
+      // Did the user press enter?
+      event.preventDefault();
+      var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+      if (userInput.length == 0) return;
+      window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+    }
   });
 
-  localStorageSettings = localStorage.getItem("settings");
-  if (localStorageSettings === null) {
+  function updateSetting(settingKey, settingValue) {
+    // Updates a desired setting in the localStorage
+    console.log(`Setting ${settingKey} to ${settingValue}`);
+    let currentSettings = localStorage.getItem("settings");
+    if (currentSettings === null) {
+      currentSettings = {};
+      console.error("Settings were not found in localStorage; this should never happen!");
+    } else {
+      currentSettings = JSON.parse(currentSettings);
+    }
+    currentSettings[settingKey] = settingValue;
+
+    updateSettingFunctionality(settingKey, settingValue);
+
+    settings = currentSettings;
+    localStorage.setItem("settings", JSON.stringify(currentSettings));
+  }
+
+  function updateSettingFunctionality(setting, settingValue) {
+    // Updates the functionality of a changed setting
+    document.getElementById(`checkbox-${setting}`).checked = settingValue;
+    if (setting == "developer-mode") {
+      cardUuid = document.getElementById("card-uuid");
+      if (settingValue) {
+        if (cardUuid) {
+          cardUuid.style.display = "initial";
+        }
+        document.getElementById("developer-info").style.display = "initial";
+      } else {
+        if (cardUuid) {
+          cardUuid.style.display = "none";
+        }
+        document.getElementById("developer-info").style.display = "none";
+      }
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var checkboxes = document.querySelectorAll(".settings-checkbox");
+
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener("change", function () {
+        var settingKey = this.getAttribute("data-setting");
+        var settingValue = this.checked;
+        updateSetting(settingKey, settingValue);
+      });
+    });
+
+    localStorageSettings = localStorage.getItem("settings");
+    if (localStorageSettings === null) {
       settings = {
         "quick-mode": true,
         "developer-mode": false,
       };
       localStorage.setItem("settings", JSON.stringify(settings));
-  } else {
-    settings = JSON.parse(localStorageSettings);
-  }
-
-  for (const [key, value] of Object.entries(settings)) {
-    updateSettingFunctionality(key, value);
-  }
-});
-
-document.addEventListener('keydown', function(event) { // Close modals on escape key
-  if(event.key === "Escape") {
-    if(aboutExpanded) {
-      document.getElementById("about").classList.add("unloaded");
-      document.getElementById("button-about").classList.remove("selected");
-      aboutExpanded = false;
+    } else {
+      settings = JSON.parse(localStorageSettings);
     }
-    if(settingsExpanded) {
-      document.getElementById("modal-settings").classList.add("unloaded");
-      document.getElementById("button-settings").classList.remove("selected");
-      settingsExpanded = false;
+
+    for (const [key, value] of Object.entries(settings)) {
+      updateSettingFunctionality(key, value);
     }
-    if(cardWizardExpanded) {
-      document.getElementById("modal-card-wizard").classList.add("unloaded");
-      document.getElementById("button-card-wizard").classList.remove("selected");
-      cardWizardExpanded = false;
+  });
+
+  document.addEventListener("keydown", function (event) {
+    // Close modals on escape key
+    if (event.key === "Escape") {
+      if (aboutExpanded) {
+        document.getElementById("about").classList.add("unloaded");
+        document.getElementById("button-about").classList.remove("selected");
+        aboutExpanded = false;
+      }
+      if (settingsExpanded) {
+        document.getElementById("modal-settings").classList.add("unloaded");
+        document.getElementById("button-settings").classList.remove("selected");
+        settingsExpanded = false;
+      }
+      if (cardWizardExpanded) {
+        document.getElementById("modal-card-wizard").classList.add("unloaded");
+        document.getElementById("button-card-wizard").classList.remove("selected");
+        cardWizardExpanded = false;
+      }
     }
-  }
-  if(event.key === "/" && !isInputField(event.target)) {
-    event.preventDefault();
-    document.getElementById('searchbar').focus();
-  }
-});
-
-var wordmark = document.querySelector('.wordmark');
-wordmark.addEventListener('mouseenter', function() {
-  if(!wordmark.classList.contains("animate")) {
-    wordmark.classList.add('animate');
-    setTimeout(function() { wordmark.classList.remove('animate'); }, 1800);
-  }
-});
-
-window.onclick = function(event) {
-  if (!event.target.closest('#button-about') && !event.target.closest('#about-ui')) {
-    if(aboutExpanded) {
-      document.getElementById("about").classList.add("unloaded");
-      document.getElementById("button-about").classList.remove("selected");
-      aboutExpanded = false;
+    if (event.key === "/" && !isInputField(event.target)) {
+      event.preventDefault();
+      document.getElementById("searchbar").focus();
     }
-  }
+  });
 
-  if (!event.target.closest('#button-settings') && !event.target.closest('#settings-ui')) {
-    if(settingsExpanded) {
-      document.getElementById("modal-settings").classList.add("unloaded");
-      document.getElementById("button-settings").classList.remove("selected");
-      settingsExpanded = false;
+  var wordmark = document.querySelector(".wordmark");
+  wordmark.addEventListener("mouseenter", function () {
+    if (!wordmark.classList.contains("animate")) {
+      wordmark.classList.add("animate");
+      setTimeout(function () {
+        wordmark.classList.remove("animate");
+      }, 1800);
     }
-  }
+  });
 
-  if (!event.target.closest('#button-card-wizard') && !event.target.closest('#card-wizard-ui') && !event.target.closest('.general-button')) {
-    if(cardWizardExpanded) {
-      document.getElementById("modal-card-wizard").classList.add("unloaded");
-      document.getElementById("button-card-wizard").classList.remove("selected");
-      cardWizardExpanded = false;
+  window.onclick = function (event) {
+    if (!event.target.closest("#button-about") && !event.target.closest("#about-ui")) {
+      if (aboutExpanded) {
+        document.getElementById("about").classList.add("unloaded");
+        document.getElementById("button-about").classList.remove("selected");
+        aboutExpanded = false;
+      }
     }
+
+    if (!event.target.closest("#button-settings") && !event.target.closest("#settings-ui")) {
+      if (settingsExpanded) {
+        document.getElementById("modal-settings").classList.add("unloaded");
+        document.getElementById("button-settings").classList.remove("selected");
+        settingsExpanded = false;
+      }
+    }
+
+    if (!event.target.closest("#button-card-wizard") && !event.target.closest("#card-wizard-ui") && !event.target.closest(".general-button")) {
+      if (cardWizardExpanded) {
+        document.getElementById("modal-card-wizard").classList.add("unloaded");
+        document.getElementById("button-card-wizard").classList.remove("selected");
+        cardWizardExpanded = false;
+      }
+    }
+
+    console.log(event.target);
+  };
+
+  function isInputField(element) {
+    // Determines if the user's actively in an input field (so Quick Mode and easter eggs don't get messed up)
+    return element.tagName === "INPUT" || element.tagName === "TEXTAREA" || element.isContentEditable;
   }
 
-  console.log(event.target)
-}
+  function openSelectedDropdown(dropdownId) {
+    console.log("removed" + dropdownId);
 
-function isInputField(element) { // Determines if the user's actively in an input field (so Quick Mode and easter eggs don't get messed up)
-  return (
-    element.tagName === 'INPUT' || 
-    element.tagName === 'TEXTAREA' || 
-    element.isContentEditable
-  );
-}
-
-
-function openSelectedDropdown(dropdownId) {
-  console.log("removed" + dropdownId)
-
-  console.log(document.getElementById(dropdownId).classList)
+    console.log(document.getElementById(dropdownId).classList);
     document.getElementById(dropdownId).classList.remove("unloaded");
-    console.log(document.getElementById(dropdownId).classList)
-}
-
-document.addEventListener('click', function(event) {
-  let dropdownButton = event.target.closest('.dropdown-button');
-  if (dropdownButton) {
-    console.log("Dropdown button clicked");
-    var dropdownContent = dropdownButton.nextElementSibling;
-    console.warn(dropdownContent);
-
-    if (dropdownContent.classList.contains("unloaded")) { // If not visible
-    // Reset styles first
-    dropdownContent.style.right = 'auto';
-    dropdownContent.style.left = 'auto';
-    dropdownContent.style.bottom = 'auto';
-    dropdownContent.style.top = 'auto';
-
-    // Get the bounding rectangle of the dropdown
-    var dropdownRect = dropdownContent.getBoundingClientRect();
-
-    if(dropdownContent.classList.contains("dropdown-chip") && !dropdownContent.classList.contains("dropdown-wizard")) {
-      chipBox = dropdownContent.parentElement.parentElement.parentElement.parentElement;
-      dropdownContent.style.overflowY = 'scroll';
-
-      if(chipBox) {
-        dropdownContent.style.maxHeight = `calc(${getComputedStyle(chipBox).height} - 65px)`;
-      } else {
-        console.error("Chip box missing!");
-      }
-    }
-
-    dropdownRect = dropdownContent.getBoundingClientRect();
-
-    // Check bottom edge
-    if ((window.innerHeight - dropdownRect.bottom < 30 || mobileMode) && !dropdownContent.classList.contains("dropdown-chip")) {
-        // Adjust it upwards if it goes off bottom or in mobile mode
-        dropdownContent.style.bottom = '100%';
-        dropdownContent.style.top = 'auto';
-    } else {
-        dropdownContent.style.bottom = 'auto';
-        dropdownContent.style.top = '100%';
-    }
-
-    dropdownRect = dropdownContent.getBoundingClientRect();
-    if (dropdownRect.top < 0 && dropdownContent.classList.contains("dropdown-games")) { // If it still doesn't fit, call for desperate measures
-        dropdownContent.style.top = '100%';
-        dropdownContent.style.bottom = 'auto';
-        dropdownContent.style.maxHeight = (window.innerHeight * 0.7) + 'px';
-        dropdownContent.style.overflowY = 'scroll';
-    }
-
-    if (window.innerWidth - dropdownRect.right < 30) { // Check right edge
-        dropdownContent.style.right = '0'; // Adjust it leftwards if it goes off right edge
-        dropdownContent.style.left = 'auto';
-    } else {
-        dropdownContent.style.right = 'auto';
-        dropdownContent.style.left = '0';
-    }
-}
-    dropdownContent.classList.toggle('unloaded');
+    console.log(document.getElementById(dropdownId).classList);
   }
 
-  // If the event or any of its ancestors (parent, grandparent, etc). has a class of dropdown-item, then it's a dropdown item
-  let selectedItem = event.target.closest('.dropdown-item');
-  if (selectedItem) {
-    const dropdownContainer = selectedItem.closest('.dropdown-content');
-    const gameName = dropdownContainer.dataset.game;
-    const modifyId = dropdownContainer.dataset.modify;
-    const selectedItemText = selectedItem.dataset.item;
+  document.addEventListener("click", function (event) {
+    let dropdownButton = event.target.closest(".dropdown-button");
+    if (dropdownButton) {
+      console.log("Dropdown button clicked");
+      var dropdownContent = dropdownButton.nextElementSibling;
+      console.warn(dropdownContent);
 
-    const button = dropdownContainer.previousElementSibling; // Selects the button
-    if (button.classList.contains('chip-dropdown-button')) {
-      button.innerHTML = selectedItem.innerHTML;
-      
-    if(!button.classList.contains('card-wizard-button')) {
-      button.style.width = 'auto';
-      var naturalWidth = button.clientWidth + 1; // Get the natural content width
+      if (dropdownContent.classList.contains("unloaded")) {
+        // If not visible
+        // Reset styles first
+        dropdownContent.style.right = "auto";
+        dropdownContent.style.left = "auto";
+        dropdownContent.style.bottom = "auto";
+        dropdownContent.style.top = "auto";
 
-      // Reset to the initial width then set to natural width to enable transition
-      button.style.width = ""; // Remove any inline width style
-      getComputedStyle(button).width; // Force reflow to clear any previous transition
-      button.style.width = naturalWidth + 'px';
+        // Get the bounding rectangle of the dropdown
+        var dropdownRect = dropdownContent.getBoundingClientRect();
+
+        if (dropdownContent.classList.contains("dropdown-chip") && !dropdownContent.classList.contains("dropdown-wizard")) {
+          chipBox = dropdownContent.parentElement.parentElement.parentElement.parentElement;
+          dropdownContent.style.overflowY = "scroll";
+
+          if (chipBox) {
+            dropdownContent.style.maxHeight = `calc(${getComputedStyle(chipBox).height} - 65px)`;
+          } else {
+            console.error("Chip box missing!");
+          }
+        }
+
+        dropdownRect = dropdownContent.getBoundingClientRect();
+
+        // Check bottom edge
+        if ((window.innerHeight - dropdownRect.bottom < 30 || mobileMode) && !dropdownContent.classList.contains("dropdown-chip")) {
+          // Adjust it upwards if it goes off bottom or in mobile mode
+          dropdownContent.style.bottom = "100%";
+          dropdownContent.style.top = "auto";
+        } else {
+          dropdownContent.style.bottom = "auto";
+          dropdownContent.style.top = "100%";
+        }
+
+        dropdownRect = dropdownContent.getBoundingClientRect();
+        if (dropdownRect.top < 0 && dropdownContent.classList.contains("dropdown-games")) {
+          // If it still doesn't fit, call for desperate measures
+          dropdownContent.style.top = "100%";
+          dropdownContent.style.bottom = "auto";
+          dropdownContent.style.maxHeight = window.innerHeight * 0.7 + "px";
+          dropdownContent.style.overflowY = "scroll";
+        }
+
+        if (window.innerWidth - dropdownRect.right < 30) {
+          // Check right edge
+          dropdownContent.style.right = "0"; // Adjust it leftwards if it goes off right edge
+          dropdownContent.style.left = "auto";
+        } else {
+          dropdownContent.style.right = "auto";
+          dropdownContent.style.left = "0";
+        }
+      }
+      dropdownContent.classList.toggle("unloaded");
+    }
+
+    // If the event or any of its ancestors (parent, grandparent, etc). has a class of dropdown-item, then it's a dropdown item
+    let selectedItem = event.target.closest(".dropdown-item");
+    if (selectedItem) {
+      const dropdownContainer = selectedItem.closest(".dropdown-content");
+      const gameName = dropdownContainer.dataset.game;
+      const modifyId = dropdownContainer.dataset.modify;
+      const selectedItemText = selectedItem.dataset.item;
+
+      const button = dropdownContainer.previousElementSibling; // Selects the button
+      if (button.classList.contains("chip-dropdown-button")) {
+        button.innerHTML = selectedItem.innerHTML;
+
+        if (!button.classList.contains("card-wizard-button")) {
+          button.style.width = "auto";
+          var naturalWidth = button.clientWidth + 1; // Get the natural content width
+
+          // Reset to the initial width then set to natural width to enable transition
+          button.style.width = ""; // Remove any inline width style
+          getComputedStyle(button).width; // Force reflow to clear any previous transition
+          button.style.width = naturalWidth + "px";
+        }
+      }
+      // Call the update function
+      updateChipStats(selectedItemText, modifyId, gameName);
+
+      dropdownContainer.querySelectorAll(".dropdown-item").forEach((div) => {
+        div.classList.remove("selected");
+      });
+      selectedItem.classList.add("selected"); // Selects the clicked item
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    // Close all dropdowns if escape pressed
+    if (event.key === "Escape") {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      for (var i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (!openDropdown.classList.contains("unloaded")) {
+          openDropdown.classList.add("unloaded");
+        }
       }
     }
-    // Call the update function
-    updateChipStats(selectedItemText, modifyId, gameName);
+  });
 
-    dropdownContainer.querySelectorAll('.dropdown-item').forEach(div => {
-      div.classList.remove('selected');
-    });
-    selectedItem.classList.add('selected'); // Selects the clicked item
-  }
-})
-
-document.addEventListener('keydown', function(event) { // Close all dropdowns if escape pressed
-  if (event.key === "Escape") {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    for (var i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (!openDropdown.classList.contains("unloaded")) {
-        openDropdown.classList.add("unloaded");
+  window.addEventListener("click", function (event) {
+    if (!event.target.closest(".dropdown-button")) {
+      // If the doesn't click on a dropdown button, close all dropdowns
+      console.log(event.target);
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      for (var i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (!openDropdown.classList.contains("unloaded")) {
+          openDropdown.classList.add("unloaded");
+        }
       }
     }
-  }
-});
-
-
-window.addEventListener('click', function(event) {
-  if (!event.target.closest(".dropdown-button")) { // If the doesn't click on a dropdown button, close all dropdowns
-    console.log(event.target)
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    for (var i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (!openDropdown.classList.contains("unloaded")) {
-        openDropdown.classList.add("unloaded");
-      }
-    }
-  }
-});
+  });
 </script>

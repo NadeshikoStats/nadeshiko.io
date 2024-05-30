@@ -3200,6 +3200,13 @@ function generateSmash() {
     ["Void Crawler", "DUSK_CRAWLER"],
   ]
 
+  let smashFormattedClassesArray = [];
+  for (let c = 1; c < smashClassesArray.length; c++) { // Adds the prestige to the class name using getSmashPrestige
+    let smashPrestige = generateMinecraftText(getSmashPrestige(smashClassesArray[c][1]));
+    smashFormattedClassesArray.push([`${smashClassesArray[c][0]}${smashPrestige}`, smashClassesArray[c][1]]);
+  }
+  console.warn(smashFormattedClassesArray);
+
   for(let e = 0; e < easyStats.length; e++) {
     updateElement(`smashheroes-overall-${easyStats[e]}`, checkAndFormat(smashStats[easyStats[e]]));
   }
@@ -3224,24 +3231,7 @@ function generateSmash() {
     "",
     `/img/games/404.${imageFileType}`,
     getSmashStats("class", "BOTMUN"),
-    [
-      ["Botmun", "BOTMUN"],
-      ["Bulk", "THE_BULK"],
-      ["Cake Monster", "CAKE_MONSTER"],
-      ["Cryomancer", "FROSTY"],
-      ["General Cluck", "GENERAL_CLUCK"],
-      ["Green Hood", "GREEN_HOOD"],
-      ["Karakot", "GOKU"],
-      ["Marauder", "MARAUDER"],
-      ["Pug", "PUG"],
-      ["Sanic", "SANIC"],
-      ["Sgt. Shield", "SERGEANT_SHIELD"],
-      ["Shoop", "SHOOP_DA_WHOOP"],
-      ["Skullfire", "SKULLFIRE"],
-      ["Spooderman", "SPODERMAN"],
-      ["Tinman", "TINMAN"],
-      ["Void Crawler", "DUSK_CRAWLER"],
-    ],
+    smashFormattedClassesArray,
     ``,
     "smashheroes",
   ]
@@ -3309,6 +3299,24 @@ function generateSmash() {
   }
 }
 
+/**
+ * Get the prestige of a class in Smash Heroes
+ * @param {string} className The name of the class
+ * @returns {string} The prestige of the class, formatted as Minecraft text
+ */
+function getSmashPrestige(className) {
+  let smashPrestigeIcons = {
+    0: "",
+    1: " §f①",
+    2: " §2②",
+    3: " §9③",
+    4: " §5④",
+    5: " §6⑤",
+  }
+
+  return smashPrestigeIcons[smashStats[`pg_${className}`]] || "";
+}
+
 function getSmashStats(modeName = "", className = "") {
 
   if(modeName == "class") {
@@ -3318,16 +3326,7 @@ function getSmashStats(modeName = "", className = "") {
     let smashClassLevel = smashStats[`lastLevel_${className}`] || 0;
     let smashClassPrestige = smashStats[`pg_${className}`] || 0;
 
-    let smashPrestigeIcons = {
-      0: "",
-      1: " §f①",
-      2: " §2②",
-      3: " §9③",
-      4: " §5④",
-      5: " §6⑤",
-    }
-
-    let formattedSmashClassLevel = generateMinecraftText(`§b${addPrefixZero(smashClassLevel, 2)}${smashPrestigeIcons[smashClassPrestige]}`);
+    let formattedSmashClassLevel = generateMinecraftText(`§b${addPrefixZero(smashClassLevel, 2)}${getSmashPrestige(className)}`);
 
     return  [
       [false, ["Level", formattedSmashClassLevel]],
