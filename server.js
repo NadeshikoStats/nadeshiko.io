@@ -86,13 +86,14 @@ app.get('/player/:name/:game?', async (req, res) => {
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
        
-
        let metaImageURL;
         // Check if the game is supported by the card generator
-        if (cardSupportedGames.includes(game) && playerData && playerData["profile"]) {
+        if (cardSupportedGames.includes(game) && playerData && playerData["profile"]) { // If the game is supported and the player data is available
           metaImageURL = `https://nadeshiko.io/card/${Buffer.from(`{"name":"${playerData["name"]}","game":"${game.toUpperCase()}","size":"FULL"}`).toString('base64')}`;
-        } else {
-          metaImageURL = `https://nadeshiko.io/img/banner.png`;
+        } else if(playerData && playerData["profile"]) { // If the game is not valid or supported, default to NETWORK
+          metaImageURL = `https://nadeshiko.io/card/${Buffer.from(`{"name":"${playerData["name"]}","game":"NETWORK","size":"FULL"}`).toString('base64')}`;
+        } else { // If the player data is not available, don't show a card
+          metaImageURL = ``;
         }
 
        res.render('player', { name, playerData, game, metaImageURL });
