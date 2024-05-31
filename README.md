@@ -1,4 +1,4 @@
-![Logo of nadeshiko. A pixelated duo of pink flowers is to the left of a stylized logo saying "nadeshiko.io". A blurred field of cherry blossom trees stand in the background.](https://github.com/NadeshikoStats/nadeshiko.io/assets/146425360/0c06133e-4aca-48b0-ad07-e2389904bfb8)
+![Logo of nadeshiko. A pixelated duo of pink flowers is to the left of a stylized logo saying "nadeshiko.io". A blurred field of cherry blossom trees stand in the background.](https://nadeshiko.io/img/banner.png)
 
 <h1 align="center">nadeshiko – a beautiful Hypixel stats viewer</h1>
 
