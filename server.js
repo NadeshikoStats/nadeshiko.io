@@ -66,24 +66,23 @@ function getMetaDescription(game) {
 app.get('/player/:name/:game?', async (req, res) => {
   const name = req.params.name;
   
-  let game = req.params.game;
-  if (game) {
-    game = game.toLowerCase();
-
-    // Check if the specified game name is an alias
-    for (let key in gameAliases) {
-      if (gameAliases[key].includes(game)) {
-        game = key;
-        break;
-      }
-    }
-
-
-  }
-  
   var computationError = "";
   
   try {
+
+    let game = req.params.game;
+    if (game) {
+      game = game.toLowerCase();
+  
+      // Check if the specified game name is an alias
+      for (let key in gameAliases) {
+        if (gameAliases[key].includes(game)) {
+          game = key;
+          break;
+        }
+      }
+    }
+    
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
        
