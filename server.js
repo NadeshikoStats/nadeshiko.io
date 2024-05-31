@@ -90,7 +90,7 @@ app.get('/player/:name/:game?', async (req, res) => {
        let metaImageURL;
         // Check if the game is supported by the card generator
         if (cardSupportedGames.includes(game) && playerData && playerData["profile"]) {
-          metaImageURL = `https://nadeshiko.io/card/${btoa(`{"name":"${playerData["name"]}","game":"${game.toUpperCase()}","size":"FULL"}`)}`;
+          metaImageURL = `https://nadeshiko.io/card/${Buffer.from(`{"name":"${playerData["name"]}","game":"${game.toUpperCase()}","size":"FULL"}`).toString('base64')}`;
         } else {
           metaImageURL = `https://nadeshiko.io/img/banner.png`;
         }
