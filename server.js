@@ -82,7 +82,7 @@ app.get('/player/:name/:game?', async (req, res) => {
         }
       }
     }
-    
+
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
        
@@ -97,7 +97,7 @@ app.get('/player/:name/:game?', async (req, res) => {
 
        res.render('player', { name, playerData, game, metaImageURL });
    } catch(error) {
-      if(error.response.status == 404) {
+      if(error.response && error.response.status == 404) {
         computationError = `No player by the name of ${name} was found :(`;
       } else {
         computationError = `Could not find stats of player ${name} (${error})`;
