@@ -22,7 +22,10 @@
   <script src="/external/pako.min.js"></script>
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
-  <meta property="twitter:image" content="https://minotar.net/helm/<%= playerData.uuid %>.png">
+  <meta name='twitter:card' content='summary_large_image' />
+  
+  <meta property='og:image' content='<%= metaImageURL %>' />
+  <meta property="twitter:image" content="<%= metaImageURL %>">
 
   <% if (playerData && playerData.profile) { %>
     <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
@@ -32,7 +35,7 @@
 • 📜 Quests Completed: <%-(playerData.profile.quests_completed).toLocaleString()%>
 • ☮️ Karma: <%-(playerData.profile.karma).toLocaleString()%>
 • 🏆 Achievement Points: <%-(playerData.profile.achievement_points).toLocaleString()%>
-• 💸 Ranks Gifted: <%-(playerData.profile.ranks_gifted).toLocaleString()%>">
+• 🎁 Ranks Gifted: <%-(playerData.profile.ranks_gifted).toLocaleString()%>">
   <% } else { %>
     <title><%- (playerData["name"]) %> | nadeshiko.io</title> <!-- Fallback in case no stats -->
     <meta name="description" content="🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!">

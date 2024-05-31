@@ -22,23 +22,6 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-async function getVisageImage(uuid) {
-  try {
-    // Sends API call to Visage
-    const imageUrl = 'https://visage.surgeplay.com/face/128/' + uuid;
-    const response = await await axios.get(imageUrl, {
-      responseType: 'arraybuffer',
-      headers: { 'User-Agent': 'nadeshiko.io (+https://nadeshiko.io; contact@nadeshiko.io)' }
-    })
-    const imageBuffer = Buffer.from(response.data, 'binary'); // Converts image to base64 so it can be sent through axios
-    
-    return(`data:image/jpeg;base64,${imageBuffer.toString('base64')}`);
-  } catch (error) {
-    console.error('Error fetching player image! ', error);
-    return "";
-  }
-}
-
 let gameAliases = {
   network: ["hypixel", "overall"],
   arcade: ["a"],
@@ -59,6 +42,10 @@ let gameAliases = {
   woolwars: ["ww", "wool", "woolgames"],
 }
 
+let hypixelGames = ["network", "arcade", "bedwars", "blitz", "buildbattle", "classic", "copsandcrims", "duels", "megawalls", "murdermystery", "pit", "smashheroes", "skywars", "tntgames", "uhc", "warlords", "woolwars"];
+
+let cardSupportedGames = ["network", "bedwars", "duels"];
+
 function getMetaDescription(game) {
   switch(game) {
     case 'skywars':
@@ -71,6 +58,8 @@ function getMetaDescription(game) {
       return "Blitz player stats";
     case 'buildbattle':
       return "Build Battle player stats";
+    default:
+      return "";
   }
 }
 
@@ -88,18 +77,26 @@ app.get('/player/:name/:game?', async (req, res) => {
         break;
       }
     }
+
+
   }
   
-  var base64PlayerImage = "";
   var computationError = "";
   
   try {
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
-       base64PlayerImage = await getVisageImage(playerData["uuid"]);      
+       
 
+       let metaImageURL;
+        // Check if the game is supported by the card generator
+        if (cardSupportedGames.includes(game) && playerData && playerData["profile"]) {
+          metaImageURL = `https://nadeshiko.io/card/${btoa(`{"name":"${playerData["name"]}","game":"${game.toUpperCase()}","size":"FULL"}`)}`;
+        } else {
+          metaImageURL = `https://nadeshiko.io/img/banner.png`;
+        }
 
-       res.render('player', { name, playerData, base64PlayerImage, game });
+       res.render('player', { name, playerData, game, metaImageURL });
    } catch(error) {
       if(error.response.status == 404) {
         computationError = `No player by the name of ${name} was found :(`;
