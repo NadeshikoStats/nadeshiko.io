@@ -581,6 +581,9 @@
             </div>
             <div class="chip-small-statistic-row">
               <p>Left Clicks <span class="statistic" id="pit-overall-clicks"><span class="mc">Unknown</span></span></p>
+              <p id="pit-overall-bounty-container" style="display: none">
+                <span>Bounty <span class="statistic" id="pit-overall-bounty"><span class="mc">Unknown</span></span></span>
+              </p>
             </div>
           </div>
         </div>
@@ -1323,7 +1326,7 @@ var skinViewer;
       }
       document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
       document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
-      setBackground(currentGamemode);
+        setBackground(currentGamemode);
 
       // Change the URL to reflect the current gamemode
       if (history.replaceState && playerData != undefined) {

@@ -20,6 +20,8 @@ function updateElement(id, value, useInnerHTML = false) {
     } else {
       element.textContent = value;
     }
+  } else {
+    console.warn(`Element with ID ${id} not found!`);
   }
 }
 
@@ -2153,18 +2155,21 @@ function generatePit() {
   let pitPrestigeColors = ["§7", "§9", "§e", "§6", "§c", "§5", "§d", "§f", "§b", "§1", "§0", "§4", "§8"];
   let pitLevelColors = ["§7", "§9", "§3", "§2", "§a", "§e", "§6", "§c", "§4", "§5", "§d", "§f", "§b"];
 
+  /* 
+   * Converts an amount of XP to a level in The Pit
+  * @param {number} experience - The amount of XP to convert
+  * @param {number} data_type - The type of data to return
+  *   Data Types:
+  *    0: Unformatted      - "[I-26]"
+  *    1: Formatting codes - "§9[§eI§9-..."
+  *    2: Just prestige    - 1
+  *    3: Just level       - 26
+  *    4: [120] of pres XP - 138510
+  */
   function pitXpToLevel(experience, data_type) {
     x_prestige = 0;
     x_level = 120;
     x_120level = 0;
-
-    /* Data Types:
-        0: Unformatted      - "[I-26]"
-        1: Formatting codes - "§9[§eI§9-..."
-        2: Just prestige    - 1
-        3: Just level       - 26
-        4: [120] of pres XP - 138510
-    */
 
     for (; x_prestige < 50; x_prestige++) {
       if (experience <= pitPrestigeXp[x_prestige]) {
@@ -2266,6 +2271,18 @@ decodeNBT(decompressedData.buffer)
   updateElement("pit-overall-renown", checkAndFormat(pitProfileStats["renown"]));
   updateElement("pit-overall-clicks", checkAndFormat(pitPtlStats["left_clicks"]));
   updateElement("pit-overall-highest-killstreak", checkAndFormat(pitPtlStats["max_streak"]));
+
+  if(pitProfileStats["bounties"]) {
+    bountySum = 0;
+    for (let a = 0; a < pitProfileStats["bounties"].length; a++) {
+      bountySum += pitProfileStats["bounties"][a]["amount"];
+    }
+
+    if(pitProfileStats["bounties"].length > 0) { // Only show bounty gold amount if the player has it
+      updateElement("pit-overall-bounty", checkAndFormat(bountySum) + "g");
+      document.getElementById("pit-overall-bounty-container").style.display = "block";
+    }
+  }
 
   updateElement("pit-overall-damage-dealt", checkAndFormat(pitPtlStats["damage_dealt"] / 2) + " ♥\uFE0E");
   updateElement("pit-overall-damage-taken", checkAndFormat(pitPtlStats["damage_received"] / 2) + " ♥\uFE0E");
@@ -2528,7 +2545,7 @@ function generateClassic() {
 function generateCopsAndCrims() {
   copsAndCrimsStats = playerData["stats"]["MCGO"] || {};
 
-  let easyStats = ["game_wins", "kills", "deaths", "round_wins", "bombs_planted", "bombs_defused", "assists"];
+  let easyStats = ["game_wins", "kills", "deaths", "assists"];
 
   let copsAndCrimsBasicStats = sumStats(easyStats, ["", "_gungame", "_deathmatch"], copsAndCrimsStats, "", true);
 
@@ -3147,11 +3164,16 @@ function getSpeedUHCModeStats(mode) {
     mode = `_${mode}`;
   }
 
-  return [
-    [false, ["Score", checkAndFormat(speedUHCStats[`score`])]],
+  speedUHCModeStatsArray = [
     [false, ["Wins", checkAndFormat(speedUHCStats[`wins${mode}`])], ["Losses", checkAndFormat(speedUHCStats[`losses${mode}`])], ["W/L R", calculateRatio(speedUHCStats[`wins${mode}`], speedUHCStats[`losses${mode}`])]],
     [false, ["Kills", checkAndFormat(speedUHCStats[`kills${mode}`])], ["Deaths", checkAndFormat(speedUHCStats[`deaths${mode}`])], ["K/D R", calculateRatio(speedUHCStats[`kills${mode}`], speedUHCStats[`deaths${mode}`])]],
   ]
+
+  if(mode == "") {
+    speedUHCModeStatsArray.unshift([false, ["Score", checkAndFormat(speedUHCStats[`score`])]]);
+  }
+
+  return speedUHCModeStatsArray;
 }
 
 function generateSmash() {
@@ -3408,13 +3430,6 @@ function generateWoolGames() {
   let woolWarsStats = woolGamesStats["wool_wars"] || {};
   let woolGamesProgression = woolGamesStats["progression"] || {};
   woolWarsNumericalStats = woolWarsStats["stats"] || {};
-
-  updateElement("woolwars-overall-wins", checkAndFormat(woolWarsNumericalStats["wins"]));
-  updateElement("woolwars-overall-losses", checkAndFormat(woolWarsNumericalStats["games_played"] - woolWarsNumericalStats["wins"]));
-  updateElement("woolwars-overall-kills", checkAndFormat(woolWarsNumericalStats["kills"]));
-  updateElement("woolwars-overall-deaths", checkAndFormat(woolWarsNumericalStats["deaths"]));
-  updateElement("woolwars-overall-kdr", calculateRatio(woolWarsNumericalStats["kills"], woolWarsNumericalStats["deaths"]));
-  updateElement("woolwars-overall-wlr", calculateRatio(woolWarsNumericalStats["wins"], woolWarsNumericalStats["games_played"] - woolWarsNumericalStats["wins"]));
 
   updateElement("woolwars-overall-coins", checkAndFormat(woolGamesStats["coins"]));
   updateElement("woolwars-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
