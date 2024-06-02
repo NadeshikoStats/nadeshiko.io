@@ -29,17 +29,10 @@
 
   <% if (playerData && playerData.profile) { %>
     <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
-    <meta name="description" content="<%= playerData.status.online ? '🟢 Online!' : '🔴 Offline' %>
-
-• 🌐 Network Level: <%-(playerData.profile.network_level).toFixed(2)%>
-• 📜 Quests Completed: <%-(playerData.profile.quests_completed).toLocaleString()%>
-• ☮️ Karma: <%-(playerData.profile.karma).toLocaleString()%>
-• 🏆 Achievement Points: <%-(playerData.profile.achievement_points).toLocaleString()%>
-• 🎁 Ranks Gifted: <%-(playerData.profile.ranks_gifted).toLocaleString()%>">
   <% } else { %>
     <title><%- (playerData["name"]) %> | nadeshiko.io</title> <!-- Fallback in case no stats -->
-    <meta name="description" content="🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!">
   <% } %>
+  <meta name="description" content="<%= metaDescription %>">
 </head>
 
 <body>
