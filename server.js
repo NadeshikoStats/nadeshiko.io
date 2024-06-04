@@ -158,6 +158,23 @@ function addPrefixZero(number, totalLength) { // Adds zeroes to the start of a n
   return numberStr;
 }
 
+
+function sumStats(statNames, modeNames, statArray, separator = "_", statNamesFirst = false) {
+  // Checks and adds stats, round-robin style
+  // Usage example: sumStats(["wins", "losses"], ["uhc_duel", "uhc_doubles", "uhc_four"], duelsStats, "_", false)
+  statSum = Array(statNames.length).fill(0);
+  for (aRow = 0; aRow < statNames.length; aRow++) {
+    for (aCol = 0; aCol < modeNames.length; aCol++) {
+      if (statNamesFirst) {
+        statSum[aRow] += und(statArray[statNames[aRow] + separator + modeNames[aCol]]);
+      } else {
+        statSum[aRow] += und(statArray[modeNames[aCol] + separator + statNames[aRow]]);
+      }
+    }
+  }
+  return statSum;
+}
+
 function sumStatsBasic(statNames, statArray) {
   // Adds stats and returns a result
   let statSum = 0;
@@ -209,7 +226,7 @@ function getMetaDescription(game, playerData) {
       return `Arcade Stats
 
 • 🏆 Wins: ${arcadeWins}
-• 🪙 Coins: ${checkAndFormat(sumStatsBasic(["coins"], arcadeStats))}`
+• 🪙 Coins: ${checkAndFormat(arcadeStats["coins"])}`
 
     case 'bedwars':
       
@@ -313,7 +330,7 @@ function getMetaDescription(game, playerData) {
       let tkrStats = playerData["stats"]["GingerBread"] || {};
       let wallsStats = playerData["stats"]["Walls"] || {};
 
-      let classicWins = (und(arenaStats["wins"]) + und(paintballStats["wins"]) + und(quakeStats["wins"]) + und(vampireZStats["wins_human"]) + und(vampireZStats["wins_vampire"]) + und(tkrStats["wins"]) + und(wallsStats["wins"]));
+      let classicWins = (und(arenaStats["wins"]) + und(paintballStats["wins"]) + und(quakeStats["wins"]) + und(vampireZStats["human_wins"]) + und(vampireZStats["vampire_wins"]) + und(tkrStats["wins"]) + und(wallsStats["wins"]));
 
       let classicKills = (
         und(arenaStats["kills_1v1"]) +
@@ -340,7 +357,7 @@ function getMetaDescription(game, playerData) {
 • 🎨 Paintball Wins: ${checkAndFormat(paintballStats["wins"])}
 • 🔫 Quakecraft Wins: ${locale(quakeWins, 0)}
 • 🏎️ TKR Gold Trophies: ${checkAndFormat(tkrStats["gold_trophy"])}
-• 🦇 VampireZ Wins: ${checkAndFormat(vampireZStats["wins_human"] + vampireZStats["wins_vampire"])}
+• 🦇 VampireZ Wins: ${locale(und(vampireZStats["human_wins"]) + und(vampireZStats["vampire_wins"]), 0)}
 • 🧱 Walls Wins: ${checkAndFormat(wallsStats["wins"])}`;
     case 'copsandcrims':
       let copsAndCrimsStats = playerData["stats"]["MCGO"] || {};
@@ -463,7 +480,7 @@ function getMetaDescription(game, playerData) {
       return `Murder Mystery Stats
 
 • 🏆 Wins: ${checkAndFormat(murderMysteryStats["wins"])}
-• 💔 Losses: ${checkAndFormat(und(murderMysteryStats["wins"]) - und(murderMysteryStats["games"]))}
+• 💔 Losses: ${checkAndFormat(und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"]))}
 • 🏅 W/L R: ${calculateRatio(murderMysteryStats["wins"], und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"]))}
 
 • 💀 Kills: ${checkAndFormat(murderMysteryStats["kills"])}
@@ -499,8 +516,8 @@ function getMetaDescription(game, playerData) {
             x_120level = x_120level - Math.ceil((pitXpMap[Math.floor(x_level / 10)] * pitPrestiges[x_prestige]) / 100);
           }
       
-          if (level == 0) {
-            level = 1;
+          if (x_level == 0) {
+            x_level = 1;
           }
       
           if (x_prestige == 0) {
@@ -526,22 +543,21 @@ function getMetaDescription(game, playerData) {
 • 🔥 Highest Killstreak: ${checkAndFormat(pitPtlStats["max_streak"])}`;
 
     case 'smashheroes':
-      let smashHeroesStats = playerData["stats"]["SuperSmash"] || {};
+      let smashStats = playerData["stats"]["SuperSmash"] || {};
 
       return `Smash Heroes Stats
 
 • ⭐ Level: ${checkAndFormat(smashStats["smashLevel"])} ✶ 
 
-• 🏆 Wins: ${checkAndFormat(smashHeroesStats["wins"])}
-• 💔 Losses: ${checkAndFormat(smashHeroesStats["losses"])}
-• 🏅 W/L R: ${calculateRatio(smashHeroesStats["wins"], smashHeroesStats["losses"])}
+• 🏆 Wins: ${checkAndFormat(smashStats["wins"])}
+• 💔 Losses: ${checkAndFormat(smashStats["losses"])}
+• 🏅 W/L R: ${calculateRatio(smashStats["wins"], smashStats["losses"])}
 
-• 💀 Kills: ${checkAndFormat(smashHeroesStats["kills"])}
-• 🤝 Assists: ${checkAndFormat(smashHeroesStats["assists"])}
-• ⚰️ Deaths: ${checkAndFormat(smashHeroesStats["deaths"])}
-• ⚔️ K/D R: ${calculateRatio(smashHeroesStats["kills"], smashHeroesStats["deaths"])}
+• 💀 Kills: ${checkAndFormat(smashStats["kills"])}
+• ⚰️ Deaths: ${checkAndFormat(smashStats["deaths"])}
+• ⚔️ K/D R: ${calculateRatio(smashStats["kills"], smashStats["deaths"])}
 
-• 🪙 Coins: ${checkAndFormat(smashHeroesStats["coins"])}`;
+• 🪙 Coins: ${checkAndFormat(smashStats["coins"])}`;
 
     case 'skywars':
       let skyWarsStats = playerData["stats"]["SkyWars"] || {};
@@ -639,7 +655,7 @@ function getMetaDescription(game, playerData) {
 
     return `UHC Stats
 
-• 🪙️ Coins: ${uhcStats["coins"]}
+• 🪙️ Coins: ${checkAndFormat(uhcStats["coins"])}
 
 • 🍎 UHC Level: [${uhcLevel}✫]
 • 🏆 UHC Wins: ${checkAndFormat(uhcUnformattedStats[0])}
@@ -687,7 +703,8 @@ function getMetaDescription(game, playerData) {
   }
 
 
-    let woolWarsStats = playerData["stats"]["WoolGames"] || {};
+    let woolGamesStats = playerData["stats"]["WoolGames"] || {};
+    let woolWarsStats = woolGamesStats["wool_wars"] || {};
     let woolGamesProgression = woolGamesStats["progression"] || {};
     let woolWarsNumericalStats = woolWarsStats["stats"] || {};
 
@@ -705,6 +722,7 @@ function getMetaDescription(game, playerData) {
     }
 
     let woolGamesPrestigeIcon;
+    let woolGamesLevel = getWoolWarsLevel(und(woolGamesProgression["experience"]));
 
     if(woolGamesStats["wool_wars_prestige_icon"] != undefined) {
       selectedWoolGamesPrestige = woolWarsPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolWarsPrestigeIcons["HEART"];
@@ -718,15 +736,13 @@ function getMetaDescription(game, playerData) {
       }
     }
 
-    let woolGamesLevel = getWoolWarsLevel(und(woolGamesProgression["experience"]));
-
     return `Wool Wars Stats
 
-• ⭐ Level: [${woolGamesLevel}${woolGamesPrestigeIcon}]
+• ⭐ Level: [${Math.floor(woolGamesLevel)}${woolGamesPrestigeIcon}]
 
 • 🏆 Wins: ${checkAndFormat(woolWarsNumericalStats["wins"])}
-• 💔 Losses: ${checkAndFormat(woolWarsNumericalStats["losses"])}
-• 🏅 W/L R: ${calculateRatio(woolWarsNumericalStats["wins"], woolWarsNumericalStats["losses"])}
+• 💔 Losses: ${locale(und(woolWarsNumericalStats["games_played"]) - und(woolWarsNumericalStats["wins"]), 0)}
+• 🏅 W/L R: ${calculateRatio(woolWarsNumericalStats["wins"], und(woolWarsNumericalStats["games_played"]) - und(woolWarsNumericalStats["wins"]))}
 
 • 💀 Kills: ${checkAndFormat(woolWarsNumericalStats["kills"])}
 • 🤝 Assists: ${checkAndFormat(woolWarsNumericalStats["assists"])}

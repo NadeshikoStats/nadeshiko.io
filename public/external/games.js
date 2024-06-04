@@ -1335,7 +1335,7 @@ function generateMurderMystery() {
 
     updateElement("murdermystery-overall-losses", checkAndFormat(und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"])));
     updateElement("murdermystery-overall-wlr", calculateRatio(murderMysteryStats["wins"], und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"])));
-    updateElement("murdermystery-overall-kdr", checkAndFormat(murderMysteryStats["kills"], murderMysteryStats["deaths"]));
+    updateElement("murdermystery-overall-kdr", calculateRatio(murderMysteryStats["kills"], murderMysteryStats["deaths"]));
 
     updateElement("murdermystery-overall-quickest_murderer_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_murderer_win_time_seconds"])));
     updateElement("murdermystery-overall-quickest_detective_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_detective_win_time_seconds"])));
@@ -3127,7 +3127,7 @@ function getSpeedUHCModeStats(mode) {
 function generateSmash() {
   smashStats = playerData["stats"]["SuperSmash"] || {};
 
-  let easyStats = ["kills", "deaths", "wins", "losses", "coins", "assists", "damage_dealt"];
+  let easyStats = ["kills", "deaths", "wins", "losses", "coins", "damage_dealt"];
 
   let smashClasses = {
     BOTMUN: {name: "Botmun"},
@@ -3447,7 +3447,7 @@ function getWoolWarsStats(mode) {
   let woolWarsModeStats, woolWarsWinStats;
   if(mode == "overall") {
     woolWarsModeStats = woolWarsNumericalStats;
-    woolWarsWinStats = [false, ["Wins", checkAndFormat(woolWarsModeStats["wins"])], ["Losses", checkAndFormat(woolWarsModeStats["games_played"] - woolWarsModeStats["wins"])], ["W/L R", calculateRatio(woolWarsModeStats["wins"], woolWarsModeStats["games_played"] - woolWarsModeStats["wins"])]];
+    woolWarsWinStats = [false, ["Wins", checkAndFormat(woolWarsModeStats["wins"])], ["Losses", checkAndFormat(und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))], ["W/L R", calculateRatio(woolWarsModeStats["wins"], und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))]];
   } else {
     woolWarsClassStats = woolWarsNumericalStats["classes"] || {};
     woolWarsModeStats = woolWarsClassStats[mode] || {};
