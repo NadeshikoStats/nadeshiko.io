@@ -1333,9 +1333,9 @@ function generateMurderMystery() {
       updateElement("murdermystery-overall-" + easyStats[e], checkAndFormat(murderMysteryStats[easyStats[e]]));
     }
 
-    updateElement("murdermystery-overall-losses", checkAndFormat(murderMysteryStats["games"] - murderMysteryStats["wins"]));
-    updateElement("murdermystery-overall-wlr", calculateRatio(murderMysteryStats["wins"], murderMysteryStats["games"] - murderMysteryStats["wins"]));
-    updateElement("murdermystery-overall-kdr", checkAndFormat(murderMysteryStats["games"] - murderMysteryStats["wins"]));
+    updateElement("murdermystery-overall-losses", checkAndFormat(und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"])));
+    updateElement("murdermystery-overall-wlr", calculateRatio(murderMysteryStats["wins"], und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"])));
+    updateElement("murdermystery-overall-kdr", checkAndFormat(murderMysteryStats["kills"], murderMysteryStats["deaths"]));
 
     updateElement("murdermystery-overall-quickest_murderer_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_murderer_win_time_seconds"])));
     updateElement("murdermystery-overall-quickest_detective_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_detective_win_time_seconds"])));
@@ -2100,58 +2100,7 @@ function generatePit() {
     5192293080,
     11787293080,
   ];
-  let pitPrestigeGold = [
-    10000,
-    20000,
-    20000,
-    20000,
-    30000,
-    35000,
-    40000,
-    45000,
-    50000,
-    60000,
-    70000,
-    80000,
-    90000,
-    100000,
-    125000,
-    150000,
-    175000,
-    200000,
-    250000,
-    300000,
-    350000,
-    400000,
-    500000,
-    600000,
-    700000,
-    800000,
-    900000,
-    1000000,
-    1000000,
-    1000000,
-    1000000,
-    1000000,
-    1000000,
-    1000000,
-    1000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-    2000000,
-  ];
+
   let pitPrestigeColors = ["§7", "§9", "§e", "§6", "§c", "§5", "§d", "§f", "§b", "§1", "§0", "§4", "§8"];
   let pitLevelColors = ["§7", "§9", "§3", "§2", "§a", "§e", "§6", "§c", "§4", "§5", "§d", "§f", "§b"];
 
@@ -2645,7 +2594,7 @@ function generateBlitz() {
   for(let e = 0; e < easyStats.length; e++) {
     updateElement(`blitz-overall-${easyStats[e]}`, checkAndFormat(blitzStats[easyStats[e]]));
   }
-  updateElement("blitz-overall-wins", checkAndFormat(blitzStats["wins_solo_normal"] + blitzStats["wins_teams_normal"]));
+  updateElement("blitz-overall-wins", checkAndFormat(und(blitzStats["wins_solo_normal"]) + und(blitzStats["wins_teams_normal"])));
   updateElement("blitz-overall-kdr", calculateRatio(blitzStats["kills"], blitzStats["deaths"]));
   updateElement("blitz-overall-kills_solo_normal", checkAndFormat(blitzStats["kills"] - blitzStats["kills_teams_normal"]));
 
@@ -3157,7 +3106,6 @@ function getUHCModeStats(mode) {
 }
 
 function getSpeedUHCModeStats(mode) {
-  // Does not work at all like UHC
   if(mode == "overall") {
     mode = "";
   } else {

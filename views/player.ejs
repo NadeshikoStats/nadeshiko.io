@@ -28,9 +28,9 @@
   <meta property="twitter:image" content="<%= metaImageURL %>">
 
   <% if (playerData && playerData.profile) { %>
-    <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
+  <title><%- (playerData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
   <% } else { %>
-    <title><%- (playerData["name"]) %> | nadeshiko.io</title> <!-- Fallback in case no stats -->
+  <title><%- (playerData["name"]) %> | nadeshiko.io</title> <!-- Fallback in case no stats -->
   <% } %>
   <meta name="description" content="<%= metaDescription %>">
 </head>
