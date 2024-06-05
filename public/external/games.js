@@ -2737,7 +2737,6 @@ function generateMegaWalls() {
     }
   }
 
-
   let megaWallsClassesFormatted = Object.entries(megaWallsClasses).map(([key, value]) => [value["name"], key]);
   let megaWallsClassesFormattedWithOverall = [["Overall", ""]].concat(megaWallsClassesFormatted);
 
@@ -2746,7 +2745,7 @@ function generateMegaWalls() {
     "Classes",
     "",
     `/img/games/404.${imageFileType}`,
-    getMegaWallsClassStats("arcanist"),
+    getMegaWallsClassStats("angel"),
     megaWallsClassesFormatted,
     ``,
     "megawalls",
