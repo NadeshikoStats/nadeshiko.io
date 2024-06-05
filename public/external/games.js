@@ -2701,6 +2701,7 @@ function generateMegaWalls() {
 
 
   let megaWallsClasses = {
+    angel: {name: "Angel", abilities: [] },
     arcanist: {name: "Arcanist", abilities: [] },
     assassin: {name: "Assassin", abilities: [] },
     automaton: {name: "Automaton", abilities: [] },
@@ -2708,6 +2709,7 @@ function generateMegaWalls() {
     cow: {name: "Cow", abilities: [] },
     creeper: {name: "Creeper", abilities: [] },
     dreadlord: {name: "Dreadlord", abilities: [] },
+    dragon: {name: "Dragon", abilities: [] },
     enderman: {name: "Enderman", abilities: [] },
     golem: {name: "Golem", abilities: [] },
     herobrine: {name: "Herobrine", abilities: [] },
@@ -2727,11 +2729,11 @@ function generateMegaWalls() {
     zombie: {name: "Zombie", abilities: [] },
   }
 
-  // Iterate through megaWallsClasses
+  // Iterate through megaWallsClasses, add prestige stars to name if applicable
   for (let key in megaWallsClasses) {
     let megaWallsPrestige = getMegaWallsPrestige(key);
     if(megaWallsPrestige[0]) {
-      megaWallsClasses[key]["name"] = megaWallsClasses[key]["name"] + `${megaWallsPrestige[1]}`;
+      megaWallsClasses[key]["name"] = megaWallsClasses[key]["name"] + ` ${megaWallsPrestige[1]}`;
     }
   }
 
