@@ -521,38 +521,38 @@ function generateBedWars() {
       prefixIcon = '✥';
     }
 
-    updateElement("bed-wars-level", checkAndFormat(Math.floor(bedWarsLevel)) + prefixIcon);
-    document.getElementById("bed-wars-level").style.background = linearGradient(bedWarsPrestigeColors[Math.floor(Math.max(bedWarsLevel / 100), 49)]);
-    document.getElementById("bed-wars-xp-progress-bar").style.width = ((bedWarsLevel % 1) * 100).toFixed(0) + "%";
-    updateElement("bed-wars-xp-progress-number", ((bedWarsLevel % 1) * 100).toFixed(0) + "%");
+    updateElement("bedwars-level", checkAndFormat(Math.floor(bedWarsLevel)) + prefixIcon);
+    document.getElementById("bedwars-level").style.background = linearGradient(bedWarsPrestigeColors[Math.floor(Math.max(bedWarsLevel / 100), 49)]);
+    document.getElementById("bedwars-xp-progress-bar").style.width = ((bedWarsLevel % 1) * 100).toFixed(0) + "%";
+    updateElement("bedwars-xp-progress-number", ((bedWarsLevel % 1) * 100).toFixed(0) + "%");
 
     var bedWarsChips = [];
 
     for (e = 0; e < easyStats.length; e++) {
-      updateElement("bed-wars-overall-" + easyStats[e], checkAndFormat(bedWarsStats[easyStats[e] + "_bedwars"]));
+      updateElement("bedwars-overall-" + easyStats[e], checkAndFormat(bedWarsStats[easyStats[e] + "_bedwars"]));
     }
-    updateElement("bed-wars-overall-winstreak", checkAndFormat(bedWarsStats["winstreak"]));
-    updateElement("bed-wars-overall-wlr", calculateRatio(bedWarsStats["wins_bedwars"], bedWarsStats["losses_bedwars"]));
-    updateElement("bed-wars-overall-kdr", calculateRatio(bedWarsStats["kills_bedwars"], bedWarsStats["deaths_bedwars"]));
-    updateElement("bed-wars-overall-fkdr", calculateRatio(bedWarsStats["final_kills_bedwars"], bedWarsStats["final_deaths_bedwars"]));
-    updateElement("bed-wars-overall-bblr", calculateRatio(bedWarsStats["beds_broken_bedwars"], bedWarsStats["beds_lost_bedwars"]));
-    updateElement("bed-wars-tokens", checkAndFormat(bedWarsStats["coins"]));
-    updateElement("bed-wars-challenges-completed", checkAndFormat(bedWarsStats["total_challenges_completed"]));
+    updateElement("bedwars-overall-winstreak", checkAndFormat(bedWarsStats["winstreak"]));
+    updateElement("bedwars-overall-wlr", calculateRatio(bedWarsStats["wins_bedwars"], bedWarsStats["losses_bedwars"]));
+    updateElement("bedwars-overall-kdr", calculateRatio(bedWarsStats["kills_bedwars"], bedWarsStats["deaths_bedwars"]));
+    updateElement("bedwars-overall-fkdr", calculateRatio(bedWarsStats["final_kills_bedwars"], bedWarsStats["final_deaths_bedwars"]));
+    updateElement("bedwars-overall-bblr", calculateRatio(bedWarsStats["beds_broken_bedwars"], bedWarsStats["beds_lost_bedwars"]));
+    updateElement("bedwars-tokens", checkAndFormat(bedWarsStats["coins"]));
+    updateElement("bedwars-challenges-completed", checkAndFormat(bedWarsStats["total_challenges_completed"]));
 
-    updateElement("bed-wars-unique-challenges-completed", `(` + checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]) + `/30 unique)`);
+    updateElement("bedwars-unique-challenges-completed", `(` + checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]) + `/30 unique)`);
 
     if (bedWarsStats["bw_unique_challenges_completed"] == 30) {
-      document.getElementById("bed-wars-unique-challenges-completed").style.color = `var(--gold)`;
+      document.getElementById("bedwars-unique-challenges-completed").style.color = `var(--gold)`;
     }
 
     if (bedWarsStats["slumber"] != undefined) {
-      updateElement("bed-wars-slumber-tickets", checkAndFormat(bedWarsStats["slumber"]["tickets"]));
+      updateElement("bedwars-slumber-tickets", checkAndFormat(bedWarsStats["slumber"]["tickets"]));
     }
 
     for (a = 0; a < modes.length; a++) {
       // Regular stats
       let bedWarsChip = [
-        "bed-wars-stats-" + modeNames[a].toLowerCase(), // ID
+        "bedwars-stats-" + modeNames[a].toLowerCase(), // ID
         modeNames[a], // Title
         "", // Subtitle (none)
         `/img/games/bedwars/${modeNames[a].toLowerCase()}.${imageFileType}`, // Image
@@ -586,7 +586,7 @@ function generateBedWars() {
 
     bedWarsChips.push([
       // Generates the Dreams mode chip
-      "bed-wars-stats-dreams",
+      "bedwars-stats-dreams",
       "Dreams",
       "",
       `/img/games/404.${imageFileType}`,
@@ -596,7 +596,7 @@ function generateBedWars() {
       "bedwars",
     ]);
 
-    generateChips(bedWarsChips, "bed-wars-chips");
+    generateChips(bedWarsChips, "bedwars-chips");
   }
 }
 
