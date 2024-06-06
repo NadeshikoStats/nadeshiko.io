@@ -461,6 +461,8 @@ function getMetaDescription(game, playerData) {
 
       let megaWallsFinalKills = sumStatsBasic(["final_kills", "finalKills"], megaWallsStats);
       let megaWallsFinalDeaths = sumStatsBasic(["final_deaths", "finalDeaths"], megaWallsStats);
+
+      let megaWallsClassPoints = megaWallsStats["class_points"] || (und(megaWallsStats["wins"]) * 10 + megaWallsFinalKills + und(megaWallsStats["final_assists"]));
       return `Mega Walls Stats
 
 • 🏆 Wins: ${checkAndFormat(megaWallsStats["wins"])}
@@ -472,7 +474,7 @@ function getMetaDescription(game, playerData) {
 • ⚔️ FK/D R: ${calculateRatio(megaWallsFinalKills, megaWallsFinalDeaths)}
 
 • 🪙 Coins: ${checkAndFormat(megaWallsStats["coins"])}
-• ⭐ Points: ${locale(megaWallsFinalKills + und(megaWallsStats["wins"]) * 10, 0)}`;
+• ⭐ Points: ${locale(megaWallsClassPoints, 0)}`;
 
     case 'murdermystery':
       let murderMysteryStats = playerData["stats"]["MurderMystery"];

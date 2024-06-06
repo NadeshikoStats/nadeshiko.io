@@ -2693,7 +2693,10 @@ function generateMegaWalls() {
 
   updateElement("megawalls-overall-fkdr", calculateRatio(megaWallsFinalKills, megaWallsFinalDeaths));
   updateElement("megawalls-overall-kdr", calculateRatio(megaWallsStats["kills"], megaWallsStats["deaths"]));
-  updateElement("megawalls-overall-points", checkAndFormat(und(megaWallsStats["wins"]) * 10 + megaWallsFinalKills));
+
+  let megaWallsClassPoints = megaWallsStats["class_points"] || (und(megaWallsStats["wins"]) * 10 + megaWallsFinalKills + und(megaWallsStats["final_assists"])); // Default to old calculation if the class points stat is not available
+
+  updateElement("megawalls-overall-points", checkAndFormat(megaWallsClassPoints));
   updateElement("megawalls-selected_class", und(megaWallsStats["chosen_class"], "None"));
 
   updateElement("megawalls-overall-playtime", smallDuration(megaWallsStats["time_played"] * 60));
@@ -2781,14 +2784,38 @@ function generateMegaWalls() {
   }
 }
 
+ /* 
+  * Returns an array with the following format:
+  * [boolean, string, number]
+  * - The boolean is true if the class has a prestige, false otherwise
+  * - The string is the prestige stars if the class has a prestige, otherwise it's the player's kit/skill levels
+  * - The number is the number of ender chest rows the class has
+  * 
+  * @param {string} className The class name
+  */
 function getMegaWallsPrestige(className) {
   let megaWallsClassStats = megaWallsStats["classes"] || {};
   let megaWallsChosenClassStats = megaWallsClassStats[className] || {};
 
   if (megaWallsChosenClassStats["prestige"] > 0) {
+    let megaWallsChosenClassPrestigeColor = `§7`;
+    let megaWallsChosenClassPrestigeTag = megaWallsChosenClassStats["prestige_tag"] || {};
+
+    if(megaWallsChosenClassStats["prestige"] >= 4) {
+      megaWallsChosenClassPrestigeColor = `§6`;
+    }
+
+    if(megaWallsChosenClassPrestigeTag["type"]) { // If the prestige tag has a color, use it
+      let megaWallsChosenClassPrestigeColorCode = megaWallsChosenClassPrestigeTag["type"];
+      if(minecraftColorCodes[megaWallsChosenClassPrestigeColorCode] != undefined) {
+        megaWallsChosenClassPrestigeColor = `§${minecraftColorCodes[megaWallsChosenClassPrestigeColorCode]}`;
+      }
+    }
+    // NOTE: The above code does not work for rainbow prestige tags or the custom prestige tag
+    // NOTE: It is likely that both Hypixel and nadeshiko will not last long enough for any player to have enough class points to reach either of these prestige tags
 
     // Make first item of array
-    return [true, generateMinecraftText("§6✫".repeat(megaWallsChosenClassStats["prestige"])), und(megaWallsChosenClassStats["enderchest_rows"], 3)];
+    return [true, generateMinecraftText(`${megaWallsChosenClassPrestigeColor}✫`.repeat(megaWallsChosenClassStats["prestige"])), und(megaWallsChosenClassStats["enderchest_rows"], 3)];
   } else {
     return [false, `${und(megaWallsChosenClassStats["skill_level_d"], 1)} &ndash; ${und(megaWallsChosenClassStats["skill_level_a"], 1)} &ndash; ${und(megaWallsChosenClassStats["skill_level_b"], 1)} &ndash; ${und(megaWallsChosenClassStats["skill_level_c"], 1)} &ndash; ${und(megaWallsChosenClassStats["skill_level_g"], 1)}`, und(megaWallsChosenClassStats["enderchest_rows"], 3)];
   }
@@ -2805,15 +2832,22 @@ function getMegaWallsClassStats(className = "", modeName = "") {
     modeName = `_${modeName}`;
   }
 
-
   megaWallsClassChipStats = [
     [false, ["Wins", checkAndFormat(megaWallsStats[`${className}wins${modeName}`])], ["Losses", checkAndFormat(megaWallsStats[`${className}losses${modeName}`])], ["W/L R", calculateRatio(megaWallsStats[`${className}wins${modeName}`], megaWallsStats[`${className}losses${modeName}`])]],
     [false, ["Final Kills", checkAndFormat(megaWallsStats[`${className}final_kills${modeName}`])], ["Final Deaths", checkAndFormat(megaWallsStats[`${className}final_deaths${modeName}`])], ["FK/D R", calculateRatio(megaWallsStats[`${className}final_kills${modeName}`], megaWallsStats[`${className}final_deaths${modeName}`])]],
     [false, ["Kills", checkAndFormat(megaWallsStats[`${className}kills${modeName}`])], ["Deaths", checkAndFormat(megaWallsStats[`${className}deaths${modeName}`])], ["K/D R", calculateRatio(megaWallsStats[`${className}kills${modeName}`], megaWallsStats[`${className}deaths${modeName}`])]],
-    [false, ["Final Assists", checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], ["Assists", checkAndFormat(megaWallsStats[`${className}assists${modeName}`])]],
-    [false, ["Class Points", checkAndFormat(megaWallsStats[`${className}wins${modeName}`] * 10 + megaWallsStats[`${className}final_kills${modeName}`])], ["Playtime", smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]],
     [false, ["Wither Kills", checkAndFormat(megaWallsStats[`${className}wither_kills${modeName}`])], ["Damage Dealt", checkAndFormat(megaWallsStats[`${className}damage_dealt${modeName}`] / 2) + " ♥\uFE0E"]],
   ];
+
+  if(className != "" && modeName == "") { // If a class is selected and the mode is overall (show class points)
+    let megaWallsClassPoints = megaWallsStats[`${className}class_points`] || (und(megaWallsStats[`${className}wins`]) * 10 + und(megaWallsStats[`${className}final_kills`]) + und(megaWallsStats[`${className}final_assists`])); 
+
+
+    megaWallsClassChipStats.splice(3, 0, [false, ["Final Assists", checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], ["Assists", checkAndFormat(megaWallsStats[`${className}assists${modeName}`])]]);
+    megaWallsClassChipStats.splice(4, 0, [false, ["Class Points", checkAndFormat(megaWallsClassPoints)], ["Playtime", smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]]);
+  } else { // Otherwise, show final assists, assists, and playtime on the same line
+    megaWallsClassChipStats.splice(3, 0, [false, ["Final Assists", checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], ["Assists", checkAndFormat(megaWallsStats[`${className}assists${modeName}`])], ["Playtime", smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]]);
+  }
 
   if(modeName == "" && className != "") {
     let megaWallsPrestige = getMegaWallsPrestige(trueClassName);
