@@ -154,6 +154,11 @@
     font-weight: 600;
     margin: 15px auto;
   }
+
+  .nadeshiko-bold {
+    font-weight: bold;
+    color: var(--nadeshiko);
+  }
   
   .about-icon {
     height: 14px;
