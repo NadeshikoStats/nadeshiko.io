@@ -233,23 +233,23 @@ function generateNetwork() {
     }
 
     const quickModeGames = [
-      { id: "network", name: "Network", minecraftId: "hypixel_logo" },
-      { id: "arcade", name: "Arcade", minecraftId: "slime_ball" },
-      { id: "bedwars", name: "Bed Wars", minecraftId: "red_bed" },
-      { id: "blitz", name: "Blitz", minecraftId: "diamond_sword" },
-      { id: "buildbattle", name: "Build Battle", minecraftId: "crafting_table" },
-      { id: "classic", name: "Classic Games", minecraftId: "jukebox" },
-      { id: "copsandcrims", name: "Cops and Crims", minecraftId: "iron_bars" },
-      { id: "duels", name: "Duels", minecraftId: "fishing_rod" },
-      { id: "megawalls", name: "Mega Walls", minecraftId: "soul_sand" },
-      { id: "murdermystery", name: "Murder Mystery", minecraftId: "bow" },
-      { id: "pit", name: "Pit", minecraftId: "dirt" },
-      { id: "skywars", name: "SkyWars", minecraftId: "ender_eye" },
-      { id: "smashheroes", name: "Smash Heroes", minecraftId: "head_smashheroes" },
-      { id: "tntgames", name: "TNT Games", minecraftId: "tnt" },
-      { id: "uhc", name: "UHC", minecraftId: "golden_apple" },
-      { id: "warlords", name: "Warlords", minecraftId: "stone_axe" },
-      { id: "woolwars", name: "Wool Wars", minecraftId: "white_wool" },
+      { id: "network", name: getTranslation(["games", "network"]), minecraftId: "hypixel_logo" },
+      { id: "arcade", name: getTranslation(["games", "arcade"]), minecraftId: "slime_ball" },
+      { id: "bedwars", name: getTranslation(["games", "bedwars"]), minecraftId: "red_bed" },
+      { id: "blitz", name: getTranslation(["games", "blitz"]), minecraftId: "diamond_sword" },
+      { id: "buildbattle", name: getTranslation(["games", "buildbattle"]), minecraftId: "crafting_table" },
+      { id: "classic", name: getTranslation(["games", "classic"]), minecraftId: "jukebox" },
+      { id: "copsandcrims", name: getTranslation(["games", "copsandcrims"]), minecraftId: "iron_bars" },
+      { id: "duels", name: getTranslation(["games", "duels"]), minecraftId: "fishing_rod" },
+      { id: "megawalls", name: getTranslation(["games", "megawalls"]), minecraftId: "soul_sand" },
+      { id: "murdermystery", name: getTranslation(["games", "murdermystery"]), minecraftId: "bow" },
+      { id: "pit", name: getTranslation(["games", "pit"]), minecraftId: "dirt" },
+      { id: "skywars", name: getTranslation(["games", "skywars"]), minecraftId: "ender_eye" },
+      { id: "smashheroes", name: getTranslation(["games", "smashheroes"]), minecraftId: "head_smashheroes" },
+      { id: "tntgames", name: getTranslation(["games", "tntgames"]), minecraftId: "tnt" },
+      { id: "uhc", name: getTranslation(["games", "uhc"]), minecraftId: "golden_apple" },
+      { id: "warlords", name: getTranslation(["games", "warlords"]), minecraftId: "stone_axe" },
+      { id: "woolwars", name: getTranslation(["games", "woolwars"]), minecraftId: "white_wool" }
     ];
 
     const quickModeGameContainer = document.getElementById("quick-mode-games");

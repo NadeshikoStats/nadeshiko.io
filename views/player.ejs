@@ -20,6 +20,7 @@
   <script src="/external/gamenames.js"></script>
   <script src="/external/nbt.js"></script>
   <script src="/external/pako.min.js"></script>
+  <script src="/external/language.js" async></script>
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
   <meta name='twitter:card' content='summary_large_image' />
@@ -48,10 +49,10 @@
           <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
         </div>
         <div class="header-right" id="game-buttons">
-          <p class="header-game" onclick="switchStats('network')" id="button-network">Network</p>
-          <p class="header-game" onclick="switchStats('bedwars')" id="button-bedwars">Bed Wars</p>
-          <p class="header-game" onclick="switchStats('duels')" id="button-duels">Duels</p>
-          <p class="header-game" onclick="switchStats('skywars')" id="button-skywars">SkyWars</p>
+          <p class="header-game" onclick="switchStats('network')" id="button-network" data-t="games.network">Network</p>
+          <p class="header-game" onclick="switchStats('bedwars')" id="button-bedwars" data-t="games.bedwars">Bed Wars</p>
+          <p class="header-game" onclick="switchStats('duels')" id="button-duels" data-t="games.duels">Duels</p>
+          <p class="header-game" onclick="switchStats('skywars')" id="button-skywars" data-t="games.skywars">SkyWars</p>
           <div class="dropdown">
             <p class="header-down dropdown-button">
               <img class="dropdown-arrow" src="/img/svg/arrow.svg" alt="More games">
@@ -95,32 +96,32 @@
   
               <div class="extended-card" id="extended-card">
                 <div id="real-stats">
-                <p id="level-container-container"><span id="level-container">Level <span id="level" class="statistic"><span class="mc">Unknown</span></span></span> <span class="tooltip"><span class="m8">(<span id="multiplier">1</span>&times;)</span><span class="tooltiptext">Coin Multiplier</span></span></p>
+                <p id="level-container-container"><span id="level-container"><span data-t="statistics.level">Level</span> <span id="level" class="statistic"><span class="mc">Unknown</span></span></span> <span class="tooltip"><span class="m8">(<span id="multiplier">1</span>&times;)</span><span class="tooltiptext">Coin Multiplier</span></span></p>
                 <div class="progress-bar">
                   <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
                   <div class="progress" style="width: 0%;" id="xp-progress-bar"></div>
                 </div>
                 <div class="stats">
                   <div class="login-info flex-two-item">
-                    <p class="flex-item margin10">First Login <span class="tooltip"><span class="statistic" id="first-login"><span class="mc">Unknown</span></span><span class="tooltiptext" id="first-login-ago-full"></span></span> <span id="first-login-ago"><span class="mc">Unknown</span></span></p>
+                    <p class="flex-item margin10"><span data-t="statistics.first_login">First Login</span> <span class="tooltip"><span class="statistic" id="first-login"><span class="mc">Unknown</span></span><span class="tooltiptext" id="first-login-ago-full"></span></span> <span id="first-login-ago"><span class="mc">Unknown</span></span></p>
                     <span class="tooltip"><img id="birthday" class="icon tinyicon" src="/img/special/cake.png"><span class="tooltiptext" id="birthday-text"></span></span></p>
   
-                    <p id="last-login-container" class="flex-item login-duo">Last Login <span class="tooltip"><span class="statistic" id="last-login"><span class="mc">Unknown</span></span><span class="tooltiptext" id="last-login-ago-full"></span></span> <span id="last-login-ago"><span class="mc">Unknown</span></span></p>
+                    <p id="last-login-container" class="flex-item login-duo"><span data-t="statistics.last_login">Last Login</span> <span class="tooltip"><span class="statistic" id="last-login"><span class="mc">Unknown</span></span><span class="tooltiptext" id="last-login-ago-full"></span></span> <span id="last-login-ago"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="flex-two-item general-guild" style="align-items: start;">
                     <div class="general-stats flex-item">
-                      <p class="stat-title super-subtitle">General</p>
-                      <p>Achievement Points <span class="statistic" id="achievement-points"><span class="mc">Unknown</span></span></p>
-                      <p>Karma <span class="statistic" id="karma"><span class="mc">Unknown</span></span></p>
-                      <p>Quests Completed <span class="statistic" id="quests-completed"><span class="mc">Unknown</span></span></p>
-                      <p>Ranks Gifted <span class="statistic" id="ranks-gifted"><span class="mc">Unknown</span></span></p>
+                      <p class="stat-title super-subtitle" data-t="games.modes.network.general">General</p>
+                      <p><span data-t="statistics.achievement_points">Achievement Points</span> <span class="statistic" id="achievement-points"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.karma">Karma</span> <span class="statistic" id="karma"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.quests_completed">Quests Completed</span> <span class="statistic" id="quests-completed"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.ranks_gifted">Ranks Gifted</span> <span class="statistic" id="ranks-gifted"><span class="mc">Unknown</span></span></p>
                     </div>
                     <div class="general-stats flex-item" id="guild-stats">
-                      <p class="stat-title super-subtitle">Guild</p>
-                      <p>Name <span class="statistic" id="guild-name"><span class="mc">Unknown</span></span> <span id="guild-tag"><span class="mc">Unknown</span></span></span></p>
-                      <p>Level <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span></p>
-                      <p>Members <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span></p>
-                      <p>Joined <span class="tooltip"><span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-joined-ago-full"></span></span>
+                      <p class="stat-title super-subtitle" data-t="games.modes.network.guild">Guild</p>
+                      <p><span data-t="statistics.name">Name</span> <span class="statistic" id="guild-name"><span class="mc">Unknown</span></span> <span id="guild-tag"><span class="mc">Unknown</span></span></span></p>
+                      <p><span data-t="statistics.level">Level</span> <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.members">Members</span> <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.joined">Joined</span> <span class="tooltip"><span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-joined-ago-full"></span></span>
                         
                       <span id="guild-joined-ago"><span class="mc">Unknown</span></span></p>
                     </div>
@@ -135,12 +136,12 @@
               </div>
               <div class="flex-two-item socials-buttons" id="general-bottom-bar">
                 <div class="buttons">
-                  <span class="general-button mright" onclick="showCardWizard('NETWORK')">Generate Card</span>
+                  <span class="general-button mright" onclick="showCardWizard('NETWORK')" data-t="player.generate_card">Generate Card</span>
                   
-                  <a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" class="mright" style="text-decoration: none;"><span class="general-button"><img src="/img/logo/skycrypt.svg" class="shiiyu" alt="SkyCrypt logo">SkyBlock Stats</span></a>
+                  <a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" class="mright" style="text-decoration: none;"><span class="general-button"><img src="/img/logo/skycrypt.svg" class="shiiyu" alt="SkyCrypt logo"><span data-t="player.skyblock_stats">SkyBlock Stats</span></span></a>
 
                   <div class="dropdown" id="social-media-dropdown-container">
-                  <span class="general-button dropdown-button unloaded" onclick="" id="social-media-button">Socials</span>         <div class="dropdown-content unloaded" id="social-media-alternative">
+                  <span class="general-button dropdown-button unloaded" onclick="" id="social-media-button" data-t="player.socials">Socials</span>         <div class="dropdown-content unloaded" id="social-media-alternative">
                     <a target="_blank" id="social-hypixel-alternative" aria-label="View Hypixel Forums profile"><span class="logo-container"><img src="/img/logo/hypixel.svg" alt="" class="social-media-dropdown"></span> Hypixel</a>
                     <a target="_blank" id="social-youtube-alternative" aria-label="View linked YouTube"><span class="logo-container"><img src="/img/logo/youtube.svg" alt="" class="social-media-dropdown"></span> YouTube</a>
                     <a target="_blank" id="social-twitter-alternative" aria-label="View linked Twitter"><span class="logo-container"><img src="/img/logo/twitter.svg" alt="" class="social-media-dropdown"></span> Twitter</a>
@@ -172,10 +173,10 @@
         <div class="chip-container">
           <div class="chip-small but-big">
             <div class="chip-small-background-filter"></div>
-            <p class="chip-small-title">Bed Wars</p>
+            <p class="chip-small-title" data-t="games.bedwars">Bed Wars</p>
             <div class="chip-small-container">
               <p class="margin10">
-                <span id="bedwars-level-container">Level <span class="statistic linear-gradient" id="bedwars-level"></span></span>
+                <span id="bedwars-level-container"><span data-t="statistics.level">Level</span> <span class="statistic linear-gradient" id="bedwars-level"></span></span>
               </p>
               <div class="progress-bar">
                 <span class="progress-number" id="bedwars-xp-progress-number"><span class="mc">Unknown</span></span>
@@ -183,41 +184,41 @@
               </div>
               <div class="flex-two-item align-top flippable margin10">
                 <div class="card-big-stats">
-                  <p class="super-subtitle">Stats</p>
+                  <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
                   <div class="chip-small-statistic-row">
-                      <p>Winstreak <span class="statistic" id="bedwars-overall-winstreak"></span></p>
+                      <p><span data-t="statistics.winstreak">Winstreak</span> <span class="statistic" id="bedwars-overall-winstreak"></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Wins <span class="statistic" id="bedwars-overall-wins"><span class="mc">Unknown</span></span></p>
-                      <p>Losses <span class="statistic" id="bedwars-overall-losses"><span class="mc">Unknown</span></span></p>
-                      <p>W/L R <span class="statistic" id="bedwars-overall-wlr"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="bedwars-overall-wins"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="bedwars-overall-losses"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="bedwars-overall-wlr"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Kills <span class="statistic" id="bedwars-overall-kills"><span class="mc">Unknown</span></span></p>
-                      <p>Deaths <span class="statistic" id="bedwars-overall-deaths"><span class="mc">Unknown</span></span></p>
-                      <p>K/D R <span class="statistic" id="bedwars-overall-kdr"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="bedwars-overall-kills"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="bedwars-overall-deaths"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="bedwars-overall-kdr"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Final Kills <span class="statistic" id="bedwars-overall-final_kills"><span class="mc">Unknown</span></span></p>
-                      <p>Final Deaths <span class="statistic" id="bedwars-overall-final_deaths"><span class="mc">Unknown</span></span></p>
-                      <p>FK/D R <span class="statistic" id="bedwars-overall-fkdr"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.final_kills">Final Kills</span> <span class="statistic" id="bedwars-overall-final_kills"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.final_deaths">Final Deaths</span> <span class="statistic" id="bedwars-overall-final_deaths"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.fkdr">FK/D R</span> <span class="statistic" id="bedwars-overall-fkdr"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Beds Broken <span class="statistic" id="bedwars-overall-beds_broken"><span class="mc">Unknown</span></span></p>
-                      <p>Beds Lost <span class="statistic" id="bedwars-overall-beds_lost"><span class="mc">Unknown</span></span></p>
-                      <p>BB/L R <span class="statistic" id="bedwars-overall-bblr"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.beds_broken">Beds Broken</span> <span class="statistic" id="bedwars-overall-beds_broken"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.beds_lost">Beds Lost</span> <span class="statistic" id="bedwars-overall-beds_lost"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.bblr">BB/L R</span> <span class="statistic" id="bedwars-overall-bblr"><span class="mc">Unknown</span></span></p>
                   </div>
                 </div>
                 <div class="card-big-misc">
-                  <p class="super-subtitle">Misc</p>
+                  <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
                   <div class="chip-small-statistic-row">
-                      <p>Tokens <span class="statistic" id="bedwars-tokens"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="bedwars-tokens"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                    <p>Slumber Tickets <span class="statistic" id="bedwars-slumber-tickets">0</span></p> 
+                    <p><span data-t="statistics.slumber_tickets">Slumber Tickets</span> <span class="statistic" id="bedwars-slumber-tickets">0</span></p> 
                   </div>
                   <div class="chip-small-statistic-row">
-                    <p>Challenges Completed <span class="statistic" id="bedwars-challenges-completed"><span class="mc">Unknown</span></span> <span class="m8" id="bedwars-unique-challenges-completed">(0/30)</span></p>
+                    <p><span data-t="statistics.challenges_completed">Challenges Completed</span> <span class="statistic" id="bedwars-challenges-completed"><span class="mc">Unknown</span></span> <span class="m8" id="bedwars-unique-challenges-completed">(0/30 unique)</span></p>
                   </div>
                 </div>
               </div>
@@ -238,10 +239,10 @@
       <div class="chip-container">
         <div class="chip-small but-big">
           <div class="chip-small-background-filter"></div>
-          <p class="chip-small-title">SkyWars</p>
+          <p class="chip-small-title" data-t="games.skywars">SkyWars</p>
           <div class="chip-small-container">
             <p class="margin10">
-              Level <span class="statistic" id="skywars-level"><span class="m7">1⋆</span></span>
+              <span data-t="statistics.level">Level</span> <span class="statistic" id="skywars-level"><span class="m7">1⋆</span></span>
             </p>
             <div class="progress-bar">
               <span class="progress-number" id="skywars-xp-progress-number"><span class="mc">Unknown</span></span>
@@ -249,31 +250,31 @@
             </div>
             <div class="flex-two-item align-top flippable margin10">
               <div class="card-big-stats">
-                <p class="super-subtitle">Stats</p>
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
                 <div class="chip-small-statistic-row">
-                    <p>Wins <span class="statistic" id="skywars-overall-wins"><span class="mc">Unknown</span></span></p>
-                    <p>Losses <span class="statistic" id="skywars-overall-losses"><span class="mc">Unknown</span></span></p>
-                    <p>W/L R <span class="statistic" id="skywars-overall-wlr"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="skywars-overall-wins"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="skywars-overall-losses"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="skywars-overall-wlr"><span class="mc">Unknown</span></span></p>
                 </div>
                 <div class="chip-small-statistic-row">
-                    <p>Kills <span class="statistic" id="skywars-overall-kills"><span class="mc">Unknown</span></span></p>
-                    <p>Deaths <span class="statistic" id="skywars-overall-deaths"><span class="mc">Unknown</span></span></p>
-                    <p>K/D R <span class="statistic" id="skywars-overall-kdr"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="skywars-overall-kills"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="skywars-overall-deaths"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="skywars-overall-kdr"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
               <div class="card-big-misc">
-                <p class="super-subtitle">Misc</p>
+                <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
                 <div class="chip-small-statistic-row">
-                    <p>Coins <span class="statistic" id="skywars-overall-coins"><span class="mc">Unknown</span></span></p>
-                    <p>Tokens <span class="statistic" id="skywars-overall-cosmetic_tokens"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="skywars-overall-coins"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="skywars-overall-cosmetic_tokens"><span class="mc">Unknown</span></span></p>
                 </div>
                 <div class="chip-small-statistic-row">
-                    <p>Heads <span class="statistic" id="skywars-overall-heads"><span class="mc">Unknown</span></span></p>
-                    <p>Corruption <span class="statistic" id="skywars-overall-corruption-chance"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.heads">Heads</span> <span class="statistic" id="skywars-overall-heads"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.corruption">Corruption</span> <span class="statistic" id="skywars-overall-corruption-chance"><span class="mc">Unknown</span></span></p>
                 </div>
                 <div class="chip-small-statistic-row">
-                  <p>Chests <span class="statistic" id="skywars-overall-chests_opened"><span class="mc">Unknown</span></span></p>
-                  <p>Playtime <span class="statistic" id="skywars-overall-playtime"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.chests_opened">Chests Opened</span> <span class="statistic" id="skywars-overall-chests_opened"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="skywars-overall-playtime"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
             </div>
@@ -294,7 +295,7 @@
         <div class="chip-container">
           <div class="chip-small but-big">
             <div class="chip-small-background-filter"></div>
-            <p class="chip-small-title">Duels</p>
+            <p class="chip-small-title" data-t="games.duels">Duels</p>
             <div class="chip-small-container">
               <p class="margin10">
                 <span id="duels-overall-title"></span> <span id="duels-overall-to-go"></span>
@@ -305,32 +306,32 @@
               </div>
               <div class="flex-two-item align-top flippable margin10">
                 <div class="card-big-stats">
-                  <p class="super-subtitle">Stats</p>
+                  <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
                   <div class="chip-small-statistic-row">
-                      <p>Winstreak <span class="statistic" id="duels-overall-current_winstreak"></span></p>
-                      <p>Best Winstreak <span class="statistic" id="duels-overall-best_overall_winstreak"></span></p>
+                      <p><span data-t="statistics.winstreak">Winstreak</span> <span class="statistic" id="duels-overall-current_winstreak"></span></p>
+                      <p><span data-t="statistics.best_winstreak">Best Winstreak</span> <span class="statistic" id="duels-overall-best_overall_winstreak"></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Wins <span class="statistic" id="duels-overall-wins"><span class="mc">Unknown</span></span></p>
-                      <p>Losses <span class="statistic" id="duels-overall-losses"><span class="mc">Unknown</span></span></p>
-                      <p>W/L R <span class="statistic" id="duels-overall-wlr"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="duels-overall-wins"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="duels-overall-losses"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="duels-overall-wlr"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                      <p>Kills <span class="statistic" id="duels-overall-kills"><span class="mc">Unknown</span></span></p>
-                      <p>Deaths <span class="statistic" id="duels-overall-deaths"><span class="mc">Unknown</span></span></p>
-                      <p>K/D R <span class="statistic" id="duels-overall-kdr"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="duels-overall-kills"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="duels-overall-deaths"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="duels-overall-kdr"><span class="mc">Unknown</span></span></p>
                   </div>
                 </div>
                 <div class="card-big-misc">
-                  <p class="super-subtitle">Misc</p>
+                  <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
                   <div class="chip-small-statistic-row">
-                      <p>Tokens <span class="statistic" id="duels-overall-coins"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="duels-overall-coins"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                    <p>Damage Dealt <span class="statistic" id="duels-overall-damage-dealt"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="duels-overall-damage-dealt"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                    <p>Clicks <span class="statistic" id="duels-overall-melee_swings"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.clicks">Clicks</span> <span class="statistic" id="duels-overall-melee_swings"><span class="mc">Unknown</span></span></p>
                   </div>
                 </div>
               </div>
@@ -358,19 +359,19 @@
       <div class="chip-container" id="arcade-chips">
         <div class="chip-small but-big">
           <div class="chip-small-background-filter"></div>
-          <p class="chip-small-title">Arcade</p>
+          <p class="chip-small-title" data-t="games.arcade">Arcade</p>
           <div class="chip-small-container">
             <div class="flex-two-item align-top flippable margin10">
               <div class="card-big-stats">
-                <p class="super-subtitle">Stats</p>
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
                 <div class="chip-small-statistic-row">
-                  <p>Wins <span class="statistic" id="arcade-overall-wins"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="arcade-overall-wins"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
               <div class="card-big-misc">
-                <p class="super-subtitle">Misc</p>
+                <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
                 <div class="chip-small-statistic-row">
-                  <p>Coins <span class="statistic" id="arcade-overall-coins"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="arcade-overall-coins"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
             </div>
@@ -391,7 +392,7 @@
       <div class="chip-container" id="buildbattle-chips">
         <div class="chip-small but-big">
           <div class="chip-small-background-filter"></div>
-          <p class="chip-small-title">Build Battle</p>
+          <p class="chip-small-title" data-t="games.buildbattle">Build Battle</p>
           <div class="chip-small-container">
             <p class="margin10">
               <span id="buildbattle-overall-title"><span class="mc">Unknown</span></span> <span id="buildbattle-overall-to-go"></span>
@@ -402,24 +403,24 @@
             </div>
             <div class="flex-two-item align-top flippable margin10">
               <div class="card-big-stats">
-                <p class="super-subtitle">Stats</p>
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
                 <div class="chip-small-statistic-row">
-                    <p>Score <span class="statistic" id="buildbattle-overall-score"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.score">Score</span> <span class="statistic" id="buildbattle-overall-score"><span class="mc">Unknown</span></span></p>
                 </div>
                 <div class="chip-small-statistic-row">
-                    <p>Wins <span class="statistic" id="buildbattle-overall-wins"><span class="mc">Unknown</span></span></p>
-                    <p>Losses <span class="statistic" id="buildbattle-overall-losses"><span class="mc">Unknown</span></span></p>
-                    <p>W/L R <span class="statistic" id="buildbattle-overall-wlr"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="buildbattle-overall-wins"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="buildbattle-overall-losses"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="buildbattle-overall-wlr"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
               <div class="card-big-misc">
-                <p class="super-subtitle">Misc</p>
+                <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
                 <div class="chip-small-statistic-row">
-                    <p>Coins <span class="statistic" id="buildbattle-overall-coins"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="buildbattle-overall-coins"><span class="mc">Unknown</span></span></p>
                 </div>
                 <div class="chip-small-statistic-row">
-                  <p>Votes <span class="statistic" id="buildbattle-overall-total_votes"><span class="mc">Unknown</span></span></p>
-                  <p>Highest Score <span class="statistic" id="buildbattle-overall-highest-score"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.votes">Votes</span> <span class="statistic" id="buildbattle-overall-total_votes"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.highest_score">Highest Score</span> <span class="statistic" id="buildbattle-overall-highest-score"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
             </div>
@@ -440,41 +441,41 @@
     <div class="chip-container">
       <div class="chip-small but-big">
         <div class="chip-small-background-filter"></div>
-        <p class="chip-small-title">Murder Mystery</p>
+        <p class="chip-small-title" data-t="games.murdermystery">Murder Mystery</p>
         <div class="chip-small-container">
           <div class="flex-two-item align-top flippable margin10">
             <div class="card-big-stats">
-              <p class="super-subtitle">Stats</p>
+              <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
               <div class="chip-small-statistic-row">
-                  <p>Wins <span class="statistic" id="murdermystery-overall-wins"><span class="mc">Unknown</span></span></p>
-                  <p>Losses <span class="statistic" id="murdermystery-overall-losses"><span class="mc">Unknown</span></span></p>
-                  <p>W/L R <span class="statistic" id="murdermystery-overall-wlr"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="murdermystery-overall-wins"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="murdermystery-overall-losses"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="murdermystery-overall-wlr"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
-                <p>Kills <span class="statistic" id="murdermystery-overall-kills"><span class="mc">Unknown</span></span></p>
-                <p>Deaths <span class="statistic" id="murdermystery-overall-deaths"><span class="mc">Unknown</span></span></p>
-                <p>K/D R <span class="statistic" id="murdermystery-overall-kdr"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="murdermystery-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="murdermystery-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="murdermystery-overall-kdr"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Wins (Murderer) <span class="statistic" id="murdermystery-overall-murderer_wins"><span class="mc">Unknown</span></span></p>
-              <p>Wins (Detective) <span class="statistic" id="murdermystery-overall-detective_wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins_murderer">Wins (Murderer)</span> <span class="statistic" id="murdermystery-overall-murderer_wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins_detective">Wins (Detective)</span> <span class="statistic" id="murdermystery-overall-detective_wins"><span class="mc">Unknown</span></span></p>
           </div>
             <div class="chip-small-statistic-row">
-              <p>Fastest Win (Murderer) <span class="statistic" id="murdermystery-overall-quickest_murderer_win_time_seconds"><span class="mc">Unknown</span></span></p>
-              <p>Fastest Win (Detective) <span class="statistic" id="murdermystery-overall-quickest_detective_win_time_seconds"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.fastest_win_murderer">Fastest Win (Murderer)</span> <span class="statistic" id="murdermystery-overall-quickest_murderer_win_time_seconds"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.fastest_win_detective">Fastest Win (Detective)</span> <span class="statistic" id="murdermystery-overall-quickest_detective_win_time_seconds"><span class="mc">Unknown</span></span></p>
           </div>
             </div>
             <div class="card-big-misc">
-              <p class="super-subtitle">Misc</p>
+              <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
               <div class="chip-small-statistic-row">
-                <p>Tokens <span class="statistic" id="murdermystery-overall-coins"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="murdermystery-overall-coins"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
-                <p>Gold Picked Up <span class="statistic" id="murdermystery-overall-coins_pickedup"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.gold_picked_up">Gold Picked Up</span> <span class="statistic" id="murdermystery-overall-coins_pickedup"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
-                <p>Kills (Murderer) <span class="statistic" id="murdermystery-overall-kills_as_murderer"><span class="mc">Unknown</span></span></p>
-                <p>Wins (Hero) <span class="statistic" id="murdermystery-overall-was_hero"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kills_murderer">Kills (Murderer)</span> <span class="statistic" id="murdermystery-overall-kills_as_murderer"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.wins_hero">Wins (Hero)</span> <span class="statistic" id="murdermystery-overall-was_hero"><span class="mc">Unknown</span></span></p>
               </div>
             </div>
           </div>
@@ -495,27 +496,27 @@
   <div class="chip-container">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
-      <p class="chip-small-title">TNT Games</p>
+      <p class="chip-small-title" data-t="games.tntgames">TNT Games</p>
       <div class="chip-small-container">
         <div class="flex-two-item align-top flippable margin10">
           <div class="card-big-stats">
-            <p class="super-subtitle">Stats</p>
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
             <div class="chip-small-statistic-row">
-                <p>Wins <span class="statistic" id="tntgames-overall-wins"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="tntgames-overall-wins"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-                <p>Kills <span class="statistic" id="tntgames-overall-kills"><span class="mc">Unknown</span></span></p>
-                <p>Deaths <span class="statistic" id="tntgames-overall-deaths"><span class="mc">Unknown</span></span></p>
-                <p>K/D R <span class="statistic" id="tntgames-overall-kdr"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="tntgames-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="tntgames-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="tntgames-overall-kdr"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
           <div class="card-big-misc">
-            <p class="super-subtitle">Misc</p>
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
             <div class="chip-small-statistic-row">
-              <p>Tokens <span class="statistic" id="tntgames-overall-coins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="tntgames-overall-coins"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Playtime <span class="statistic" id="tntgames-overall-playtime"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="tntgames-overall-playtime"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
         </div>
@@ -536,7 +537,7 @@
   <div class="chip-container" id="pit-chips">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
-      <p class="chip-small-title">Pit</p>
+      <p class="chip-small-title" data-t="games.pit">Pit</p>
       <div class="chip-small-container">
         <p class="margin10">
           Level <span id="pit-prestige"><span class="mc">Unknown</span></span> <span id="pit-xp-to-go"></span>
@@ -547,33 +548,33 @@
         </div>
         <div class="flex-two-item align-top flippable margin10">
           <div class="card-big-stats">
-            <p class="super-subtitle">Stats</p>
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
             <div class="chip-small-statistic-row">
-                <p>Kills <span class="statistic" id="pit-overall-kills"><span class="mc">Unknown</span></span></p>
-                <p>Deaths <span class="statistic" id="pit-overall-deaths"><span class="mc">Unknown</span></span></p>
-                <p>K/D R <span class="statistic" id="pit-overall-kdr"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="pit-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="pit-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="pit-overall-kdr"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Assists <span class="statistic" id="pit-overall-assists"><span class="mc">Unknown</span></span></p>
-              <p>Highest Killstreak <span class="statistic" id="pit-overall-highest-killstreak"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="pit-overall-assists"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.highest_killstreak">Highest Killstreak</span> <span class="statistic" id="pit-overall-highest-killstreak"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Damage Dealt <span class="statistic" id="pit-overall-damage-dealt"><span class="mc">Unknown</span></span></p>
-              <p>Damage Taken <span class="statistic" id="pit-overall-damage-taken"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="pit-overall-damage-dealt"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.damage_taken">Damage Taken</span> <span class="statistic" id="pit-overall-damage-taken"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
           <div class="card-big-misc">
-            <p class="super-subtitle">Misc</p>
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
             <div class="chip-small-statistic-row">
-              <p>Gold <span class="statistic" id="pit-overall-gold"><span class="mc">Unknown</span></span></p>
-              <p>Renown <span class="statistic" id="pit-overall-renown"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.gold">Gold</span> <span class="statistic" id="pit-overall-gold"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.renown">Renown</span> <span class="statistic" id="pit-overall-renown"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Playtime <span class="statistic" id="pit-overall-playtime"><span class="mc">Unknown</span></span></p>
-              <p>Joins <span class="statistic" id="pit-overall-joins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="pit-overall-playtime"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.joins">Joins</span> <span class="statistic" id="pit-overall-joins"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Left Clicks <span class="statistic" id="pit-overall-clicks"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.left_clicks">Left Clicks</span> <span class="statistic" id="pit-overall-clicks"><span class="mc">Unknown</span></span></p>
               <p id="pit-overall-bounty-container" style="display: none">
                 <span>Bounty <span class="statistic" id="pit-overall-bounty"><span class="mc">Unknown</span></span></span>
               </p>
@@ -597,26 +598,26 @@
   <div class="chip-container" id="classic-chips">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
-      <p class="chip-small-title">Classic Games</p>
+      <p class="chip-small-title" data-t="games.classic">Classic Games</p>
       <div class="chip-small-container">
         <div class="flex-two-item align-top flippable margin10">
           <div class="card-big-stats">
-            <p class="super-subtitle">Stats</p>
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
             <div class="chip-small-statistic-row">
-              <p>Wins <span class="statistic" id="classic-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="classic-overall-wins"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Kills <span class="statistic" id="classic-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="classic-overall-kills"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
           <div class="card-big-misc">
-            <p class="super-subtitle">Misc</p>
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
             <div class="chip-small-statistic-row">
-              <p>Classic Tokens <span class="statistic" id="classic-overall-tokens"><span class="mc">Unknown</span></span></p>
-              <p>Lifetime Tokens <span class="statistic" id="classic-overall-total_tokens"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.classic_tokens">Classic Tokens</span> <span class="statistic" id="classic-overall-tokens"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.lifetime_tokens">Lifetime Tokens</span> <span class="statistic" id="classic-overall-total_tokens"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Playtime <span class="statistic" id="classic-overall-playtime"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="classic-overall-playtime"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
         </div>
@@ -637,27 +638,27 @@
   <div class="chip-container" id="copsandcrims-chips">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
-      <p class="chip-small-title">Cops and Crims</p>
+      <p class="chip-small-title" data-t="games.copsandcrims">Cops and Crims</p>
       <div class="chip-small-container">
         <div class="flex-two-item align-top flippable margin10">
           <div class="card-big-stats">
-            <p class="super-subtitle">Stats</p>
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
             <div class="chip-small-statistic-row">
-                <p>Wins <span class="statistic" id="copsandcrims-overall-game_wins"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="copsandcrims-overall-game_wins"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Kills <span class="statistic" id="copsandcrims-overall-kills"><span class="mc">Unknown</span></span></p>
-              <p>Deaths <span class="statistic" id="copsandcrims-overall-deaths"><span class="mc">Unknown</span></span></p>
-              <p>K/D R <span class="statistic" id="copsandcrims-overall-kdr"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="copsandcrims-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="copsandcrims-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="copsandcrims-overall-kdr"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
           <div class="card-big-misc">
-            <p class="super-subtitle">Misc</p>
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
             <div class="chip-small-statistic-row">
-              <p>Coins <span class="statistic" id="copsandcrims-overall-coins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="copsandcrims-overall-coins"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Assists <span class="statistic" id="copsandcrims-overall-assists"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="copsandcrims-overall-assists"><span class="mc">Unknown</span></span></p>
           </div>
         </div>
       </div>
@@ -679,45 +680,45 @@
   <div class="chip-container">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
-      <p class="chip-small-title">Blitz SG</p>
+      <p class="chip-small-title" data-t="games.blitz">Blitz SG</p>
       <div class="chip-small-container">
         <div class="flex-two-item align-top flippable margin10">
           <div class="card-big-stats">
-            <p class="super-subtitle">Stats</p>
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
             <div class="chip-small-statistic-row">
-              <p>Wins <span class="statistic" id="blitz-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="blitz-overall-wins"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Kills <span class="statistic" id="blitz-overall-kills"><span class="mc">Unknown</span></span></p>
-              <p>Deaths <span class="statistic" id="blitz-overall-deaths"><span class="mc">Unknown</span></span></p>
-              <p>K/D R <span class="statistic" id="blitz-overall-kdr"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="blitz-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="blitz-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="blitz-overall-kdr"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Wins (Solo) <span class="statistic" id="blitz-overall-wins_solo_normal"><span class="mc">Unknown</span></span></p>
-              <p>Wins (Teams) <span class="statistic" id="blitz-overall-wins_teams_normal"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins_solo">Wins (Solo)</span> <span class="statistic" id="blitz-overall-wins_solo_normal"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins_teams">Wins (Teams)</span> <span class="statistic" id="blitz-overall-wins_teams_normal"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Kills (Solo) <span class="statistic" id="blitz-overall-kills_solo_normal"><span class="mc">Unknown</span></span></p>
-              <p>Kills (Teams) <span class="statistic" id="blitz-overall-kills_teams_normal"><span class="mc">Unknown</span></span></p>
-              <p>Taunt Kills <span class="statistic" id="blitz-overall-taunt_kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kills_solo">Kills (Solo)</span> <span class="statistic" id="blitz-overall-kills_solo_normal"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kills_teams">Kills (Teams)</span> <span class="statistic" id="blitz-overall-kills_teams_normal"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.taunt_kills">Taunt Kills</span> <span class="statistic" id="blitz-overall-taunt_kills"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
           <div class="card-big-misc">
-            <p class="super-subtitle">Misc</p>
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
             <div class="chip-small-statistic-row">
-              <p>Coins <span class="statistic" id="blitz-overall-coins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="blitz-overall-coins"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Arrows Hit <span class="statistic" id="blitz-overall-arrows_hit"><span class="mc">Unknown</span></span></p>
-              <p>Damage Dealt <span class="statistic" id="blitz-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.arrows_hit">Arrows Hit</span> <span class="statistic" id="blitz-overall-arrows_hit"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="blitz-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Potions Thrown <span class="statistic" id="blitz-overall-potions_thrown"><span class="mc">Unknown</span></span></p>
-              <p>Mobs Spawned <span class="statistic" id="blitz-overall-mobs_spawned"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.potions_thrown">Potions Thrown</span> <span class="statistic" id="blitz-overall-potions_thrown"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.mobs_spawned">Mobs Spawned</span> <span class="statistic" id="blitz-overall-mobs_spawned"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Chests Opened <span class="statistic" id="blitz-overall-chests_opened"><span class="mc">Unknown</span></span></p>
-              <p>Playtime <span class="statistic" id="blitz-overall-playtime"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.chests_opened">Chests Opened</span> <span class="statistic" id="blitz-overall-chests_opened"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="blitz-overall-playtime"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
         </div>
@@ -733,20 +734,20 @@
   <div class="chip-container">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
-      <p class="chip-small-title">UHC</p>
+      <p class="chip-small-title" data-t="games.uhc">UHC</p>
       <div class="chip-small-container">
         <div class="flex-two-item align-top flippable margin10">
           <div class="card-big-stats">
-            <p class="super-subtitle">Stats</p>
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
             <div class="chip-small-statistic-row">
-              <p>Wins <span class="statistic" id="uhc-overall-wins"><span class="mc">Unknown</span></span></p>
-              <p>Score <span class="statistic" id="uhc-overall-score"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="uhc-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.score">Score</span> <span class="statistic" id="uhc-overall-score"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
           <div class="card-big-misc">
-            <p class="super-subtitle">Misc</p>
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
             <div class="chip-small-statistic-row">
-              <p>Coins <span class="statistic" id="uhc-overall-coins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="uhc-overall-coins"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
         </div>
@@ -768,38 +769,38 @@
   <div class="chip-container">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
-      <p class="chip-small-title">Smash Heroes</p>
+      <p class="chip-small-title" data-t="games.smashheroes">Smash Heroes</p>
       <div class="chip-small-container">
         <div class="margin10" style="margin-bottom: 20px">
-          <p>Smash Level <span class="statistic" id="smashheroes-overall-smash_level"><span class="mc">Unknown</span></span> <span class="m6">✶</span></p>
+          <p><span data-t="statistics.smash_level">Smash Level</span> <span class="statistic" id="smashheroes-overall-smash_level"><span class="mc">Unknown</span></span> <span class="m6">✶</span></p>
         </div>
         <div class="flex-two-item align-top flippable margin10">
           <div class="card-big-stats">
-            <p class="super-subtitle">Stats</p>
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
             <div class="chip-small-statistic-row">
-              <p>Wins <span class="statistic" id="smashheroes-overall-wins"><span class="mc">Unknown</span></span></p>
-              <p>Losses <span class="statistic" id="smashheroes-overall-losses"><span class="mc">Unknown</span></span></p>
-              <p>W/L R <span class="statistic" id="smashheroes-overall-wlr"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="smashheroes-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="smashheroes-overall-losses"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="smashheroes-overall-wlr"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Kills <span class="statistic" id="smashheroes-overall-kills"><span class="mc">Unknown</span></span></p>
-              <p>Deaths <span class="statistic" id="smashheroes-overall-deaths"><span class="mc">Unknown</span></span></p>
-              <p>K/D R <span class="statistic" id="smashheroes-overall-kdr"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="smashheroes-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="smashheroes-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="smashheroes-overall-kdr"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Damage Dealt <span class="statistic" id="smashheroes-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="smashheroes-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
           <div class="card-big-misc">
-            <p class="super-subtitle">Misc</p>
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
             <div class="chip-small-statistic-row">
-              <p>Selected Hero <span class="statistic" id="smashheroes-active_class"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.selected_hero">Selected Hero</span> <span class="statistic" id="smashheroes-active_class"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Coins <span class="statistic" id="smashheroes-overall-coins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="smashheroes-overall-coins"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Total XP <span class="statistic" id="smashheroes-overall-xp"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.total_xp">Total XP</span> <span class="statistic" id="smashheroes-overall-xp"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
         </div>
@@ -821,47 +822,47 @@
   <div class="chip-container">
     <div class="chip-small but-big">
       <div class="chip-small-background-filter"></div>
-      <p class="chip-small-title">Mega Walls</p>
+      <p class="chip-small-title" data-t="games.megawalls">Mega Walls</p>
       <div class="chip-small-container">
         <div class="flex-two-item align-top flippable margin10">
           <div class="card-big-stats">
-            <p class="super-subtitle">Stats</p>
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
             <div class="chip-small-statistic-row">
-              <p>Wins <span class="statistic" id="megawalls-overall-wins"><span class="mc">Unknown</span></span></p>
-              <p>Losses <span class="statistic" id="megawalls-overall-losses"><span class="mc">Unknown</span></span></p>
-              <p>W/L R <span class="statistic" id="megawalls-overall-wlr"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="megawalls-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="megawalls-overall-losses"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="megawalls-overall-wlr"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Final Kills <span class="statistic" id="megawalls-overall-final_kills"><span class="mc">Unknown</span></span></p>
-              <p>Final Deaths <span class="statistic" id="megawalls-overall-final_deaths"><span class="mc">Unknown</span></span></p>
-              <p>FK/D R <span class="statistic" id="megawalls-overall-fkdr"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.final_kills">Final Kills</span> <span class="statistic" id="megawalls-overall-final_kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.final_deaths">Final Deaths</span> <span class="statistic" id="megawalls-overall-final_deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.fkdr">FK/D R</span> <span class="statistic" id="megawalls-overall-fkdr"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Kills <span class="statistic" id="megawalls-overall-kills"><span class="mc">Unknown</span></span></p>
-              <p>Deaths <span class="statistic" id="megawalls-overall-deaths"><span class="mc">Unknown</span></span></p>
-              <p>K/D R <span class="statistic" id="megawalls-overall-kdr"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="megawalls-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="megawalls-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="megawalls-overall-kdr"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Final Assists <span class="statistic" id="megawalls-overall-final_assists"><span class="mc">Unknown</span></span></p>
-              <p>Assists <span class="statistic" id="megawalls-overall-assists"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.final_assists">Final Assists</span> <span class="statistic" id="megawalls-overall-final_assists"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="megawalls-overall-assists"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
           <div class="card-big-misc">
-            <p class="super-subtitle">Misc</p>
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
             <div class="chip-small-statistic-row">
-              <p>Selected Class <span class="statistic" id="megawalls-selected_class"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.selected_class">Selected Class</span> <span class="statistic" id="megawalls-selected_class"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Coins <span class="statistic" id="megawalls-overall-coins"><span class="mc">Unknown</span></span></p>
-              <p>Mythic Favor <span class="statistic" id="megawalls-overall-mythic_favor"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="megawalls-overall-coins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.mythic_favor">Mythic Favor</span> <span class="statistic" id="megawalls-overall-mythic_favor"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
-              <p>Points <span class="statistic" id="megawalls-overall-points"><span class="mc">Unknown</span></span></p>
-              <p>Playtime <span class="statistic" id="megawalls-overall-playtime"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.points">Points</span> <span class="statistic" id="megawalls-overall-points"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="megawalls-overall-playtime"><span class="mc">Unknown</span></span></p>
             </div>
             <div class="chip-small-statistic-row">
               <p>Wither Kills <span class="statistic" id="megawalls-overall-wither_kills"><span class="mc">Unknown</span></span></p>
-              <p>Damage Dealt <span class="statistic" id="megawalls-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="megawalls-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
             </div>
           </div>
         </div>
@@ -883,10 +884,10 @@
       <div class="chip-container" id="woolwars-chips">
         <div class="chip-small but-big">
           <div class="chip-small-background-filter"></div>
-          <p class="chip-small-title">Wool Games</p>
+          <p class="chip-small-title" data-t="games.woolwars">Wool Games</p>
           <div class="chip-small-container">
             <p class="margin10">
-              Level <span id="woolwars-level"><span class="mc">Unknown</span></span>
+              <span data-t="statistics.level">Level</span> <span id="woolwars-level"><span class="mc">Unknown</span></span>
             </p>
             <div class="progress-bar">
               <span class="progress-number" id="woolwars-progress-number"><span class="mc">Unknown</span></span>
@@ -894,10 +895,10 @@
             </div>
             <div class="flex-two-item align-top flippable margin10">
               <div class="card-big-stats">
-                <p class="super-subtitle">Stats</p>
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
                 <div class="chip-small-statistic-row">
-                  <p>Wool <span class="statistic" id="woolwars-overall-coins"><span class="mc">Unknown</span></span></p>
-                  <p>Layers <span class="statistic" id="woolwars-overall-available_layers"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.wool">Wool</span> <span class="statistic" id="woolwars-overall-coins"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.layers">Layers</span> <span class="statistic" id="woolwars-overall-available_layers"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
             </div>
@@ -922,38 +923,38 @@
         <div class="chip-small-container">
           <div class="flex-two-item align-top flippable margin10">
             <div class="card-big-stats">
-              <p class="super-subtitle">Stats</p>
+              <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
               <div class="chip-small-statistic-row">
-                <p>Wins <span class="statistic" id="warlords-overall-wins"><span class="mc">Unknown</span></span></p>
-                <p>Losses <span class="statistic" id="warlords-overall-losses"><span class="mc">Unknown</span></span></p>
-                <p>W/L R <span class="statistic" id="warlords-overall-wlr"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="warlords-overall-wins"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="warlords-overall-losses"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="warlords-overall-wlr"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
-                <p>Kills <span class="statistic" id="warlords-overall-kills"><span class="mc">Unknown</span></span></p>
-                <p>Deaths <span class="statistic" id="warlords-overall-deaths"><span class="mc">Unknown</span></span></p>
-                <p>K/D R <span class="statistic" id="warlords-overall-kdr"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="warlords-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="warlords-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="warlords-overall-kdr"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
-                <p>Assists <span class="statistic" id="warlords-overall-assists"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="warlords-overall-assists"><span class="mc">Unknown</span></span></p>
 
-                <p>Damage Dealt <span class="statistic" id="warlords-overall-damage"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="warlords-overall-damage"><span class="mc">Unknown</span></span></p>
                 <p>Healing Done <span class="statistic" id="warlords-overall-heal"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
               </div>
             </div>
             <div class="card-big-misc">
-              <p class="super-subtitle">Misc</p>
+              <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
               <div class="chip-small-statistic-row">
-                <p>Coins <span class="statistic" id="warlords-overall-coins"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="warlords-overall-coins"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
-                <p>Magic Dust <span class="statistic" id="warlords-overall-magic_dust"><span class="mc">Unknown</span></span></p>
-                <p>Void Shards <span class="statistic" id="warlords-overall-void_shards"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.magic_dust">Magic Dust</span> <span class="statistic" id="warlords-overall-magic_dust"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.void_shards">Void Shards</span> <span class="statistic" id="warlords-overall-void_shards"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
-                <p>Weapons Repaired <span class="statistic" id="warlords-overall-repaired"><span class="mc">Unknown</span></span></p>
-                <p>Powerups Collected <span class="statistic" id="warlords-overall-powerups_collected"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.weapons_repaired">Weapons Repaired</span> <span class="statistic" id="warlords-overall-repaired"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.powerups">Powerups</span> <span class="statistic" id="warlords-overall-powerups_collected"><span class="mc">Unknown</span></span></p>
               </div>
             </div>
           </div>
@@ -974,7 +975,7 @@
 
   <div class="quick-mode hidden pushdown" id="quick-mode">
     <section class="player-card" style="align-content: center;">
-      <p class="title-text margin-top-bottom">Quick Mode <kbd>SHIFT</kbd></p>
+      <p class="title-text margin-top-bottom"><span data-t="player.quick_mode.title">Quick Mode</span> <kbd data-t="player.quick_mode.key">SHIFT</kbd></p>
       <p class="subtitle-text">Click an icon to instantly go to that game's page for <span id="quick-mode-username"></span>.</p>
       <p class="flex-quick-mode margin-top-bottom" id="quick-mode-games">
         
@@ -987,7 +988,7 @@
   </div>
 
 <script>
-  var playerData;
+  var playerData, languageJSON;
   let playerName = "<%= name %>";
   var currentGamemode = "<%= game %>";
   let imageFileType;
@@ -1045,15 +1046,34 @@
     else return text;
   }
 
-  function beginGeneration() {
-    switchStats(currentGamemode);
-    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
-    insertLoadedData();
+  let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
+
+  /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+   * This is used to ensure that all tasks are completed before the page is generated.
+   * @param {string} task - The task that was completed 
+   */
+  function beginGeneration(task) {
+    if(tasksBeforeLoading.includes(task)) {
+      tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+    }
+
+    console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+
+    if(tasksBeforeLoading.length == 0) {
+      switchStats(currentGamemode);
+      document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+
+      updateTranslations();
+      insertLoadedData();
+      document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
+      document.getElementById("header-name").classList.remove("unloaded");
+    }
   }
 
   window.addEventListener("resize", checkMobileMode);
 
   document.addEventListener("DOMContentLoaded", function() { // Runs on page load
+    beginGeneration("DOMContentLoaded");
     try {
       var skinViewModel = "classic";
       if (playerData["slim"]) {
@@ -1155,9 +1175,6 @@
  } catch (error) {
      console.error("Error loading SkinView3D!: " + error);
  }
-
-    document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
-      document.getElementById("header-name").classList.remove("unloaded");
   });
 
   function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past.
@@ -1302,6 +1319,7 @@ var skinViewer;
       checkMobileMode(event, true);
 
       console.log("%c                                               \r\n                 _           _     _ _         \r\n                | |         | |   (_) |        \r\n _ __   __ _  __| | ___  ___| |__  _| | _____  \r\n| \'_ \\ \/ _` |\/ _` |\/ _ \\\/ __| \'_ \\| | |\/ \/ _ \\ \r\n| | | | (_| | (_| |  __\/\\__ \\ | | | |   < (_) |\r\n|_| |_|\\__,_|\\__,_|\\___||___\/_| |_|_|_|\\_\\___\/ \r\n                                               \r\n  The simple, beautiful Hypixel stats tracker  \r\n                                               ", "background: #2d0614; color: #f6acd6;");
+      console.log(performance.now());
   }
 
   function ordinal(num) { // Returns the ordinal number format of an integer (3 → 3rd)

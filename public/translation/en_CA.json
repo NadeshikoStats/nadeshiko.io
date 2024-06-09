@@ -3,6 +3,9 @@
     "searchbar": {
       "placeholder": "Search for a player..."
     },
+    "home": {
+      "title": "Home"
+    },
     "about": {
       "title": "About",
 
@@ -10,43 +13,44 @@
 
       "assistance": "Find a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a>!",
 
+      "disclaimer": "nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.",
+
+
       "credits": {
         "title": "Credits",
 
-        "credits_0_0": "kittycatchloe",
-        "credits_0_1": "– Backend Developer",
+        "0_name": "kittycatchloe",
+        "0_desc": "– Backend Developer",
 
-        "credits_1_0": "BrookeAFK",
-        "credits_1_1": "– Frontend Developer",
+        "1_name": "BrookeAFK",
+        "1_desc": "– Frontend Developer",
 
-        "credits_2_0": "Skinview3D",
-        "credits_2_1": "by Blessing Skin",
+        "2_name": "Skinview3D",
+        "2_desc": "by Blessing Skin",
 
-        "credits_3_0": "GSAP",
-        "credits_3_1": "by GreenSock",
+        "3_name": "GSAP",
+        "3_desc": "by GreenSock",
 
-        "credits_4_0": "Visage",
-        "credits_4_1": "by Una",
+        "4_name": "Visage",
+        "4_desc": "by Una",
 
-        "credits_5_0": "Minotar",
-        "credits_5_1": "by The Minotar Team",
+        "5_name": "Minotar",
+        "5_desc": "by The Minotar Team",
 
-        "credits_6_0": "SkyCrypt",
-        "credits_6_1": "by Shiiyu and friends",
+        "6_name": "SkyCrypt",
+        "6_desc": "by Shiiyu and friends",
 
-        "credits_7_0": "Isometric Renders",
-        "credits_7_1": "by gliscowo",
+        "7_name": "Isometric Renders",
+        "7_desc": "by gliscowo",
 
-        "credits_8_0": "Complementary Shaders",
-        "credits_8_1": "by EminGT",
+        "8_name": "Complementary Shaders",
+        "8_desc": "by EminGT",
 
-        "credits_9_0": "GSAP Tutorials",
-        "credits_9_1": "by Diaco M Lotfolahi on CodePen",
+        "9_name": "GSAP Tutorials",
+        "9_desc": "by Diaco M Lotfolahi on CodePen",
 
-        "credits_10_0": "Hypixel API",
-        "credits_10_1": "by Hypixel Inc.",
-
-        "disclaimer": "nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft."
+        "10_name": "Hypixel API",
+        "10_desc": "by Hypixel Inc."
       }
     },
     "cards": {
@@ -55,17 +59,17 @@
       "description_0": "Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!",
       "description_1": "Cards update in real time as your stats change, so you never have to worry about them!",
 
-      "cards_username": "Username",
-      "cards_username_placeholder": "Player",
+      "username": "Username",
+      "username_placeholder": "Player",
 
-      "cards_game": "Game",
-      "cards_game_tooltip": "The game to be used in the card.",
+      "game": "Game",
+      "game_tooltip": "The game to be used in the card.",
 
-      "cards_size": "Size",
-      "cards_size_tooltip": "The height of the card.",
+      "size": "Size",
+      "size_tooltip": "The height of the card.",
 
-      "cards_format": "Format",
-      "cards_format_tooltip": "Where the card will be displayed.",
+      "format": "Format",
+      "format_tooltip": "Where the card will be displayed.",
 
       "button_generate": "Generate Card",
       "copy": "Click \"Generate Card\" and a link will appear here.",
@@ -76,7 +80,7 @@
       "title": "Settings",
 
       "language": "Language",
-      "language_description": "Select your preferred language.",
+      "language_description": "Help us translate nadeshiko on <a href=\"https://crowdin.com/project/nadeshiko\" target=\"_blank\">Crowdin</a>!",
 
       "quick_mode": "Quick Mode",
       "quick_mode_description": "Enables the ability to quickly access a gamemode selector by holding <kbd>Shift</kbd>.",
@@ -99,6 +103,7 @@
   "player": {
     "quick_mode": {
       "title": "Quick Mode",
+      "key": "Shift",
       "description": "Click an icon to instantly go to that game's page for %%player%%."
     },
     "generate_card": "Generate Card",
@@ -753,6 +758,7 @@
 
     "final_assists": "Final Assists",
     "selected_class": "Selected Class",
+    "mythic_favor": "Mythic Favor",
     "upgrades": "Upgrades",
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "Class Points",
@@ -774,6 +780,8 @@
     "joins": "Joins",
     "left_clicks": "Left Clicks",
     "sword_hits": "Sword Hits",
+    "damage_taken": "Damage Taken",
+    "highest_killstreak": "Highest Killstreak",
     "arrows_shot": "Arrows Shot",
     "night_quests": "Night Quests",
     "xp": "XP",
@@ -802,6 +810,8 @@
     "items_fished": "Items Fished",
     "fish_fished": "Fish Fished",
 
+    "selected_hero": "Selected Hero",
+    "smash_level": "Smash Level",
     "total_xp": "Total XP",
     
     "blocks_ran": "Blocks Ran",

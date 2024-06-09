@@ -27,5 +27,5 @@ checkWebPSupport('alpha').then(isSupported => {
     document.getElementById("supports-webp").innerText = "Outdated browser ";
   }
   console.log(imageFileType + " " + performance.now());
-  beginGeneration();
+  beginGeneration("checkWebPSupport");
 });
