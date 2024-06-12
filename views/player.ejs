@@ -13,6 +13,7 @@
   <link rel="preload" href="/img/games/arcade/lobby.webp" as="image">
   <link rel="preload" href="/img/games/pit/lobby.webp" as="image">
 
+  <script src="/external/master.js"></script>
   <script src="/external/webptest.js" type="module"></script>
   <script src="/external/skinview3d.bundle.js" type="module"></script>
   <script src="/external/minecrafttext.js"></script>
@@ -223,7 +224,7 @@
                 </div>
               </div>
             </div>
-            <span class="general-button mright mtop" onclick="showCardWizard('BEDWARS')">Generate Card</span>
+            <span class="general-button mright mtop" onclick="showCardWizard('BEDWARS')" data-t="player.generate_card">Generate Card</span>
           </div>
           <div class="flex-two-item chip-container-duo-parent" id="bedwars-chips">
             <div id="bedwars-chips-1" class="chip-container-duo">
@@ -279,7 +280,7 @@
               </div>
             </div>
           </div>
-          <span class="general-button mright mtop" onclick="showCardWizard('SKYWARS')">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('SKYWARS')" data-t="player.generate_card">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="skywars-chips-1" class="chip-container-duo">
@@ -336,7 +337,7 @@
                 </div>
               </div>
             </div>
-            <span class="general-button mright mtop" onclick="showCardWizard('DUELS')">Generate Card</span>
+            <span class="general-button mright mtop" onclick="showCardWizard('DUELS')" data-t="player.generate_card">Generate Card</span>
           </div>
           <div class="flex-two-item chip-container-duo-parent" id="duels-chips">
             <div id="duels-chips-1" class="chip-container-duo">
@@ -376,7 +377,7 @@
               </div>
             </div>
           </div>
-          <span class="general-button mright mtop" onclick="showCardWizard('ARCADE')">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('ARCADE')" data-t="player.generate_card">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="arcade-chips-1" class="chip-container-duo">
@@ -425,7 +426,7 @@
               </div>
             </div>
           </div>
-          <span class="general-button mright mtop" onclick="showCardWizard('BUILDBATTLE')">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('BUILDBATTLE')" data-t="player.generate_card">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="buildbattle-chips-1" class="chip-container-duo">
@@ -480,7 +481,7 @@
             </div>
           </div>
         </div>
-        <span class="general-button mright mtop" onclick="showCardWizard('MURDERMYSTERY')">Generate Card</span>
+        <span class="general-button mright mtop" onclick="showCardWizard('MURDERMYSTERY')" data-t="player.generate_card">Generate Card</span>
       </div>
       <div class="flex-two-item chip-container-duo-parent">
         <div id="murdermystery-chips-1" class="chip-container-duo">
@@ -521,7 +522,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('TNTGAMES')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('TNTGAMES')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="tntgames-chips-1" class="chip-container-duo">
@@ -582,7 +583,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('PIT')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('PIT')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent" id="buildbattle-chips">
       <div id="pit-chips-1" class="chip-container-duo">
@@ -622,7 +623,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('CLASSIC')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('CLASSIC')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="classic-chips-1" class="chip-container-duo">
@@ -663,7 +664,7 @@
         </div>
       </div>
     </div>
-    <span class="general-button mright mtop" onclick="showCardWizard('COPSANDCRIMS')">Generate Card</span>
+    <span class="general-button mright mtop" onclick="showCardWizard('COPSANDCRIMS')" data-t="player.generate_card">Generate Card</span>
   </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="copsandcrims-chips-1" class="chip-container-duo">
@@ -723,7 +724,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('BLITZ')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('BLITZ')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div id="blitz-chips" class="width-100"></div>
 </div>
@@ -752,7 +753,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('UHC')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('UHC')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="uhc-chips-1" class="chip-container-duo">
@@ -805,7 +806,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('SMASHHEROES')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('SMASHHEROES')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div id="smashheroes-chips" class="width-100"></div>
     <div class="flex-two-item chip-container-duo-parent">
@@ -867,7 +868,7 @@
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('MEGAWALLS')">Generate Card</span>
+      <span class="general-button mright mtop" onclick="showCardWizard('MEGAWALLS')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div id="megawalls-chips" class="width-100"></div>
     <div class="flex-two-item chip-container-duo-parent">
@@ -903,7 +904,7 @@
               </div>
             </div>
           </div>
-          <span class="general-button mright mtop" onclick="showCardWizard('WOOLWARS')">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('WOOLWARS')" data-t="player.generate_card">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="woolwars-chips-1" class="chip-container-duo">
@@ -938,7 +939,7 @@
                 <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="warlords-overall-assists"><span class="mc">Unknown</span></span></p>
 
                 <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="warlords-overall-damage"><span class="mc">Unknown</span></span></p>
-                <p>Healing Done <span class="statistic" id="warlords-overall-heal"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.healing">Healing Done</span> <span class="statistic" id="warlords-overall-heal"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
               </div>
@@ -959,7 +960,7 @@
             </div>
           </div>
         </div>
-        <span class="general-button mright mtop" onclick="showCardWizard('WARLORDS')">Generate Card</span>
+        <span class="general-button mright mtop" onclick="showCardWizard('WARLORDS')" data-t="player.generate_card">Generate Card</span>
       </div>
       <div id="warlords-chips" class="width-100"></div>
       <div class="flex-two-item chip-container-duo-parent">
@@ -991,7 +992,7 @@
   var playerData, languageJSON;
   let playerName = "<%= name %>";
   var currentGamemode = "<%= game %>";
-  let imageFileType;
+  var imageFileType;
 
   let validGames = ["network", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolwars", "warlords", "smashheroes"];
 
@@ -1038,8 +1039,6 @@
   if (playerData["profile"] == undefined) {
     currentGamemode = "network";
   }
-
-  var mobileMode = (document.documentElement.clientWidth < 800);
 
   function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in the case of a missing value
     if (text === null || text === undefined || Number.isNaN(text)) return undefinedValue;

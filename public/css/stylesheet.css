@@ -1954,6 +1954,10 @@
     .general-button {
       margin-top: 10px;
     }
+    .noresize-button {
+      margin-top: 0px;
+      font-size: 16px;
+    }
     .buttons {
       justify-content: space-around;
     }

@@ -119,20 +119,22 @@ function generateNetwork() {
     updateElement("multiplier", profileStats["coin_multiplier"].toLocaleString());
 
     firstLoginDate = new Date(profileStats["first_login"]); // Used for birthday calculation
-    updateElement("first-login", firstLoginDate.toLocaleDateString()); // Gets first login in Unix time and turns it into a date
-    updateElement("first-login-ago", `(${relativeTime(firstLoginDate)})`, true);
-    updateElement(
-      "first-login-ago-full",
-      new Intl.DateTimeFormat("default", {
-        dateStyle: "long",
-        timeStyle: "long",
-      }).format(new Date(firstLoginDate))
-    );
+    if(firstLoginDate != "Invalid Date") { // Broken?
+      updateElement("first-login", firstLoginDate.toLocaleDateString()); // Gets first login in Unix time and turns it into a date
+      updateElement("first-login-ago", `(${relativeTime(firstLoginDate)})`, true);
+      updateElement(
+        "first-login-ago-full",
+        new Intl.DateTimeFormat("default", {
+          dateStyle: "long",
+          timeStyle: "long",
+        }).format(new Date(firstLoginDate))
+      );
 
-    if (firstLoginDate.getMonth() == dateNow.getMonth() && firstLoginDate.getDate() == dateNow.getDate() && firstLoginDate.getYear() != dateNow.getYear()) {
-      document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
-      updateElement("birthday-text", `Happy ${ordinal(dateNow.getYear() - firstLoginDate.getYear())} Hypixel anniversary!`);
-      console.log("Happy anniversary!");
+      if (firstLoginDate.getMonth() == dateNow.getMonth() && firstLoginDate.getDate() == dateNow.getDate() && firstLoginDate.getYear() != dateNow.getYear()) {
+        document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
+        updateElement("birthday-text", `Happy ${(dateNow.getYear() - firstLoginDate.getYear())} years of Hypixel!`);
+        console.log("Happy anniversary!");
+      }
     }
 
     lastLogin = profileStats["last_login"];
@@ -152,7 +154,7 @@ function generateNetwork() {
 
     if (playerData["status"]["online"]) {
       // Checks player's online status
-      updateElement("online-status", "Currently Online!");
+      updateElement("online-status", getTranslation("player.currently_online"));
       document.getElementById("online-status").style.color = "var(--mca)";
 
       document.getElementById("online-status-wrapper").classList.add("tooltip");
@@ -174,7 +176,7 @@ function generateNetwork() {
       }
 
       updateElement("online-status-location", gameType["name"] + gameMode);
-    } else updateElement("online-status", "Currently Offline");
+    } else updateElement("online-status", getTranslation("player.currently_offline"));
 
     if (playerData["guild"] == undefined) {
       console.log(playerData);
@@ -434,23 +436,31 @@ function generateBedWars() {
   bedWarsStats = playerData["stats"]["Bedwars"] || {};
   if (bedWarsStats != undefined) {
     var modes = ["eight_one", "eight_two", "four_three", "four_four", "two_four"];
-    var modeNames = ["Solos", "Doubles", "Threes", "Fours", "4v4"];
+
+    var modeNames = [
+      [getTranslation("games.modes.bedwars.eight_one"), "Solos"],
+      [getTranslation("games.modes.bedwars.eight_two"), "Doubles"],
+      [getTranslation("games.modes.bedwars.four_three"), "Threes"],
+      [getTranslation("games.modes.bedwars.four_four"), "Fours"],
+      [getTranslation("games.modes.bedwars.two_four"), "4v4"],
+    ];
+
     var dreamModes = [
-      ["Overall", "overall"],
-      ["Armed Doubles", "eight_two_armed"],
-      ["Armed Fours", "four_four_armed"],
-      ["Lucky Doubles", "eight_two_lucky"],
-      ["Lucky Fours", "four_four_lucky"],
-      ["Rush Doubles", "eight_two_rush"],
-      ["Rush Fours", "four_four_rush"],
-      ["Swap Doubles", "eight_two_swap"],
-      ["Swap Fours", "four_four_swap"],
-      ["Ultimate Doubles", "eight_two_ultimate"],
-      ["Ultimate Fours", "four_four_ultimate"],
-      ["Underworld Doubles", "eight_two_underworld"],
-      ["Underworld Fours", "four_four_underworld"],
-      ["Voidless Doubles", "eight_two_voidless"],
-      ["Voidless Fours", "four_four_voidless"],
+      [getTranslation("games.modes.all.overall"), "overall"],
+      [getTranslation("games.modes.bedwars.eight_two_armed"), "eight_two_armed"],
+      [getTranslation("games.modes.bedwars.four_four_armed"), "four_four_armed"],
+      [getTranslation("games.modes.bedwars.eight_two_lucky"), "eight_two_lucky"],
+      [getTranslation("games.modes.bedwars.four_four_lucky"), "four_four_lucky"],
+      [getTranslation("games.modes.bedwars.eight_two_rush"), "eight_two_rush"],
+      [getTranslation("games.modes.bedwars.four_four_rush"), "four_four_rush"],
+      [getTranslation("games.modes.bedwars.eight_two_swap"), "eight_two_swap"],
+      [getTranslation("games.modes.bedwars.four_four_swap"), "four_four_swap"],
+      [getTranslation("games.modes.bedwars.eight_two_ultimate"), "eight_two_ultimate"],
+      [getTranslation("games.modes.bedwars.four_four_ultimate"), "four_four_ultimate"],
+      [getTranslation("games.modes.bedwars.eight_two_underworld"), "eight_two_underworld"],
+      [getTranslation("games.modes.bedwars.four_four_underworld"), "four_four_underworld"],
+      [getTranslation("games.modes.bedwars.eight_two_voidless"), "eight_two_voidless"],
+      [getTranslation("games.modes.bedwars.four_four_voidless"), "four_four_voidless"],
     ];
     var easyStats = ["wins", "losses", "kills", "deaths", "final_kills", "final_deaths", "beds_broken", "beds_lost"];
 
@@ -552,11 +562,11 @@ function generateBedWars() {
     for (a = 0; a < modes.length; a++) {
       // Regular stats
       let bedWarsChip = [
-        "bedwars-stats-" + modeNames[a].toLowerCase(), // ID
-        modeNames[a], // Title
+        "bedwars-stats-" + modeNames[a][1].toLowerCase(), // ID
+        modeNames[a][0], // Title
         "", // Subtitle (none)
-        `/img/games/bedwars/${modeNames[a].toLowerCase()}.${imageFileType}`, // Image
-        getBedWarsModeStats(modes[a]), // Displayed stats
+        `/img/games/bedwars/${modeNames[a][1].toLowerCase()}.${imageFileType}`, // Image
+        getBedWarsModeStats(modes[a][1]), // Displayed stats
         [], // Other stats (shown in drop-down menu) (none here)
         "", // Icon
         "bedwars", // Gamemode (used for dropdowns)
@@ -577,17 +587,17 @@ function generateBedWars() {
     }
 
     totalDreamModeStats = [
-      [true, ["Winstreak", checkAndFormat(dreamModeWinstreak)]],
-      [false, ["Wins", checkAndFormat(totalDreamModeStatsCounts[0])], ["Losses", checkAndFormat(totalDreamModeStatsCounts[1])], ["W/L R", calculateRatio(totalDreamModeStatsCounts[0], totalDreamModeStatsCounts[1], 2)]],
-      [false, ["Kills", checkAndFormat(totalDreamModeStatsCounts[2])], ["Deaths", checkAndFormat(totalDreamModeStatsCounts[3])], ["K/D R", calculateRatio(totalDreamModeStatsCounts[2], totalDreamModeStatsCounts[3], 2)]],
-      [false, ["Final Kills", checkAndFormat(totalDreamModeStatsCounts[4])], ["Final Deaths", checkAndFormat(totalDreamModeStatsCounts[5])], ["FK/D R", calculateRatio(totalDreamModeStatsCounts[4], totalDreamModeStatsCounts[5], 2)]],
-      [false, ["Bed Breaks", checkAndFormat(totalDreamModeStatsCounts[6])], ["Bed Losses", checkAndFormat(totalDreamModeStatsCounts[7])], ["BB/L R", calculateRatio(totalDreamModeStatsCounts[6], totalDreamModeStatsCounts[7], 2)]],
+      [true, [getTranslation("statistics.winstreak"), checkAndFormat(dreamModeWinstreak)]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(totalDreamModeStatsCounts[0])], [getTranslation("statistics.losses"), checkAndFormat(totalDreamModeStatsCounts[1])], [getTranslation("statistics.wlr"), calculateRatio(totalDreamModeStatsCounts[0], totalDreamModeStatsCounts[1], 2)]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(totalDreamModeStatsCounts[2])], [getTranslation("statistics.deaths"), checkAndFormat(totalDreamModeStatsCounts[3])], [getTranslation("statistics.kdr"), calculateRatio(totalDreamModeStatsCounts[2], totalDreamModeStatsCounts[3], 2)]],
+      [false, [getTranslation("statistics.final_kills"), checkAndFormat(totalDreamModeStatsCounts[4])], [getTranslation("statistics.final_deaths"), checkAndFormat(totalDreamModeStatsCounts[5])], [getTranslation("statistics.fkdr"), calculateRatio(totalDreamModeStatsCounts[4], totalDreamModeStatsCounts[5], 2)]],
+      [false, [getTranslation("statistics.beds_broken"), checkAndFormat(totalDreamModeStatsCounts[6])], [getTranslation("statistics.beds_lost"), checkAndFormat(totalDreamModeStatsCounts[7])], [getTranslation("statistics.bblr"), calculateRatio(totalDreamModeStatsCounts[6], totalDreamModeStatsCounts[7], 2)]],
     ];
 
     bedWarsChips.push([
       // Generates the Dreams mode chip
       "bedwars-stats-dreams",
-      "Dreams",
+      getTranslation("games.modes.bedwars.dreams"),
       "",
       `/img/games/404.${imageFileType}`,
       totalDreamModeStats,
@@ -651,7 +661,7 @@ function generateSkyWars() {
         "Solo",
         "solo",
         [
-          ["Overall", "solo"],
+          [getTranslation("games.modes.all.overall"), "solo"],
           ["Normal", "solo_normal"],
           ["Insane", "solo_insane"],
         ],
@@ -660,7 +670,7 @@ function generateSkyWars() {
         "Team",
         "team",
         [
-          ["Overall", "team"],
+          [getTranslation("games.modes.all.overall"), "team"],
           ["Normal", "team_normal"],
           ["Insane", "team_insane"],
         ],
@@ -692,38 +702,38 @@ function generateSkyWars() {
 
 function getBedWarsModeStats(mode) {
   return [
-    [true, ["Winstreak", checkAndFormat(bedWarsStats[mode + "_winstreak"])]],
+    [true, [getTranslation("statistics.winstreak"), checkAndFormat(bedWarsStats[mode + "_winstreak"])]],
     [
       false,
-      ["Wins", checkAndFormat(bedWarsStats[mode + "_wins_bedwars"])],
-      ["Losses", checkAndFormat(bedWarsStats[mode + "_losses_bedwars"])],
-      ["W/L R", calculateRatio(bedWarsStats[mode + "_wins_bedwars"], bedWarsStats[mode + "_losses_bedwars"], 2)],
+      [getTranslation("statistics.wins"), checkAndFormat(bedWarsStats[mode + "_wins_bedwars"])],
+      [getTranslation("statistics.losses"), checkAndFormat(bedWarsStats[mode + "_losses_bedwars"])],
+      [getTranslation("statistics.wlr"), calculateRatio(bedWarsStats[mode + "_wins_bedwars"], bedWarsStats[mode + "_losses_bedwars"], 2)],
     ],
     [
       false,
-      ["Kills", checkAndFormat(bedWarsStats[mode + "_kills_bedwars"])],
-      ["Deaths", checkAndFormat(bedWarsStats[mode + "_deaths_bedwars"])],
-      ["K/D R", calculateRatio(bedWarsStats[mode + "_kills_bedwars"], bedWarsStats[mode + "_deaths_bedwars"], 2)],
+      [getTranslation("statistics.kills"), checkAndFormat(bedWarsStats[mode + "_kills_bedwars"])],
+      [getTranslation("statistics.deaths"), checkAndFormat(bedWarsStats[mode + "_deaths_bedwars"])],
+      [getTranslation("statistics.kdr"), calculateRatio(bedWarsStats[mode + "_kills_bedwars"], bedWarsStats[mode + "_deaths_bedwars"], 2)],
     ],
     [
       false,
-      ["Final Kills", checkAndFormat(bedWarsStats[mode + "_final_kills_bedwars"])],
-      ["Final Deaths", checkAndFormat(bedWarsStats[mode + "_final_deaths_bedwars"])],
-      ["FK/D R", calculateRatio(bedWarsStats[mode + "_final_kills_bedwars"], bedWarsStats[mode + "_final_deaths_bedwars"], 2)],
+      [getTranslation("statistics.final_kills"), checkAndFormat(bedWarsStats[mode + "_final_kills_bedwars"])],
+      [getTranslation("statistics.final_deaths"), checkAndFormat(bedWarsStats[mode + "_final_deaths_bedwars"])],
+      [getTranslation("statistics.fkdr"), calculateRatio(bedWarsStats[mode + "_final_kills_bedwars"], bedWarsStats[mode + "_final_deaths_bedwars"], 2)],
     ],
     [
       false,
-      ["Bed Breaks", checkAndFormat(bedWarsStats[mode + "_beds_broken_bedwars"])],
-      ["Bed Losses", checkAndFormat(bedWarsStats[mode + "_beds_lost_bedwars"])],
-      ["BB/L R", calculateRatio(bedWarsStats[mode + "_beds_broken_bedwars"], bedWarsStats[mode + "_beds_lost_bedwars"], 2)],
+      [getTranslation("statistics.beds_broken"), checkAndFormat(bedWarsStats[mode + "_beds_broken_bedwars"])],
+      [getTranslation("statistics.beds_lost"), checkAndFormat(bedWarsStats[mode + "_beds_lost_bedwars"])],
+      [getTranslation("statistics.bblr"), calculateRatio(bedWarsStats[mode + "_beds_broken_bedwars"], bedWarsStats[mode + "_beds_lost_bedwars"], 2)],
     ],
   ];
 }
 
 function getSkyWarsModeStats(mode) {
   return [
-    [false, ["Wins", checkAndFormat(skyWarsStats["wins_" + mode])], ["Losses", checkAndFormat(skyWarsStats["losses_" + mode])], ["W/L R", calculateRatio(skyWarsStats["wins_" + mode], skyWarsStats["losses_" + mode], 2)]],
-    [false, ["Kills", checkAndFormat(skyWarsStats["kills_" + mode])], ["Deaths", checkAndFormat(skyWarsStats["deaths_" + mode])], ["K/D R", calculateRatio(skyWarsStats["kills_" + mode], skyWarsStats["deaths_" + mode], 2)]],
+    [false, [getTranslation("statistics.wins"), checkAndFormat(skyWarsStats["wins_" + mode])], [getTranslation("statistics.losses"), checkAndFormat(skyWarsStats["losses_" + mode])], [getTranslation("statistics.wlr"), calculateRatio(skyWarsStats["wins_" + mode], skyWarsStats["losses_" + mode], 2)]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(skyWarsStats["kills_" + mode])], [getTranslation("statistics.deaths"), checkAndFormat(skyWarsStats["deaths_" + mode])], [getTranslation("statistics.kdr"), calculateRatio(skyWarsStats["kills_" + mode], skyWarsStats["deaths_" + mode], 2)]],
   ];
 }
 
@@ -735,20 +745,20 @@ function getZombiesStats(map) {
   }
 
   return [
-    [false, ["Wins", checkAndFormat(arcadeStats["wins_zombies" + map])]],
+    [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_zombies" + map])]],
     [
       false,
-      ["Kills", checkAndFormat(arcadeStats["zombie_kills_zombies" + map])],
-      ["Deaths", checkAndFormat(arcadeStats["deaths_zombies" + map])],
-      ["K/D R", calculateRatio(arcadeStats["zombie_kills_zombies" + map], arcadeStats["deaths_zombies" + map])],
+      [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["zombie_kills_zombies" + map])],
+      [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_zombies" + map])],
+      [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["zombie_kills_zombies" + map], arcadeStats["deaths_zombies" + map])],
     ],
     [
       false,
-      ["Downs", checkAndFormat(arcadeStats["times_knocked_down_zombies" + map])],
-      ["Revives", checkAndFormat(arcadeStats["players_revived_zombies" + map])],
-      ["Rounds Survived", checkAndFormat(arcadeStats["total_rounds_survived_zombies" + map])],
+      [getTranslation("statistics.downs"), checkAndFormat(arcadeStats["times_knocked_down_zombies" + map])],
+      [getTranslation("statistics.revives"), checkAndFormat(arcadeStats["players_revived_zombies" + map])],
+      [getTranslation("statistics.rounds_survived"), checkAndFormat(arcadeStats["total_rounds_survived_zombies" + map])],
     ],
-    [false, ["Doors Opened", checkAndFormat(arcadeStats["doors_opened_zombies" + map])], ["Windows Repaired", checkAndFormat(arcadeStats["windows_repaired_zombies" + map])]],
+    [false, [getTranslation("statistics.doors_opened"), checkAndFormat(arcadeStats["doors_opened_zombies" + map])], [getTranslation("statistics.windows_repaired"), checkAndFormat(arcadeStats["windows_repaired_zombies" + map])]],
   ];
 }
 
@@ -760,8 +770,8 @@ function getArcadeHideAndSeekStats(mode) {
   }
 
   return [
-    [false, ["Wins", sumStatsBasic([mode + "hider_wins_hide_and_seek", mode + "seeker_wins_hide_and_seek"], arcadeStats)]],
-    [false, ["Wins (Hider)", checkAndFormat(arcadeStats[mode + "hider_wins_hide_and_seek"])], ["Wins (Seeker)", checkAndFormat(arcadeStats[mode + "seeker_wins_hide_and_seek"])]],
+    [false, [getTranslation("statistics.wins"), sumStatsBasic([mode + "hider_wins_hide_and_seek", mode + "seeker_wins_hide_and_seek"], arcadeStats)]],
+    [false, [getTranslation("statistics.wins_hider"), checkAndFormat(arcadeStats[mode + "hider_wins_hide_and_seek"])], [getTranslation("statistics.wins_seeker"), checkAndFormat(arcadeStats[mode + "seeker_wins_hide_and_seek"])]],
     // party_pooper_seeker_wins_hide_and_seek
   ];
 }
@@ -798,11 +808,11 @@ function getArenaBrawlStats(mode) {
   }
 
   return [
-    [false, ["Coins", checkAndFormat(arenaStats["coins"])]],
-    [false, ["Wins", formattedArenaModeStats[0]], ["Losses", formattedArenaModeStats[1]], ["W/L R", calculateRatio(arenaModeStats[0], arenaModeStats[1])]],
-    [false, ["Kills", formattedArenaModeStats[2]], ["Deaths", formattedArenaModeStats[3]], ["K/D R", calculateRatio(arenaModeStats[2], arenaModeStats[3])]],
-    [false, ["Damage Dealt", formattedArenaModeStats[4] + " HP"], ["Damage Healed", formattedArenaModeStats[5] + " HP"]],
-    [false, ["Magical Keys", checkAndFormat(arenaStats["keys"])], ["Magical Chests", checkAndFormat(arenaStats["magical_chest"])]],
+    [false, [getTranslation("statistics.coins"), checkAndFormat(arenaStats["coins"])]],
+    [false, [getTranslation("statistics.wins"), formattedArenaModeStats[0]], [getTranslation("statistics.losses"), formattedArenaModeStats[1]], [getTranslation("statistics.wlr"), calculateRatio(arenaModeStats[0], arenaModeStats[1])]],
+    [false, [getTranslation("statistics.kills"), formattedArenaModeStats[2]], [getTranslation("statistics.deaths"), formattedArenaModeStats[3]], [getTranslation("statistics.kdr"), calculateRatio(arenaModeStats[2], arenaModeStats[3])]],
+    [false, [getTranslation("statistics.damage_dealt"), formattedArenaModeStats[4] + " HP"], ["Damage Healed", formattedArenaModeStats[5] + " HP"]],
+    [false, [getTranslation("statistics.magical_keys"), checkAndFormat(arenaStats["keys"])], [getTranslation("statistics.magical_chests"), checkAndFormat(arenaStats["magical_chest"])]],
   ];
 }
 
@@ -828,22 +838,22 @@ function getTKRStats(mode) {
     let tkrGamesPlayed = sumStatsBasic(["retro_plays", "canyon_plays", "junglerush_plays", "hypixelgp_plays", "olympus_plays"], tkrStats);
 
     return [
-      [false, ["Coins", checkAndFormat(tkrStats["coins"])]],
-      [false, ["Trophies", checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats))], ["Laps", checkAndFormat(tkrStats["laps_completed"])]],
-      [false, ["Golds", getGenericWinsPrefix(tkrStats["gold_trophy"], tkrTitles, tkrStats["prefix_color"], false, "✪")], ["Silvers", checkAndFormat(tkrStats["silver_trophy"])], ["Bronzes", checkAndFormat(tkrStats["bronze_trophy"])]],
-      [false, ["Games Played", locale(tkrGamesPlayed, 0)], ["Trophy Rate", checkAndFormat((sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats) / tkrGamesPlayed) * 100, 1) + "%"]],
-      [false, ["Box Pickups", checkAndFormat(tkrStats["box_pickups"])], ["Coins Picked Up", checkAndFormat(tkrStats["coins_picked_up"])]],
+      [false, [getTranslation("statistics.coins"), checkAndFormat(tkrStats["coins"])]],
+      [false, ["Trophies", checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats))], [getTranslation("statistics.laps"), checkAndFormat(tkrStats["laps_completed"])]],
+      [false, [getTranslation("statistics.golds"), getGenericWinsPrefix(tkrStats["gold_trophy"], tkrTitles, tkrStats["prefix_color"], false, "✪")], [getTranslation("statistics.silvers"), checkAndFormat(tkrStats["silver_trophy"])], [getTranslation("statistics.bronzes"), checkAndFormat(tkrStats["bronze_trophy"])]],
+      [false, [getTranslation("statistics.games_played"), locale(tkrGamesPlayed, 0)], [getTranslation("statistics.trophy_rate"), checkAndFormat((sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats) / tkrGamesPlayed) * 100, 1) + "%"]],
+      [false, [getTranslation("statistics.box_pickups"), checkAndFormat(tkrStats["box_pickups"])], [getTranslation("statistics.coin_pickups"), checkAndFormat(tkrStats["coins_picked_up"])]],
     ];
   } else {
     let tkrGamesPlayed = und(tkrStats[mode + "_plays"]);
     mode = "_" + mode;
 
     return [
-      [false, ["Coins", checkAndFormat(tkrStats["coins"])]],
+      [false, [getTranslation("statistics.coins"), checkAndFormat(tkrStats["coins"])]],
       [false, ["Trophies", checkAndFormat(sumStatsBasic(["gold_trophy" + mode, "silver_trophy" + mode, "bronze_trophy" + mode], tkrStats))]],
-      [false, ["Golds", checkAndFormat(tkrStats["gold_trophy" + mode])], ["Silvers", checkAndFormat(tkrStats["silver_trophy" + mode])], ["Bronzes", checkAndFormat(tkrStats["bronze_trophy" + mode])]],
-      [false, ["Games Played", locale(tkrGamesPlayed, 0)], ["Trophy Rate", checkAndFormat((sumStatsBasic(["gold_trophy" + mode, "silver_trophy" + mode, "bronze_trophy" + mode], tkrStats) / tkrGamesPlayed) * 100, 1) + "%"]],
-      [false, ["Box Pickups", checkAndFormat(tkrStats["box_pickups" + mode])]],
+      [false, [getTranslation("statistics.golds"), checkAndFormat(tkrStats["gold_trophy" + mode])], [getTranslation("statistics.silvers"), checkAndFormat(tkrStats["silver_trophy" + mode])], [getTranslation("statistics.bronzes"), checkAndFormat(tkrStats["bronze_trophy" + mode])]],
+      [false, [getTranslation("statistics.games_played"), locale(tkrGamesPlayed, 0)], [getTranslation("statistics.trophy_rate"), checkAndFormat((sumStatsBasic(["gold_trophy" + mode, "silver_trophy" + mode, "bronze_trophy" + mode], tkrStats) / tkrGamesPlayed) * 100, 1) + "%"]],
+      [false, [getTranslation("statistics.box_pickups"), checkAndFormat(tkrStats["box_pickups" + mode])]],
     ];
   }
 }
@@ -872,10 +882,10 @@ function getVampireZStats(mode) {
     ];
 
     return [
-      [false, ["Coins", checkAndFormat(vampireZStats["coins"])]],
-      [false, ["Wins", getGenericWinsPrefix(und(vampireZStats["human_wins"]), vampireZWinPrefixes, undefined, false)]],
-      [false, ["Vampire Kills", checkAndFormat(vampireZStats["vampire_kills"])], ["Deaths", checkAndFormat(vampireZStats["human_deaths"])], ["K/D R", calculateRatio(vampireZStats["vampire_kills"], vampireZStats["human_deaths"])]],
-      [false, ["Zombie Kills", checkAndFormat(vampireZStats["zombie_kills"])], ["Most Vampire Kills", checkAndFormat(vampireZStats["most_vampire_kills_new"])]],
+      [false, [getTranslation("statistics.coins"), checkAndFormat(vampireZStats["coins"])]],
+      [false, [getTranslation("statistics.wins"), getGenericWinsPrefix(und(vampireZStats["human_wins"]), vampireZWinPrefixes, undefined, false)]],
+      [false, [getTranslation("statistics.vampire_kills"), checkAndFormat(vampireZStats["vampire_kills"])], [getTranslation("statistics.deaths"), checkAndFormat(vampireZStats["human_deaths"])], [getTranslation("statistics.kdr"), calculateRatio(vampireZStats["vampire_kills"], vampireZStats["human_deaths"])]],
+      [false, [getTranslation("statistics.zombie_kills"), checkAndFormat(vampireZStats["zombie_kills"])], [getTranslation("statistics.most_vampire_kills"), checkAndFormat(vampireZStats["most_vampire_kills_new"])]],
     ];
   } else {
     let vampireZWinPrefixes = [
@@ -901,13 +911,13 @@ function getVampireZStats(mode) {
     ];
 
     return [
-      [false, ["Coins", checkAndFormat(vampireZStats["coins"])]],
-      [false, ["Wins", checkAndFormat(vampireZStats["vampire_wins"])]],
+      [false, [getTranslation("statistics.coins"), checkAndFormat(vampireZStats["coins"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(vampireZStats["vampire_wins"])]],
       [
         false,
         ["Human Kills", getGenericWinsPrefix(und(vampireZStats["human_kills"]), vampireZWinPrefixes, undefined, false)],
-        ["Deaths", checkAndFormat(vampireZStats["vampire_deaths"])],
-        ["K/D R", calculateRatio(vampireZStats["human_kills"], vampireZStats["vampire_deaths"])],
+        [getTranslation("statistics.deaths"), checkAndFormat(vampireZStats["vampire_deaths"])],
+        [getTranslation("statistics.kdr"), calculateRatio(vampireZStats["human_kills"], vampireZStats["vampire_deaths"])],
       ],
     ];
   }
@@ -934,21 +944,21 @@ function getQuakeStats(mode) {
   if (mode == "overall") {
     quakeModeStats = sumStats(["kills", "deaths", "wins", "headshots", "killstreaks", "shots_fired", "distance_travelled"], ["", "_teams"], quakeStats, "", true);
     return [
-      [false, ["Coins", checkAndFormat(quakeStats["coins"])]],
-      [false, ["Wins", checkAndFormat(quakeModeStats[2])]],
-      [false, ["Kills", getGenericWinsPrefix(quakeModeStats[0], quakeTitles, undefined, false)], ["Deaths", checkAndFormat(quakeModeStats[1]), ["K/D R", calculateRatio(quakeModeStats[0], quakeModeStats[1])]]],
-      [false, ["Headshots", checkAndFormat(quakeModeStats[3])], ["Killstreaks", checkAndFormat(quakeModeStats[4])]],
-      [false, ["Shots", checkAndFormat(quakeModeStats[5])], ["Distance Travelled", checkAndFormat(quakeModeStats[6]) + "m"]],
-      [false, ["Godlikes", checkAndFormat(playerAchievements["quake_godlikes"])]],
+      [false, [getTranslation("statistics.coins"), checkAndFormat(quakeStats["coins"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(quakeModeStats[2])]],
+      [false, [getTranslation("statistics.kills"), getGenericWinsPrefix(quakeModeStats[0], quakeTitles, undefined, false)], [getTranslation("statistics.deaths"), checkAndFormat(quakeModeStats[1]), [getTranslation("statistics.kdr"), calculateRatio(quakeModeStats[0], quakeModeStats[1])]]],
+      [false, [getTranslation("statistics.headshots"), checkAndFormat(quakeModeStats[3])], [getTranslation("statistics.killstreaks"), checkAndFormat(quakeModeStats[4])]],
+      [false, [getTranslation("statistics.shots"), checkAndFormat(quakeModeStats[5])], [getTranslation("statistics.distance_travelled"), checkAndFormat(quakeModeStats[6]) + "m"]],
+      [false, [getTranslation("statistics.godlikes"), checkAndFormat(playerAchievements["quake_godlikes"])]],
     ];
   } else {
     return [
-      [false, ["Coins", checkAndFormat(quakeStats["coins"])]],
-      [false, ["Wins", checkAndFormat(quakeStats["wins" + mode])]],
-      [false, ["Kills", checkAndFormat(quakeStats["kills" + mode])], ["Deaths", checkAndFormat(quakeStats["deaths" + mode]), ["K/D R", calculateRatio(quakeStats["kills" + mode], quakeStats["deaths" + mode])]]],
-      [false, ["Headshots", checkAndFormat(quakeStats["headshots" + mode])], ["Killstreaks", checkAndFormat(quakeStats["killstreaks" + mode])]],
-      [false, ["Shots", checkAndFormat(quakeStats["shots_fired" + mode])], ["Distance Travelled", checkAndFormat(quakeStats["distance_travelled" + mode]) + "m"]],
-      [false, ["Godlikes", checkAndFormat(playerAchievements["quake_godlikes"])]],
+      [false, [getTranslation("statistics.coins"), checkAndFormat(quakeStats["coins"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(quakeStats["wins" + mode])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(quakeStats["kills" + mode])], [getTranslation("statistics.deaths"), checkAndFormat(quakeStats["deaths" + mode]), [getTranslation("statistics.kdr"), calculateRatio(quakeStats["kills" + mode], quakeStats["deaths" + mode])]]],
+      [false, [getTranslation("statistics.headshots"), checkAndFormat(quakeStats["headshots" + mode])], [getTranslation("statistics.killstreaks"), checkAndFormat(quakeStats["killstreaks" + mode])]],
+      [false, [getTranslation("statistics.shots"), checkAndFormat(quakeStats["shots_fired" + mode])], [getTranslation("statistics.distance_travelled"), checkAndFormat(quakeStats["distance_travelled" + mode]) + "m"]],
+      [false, [getTranslation("statistics.godlikes"), checkAndFormat(playerAchievements["quake_godlikes"])]],
     ];
   }
 }
@@ -956,34 +966,34 @@ function getQuakeStats(mode) {
 function getArcadeSeasonalStats(game) {
   if (game == "overall") {
     return [
-      [false, ["Wins", checkAndFormat(sumStats(["wins"], ["santa_simulator", "scuba_simulator", "halloween_simulator", "grinch_simulator_v2", "easter_simulator"], arcadeStats, "_", true))]],
-      [false, ["Items Found", checkAndFormat(sumStatsBasic(["delivered_santa_simulator", "items_found_scuba_simulator", "candy_found_halloween_simulator", "gifts_grinch_simulator_v2", "eggs_found_easter_simulator"], arcadeStats))]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(sumStats(["wins"], ["santa_simulator", "scuba_simulator", "halloween_simulator", "grinch_simulator_v2", "easter_simulator"], arcadeStats, "_", true))]],
+      [false, [getTranslation("statistics.items_found"), checkAndFormat(sumStatsBasic(["delivered_santa_simulator", "items_found_scuba_simulator", "candy_found_halloween_simulator", "gifts_grinch_simulator_v2", "eggs_found_easter_simulator"], arcadeStats))]],
     ];
   } else {
     if (game == "grinch_simulator_v2") {
       return [
-        [false, ["Wins", checkAndFormat(arcadeStats["wins_grinch_simulator_v2"])]],
-        [false, ["Gifts Stolen", checkAndFormat(arcadeStats["gifts_grinch_simulator_v2"])]],
+        [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_grinch_simulator_v2"])]],
+        [false, [getTranslation("statistics.gifts_stolen"), checkAndFormat(arcadeStats["gifts_grinch_simulator_v2"])]],
       ];
     } else if (game == "scuba_simulator") {
       return [
-        [false, ["Wins", checkAndFormat(arcadeStats["wins_scuba_simulator"])]],
-        [false, ["Items Found", checkAndFormat(arcadeStats["items_found_scuba_simulator"])], ["Total Points", checkAndFormat(arcadeStats["total_points_scuba_simulator"])]],
+        [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_scuba_simulator"])]],
+        [false, [getTranslation("statistics.items_found"), checkAndFormat(arcadeStats["items_found_scuba_simulator"])], [getTranslation("statistics.total_points"), checkAndFormat(arcadeStats["total_points_scuba_simulator"])]],
       ];
     } else if (game == "santa_simulator") {
       return [
-        [false, ["Wins", checkAndFormat(arcadeStats["wins_santa_simulator"])]],
-        [false, ["Gifts Delivered", checkAndFormat(arcadeStats["delivered_santa_simulator"])], ["Times Spotted", checkAndFormat(arcadeStats["spotted_santa_simulator"])]],
+        [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_santa_simulator"])]],
+        [false, [getTranslation("statistics.gifts_delivered"), checkAndFormat(arcadeStats["delivered_santa_simulator"])], [getTranslation("statistics.times_spotted"), checkAndFormat(arcadeStats["spotted_santa_simulator"])]],
       ];
     } else if (game == "halloween_simulator") {
       return [
-        [false, ["Wins", checkAndFormat(arcadeStats["wins_halloween_simulator"])]],
-        [false, ["Candy Found", checkAndFormat(arcadeStats["candy_found_halloween_simulator"])]],
+        [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_halloween_simulator"])]],
+        [false, [getTranslation("statistics.candy_found"), checkAndFormat(arcadeStats["candy_found_halloween_simulator"])]],
       ];
     } else if (game == "easter_simulator") {
       return [
-        [false, ["Wins", checkAndFormat(arcadeStats["wins_easter_simulator"])]],
-        [false, ["Eggs Found", checkAndFormat(arcadeStats["eggs_found_easter_simulator"])]],
+        [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_easter_simulator"])]],
+        [false, [getTranslation("statistics.eggs_found"), checkAndFormat(arcadeStats["eggs_found_easter_simulator"])]],
       ];
     }
   }
@@ -1007,9 +1017,9 @@ function getDuelsStats(mode, is_bridge = false, cuteName) {
 
   return [
     [
-      [true, ["Winstreak", importedDuelsStats[0]], ["Best Winstreak", importedDuelsStats[1]]],
-      [false, ["Wins", importedDuelsStats[2]], ["Losses", importedDuelsStats[3]], ["W/L R", importedDuelsStats[4]]],
-      [false, ["Kills", importedDuelsStats[5]], ["Deaths", importedDuelsStats[6]], ["K/D R", importedDuelsStats[7]]],
+      [true, [getTranslation("statistics.winstreak"), importedDuelsStats[0]], [getTranslation("statistics.best_winstreak"), importedDuelsStats[1]]],
+      [false, [getTranslation("statistics.wins"), importedDuelsStats[2]], [getTranslation("statistics.losses"), importedDuelsStats[3]], [getTranslation("statistics.wlr"), importedDuelsStats[4]]],
+      [false, [getTranslation("statistics.kills"), importedDuelsStats[5]], [getTranslation("statistics.deaths"), importedDuelsStats[6]], [getTranslation("statistics.kdr"), importedDuelsStats[7]]],
     ],
     getDuelsTitle(und(duelsStats[mode + "_wins"]), cuteName),
   ];
@@ -1031,9 +1041,9 @@ function getDuelsOverallModeStats(modeArray, is_bridge = false, cuteName) {
 
   return [
     [
-      [true, ["Winstreak", checkAndFormat(roundRobinDuelsStats2[0])], ["Best Winstreak", checkAndFormat(roundRobinDuelsStats2[1])]],
-      [false, ["Wins", checkAndFormat(roundRobinDuelsStats[0])], ["Losses", checkAndFormat(roundRobinDuelsStats[1])], ["W/L R", calculateRatio(roundRobinDuelsStats[0], roundRobinDuelsStats[1])]],
-      [false, ["Kills", checkAndFormat(roundRobinDuelsStats[2])], ["Deaths", checkAndFormat(roundRobinDuelsStats[3])], ["K/D R", calculateRatio(roundRobinDuelsStats[2], roundRobinDuelsStats[3])]],
+      [true, [getTranslation("statistics.winstreak"), checkAndFormat(roundRobinDuelsStats2[0])], [getTranslation("statistics.best_winstreak"), checkAndFormat(roundRobinDuelsStats2[1])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(roundRobinDuelsStats[0])], [getTranslation("statistics.losses"), checkAndFormat(roundRobinDuelsStats[1])], [getTranslation("statistics.wlr"), calculateRatio(roundRobinDuelsStats[0], roundRobinDuelsStats[1])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(roundRobinDuelsStats[2])], [getTranslation("statistics.deaths"), checkAndFormat(roundRobinDuelsStats[3])], [getTranslation("statistics.kdr"), calculateRatio(roundRobinDuelsStats[2], roundRobinDuelsStats[3])]],
     ],
     getDuelsTitle(und(roundRobinDuelsStats[0]), cuteName),
   ];
@@ -1160,7 +1170,7 @@ function generateDuels() {
         "bridge",
         "Bridge",
         [
-          ["Overall", "bridge"],
+          [getTranslation("games.modes.all.overall"), "bridge"],
           ["1v1", "bridge_duel"],
           ["2v2", "bridge_doubles"],
           ["3v3", "bridge_threes"],
@@ -1175,7 +1185,7 @@ function generateDuels() {
         "sw",
         "SkyWars",
         [
-          ["Overall", "sw"],
+          [getTranslation("games.modes.all.overall"), "sw"],
           ["1v1", "sw_duel"],
           ["2v2", "sw_doubles"],
         ],
@@ -1186,7 +1196,7 @@ function generateDuels() {
         "uhc",
         "UHC",
         [
-          ["Overall", "uhc"],
+          [getTranslation("games.modes.all.overall"), "uhc"],
           ["1v1", "uhc_duel"],
           ["2v2", "uhc_doubles"],
           ["4v4", "uhc_four"],
@@ -1202,7 +1212,7 @@ function generateDuels() {
         "mw",
         "Mega Walls",
         [
-          ["Overall", "mw"],
+          [getTranslation("games.modes.all.overall"), "mw"],
           ["1v1", "mw_duel"],
           ["2v2", "mw_doubles"],
         ],
@@ -1213,7 +1223,7 @@ function generateDuels() {
         "op",
         "OP",
         [
-          ["Overall", "op"],
+          [getTranslation("games.modes.all.overall"), "op"],
           ["1v1", "op_duel"],
           ["2v2", "op_doubles"],
         ],
@@ -1298,7 +1308,7 @@ function generateBuildBattle() {
     for (a = 0; a < buildBattleModes.length; a++) {
       currentBuildBattleMode = buildBattleModes[a];
 
-      buildBattleModeStats = [[false, ["Wins", checkAndFormat(buildBattleStats[`wins_${currentBuildBattleMode[1]}`])]]];
+      buildBattleModeStats = [[false, [getTranslation("statistics.wins"), checkAndFormat(buildBattleStats[`wins_${currentBuildBattleMode[1]}`])]]];
 
       if (currentBuildBattleMode[1] == "guess_the_build") {
         buildBattleModeStats[0].push(["Correct Guesses", checkAndFormat(buildBattleStats[`correct_guesses`])]);
@@ -1356,15 +1366,15 @@ function generateMurderMystery() {
       murderMysteryModeStats = [
         [
           false,
-          ["Wins", checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
-          ["Losses", checkAndFormat(murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
-          ["W/L R", calculateRatio(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`], murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
+          [getTranslation("statistics.wins"), checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
+          [getTranslation("statistics.losses"), checkAndFormat(murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
+          [getTranslation("statistics.wlr"), calculateRatio(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`], murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
         ],
         [
           false,
-          ["Kills", checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
-          ["Deaths", checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`])],
-          ["K/D R", calculateRatio(checkAndFormat(murderMysteryStats[`kills_${currentMurderMysteryMode[1]}`]), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`]))],
+          [getTranslation("statistics.kills"), checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
+          [getTranslation("statistics.deaths"), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`])],
+          [getTranslation("statistics.kdr"), calculateRatio(checkAndFormat(murderMysteryStats[`kills_${currentMurderMysteryMode[1]}`]), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`]))],
         ],
       ];
 
@@ -1463,11 +1473,11 @@ function generateTNTGames() {
     [
       [
         false,
-        ["Wins", getGenericWinsPrefix(tntGamesStats["wins_tntrun"], tntGamesHighPrefixes, tntGamesStats["prefix_tntrun"], false, "")],
-        ["Losses", checkAndFormat(tntGamesStats["deaths_tntrun"])],
-        ["W/L R", calculateRatio(tntGamesStats["wins_tntrun"], tntGamesStats["deaths_tntrun"])],
+        [getTranslation("statistics.wins"), getGenericWinsPrefix(tntGamesStats["wins_tntrun"], tntGamesHighPrefixes, tntGamesStats["prefix_tntrun"], false, "")],
+        [getTranslation("statistics.losses"), checkAndFormat(tntGamesStats["deaths_tntrun"])],
+        [getTranslation("statistics.wlr"), calculateRatio(tntGamesStats["wins_tntrun"], tntGamesStats["deaths_tntrun"])],
       ],
-      [false, ["Blocks Ran", checkAndFormat(playerAchievements["tntgames_block_runner"])], ["Best Time", smallDuration(und(tntGamesStats["record_tntrun"]))]],
+      [false, [getTranslation("statistics.blocks_ran"), checkAndFormat(playerAchievements["tntgames_block_runner"])], [getTranslation("statistics.best_time"), smallDuration(und(tntGamesStats["record_tntrun"]))]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     "/img/icon/minecraft/diamond_boots.png", // Chip image
@@ -1482,12 +1492,12 @@ function generateTNTGames() {
     [
       [
         false,
-        ["Wins", getGenericWinsPrefix(tntGamesStats["wins_pvprun"], tntGamesHighPrefixes, tntGamesStats["prefix_pvprun"], false, "")],
-        ["Losses", checkAndFormat(tntGamesStats["deaths_pvprun"])],
-        ["W/L R", calculateRatio(tntGamesStats["wins_pvprun"], tntGamesStats["deaths_pvprun"])],
+        [getTranslation("statistics.wins"), getGenericWinsPrefix(tntGamesStats["wins_pvprun"], tntGamesHighPrefixes, tntGamesStats["prefix_pvprun"], false, "")],
+        [getTranslation("statistics.losses"), checkAndFormat(tntGamesStats["deaths_pvprun"])],
+        [getTranslation("statistics.wlr"), calculateRatio(tntGamesStats["wins_pvprun"], tntGamesStats["deaths_pvprun"])],
       ],
-      [false, ["Kills", checkAndFormat(tntGamesStats["kills_pvprun"])], ["Deaths", checkAndFormat(tntGamesStats["deaths_pvprun"])], ["K/D R", calculateRatio(tntGamesStats["kills_pvprun"], tntGamesStats["deaths_pvprun"])]],
-      [false, ["Best Time", smallDuration(und(tntGamesStats["record_pvprun"]))]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(tntGamesStats["kills_pvprun"])], [getTranslation("statistics.deaths"), checkAndFormat(tntGamesStats["deaths_pvprun"])], [getTranslation("statistics.kdr"), calculateRatio(tntGamesStats["kills_pvprun"], tntGamesStats["deaths_pvprun"])]],
+      [false, [getTranslation("statistics.best_time"), smallDuration(und(tntGamesStats["record_pvprun"]))]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     "/img/icon/minecraft/iron_sword.png", // Chip image
@@ -1502,12 +1512,12 @@ function generateTNTGames() {
     [
       [
         false,
-        ["Wins", getGenericWinsPrefix(tntGamesStats["wins_tntag"], tntGamesLowPrefixes, tntGamesStats["prefix_tntag"], false, "")],
-        ["Losses", checkAndFormat(tntGamesStats["deaths_tntag"])],
-        ["W/L R", calculateRatio(tntGamesStats["wins_tntag"], tntGamesStats["deaths_tntag"])],
+        [getTranslation("statistics.wins"), getGenericWinsPrefix(tntGamesStats["wins_tntag"], tntGamesLowPrefixes, tntGamesStats["prefix_tntag"], false, "")],
+        [getTranslation("statistics.losses"), checkAndFormat(tntGamesStats["deaths_tntag"])],
+        [getTranslation("statistics.wlr"), calculateRatio(tntGamesStats["wins_tntag"], tntGamesStats["deaths_tntag"])],
       ],
-      [false, ["Kills", checkAndFormat(tntGamesStats["kills_tntag"])], ["Deaths", checkAndFormat(tntGamesStats["deaths_tntag"])], ["K/D R", calculateRatio(tntGamesStats["kills_tntag"], tntGamesStats["deaths_tntag"])]],
-      [false, ["Tags", checkAndFormat(playerAchievements["tntgames_clinic"])], ["Powerups", checkAndFormat(playerAchievements["tntgames_the_upper_hand"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(tntGamesStats["kills_tntag"])], [getTranslation("statistics.deaths"), checkAndFormat(tntGamesStats["deaths_tntag"])], [getTranslation("statistics.kdr"), calculateRatio(tntGamesStats["kills_tntag"], tntGamesStats["deaths_tntag"])]],
+      [false, [getTranslation("statistics.tags"), checkAndFormat(playerAchievements["tntgames_clinic"])], [getTranslation("statistics.powerups"), checkAndFormat(playerAchievements["tntgames_the_upper_hand"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     "/img/icon/minecraft/tnt.png", // Chip image
@@ -1522,11 +1532,11 @@ function generateTNTGames() {
     [
       [
         false,
-        ["Wins", getGenericWinsPrefix(tntGamesStats["wins_bowspleef"], tntGamesHighPrefixes, tntGamesStats["prefix_bowspleef"], false, "")],
-        ["Losses", checkAndFormat(tntGamesStats["deaths_bowspleef"])],
-        ["W/L R", calculateRatio(tntGamesStats["wins_bowspleef"], tntGamesStats["deaths_bowspleef"])],
+        [getTranslation("statistics.wins"), getGenericWinsPrefix(tntGamesStats["wins_bowspleef"], tntGamesHighPrefixes, tntGamesStats["prefix_bowspleef"], false, "")],
+        [getTranslation("statistics.losses"), checkAndFormat(tntGamesStats["deaths_bowspleef"])],
+        [getTranslation("statistics.wlr"), calculateRatio(tntGamesStats["wins_bowspleef"], tntGamesStats["deaths_bowspleef"])],
       ],
-      [false, ["Arrows Shot", checkAndFormat(tntGamesStats["tags_bowspleef"])]],
+      [false, [getTranslation("statistics.arrows_shot"), checkAndFormat(tntGamesStats["tags_bowspleef"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     "/img/icon/minecraft/bow.png", // Chip image
@@ -1534,7 +1544,7 @@ function generateTNTGames() {
   ];
 
   let wizardsList = [
-    ["Overall", "overall", `/img/icon/minecraft/tnt.${imageFileType}`],
+    [getTranslation("games.modes.all.overall"), "overall", `/img/icon/minecraft/tnt.${imageFileType}`],
     ["Ancient", "new_ancientwizard", `/img/icon/minecraft/magma_cream.${imageFileType}`],
     ["Arcane", "arcane_wizard", `/img/icon/minecraft/disc_11.${imageFileType}`],
     ["Blood", "new_bloodwizard", `/img/icon/minecraft/bone.${imageFileType}`],
@@ -1556,27 +1566,27 @@ function generateTNTGames() {
   );
 
   allTNTWizardStats["overall"] = [
-    [false, ["Overall Wins", getGenericWinsPrefix(tntGamesStats["wins_capture"], tntGamesHighPrefixes, tntGamesStats["prefix_capture"], false, "")], ["Overall Captures", checkAndFormat(tntGamesStats["points_capture"])]],
-    [false, ["Kills", checkAndFormat(totalWizardStats[0])], ["Deaths", checkAndFormat(totalWizardStats[1])], ["K/D R", calculateRatio(totalWizardStats[0], totalWizardStats[1])]],
-    [false, ["Healing", checkAndFormat(totalWizardStats[2] / 2) + ` ♥&#xFE0E;`], ["Damage Taken", checkAndFormat(totalWizardStats[3] / 2) + ` ♥&#xFE0E;`], ["Assists", checkAndFormat(tntGamesStats["assists_capture"])]],
+    [false, [getTranslation("statistics.overall_wins"), getGenericWinsPrefix(tntGamesStats["wins_capture"], tntGamesHighPrefixes, tntGamesStats["prefix_capture"], false, "")], [getTranslation("statistics.overall_captures"), checkAndFormat(tntGamesStats["points_capture"])]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(totalWizardStats[0])], [getTranslation("statistics.deaths"), checkAndFormat(totalWizardStats[1])], [getTranslation("statistics.kdr"), calculateRatio(totalWizardStats[0], totalWizardStats[1])]],
+    [false, [getTranslation("statistics.healing"), checkAndFormat(totalWizardStats[2] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.damage_taken"), checkAndFormat(totalWizardStats[3] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.assists"), checkAndFormat(tntGamesStats["assists_capture"])]],
   ];
 
   for (let a = 1; a < wizardsList.length; a++) {
     thisWizard = wizardsList[a][1];
 
     allTNTWizardStats[thisWizard] = [
-      [false, ["Overall Wins", getGenericWinsPrefix(tntGamesStats["wins_capture"], tntGamesHighPrefixes, tntGamesStats["prefix_capture"], false, "")], ["Overall Captures", checkAndFormat(tntGamesStats["points_capture"])]],
+      [false, [getTranslation("statistics.overall_wins"), getGenericWinsPrefix(tntGamesStats["wins_capture"], tntGamesHighPrefixes, tntGamesStats["prefix_capture"], false, "")], [getTranslation("statistics.overall_captures"), checkAndFormat(tntGamesStats["points_capture"])]],
       [
         false,
-        ["Kills", checkAndFormat(tntGamesStats[thisWizard + "_kills"])],
-        ["Deaths", checkAndFormat(tntGamesStats[thisWizard + "_deaths"])],
-        ["K/D R", calculateRatio(tntGamesStats[thisWizard + "_kills"], tntGamesStats[thisWizard + "_deaths"])],
+        [getTranslation("statistics.kills"), checkAndFormat(tntGamesStats[thisWizard + "_kills"])],
+        [getTranslation("statistics.deaths"), checkAndFormat(tntGamesStats[thisWizard + "_deaths"])],
+        [getTranslation("statistics.kdr"), calculateRatio(tntGamesStats[thisWizard + "_kills"], tntGamesStats[thisWizard + "_deaths"])],
       ],
       [
         false,
-        ["Healing", checkAndFormat(tntGamesStats[thisWizard + "_healing"] / 2) + ` ♥&#xFE0E;`],
-        ["Damage Taken", checkAndFormat(tntGamesStats[thisWizard + "_damage_taken"] / 2) + ` ♥&#xFE0E;`],
-        ["Assists", checkAndFormat(tntGamesStats[thisWizard + "_assists"])],
+        [getTranslation("statistics.healing"), checkAndFormat(tntGamesStats[thisWizard + "_healing"] / 2) + ` ♥&#xFE0E;`],
+        [getTranslation("statistics.damage_taken"), checkAndFormat(tntGamesStats[thisWizard + "_damage_taken"] / 2) + ` ♥&#xFE0E;`],
+        [getTranslation("statistics.assists"), checkAndFormat(tntGamesStats[thisWizard + "_assists"])],
       ],
     ];
   }
@@ -1642,8 +1652,8 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_dayone"])]],
-      [false, ["Kills", checkAndFormat(arcadeStats["kills_dayone"])], ["Headshots", checkAndFormat(arcadeStats["headshots_dayone"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_dayone"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_dayone"])], [getTranslation("statistics.headshots"), checkAndFormat(arcadeStats["headshots_dayone"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/rotten_flesh.${imageFileType}`, // Chip image
@@ -1657,14 +1667,14 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_oneinthequiver"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_oneinthequiver"])]],
       [
         false,
-        ["Kills", checkAndFormat(arcadeStats["kills_oneinthequiver"])],
-        ["Deaths", checkAndFormat(arcadeStats["deaths_oneinthequiver"])],
-        ["K/D R", calculateRatio(arcadeStats["kills_oneinthequiver"], arcadeStats["deaths_oneinthequiver"])],
+        [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_oneinthequiver"])],
+        [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_oneinthequiver"])],
+        [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["kills_oneinthequiver"], arcadeStats["deaths_oneinthequiver"])],
       ],
-      [false, ["Bounty Kills", checkAndFormat(arcadeStats["bounty_kills_oneinthequiver"])], ["Bow Kills", checkAndFormat(arcadeStats["bow_kills_oneinthequiver"])], ["Sword Kills", checkAndFormat(arcadeStats["sword_kills_oneinthequiver"])]],
+      [false, [getTranslation("statistics.bounty_kills"), checkAndFormat(arcadeStats["bounty_kills_oneinthequiver"])], [getTranslation("statistics.bow_kills"), checkAndFormat(arcadeStats["bow_kills_oneinthequiver"])], [getTranslation("statistics.sword_kills"), checkAndFormat(arcadeStats["sword_kills_oneinthequiver"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/bow.${imageFileType}`, // Chip image
@@ -1680,14 +1690,14 @@ function generateArcade() {
     [
       [
         false,
-        ["Wins", checkAndFormat(arcadeStats["woolhunt_participated_wins"])],
-        ["Losses", checkAndFormat(arcadeStats["woolhunt_participated_losses"])],
-        ["W/L R", calculateRatio(arcadeStats["woolhunt_participated_wins"], arcadeStats["woolhunt_participated_losses"])],
+        [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["woolhunt_participated_wins"])],
+        [getTranslation("statistics.losses"), checkAndFormat(arcadeStats["woolhunt_participated_losses"])],
+        [getTranslation("statistics.wlr"), calculateRatio(arcadeStats["woolhunt_participated_wins"], arcadeStats["woolhunt_participated_losses"])],
       ],
-      [false, ["Kills", checkAndFormat(arcadeStats["woolhunt_kills"])], ["Deaths", checkAndFormat(arcadeStats["woolhunt_deaths"])], ["K/D R", calculateRatio(arcadeStats["woolhunt_kills"], arcadeStats["woolhunt_deaths"])]],
-      [false, ["Draws", checkAndFormat(arcadeStats["woolhunt_experienced_draws"])], ["Assists", checkAndFormat(arcadeStats["woolhunt_assists"])]],
-      [false, ["Wool Picked Up", checkAndFormat(arcadeStats["woolhunt_wools_stolen"])], ["Wool Captured", checkAndFormat(arcadeStats["woolhunt_wools_captured"])]],
-      [false, ["Fastest Win", smallDuration(und(arcadeStats["woolhunt_fastest_win"]))], ["Fastest Capture", smallDuration(und(arcadeStats["woolhunt_fastest_capture"], -1))]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["woolhunt_kills"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["woolhunt_deaths"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["woolhunt_kills"], arcadeStats["woolhunt_deaths"])]],
+      [false, [getTranslation("statistics.draws"), checkAndFormat(arcadeStats["woolhunt_experienced_draws"])], [getTranslation("statistics.assists"), checkAndFormat(arcadeStats["woolhunt_assists"])]],
+      [false, [getTranslation("statistics.wool_picked_up"), checkAndFormat(arcadeStats["woolhunt_wools_stolen"])], [getTranslation("statistics.wool_captured"), checkAndFormat(arcadeStats["woolhunt_wools_captured"])]],
+      [false, [getTranslation("statistics.fastest_win"), smallDuration(und(arcadeStats["woolhunt_fastest_win"]))], [getTranslation("statistics.fastest_capture"), smallDuration(und(arcadeStats["woolhunt_fastest_capture"], -1))]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/orange_wool.${imageFileType}`, // Chip image
@@ -1700,7 +1710,7 @@ function generateArcade() {
     "Creeper Attack", // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
-    [[false, ["Max Wave", checkAndFormat(arcadeStats["max_wave"])]]], // Displayed stats
+    [[false, [getTranslation("statistics.max_wave"), checkAndFormat(arcadeStats["max_wave"])]]], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/creeper_head.${imageFileType}`, // Chip image
   ];
@@ -1711,8 +1721,8 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_dragonwars2"])]],
-      [false, ["Kills", checkAndFormat(arcadeStats["kills_dragonwars2"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_dragonwars2"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_dragonwars2"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/dragon_egg.${imageFileType}`, // Chip image
@@ -1727,12 +1737,12 @@ function generateArcade() {
     [
       [
         false,
-        ["Wins", checkAndFormat(dropperStats["wins"])],
-        ["Losses", locale(und(dropperStats["games_played"]) - und(dropperStats["wins"]), 0)],
-        ["W/L R", calculateRatio(dropperStats["wins"], und(dropperStats["games_played"]) - und(dropperStats["wins"]))],
+        [getTranslation("statistics.wins"), checkAndFormat(dropperStats["wins"])],
+        [getTranslation("statistics.losses"), locale(und(dropperStats["games_played"]) - und(dropperStats["wins"]), 0)],
+        [getTranslation("statistics.wlr"), calculateRatio(dropperStats["wins"], und(dropperStats["games_played"]) - und(dropperStats["wins"]))],
       ],
-      [false, ["Maps Completed", checkAndFormat(dropperStats["maps_completed"])], ["Fails", checkAndFormat(dropperStats["fails"])]],
-      [false, ["Best Time", smallDuration(dropperStats["fastest_game"] / 1000, true)], ["Flawless Games", checkAndFormat(dropperStats["flawless_games"])]],
+      [false, [getTranslation("statistics.maps_completed"), checkAndFormat(dropperStats["maps_completed"])], [getTranslation("statistics.fails"), checkAndFormat(dropperStats["fails"])]],
+      [false, [getTranslation("statistics.best_time"), smallDuration(dropperStats["fastest_game"] / 1000, true)], [getTranslation("statistics.flawless_games"), checkAndFormat(dropperStats["flawless_games"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/hopper.${imageFileType}`, // Chip image
@@ -1745,8 +1755,8 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_ender"])]],
-      [false, ["Blocks Destroyed", checkAndFormat(arcadeStats["blocks_destroyed_ender"])], ["Powerups", checkAndFormat(arcadeStats["powerup_activations_ender"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_ender"])]],
+      [false, [getTranslation("statistics.blocks_destroyed"), checkAndFormat(arcadeStats["blocks_destroyed_ender"])], [getTranslation("statistics.powerups"), checkAndFormat(arcadeStats["powerup_activations_ender"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/ender_pearl.${imageFileType}`, // Chip image
@@ -1759,12 +1769,12 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_farm_hunt"])]],
-      [false, ["Kills", checkAndFormat(arcadeStats["kills_farm_hunt"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_farm_hunt"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_farm_hunt"])]],
 
-      [false, ["Wins (Animal)", checkAndFormat(arcadeStats["animal_wins_farm_hunt"])], ["Wins (Hunter)", checkAndFormat(arcadeStats["hunter_wins_farm_hunt"])]],
-      [false, ["Kills (Animal)", checkAndFormat(arcadeStats["hunter_kills_farm_hunt"])], ["Kills (Hunter)", checkAndFormat(arcadeStats["animal_kills_farm_hunt"])]],
-      [false, ["Taunts", checkAndFormat(arcadeStats["taunts_used_farm_hunt"])], ["Poop Collected", checkAndFormat(arcadeStats["poop_collected_farm_hunt"])]],
+      [false, [getTranslation("statistics.wins_animal"), checkAndFormat(arcadeStats["animal_wins_farm_hunt"])], [getTranslation("statistics.wins_hunter"), checkAndFormat(arcadeStats["hunter_wins_farm_hunt"])]],
+      [false, [getTranslation("statistics.kills_animal"), checkAndFormat(arcadeStats["hunter_kills_farm_hunt"])], [getTranslation("statistics.kills_hunter"), checkAndFormat(arcadeStats["animal_kills_farm_hunt"])]],
+      [false, [getTranslation("statistics.taunts"), checkAndFormat(arcadeStats["taunts_used_farm_hunt"])], [getTranslation("statistics.poop_collected"), checkAndFormat(arcadeStats["poop_collected_farm_hunt"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/sheep_spawn_egg.${imageFileType}`, // Chip image
@@ -1777,8 +1787,8 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_soccer"])]],
-      [false, ["Goals", checkAndFormat(arcadeStats["goals_soccer"])], ["Kicks", checkAndFormat(arcadeStats["kicks_soccer"])], ["Power Kicks", checkAndFormat(arcadeStats["powerkicks_soccer"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_soccer"])]],
+      [false, [getTranslation("statistics.goals"), checkAndFormat(arcadeStats["goals_soccer"])], [getTranslation("statistics.kicks"), checkAndFormat(arcadeStats["kicks_soccer"])], [getTranslation("statistics.power_kicks"), checkAndFormat(arcadeStats["powerkicks_soccer"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/head_football.${imageFileType}`, // Chip image
@@ -1791,9 +1801,9 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["sw_game_wins"])]],
-      [false, ["Kills", checkAndFormat(arcadeStats["sw_kills"])], ["Deaths", checkAndFormat(arcadeStats["sw_deaths"])], ["K/D R", calculateRatio(arcadeStats["sw_kills"], arcadeStats["sw_deaths"])]],
-      [false, ["Kills (Empire)", checkAndFormat(arcadeStats["sw_empire_kills"])], ["Kills (Rebel)", checkAndFormat(arcadeStats["sw_rebel_kills"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["sw_game_wins"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["sw_kills"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["sw_deaths"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["sw_kills"], arcadeStats["sw_deaths"])]],
+      [false, [getTranslation("statistics.kills_empire"), checkAndFormat(arcadeStats["sw_empire_kills"])], [getTranslation("statistics.kills_rebel"), checkAndFormat(arcadeStats["sw_rebel_kills"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/firework_rocket.${imageFileType}`, // Chip image
@@ -1807,7 +1817,7 @@ function generateArcade() {
     `/img/games/404.${imageFileType}`, // Background image
     getArcadeHideAndSeekStats("overall"), // Displayed stats
     [
-      ["Overall", "overall", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
+      [getTranslation("games.modes.all.overall"), "overall", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
       ["Party Pooper", "party_pooper", `/img/icon/minecraft/tnt.${imageFileType}`],
       ["Prop Hunt", "prop_hunt", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
     ], // Other stats (shown in drop-down menu]
@@ -1821,9 +1831,9 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_hole_in_the_wall"])]],
-      [false, ["Walls", checkAndFormat(arcadeStats["rounds_hole_in_the_wall"])]],
-      [false, ["Record (Qualifiers)", checkAndFormat(arcadeStats["hitw_record_q"])], ["Record (Finals)", checkAndFormat(arcadeStats["hitw_record_f"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_hole_in_the_wall"])]],
+      [false, [getTranslation("statistics.walls"), checkAndFormat(arcadeStats["rounds_hole_in_the_wall"])]],
+      [false, [getTranslation("statistics.record_qualifiers"), checkAndFormat(arcadeStats["hitw_record_q"])], [getTranslation("statistics.record_finals"), checkAndFormat(arcadeStats["hitw_record_f"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/bricks.${imageFileType}`, // Chip image
@@ -1836,12 +1846,12 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", locale(und(arcadeStats["wins_simon_says"]) + und(arcadeStats["wins_santa_says"]), 0)]],
+      [false, [getTranslation("statistics.wins"), locale(und(arcadeStats["wins_simon_says"]) + und(arcadeStats["wins_santa_says"]), 0)]],
       [
         false,
-        ["Points", locale(und(arcadeStats["rounds_simon_says"]) + und(arcadeStats["rounds_santa_says"]), 0)],
-        ["Round Wins", locale(und(arcadeStats["round_wins_simon_says"]) + und(arcadeStats["round_wins_santa_says"]), 0)],
-        ["High Score", locale(Math.max(und(arcadeStats["top_score_simon_says"]), und(arcadeStats["top_score_santa_says"])), 0)],
+        [getTranslation("statistics.points"), locale(und(arcadeStats["rounds_simon_says"]) + und(arcadeStats["rounds_santa_says"]), 0)],
+        [getTranslation("statistics.round_wins"), locale(und(arcadeStats["round_wins_simon_says"]) + und(arcadeStats["round_wins_santa_says"]), 0)],
+        [getTranslation("statistics.high_score"), locale(Math.max(und(arcadeStats["top_score_simon_says"]), und(arcadeStats["top_score_santa_says"])), 0)],
       ],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
@@ -1855,13 +1865,13 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_mini_walls"])]],
-      [false, ["Kills", checkAndFormat(arcadeStats["kills_mini_walls"])], ["Deaths", checkAndFormat(arcadeStats["deaths_mini_walls"])], ["K/D R", calculateRatio(arcadeStats["kills_mini_walls"], arcadeStats["deaths_mini_walls"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_mini_walls"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_mini_walls"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_mini_walls"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["kills_mini_walls"], arcadeStats["deaths_mini_walls"])]],
       [
         false,
-        ["Final Kills", checkAndFormat(arcadeStats["final_kills_mini_walls"])],
-        ["Wither Kills", checkAndFormat(arcadeStats["wither_kills_mini_walls"])],
-        ["Wither Damage", checkAndFormat(arcadeStats["wither_damage_mini_walls"] / 2) + ` ♥&#xFE0E;`],
+        [getTranslation("statistics.final_kills"), checkAndFormat(arcadeStats["final_kills_mini_walls"])],
+        [getTranslation("statistics.wither_kills"), checkAndFormat(arcadeStats["wither_kills_mini_walls"])],
+        [getTranslation("statistics.wither_damage"), checkAndFormat(arcadeStats["wither_damage_mini_walls"] / 2) + ` ♥&#xFE0E;`],
       ],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
@@ -1875,8 +1885,8 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_party"])]],
-      [false, ["Round Wins", checkAndFormat(arcadeStats["round_wins_party"])], ["Stars Earned", checkAndFormat(arcadeStats["total_stars_party"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_party"])]],
+      [false, [getTranslation("statistics.round_wins"), checkAndFormat(arcadeStats["round_wins_party"])], [getTranslation("statistics.stars_earned"), checkAndFormat(arcadeStats["total_stars_party"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/cake.${imageFileType}`, // Chip image
@@ -1888,7 +1898,7 @@ function generateArcade() {
     "Pixel Painters", // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
-    [[false, ["Wins", checkAndFormat(arcadeStats["wins_draw_their_thing"])]]],
+    [[false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_draw_their_thing"])]]],
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/pink_dye.${imageFileType}`, // Chip image
     "arcade", // gamemode
@@ -1902,11 +1912,11 @@ function generateArcade() {
     [
       [
         false,
-        ["Wins", checkAndFormat(pixelPartyStats["wins"])],
-        ["Losses", locale(und(pixelPartyStats["games_played"]) - und(pixelPartyStats["wins"]), 0)],
-        ["W/L R", calculateRatio(pixelPartyStats["wins"], und(pixelPartyStats["games_played"]) - und(pixelPartyStats["wins"]))],
+        [getTranslation("statistics.wins"), checkAndFormat(pixelPartyStats["wins"])],
+        [getTranslation("statistics.losses"), locale(und(pixelPartyStats["games_played"]) - und(pixelPartyStats["wins"]), 0)],
+        [getTranslation("statistics.wlr"), calculateRatio(pixelPartyStats["wins"], und(pixelPartyStats["games_played"]) - und(pixelPartyStats["wins"]))],
       ],
-      [false, ["Rounds Completed", checkAndFormat(pixelPartyStats["rounds_completed"])], ["Powerups", checkAndFormat(pixelPartyStats["power_ups_collected"])]],
+      [false, [getTranslation("statistics.rounds_completed"), checkAndFormat(pixelPartyStats["rounds_completed"])], [getTranslation("statistics.powerups"), checkAndFormat(pixelPartyStats["power_ups_collected"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/disc_13.${imageFileType}`, // Chip image
@@ -1919,8 +1929,8 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
-      [false, ["Wins", checkAndFormat(arcadeStats["wins_throw_out"])]],
-      [false, ["Kills", checkAndFormat(arcadeStats["kills_throw_out"])], ["Deaths", checkAndFormat(arcadeStats["deaths_throw_out"])], ["K/D R", calculateRatio(arcadeStats["kills_throw_out"], arcadeStats["deaths_throw_out"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_throw_out"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_throw_out"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_throw_out"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["kills_throw_out"], arcadeStats["deaths_throw_out"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/snowball.${imageFileType}`, // Chip image
@@ -1934,10 +1944,10 @@ function generateArcade() {
     `/img/games/404.${imageFileType}`, // Background image
     getZombiesStats("overall"), // Displayed stats
     [
-      ["Overall", "overall"],
-      ["Dead End", "deadend"],
-      ["Bad Blood", "badblood"],
-      ["Alien Arcadium", "alienarcadium"],
+      [getTranslation("games.modes.all.overall"), "overall"],
+      [getTranslation("games.modes.arcade.zombies.deadend"), "deadend"],
+      [getTranslation("games.modes.arcade.zombies.badblood"), "badblood"],
+      [getTranslation("games.modes.arcade.zombies.alienarcadium"), "alienarcadium"],
     ], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/zombie_head.${imageFileType}`, // Chip image
     "arcade_zombies", // gamemode
@@ -1950,7 +1960,7 @@ function generateArcade() {
     `/img/games/404.${imageFileType}`, // Background image
     getArcadeSeasonalStats("overall"), // Displayed stats
     [
-      ["Overall", "overall"],
+      [getTranslation("games.modes.all.overall"), "overall"],
       ["Grinch Simulator", "grinch_simulator_v2", `/img/icon/minecraft/head_grinchsimulator.${imageFileType}`],
       ["Easter Simulator", "easter_simulator", `/img/icon/minecraft/head_eastersimulator.${imageFileType}`],
       ["Halloween Simulator", "halloween_simulator", `/img/icon/minecraft/head_halloweensimulator.${imageFileType}`],
@@ -2242,9 +2252,9 @@ decodeNBT(decompressedData.buffer)
     "",
     `/img/games/pit/combat.${imageFileType}`,
     [
-      [false, ["Sword Hits", checkAndFormat(pitPtlStats["sword_hits"])]],
-      [false, ["Arrows Shot", checkAndFormat(pitPtlStats["arrows_fired"])], ["Arrows Hit", checkAndFormat(pitPtlStats["arrow_hits"])]],
-      [false, ["Night Quests", checkAndFormat(pitPtlStats["night_quests_completed"])]],
+      [false, [getTranslation("statistics.sword_hits"), checkAndFormat(pitPtlStats["sword_hits"])]],
+      [false, [getTranslation("statistics.arrows_shot"), checkAndFormat(pitPtlStats["arrows_fired"])], [getTranslation("statistics.arrows_hit"), checkAndFormat(pitPtlStats["arrow_hits"])]],
+      [false, [getTranslation("statistics.night_quests"), checkAndFormat(pitPtlStats["night_quests_completed"])]],
     ],
     [],
     ``,
@@ -2256,8 +2266,8 @@ decodeNBT(decompressedData.buffer)
     "",
     `/img/games/pit/perfomance.${imageFileType}`,
     [
-      [false, ["XP", checkAndFormat(pitProfileStats["xp"])], ["Lifetime Gold", checkAndFormat(pitPtlStats["cash_earned"]) + "g"]],
-      [false, ["Contracts Started", checkAndFormat(pitPtlStats["contracts_started"])], ["Contracts Completed", checkAndFormat(pitPtlStats["contracts_completed"])]],
+      [false, [getTranslation("statistics.xp"), checkAndFormat(pitProfileStats["xp"])], [getTranslation("statistics.lifetime_gold"), checkAndFormat(pitPtlStats["cash_earned"]) + "g"]],
+      [false, [getTranslation("statistics.contracts_started"), checkAndFormat(pitPtlStats["contracts_started"])], [getTranslation("statistics.contracts_completed"), checkAndFormat(pitPtlStats["contracts_completed"])]],
     ],
     [],
     ``,
@@ -2269,10 +2279,10 @@ decodeNBT(decompressedData.buffer)
     "",
     `/img/games/pit/perks.${imageFileType}`,
     [
-      [false, ["Golden Apples Eaten", checkAndFormat(pitPtlStats["gapple_eaten"])], ["Golden Heads Eaten", checkAndFormat(pitPtlStats["ghead_eaten"])]],
-      [false, ["Blocks Placed", checkAndFormat(pitPtlStats["blocks_placed"])], ["Blocks Broken", checkAndFormat(pitPtlStats["blocks_broken"])]],
-      [false, ["Fishing Rod Launches", checkAndFormat(pitPtlStats["fishing_rod_launched"])], ["Lava Bucket Empties", checkAndFormat(pitPtlStats["lava_bucket_emptied"])]],
-      [false, ["Soups Drank", checkAndFormat(pitPtlStats["soups_drank"])]],
+      [false, [getTranslation("statistics.golden_apples_eaten"), checkAndFormat(pitPtlStats["gapple_eaten"])], [getTranslation("statistics.golden_heads_eaten"), checkAndFormat(pitPtlStats["ghead_eaten"])]],
+      [false, [getTranslation("statistics.blocks_placed"), checkAndFormat(pitPtlStats["blocks_placed"])], [getTranslation("statistics.blocks_broken"), checkAndFormat(pitPtlStats["blocks_broken"])]],
+      [false, [getTranslation("statistics.fishing_rod_launches"), checkAndFormat(pitPtlStats["fishing_rod_launched"])], ["Lava Bucket Empties", checkAndFormat(pitPtlStats["lava_bucket_emptied"])]],
+      [false, [getTranslation("statistics.soups_drank"), checkAndFormat(pitPtlStats["soups_drank"])]],
     ],
     [],
     ``,
@@ -2284,8 +2294,8 @@ decodeNBT(decompressedData.buffer)
     "",
     `/img/games/pit/mystics.${imageFileType}`,
     [
-      [false, ["Mystics Enchanted", locale(sumStatsBasic(["enchanted_tier1", "enchanted_tier2", "enchanted_tier3"], pitPtlStats), 0)], ["Dark Pants Created", checkAndFormat(pitPtlStats["dark_pants_crated"])]],
-      [false, ["Tier 1s", checkAndFormat(pitPtlStats["enchanted_tier1"])], ["Tier 2s", checkAndFormat(pitPtlStats["enchanted_tier2"])], ["Tier 3s", checkAndFormat(pitPtlStats["enchanted_tier3"])]],
+      [false, [getTranslation("statistics.mystics_enchanted"), locale(sumStatsBasic(["enchanted_tier1", "enchanted_tier2", "enchanted_tier3"], pitPtlStats), 0)], [getTranslation("statistics.dark_pants_created"), checkAndFormat(pitPtlStats["dark_pants_crated"])]],
+      [false, [getTranslation("statistics.tier_1s"), checkAndFormat(pitPtlStats["enchanted_tier1"])], [getTranslation("statistics.tier_2s"), checkAndFormat(pitPtlStats["enchanted_tier2"])], [getTranslation("statistics.tier_3s"), checkAndFormat(pitPtlStats["enchanted_tier3"])]],
     ],
     [],
     ``,
@@ -2297,8 +2307,8 @@ decodeNBT(decompressedData.buffer)
     "",
     `/img/games/pit/farming.${imageFileType}`,
     [
-      [false, ["Wheat Farmed", checkAndFormat(pitPtlStats["wheat_farmed"])]],
-      [false, ["Items Fished", checkAndFormat(pitPtlStats["fished_anything"])], ["Fish Fished", checkAndFormat(pitPtlStats["fishes_fished"])]],
+      [false, [getTranslation("statistics.wheat_farmed"), checkAndFormat(pitPtlStats["wheat_farmed"])]],
+      [false, [getTranslation("statistics.items_fished"), checkAndFormat(pitPtlStats["fished_anything"])], [getTranslation("statistics.fish_fished"), checkAndFormat(pitPtlStats["fishes_fished"])]],
     ],
     [],
     ``,
@@ -2310,9 +2320,9 @@ decodeNBT(decompressedData.buffer)
     "",
     `/img/games/pit/miscellaneous.${imageFileType}`,
     [
-      [false, ["Chat Messages", checkAndFormat(pitPtlStats["chat_messages"])], ["Ingots Picked Up", checkAndFormat(pitPtlStats["ingots_picked_up"])]],
-      [false, ["Pit Jumps", checkAndFormat(pitPtlStats["jumped_into_pit"])], ["Launcher Launches", locale(sumStatsBasic(["launched_by_launchers", "launched_by_angel_spawn", "launched_by_demon_spawn"], pitPtlStats), 0)]],
-      [false, ["Sewer Treasures", checkAndFormat(pitPtlStats["sewer_treasures_found"])], ["King's Quest Completions", checkAndFormat(pitPtlStats["king_quest_completion"])]],
+      [false, [getTranslation("statistics.chat_messages"), checkAndFormat(pitPtlStats["chat_messages"])], [getTranslation("statistics.ingots_picked_up"), checkAndFormat(pitPtlStats["ingots_picked_up"])]],
+      [false, [getTranslation("statistics.jumps_into_pit"), checkAndFormat(pitPtlStats["jumped_into_pit"])], [getTranslation("statistics.launcher_launches"), locale(sumStatsBasic(["launched_by_launchers", "launched_by_angel_spawn", "launched_by_demon_spawn"], pitPtlStats), 0)]],
+      [false, [getTranslation("statistics.sewer_treasures"), checkAndFormat(pitPtlStats["sewer_treasures_found"])], [getTranslation("statistics.kings_quest_completions"), checkAndFormat(pitPtlStats["king_quest_completion"])]],
     ],
     [],
     ``,
@@ -2362,7 +2372,7 @@ function generateClassic() {
     `/img/games/404.${imageFileType}`,
     getArenaBrawlStats("overall"),
     [
-      ["Overall", "overall"],
+      [getTranslation("games.modes.all.overall"), "overall"],
       ["1v1", "1v1"],
       ["2v2", "2v2"],
       ["4v4", "4v4"],
@@ -2392,15 +2402,15 @@ function generateClassic() {
     ``,
     `/img/games/404.${imageFileType}`,
     [
-      [false, ["Coins", checkAndFormat(paintballStats["coins"])]],
-      [false, ["Wins", checkAndFormat(paintballStats["wins"])]],
+      [false, [getTranslation("statistics.coins"), checkAndFormat(paintballStats["coins"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(paintballStats["wins"])]],
       [
         false,
-        ["Kills", getGenericWinsPrefix(und(paintballStats["kills"]), paintballTitles, paintballStats["prefix_color"], false)],
-        ["Deaths", checkAndFormat(paintballStats["deaths"])],
-        ["K/D R", calculateRatio(paintballStats["kills"], paintballStats["deaths"])],
+        [getTranslation("statistics.kills"), getGenericWinsPrefix(und(paintballStats["kills"]), paintballTitles, paintballStats["prefix_color"], false)],
+        [getTranslation("statistics.deaths"), checkAndFormat(paintballStats["deaths"])],
+        [getTranslation("statistics.kdr"), calculateRatio(paintballStats["kills"], paintballStats["deaths"])],
       ],
-      [false, ["Shots", checkAndFormat(paintballStats["shots_fired"])], ["Killstreaks", checkAndFormat(paintballStats["killstreaks"])]],
+      [false, [getTranslation("statistics.shots"), checkAndFormat(paintballStats["shots_fired"])], [getTranslation("statistics.killstreaks"), checkAndFormat(paintballStats["killstreaks"])]],
     ],
     [],
     `/img/icon/minecraft/snowball.${imageFileType}`,
@@ -2414,7 +2424,7 @@ function generateClassic() {
     `/img/games/404.${imageFileType}`,
     getTKRStats("overall"),
     [
-      ["Overall", "overall"],
+      [getTranslation("games.modes.all.overall"), "overall"],
       ["Canyon", "canyon"],
       ["Hypixel GP", "hypixelgp"],
       ["Jungle Rush", "junglerush"],
@@ -2432,7 +2442,7 @@ function generateClassic() {
     `/img/games/404.${imageFileType}`,
     getQuakeStats("overall"),
     [
-      ["Overall", "overall"],
+      [getTranslation("games.modes.all.overall"), "overall"],
       ["Solo", ""],
       ["Teams", "_teams"],
     ],
@@ -2447,8 +2457,8 @@ function generateClassic() {
     `/img/games/404.${imageFileType}`,
     getVampireZStats("human"),
     [
-      ["Human", "human"],
-      ["Vampire", "vampire"],
+      [getTranslation("games.modes.classic.vampirez.human"), "human"],
+      [getTranslation("games.modes.classic.vampirez.vampire"), "vampire"],
     ],
     `/img/icon/minecraft/wither_skeleton_skull.${imageFileType}`,
     "vampirez",
@@ -2475,10 +2485,10 @@ function generateClassic() {
     "",
     `/img/games/404.${imageFileType}`,
     [
-      [false, ["Coins", checkAndFormat(wallsStats["coins"])]],
-      [false, ["Wins", getGenericWinsPrefix(wallsStats["wins"], wallsTitles, undefined, false)], ["Losses", checkAndFormat(wallsStats["losses"])], ["W/L R", calculateRatio(wallsStats["wins"], wallsStats["losses"])]],
-      [false, ["Kills", checkAndFormat(wallsStats["kills"])], ["Deaths", checkAndFormat(wallsStats["deaths"])], ["K/D R", calculateRatio(wallsStats["kills"], wallsStats["deaths"])]],
-      [false, ["Assists", checkAndFormat(wallsStats["assists"])]],
+      [false, [getTranslation("statistics.coins"), checkAndFormat(wallsStats["coins"])]],
+      [false, [getTranslation("statistics.wins"), getGenericWinsPrefix(wallsStats["wins"], wallsTitles, undefined, false)], [getTranslation("statistics.losses"), checkAndFormat(wallsStats["losses"])], [getTranslation("statistics.wlr"), calculateRatio(wallsStats["wins"], wallsStats["losses"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(wallsStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(wallsStats["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(wallsStats["kills"], wallsStats["deaths"])]],
+      [false, [getTranslation("statistics.assists"), checkAndFormat(wallsStats["assists"])]],
     ],
     [],
     `/img/icon/minecraft/sand.${imageFileType}`,
@@ -2511,10 +2521,10 @@ function generateCopsAndCrims() {
     "",
     `/img/games/404.${imageFileType}`,
     [
-      [false, ["Wins", checkAndFormat(copsAndCrimsStats["game_wins"])]],
-      [false, ["Kills", checkAndFormat(copsAndCrimsStats["kills"])], ["Deaths", checkAndFormat(copsAndCrimsStats["deaths"])], ["K/D R", calculateRatio(copsAndCrimsStats["kills"], copsAndCrimsStats["deaths"])]],
-      [false, ["Assists", checkAndFormat(copsAndCrimsStats["assists"])], ["Headshot Kills", checkAndFormat(copsAndCrimsStats["headshot_kills"])], ["Shots", checkAndFormat(copsAndCrimsStats["shots_fired"])]],
-      [false, ["Bombs Defused", checkAndFormat(copsAndCrimsStats["bombs_defused"])], ["Bombs Planted", checkAndFormat(copsAndCrimsStats["bombs_planted"])], ["Round Wins", checkAndFormat(copsAndCrimsStats["round_wins"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(copsAndCrimsStats["game_wins"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(copsAndCrimsStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(copsAndCrimsStats["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(copsAndCrimsStats["kills"], copsAndCrimsStats["deaths"])]],
+      [false, [getTranslation("statistics.assists"), checkAndFormat(copsAndCrimsStats["assists"])], ["Headshot Kills", checkAndFormat(copsAndCrimsStats["headshot_kills"])], [getTranslation("statistics.shots"), checkAndFormat(copsAndCrimsStats["shots_fired"])]],
+      [false, [getTranslation("statistics.bombs_defused"), checkAndFormat(copsAndCrimsStats["bombs_defused"])], [getTranslation("statistics.bombs_planted"), checkAndFormat(copsAndCrimsStats["bombs_planted"])], [getTranslation("statistics.round_wins"), checkAndFormat(copsAndCrimsStats["round_wins"])]],
     ],
     [],
     ``,
@@ -2527,9 +2537,9 @@ function generateCopsAndCrims() {
     "",
     `/img/games/404.${imageFileType}`,
     [
-      [false, ["Wins", checkAndFormat(copsAndCrimsStats["game_wins_deathmatch"])]],
-      [false, ["Kills", checkAndFormat(copsAndCrimsStats["kills_deathmatch"])], ["Deaths", checkAndFormat(copsAndCrimsStats["deaths_deathmatch"])], ["K/D R", calculateRatio(copsAndCrimsStats["kills_deathmatch"], copsAndCrimsStats["deaths_deathmatch"])]],
-      [false, ["Assists", checkAndFormat(copsAndCrimsStats["assists_deathmatch"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(copsAndCrimsStats["game_wins_deathmatch"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(copsAndCrimsStats["kills_deathmatch"])], [getTranslation("statistics.deaths"), checkAndFormat(copsAndCrimsStats["deaths_deathmatch"])], [getTranslation("statistics.kdr"), calculateRatio(copsAndCrimsStats["kills_deathmatch"], copsAndCrimsStats["deaths_deathmatch"])]],
+      [false, [getTranslation("statistics.assists"), checkAndFormat(copsAndCrimsStats["assists_deathmatch"])]],
     ],
     [],
     ``,
@@ -2542,9 +2552,9 @@ function generateCopsAndCrims() {
     "",
     `/img/games/404.${imageFileType}`,
     [
-      [false, ["Wins", checkAndFormat(copsAndCrimsStats["game_wins_gungame"])]],
-      [false, ["Kills", checkAndFormat(copsAndCrimsStats["kills_gungame"])], ["Deaths", checkAndFormat(copsAndCrimsStats["deaths_gungame"])], ["K/D R", calculateRatio(copsAndCrimsStats["kills_gungame"], copsAndCrimsStats["deaths_gungame"])]],
-      [false, ["Assists", checkAndFormat(copsAndCrimsStats["assists_gungame"])], ["Fastest Win", smallDuration(copsAndCrimsStats["fastest_win_gungame"] / 1000, true)]]
+      [false, [getTranslation("statistics.wins"), checkAndFormat(copsAndCrimsStats["game_wins_gungame"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(copsAndCrimsStats["kills_gungame"])], [getTranslation("statistics.deaths"), checkAndFormat(copsAndCrimsStats["deaths_gungame"])], [getTranslation("statistics.kdr"), calculateRatio(copsAndCrimsStats["kills_gungame"], copsAndCrimsStats["deaths_gungame"])]],
+      [false, [getTranslation("statistics.assists"), checkAndFormat(copsAndCrimsStats["assists_gungame"])], [getTranslation("statistics.fastest_win"), smallDuration(copsAndCrimsStats["fastest_win_gungame"] / 1000, true)]]
     ],
     [],
     ``,
@@ -2582,7 +2592,7 @@ function generateCopsAndCrims() {
 
 function getCopsAndCrimsGunStats(gun) {
   return [
-    [false, ["Kills", checkAndFormat(copsAndCrimsStats[`${gun}Kills`])], ["Headshots", checkAndFormat(copsAndCrimsStats[`${gun}Headshots`])]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(copsAndCrimsStats[`${gun}Kills`])], [getTranslation("statistics.headshots"), checkAndFormat(copsAndCrimsStats[`${gun}Headshots`])]],
   ];
 }  
 
@@ -2616,7 +2626,52 @@ function generateBlitz() {
 
   updateElement("blitz-overall-kills", getGenericWinsPrefix(blitzStats["kills"], blitzPrefixes, blitzStats["togglekillcounter"], false, "", true), true);
 
-  let blitzKits = [ ["Arachnologist", "arachnologist"], ["Archer", "archer"], ["Armorer", "armorer"], ["Astronaut", "astronaut"], ["Baker", "baker"], ["Blaze", "blaze"], ["Creepertamer", "creepertamer"], ["Diver", "diver"], ["Donkeytamer", "donkeytamer"], ["Farmer", "farmer"], ["Fisherman", "fisherman"], ["Florist", "florist"], ["Golem", "golem"], ["Guardian", "guardian"], ["Horsetamer", "horsetamer"], ["Hunter", "hunter"], ["Hype Train", "hype train"], ["Jockey", "jockey"], ["Knight", "knight"], ["Meatmaster", "meatmaster"], ["Milkman", "milkman"], ["Necromancer", "necromancer"], ["Paladin", "paladin"], ["Phoenix", "phoenix"], ["Pigman", "pigman"], ["Ranger", "ranger"], ["Reaper", "reaper"], ["Reddragon", "reddragon"], ["Rogue", "rogue"], ["Scout", "scout"], ["Shadow Knight", "shadow knight"], ["Shark", "shark"], ["SlimeySlime", "slimeyslime"], ["Snowman", "snowman"], ["Speleologist", "speleologist"], ["Tim", "tim"], ["Toxicologist", "toxicologist"], ["Troll", "troll"], ["Viking", "viking"], ["Warlock", "warlock"], ["Warrior", "warrior"], ["Wolftamer", "wolftamer"], ["Rambo", "rambo"], ["Random", "random"], ];
+  let blitzKits = [
+    [getTranslation("games.modes.blitz.kits.arachnologist"), "arachnologist"],
+    [getTranslation("games.modes.blitz.kits.archer"), "archer"],
+    [getTranslation("games.modes.blitz.kits.armorer"), "armorer"],
+    [getTranslation("games.modes.blitz.kits.astronaut"), "astronaut"],
+    [getTranslation("games.modes.blitz.kits.baker"), "baker"],
+    [getTranslation("games.modes.blitz.kits.blaze"), "blaze"],
+    [getTranslation("games.modes.blitz.kits.creepertamer"), "creepertamer"],
+    [getTranslation("games.modes.blitz.kits.diver"), "diver"],
+    [getTranslation("games.modes.blitz.kits.donkeytamer"), "donkeytamer"],
+    [getTranslation("games.modes.blitz.kits.farmer"), "farmer"],
+    [getTranslation("games.modes.blitz.kits.fisherman"), "fisherman"],
+    [getTranslation("games.modes.blitz.kits.florist"), "florist"],
+    [getTranslation("games.modes.blitz.kits.golem"), "golem"],
+    [getTranslation("games.modes.blitz.kits.guardian"), "guardian"],
+    [getTranslation("games.modes.blitz.kits.horsetamer"), "horsetamer"],
+    [getTranslation("games.modes.blitz.kits.hunter"), "hunter"],
+    [getTranslation("games.modes.blitz.kits.hype train"), "hype train"],
+    [getTranslation("games.modes.blitz.kits.jockey"), "jockey"],
+    [getTranslation("games.modes.blitz.kits.knight"), "knight"],
+    [getTranslation("games.modes.blitz.kits.meatmaster"), "meatmaster"],
+    [getTranslation("games.modes.blitz.kits.milkman"), "milkman"],
+    [getTranslation("games.modes.blitz.kits.necromancer"), "necromancer"],
+    [getTranslation("games.modes.blitz.kits.paladin"), "paladin"],
+    [getTranslation("games.modes.blitz.kits.phoenix"), "phoenix"],
+    [getTranslation("games.modes.blitz.kits.pigman"), "pigman"],
+    [getTranslation("games.modes.blitz.kits.ranger"), "ranger"],
+    [getTranslation("games.modes.blitz.kits.reaper"), "reaper"],
+    [getTranslation("games.modes.blitz.kits.reddragon"), "reddragon"],
+    [getTranslation("games.modes.blitz.kits.rogue"), "rogue"],
+    [getTranslation("games.modes.blitz.kits.scout"), "scout"],
+    [getTranslation("games.modes.blitz.kits.shadow knight"), "shadow knight"],
+    [getTranslation("games.modes.blitz.kits.shark"), "shark"],
+    [getTranslation("games.modes.blitz.kits.slimeyslime"), "slimeyslime"],
+    [getTranslation("games.modes.blitz.kits.snowman"), "snowman"],
+    [getTranslation("games.modes.blitz.kits.speleologist"), "speleologist"],
+    [getTranslation("games.modes.blitz.kits.tim"), "tim"],
+    [getTranslation("games.modes.blitz.kits.toxicologist"), "toxicologist"],
+    [getTranslation("games.modes.blitz.kits.troll"), "troll"],
+    [getTranslation("games.modes.blitz.kits.viking"), "viking"],
+    [getTranslation("games.modes.blitz.kits.warlock"), "warlock"],
+    [getTranslation("games.modes.blitz.kits.warrior"), "warrior"],
+    [getTranslation("games.modes.blitz.kits.wolftamer"), "wolftamer"],
+    [getTranslation("games.modes.blitz.kits.rambo"), "rambo"],
+    [getTranslation("games.modes.blitz.kits.random"), "random"],
+  ];
 
   // Add kit level to each kit name
   for(let k = 0; k < blitzKits.length; k++) {
@@ -2627,7 +2682,7 @@ function generateBlitz() {
 
   let blitzKitsChip = [
     "blitz-kits",
-    "Kits",
+    getTranslation("games.modes.blitz.kits.category"),
     "",
     `/img/games/404.${imageFileType}`,
     getBlitzKitsStats("arachnologist"),
@@ -2653,22 +2708,22 @@ function getBlitzKitLevel(kit) {
 function getBlitzKitsStats(kit) {
   let topRowChipStats;
   if(kit == "random" || kit == "rambo") { // Random and Rambo kits don't have levels
-    topRowChipStats = [false, ["EXP", checkAndFormat(blitzStats["exp_" + kit])]];
+    topRowChipStats = [false, [getTranslation("statistics.exp"), checkAndFormat(blitzStats["exp_" + kit])]];
   } else {
-    topRowChipStats = [false, ["Level", getBlitzKitLevel(kit)], ["EXP", checkAndFormat(blitzStats["exp_" + kit])]];
+    topRowChipStats = [false, [getTranslation("statistics.level"), getBlitzKitLevel(kit)], [getTranslation("statistics.exp"), checkAndFormat(blitzStats["exp_" + kit])]];
   }
 
   let blitzKitStats = [
     topRowChipStats,
-    [false, ["Wins", checkAndFormat(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], ["Losses", checkAndFormat(und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], ["W/L R", calculateRatio(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats), und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))]],
-    [false, ["Kills", checkAndFormat(blitzStats["kills_" + kit])], ["Taunt Kills", checkAndFormat(blitzStats["taunt_kills_" + kit])]],
-    [false, ["Arrows Hit", checkAndFormat(blitzStats["arrows_hit_" + kit])], ["Damage Dealt", checkAndFormat(blitzStats["damage_" + kit] / 2) + " ♥\uFE0E"]],
-    [false, ["Potions Thrown", checkAndFormat(blitzStats["potions_thrown_" + kit])], ["Mobs Spawned", checkAndFormat(blitzStats["mobs_spawned_" + kit])]],
-    [false, ["Chests Opened", checkAndFormat(blitzStats["chests_opened_" + kit])], ["Playtime", smallDuration(und(blitzStats["time_played_" + kit]))]],
+    [false, [getTranslation("statistics.wins"), checkAndFormat(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], [getTranslation("statistics.losses"), checkAndFormat(und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], [getTranslation("statistics.wlr"), calculateRatio(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats), und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(blitzStats["kills_" + kit])], [getTranslation("statistics.taunt_kills"), checkAndFormat(blitzStats["taunt_kills_" + kit])]],
+    [false, [getTranslation("statistics.arrows_hit"), checkAndFormat(blitzStats["arrows_hit_" + kit])], [getTranslation("statistics.damage_dealt"), checkAndFormat(blitzStats["damage_" + kit] / 2) + " ♥\uFE0E"]],
+    [false, [getTranslation("statistics.potions_thrown"), checkAndFormat(blitzStats["potions_thrown_" + kit])], [getTranslation("statistics.mobs_spawned"), checkAndFormat(blitzStats["mobs_spawned_" + kit])]],
+    [false, [getTranslation("statistics.chests_opened"), checkAndFormat(blitzStats["chests_opened_" + kit])], [getTranslation("statistics.playtime"), smallDuration(und(blitzStats["time_played_" + kit]))]],
   ];
 
   if(kit != "rambo") { // Rambo kit doesn't have a team mode
-    blitzKitStats.splice(2, 0, [false, ["Wins (Solo)", checkAndFormat(blitzStats["wins_" + kit])], ["Wins (Teams)", checkAndFormat(blitzStats["wins_teams_" + kit])]]);
+    blitzKitStats.splice(2, 0, [false, [getTranslation("statistics.wins_solo"), checkAndFormat(blitzStats["wins_" + kit])], [getTranslation("statistics.wins_teams"), checkAndFormat(blitzStats["wins_teams_" + kit])]]);
   }
 
   return blitzKitStats;
@@ -2741,7 +2796,7 @@ function generateMegaWalls() {
   }
 
   let megaWallsClassesFormatted = Object.entries(megaWallsClasses).map(([key, value]) => [value["name"], key]);
-  let megaWallsClassesFormattedWithOverall = [["Overall", ""]].concat(megaWallsClassesFormatted);
+  let megaWallsClassesFormattedWithOverall = [[getTranslation("games.modes.all.overall"), ""]].concat(megaWallsClassesFormatted);
 
   let megaWallsClassChip = [
     "megawalls-classes",
@@ -2833,28 +2888,28 @@ function getMegaWallsClassStats(className = "", modeName = "") {
   }
 
   megaWallsClassChipStats = [
-    [false, ["Wins", checkAndFormat(megaWallsStats[`${className}wins${modeName}`])], ["Losses", checkAndFormat(megaWallsStats[`${className}losses${modeName}`])], ["W/L R", calculateRatio(megaWallsStats[`${className}wins${modeName}`], megaWallsStats[`${className}losses${modeName}`])]],
-    [false, ["Final Kills", checkAndFormat(megaWallsStats[`${className}final_kills${modeName}`])], ["Final Deaths", checkAndFormat(megaWallsStats[`${className}final_deaths${modeName}`])], ["FK/D R", calculateRatio(megaWallsStats[`${className}final_kills${modeName}`], megaWallsStats[`${className}final_deaths${modeName}`])]],
-    [false, ["Kills", checkAndFormat(megaWallsStats[`${className}kills${modeName}`])], ["Deaths", checkAndFormat(megaWallsStats[`${className}deaths${modeName}`])], ["K/D R", calculateRatio(megaWallsStats[`${className}kills${modeName}`], megaWallsStats[`${className}deaths${modeName}`])]],
-    [false, ["Wither Kills", checkAndFormat(megaWallsStats[`${className}wither_kills${modeName}`])], ["Damage Dealt", checkAndFormat(megaWallsStats[`${className}damage_dealt${modeName}`] / 2) + " ♥\uFE0E"]],
+    [false, [getTranslation("statistics.wins"), checkAndFormat(megaWallsStats[`${className}wins${modeName}`])], [getTranslation("statistics.losses"), checkAndFormat(megaWallsStats[`${className}losses${modeName}`])], [getTranslation("statistics.wlr"), calculateRatio(megaWallsStats[`${className}wins${modeName}`], megaWallsStats[`${className}losses${modeName}`])]],
+    [false, [getTranslation("statistics.final_kills"), checkAndFormat(megaWallsStats[`${className}final_kills${modeName}`])], [getTranslation("statistics.final_deaths"), checkAndFormat(megaWallsStats[`${className}final_deaths${modeName}`])], [getTranslation("statistics.fkdr"), calculateRatio(megaWallsStats[`${className}final_kills${modeName}`], megaWallsStats[`${className}final_deaths${modeName}`])]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(megaWallsStats[`${className}kills${modeName}`])], [getTranslation("statistics.deaths"), checkAndFormat(megaWallsStats[`${className}deaths${modeName}`])], [getTranslation("statistics.kdr"), calculateRatio(megaWallsStats[`${className}kills${modeName}`], megaWallsStats[`${className}deaths${modeName}`])]],
+    [false, [getTranslation("statistics.wither_kills"), checkAndFormat(megaWallsStats[`${className}wither_kills${modeName}`])], [getTranslation("statistics.damage_dealt"), checkAndFormat(megaWallsStats[`${className}damage_dealt${modeName}`] / 2) + " ♥\uFE0E"]],
   ];
 
   if(className != "" && modeName == "") { // If a class is selected and the mode is overall (show class points)
     let megaWallsClassPoints = megaWallsStats[`${className}class_points`] || (und(megaWallsStats[`${className}wins`]) * 10 + und(megaWallsStats[`${className}final_kills`]) + und(megaWallsStats[`${className}final_assists`])); 
 
 
-    megaWallsClassChipStats.splice(3, 0, [false, ["Final Assists", checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], ["Assists", checkAndFormat(megaWallsStats[`${className}assists${modeName}`])]]);
-    megaWallsClassChipStats.splice(4, 0, [false, ["Class Points", checkAndFormat(megaWallsClassPoints)], ["Playtime", smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]]);
+    megaWallsClassChipStats.splice(3, 0, [false, [getTranslation("statistics.final_assists"), checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], [getTranslation("statistics.assists"), checkAndFormat(megaWallsStats[`${className}assists${modeName}`])]]);
+    megaWallsClassChipStats.splice(4, 0, [false, [getTranslation("statistics.class_points"), checkAndFormat(megaWallsClassPoints)], [getTranslation("statistics.playtime"), smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]]);
   } else { // Otherwise, show final assists, assists, and playtime on the same line
-    megaWallsClassChipStats.splice(3, 0, [false, ["Final Assists", checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], ["Assists", checkAndFormat(megaWallsStats[`${className}assists${modeName}`])], ["Playtime", smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]]);
+    megaWallsClassChipStats.splice(3, 0, [false, [getTranslation("statistics.final_assists"), checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], [getTranslation("statistics.assists"), checkAndFormat(megaWallsStats[`${className}assists${modeName}`])], [getTranslation("statistics.playtime"), smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]]);
   }
 
   if(modeName == "" && className != "") {
     let megaWallsPrestige = getMegaWallsPrestige(trueClassName);
     if(megaWallsPrestige[0]) {
-      megaWallsClassChipStats.unshift([true, ["Prestige", megaWallsPrestige[1]], ["Ender Chest Rows", megaWallsPrestige[2]]]);
+      megaWallsClassChipStats.unshift([true, ["Prestige", megaWallsPrestige[1]], [getTranslation("statistics.ender_chest_rows"), megaWallsPrestige[2]]]);
     } else {
-      megaWallsClassChipStats.unshift([false, ["Upgrades", megaWallsPrestige[1]], ["Ender Chest Rows", megaWallsPrestige[2]]]);
+      megaWallsClassChipStats.unshift([false, ["Upgrades", megaWallsPrestige[1]], [getTranslation("statistics.ender_chest_rows"), megaWallsPrestige[2]]]);
     }
   }
   
@@ -2912,9 +2967,9 @@ function generateWarlords() {
     "",
     `/img/games/404.${imageFileType}`,
     [
-      [false, ["Wins", checkAndFormat(warlordsStats["wins_capturetheflag"])]],
-      [false, ["Kills", checkAndFormat(warlordsStats["kills_capturetheflag"])]],
-      [false, ["Flags Returned", checkAndFormat(warlordsStats["flag_returns"])]]
+      [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats["wins_capturetheflag"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(warlordsStats["kills_capturetheflag"])]],
+      [false, [getTranslation("statistics.flags_returned"), checkAndFormat(warlordsStats["flag_returns"])]]
     ],
     [],
     ``,
@@ -2927,8 +2982,8 @@ function generateWarlords() {
     "",
     `/img/games/404.${imageFileType}`,
     [
-      [false, ["Wins", checkAndFormat(warlordsStats["wins_teamdeathmatch"])]],
-      [false, ["Kills", checkAndFormat(warlordsStats["kills_teamdeathmatch"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats["wins_teamdeathmatch"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(warlordsStats["kills_teamdeathmatch"])]],
     ],
     [],
     ``,
@@ -2941,9 +2996,9 @@ function generateWarlords() {
     "",
     `/img/games/404.${imageFileType}`,
     [
-      [false, ["Wins", checkAndFormat(warlordsStats["wins_domination"])]],
-      [false, ["Kills", checkAndFormat(warlordsStats["kills_domination"])]],
-      [false, ["Total Score", checkAndFormat(warlordsStats["total_domination_score"])], ["Captures", checkAndFormat(warlordsStats["dom_point_captures"])]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats["wins_domination"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(warlordsStats["kills_domination"])]],
+      [false, [getTranslation("statistics.total_score"), checkAndFormat(warlordsStats["total_domination_score"])], [getTranslation("statistics.captures"), checkAndFormat(warlordsStats["dom_point_captures"])]],
     ],
     [],
     ``,
@@ -2994,13 +3049,13 @@ function getWarlordsClassStats(specName) {
   }
 
   let warlordsClassStats = [
-    [false, ["Level", formattedWarlordsClassLevel]],
-    [false, ["Wins", checkAndFormat(warlordsStats[`wins_${lookupName}`])], ["Losses", checkAndFormat(warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])], ["W/L R", calculateRatio(warlordsStats[`wins_${lookupName}`], warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])]],
-    [false, ["Damage Dealt", veryLargeNumber(warlordsStats[`damage_${lookupName}`]) + " HP"], ["Healing Done", veryLargeNumber(warlordsStats[`heal_${lookupName}`]) + " HP"]],
+    [false, [getTranslation("statistics.level"), formattedWarlordsClassLevel]],
+    [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats[`wins_${lookupName}`])], [getTranslation("statistics.losses"), checkAndFormat(warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])], [getTranslation("statistics.wlr"), calculateRatio(warlordsStats[`wins_${lookupName}`], warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])]],
+  [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(warlordsStats[`damage_${lookupName}`]) + " HP"], [getTranslation("statistics.healing"), veryLargeNumber(warlordsStats[`heal_${lookupName}`]) + " HP"]],
   ]
 
   if(className == "mage") {
-    warlordsClassStats[2].push(["Damage Prevented", veryLargeNumber(warlordsStats[`damage_prevented_${lookupName}`]) + " HP"]);
+    warlordsClassStats[2].push([getTranslation("statistics.damage_prevented"), veryLargeNumber(warlordsStats[`damage_prevented_${lookupName}`]) + " HP"]);
   }
 
   return warlordsClassStats;
@@ -3052,7 +3107,7 @@ function generateUHC() {
     `/img/games/404.${imageFileType}`,
     getUHCModeStats("overall"),
     [
-      ["Overall", "overall"],
+      [getTranslation("games.modes.all.overall"), "overall"],
       ["Solo", "solo"],
       ["Teams of 3", ""],
       ["nadeshiko-internal", "hr"],
@@ -3074,7 +3129,7 @@ function generateUHC() {
     `/img/games/404.${imageFileType}`,
     getSpeedUHCModeStats("overall"),
     [
-      ["Overall", "overall"],
+      [getTranslation("games.modes.all.overall"), "overall"],
       ["Solo", "solo"],
       ["Teams", "team"],
       ["nadeshiko-internal", "hr"],
@@ -3128,13 +3183,13 @@ function getUHCModeStats(mode) {
   }
 
   uhcModeStatsArray = [
-    [false, ["Wins", checkAndFormat(uhcModeStats["wins"])]],
-    [false, ["Kills", checkAndFormat(uhcModeStats["kills"])], ["Deaths", checkAndFormat(uhcModeStats["deaths"])], ["K/D R", uhcModeStats["kdr"]]],
-    [false, ["Heads Eaten", checkAndFormat(uhcModeStats["heads_eaten"])], ["Ultimates Crafted", checkAndFormat(uhcModeStats["ultimates_crafted"])]],
+    [false, [getTranslation("statistics.wins"), checkAndFormat(uhcModeStats["wins"])]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(uhcModeStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(uhcModeStats["deaths"])], [getTranslation("statistics.kdr"), uhcModeStats["kdr"]]],
+    [false, [getTranslation("statistics.heads_eaten"), checkAndFormat(uhcModeStats["heads_eaten"])], [getTranslation("statistics.ultimates_crafted"), checkAndFormat(uhcModeStats["ultimates_crafted"])]],
   ]
 
   if(mode == "overall") {
-    uhcModeStatsArray.unshift([false, ["Score", checkAndFormat(uhcStats["score"])]]);
+    uhcModeStatsArray.unshift([false, [getTranslation("statistics.score"), checkAndFormat(uhcStats["score"])]]);
   }
 
   return uhcModeStatsArray;
@@ -3148,12 +3203,12 @@ function getSpeedUHCModeStats(mode) {
   }
 
   speedUHCModeStatsArray = [
-    [false, ["Wins", checkAndFormat(speedUHCStats[`wins${mode}`])], ["Losses", checkAndFormat(speedUHCStats[`losses${mode}`])], ["W/L R", calculateRatio(speedUHCStats[`wins${mode}`], speedUHCStats[`losses${mode}`])]],
-    [false, ["Kills", checkAndFormat(speedUHCStats[`kills${mode}`])], ["Deaths", checkAndFormat(speedUHCStats[`deaths${mode}`])], ["K/D R", calculateRatio(speedUHCStats[`kills${mode}`], speedUHCStats[`deaths${mode}`])]],
+    [false, [getTranslation("statistics.wins"), checkAndFormat(speedUHCStats[`wins${mode}`])], [getTranslation("statistics.losses"), checkAndFormat(speedUHCStats[`losses${mode}`])], [getTranslation("statistics.wlr"), calculateRatio(speedUHCStats[`wins${mode}`], speedUHCStats[`losses${mode}`])]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(speedUHCStats[`kills${mode}`])], [getTranslation("statistics.deaths"), checkAndFormat(speedUHCStats[`deaths${mode}`])], [getTranslation("statistics.kdr"), calculateRatio(speedUHCStats[`kills${mode}`], speedUHCStats[`deaths${mode}`])]],
   ]
 
   if(mode == "") {
-    speedUHCModeStatsArray.unshift([false, ["Score", checkAndFormat(speedUHCStats[`score`])]]);
+    speedUHCModeStatsArray.unshift([false, [getTranslation("statistics.score"), checkAndFormat(speedUHCStats[`score`])]]);
   }
 
   return speedUHCModeStatsArray;
@@ -3186,7 +3241,7 @@ function generateSmash() {
   }
 
   let smashClassesArray = [
-    ["Overall", "overall"],
+    [getTranslation("games.modes.all.overall"), "overall"],
     ["Botmun", "BOTMUN"],
     ["Bulk", "THE_BULK"],
     ["Cake Monster", "CAKE_MONSTER"],
@@ -3333,17 +3388,17 @@ function getSmashStats(modeName = "", className = "") {
     let formattedSmashClassLevel = generateMinecraftText(`§b${addPrefixZero(smashClassLevel, 2)}${getSmashPrestige(className)}`);
 
     return  [
-      [false, ["Level", formattedSmashClassLevel]],
-      [false, ["Wins", checkAndFormat(smashClassStats["wins"])], ["Losses", checkAndFormat(smashClassStats["losses"])], ["W/L R", calculateRatio(smashClassStats["wins"], smashClassStats["losses"])]],
-      [false, ["Kills", checkAndFormat(smashClassStats["kills"])], ["Deaths", checkAndFormat(smashClassStats["deaths"])], ["K/D R", calculateRatio(smashClassStats["kills"], smashClassStats["deaths"])]],
-      [false, ["Damage Dealt", veryLargeNumber(smashClassStats["damage_dealt"]) + " HP"]]
+      [false, [getTranslation("statistics.level"), formattedSmashClassLevel]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(smashClassStats["wins"])], [getTranslation("statistics.losses"), checkAndFormat(smashClassStats["losses"])], [getTranslation("statistics.wlr"), calculateRatio(smashClassStats["wins"], smashClassStats["losses"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(smashClassStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(smashClassStats["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(smashClassStats["kills"], smashClassStats["deaths"])]],
+      [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(smashClassStats["damage_dealt"]) + " HP"]]
     ]
   } else if (className == "overall") { // Overall stats are stored in a different place than class stats
     if(modeName != "one_v_one" && modeName != "friend") {
       return [
-        [false, ["Wins", checkAndFormat(smashStats[`wins_${modeName}`])], ["Losses", checkAndFormat(smashStats[`losses_${modeName}`])], ["W/L R", calculateRatio(smashStats[`wins_${modeName}`], smashStats[`losses_${modeName}`])]],
-        [false, ["Kills", checkAndFormat(smashStats[`kills_${modeName}`])], ["Deaths", checkAndFormat(smashStats[`deaths_${modeName}`])], ["K/D R", calculateRatio(smashStats[`kills_${modeName}`], smashStats[`deaths_${modeName}`])]],
-        [false, ["Damage Dealt", veryLargeNumber(smashStats[`damage_dealt_${modeName}`]) + " HP"]]
+        [false, [getTranslation("statistics.wins"), checkAndFormat(smashStats[`wins_${modeName}`])], [getTranslation("statistics.losses"), checkAndFormat(smashStats[`losses_${modeName}`])], [getTranslation("statistics.wlr"), calculateRatio(smashStats[`wins_${modeName}`], smashStats[`losses_${modeName}`])]],
+        [false, [getTranslation("statistics.kills"), checkAndFormat(smashStats[`kills_${modeName}`])], [getTranslation("statistics.deaths"), checkAndFormat(smashStats[`deaths_${modeName}`])], [getTranslation("statistics.kdr"), calculateRatio(smashStats[`kills_${modeName}`], smashStats[`deaths_${modeName}`])]],
+        [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(smashStats[`damage_dealt_${modeName}`]) + " HP"]]
       ]
     } else { // 1v1 and friend stats aren't correctly put in the API, so you have to sum the stats of all classes to get the overall stats
       let smashAllClassStats = smashStats["class_stats"] || {};
@@ -3357,7 +3412,7 @@ function getSmashStats(modeName = "", className = "") {
       }
 
       return [
-        [false, ["Wins", checkAndFormat(statWins)], ["Losses", checkAndFormat(statLosses)], ["W/L R", calculateRatio(statWins, statLosses)]]
+        [false, [getTranslation("statistics.wins"), checkAndFormat(statWins)], [getTranslation("statistics.losses"), checkAndFormat(statLosses)], [getTranslation("statistics.wlr"), calculateRatio(statWins, statLosses)]]
       ]
     }
   } else { // specified class and mode
@@ -3366,13 +3421,13 @@ function getSmashStats(modeName = "", className = "") {
 
     if(modeName != "one_v_one" && modeName != "friend") { // These modes are formatted differently :(
       return [
-        [false, ["Wins", checkAndFormat(smashClassStats[`wins_${modeName}`])], ["Losses", checkAndFormat(smashClassStats[`losses_${modeName}`])], ["W/L R", calculateRatio(smashClassStats[`wins_${modeName}`], smashClassStats[`losses_${modeName}`])]],
-        [false, ["Kills", checkAndFormat(smashClassStats[`kills_${modeName}`])], ["Deaths", checkAndFormat(smashClassStats[`deaths_${modeName}`])], ["K/D R", calculateRatio(smashClassStats[`kills_${modeName}`], smashClassStats[`deaths_${modeName}`])]],
-        [false, ["Damage Dealt", veryLargeNumber(smashClassStats[`damage_dealt_${modeName}`]) + " HP"]]
+        [false, [getTranslation("statistics.wins"), checkAndFormat(smashClassStats[`wins_${modeName}`])], [getTranslation("statistics.losses"), checkAndFormat(smashClassStats[`losses_${modeName}`])], [getTranslation("statistics.wlr"), calculateRatio(smashClassStats[`wins_${modeName}`], smashClassStats[`losses_${modeName}`])]],
+        [false, [getTranslation("statistics.kills"), checkAndFormat(smashClassStats[`kills_${modeName}`])], [getTranslation("statistics.deaths"), checkAndFormat(smashClassStats[`deaths_${modeName}`])], [getTranslation("statistics.kdr"), calculateRatio(smashClassStats[`kills_${modeName}`], smashClassStats[`deaths_${modeName}`])]],
+        [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(smashClassStats[`damage_dealt_${modeName}`]) + " HP"]]
       ];
     } else {
       return [
-        [false, ["Wins", checkAndFormat(smashClassStats[`${modeName}_wins`])], ["Losses", checkAndFormat(smashClassStats[`${modeName}_losses`])], ["W/L R", calculateRatio(smashClassStats[`${modeName}_wins`], smashClassStats[`${modeName}_losses`])]],
+        [false, [getTranslation("statistics.wins"), checkAndFormat(smashClassStats[`${modeName}_wins`])], [getTranslation("statistics.losses"), checkAndFormat(smashClassStats[`${modeName}_losses`])], [getTranslation("statistics.wlr"), calculateRatio(smashClassStats[`${modeName}_wins`], smashClassStats[`${modeName}_losses`])]],
       ];
     }
   }
@@ -3460,7 +3515,7 @@ function generateWoolGames() {
     `/img/games/404.${imageFileType}`,
     getWoolWarsStats("overall"),
     [
-      ["Overall", "overall"],
+      [getTranslation("games.modes.all.overall"), "overall"],
       ["Archer", "archer"],
       ["Assault", "assault"],
       ["Engineer", "engineer"],
@@ -3482,7 +3537,7 @@ function getWoolWarsStats(mode) {
   let woolWarsModeStats, woolWarsWinStats;
   if(mode == "overall") {
     woolWarsModeStats = woolWarsNumericalStats;
-    woolWarsWinStats = [false, ["Wins", checkAndFormat(woolWarsModeStats["wins"])], ["Losses", checkAndFormat(und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))], ["W/L R", calculateRatio(woolWarsModeStats["wins"], und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))]];
+    woolWarsWinStats = [false, [getTranslation("statistics.wins"), checkAndFormat(woolWarsModeStats["wins"])], [getTranslation("statistics.losses"), checkAndFormat(und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))], [getTranslation("statistics.wlr"), calculateRatio(woolWarsModeStats["wins"], und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))]];
   } else {
     woolWarsClassStats = woolWarsNumericalStats["classes"] || {};
     woolWarsModeStats = woolWarsClassStats[mode] || {};
@@ -3491,9 +3546,9 @@ function getWoolWarsStats(mode) {
 
   return [
     woolWarsWinStats,
-    [false, ["Kills", checkAndFormat(woolWarsModeStats["kills"])], ["Deaths", checkAndFormat(woolWarsModeStats["deaths"])],  ["K/D R", calculateRatio(woolWarsModeStats["kills"], woolWarsModeStats["deaths"])]],
-    [false, ["Assists", checkAndFormat(woolWarsModeStats["assists"])], ["Powerups", checkAndFormat(woolWarsModeStats["powerups_gotten"])]],
-    [false, ["Wool Placed", checkAndFormat(woolWarsModeStats["wool_placed"])], ["Blocks Broken", checkAndFormat(woolWarsModeStats["blocks_broken"])]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(woolWarsModeStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(woolWarsModeStats["deaths"])],  [getTranslation("statistics.kdr"), calculateRatio(woolWarsModeStats["kills"], woolWarsModeStats["deaths"])]],
+    [false, [getTranslation("statistics.assists"), checkAndFormat(woolWarsModeStats["assists"])], [getTranslation("statistics.powerups"), checkAndFormat(woolWarsModeStats["powerups_gotten"])]],
+    [false, [getTranslation("statistics.wool_placed"), checkAndFormat(woolWarsModeStats["wool_placed"])], [getTranslation("statistics.blocks_broken"), checkAndFormat(woolWarsModeStats["blocks_broken"])]],
   ]
 }
 
@@ -3547,19 +3602,20 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
 
 function getBuildBattleTitle(score) {
   // Gets player's Build Battle title based on an amount of score
+
   let buildBattleTitles = [
-    { minimumScore: 0, difference: 100, title: "Rookie", color: "f" },
-    { minimumScore: 100, difference: 150, title: "Untrained", color: "8" },
-    { minimumScore: 250, difference: 250, title: "Amateur", color: "e" },
-    { minimumScore: 500, difference: 500, title: "Apprentice", color: "a" },
-    { minimumScore: 1000, difference: 1000, title: "Experienced", color: "d" },
-    { minimumScore: 2000, difference: 1500, title: "Seasoned", color: "9" },
-    { minimumScore: 3500, difference: 4000, title: "Skilled", color: "3" },
-    { minimumScore: 7500, difference: 2500, title: "Talented", color: "c" },
-    { minimumScore: 10000, difference: 5000, title: "Professional", color: "5" },
-    { minimumScore: 15000, difference: 5000, title: "Expert", color: "1" },
-    { minimumScore: 20000, difference: -1, title: "Master", color: "4" },
-  ];
+    { minimumScore: 0, difference: 100, title: getTranslation("games.modes.buildbattle.titles.rookie"), color: "f" },
+    { minimumScore: 100, difference: 150, title: getTranslation("games.modes.buildbattle.titles.untrained"), color: "8" },
+    { minimumScore: 250, difference: 250, title: getTranslation("games.modes.buildbattle.titles.amateur"), color: "e" },
+    { minimumScore: 500, difference: 500, title: getTranslation("games.modes.buildbattle.titles.apprentice"), color: "a" },
+    { minimumScore: 1000, difference: 1000, title: getTranslation("games.modes.buildbattle.titles.experienced"), color: "d" },
+    { minimumScore: 2000, difference: 1500, title: getTranslation("games.modes.buildbattle.titles.seasoned"), color: "9" },
+    { minimumScore: 3500, difference: 4000, title: getTranslation("games.modes.buildbattle.titles.skilled"), color: "3" },
+    { minimumScore: 7500, difference: 2500, title: getTranslation("games.modes.buildbattle.titles.talented"), color: "c" },
+    { minimumScore: 10000, difference: 5000, title: getTranslation("games.modes.buildbattle.titles.professional"), color: "5" },
+    { minimumScore: 15000, difference: 5000, title: getTranslation("games.modes.buildbattle.titles.expert"), color: "1" },
+    { minimumScore: 20000, difference: -1, title: getTranslation("games.modes.buildbattle.titles.master"), color: "4" },
+  ]
 
   let scoreToGo;
   let chosenTitle = buildBattleTitles[0];
@@ -3651,79 +3707,6 @@ function generateChips(chipArray, prefix) {
   // Generates all chips from an array
   for (d = 0; d < chipArray.length; d++) {
     generateChip(chipArray[d], d % 2 == 0 ? prefix + "-1" : prefix + "-2");
-  }
-}
-
-function updateChipStats(name, chipId, gamemode) {
-  // Updates what a chip does when a dropdown is clicked
-  newValue = name;
-  console.log([newValue, chipId, gamemode]);
-  if (gamemode == "duels") {
-    updateElement(chipId, generateChipStats(allDuelsStats[newValue][0]), true);
-  } else if (gamemode == "bedwars") {
-    if (newValue == "overall") {
-      updateElement(chipId, generateChipStats(totalDreamModeStats), true);
-    } else {
-      console.log(newValue);
-      updateElement(chipId, generateChipStats(getBedWarsModeStats(newValue)), true);
-    }
-  } else if (gamemode == "skywars") {
-    updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
-  } else if (gamemode == "tntgames") {
-    updateElement(chipId, generateChipStats(allTNTWizardStats[newValue]), true);
-  } else if (gamemode == "arcade_zombies") {
-    updateElement(chipId, generateChipStats(getZombiesStats(newValue)), true);
-  } else if (gamemode == "arcade_seasonal") {
-    updateElement(chipId, generateChipStats(getArcadeSeasonalStats(newValue)), true);
-  } else if (gamemode == "arcade_hide_and_seek") {
-    updateElement(chipId, generateChipStats(getArcadeHideAndSeekStats(newValue)), true);
-  } else if (gamemode == "arena") {
-    updateElement(chipId, generateChipStats(getArenaBrawlStats(newValue)), true);
-  } else if (gamemode == "quake") {
-    updateElement(chipId, generateChipStats(getQuakeStats(newValue)), true);
-  } else if (gamemode == "vampirez") {
-    updateElement(chipId, generateChipStats(getVampireZStats(newValue)), true);
-  } else if (gamemode == "tkr") {
-    updateElement(chipId, generateChipStats(getTKRStats(newValue)), true);
-  } else if (gamemode == "copsandcrims_guns") {
-    updateElement(chipId, generateChipStats(getCopsAndCrimsGunStats(newValue)), true);
-  } else if (gamemode == "woolwars") {
-    updateElement(chipId, generateChipStats(getWoolWarsStats(newValue)), true);
-  } else if (gamemode == "blitz") {
-    updateElement(chipId, generateChipStats(getBlitzKitsStats(newValue)), true);
-  } else if (gamemode == "megawalls") {
-    if (chipId == "megawalls-classes") {
-      updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue)), true);
-    } else if (chipId == "megawalls-standard") {
-      updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, "standard")), true);
-    } else if (chipId == "megawalls-faceoff") {
-      updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, "face_off")), true);
-    }
-  } else if (gamemode == "warlords") {
-    updateElement(chipId, generateChipStats(getWarlordsClassStats(newValue)), true);
-  } else if (gamemode == "uhc") {
-    updateElement(chipId, generateChipStats(getUHCModeStats(newValue)), true);
-  } else if (gamemode == "speeduhc") {
-    updateElement(chipId, generateChipStats(getSpeedUHCModeStats(newValue)), true);
-  } else if (gamemode == "smashheroes") {
-    if (chipId == "smashheroes-classes") {
-      updateElement(chipId, generateChipStats(getSmashStats("class", newValue)), true);
-    } else if (chipId == "smashheroes-solo") {
-      updateElement(chipId, generateChipStats(getSmashStats("normal", newValue)), true);
-    } else if (chipId == "smashheroes-team") {
-      updateElement(chipId, generateChipStats(getSmashStats("teams", newValue)), true);
-    } else if (chipId == "smashheroes-2v2") {
-      updateElement(chipId, generateChipStats(getSmashStats("2v2", newValue)), true);
-    } else if (chipId == "smashheroes-1v1") {
-      updateElement(chipId, generateChipStats(getSmashStats("one_v_one", newValue)), true);
-    } else if (chipId == "smashheroes-friend") {
-      updateElement(chipId, generateChipStats(getSmashStats("friend", newValue)), true);
-    }
-  } else if (gamemode == "wizard") {
-    cardWizardSettings[chipId] = newValue;
-  } else if (gamemode == "settings") {
-    settings[chipId] = newValue;
-    updateSetting(chipId, newValue);
   }
 }
 

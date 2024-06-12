@@ -108,7 +108,8 @@
   "modes": {
   "all": {
   "stats": "games.modes.all.stats",
-  "misc": "games.modes.all.misc"
+  "misc": "games.modes.all.misc",
+  "overall": "games.modes.all.overall"
   },
   "network": {
   "general": "games.modes.network.general",
@@ -262,6 +263,7 @@
   },
   "blitz": {
   "kits": {
+  "category": "games.modes.blitz.kits.category",
   "arachnologist": "games.modes.blitz.kits.arachnologist",
   "archer": "games.modes.blitz.kits.archer",
   "armorer": "games.modes.blitz.kits.armorer",
@@ -657,7 +659,7 @@
   "bronzes": "statistics.bronzes",
   "trophy_rate": "statistics.trophy_rate",
   "box_pickups": "statistics.box_pickups",
-  "coins_pickups": "statistics.coins_pickups",
+  "coin_pickups": "statistics.coin_pickups",
   "vampire_kills": "statistics.vampire_kills",
   "zombie_kills": "statistics.zombie_kills",
   "most_vampire_kills": "statistics.most_vampire_kills",
@@ -701,7 +703,7 @@
   "blocks_broken": "statistics.blocks_broken",
   "fishing_rod_launches": "statistics.fishing_rod_launches",
   "lava_bucket_empties": "statistics.lava_bucket_empties",
-  "soups_drunk": "statistics.soups_drunk",
+  "soups_drank": "statistics.soups_drank",
   "mystics_enchanted": "statistics.mystics_enchanted",
   "dark_pants_created": "statistics.dark_pants_created",
   "tier_1s": "statistics.tier_1s",
@@ -711,7 +713,7 @@
   "ingots_picked_up": "statistics.ingots_picked_up",
   "jumps_into_pit": "statistics.jumps_into_pit",
   "launcher_launches": "statistics.launcher_launches",
-  "sewer_treasurers": "statistics.sewer_treasurers",
+  "sewer_treasures": "statistics.sewer_treasurers",
   "kings_quest_completions": "statistics.kings_quest_completions",
   "wheat_farmed": "statistics.wheat_farmed",
   "items_fished": "statistics.items_fished",
@@ -728,6 +730,7 @@
   "ultimates_crafted": "statistics.ultimates_crafted",
   "magic_dust": "statistics.magic_dust",
   "void_shards": "statistics.void_shards",
+  "damage_prevented": "statistics.damage_prevented",
   "weapons_repaired": "statistics.weapons_repaired",
   "flags_returned": "statistics.flags_returned",
   "captures": "statistics.captures",

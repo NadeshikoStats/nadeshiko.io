@@ -1,4 +1,5 @@
 {
+  "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
       "placeholder": "Search for a player..."
@@ -110,7 +111,8 @@
     "skyblock_stats": "SkyBlock Stats",
     "socials": "Socials",
     "currently_offline": "Currently Offline",
-    "currently_online": "Currently Online!"
+    "currently_online": "Currently Online!",
+    "birthday": "Happy %%num%% years of Hypixel!"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
@@ -138,7 +140,8 @@
     "modes": {
       "all": {
         "stats": "Stats",
-        "misc": "Misc"
+        "misc": "Misc",
+        "overall": "Overall"
       },
       "network": {
         "general": "General",
@@ -302,6 +305,7 @@
       },
       "blitz": {
         "kits": {
+          "category": "Kits",
           "arachnologist": "Arachnologist",
           "archer": "Archer",
           "armorer": "Armorer",
@@ -745,7 +749,7 @@
     "bronzes": "Bronzes",
     "trophy_rate": "Trophy Rate",
     "box_pickups": "Box Pickups",
-    "coins_pickups": "Coin Pickups",
+    "coin_pickups": "Coin Pickups",
 
     "vampire_kills": "Vampire Kills",
     "zombie_kills": "Zombie Kills",
@@ -794,7 +798,7 @@
     "blocks_broken": "Blocks Broken",
     "fishing_rod_launches": "Fishing Rod Launches",
     "lava_bucket_empties": "Lava Bucket Empties",
-    "soups_drunk": "Soups Drunk",
+    "soups_drank": "Soups Drank",
     "mystics_enchanted": "Mystics Enchanted",
     "dark_pants_created": "Dark Pants Created",
     "tier_1s": "Tier Is",
@@ -804,7 +808,7 @@
     "ingots_picked_up": "Ingots Picked Up",
     "jumps_into_pit": "Jumps Into Pit",
     "launcher_launches": "Launcher Launches",
-    "sewer_treasurers": "Sewer Treasurers",
+    "sewer_treasures": "Sewer Treasurers",
     "kings_quest_completions": "King's Quest Completions",
     "wheat_farmed": "Wheat Farmed",
     "items_fished": "Items Fished",
@@ -830,9 +834,19 @@
     "flags_returned": "Flags Returned",
     "captures": "Captures",
     "total_score": "Total Score",
+    "damage_prevented": "Damage Prevented",
 
     "wool": "Wool",
     "layers": "Layers",
     "wool_placed": "Wool Placed"
+  },
+  "times": {
+    "time_ago": "(%%time%% ago)",
+    "second_short": "s",
+    "minute_short": "min",
+    "hour_short": "h",
+    "day_short": "d",
+    "month_short": "mo",
+    "year_short": "y"
   }
 }

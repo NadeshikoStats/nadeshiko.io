@@ -195,7 +195,17 @@
     <hr style="margin: 20px auto;" />
 
     <div class="mtop mbottom">
+      <div class="flex-two-item">
       <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/globe.svg" alt="" /><span class="w600" data-t="header.settings.language">Language</span></p>
+      <div class="dropdown">
+        <p class="dropdown-button chip-dropdown-button" id="dropdown-language-button">Network</p>
+        <div class="dropdown-content unloaded dropdown-chip settings-dropdown dropdown-header" id="dropdown-language" data-game="settings" data-modify="language">
+          <div class="dropdown-item selected" data-item="en_CA">English</div>
+          <hr class="dropdown-hr" />
+          <div class="dropdown-item" data-item="empty">empty</div>
+        </div>
+      </div>
+    </div>
       <p class="settings-description">Help us translate nadeshiko on <a href="https://crowdin.com/project/nadeshiko" target="_blank">Crowdin</a>!</p>
     </div>
 
@@ -263,6 +273,7 @@
     format: "bbcode",
   };
   let settings;
+  var mobileMode = (document.documentElement.clientWidth < 800);
 
   let hypixelGames = {
     network: "Network",
@@ -420,21 +431,19 @@
     if(document.getElementById(`checkbox-${setting}`)) {
       document.getElementById(`checkbox-${setting}`).checked = settingValue;
     }
+
     if(document.getElementById(`dropdown-${setting}-button`)) {
-      if(setting == "default-game") {
-        let children = document.getElementById("dropdown-default-game").children;
-        for (let i = 0; i < children.length; i++) {
-          if (children[i].getAttribute("data-item") == settingValue) {
-            children[i].classList.add("selected");
-            document.getElementById("dropdown-default-game-button").innerText = children[i].innerText;
-          } else {
-            children[i].classList.remove("selected");
-          }
+      let children = document.getElementById(`dropdown-${setting}`).children;
+      for (let i = 0; i < children.length; i++) {
+        if (children[i].getAttribute("data-item") == settingValue) {
+          children[i].classList.add("selected");
+          document.getElementById(`dropdown-${setting}-button`).innerText = children[i].innerText;
+        } else {
+          children[i].classList.remove("selected");
         }
-      } else {
-        document.getElementById(`dropdown-${setting}-button`).innerText = settingValue;
       }
     }
+
     if (setting == "developer-mode") {
       cardUuid = document.getElementById("card-uuid");
       if (settingValue) {
@@ -452,6 +461,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    beginGeneration("DOMContentLoaded");
     var checkboxes = document.querySelectorAll(".settings-checkbox");
 
     checkboxes.forEach(function (checkbox) {
@@ -534,6 +544,24 @@
     // Determines if the user's actively in an input field (so Quick Mode and easter eggs don't get messed up)
     return element.tagName === "INPUT" || element.tagName === "TEXTAREA" || element.isContentEditable;
   }
+
+  let tasksBeforeLoadingHeader = ["fetchLanguageFile", "DOMContentLoaded"];
+
+/* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+ * This is used to ensure that all tasks are completed before the page is generated.
+ * @param {string} task - The task that was completed 
+ */
+function beginGeneration(task) {
+  if(tasksBeforeLoadingHeader.includes(task)) {
+    tasksBeforeLoadingHeader.splice(tasksBeforeLoadingHeader.indexOf(task), 1);
+  }
+
+  console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoadingHeader}`);
+
+  if(tasksBeforeLoadingHeader.length == 0) {
+    updateTranslations();
+  }
+}
 
   function openSelectedDropdown(dropdownId) {
     console.log("removed" + dropdownId);
