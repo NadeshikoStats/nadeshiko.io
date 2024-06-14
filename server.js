@@ -90,19 +90,6 @@ function convertToRoman(num) {
   return result;
 }
 
-function updateElement(id, value, useInnerHTML = false) {
-  const element = document.getElementById(id);
-  if (element) {
-    if (useInnerHTML) {
-      element.innerHTML = value;
-    } else {
-      element.textContent = value;
-    }
-  } else {
-    console.warn(`Element with ID ${id} not found!`);
-  }
-}
-
 function locale(number, digits = 2) {
   return number.toLocaleString(undefined, { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
