@@ -51,7 +51,6 @@ function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in
   else return text;
 }
 
-
 function calculateRatio(numerator, denominator, digits = 2) {
   // Calculates a ratio based on two stats
   return checkAndFormat(numerator / (und(denominator) == 0 ? 1 : denominator), digits);
@@ -802,8 +801,8 @@ app.get('/player/:name/:game?', async (req, res) => {
         computationError = `No player by the name of ${name} was found :(`;
       } else {
         computationError = `Could not find stats of player ${name} (${error})`;
+        console.error("Fetching player data failed! → ", error);
       }
-      console.error("Fetching player data failed! → ", error);
       res.render('index', { computationError });
    }
 });
@@ -831,7 +830,11 @@ app.get('/player/:name/:game?', async (req, res) => {
       res.send(response.data);
     } catch (error) {
       // Error handling
-      console.error('Error forwarding the request:', error);
+      if(error.response && error.response.status == 404) {
+        console.error('404: Player not found');
+      } else {
+        console.error('Error forwarding the request:', error);
+      }
       res.status(500).send('Error forwarding request');
     }
 });
