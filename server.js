@@ -171,8 +171,6 @@ function sumStatsBasic(statNames, statArray) {
   return statSum;
 }
 
-// let hypixelGames = ["network", "arcade", "bedwars", "blitz", "buildbattle", "classic", "copsandcrims", "duels", "megawalls", "murdermystery", "pit", "smashheroes", "skywars", "tntgames", "uhc", "warlords", "woolwars"];
-
 function getMetaDescription(game, playerData) {
   if(typeof playerData != "undefined") {
   switch(game) {
