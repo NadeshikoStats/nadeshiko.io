@@ -7,13 +7,24 @@
     --default: #00000080;
     --accent: var(--nadeshiko-dark);
     --accent-network: #bc6ff8;
-    --accent-bedwars: #ff835c;
-    --accent-duels: #6f85f8;
-    --accent-skywars: #90ff5c;
+    
     --accent-tntgames: #c55757;
-    --accent-arcade: #8e2d7f;
-    --accent-skyblock: #4ace38;
+    --accent-bedwars: #ff835c;
+    --accent-megawalls: #f77659;
+    --accent-classic: #f7aa59;
+    --accent-warlords: #fcc971;
+    --accent-copsandcrims: #e4e425;
+    --accent-skywars: #90ff5c;
     --accent-pit: #5e72ab;
+    --accent-smashheroes: #30536b;
+    --accent-buildbattle: #3f84fc;
+    --accent-duels: #6f85f8;
+    --accent-murdermystery: #312093;
+    --accent-blitz: #8639f9;
+    --accent-uhc: #a663c1;
+    --accent-arcade: #8e2d7f;
+    --accent-woolwars: #fc67ca;
+
     --grey: #888;
     --mc0: #000000;
     /* Black */
