@@ -1311,7 +1311,7 @@ function generateBuildBattle() {
       buildBattleModeStats = [[false, [getTranslation("statistics.wins"), checkAndFormat(buildBattleStats[`wins_${currentBuildBattleMode[1]}`])]]];
 
       if (currentBuildBattleMode[1] == "guess_the_build") {
-        buildBattleModeStats[0].push(["Correct Guesses", checkAndFormat(buildBattleStats[`correct_guesses`])]);
+        buildBattleModeStats[0].push([getTranslation("statistics.correct_guesses"), checkAndFormat(buildBattleStats[`correct_guesses`])]);
       }
 
       buildBattleChip = [
@@ -1380,8 +1380,8 @@ function generateMurderMystery() {
 
       if (currentMurderMysteryMode[1] == "MURDER_CLASSIC" || currentMurderMysteryMode[1] == "MURDER_DOUBLE_UP") {
         murderMysteryModeStats.push(
-          [false, ["Wins (Murderer)", checkAndFormat(murderMysteryStats[`murderer_wins_${currentMurderMysteryMode[1]}`])], ["Wins (Detective)", checkAndFormat(murderMysteryStats[`detective_wins_${currentMurderMysteryMode[1]}`])]],
-          [false, ["Kills (Murderer)", checkAndFormat(murderMysteryStats[`kills_as_murderer_${currentMurderMysteryMode[1]}`])], ["Wins (Hero)", checkAndFormat(murderMysteryStats[`was_hero_${currentMurderMysteryMode[1]}`])]]
+          [false, [getTranslation("statistics.wins_murderer"), checkAndFormat(murderMysteryStats[`murderer_wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.wins_detective"), checkAndFormat(murderMysteryStats[`detective_wins_${currentMurderMysteryMode[1]}`])]],
+          [false, [getTranslation("statistics.kills_murderer"), checkAndFormat(murderMysteryStats[`kills_as_murderer_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.wins_hero"), checkAndFormat(murderMysteryStats[`was_hero_${currentMurderMysteryMode[1]}`])]]
         );
       } else if (currentMurderMysteryMode[1] == "MURDER_ASSASSINS") {
         // idk
@@ -1389,14 +1389,14 @@ function generateMurderMystery() {
         murderMysteryModeStats.push(
           [
             false,
-            ["Wins (Survivor)", checkAndFormat(murderMysteryStats[`survivor_wins_${currentMurderMysteryMode[1]}`])],
-            ["Total Time Survived", smallDuration(und(murderMysteryStats[`total_time_survived_seconds_${currentMurderMysteryMode[1]}`]))],
+            [getTranslation("statistics.wins_survivor"), checkAndFormat(murderMysteryStats[`survivor_wins_${currentMurderMysteryMode[1]}`])],
+            [getTranslation("statistics.total_time_survived"), smallDuration(und(murderMysteryStats[`total_time_survived_seconds_${currentMurderMysteryMode[1]}`]))],
           ],
-          [false, ["Kills (Infected)", checkAndFormat(murderMysteryStats[`kills_as_infected_${currentMurderMysteryMode[1]}`])], ["Kills (Survivor)", checkAndFormat(murderMysteryStats[`kills_as_survivor_${currentMurderMysteryMode[1]}`])]]
+          [false, [getTranslation("statistics.kills_infected"), checkAndFormat(murderMysteryStats[`kills_as_infected_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.kills_survivor"), checkAndFormat(murderMysteryStats[`kills_as_survivor_${currentMurderMysteryMode[1]}`])]]
         );
       }
 
-      murderMysteryModeStats.push([false, ["Gold Picked Up", checkAndFormat(murderMysteryStats[`coins_pickedup_${currentMurderMysteryMode[1]}`])]]);
+      murderMysteryModeStats.push([false, [getTranslation("statistics.gold_picked_up"), checkAndFormat(murderMysteryStats[`coins_pickedup_${currentMurderMysteryMode[1]}`])]]);
 
       murderMysteryChip = [
         "murdermystery-stats-" + currentMurderMysteryMode[1], // ID
@@ -2907,9 +2907,9 @@ function getMegaWallsClassStats(className = "", modeName = "") {
   if(modeName == "" && className != "") {
     let megaWallsPrestige = getMegaWallsPrestige(trueClassName);
     if(megaWallsPrestige[0]) {
-      megaWallsClassChipStats.unshift([true, ["Prestige", megaWallsPrestige[1]], [getTranslation("statistics.ender_chest_rows"), megaWallsPrestige[2]]]);
+      megaWallsClassChipStats.unshift([true, [getTranslation("statistics.prestige"), megaWallsPrestige[1]], [getTranslation("statistics.ender_chest_rows"), megaWallsPrestige[2]]]);
     } else {
-      megaWallsClassChipStats.unshift([false, ["Upgrades", megaWallsPrestige[1]], [getTranslation("statistics.ender_chest_rows"), megaWallsPrestige[2]]]);
+      megaWallsClassChipStats.unshift([false, [getTranslation("statistics.upgrades"), megaWallsPrestige[1]], [getTranslation("statistics.ender_chest_rows"), megaWallsPrestige[2]]]);
     }
   }
   
