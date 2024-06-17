@@ -1851,7 +1851,7 @@ function generateArcade() {
         false,
         [getTranslation("statistics.points"), locale(und(arcadeStats["rounds_simon_says"]) + und(arcadeStats["rounds_santa_says"]), 0)],
         [getTranslation("statistics.round_wins"), locale(und(arcadeStats["round_wins_simon_says"]) + und(arcadeStats["round_wins_santa_says"]), 0)],
-        [getTranslation("statistics.high_score"), locale(Math.max(und(arcadeStats["top_score_simon_says"]), und(arcadeStats["top_score_santa_says"])), 0)],
+        [getTranslation("statistics.highest_score"), locale(Math.max(und(arcadeStats["top_score_simon_says"]), und(arcadeStats["top_score_santa_says"])), 0)],
       ],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]

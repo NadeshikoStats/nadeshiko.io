@@ -110,7 +110,8 @@
     "modes": {
       "all": {
         "stats": "Statistikker",
-        "misc": "Diverse"
+        "misc": "Diverse",
+        "overall": "Overall"
       },
       "network": {
         "general": "General",
@@ -264,6 +265,7 @@
       },
       "blitz": {
         "kits": {
+          "category": "Kits",
           "arachnologist": "Araknolog",
           "archer": "Bueskytte",
           "armorer": "Udruster",
@@ -616,6 +618,7 @@
     "record_finals": "Record (Finals)",
     "round_wins": "Runder vundet",
     "highest_score": "Højeste Score",
+    "correct_guesses": "Correct Guesses",
     "wither_kills": "Wither Drab",
     "wither_damage": "Wither Skade",
     "stars_earned": "Stjerner optjent",
@@ -659,7 +662,7 @@
     "bronzes": "Bronzes",
     "trophy_rate": "Trophy Rate",
     "box_pickups": "Box Pickups",
-    "coins_pickups": "Coin Pickups",
+    "coin_pickups": "Coin Pickups",
     "vampire_kills": "Vampire Kills",
     "zombie_kills": "Zombie Kills",
     "most_vampire_kills": "Most Vampire Kills",
@@ -671,6 +674,7 @@
     "selected_class": "Selected Class",
     "mythic_favor": "Mythic Favor",
     "upgrades": "Upgrades",
+    "prestige": "Prestige",
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "Class Points",
     "total_time_survived": "Total Time Survived",
@@ -703,7 +707,7 @@
     "blocks_broken": "Blocks Broken",
     "fishing_rod_launches": "Fishing Rod Launches",
     "lava_bucket_empties": "Lava Bucket Empties",
-    "soups_drunk": "Soups Drunk",
+    "soups_drank": "Soups Drank",
     "mystics_enchanted": "Mystics Enchanted",
     "dark_pants_created": "Dark Pants Created",
     "tier_1s": "Tier Is",
@@ -713,7 +717,7 @@
     "ingots_picked_up": "Ingots Picked Up",
     "jumps_into_pit": "Jumps Into Pit",
     "launcher_launches": "Launcher Launches",
-    "sewer_treasurers": "Sewer Treasurers",
+    "sewer_treasures": "Sewer Treasurers",
     "kings_quest_completions": "King's Quest Completions",
     "wheat_farmed": "Wheat Farmed",
     "items_fished": "Items Fished",
@@ -734,6 +738,7 @@
     "flags_returned": "Flags Returned",
     "captures": "Captures",
     "total_score": "Total Score",
+    "damage_prevented": "Damage Prevented",
     "wool": "Wool",
     "layers": "Layers",
     "wool_placed": "Wool Placed"

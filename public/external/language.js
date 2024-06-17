@@ -53,7 +53,12 @@ function getTranslation(key) {
     languageJSONSubset = languageJSONSubset[k];
   }
 
-  return languageJSONSubset !== undefined ? languageJSONSubset : null;
+  if(languageJSONSubset !== undefined) {
+    return languageJSONSubset;
+  } else {
+    console.warn("Unable to find key " + key + " in translation file");
+    return "ERROR";
+  }
 }
 
 function updateTranslations() {
