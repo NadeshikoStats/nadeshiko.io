@@ -1,3 +1,5 @@
+var languageJSON;
+
 function updateChipStats(name, chipId, gamemode) {
   // Updates what a chip does when a dropdown is clicked
   newValue = name;

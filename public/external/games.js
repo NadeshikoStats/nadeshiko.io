@@ -35,6 +35,14 @@ function smallDuration(seconds, ms = false) {
     return "N/A";
   }
 
+  let dateNames = {
+    year: getTranslation("times.year_short"),
+    day: getTranslation("times.day_short"),
+    hour: getTranslation("times.hour_short"),
+    minute: getTranslation("times.minute_short"),
+    second: getTranslation("times.second_short"),
+  }
+
   const MINUTE = 60;
   const HOUR = 3600;
   const DAY = 86400;
@@ -662,8 +670,8 @@ function generateSkyWars() {
         "solo",
         [
           [getTranslation("games.modes.all.overall"), "solo"],
-          ["Normal", "solo_normal"],
-          ["Insane", "solo_insane"],
+          [getTranslation("games.modes.skywars.normal"), "solo_normal"],
+          [getTranslation("games.modes.skywars.insane"), "solo_insane"],
         ],
       ],
       [
@@ -671,8 +679,8 @@ function generateSkyWars() {
         "team",
         [
           [getTranslation("games.modes.all.overall"), "team"],
-          ["Normal", "team_normal"],
-          ["Insane", "team_insane"],
+          [getTranslation("games.modes.skywars.normal"), "team_normal"],
+          [getTranslation("games.modes.skywars.insane"), "team_insane"],
         ],
       ],
       ["Mega", "mega", []],
@@ -811,7 +819,7 @@ function getArenaBrawlStats(mode) {
     [false, [getTranslation("statistics.coins"), checkAndFormat(arenaStats["coins"])]],
     [false, [getTranslation("statistics.wins"), formattedArenaModeStats[0]], [getTranslation("statistics.losses"), formattedArenaModeStats[1]], [getTranslation("statistics.wlr"), calculateRatio(arenaModeStats[0], arenaModeStats[1])]],
     [false, [getTranslation("statistics.kills"), formattedArenaModeStats[2]], [getTranslation("statistics.deaths"), formattedArenaModeStats[3]], [getTranslation("statistics.kdr"), calculateRatio(arenaModeStats[2], arenaModeStats[3])]],
-    [false, [getTranslation("statistics.damage_dealt"), formattedArenaModeStats[4] + " HP"], ["Damage Healed", formattedArenaModeStats[5] + " HP"]],
+    [false, [getTranslation("statistics.damage_dealt"), formattedArenaModeStats[4] + " HP"], [getTranslation("statistics.damage_healed"), formattedArenaModeStats[5] + " HP"]],
     [false, [getTranslation("statistics.magical_keys"), checkAndFormat(arenaStats["keys"])], [getTranslation("statistics.magical_chests"), checkAndFormat(arenaStats["magical_chest"])]],
   ];
 }
@@ -839,7 +847,7 @@ function getTKRStats(mode) {
 
     return [
       [false, [getTranslation("statistics.coins"), checkAndFormat(tkrStats["coins"])]],
-      [false, ["Trophies", checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats))], [getTranslation("statistics.laps"), checkAndFormat(tkrStats["laps_completed"])]],
+      [false, [getTranslation("statistics.trophies"), checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats))], [getTranslation("statistics.laps"), checkAndFormat(tkrStats["laps_completed"])]],
       [false, [getTranslation("statistics.golds"), getGenericWinsPrefix(tkrStats["gold_trophy"], tkrTitles, tkrStats["prefix_color"], false, "✪")], [getTranslation("statistics.silvers"), checkAndFormat(tkrStats["silver_trophy"])], [getTranslation("statistics.bronzes"), checkAndFormat(tkrStats["bronze_trophy"])]],
       [false, [getTranslation("statistics.games_played"), locale(tkrGamesPlayed, 0)], [getTranslation("statistics.trophy_rate"), checkAndFormat((sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats) / tkrGamesPlayed) * 100, 1) + "%"]],
       [false, [getTranslation("statistics.box_pickups"), checkAndFormat(tkrStats["box_pickups"])], [getTranslation("statistics.coin_pickups"), checkAndFormat(tkrStats["coins_picked_up"])]],
@@ -1158,81 +1166,81 @@ function generateDuels() {
     ];
 
     var duelsWithMultipleModes = [
-      ["bridge", "Bridge", ["bridge_duel", "bridge_doubles", "bridge_threes", "bridge_four", "bridge_2v2v2v2", "bridge_3v3v3v3", "capture_threes"]],
-      ["mw", "Mega Walls", ["mw_duel", "mw_doubles"]],
-      ["sw", "SkyWars", ["sw_duel", "sw_doubles"]],
-      ["op", "OP", ["op_duel", "op_doubles"]],
-      ["uhc", "UHC", ["uhc_duel", "uhc_doubles"]],
+      ["bridge", getTranslation("games.modes.duels.bridge.category"), ["bridge_duel", "bridge_doubles", "bridge_threes", "bridge_four", "bridge_2v2v2v2", "bridge_3v3v3v3", "capture_threes"]],
+      ["mw", getTranslation("games.modes.duels.mw.category"), ["mw_duel", "mw_doubles"]],
+      ["sw", getTranslation("games.modes.duels.sw.category"), ["sw_duel", "sw_doubles"]],
+      ["op", getTranslation("games.modes.duels.op.category"), ["op_duel", "op_doubles"]],
+      ["uhc", getTranslation("games.modes.duels.uhc.category"), ["uhc_duel", "uhc_doubles"]],
     ];
 
     var duelsStatsToShow = [
       [
         "bridge",
-        "Bridge",
+        getTranslation("games.modes.duels.bridge.category"),
         [
           [getTranslation("games.modes.all.overall"), "bridge"],
-          ["1v1", "bridge_duel"],
-          ["2v2", "bridge_doubles"],
-          ["3v3", "bridge_threes"],
-          ["4v4", "bridge_four"],
-          ["2v2v2v2", "bridge_2v2v2v2"],
-          ["3v3v3v3", "bridge_3v3v3v3"],
-          ["CTF 3v3", "capture_threes"],
+          [getTranslation("games.modes.duels.bridge.bridge_duel"), "bridge_duel"],
+          [getTranslation("games.modes.duels.bridge.bridge_doubles"), "bridge_doubles"],
+          [getTranslation("games.modes.duels.bridge.bridge_threes"), "bridge_threes"],
+          [getTranslation("games.modes.duels.bridge.bridge_four"), "bridge_four"],
+          [getTranslation("games.modes.duels.bridge.bridge_2v2v2v2"), "bridge_2v2v2v2"],
+          [getTranslation("games.modes.duels.bridge.bridge_3v3v3v3"), "bridge_3v3v3v3"],
+          [getTranslation("games.modes.duels.bridge.capture_threes"), "capture_threes"],
         ],
         "blue_terracotta",
       ],
       [
         "sw",
-        "SkyWars",
+        getTranslation("games.modes.duels.sw.category"),
         [
           [getTranslation("games.modes.all.overall"), "sw"],
-          ["1v1", "sw_duel"],
-          ["2v2", "sw_doubles"],
+          [getTranslation("games.modes.duels.sw.sw_duel"), "sw_duel"],
+          [getTranslation("games.modes.duels.sw.sw_doubles"), "sw_doubles"],
         ],
         "ender_eye",
       ],
-      ["classic_duel", "Classic", [], "fishing_rod"],
+      ["classic_duel", getTranslation("games.modes.duels.classic.category"), [], "fishing_rod"],
       [
         "uhc",
-        "UHC",
+        getTranslation("games.modes.duels.uhc.category"),
         [
           [getTranslation("games.modes.all.overall"), "uhc"],
-          ["1v1", "uhc_duel"],
-          ["2v2", "uhc_doubles"],
-          ["4v4", "uhc_four"],
-          ["Deathmatch", "uhc_meetup"],
+          [getTranslation("games.modes.duels.uhc.uhc_duel"), "uhc_duel"],
+          [getTranslation("games.modes.duels.uhc.uhc_doubles"), "uhc_doubles"],
+          [getTranslation("games.modes.duels.uhc.uhc_four"), "uhc_four"],
+          [getTranslation("games.modes.duels.uhc.uhc_meetup"), "uhc_meetup"],
         ],
         "head_uhc",
       ],
-      ["sumo_duel", "Sumo", [], "slime_ball"],
-      ["parkour_eight", "Parkour", [], "feather"],
-      ["blitz_duel", "Blitz", [], "diamond_sword"],
-      ["bow_duel", "Bow", [], "bow"],
+      ["sumo_duel", getTranslation("games.modes.duels.sumo.category"), [], "slime_ball"],
+      ["parkour_eight", getTranslation("games.modes.duels.parkour.category"), [], "feather"],
+      ["blitz_duel", getTranslation("games.modes.duels.blitz.category"), [], "diamond_sword"],
+      ["bow_duel", getTranslation("games.modes.duels.bow.category"), [], "bow"],
       [
         "mw",
-        "Mega Walls",
+        getTranslation("games.modes.duels.mw.category"),
         [
           [getTranslation("games.modes.all.overall"), "mw"],
-          ["1v1", "mw_duel"],
-          ["2v2", "mw_doubles"],
+          [getTranslation("games.modes.duels.mw.mw_duel"), "mw_duel"],
+          [getTranslation("games.modes.duels.mw.mw_doubles"), "mw_doubles"],
         ],
         "soul_sand",
       ],
-      ["bowspleef_duel", "Bow Spleef", [], "tnt"],
+      ["bowspleef_duel", getTranslation("games.modes.duels.bowspleef.category"), [], "tnt"],
       [
         "op",
-        "OP",
+        getTranslation("games.modes.duels.op.category"),
         [
           [getTranslation("games.modes.all.overall"), "op"],
-          ["1v1", "op_duel"],
-          ["2v2", "op_doubles"],
+          [getTranslation("games.modes.duels.op.op_duel"), "op_duel"],
+          [getTranslation("games.modes.duels.op.op_doubles"), "op_doubles"],
         ],
         "diamond_chestplate",
       ],
-      ["combo_duel", "Combo", [], "potion_weakness"],
-      ["boxing_duel", "Boxing", [], "head_boxing"],
-      ["potion_duel", "Nodebuff", [], "potion_fire_resistance"],
-      ["duel_arena", "Arena", [], "beacon"],
+      ["combo_duel", getTranslation("games.modes.duels.combo.category"), [], "potion_weakness"],
+      ["boxing_duel", getTranslation("games.modes.duels.boxing.category"), [], "head_boxing"],
+      ["potion_duel", getTranslation("games.modes.duels.potion.category"), [], "potion_fire_resistance"],
+      ["duel_arena", getTranslation("games.modes.duels.arena.category"), [], "beacon"],
     ];
 
     for (a = 0; a < duelsModes.length; a++) {
@@ -1298,10 +1306,10 @@ function generateBuildBattle() {
     }
 
     let buildBattleModes = [
-      ["Solo", "solo_normal", []],
-      ["Teams", "teams_normal", []],
-      ["Pro", "solo_pro", []],
-      ["Guess The Build", "guess_the_build", []],
+      [getTranslation("games.modes.buildbattle.solo_normal"), "solo_normal", []],
+      [getTranslation("games.modes.buildbattle.teams_normal"), "teams_normal", []],
+      [getTranslation("games.modes.buildbattle.solo_pro"), "solo_pro", []],
+      [getTranslation("games.modes.buildbattle.guess_the_build"), "guess_the_build", []],
     ];
 
     buildBattleChips = [];
@@ -1351,10 +1359,10 @@ function generateMurderMystery() {
     updateElement("murdermystery-overall-quickest_detective_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_detective_win_time_seconds"])));
 
     murderMysteryModes = [
-      ["Classic", "MURDER_CLASSIC", []],
-      ["Double Up!", "MURDER_DOUBLE_UP", []],
-      ["Assassins", "MURDER_ASSASSINS", []],
-      ["Infection", "MURDER_INFECTION", []],
+      [getTranslation("games.modes.murdermystery.MURDER_CLASSIC"), "MURDER_CLASSIC", []],
+      [getTranslation("games.modes.murdermystery.MURDER_DOUBLE_UP"), "MURDER_DOUBLE_UP", []],
+      [getTranslation("games.modes.murdermystery.MURDER_ASSASSINS"), "MURDER_ASSASSINS", []],
+      [getTranslation("games.modes.murdermystery.MURDER_INFECTION"), "MURDER_INFECTION", []],
     ];
     murderMysteryChips = [];
 
@@ -1467,7 +1475,7 @@ function generateTNTGames() {
 
   let tntRunCard = [
     "tntgames-stats-tntrun", // ID
-    "TNT Run", // Title
+    getTranslation("games.modes.tntgames.tntrun.category"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1486,7 +1494,7 @@ function generateTNTGames() {
 
   let pvpRunCard = [
     "tntgames-stats-pvprun", // ID
-    "PvP Run", // Title
+    getTranslation("games.modes.tntgames.pvprun.category"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1506,7 +1514,7 @@ function generateTNTGames() {
 
   let tntTagCard = [
     "tntgames-stats-tntag", // ID
-    "TNT Tag", // Title
+    getTranslation("games.modes.tntgames.tntag.category"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1526,7 +1534,7 @@ function generateTNTGames() {
 
   let bowSpleefCard = [
     "tntgames-stats-bowspleef", // ID
-    "Bow Spleef", // Title
+    getTranslation("games.modes.tntgames.bowspleef.category"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1545,16 +1553,16 @@ function generateTNTGames() {
 
   let wizardsList = [
     [getTranslation("games.modes.all.overall"), "overall", `/img/icon/minecraft/tnt.${imageFileType}`],
-    ["Ancient", "new_ancientwizard", `/img/icon/minecraft/magma_cream.${imageFileType}`],
-    ["Arcane", "arcane_wizard", `/img/icon/minecraft/disc_11.${imageFileType}`],
-    ["Blood", "new_bloodwizard", `/img/icon/minecraft/bone.${imageFileType}`],
-    ["Fire", "new_firewizard", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
-    ["Hydro", "new_hydrowizard", `/img/icon/minecraft/lapis_lazuli.${imageFileType}`],
-    ["Ice", "new_icewizard", `/img/icon/minecraft/diamond_hoe.${imageFileType}`],
-    ["Kinetic", "new_kineticwizard", `/img/icon/minecraft/iron_hoe.${imageFileType}`],
-    ["Storm", "new_stormwizard", `/img/icon/minecraft/gold_sword.${imageFileType}`],
-    ["Toxic", "new_toxicwizard", `/img/icon/minecraft/ghast_tear.${imageFileType}`],
-    ["Wither", "new_witherwizard", `/img/icon/minecraft/gold_axe.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.new_ancientwizard"), "new_ancientwizard", `/img/icon/minecraft/magma_cream.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.arcane_wizard"), "arcane_wizard", `/img/icon/minecraft/disc_11.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.new_bloodwizard"), "new_bloodwizard", `/img/icon/minecraft/bone.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.new_firewizard"), "new_firewizard", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.new_hydrowizard"), "new_hydrowizard", `/img/icon/minecraft/lapis_lazuli.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.new_icewizard"), "new_icewizard", `/img/icon/minecraft/diamond_hoe.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.new_kineticwizard"), "new_kineticwizard", `/img/icon/minecraft/iron_hoe.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.new_stormwizard"), "new_stormwizard", `/img/icon/minecraft/gold_sword.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.new_toxicwizard"), "new_toxicwizard", `/img/icon/minecraft/ghast_tear.${imageFileType}`],
+    [getTranslation("games.modes.tntgames.wizards.new_witherwizard"), "new_witherwizard", `/img/icon/minecraft/gold_axe.${imageFileType}`],
   ];
 
   let totalWizardStats = sumStats(
@@ -2248,7 +2256,7 @@ decodeNBT(decompressedData.buffer)
 
   let combatChip = [
     "pit-combat",
-    "Combat",
+    getTranslation("games.modes.pit.combat"),
     "",
     `/img/games/pit/combat.${imageFileType}`,
     [
@@ -2262,7 +2270,7 @@ decodeNBT(decompressedData.buffer)
 
   let performanceChip = [
     "pit-performance",
-    "Performance",
+    getTranslation("games.modes.pit.performance"),
     "",
     `/img/games/pit/perfomance.${imageFileType}`,
     [
@@ -2275,13 +2283,13 @@ decodeNBT(decompressedData.buffer)
 
   let perkChip = [
     "pit-perks",
-    "Perks",
+    getTranslation("games.modes.pit.perks"),
     "",
     `/img/games/pit/perks.${imageFileType}`,
     [
       [false, [getTranslation("statistics.golden_apples_eaten"), checkAndFormat(pitPtlStats["gapple_eaten"])], [getTranslation("statistics.golden_heads_eaten"), checkAndFormat(pitPtlStats["ghead_eaten"])]],
       [false, [getTranslation("statistics.blocks_placed"), checkAndFormat(pitPtlStats["blocks_placed"])], [getTranslation("statistics.blocks_broken"), checkAndFormat(pitPtlStats["blocks_broken"])]],
-      [false, [getTranslation("statistics.fishing_rod_launches"), checkAndFormat(pitPtlStats["fishing_rod_launched"])], ["Lava Bucket Empties", checkAndFormat(pitPtlStats["lava_bucket_emptied"])]],
+      [false, [getTranslation("statistics.fishing_rod_launches"), checkAndFormat(pitPtlStats["fishing_rod_launched"])], [getTranslation("statistics.lava_bucket_empties"), checkAndFormat(pitPtlStats["lava_bucket_emptied"])]],
       [false, [getTranslation("statistics.soups_drank"), checkAndFormat(pitPtlStats["soups_drank"])]],
     ],
     [],
@@ -2290,7 +2298,7 @@ decodeNBT(decompressedData.buffer)
 
   let mysticsChip = [
     "pit-mystics",
-    "Mystics",
+    getTranslation("games.modes.pit.mystics"),
     "",
     `/img/games/pit/mystics.${imageFileType}`,
     [
@@ -2303,7 +2311,7 @@ decodeNBT(decompressedData.buffer)
 
   let farmingChip = [
     "pit-farming",
-    "Farming",
+    getTranslation("games.modes.pit.farming"),
     "",
     `/img/games/pit/farming.${imageFileType}`,
     [
@@ -2316,7 +2324,7 @@ decodeNBT(decompressedData.buffer)
 
   let miscChip = [
     "pit-misc",
-    "Miscellaneous",
+    getTranslation("games.modes.pit.misc"),
     "",
     `/img/games/pit/miscellaneous.${imageFileType}`,
     [
@@ -2367,15 +2375,15 @@ function generateClassic() {
 
   let arenaChip = [
     "classic-arena",
-    "Arena Brawl",
+    getTranslation("games.modes.classic.arena.category"),
     ``,
     `/img/games/404.${imageFileType}`,
     getArenaBrawlStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
-      ["1v1", "1v1"],
-      ["2v2", "2v2"],
-      ["4v4", "4v4"],
+      [getTranslation("games.modes.classic.arena.1v1"), "1v1"],
+      [getTranslation("games.modes.classic.arena.2v2"), "2v2"],
+      [getTranslation("games.modes.classic.arena.4v4"), "4v4"],
     ],
     `/img/icon/minecraft/blaze_powder.${imageFileType}`,
     "arena",
@@ -2398,7 +2406,7 @@ function generateClassic() {
 
   let paintballChip = [
     "classic-paintball",
-    "Paintball",
+    getTranslation("games.modes.classic.paintball.category"),
     ``,
     `/img/games/404.${imageFileType}`,
     [
@@ -2419,17 +2427,17 @@ function generateClassic() {
 
   let tkrChip = [
     "classic-tkr",
-    "Turbo Kart Racers",
+    getTranslation("games.modes.classic.tkr.category"),
     "",
     `/img/games/404.${imageFileType}`,
     getTKRStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
-      ["Canyon", "canyon"],
-      ["Hypixel GP", "hypixelgp"],
-      ["Jungle Rush", "junglerush"],
-      ["Olympus", "olympus"],
-      ["Retro", "retro"],
+      [getTranslation("games.modes.classic.tkr.canyon"), "canyon"],
+      [getTranslation("games.modes.classic.tkr.hypixelgp"), "hypixelgp"],
+      [getTranslation("games.modes.classic.tkr.junglerush"), "junglerush"],
+      [getTranslation("games.modes.classic.tkr.olympus"), "olympus"],
+      [getTranslation("games.modes.classic.tkr.retro"), "retro"],
     ],
     `/img/icon/minecraft/minecart.${imageFileType}`,
     "tkr",
@@ -2437,14 +2445,14 @@ function generateClassic() {
 
   let quakecraftChip = [
     "classic-quakecraft",
-    "Quakecraft",
+    getTranslation("games.modes.classic.quakecraft.category"),
     "",
     `/img/games/404.${imageFileType}`,
     getQuakeStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
-      ["Solo", ""],
-      ["Teams", "_teams"],
+      [getTranslation("games.modes.classic.quakecraft.solo"), ""],
+      [getTranslation("games.modes.classic.quakecraft.teams"), "_teams"],
     ],
     `/img/icon/minecraft/firework_rocket.${imageFileType}`,
     "quake",
@@ -2452,7 +2460,7 @@ function generateClassic() {
 
   let vampireZChip = [
     "classic-vampirez",
-    "VampireZ",
+    getTranslation("games.modes.classic.vampirez.category"),
     ``,
     `/img/games/404.${imageFileType}`,
     getVampireZStats("human"),
@@ -2517,7 +2525,7 @@ function generateCopsAndCrims() {
 
   let defusalChip = [
     "copsandcrims-defusal",
-    "Defusal",
+    getTranslation("games.modes.copsandcrims.defusal"),
     "",
     `/img/games/404.${imageFileType}`,
     [
@@ -2533,7 +2541,7 @@ function generateCopsAndCrims() {
 
   let deathmatchChip = [
     "copsandcrims-deathmatch",
-    "Deathmatch",
+    getTranslation("games.modes.copsandcrims.deathmatch"),
     "",
     `/img/games/404.${imageFileType}`,
     [
@@ -2548,7 +2556,7 @@ function generateCopsAndCrims() {
 
   let gunGameChip = [
     "copsandcrims-gungame",
-    "Gun Game",
+    getTranslation("games.modes.copsandcrims.gungame"),
     "",
     `/img/games/404.${imageFileType}`,
     [
@@ -2563,22 +2571,22 @@ function generateCopsAndCrims() {
 
   let gunsChip = [
     "copsandcrims-guns",
-    "Guns",
+    getTranslation("games.modes.copsandcrims.guns.category"),
     "",
     `/img/games/404.${imageFileType}`,
     getCopsAndCrimsGunStats("autoShotgun"),
     [
-      ["Auto Shotgun", "autoShotgun"],
-      ["Bullpup", "bullpup"],
-      ["Carbine", "carbine"],
-      ["Handgun", "handgun"],
-      ["Magnum", "magnum"],
-      ["Pistol", "pistol"],
-      ["Rifle", "rifle"],
-      ["Scoped Rifle", "scopedRifle"],
-      ["Shotgun", "shotgun"],
-      ["SMG", "smg"],
-      ["Sniper", "sniper"],
+      [getTranslation("games.modes.copsandcrims.guns.autoShotgun"), "autoShotgun"],
+      [getTranslation("games.modes.copsandcrims.guns.bullpup"), "bullpup"],
+      [getTranslation("games.modes.copsandcrims.guns.carbine"), "carbine"],
+      [getTranslation("games.modes.copsandcrims.guns.handgun"), "handgun"],
+      [getTranslation("games.modes.copsandcrims.guns.magnum"), "magnum"],
+      [getTranslation("games.modes.copsandcrims.guns.pistol"), "pistol"],
+      [getTranslation("games.modes.copsandcrims.guns.rifle"), "rifle"],
+      [getTranslation("games.modes.copsandcrims.guns.scopedRifle"), "scopedRifle"],
+      [getTranslation("games.modes.copsandcrims.guns.shotgun"), "shotgun"],
+      [getTranslation("games.modes.copsandcrims.guns.smg"), "smg"],
+      [getTranslation("games.modes.copsandcrims.guns.sniper"), "sniper"],
     ],
     ``,
     "copsandcrims_guns",
@@ -2759,32 +2767,32 @@ function generateMegaWalls() {
 
 
   let megaWallsClasses = {
-    angel: {name: "Angel", abilities: [] },
-    arcanist: {name: "Arcanist", abilities: [] },
-    assassin: {name: "Assassin", abilities: [] },
-    automaton: {name: "Automaton", abilities: [] },
-    blaze: {name: "Blaze", abilities: [] },
-    cow: {name: "Cow", abilities: [] },
-    creeper: {name: "Creeper", abilities: [] },
-    dreadlord: {name: "Dreadlord", abilities: [] },
-    dragon: {name: "Dragon", abilities: [] },
-    enderman: {name: "Enderman", abilities: [] },
-    golem: {name: "Golem", abilities: [] },
-    herobrine: {name: "Herobrine", abilities: [] },
-    hunter: {name: "Hunter", abilities: [] },
-    moleman: {name: "Moleman", abilities: [] },
-    phoenix: {name: "Phoenix", abilities: [] },
-    pigman: {name: "Pigman", abilities: [] },
-    pirate: {name: "Pirate", abilities: [] },
-    renegade: {name: "Renegade", abilities: [] },
-    shaman: {name: "Shaman", abilities: [] },
-    shark: {name: "Shark", abilities: [] },
-    skeleton: {name: "Skeleton", abilities: [] },
-    snowman: {name: "Snowman", abilities: [] },
-    spider: {name: "Spider", abilities: [] },
-    squid: {name: "Squid", abilities: [] },
-    werewolf: {name: "Werewolf", abilities: [] },
-    zombie: {name: "Zombie", abilities: [] },
+    angel: {name: getTranslation("games.modes.megawalls.classes.angel"), abilities: [] },
+    arcanist: {name: getTranslation("games.modes.megawalls.classes.arcanist"), abilities: [] },
+    assassin: {name: getTranslation("games.modes.megawalls.classes.assassin"), abilities: [] },
+    automaton: {name: getTranslation("games.modes.megawalls.classes.automaton"), abilities: [] },
+    blaze: {name: getTranslation("games.modes.megawalls.classes.blaze"), abilities: [] },
+    cow: {name: getTranslation("games.modes.megawalls.classes.cow"), abilities: [] },
+    creeper: {name: getTranslation("games.modes.megawalls.classes.creeper"), abilities: [] },
+    dreadlord: {name: getTranslation("games.modes.megawalls.classes.dreadlord"), abilities: [] },
+    dragon: {name: getTranslation("games.modes.megawalls.classes.dragon"), abilities: [] },
+    enderman: {name: getTranslation("games.modes.megawalls.classes.enderman"), abilities: [] },
+    golem: {name: getTranslation("games.modes.megawalls.classes.golem"), abilities: [] },
+    herobrine: {name: getTranslation("games.modes.megawalls.classes.herobrine"), abilities: [] },
+    hunter: {name: getTranslation("games.modes.megawalls.classes.hunter"), abilities: [] },
+    moleman: {name: getTranslation("games.modes.megawalls.classes.moleman"), abilities: [] },
+    phoenix: {name: getTranslation("games.modes.megawalls.classes.phoenix"), abilities: [] },
+    pigman: {name: getTranslation("games.modes.megawalls.classes.pigman"), abilities: [] },
+    pirate: {name: getTranslation("games.modes.megawalls.classes.pirate"), abilities: [] },
+    renegade: {name: getTranslation("games.modes.megawalls.classes.renegade"), abilities: [] },
+    shaman: {name: getTranslation("games.modes.megawalls.classes.shaman"), abilities: [] },
+    shark: {name: getTranslation("games.modes.megawalls.classes.shark"), abilities: [] },
+    skeleton: {name: getTranslation("games.modes.megawalls.classes.skeleton"), abilities: [] },
+    snowman: {name: getTranslation("games.modes.megawalls.classes.snowman"), abilities: [] },
+    spider: {name: getTranslation("games.modes.megawalls.classes.spider"), abilities: [] },
+    squid: {name: getTranslation("games.modes.megawalls.classes.squid"), abilities: [] },
+    werewolf: {name: getTranslation("games.modes.megawalls.classes.werewolf"), abilities: [] },
+    zombie: {name: getTranslation("games.modes.megawalls.classes.zombie"), abilities: [] },
   }
 
   // Iterate through megaWallsClasses, add prestige stars to name if applicable
@@ -2800,7 +2808,7 @@ function generateMegaWalls() {
 
   let megaWallsClassChip = [
     "megawalls-classes",
-    "Classes",
+    getTranslation("games.modes.megawalls.classes.category"),
     "",
     `/img/games/404.${imageFileType}`,
     getMegaWallsClassStats("angel"),
@@ -2935,27 +2943,27 @@ function generateWarlords() {
 
   let warlordsClassesChip = [
     "warlords-classes",
-    "Classes",
+    getTranslation("games.modes.warlords.classes.category"),
     "",
     `/img/games/404.${imageFileType}`,
     getWarlordsClassStats("mage"),
     [
-      ["Mage", "mage"],
-        ["Pyromancer", "pyromancer"],
-        ["Cryomancer", "cryomancer"],
-        ["Aquamancer", "aquamancer"],
-      ["Warrior", "warrior"],
-        ["Berserker", "berserker"],
-        ["Defender", "defender"],
-        ["Revenant", "revenant"],
-      ["Paladin", "paladin"],
-        ["Avenger", "avenger"],
-        ["Crusader", "crusader"],
-        ["Protector", "protector"],
-      ["Shaman", "shaman"],
-        ["Thunderlord", "thunderlord"],
-        ["Spiritguard", "spiritguard"],
-        ["Earthwarden", "earthwarden"],
+      [getTranslation("games.modes.warlords.classes.mage"), "mage"],
+        [getTranslation("games.modes.warlords.classes.pyromancer"), "pyromancer"],
+        [getTranslation("games.modes.warlords.classes.cryomancer"), "cryomancer"],
+        [getTranslation("games.modes.warlords.classes.aquamancer"), "aquamancer"],
+      [getTranslation("games.modes.warlords.classes.warrior"), "warrior"],
+        [getTranslation("games.modes.warlords.classes.berserker"), "berserker"],
+        [getTranslation("games.modes.warlords.classes.defender"), "defender"],
+        [getTranslation("games.modes.warlords.classes.revenant"), "revenant"],
+      [getTranslation("games.modes.warlords.classes.paladin"), "paladin"],
+        [getTranslation("games.modes.warlords.classes.avenger"), "avenger"],
+        [getTranslation("games.modes.warlords.classes.crusader"), "crusader"],
+        [getTranslation("games.modes.warlords.classes.protector"), "protector"],
+      [getTranslation("games.modes.warlords.classes.shaman"), "shaman"],
+        [getTranslation("games.modes.warlords.classes.thunderlord"), "thunderlord"],
+        [getTranslation("games.modes.warlords.classes.spiritguard"), "spiritguard"],
+        [getTranslation("games.modes.warlords.classes.earthwarden"), "earthwarden"],
     ],
     ``,
     "warlords",
@@ -2963,7 +2971,7 @@ function generateWarlords() {
 
   let warlordsCaptureTheFlagChip = [
     "warlords-capturetheflag",
-    "Capture the Flag",
+    getTranslation("games.modes.warlords.capturetheflag"),
     "",
     `/img/games/404.${imageFileType}`,
     [
@@ -2978,7 +2986,7 @@ function generateWarlords() {
 
   let warlordsTeamDeathmatchChip = [
     "warlords-teamdeathmatch",
-    "Team Deathmatch",
+    getTranslation("games.modes.warlords.teamdeathmatch"),
     "",
     `/img/games/404.${imageFileType}`,
     [
@@ -2992,7 +3000,7 @@ function generateWarlords() {
 
   let warlordsDominationChip = [
     "warlords-domination",
-    "Domination",
+    getTranslation("games.modes.warlords.domination"),
     "",
     `/img/games/404.${imageFileType}`,
     [
@@ -3102,7 +3110,7 @@ function generateUHC() {
 
   let uhcChip = [
     "uhc-champions",
-    "UHC Champions",
+    getTranslation("games.modes.uhc.uhcchampions.category"),
     getGenericWinsPrefix(uhcStats["score"], uhcPrefixes, undefined, true, "✫", false, true, true),
     `/img/games/404.${imageFileType}`,
     getUHCModeStats("overall"),
@@ -3124,24 +3132,24 @@ function generateUHC() {
 
   let speedUHCChip = [
     "speed-uhc",
-    "Speed UHC",
+    getTranslation("games.modes.uhc.speeduhc.category"),
     getGenericWinsPrefix(speedUHCStats["score"], speedUHCPrefixes, undefined, true, "❋", false, true, true),
     `/img/games/404.${imageFileType}`,
     getSpeedUHCModeStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
-      ["Solo", "solo"],
-      ["Teams", "team"],
+      [getTranslation("games.modes.uhc.speeduhc.solo"), "solo"],
+      [getTranslation("games.modes.uhc.speeduhc.team"), "team"],
       ["nadeshiko-internal", "hr"],
-      ["Berserk", "mastery_berserk"],
-      ["Fortune", "mastery_fortune"],
-      ["Guardian", "mastery_guardian"],
-      ["Huntsman", "mastery_huntsman"],
-      ["Invigorate", "mastery_invigorate"],
-      ["Master Baker", "mastery_master_baker"],
-      ["Sniper", "mastery_sniper"],
-      ["Vampirisim", "mastery_vampirism"],
-      ["Wild Specialist", "mastery_wild_specialist"],
+      [getTranslation("games.modes.uhc.speeduhc.mastery_berserk"), "mastery_berserk"],
+      [getTranslation("games.modes.uhc.speeduhc.mastery_fortune"), "mastery_fortune"],
+      [getTranslation("games.modes.uhc.speeduhc.mastery_guardian"), "mastery_guardian"],
+      [getTranslation("games.modes.uhc.speeduhc.mastery_huntsman"), "mastery_huntsman"],
+      [getTranslation("games.modes.uhc.speeduhc.mastery_invigorate"), "mastery_invigorate"],
+      [getTranslation("games.modes.uhc.speeduhc.mastery_master_baker"), "mastery_master_baker"],
+      [getTranslation("games.modes.uhc.speeduhc.mastery_sniper"), "mastery_sniper"],
+      [getTranslation("games.modes.uhc.speeduhc.mastery_vampirism"), "mastery_vampirism"],
+      [getTranslation("games.modes.uhc.speeduhc.mastery_wild_specialist"), "mastery_wild_specialist"],
     ],
     `/img/icon/minecraft/golden_carrot.png`,
     "speeduhc",
@@ -3510,18 +3518,18 @@ function generateWoolGames() {
 
   let woolWarsChip = [
     "woolwars",
-    "Wool Wars",
+    getTranslation("games.modes.woolwars.woolwars.category"),
     "",
     `/img/games/404.${imageFileType}`,
     getWoolWarsStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
-      ["Archer", "archer"],
-      ["Assault", "assault"],
-      ["Engineer", "engineer"],
-      ["Golem", "golem"],
-      ["Swordsman", "swordsman"],
-      ["Tank", "tank"],
+      [getTranslation("games.modes.woolwars.woolwars.archer"), "archer"],
+      [getTranslation("games.modes.woolwars.woolwars.assault"), "assault"],
+      [getTranslation("games.modes.woolwars.woolwars.engineer"), "engineer"],
+      [getTranslation("games.modes.woolwars.woolwars.golem"), "golem"],
+      [getTranslation("games.modes.woolwars.woolwars.swordsman"), "swordsman"],
+      [getTranslation("games.modes.woolwars.woolwars.tank"), "tank"],
     ],
     `/img/icon/minecraft/white_wool.${imageFileType}`,
     "woolwars",

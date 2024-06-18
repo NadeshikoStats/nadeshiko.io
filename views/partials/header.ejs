@@ -208,7 +208,6 @@
           <div class="dropdown-item" data-item="da_DK">Dansk</div>
           <div class="dropdown-item" data-item="de_DE">Deutsch</div>
           <div class="dropdown-item" data-item="el_GR">Ελληνικά</div>
-          <div class="dropdown-item" data-item="en_PT">English (Pirate)</div>
           <div class="dropdown-item" data-item="es_ES">Español</div>
           <div class="dropdown-item" data-item="fr_FR">Français</div>
           <div class="dropdown-item" data-item="it_IT">Italiano</div>
@@ -229,6 +228,7 @@
           <div class="dropdown-item" data-item="zh_CN">中文（简体）</div>
           <div class="dropdown-item" data-item="zh_TW">中文（繁體）</div>
           <hr class="dropdown-hr" />
+          <div class="dropdown-item" data-item="en_PT">Pirate English</div>
           <div class="dropdown-item" data-item="empty">empty</div>
         </div>
       </div>
@@ -607,7 +607,7 @@ function beginGeneration(task) {
       if (dropdownContent.classList.contains("unloaded")) {
         // If not visible
         // Reset styles first
-        dropdownContent.style.right = "auto";
+        dropdownContent.style.right = "0px";
         dropdownContent.style.left = "auto";
         dropdownContent.style.bottom = "auto";
         dropdownContent.style.top = "auto";
@@ -647,14 +647,14 @@ function beginGeneration(task) {
           dropdownContent.style.overflowY = "scroll";
         }
 
-        if (window.innerWidth - dropdownRect.right < 30) {
-          // Check right edge
-          dropdownContent.style.right = "0"; // Adjust it leftwards if it goes off right edge
-          dropdownContent.style.left = "auto";
-        } else {
-          dropdownContent.style.right = "auto";
-          dropdownContent.style.left = "0";
-        }
+        // if (window.innerWidth - dropdownRect.right < 30 && !dropdownContent.classList.contains("dropdown-games")) {
+        //   // Check left edge
+        //   dropdownContent.style.left = "auto"; // Adjust it rightwards if it goes off right edge
+        //   dropdownContent.style.right = "0";
+        // } else {
+        //   dropdownContent.style.left = "0";
+        //   dropdownContent.style.right = "auto";
+        // }
       }
       dropdownContent.classList.toggle("unloaded");
     }

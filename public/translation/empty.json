@@ -69,6 +69,7 @@
   "pre_title": "home.pre_title",
   "post_title": "home.post_title",
   "recent_searches": "home.recent_searches",
+  "favorites": "home.favorites",
   "search": "home.search",
   "show_me": "home.show_me"
   },
@@ -162,10 +163,10 @@
   "bridge_3v3v3v3": "games.modes.duels.bridge.bridge_3v3v3v3",
   "capture_threes": "games.modes.duels.bridge.capture_threes"
   },
-  "skywars": {
-  "category": "games.modes.duels.skywars.category",
-  "skywars_duel": "games.modes.duels.skywars.skywars_duel",
-  "skywars_doubles": "games.modes.duels.skywars.skywars_doubles"
+  "sw": {
+  "category": "games.modes.duels.sw.category",
+  "sw_duel": "games.modes.duels.sw.sw_duel",
+  "sw_doubles": "games.modes.duels.sw.sw_doubles"
   },
   "classic": {
   "category": "games.modes.duels.classic.category"

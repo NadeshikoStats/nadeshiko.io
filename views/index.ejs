@@ -27,24 +27,25 @@
     <div class="everythingcenter">
         <div class="home-page-container">
             <span class="flex-two-item-vertical" style="margin: 30px;">
-                <span class="subtitle-home">Check out stats for</span>
+                <span class="subtitle-home" data-t="home.pre_title">Check out stats for</span>
                 <span class="title-home typing" id="typing">Hypixel</span>
+                <span class="subtitle-home" data-t="home.post_title" style="margin:0"></span>
             </span>
             <section class="player-card-home">
                 <div class="flex-two-item">
                   <span class="searchbar-container searchbar-home">
                     <img src="/img/svg/search.svg" class="search-icon bigicon" id="search-icon2">
-                    <input type="search" class="searchbar" id="searchbar2" placeholder=" Enter a Minecraft username or UUID..." style="font-size: 16px; flex: 1; padding: 7px 0px;" spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off">
+                    <input type="search" class="searchbar" id="searchbar2" data-t="home.search" placeholder=" Enter a Minecraft username or UUID..." style="font-size: 16px; flex: 1; padding: 7px 0px;" spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off">
                   </span>
-                    <span class="general-button noresize-button" onclick="showMe()">Show me</span>
+                    <span class="general-button noresize-button" onclick="showMe()" data-t="home.show_me">Show me</span>
                 </div>
             </section>
         </div>
         <div id="recent-searches">
-          <span id="recent-search-label">Recent Searches</span>
+          <span id="recent-search-label" data-t="home.recent_searches">Recent Searches</span>
         </div>
       <div class="in-development" style="text-align: center;">
-          <span style="padding: 20px;">⚠️ <b>It's not a bug – nadeshiko's actively being developed!</b><br><br>Some things here aren't complete yet, but check our <a href="https://github.com/NadeshikoStats/" target="_blank" style="color: var(--nadeshiko)">GitHub</a> to watch the site grow!</span>
+          <span style="padding: 20px;">⚠️ <b>nadeshiko's actively being developed!</b><br><br>We're close to launching, but you might still find bugs. Check our <a href="https://github.com/NadeshikoStats/" target="_blank" style="color: var(--nadeshiko)">GitHub</a> to watch the site grow!</span>
         </div>
         <% if(typeof computationError !== 'undefined') { %>
           <div class="home-error-container">
@@ -107,6 +108,31 @@ let charIndex = 0;
 let direction = 1;
 
 var texts = ["Arcade", "Arena Brawl", "Bed Wars", "Blitz", "Build Battle", "Cops and Crims", "Duels", "Mega Walls", "Murder Mystery", "Paintball", "Pit", "Quakecraft", "SkyWars", "Smash Heroes", "Speed UHC", "TNT Games", "The Walls", "Turbo Kart Racers", "UHC", "VampireZ", "Warlords", "Wool Wars"];
+
+// var texts = [
+//   getTranslation("games.arcade"),
+//   getTranslation("games.modes.classic.arena.category"),
+//   getTranslation("games.bedwars"),
+//   getTranslation("games.blitz"),
+//   getTranslation("games.buildbattle"),
+//   getTranslation("games.copsandcrims"),
+//   getTranslation("games.duels"),
+//   getTranslation("games.megawalls"),
+//   getTranslation("games.murdermystery"),
+//   getTranslation("games.modes.classic.paintball.category"),
+//   getTranslation("games.pit"),
+//   getTranslation("games.modes.classic.quakecraft.category"),
+//   getTranslation("games.skywars"),
+//   getTranslation("games.smashheroes"),
+//   getTranslation("games.modes.uhc.speeduhc.category.category"),
+//   getTranslation("games.tntgames"),
+//   getTranslation("games.modes.classic.walls.category"),
+//   getTranslation("games.modes.classic.tkr.category"),
+//   getTranslation("games.uhc"),
+//   getTranslation("games.modes.classic.vampirez.category"),
+//   getTranslation("games.warlords"),
+//   getTranslation("games.woolwars")
+// ];
 
 for (let i = texts.length - 1; i > 0; i--) { // Shuffles array
         let j = Math.floor(Math.random() * (i + 1));
