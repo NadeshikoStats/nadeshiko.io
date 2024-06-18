@@ -5,7 +5,7 @@ if (localStorageSettings === null) {
   settings = JSON.parse(localStorageSettings);
 }
 
-let userLanguage = settings["language"] || 'en_CA';
+let userLanguage = settings["language"] || 'en-CA';
 
 /* 
  * Fetches the language file from the server
@@ -23,7 +23,7 @@ async function fetchLanguageFile(language) {
   } catch (error) {
     console.warn(`Error loading translation file ${language} (${error.message})`);
 
-    let fallbackResponse = await fetch(`/translation/en_CA.json`);
+    let fallbackResponse = await fetch(`/translation/en-CA.json`);
     if (!fallbackResponse.ok) {
       console.error('Fallback language file not found! Is the /translation folder missing?');
     }

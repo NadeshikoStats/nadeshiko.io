@@ -294,35 +294,35 @@
   }
 
   let languageCodes = {
-    en_CA: { progress: 100, label: 'English' },
-    ar_SA: { progress: 0, label: 'العربية' },
-    cs_CZ: { progress: 25, label: 'Čeština' },
-    da_DK: { progress: 25, label: 'Dansk' },
-    de_DE: { progress: 25, label: 'Deutsch' },
-    el_GR: { progress: 23, label: 'Ελληνικά' },
-    es_ES: { progress: 25, label: 'Español' },
-    es_AR: { progress: 0, label: 'Español (Argentina)' },
-    fr_FR: { progress: 25, label: 'Français' },
-    it_IT: { progress: 25, label: 'Italiano' },
-    ja_JP: { progress: 25, label: '日本語' },
-    ko_KR: { progress: 25, label: '한국어' },
-    hu_HU: { progress: 25, label: 'Magyar' },
-    nl_NL: { progress: 25, label: 'Nederlands' },
-    no_NO: { progress: 24, label: 'Norsk' },
-    pl_PL: { progress: 25, label: 'Polski' },
-    pt_PT: { progress: 25, label: 'Português (Portugal)' },
-    pt_BR: { progress: 25, label: 'Português (Brasil)' },
-    ro_RO: { progress: 24, label: 'Română' },
-    ru_RU: { progress: 25, label: 'Русский' },
-    fi_FI: { progress: 25, label: 'Suomi' },
-    sv_SE: { progress: 25, label: 'Svenska' },
-    tr_TR: { progress: 24, label: 'Türkçe' },
-    uk_UA: { progress: 25, label: 'Українська' },
-    zh_CN: { progress: 25, label: '中文（简体）' },
-    zh_TW: { progress: 25, label: '中文（繁體）' },
-    en_PT: { progress: 0, label: 'Pirate English' },
-    empty: { progress: 100, label: 'empty' }
-  }
+  'en-CA': { progress: 100, label: 'English' },
+  'ar-SA': { progress: 0, label: 'العربية' },
+  'cs-CZ': { progress: 25, label: 'Čeština' },
+  'da-DK': { progress: 25, label: 'Dansk' },
+  'de-DE': { progress: 25, label: 'Deutsch' },
+  'el-GR': { progress: 23, label: 'Ελληνικά' },
+  'es-ES': { progress: 25, label: 'Español' },
+  'es-AR': { progress: 0, label: 'Español (Argentina)' },
+  'fr-FR': { progress: 25, label: 'Français' },
+  'it-IT': { progress: 25, label: 'Italiano' },
+  'ja-JP': { progress: 25, label: '日本語' },
+  'ko-KR': { progress: 25, label: '한국어' },
+  'hu-HU': { progress: 25, label: 'Magyar' },
+  'nl-NL': { progress: 25, label: 'Nederlands' },
+  'no-NO': { progress: 24, label: 'Norsk' },
+  'pl-PL': { progress: 25, label: 'Polski' },
+  'pt-PT': { progress: 25, label: 'Português (Portugal)' },
+  'pt-BR': { progress: 25, label: 'Português (Brasil)' },
+  'ro-RO': { progress: 24, label: 'Română' },
+  'ru-RU': { progress: 25, label: 'Русский' },
+  'fi-FI': { progress: 25, label: 'Suomi' },
+  'sv-SE': { progress: 25, label: 'Svenska' },
+  'tr-TR': { progress: 24, label: 'Türkçe' },
+  'uk-UA': { progress: 25, label: 'Українська' },
+  'zh-CN': { progress: 25, label: '中文（简体）' },
+  'zh-TW': { progress: 25, label: '中文（繁體）' },
+  'en-PT': { progress: 0, label: 'Pirate English' },
+  empty: { progress: 100, label: 'empty' }
+}
 
   // Iterate through the languageCodes object and create a dropdown item for each language
   let dropdownLanguage = document.getElementById("dropdown-language");
@@ -344,8 +344,8 @@
       badgeProgressTitle = "badge-none";
     }
 
-    document.getElementById("dropdown-language").innerHTML += `<div class="dropdown-item ${key == "en_CA" ? "selected" : ""}" data-item="${key}"><span class="dropdown-item-text">${value.label}</span> <span class="dropdown-item-badge ${badgeProgressTitle}">${badgeProgress}%</span></div>`;
-    if (key == "zh_TW" || key == "en_CA") {
+    document.getElementById("dropdown-language").innerHTML += `<div class="dropdown-item ${key == "en-CA" ? "selected" : ""}" data-item="${key}"><span class="dropdown-item-text">${value.label}</span> <span class="dropdown-item-badge ${badgeProgressTitle}">${badgeProgress}%</span></div>`;
+    if (key == "zh-TW" || key == "en-CA") {
       document.getElementById("dropdown-language").innerHTML += `<hr class="dropdown-hr" />`;
     }
   }
