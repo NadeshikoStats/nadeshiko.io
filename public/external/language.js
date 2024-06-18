@@ -11,17 +11,26 @@ let userLanguage = settings["language"] || 'en-CA';
  * Fetches the language file from the server
  * @param {string} language - The name of the language file
  */
+
 async function fetchLanguageFile(language) {
+
+  let validLanguages = ["en-CA", "ar-SA", "cs-CZ", "da-DK", "de-DE", "el-GR", "es-ES", "es-AR", "fr-FR", "it-IT", "ja-JP", "ko-KR", "hu-HU", "nl-NL", "no-NO", "pl-PL", "pt-PT", "pt-BR", "ro-RO", "ru-RU", "fi-FI", "sv-SE", "tr-TR", "uk-UA", "zh-CN", "zh-TW", "en-PT", "empty"];
+
   try {
+    language = language.replace("_", "-"); // Replace underscores with hyphens in case something goes wrong
     let url = `/translation/${language}.json`;
+
+    if(!validLanguages.includes(language)) {
+      console.warn(`Language ${language} is not a valid language`);
+    }
+
     let response = await fetch(url);
 
     let translationJSON = await response.json();
     languageJSON = translationJSON;
-    beginGeneration("fetchLanguageFile");
-
+    beginGeneration("fetchLanguageFile");      
   } catch (error) {
-    console.warn(`Error loading translation file ${language} (${error.message})`);
+    console.error(`Error loading translation file ${language} (${error.message})`);
 
     let fallbackResponse = await fetch(`/translation/en-CA.json`);
     if (!fallbackResponse.ok) {
