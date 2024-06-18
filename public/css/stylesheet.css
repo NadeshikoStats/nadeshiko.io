@@ -965,6 +965,35 @@
   .dropdown-item-text {
     white-space: nowrap;
   }
+
+  .dropdown-item-badge {
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 10px;
+    margin-left: 5px;
+    color: #000000;
+    opacity: 0.7;
+  }
+
+  .badge-none {
+    background-color: #931f1d;
+  }
+
+  .badge-low {
+    background-color: #ff7f11;
+  }
+
+  .badge-medium {
+    background-color: #ffe74c;
+  }
+
+  .badge-high {
+    background-color: #06aed5;
+  }
+
+  .badge-perfect {
+    background-color: var(--nadeshiko);
+  }
   
   .chip-dropdown-button {
     background-color: var(--default);

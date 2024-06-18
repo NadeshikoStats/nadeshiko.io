@@ -70,6 +70,7 @@
     "pre_title": "Check out stats for",
     "post_title": "",
     "recent_searches": "Recent Searches",
+    "favorites": "Favourites",
     "search": "Enter a Minecraft username or UUID...",
     "show_me": "Show me"
   },
@@ -111,7 +112,7 @@
       "all": {
         "stats": "統計",
         "misc": "雜項",
-        "overall": "Overall"
+        "overall": "總體"
       },
       "network": {
         "general": "General",
@@ -164,10 +165,10 @@
           "bridge_3v3v3v3": "三打模式",
           "capture_threes": "CTF 3v3"
         },
-        "skywars": {
+        "sw": {
           "category": "空島戰爭",
-          "skywars_duel": "單打",
-          "skywars_doubles": "雙打"
+          "sw_duel": "單打",
+          "sw_doubles": "雙打"
         },
         "classic": {
           "category": "經典模式"
@@ -265,7 +266,7 @@
       },
       "blitz": {
         "kits": {
-          "category": "Kits",
+          "category": "職業套裝",
           "arachnologist": "蜘蛛學家",
           "archer": "弓箭手",
           "armorer": "盔甲匠",

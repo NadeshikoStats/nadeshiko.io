@@ -73,8 +73,4 @@ function updateTranslations() {
   });
 }
 
-var languageCompletions = {
-  
-}
-
 fetchLanguageFile(userLanguage);

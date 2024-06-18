@@ -200,36 +200,8 @@
       <div class="flex-two-item">
       <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/globe.svg" alt="" /><span class="w600" data-t="header.settings.language">Language</span></p>
       <div class="dropdown">
-        <p class="dropdown-button chip-dropdown-button" id="dropdown-language-button">Network</p>
+        <p class="dropdown-button chip-dropdown-button" id="dropdown-language-button">English</p>
         <div class="dropdown-content unloaded dropdown-chip settings-dropdown dropdown-header" id="dropdown-language" data-game="settings" data-modify="language">
-          <div class="dropdown-item selected" data-item="en_CA">English</div>
-          <hr class="dropdown-hr" />
-          <div class="dropdown-item" data-item="cs_CZ">Čeština</div>
-          <div class="dropdown-item" data-item="da_DK">Dansk</div>
-          <div class="dropdown-item" data-item="de_DE">Deutsch</div>
-          <div class="dropdown-item" data-item="el_GR">Ελληνικά</div>
-          <div class="dropdown-item" data-item="es_ES">Español</div>
-          <div class="dropdown-item" data-item="fr_FR">Français</div>
-          <div class="dropdown-item" data-item="it_IT">Italiano</div>
-          <div class="dropdown-item" data-item="ja_JP">日本語</div>
-          <div class="dropdown-item" data-item="ko_KR">한국어</div>
-          <div class="dropdown-item" data-item="hu_HU">Magyar</div>
-          <div class="dropdown-item" data-item="nl_NL">Nederlands</div>
-          <div class="dropdown-item" data-item="no_NO">Norsk</div>
-          <div class="dropdown-item" data-item="pl_PL">Polski</div>
-          <div class="dropdown-item" data-item="pt_PT">Português (Portugal)</div>
-          <div class="dropdown-item" data-item="pt_BR">Português (Brasil)</div>
-          <div class="dropdown-item" data-item="ro_RO">Română</div>
-          <div class="dropdown-item" data-item="ru_RU">Русский</div>
-          <div class="dropdown-item" data-item="fi_FI">Suomi</div>
-          <div class="dropdown-item" data-item="sv_SE">Svenska</div>
-          <div class="dropdown-item" data-item="tr_TR">Türkçe</div>
-          <div class="dropdown-item" data-item="uk_UA">Українська</div>
-          <div class="dropdown-item" data-item="zh_CN">中文（简体）</div>
-          <div class="dropdown-item" data-item="zh_TW">中文（繁體）</div>
-          <hr class="dropdown-hr" />
-          <div class="dropdown-item" data-item="en_PT">Pirate English</div>
-          <div class="dropdown-item" data-item="empty">empty</div>
         </div>
       </div>
     </div>
@@ -274,7 +246,6 @@
       <p class="settings-description" data-t="header.settings.default_game_description">Changes the first page that's shown when searching a player.</p>
     </div>
 
-    
     <div class="mtop mbottom">
       <div class="flex-two-item">
         <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/settings.svg" alt="" /><span class="w600" data-t="header.settings.developer_mode">Developer Mode</span></p>
@@ -320,6 +291,63 @@
     uhc: "UHC",
     woolwars: "Wool Wars",
     warlords: "Warlords",
+  }
+
+  let languageCodes = {
+    en_CA: { progress: 100, label: 'English' },
+    ar_SA: { progress: 0, label: 'العربية' },
+    cs_CZ: { progress: 25, label: 'Čeština' },
+    da_DK: { progress: 25, label: 'Dansk' },
+    de_DE: { progress: 25, label: 'Deutsch' },
+    el_GR: { progress: 23, label: 'Ελληνικά' },
+    es_ES: { progress: 25, label: 'Español' },
+    es_AR: { progress: 0, label: 'Español (Argentina)' },
+    fr_FR: { progress: 25, label: 'Français' },
+    it_IT: { progress: 25, label: 'Italiano' },
+    ja_JP: { progress: 25, label: '日本語' },
+    ko_KR: { progress: 25, label: '한국어' },
+    hu_HU: { progress: 25, label: 'Magyar' },
+    nl_NL: { progress: 25, label: 'Nederlands' },
+    no_NO: { progress: 24, label: 'Norsk' },
+    pl_PL: { progress: 25, label: 'Polski' },
+    pt_PT: { progress: 25, label: 'Português (Portugal)' },
+    pt_BR: { progress: 25, label: 'Português (Brasil)' },
+    ro_RO: { progress: 24, label: 'Română' },
+    ru_RU: { progress: 25, label: 'Русский' },
+    fi_FI: { progress: 25, label: 'Suomi' },
+    sv_SE: { progress: 25, label: 'Svenska' },
+    tr_TR: { progress: 24, label: 'Türkçe' },
+    uk_UA: { progress: 25, label: 'Українська' },
+    zh_CN: { progress: 25, label: '中文（简体）' },
+    zh_TW: { progress: 25, label: '中文（繁體）' },
+    en_PT: { progress: 0, label: 'Pirate English' },
+    empty: { progress: 100, label: 'empty' }
+  }
+
+  // Iterate through the languageCodes object and create a dropdown item for each language
+  let dropdownLanguage = document.getElementById("dropdown-language");
+
+
+  for (const [key, value] of Object.entries(languageCodes)) {
+
+    let badgeProgress, badgeProgressTitle;
+    badgeProgress = value.progress;
+    if(badgeProgress == 100) {
+      badgeProgressTitle = "badge-perfect";
+    } else if(badgeProgress >= 80) {
+      badgeProgressTitle = "badge-high";
+    } else if(badgeProgress >= 50) {
+      badgeProgressTitle = "badge-medium";
+    } else if(badgeProgress > 0) {
+      badgeProgressTitle = "badge-low";
+    } else {
+      badgeProgressTitle = "badge-none";
+    }
+
+    document.getElementById("dropdown-language").innerHTML += `<div class="dropdown-item ${key == "en_CA" ? "selected" : ""}" data-item="${key}"><span class="dropdown-item-text">${value.label}</span> <span class="dropdown-item-badge ${badgeProgressTitle}">${badgeProgress}%</span></div>`;
+    if (key == "zh_TW" || key == "en_CA") {
+      document.getElementById("dropdown-language").innerHTML += `<hr class="dropdown-hr" />`;
+    }
   }
 
   localStorageSettings = localStorage.getItem("settings");

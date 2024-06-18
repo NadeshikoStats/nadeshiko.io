@@ -70,6 +70,7 @@
     "pre_title": "Check out stats for",
     "post_title": "",
     "recent_searches": "Recent Searches",
+    "favorites": "Favourites",
     "search": "Enter a Minecraft username or UUID...",
     "show_me": "Show me"
   },
@@ -111,7 +112,7 @@
       "all": {
         "stats": "Stats",
         "misc": "Diverse",
-        "overall": "Overall"
+        "overall": "Totalt"
       },
       "network": {
         "general": "General",
@@ -164,10 +165,10 @@
           "bridge_3v3v3v3": "3v3v3v3",
           "capture_threes": "CTF 3v3"
         },
-        "skywars": {
+        "sw": {
           "category": "SkyWars",
-          "skywars_duel": "1v1",
-          "skywars_doubles": "2v2"
+          "sw_duel": "1v1",
+          "sw_doubles": "2v2"
         },
         "classic": {
           "category": "Classic"
@@ -265,7 +266,7 @@
       },
       "blitz": {
         "kits": {
-          "category": "Kits",
+          "category": "Sett",
           "arachnologist": "Araknolog",
           "archer": "Bueskytter",
           "armorer": "Rustningssmed",
