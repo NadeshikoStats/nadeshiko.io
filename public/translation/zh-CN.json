@@ -131,10 +131,10 @@
         "four_four_lucky": "Lucky Fours",
         "eight_two_rush": "Rush Doubles",
         "four_four_rush": "Rush Fours",
-        "eight_two_swap": "Swap Doubles",
-        "four_four_swap": "Swap Fours",
-        "eight_two_ultimate": "Ultimate Doubles",
-        "four_four_ultimate": "Ultimate Fours",
+        "eight_two_swap": "Swappage Doubles",
+        "four_four_swap": "Swappage Fours",
+        "eight_two_ultimate": "超能力起床 双人",
+        "four_four_ultimate": "超能力起床 4v4v4v4",
         "eight_two_underworld": "Underworld Doubles",
         "four_four_underworld": "Underworld Fours",
         "eight_two_voidless": "Voidless Doubles",
@@ -231,35 +231,35 @@
         "bountyhunters": "赏金猎人",
         "capturethewool": "捕捉羊毛大作战",
         "creeperattack": "进击的苦力怕",
-        "dragonwars": "Dragon Wars",
-        "dropper": "Dropper",
-        "enderspleef": "Ender Spleef",
-        "farmhunt": "Farm Hunt",
-        "football": "Football",
-        "galaxywars": "Galaxy Wars",
-        "holeinthewall": "Hole in the Wall",
-        "hypixelsays": "Hypixel Says",
-        "miniwalls": "Mini Walls",
-        "partygames": "Party Games",
-        "pixelpainters": "Pixel Painters",
-        "pixelparty": "Pixel Party",
-        "throwout": "Throw Out",
+        "dragonwars": "龙之战",
+        "dropper": "心跳水立方",
+        "enderspleef": "末影掘战",
+        "farmhunt": "农场躲猫猫",
+        "football": "足球",
+        "galaxywars": "星际战争",
+        "holeinthewall": "人体打印机",
+        "hypixelsays": "我说你做",
+        "miniwalls": "迷你战墙",
+        "partygames": "派对游戏",
+        "pixelpainters": "像素画家",
+        "pixelparty": "像素派对",
+        "throwout": "乱棍之战",
         "hideandseek": {
-          "category": "Hide and Seek",
-          "party_pooper": "Party Pooper",
-          "prop_hunt": "Prop Hunt"
+          "category": "躲猫猫",
+          "party_pooper": "派对躲猫猫",
+          "prop_hunt": "道具躲猫猫"
         },
         "zombies": {
-          "category": "Zombies",
-          "deadend": "Dead End",
-          "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "category": "僵尸末日",
+          "deadend": "穷途末路",
+          "badblood": "坏血之宫",
+          "alienarcadium": "外星游乐园"
         },
         "seasonal": {
-          "category": "Seasonal",
-          "grinch_simulator_v2": "Grinch Simulator",
-          "easter_simulator": "Easter Simulator",
-          "halloween_simulator": "Halloween Simulator",
+          "category": "节日",
+          "grinch_simulator_v2": "圣诞怪杰模拟器",
+          "easter_simulator": "复活节模拟器",
+          "halloween_simulator": "万圣夜模拟器",
           "scuba_simulator": "Scuba Simulator",
           "santa_simulator": "Santa Simulator"
         }
@@ -327,25 +327,25 @@
           "expert": "闻名于世",
           "master": "建筑大师"
         },
-        "solo_normal": "Solo",
-        "teams_normal": "Teams",
-        "solo_pro": "Pro",
-        "guess_the_build": "Guess the Build"
+        "solo_normal": "单人模式",
+        "teams_normal": "团队",
+        "solo_pro": "高手",
+        "guess_the_build": "建筑猜猜乐"
       },
       "classic": {
         "arena": {
-          "category": "Arena Brawl",
-          "1v1": "1v1",
+          "category": "竞技场乱斗",
+          "1v1": "单挑",
           "2v2": "2v2",
           "4v4": "4v4"
         },
         "paintball": {
-          "category": "Paintball"
+          "category": "彩弹射击"
         },
         "quakecraft": {
-          "category": "Quakecraft",
-          "solo": "Solo",
-          "teams": "Teams"
+          "category": "未来射击",
+          "solo": "单挑模式",
+          "teams": "组队模式"
         },
         "tkr": {
           "category": "Turbo Kart Racers",
@@ -356,17 +356,17 @@
           "retro": "Retro"
         },
         "vampirez": {
-          "category": "VampireZ",
+          "category": "吸血鬼",
           "human": "Human",
-          "vampire": "Vampire"
+          "vampire": "吸血鬼"
         },
         "walls": {
           "category": "The Walls"
         }
       },
       "copsandcrims": {
-        "defusal": "Defusal",
-        "deathmatch": "Deathmatch",
+        "defusal": "爆破模式",
+        "deathmatch": "团队死亡竞赛",
         "gungame": "Gun Game",
         "guns": {
           "category": "Guns",
@@ -413,14 +413,14 @@
           "werewolf": "狼人",
           "zombie": "僵尸"
         },
-        "standard": "Standard",
-        "faceoff": "Faceoff"
+        "standard": "标准",
+        "faceoff": "对决"
       },
       "murdermystery": {
-        "MURDER_CLASSIC": "Classic",
-        "MURDER_DOUBLE_UP": "Double Up!",
-        "MURDER_ASSASSINS": "Assassins",
-        "MURDER_INFECTION": "Infection"
+        "MURDER_CLASSIC": "经典",
+        "MURDER_DOUBLE_UP": "双倍模式！",
+        "MURDER_ASSASSINS": "刺客",
+        "MURDER_INFECTION": "感染"
       },
       "pit": {
         "combat": "Combat",
@@ -458,19 +458,19 @@
       },
       "tntgames": {
         "tntrun": {
-          "category": "TNT Run"
+          "category": "方块掘战"
         },
         "pvprun": {
-          "category": "PvP Run"
+          "category": "PvP方块掘战"
         },
         "tntag": {
-          "category": "TNT Tag"
+          "category": "烫手TNT"
         },
         "bowspleef": {
-          "category": "Bow Spleef"
+          "category": "掘一死箭"
         },
         "wizards": {
-          "category": "Wizards",
+          "category": "法师掘战",
           "new_ancientwizard": "Ancient",
           "arcane_wizard": "Arcane",
           "new_bloodwizard": "Blood",
@@ -485,7 +485,7 @@
       },
       "uhc": {
         "uhcchampions": {
-          "category": "UHC Champions",
+          "category": "极限生存冠军",
           "solo": "Solo",
           "teams": "Teams of 3",
           "red_vs_blue": "Red vs. Blue",
@@ -496,18 +496,18 @@
           "vanilla_doubles": "Vanilla Doubles"
         },
         "speeduhc": {
-          "category": "Speed UHC",
-          "solo": "Solo",
-          "team": "Teams",
-          "mastery_berserk": "Berserk",
-          "mastery_fortune": "Fortune",
-          "mastery_guardian": "Guardian",
-          "mastery_huntsman": "Huntsman",
-          "mastery_invigorate": "Invigorate",
-          "mastery_master_baker": "Master Baker",
-          "mastery_sniper": "Sniper",
-          "mastery_vampirism": "Vampirism",
-          "mastery_wild_specialist": "Wild Specialist"
+          "category": "速战极限生存",
+          "solo": "单挑模式",
+          "team": "组队模式",
+          "mastery_berserk": "狂怒",
+          "mastery_fortune": "时运",
+          "mastery_guardian": "守卫者",
+          "mastery_huntsman": "猎手",
+          "mastery_invigorate": "鼓舞",
+          "mastery_master_baker": "烘焙大师",
+          "mastery_sniper": "狙击手",
+          "mastery_vampirism": "吸血鬼",
+          "mastery_wild_specialist": "野外专家"
         }
       },
       "warlords": {
@@ -530,9 +530,9 @@
           "spiritguard": "灵魂近卫",
           "earthwarden": "大地守护神"
         },
-        "capturetheflag": "Capture the Flag",
+        "capturetheflag": "夺旗",
         "domination": "Domination",
-        "teamdeathmatch": "Team Deathmatch"
+        "teamdeathmatch": "团队死亡竞赛"
       },
       "woolwars": {
         "woolwars": {
@@ -628,35 +628,35 @@
     "revives": "复活玩家数",
     "rounds_survived": "生存回合数",
     "doors_opened": "开门数",
-    "windows_repaired": "Windows Repaired",
-    "items_found": "Items Found",
-    "gifts_stolen": "Gifts Stolen",
-    "eggs_found": "Eggs Found",
-    "candy_found": "Candy Found",
-    "total_points": "Total Points",
-    "gifts_delivered": "Gifts Delivered",
+    "windows_repaired": "窗户修复数",
+    "items_found": "已找到物品",
+    "gifts_stolen": "礼物窃取数",
+    "eggs_found": "找到的蛋",
+    "candy_found": "已找到糖果",
+    "total_points": "总分",
+    "gifts_delivered": "送出的礼物",
     "times_spotted": "Times Spotted",
     "wins_solo": "Wins (Solo)",
     "wins_teams": "Wins (Teams)",
     "kills_solo": "Kills (Solo)",
     "kills_teams": "Kills (Teams)",
-    "taunt_kills": "Taunt Kills",
-    "arrows_hit": "Arrows Hit",
-    "potions_thrown": "Potions Thrown",
-    "mobs_spawned": "Mobs Spawned",
-    "exp": "EXP",
-    "votes": "Votes",
-    "score": "Score",
+    "taunt_kills": "嘲讽状态下击杀数",
+    "arrows_hit": "箭矢射中数",
+    "potions_thrown": "扔出药水数",
+    "mobs_spawned": "生成生物数",
+    "exp": "经验",
+    "votes": "投票数",
+    "score": "分数",
     "classic_tokens": "Classic Tokens",
     "lifetime_tokens": "Lifetime Tokens",
     "damage_healed": "Damage Healed",
     "magical_keys": "Magical Keys",
     "magical_chests": "Magical Chests",
-    "shots": "Shots",
-    "killstreaks": "Killstreaks",
-    "distance_travelled": "Distance Travelled",
+    "shots": "发射数",
+    "killstreaks": "连杀",
+    "distance_travelled": "旅途距离",
     "godlikes": "Godlikes",
-    "trophies": "Trophies",
+    "trophies": "奖杯",
     "laps": "Laps",
     "golds": "Golds",
     "silvers": "Silvers",
@@ -664,21 +664,21 @@
     "trophy_rate": "Trophy Rate",
     "box_pickups": "Box Pickups",
     "coin_pickups": "Coin Pickups",
-    "vampire_kills": "Vampire Kills",
-    "zombie_kills": "Zombie Kills",
+    "vampire_kills": "吸血鬼击杀",
+    "zombie_kills": "僵尸击杀数",
     "most_vampire_kills": "Most Vampire Kills",
-    "human_kills": "Human Kills",
+    "human_kills": "幸存者击杀",
     "headshot_kills": "Headshot Kills",
-    "bombs_defused": "Bombs Defused",
-    "bombs_planted": "Bombs Planted",
-    "final_assists": "Final Assists",
-    "selected_class": "Selected Class",
+    "bombs_defused": "炸弹拆除数",
+    "bombs_planted": "炸弹安放数",
+    "final_assists": "最终助攻数",
+    "selected_class": "已选择的职业",
     "mythic_favor": "Mythic Favor",
-    "upgrades": "Upgrades",
+    "upgrades": "升级",
     "prestige": "Prestige",
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "Class Points",
-    "total_time_survived": "Total Time Survived",
+    "total_time_survived": "总生存时间",
     "wins_murderer": "Wins (Murderer)",
     "wins_detective": "Wins (Detective)",
     "fastest_win_murderer": "Fastest Win (Murderer)",
@@ -689,23 +689,23 @@
     "wins_survivor": "Wins (Survivor)",
     "kills_infected": "Kills (Infected)",
     "kills_survivor": "Kills (Survivor)",
-    "gold": "Gold",
+    "gold": "金",
     "renown": "Renown",
     "joins": "Joins",
-    "left_clicks": "Left Clicks",
-    "sword_hits": "Sword Hits",
+    "left_clicks": "左键点击次数",
+    "sword_hits": "近战击中数",
     "damage_taken": "受到伤害量",
     "highest_killstreak": "Highest Killstreak",
-    "arrows_shot": "Arrows Shot",
+    "arrows_shot": "箭矢射击数",
     "night_quests": "Night Quests",
-    "xp": "XP",
+    "xp": "经验",
     "lifetime_gold": "Lifetime Gold",
     "contracts_started": "Contracts Started",
-    "contracts_completed": "Contracts Completed",
-    "golden_apples_eaten": "Golden Apples Eaten",
-    "golden_heads_eaten": "Golden Heads Eaten",
-    "blocks_placed": "Blocks Placed",
-    "blocks_broken": "Blocks Broken",
+    "contracts_completed": "契约任务完成数",
+    "golden_apples_eaten": "金苹果食用数",
+    "golden_heads_eaten": "金头食用数",
+    "blocks_placed": "放置方块数",
+    "blocks_broken": "破坏方块数",
     "fishing_rod_launches": "Fishing Rod Launches",
     "lava_bucket_empties": "Lava Bucket Empties",
     "soups_drank": "Soups Drank",
@@ -714,33 +714,32 @@
     "tier_1s": "Tier Is",
     "tier_2s": "Tier IIs",
     "tier_3s": "Tier IIIs",
-    "chat_messages": "Chat Messages",
+    "chat_messages": "发送信息数",
     "ingots_picked_up": "Ingots Picked Up",
-    "jumps_into_pit": "Jumps Into Pit",
-    "launcher_launches": "Launcher Launches",
-    "sewer_treasures": "Sewer Treasurers",
+    "jumps_into_pit": "跳入天坑次数",
+    "launcher_launches": "发射平台使用数",
+    "sewer_treasures": "Sewer Treasures",
     "kings_quest_completions": "King's Quest Completions",
-    "wheat_farmed": "Wheat Farmed",
+    "wheat_farmed": "小麦收割数",
     "items_fished": "Items Fished",
     "fish_fished": "Fish Fished",
     "selected_hero": "Selected Hero",
-    "smash_level": "Smash Level",
+    "smash_level": "英雄等级",
     "total_xp": "Total XP",
     "blocks_ran": "Blocks Ran",
     "tags": "Tags",
-    "overall_wins": "Overall Wins",
+    "overall_wins": "总胜场",
     "overall_captures": "Overall Captures",
-    "healing": "Healing",
-    "heads_eaten": "Heads Eaten",
-    "ultimates_crafted": "Ultimates Crafted",
+    "heads_eaten": "吃下的头",
+    "ultimates_crafted": "配方合成次数",
     "magic_dust": "Magic Dust",
     "void_shards": "Void Shards",
     "weapons_repaired": "Weapons Repaired",
     "flags_returned": "Flags Returned",
-    "captures": "Captures",
-    "total_score": "Total Score",
+    "captures": "夺取数",
+    "total_score": "总分",
     "damage_prevented": "Damage Prevented",
-    "wool": "Wool",
+    "wool": "羊毛",
     "layers": "Layers",
     "wool_placed": "Wool Placed"
   },

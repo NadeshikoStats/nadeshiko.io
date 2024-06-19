@@ -1576,7 +1576,7 @@ function generateTNTGames() {
   allTNTWizardStats["overall"] = [
     [false, [getTranslation("statistics.overall_wins"), getGenericWinsPrefix(tntGamesStats["wins_capture"], tntGamesHighPrefixes, tntGamesStats["prefix_capture"], false, "")], [getTranslation("statistics.overall_captures"), checkAndFormat(tntGamesStats["points_capture"])]],
     [false, [getTranslation("statistics.kills"), checkAndFormat(totalWizardStats[0])], [getTranslation("statistics.deaths"), checkAndFormat(totalWizardStats[1])], [getTranslation("statistics.kdr"), calculateRatio(totalWizardStats[0], totalWizardStats[1])]],
-    [false, [getTranslation("statistics.healing"), checkAndFormat(totalWizardStats[2] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.damage_taken"), checkAndFormat(totalWizardStats[3] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.assists"), checkAndFormat(tntGamesStats["assists_capture"])]],
+    [false, [getTranslation("statistics.damage_healed"), checkAndFormat(totalWizardStats[2] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.damage_taken"), checkAndFormat(totalWizardStats[3] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.assists"), checkAndFormat(tntGamesStats["assists_capture"])]],
   ];
 
   for (let a = 1; a < wizardsList.length; a++) {
@@ -1592,7 +1592,7 @@ function generateTNTGames() {
       ],
       [
         false,
-        [getTranslation("statistics.healing"), checkAndFormat(tntGamesStats[thisWizard + "_healing"] / 2) + ` ♥&#xFE0E;`],
+        [getTranslation("statistics.damage_healed"), checkAndFormat(tntGamesStats[thisWizard + "_healing"] / 2) + ` ♥&#xFE0E;`],
         [getTranslation("statistics.damage_taken"), checkAndFormat(tntGamesStats[thisWizard + "_damage_taken"] / 2) + ` ♥&#xFE0E;`],
         [getTranslation("statistics.assists"), checkAndFormat(tntGamesStats[thisWizard + "_assists"])],
       ],
@@ -1656,7 +1656,7 @@ function generateArcade() {
   // Blocking Dead
   let blockingDeadCard = [
     "arcade-stats-blockingdead", // ID
-    "Blocking Dead", // Title
+    getTranslation("games.modes.arcade.blockingdead"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1671,7 +1671,7 @@ function generateArcade() {
   // Bounty Hunters
   let bountyHuntersCard = [
     "arcade-stats-bountyhunters", // ID
-    "Bounty Hunters", // Title
+    getTranslation("games.modes.arcade.bountyhunters"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1692,7 +1692,7 @@ function generateArcade() {
   // Capture The Wool
   let captureTheWoolCard = [
     "arcade-stats-capturethewool", // ID
-    "Capture The Wool", // Title
+    getTranslation("games.modes.arcade.capturethewool"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1715,7 +1715,7 @@ function generateArcade() {
   // Creeper Attack
   let creeperAttackCard = [
     "arcade-stats-creeperattack", // ID
-    "Creeper Attack", // Title
+    getTranslation("games.modes.arcade.creeperattack"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [[false, [getTranslation("statistics.max_wave"), checkAndFormat(arcadeStats["max_wave"])]]], // Displayed stats
@@ -1725,7 +1725,7 @@ function generateArcade() {
 
   let dragonWarsCard = [
     "arcade-stats-dragonwars", // ID
-    "Dragon Wars", // Title
+    getTranslation("games.modes.arcade.dragonwars"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1739,7 +1739,7 @@ function generateArcade() {
 
   let dropperCard = [
     "arcade-stats-dropper", // ID
-    "Dropper", // Title
+    getTranslation("games.modes.arcade.dropper"), // Title
     "", // Subtitle
     `/img/games/arcade/dropper.${imageFileType}`, // Background image
     [
@@ -1759,7 +1759,7 @@ function generateArcade() {
 
   let enderSpleefCard = [
     "arcade-stats-enderspleef", // ID
-    "Ender Spleef", // Title
+    getTranslation("games.modes.arcade.enderspleef"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1773,7 +1773,7 @@ function generateArcade() {
 
   let farmHuntCard = [
     "arcade-stats-farmhunt", // ID
-    "Farm Hunt", // Title
+    getTranslation("games.modes.arcade.farmhunt"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1791,7 +1791,7 @@ function generateArcade() {
 
   let footballCard = [
     "arcade-stats-football", // ID
-    "Football", // Title
+    getTranslation("games.modes.arcade.football"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1805,7 +1805,7 @@ function generateArcade() {
 
   let galaxyWarsCard = [
     "arcade-stats-galaxywars", // ID
-    "Galaxy Wars", // Title
+    getTranslation("games.modes.arcade.galaxywars"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1820,14 +1820,14 @@ function generateArcade() {
 
   let hideAndSeekCard = [
     "arcade-stats-hideandseek", // ID
-    "Hide and Seek", // Title
+    getTranslation("games.modes.arcade.hideandseek.category"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     getArcadeHideAndSeekStats("overall"), // Displayed stats
     [
       [getTranslation("games.modes.all.overall"), "overall", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
-      ["Party Pooper", "party_pooper", `/img/icon/minecraft/tnt.${imageFileType}`],
-      ["Prop Hunt", "prop_hunt", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
+      [getTranslation("games.modes.arcade.hideandseek.party_pooper"), "party_pooper", `/img/icon/minecraft/tnt.${imageFileType}`],
+      [getTranslation("games.modes.arcade.hideandseek.prop_hunt"), "prop_hunt", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
     ], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/blaze_rod.${imageFileType}`, // Chip image
     "arcade_hide_and_seek", // gamemode
@@ -1835,7 +1835,7 @@ function generateArcade() {
 
   let holeInTheWallCard = [
     "arcade-stats-holeinthewall", // ID
-    "Hole in the Wall", // Title
+    getTranslation("games.modes.arcade.holeinthewall"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1850,7 +1850,7 @@ function generateArcade() {
 
   let hypixelSaysCard = [
     "arcade-stats-hypixelsays", // ID
-    "Hypixel Says", // Title
+    getTranslation("games.modes.arcade.hypixelsays"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1869,7 +1869,7 @@ function generateArcade() {
 
   let miniWallsCard = [
     "arcade-stats-miniwalls", // ID
-    "Mini Walls", // Title
+    getTranslation("games.modes.arcade.miniwalls"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1889,7 +1889,7 @@ function generateArcade() {
 
   let partyGamesCard = [
     "arcade-stats-partygames", // ID
-    "Party Games", // Title
+    getTranslation("games.modes.arcade.partygames"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1903,7 +1903,7 @@ function generateArcade() {
 
   let pixelPaintersCard = [
     "arcade-stats-pixelpainters", // ID
-    "Pixel Painters", // Title
+    getTranslation("games.modes.arcade.pixelpainters"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [[false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_draw_their_thing"])]]],
@@ -1914,7 +1914,7 @@ function generateArcade() {
 
   let pixelPartyCard = [
     "arcade-stats-pixelparty", // ID
-    "Pixel Party", // Title
+    getTranslation("games.modes.arcade.pixelparty"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1933,7 +1933,7 @@ function generateArcade() {
 
   let throwOutCard = [
     "arcade-stats-throwout", // ID
-    "Throw Out", // Title
+    getTranslation("games.modes.arcade.throwout"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     [
@@ -1947,7 +1947,7 @@ function generateArcade() {
 
   let zombiesCard = [
     "arcade-stats-zombies", // ID
-    "Zombies", // Title
+    getTranslation("games.modes.arcade.zombies.category"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     getZombiesStats("overall"), // Displayed stats
@@ -1963,17 +1963,17 @@ function generateArcade() {
 
   let seasonalCard = [
     "arcade-stats-seasonal", // ID
-    "Seasonal Games", // Title
+    getTranslation("games.modes.arcade.seasonal.category"), // Title
     "", // Subtitle
     `/img/games/404.${imageFileType}`, // Background image
     getArcadeSeasonalStats("overall"), // Displayed stats
     [
       [getTranslation("games.modes.all.overall"), "overall"],
-      ["Grinch Simulator", "grinch_simulator_v2", `/img/icon/minecraft/head_grinchsimulator.${imageFileType}`],
-      ["Easter Simulator", "easter_simulator", `/img/icon/minecraft/head_eastersimulator.${imageFileType}`],
-      ["Halloween Simulator", "halloween_simulator", `/img/icon/minecraft/head_halloweensimulator.${imageFileType}`],
-      ["Scuba Simulator", "scuba_simulator", `/img/icon/minecraft/head_scubasimulator.${imageFileType}`],
-      ["Santa Simulator", "santa_simulator", `/img/icon/minecraft/head_santasimulator.${imageFileType}`],
+      [getTranslation("games.modes.arcade.seasonal.grinch_simulator_v2"), "grinch_simulator_v2", `/img/icon/minecraft/head_grinchsimulator.${imageFileType}`],
+      [getTranslation("games.modes.arcade.seasonal.easter_simulator"), "easter_simulator", `/img/icon/minecraft/head_eastersimulator.${imageFileType}`],
+      [getTranslation("games.modes.arcade.seasonal.halloween_simulator"), "halloween_simulator", `/img/icon/minecraft/head_halloweensimulator.${imageFileType}`],
+      [getTranslation("games.modes.arcade.seasonal.scuba_simulator"), "scuba_simulator", `/img/icon/minecraft/head_scubasimulator.${imageFileType}`],
+      [getTranslation("games.modes.arcade.seasonal.santa_simulator"), "santa_simulator", `/img/icon/minecraft/head_santasimulator.${imageFileType}`],
     ], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/head_seasonal.${imageFileType}`, // Chip image
     "arcade_seasonal", // gamemode
@@ -3059,7 +3059,7 @@ function getWarlordsClassStats(specName) {
   let warlordsClassStats = [
     [false, [getTranslation("statistics.level"), formattedWarlordsClassLevel]],
     [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats[`wins_${lookupName}`])], [getTranslation("statistics.losses"), checkAndFormat(warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])], [getTranslation("statistics.wlr"), calculateRatio(warlordsStats[`wins_${lookupName}`], warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])]],
-  [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(warlordsStats[`damage_${lookupName}`]) + " HP"], [getTranslation("statistics.healing"), veryLargeNumber(warlordsStats[`heal_${lookupName}`]) + " HP"]],
+  [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(warlordsStats[`damage_${lookupName}`]) + " HP"], [getTranslation("statistics.damage_healed"), veryLargeNumber(warlordsStats[`heal_${lookupName}`]) + " HP"]],
   ]
 
   if(className == "mage") {

@@ -162,8 +162,8 @@
         "four_four_lucky": "Lucky Fours",
         "eight_two_rush": "Rush Doubles",
         "four_four_rush": "Rush Fours",
-        "eight_two_swap": "Swap Doubles",
-        "four_four_swap": "Swap Fours",
+        "eight_two_swap": "Swappage Doubles",
+        "four_four_swap": "Swappage Fours",
         "eight_two_ultimate": "Ultimate Doubles",
         "four_four_ultimate": "Ultimate Fours",
         "eight_two_underworld": "Underworld Doubles",
@@ -296,7 +296,7 @@
         },
 
         "seasonal": {
-          "category": "Seasonal",
+          "category": "Seasonal Games",
 
           "grinch_simulator_v2": "Grinch Simulator",
           "easter_simulator": "Easter Simulator",
@@ -463,7 +463,7 @@
         },
 
         "standard": "Standard",
-        "faceoff": "Faceoff"
+        "faceoff": "Face Off"
       },
       "murdermystery": {
         "MURDER_CLASSIC": "Classic",
@@ -812,7 +812,7 @@
     "ingots_picked_up": "Ingots Picked Up",
     "jumps_into_pit": "Jumps Into Pit",
     "launcher_launches": "Launcher Launches",
-    "sewer_treasures": "Sewer Treasurers",
+    "sewer_treasures": "Sewer Treasures",
     "kings_quest_completions": "King's Quest Completions",
     "wheat_farmed": "Wheat Farmed",
     "items_fished": "Items Fished",
@@ -827,7 +827,6 @@
 
     "overall_wins": "Overall Wins",
     "overall_captures": "Overall Captures",
-    "healing": "Healing",
 
     "heads_eaten": "Heads Eaten",
     "ultimates_crafted": "Ultimates Crafted",
