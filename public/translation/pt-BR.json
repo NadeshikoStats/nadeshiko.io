@@ -52,7 +52,8 @@
       "format_tooltip": "Where the card will be displayed.",
       "button_generate": "Generate Card",
       "copy": "Click \"Generate Card\" and a link will appear here.",
-      "loading_preview": "Loading preview..."
+      "loading_preview": "Loading preview...",
+      "preview": "Preview"
     },
     "settings": {
       "title": "Settings",
