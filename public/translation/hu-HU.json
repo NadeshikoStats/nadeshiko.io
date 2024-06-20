@@ -428,7 +428,7 @@
         "perks": "Perks",
         "mystics": "Mystics",
         "farming": "Farming",
-        "misc": "Misceallaneous"
+        "misc": "Miscellaneous"
       },
       "smashheroes": {
         "classes": {
@@ -615,7 +615,7 @@
     "wins_hider": "Wins (Hider)",
     "wins_seeker": "Wins (Seeker)",
     "walls": "Walls",
-    "record_qualifiers": "Record (Qualifiers)",
+    "record_qualifications": "Record (Qualifications)",
     "record_finals": "Record (Finals)",
     "round_wins": "Nyert Körök",
     "highest_score": "Legmagasabb Pontszám",

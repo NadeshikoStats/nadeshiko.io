@@ -1841,7 +1841,7 @@ function generateArcade() {
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_hole_in_the_wall"])]],
       [false, [getTranslation("statistics.walls"), checkAndFormat(arcadeStats["rounds_hole_in_the_wall"])]],
-      [false, [getTranslation("statistics.record_qualifiers"), checkAndFormat(arcadeStats["hitw_record_q"])], [getTranslation("statistics.record_finals"), checkAndFormat(arcadeStats["hitw_record_f"])]],
+      [false, [getTranslation("statistics.record_qualifications"), checkAndFormat(arcadeStats["hitw_record_q"])], [getTranslation("statistics.record_finals"), checkAndFormat(arcadeStats["hitw_record_f"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/bricks.${imageFileType}`, // Chip image

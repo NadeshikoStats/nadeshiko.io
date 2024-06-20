@@ -300,10 +300,10 @@
     'da-DK': { progress: 41, label: 'Dansk' },
     'de-DE': { progress: 43, label: 'Deutsch' },
     'el-GR': { progress: 37, label: 'Ελληνικά' },
-    'es-ES': { progress: 57, label: 'Español' },
+    'es-ES': { progress: 100, label: 'Español' },
     'es-AR': { progress: 0, label: 'Español (Argentina)' },
     'fr-FR': { progress: 43, label: 'Français' },
-    'it-IT': { progress: 43, label: 'Italiano' },
+    'it-IT': { progress: 44, label: 'Italiano' },
     'ja-JP': { progress: 43, label: '日本語' },
     'ko-KR': { progress: 43, label: '한국어' },
     'hu-HU': { progress: 41, label: 'Magyar' },
@@ -311,14 +311,14 @@
     'no-NO': { progress: 41, label: 'Norsk' },
     'pl-PL': { progress: 43, label: 'Polski' },
     'pt-PT': { progress: 43, label: 'Português (Portugal)' },
-    'pt-BR': { progress: 43, label: 'Português (Brasil)' },
+    'pt-BR': { progress: 44, label: 'Português (Brasil)' },
     'ro-RO': { progress: 37, label: 'Română' },
-    'ru-RU': { progress: 43, label: 'Русский' },
+    'ru-RU': { progress: 44, label: 'Русский' },
     'fi-FI': { progress: 43, label: 'Suomi' },
     'sv-SE': { progress: 40, label: 'Svenska' },
     'tr-TR': { progress: 41, label: 'Türkçe' },
     'uk-UA': { progress: 41, label: 'Українська' },
-    'zh-CN': { progress: 43, label: '中文（简体）' },
+    'zh-CN': { progress: 44, label: '中文（简体）' },
     'zh-TW': { progress: 42, label: '中文（繁體）' },
     'en-PT': { progress: 0, label: 'Pirate English' },
     empty: { progress: 100, label: 'empty' }
@@ -430,7 +430,7 @@
     document.getElementById("card-wizard-preview-watermark").style.display = "none";
     document.getElementById("progress-ring-svg").style.display = "initial";
     document.getElementById("card-wizard-image").style.display = "none";
-    document.getElementById("card-wizard-preview-message").innerText = "Loading preview...";
+    document.getElementById("card-wizard-preview-message").innerText = getTranslation("header.cards.loading_preview");
     document.getElementById("card-wizard-image").src = `https://nadeshiko.io/card/${base64Card}`;
     let svgImageMoving = setInterval(function () {
       svgCycleCounter++;

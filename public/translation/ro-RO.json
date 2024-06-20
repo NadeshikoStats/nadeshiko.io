@@ -414,7 +414,7 @@
           "zombie": "Zombi"
         },
         "standard": "Standard",
-        "faceoff": "Faceoff"
+        "faceoff": "Face Off"
       },
       "murdermystery": {
         "MURDER_CLASSIC": "Classic",
@@ -428,7 +428,7 @@
         "perks": "Perks",
         "mystics": "Mystics",
         "farming": "Farming",
-        "misc": "Misceallaneous"
+        "misc": "Miscellaneous"
       },
       "smashheroes": {
         "classes": {
@@ -615,7 +615,7 @@
     "wins_hider": "Wins (Hider)",
     "wins_seeker": "Wins (Seeker)",
     "walls": "Walls",
-    "record_qualifiers": "Record (Qualifiers)",
+    "record_qualifications": "Record (Qualifications)",
     "record_finals": "Record (Finals)",
     "round_wins": "Runde Câștigate",
     "highest_score": "Cel Mai Mare Scor",

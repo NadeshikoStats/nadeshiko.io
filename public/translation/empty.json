@@ -52,7 +52,8 @@
       "format_tooltip": "header.cards.format_tooltip",
       "button_generate": "header.cards.button_generate",
       "copy": "header.cards.copy",
-      "loading_preview": "header.cards.loading_preview"
+      "loading_preview": "header.cards.loading_preview",
+      "preview": "header.cards.preview"
     },
     "settings": {
       "title": "header.settings.title",
@@ -615,7 +616,7 @@
     "wins_hider": "statistics.wins_hider",
     "wins_seeker": "statistics.wins_seeker",
     "walls": "statistics.walls",
-    "record_qualifiers": "statistics.record_qualifiers",
+    "record_qualifications": "statistics.record_qualifications",
     "record_finals": "statistics.record_finals",
     "round_wins": "statistics.round_wins",
     "highest_score": "statistics.highest_score",
