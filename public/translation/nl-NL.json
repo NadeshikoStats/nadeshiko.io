@@ -255,7 +255,8 @@
           "category": "Zombies",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "Seizoensgebonden",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Sluimer kaartjes",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "Hoofden",
     "chests_opened": "Kisten geopend",
@@ -698,6 +700,7 @@
     "sword_hits": "Zwaard Hits",
     "damage_taken": "Schade Opgelopen",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "Pijlen Afgeschoten",
     "night_quests": "Night Quests",
     "xp": "XP",

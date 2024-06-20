@@ -255,7 +255,8 @@
           "category": "Zombies",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "Kausittaiset",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Horrosliput",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "Päät",
     "chests_opened": "Arkkuja avattu",
@@ -698,6 +700,7 @@
     "sword_hits": "Osumat miekalla",
     "damage_taken": "Vahinkoa otettu",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "Nuolia ammuttu",
     "night_quests": "Night Quests",
     "xp": "XP",

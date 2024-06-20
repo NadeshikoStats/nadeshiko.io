@@ -255,7 +255,8 @@
           "category": "Zombies",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "Sezonier",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Tichete Slumber",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "Capete",
     "chests_opened": "Cufere Deschise",
@@ -698,6 +700,7 @@
     "sword_hits": "Sword Hits",
     "damage_taken": "Daune Suferite",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "Săgeți Trase",
     "night_quests": "Night Quests",
     "xp": "XP",

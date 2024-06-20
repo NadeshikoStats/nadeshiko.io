@@ -92,7 +92,7 @@
           style="stroke-dashoffset: 0px;"
         ></path>
       </svg>
-      <p id="card-wizard-preview-message">Click "Generate Card" and a preview will appear here.</p>
+      <p id="card-wizard-preview-message" data-t="header.cards.copy">Click "Generate Card" and a preview will appear here.</p>
       <img src="" id="card-wizard-image" class="card-wizard-image" alt="" />
     </div>
   </div>
@@ -205,7 +205,7 @@
         </div>
       </div>
     </div>
-      <p class="settings-description">Help us translate nadeshiko on <a href="https://crowdin.com/project/nadeshiko" target="_blank">Crowdin</a>!</p>
+      <p class="settings-description" data-t="header.settings.language_description">Help us translate nadeshiko on <a href="https://crowdin.com/project/nadeshiko" target="_blank">Crowdin</a>!</p>
     </div>
 
     <div class="mtop mbottom">
@@ -301,7 +301,6 @@
     'de-DE': { progress: 43, label: 'Deutsch' },
     'el-GR': { progress: 37, label: 'Ελληνικά' },
     'es-ES': { progress: 100, label: 'Español' },
-    'es-AR': { progress: 0, label: 'Español (Argentina)' },
     'fr-FR': { progress: 43, label: 'Français' },
     'it-IT': { progress: 44, label: 'Italiano' },
     'ja-JP': { progress: 43, label: '日本語' },
@@ -697,7 +696,16 @@ function beginGeneration(task) {
 
       const button = dropdownContainer.previousElementSibling; // Selects the button
       if (button.classList.contains("chip-dropdown-button")) {
-        button.innerHTML = selectedItem.innerHTML;
+        
+        let dropdownItemText = selectedItem.querySelector(".dropdown-item-text");
+        if (dropdownItemText) {
+          console.warn(dropdownItemText.innerHTML);
+          button.innerHTML = DOMPurify.sanitize(dropdownItemText.innerHTML);
+
+        } else {
+          button.innerHTML = DOMPurify.sanitize(selectedItem.innerHTML);
+          console.warn("Dropdown item text not found; using innerHTML instead");
+        }
 
         if (!button.classList.contains("card-wizard-button")) {
           button.style.width = "auto";

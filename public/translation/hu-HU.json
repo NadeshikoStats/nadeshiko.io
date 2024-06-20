@@ -255,7 +255,8 @@
           "category": "Zombies",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "Szezonális",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Slumber Jegy",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "Fejek",
     "chests_opened": "Kinyitott Ládák",
@@ -698,6 +700,7 @@
     "sword_hits": "Sword Hits",
     "damage_taken": "Elszenvedett Sebzés",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "Kilőtt Nyilak",
     "night_quests": "Night Quests",
     "xp": "XP",

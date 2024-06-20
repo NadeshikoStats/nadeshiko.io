@@ -255,7 +255,8 @@
           "category": "Zombies",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "Сезонные",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Купоны грёз",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "Головы",
     "chests_opened": "Сундуков открыто",
@@ -698,6 +700,7 @@
     "sword_hits": "Ударов мечом",
     "damage_taken": "Урона получено",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "Стрел выстрелено",
     "night_quests": "Night Quests",
     "xp": "Опыт",

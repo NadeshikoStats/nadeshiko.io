@@ -255,7 +255,8 @@
           "category": "Zombies",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "Saison",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Schlummertickets",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "Köpfe",
     "chests_opened": "Geöffnete Truhen",
@@ -698,6 +700,7 @@
     "sword_hits": "Schwerttreffer",
     "damage_taken": "Schaden erlitten",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "Pfeile verschossen",
     "night_quests": "Night Quests",
     "xp": "XP",

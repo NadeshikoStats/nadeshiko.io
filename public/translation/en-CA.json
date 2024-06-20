@@ -293,7 +293,8 @@
 
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
 
         "seasonal": {
@@ -646,6 +647,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Slumber Tickets",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
 
     "clicks": "Clicks",
 
@@ -791,6 +793,7 @@
     "sword_hits": "Sword Hits",
     "damage_taken": "Damage Taken",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "Arrows Shot",
     "night_quests": "Night Quests",
     "xp": "XP",

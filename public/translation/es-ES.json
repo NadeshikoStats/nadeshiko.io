@@ -32,7 +32,7 @@
         "7_desc": "por gliscowo",
         "8_name": "Complementary Shaders",
         "8_desc": "por EminGT",
-        "9_name": "GSAP Tutorials",
+        "9_name": "Tutoriales de GSAP",
         "9_desc": "por Diaco M Lotfolahi en CodePen",
         "10_name": "API de Hypixel",
         "10_desc": "por Hypixel Inc."
@@ -255,7 +255,8 @@
           "category": "Zombis",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "Estacional",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Boletos de sueño",
     "challenges_completed": "Desafios completados",
+    "unique_challenges_completed": "(%%num%%/%%total%% únicos)",
     "clicks": "Clics",
     "heads": "Cabezas",
     "chests_opened": "Cofres abiertos",
@@ -698,6 +700,7 @@
     "sword_hits": "Golpes de espada",
     "damage_taken": "Daño recibido",
     "highest_killstreak": "Racha de kills más alta",
+    "bounty": "Recompensa",
     "arrows_shot": "Flechas disparadas",
     "night_quests": "Misiones nocturnas",
     "xp": "XP",

@@ -255,7 +255,8 @@
           "category": "Zombies",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "Mevsimlik",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Slumber Tickets",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "Kafalar",
     "chests_opened": "Sandıklar Açıldı",
@@ -698,6 +700,7 @@
     "sword_hits": "Kılıç Vuruşları",
     "damage_taken": "Alınan Hasar",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "Atılan Oklar",
     "night_quests": "Night Quests",
     "xp": "DP",

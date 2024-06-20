@@ -697,6 +697,7 @@
     "sword_hits": "statistics.sword_hits",
     "damage_taken": "statistics.damage_taken",
     "highest_killstreak": "statistics.highest_killstreak",
+    "bounty": "statistics.bounty",
     "arrows_shot": "statistics.arrows_shot",
     "night_quests": "statistics.night_quests",
     "xp": "statistics.xp",

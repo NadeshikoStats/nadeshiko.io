@@ -255,7 +255,8 @@
           "category": "Zombies",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "Сезонні",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Slumber Tickets",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "Голови",
     "chests_opened": "Скринь відкрито",
@@ -698,6 +700,7 @@
     "sword_hits": "Sword Hits",
     "damage_taken": "Шкоди отримано",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "Випущено стріл",
     "night_quests": "Night Quests",
     "xp": "Досвід",

@@ -16,7 +16,7 @@ function updateElement(id, value, useInnerHTML = false) {
   const element = document.getElementById(id);
   if (element) {
     if (useInnerHTML) {
-      element.innerHTML = value;
+      element.innerHTML = DOMPurify.sanitize(value);
     } else {
       element.textContent = value;
     }
@@ -557,8 +557,8 @@ function generateBedWars() {
     updateElement("bedwars-tokens", checkAndFormat(bedWarsStats["coins"]));
     updateElement("bedwars-challenges-completed", checkAndFormat(bedWarsStats["total_challenges_completed"]));
 
-    updateElement("bedwars-unique-challenges-completed", `(` + checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]) + `/30 unique)`);
-
+    updateElement("bedwars-unique-challenges-completed", insertPlaceholders(getTranslation("statistics.unique_challenges_completed"), { num: checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]), total: checkAndFormat(30) }));
+      
     if (bedWarsStats["bw_unique_challenges_completed"] == 30) {
       document.getElementById("bedwars-unique-challenges-completed").style.color = `var(--gold)`;
     }
@@ -1956,6 +1956,7 @@ function generateArcade() {
       [getTranslation("games.modes.arcade.zombies.deadend"), "deadend"],
       [getTranslation("games.modes.arcade.zombies.badblood"), "badblood"],
       [getTranslation("games.modes.arcade.zombies.alienarcadium"), "alienarcadium"],
+      [getTranslation("games.modes.arcade.zombies.prison"), "prison"],
     ], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/zombie_head.${imageFileType}`, // Chip image
     "arcade_zombies", // gamemode

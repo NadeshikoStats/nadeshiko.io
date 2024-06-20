@@ -255,7 +255,8 @@
           "category": "殭屍末日",
           "deadend": "窮途末路",
           "badblood": "壞血宮殿",
-          "alienarcadium": "外星遊樂園"
+          "alienarcadium": "外星遊樂園",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "節慶",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "睡夢券",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "頭顱數",
     "chests_opened": "儲物箱開啟數",
@@ -698,6 +700,7 @@
     "sword_hits": "近戰擊中數",
     "damage_taken": "承受傷害",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "箭矢射擊數",
     "night_quests": "Night Quests",
     "xp": "經驗",

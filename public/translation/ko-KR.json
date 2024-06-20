@@ -255,7 +255,8 @@
           "category": "Zombies",
           "deadend": "Dead End",
           "badblood": "Bad Blood",
-          "alienarcadium": "Alien Arcadium"
+          "alienarcadium": "Alien Arcadium",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "시즌 전용",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Slumber Tickets",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "머리",
     "chests_opened": "상자를 연 횟수",
@@ -698,6 +700,7 @@
     "sword_hits": "근접 공격 횟수",
     "damage_taken": "받은 피해",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "화살을 발사한 횟수",
     "night_quests": "Night Quests",
     "xp": "XP",

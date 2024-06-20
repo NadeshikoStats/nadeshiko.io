@@ -255,7 +255,8 @@
           "category": "僵尸末日",
           "deadend": "穷途末路",
           "badblood": "坏血之宫",
-          "alienarcadium": "外星游乐园"
+          "alienarcadium": "外星游乐园",
+          "prison": "Prison"
         },
         "seasonal": {
           "category": "节日",
@@ -584,6 +585,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "梦境票券",
     "challenges_completed": "Challenges Completed",
+    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "头颅",
     "chests_opened": "打开箱子个数",
@@ -698,6 +700,7 @@
     "sword_hits": "近战击中数",
     "damage_taken": "受到伤害量",
     "highest_killstreak": "Highest Killstreak",
+    "bounty": "Bounty",
     "arrows_shot": "箭矢射击数",
     "night_quests": "Night Quests",
     "xp": "经验",

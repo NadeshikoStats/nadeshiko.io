@@ -14,7 +14,7 @@ let userLanguage = settings["language"] || 'en-CA';
 
 async function fetchLanguageFile(language) {
 
-  let validLanguages = ["en-CA", "ar-SA", "cs-CZ", "da-DK", "de-DE", "el-GR", "es-ES", "es-AR", "fr-FR", "it-IT", "ja-JP", "ko-KR", "hu-HU", "nl-NL", "no-NO", "pl-PL", "pt-PT", "pt-BR", "ro-RO", "ru-RU", "fi-FI", "sv-SE", "tr-TR", "uk-UA", "zh-CN", "zh-TW", "en-PT", "empty"];
+  let validLanguages = ["en-CA", "ar-SA", "cs-CZ", "da-DK", "de-DE", "el-GR", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "hu-HU", "nl-NL", "no-NO", "pl-PL", "pt-PT", "pt-BR", "ro-RO", "ru-RU", "fi-FI", "sv-SE", "tr-TR", "uk-UA", "zh-CN", "zh-TW", "en-PT", "empty"];
 
   try {
     language = language.replace("_", "-"); // Replace underscores with hyphens in case something goes wrong
@@ -70,14 +70,25 @@ function getTranslation(key) {
   }
 }
 
+function containsHTMLTags(str) {
+  const pattern = /<\/?[a-z][\s\S]*>/i;
+  return pattern.test(str);
+}
+
 function updateTranslations() {
   document.querySelectorAll('[data-t]').forEach(element => {
     const key = element.getAttribute('data-t');
     const translation = getTranslation(key);
     if (element.placeholder) {
       element.placeholder = translation;
+    } else if (element.value) {
+      element.value = translation;
     } else {
-      element.textContent = translation;
+      if (containsHTMLTags(translation)) {
+        element.innerHTML = DOMPurify.sanitize(translation);
+      } else {
+        element.textContent = translation;
+      }
     }
   });
 }
