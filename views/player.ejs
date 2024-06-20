@@ -1187,7 +1187,7 @@
  }
   });
 
-  function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past.
+  function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past
     let dateNew = new Date(currentTime);
     let dateOld = new Date(timestamp);
 
@@ -1223,13 +1223,19 @@
       months += 12;
     }
 
-    if (years > 0) return `${years}y ago`;
-    if (months > 0) return `${months}mo ago`;
-    if (days > 0) return `${days}d ago`;
-    if (hours > 0) return `${hours}h ago`;
-    if (minutes > 0) return `${minutes}min ago`;
-    if (seconds > 0) return `${seconds}s ago`;
-    return "now!";
+    let timeValue;
+    let dateIsInFuture = false;
+
+    if (years > 0) timeValue = `${years}${getTranslation("times.year_short")}`;
+    else if (months > 0) timeValue = `${months}${getTranslation("times.month_short")}`;
+    else if (days > 0) timeValue = `${days}${getTranslation("times.day_short")}`;
+    else if (hours > 0) timeValue = `${hours}${getTranslation("times.hour_short")}`;
+    else if (minutes > 0) timeValue = `${minutes}${getTranslation("times.minute_short")}`;
+    else if (seconds > 0) timeValue = `${seconds}${getTranslation("times.second_short")}`;
+    else dateIsInFuture = true;
+
+    if (dateIsInFuture) return getTranslation("times.now");
+    else return insertPlaceholders(getTranslation("times.time_ago"), { time: timeValue });
   }
 
   function cuteRank(text, style = 0) {

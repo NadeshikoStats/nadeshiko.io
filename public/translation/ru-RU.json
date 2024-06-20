@@ -86,7 +86,8 @@
     "socials": "Socials",
     "currently_offline": "Currently Offline",
     "currently_online": "Currently Online!",
-    "birthday": "Happy %%num%% years of Hypixel!"
+    "birthday": "Happy %%num%% years of Hypixel!",
+    "coin_multiplier": "Множитель монет"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
@@ -370,7 +371,7 @@
         "deathmatch": "Team Deathmatch",
         "gungame": "Gun Game",
         "guns": {
-          "category": "Guns",
+          "category": "Оружия",
           "autoShotgun": "Автодробовик",
           "bullpup": "Булл-пап",
           "carbine": "Карабин",
@@ -426,14 +427,14 @@
       "pit": {
         "combat": "Combat",
         "performance": "Performance",
-        "perks": "Perks",
+        "perks": "Умения",
         "mystics": "Mystics",
         "farming": "Farming",
         "misc": "Miscellaneous"
       },
       "smashheroes": {
         "classes": {
-          "category": "Classes",
+          "category": "Классы",
           "BOTMUN": "Botmun",
           "CAKE_MONSTER": "Cake Monster",
           "DUSK_CRAWLER": "Void Crawler",
@@ -581,7 +582,7 @@
     "beds_broken": "Кроватей сломано",
     "beds_lost": "Кроватей потеряно",
     "bblr": "BB/L R",
-    "slumber_tickets": "Slumber Tickets",
+    "slumber_tickets": "Купоны грёз",
     "challenges_completed": "Challenges Completed",
     "clicks": "Clicks",
     "heads": "Головы",
@@ -601,7 +602,7 @@
     "best_time": "Лучшее время",
     "flawless_games": "Flawless Games",
     "blocks_destroyed": "Разрушено блоков",
-    "powerups": "Powerups",
+    "powerups": "Получено усилений",
     "wins_animal": "Wins (Animal)",
     "wins_hunter": "Wins (Hunter)",
     "kills_animal": "Kills (Animal)",
@@ -620,7 +621,7 @@
     "record_finals": "Record (Finals)",
     "round_wins": "Раундов выиграно",
     "highest_score": "Наилучший счёт",
-    "correct_guesses": "Correct Guesses",
+    "correct_guesses": "Отгаданных тем",
     "wither_kills": "Убийства Визера",
     "wither_damage": "Урон Визера",
     "stars_earned": "Звёзд заработано",
@@ -676,9 +677,9 @@
     "selected_class": "Выбранный класс",
     "mythic_favor": "Mythic Favor",
     "upgrades": "Улучшения",
-    "prestige": "Prestige",
+    "prestige": "Престиж",
     "ender_chest_rows": "Ender Chest Rows",
-    "class_points": "Class Points",
+    "class_points": "Очки класса",
     "total_time_survived": "Общее прожитое время",
     "wins_murderer": "Wins (Murderer)",
     "wins_detective": "Wins (Detective)",
@@ -708,7 +709,7 @@
     "blocks_placed": "Размещено блоков",
     "blocks_broken": "Разрушено блоков",
     "fishing_rod_launches": "Fishing Rod Launches",
-    "lava_bucket_empties": "Lava Bucket Empties",
+    "lava_bucket_empties": "Опустошено вёдер лавы",
     "soups_drank": "Soups Drank",
     "mystics_enchanted": "Mystics Enchanted",
     "dark_pants_created": "Dark Pants Created",
@@ -720,7 +721,7 @@
     "jumps_into_pit": "Прыжков в яму",
     "launcher_launches": "Использований батутов",
     "sewer_treasures": "Sewer Treasures",
-    "kings_quest_completions": "King's Quest Completions",
+    "kings_quest_completions": "Королевское задание завершено",
     "wheat_farmed": "Собрано пшеницы",
     "items_fished": "Items Fished",
     "fish_fished": "Fish Fished",
@@ -751,6 +752,7 @@
     "hour_short": "h",
     "day_short": "d",
     "month_short": "mo",
-    "year_short": "y"
+    "year_short": "y",
+    "now": "now!"
   }
 }

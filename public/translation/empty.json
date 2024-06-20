@@ -751,6 +751,7 @@
     "hour_short": "times.hour_short",
     "day_short": "times.day_short",
     "month_short": "times.month_short",
-    "year_short": "times.year_short"
+    "year_short": "times.year_short",
+    "now": "times.now"
   }
 }

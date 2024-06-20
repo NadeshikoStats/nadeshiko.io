@@ -86,7 +86,8 @@
     "socials": "Socials",
     "currently_offline": "Currently Offline",
     "currently_online": "Currently Online!",
-    "birthday": "Happy %%num%% years of Hypixel!"
+    "birthday": "Happy %%num%% years of Hypixel!",
+    "coin_multiplier": "Πολλαπλασιαστής Νομισμάτων"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
@@ -370,7 +371,7 @@
         "deathmatch": "Team Deathmatch",
         "gungame": "Gun Game",
         "guns": {
-          "category": "Guns",
+          "category": "Όπλα",
           "autoShotgun": "Αυτόματη Καραμπίνα",
           "bullpup": "Bullpup",
           "carbine": "Καραμπίνα",
@@ -433,7 +434,7 @@
       },
       "smashheroes": {
         "classes": {
-          "category": "Classes",
+          "category": "Τάξεις",
           "BOTMUN": "Botmun",
           "CAKE_MONSTER": "Cake Monster",
           "DUSK_CRAWLER": "Void Crawler",
@@ -601,7 +602,7 @@
     "best_time": "Καλύτερος Χρόνος",
     "flawless_games": "Flawless Games",
     "blocks_destroyed": "Κατεστραμμένα Blocks",
-    "powerups": "Powerups",
+    "powerups": "Αποκτημένες Ενισχύσεις",
     "wins_animal": "Wins (Animal)",
     "wins_hunter": "Wins (Hunter)",
     "kills_animal": "Kills (Animal)",
@@ -620,7 +621,7 @@
     "record_finals": "Record (Finals)",
     "round_wins": "Νίκες Γύρου",
     "highest_score": "Μεγαλύτερο Σκορ",
-    "correct_guesses": "Correct Guesses",
+    "correct_guesses": "Σωστές Μαντεψιές",
     "wither_kills": "Σκοτωμοί Wither",
     "wither_damage": "Ζημιά Wither",
     "stars_earned": "Κερδισμένα Αστέρια",
@@ -751,6 +752,7 @@
     "hour_short": "h",
     "day_short": "d",
     "month_short": "mo",
-    "year_short": "y"
+    "year_short": "y",
+    "now": "now!"
   }
 }

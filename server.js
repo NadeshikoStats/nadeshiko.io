@@ -747,10 +747,10 @@ function getMetaDescription(game, playerData) {
     return `${playerOnline}
 
 • 🌐 Network Level: ${(playerData["profile"]["network_level"]).toFixed(2)}
-• 📜 Quests Completed: ${(playerData["profile"]["quests_completed"]).toLocaleString()}
-• ☮️ Karma: ${(playerData["profile"]["karma"]).toLocaleString()}
-• 🏆 Achievement Points: ${(playerData["profile"]["achievement_points"]).toLocaleString()}
-• 🎁 Ranks Gifted: ${(playerData["profile"]["ranks_gifted"]).toLocaleString()}`;
+• 📜 Quests Completed: ${checkAndFormat(playerData["profile"]["quests_completed"])}
+• ☮️ Karma: ${checkAndFormat(playerData["profile"]["karma"])}
+• 🏆 Achievement Points: ${checkAndFormat(playerData["profile"]["achievement_points"])}
+• 🎁 Ranks Gifted: ${checkAndFormat(playerData["profile"]["ranks_gifted"])}`;
 
 }
 }}

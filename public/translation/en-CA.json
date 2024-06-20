@@ -16,7 +16,6 @@
 
       "disclaimer": "nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.",
 
-
       "credits": {
         "title": "Credits",
 
@@ -115,7 +114,8 @@
     "socials": "Socials",
     "currently_offline": "Currently Offline",
     "currently_online": "Currently Online!",
-    "birthday": "Happy %%num%% years of Hypixel!"
+    "birthday": "Happy %%num%% years of Hypixel!",
+    "coin_multiplier": "Coin Multiplier"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
@@ -851,6 +851,7 @@
     "hour_short": "h",
     "day_short": "d",
     "month_short": "mo",
-    "year_short": "y"
+    "year_short": "y",
+    "now": "now!"
   }
 }

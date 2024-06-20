@@ -86,7 +86,8 @@
     "socials": "Socials",
     "currently_offline": "Currently Offline",
     "currently_online": "Currently Online!",
-    "birthday": "Happy %%num%% years of Hypixel!"
+    "birthday": "Happy %%num%% years of Hypixel!",
+    "coin_multiplier": "Multiplicador de coins"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
@@ -370,7 +371,7 @@
         "deathmatch": "Team Deathmatch",
         "gungame": "Gun Game",
         "guns": {
-          "category": "Guns",
+          "category": "Armas",
           "autoShotgun": "Espingarda automática",
           "bullpup": "Bullpup",
           "carbine": "Carabina",
@@ -426,7 +427,7 @@
       "pit": {
         "combat": "Combat",
         "performance": "Performance",
-        "perks": "Perks",
+        "perks": "Habilidades",
         "mystics": "Mystics",
         "farming": "Farming",
         "misc": "Miscellaneous"
@@ -581,7 +582,7 @@
     "beds_broken": "Camas destruídas",
     "beds_lost": "Camas perdidas",
     "bblr": "BB/L R",
-    "slumber_tickets": "Slumber Tickets",
+    "slumber_tickets": "Ingressos",
     "challenges_completed": "Challenges Completed",
     "clicks": "Clicks",
     "heads": "Cabeças",
@@ -601,7 +602,7 @@
     "best_time": "Melhor tempo",
     "flawless_games": "Flawless Games",
     "blocks_destroyed": "Blocos quebrados",
-    "powerups": "Powerups",
+    "powerups": "Poderes coletados",
     "wins_animal": "Wins (Animal)",
     "wins_hunter": "Wins (Hunter)",
     "kills_animal": "Kills (Animal)",
@@ -620,7 +621,7 @@
     "record_finals": "Record (Finals)",
     "round_wins": "Rodadas ganhas",
     "highest_score": "Maior pontuação",
-    "correct_guesses": "Correct Guesses",
+    "correct_guesses": "Adivinhações corretas",
     "wither_kills": "Withers abatidos",
     "wither_damage": "Dano no wither",
     "stars_earned": "Estrelas ganhas",
@@ -676,9 +677,9 @@
     "selected_class": "Classe selecionada",
     "mythic_favor": "Mythic Favor",
     "upgrades": "Melhorias",
-    "prestige": "Prestige",
+    "prestige": "Prestígio",
     "ender_chest_rows": "Ender Chest Rows",
-    "class_points": "Class Points",
+    "class_points": "Pontos de classe",
     "total_time_survived": "Tempo sobrevivido",
     "wins_murderer": "Wins (Murderer)",
     "wins_detective": "Wins (Detective)",
@@ -708,7 +709,7 @@
     "blocks_placed": "Blocos colocados",
     "blocks_broken": "Blocos quebrados",
     "fishing_rod_launches": "Fishing Rod Launches",
-    "lava_bucket_empties": "Lava Bucket Empties",
+    "lava_bucket_empties": "Baldes de lava esvaziados",
     "soups_drank": "Soups Drank",
     "mystics_enchanted": "Mystics Enchanted",
     "dark_pants_created": "Dark Pants Created",
@@ -720,7 +721,7 @@
     "jumps_into_pit": "Pulos no Pit",
     "launcher_launches": "Lançadores usados",
     "sewer_treasures": "Sewer Treasures",
-    "kings_quest_completions": "King's Quest Completions",
+    "kings_quest_completions": "Missões do rei concluídas",
     "wheat_farmed": "Trigo coletado",
     "items_fished": "Items Fished",
     "fish_fished": "Fish Fished",
@@ -751,6 +752,7 @@
     "hour_short": "h",
     "day_short": "d",
     "month_short": "mo",
-    "year_short": "y"
+    "year_short": "y",
+    "now": "now!"
   }
 }

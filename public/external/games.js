@@ -26,7 +26,7 @@ function updateElement(id, value, useInnerHTML = false) {
 }
 
 function locale(number, digits = 2) {
-  return number.toLocaleString(undefined, { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  return number.toLocaleString(userLanguage, { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
 function smallDuration(seconds, ms = false) {
@@ -55,15 +55,15 @@ function smallDuration(seconds, ms = false) {
   const secondsMod = Math.floor(seconds % MINUTE);
 
   if (years > 0) {
-    return `${years}y ${days}d`;
+    return `${years}${dateNames["year"]} ${days}${dateNames["day"]}`;
   } else if (days > 0) {
-    return `${days}d ${hours}h`;
+    return `${days}${dateNames["day"]} ${hours}${dateNames["hour"]}`;
   } else if (hours > 0) {
-    return `${hours}h ${minutes}m`;
+    return `${hours}${dateNames["hour"]} ${minutes}${dateNames["minute"]}`;
   } else if (minutes > 0) {
-    return `${minutes}m ${secondsMod}s`;
+    return `${minutes}${dateNames["minute"]} ${secondsMod}${dateNames["second"]}`;
   } else {
-    return `${ms ? checkAndFormat(seconds, 3) : secondsMod}s`;
+    return `${ms ? checkAndFormat(seconds, 3) : secondsMod}${dateNames["second"]}`;
   }
 }
 
@@ -120,19 +120,19 @@ function generateNetwork() {
     updateElement("card-name", playerData["name"]);
     updateElement("quick-mode-username", playerData["name"]);
     updateElement("header-name", cuteRank(profileStats["tagged_name"], 0), true);
-    updateElement("achievement-points", profileStats["achievement_points"].toLocaleString());
-    updateElement("karma", profileStats["karma"].toLocaleString());
-    updateElement("quests-completed", profileStats["quests_completed"].toLocaleString());
-    updateElement("ranks-gifted", und(profileStats["ranks_gifted"]).toLocaleString());
-    updateElement("multiplier", profileStats["coin_multiplier"].toLocaleString());
+    updateElement("achievement-points", checkAndFormat(profileStats["achievement_points"]));
+    updateElement("karma", checkAndFormat(profileStats["karma"]));
+    updateElement("quests-completed", checkAndFormat(profileStats["quests_completed"]));
+    updateElement("ranks-gifted", checkAndFormat(profileStats["ranks_gifted"]));
+    updateElement("multiplier", checkAndFormat(profileStats["coin_multiplier"]));
 
     firstLoginDate = new Date(profileStats["first_login"]); // Used for birthday calculation
     if(firstLoginDate != "Invalid Date") { // Broken?
-      updateElement("first-login", firstLoginDate.toLocaleDateString()); // Gets first login in Unix time and turns it into a date
-      updateElement("first-login-ago", `(${relativeTime(firstLoginDate)})`, true);
+      updateElement("first-login", firstLoginDate.toLocaleDateString(userLanguage)); // Gets first login in Unix time and turns it into a date
+      updateElement("first-login-ago", `${relativeTime(firstLoginDate)}`, true);
       updateElement(
         "first-login-ago-full",
-        new Intl.DateTimeFormat("default", {
+        new Intl.DateTimeFormat(userLanguage, {
           dateStyle: "long",
           timeStyle: "long",
         }).format(new Date(firstLoginDate))
@@ -149,11 +149,11 @@ function generateNetwork() {
     lastLoginDate = new Date(lastLogin);
     if (lastLogin == 0) document.getElementById("last-login-container").style.display = "none";
     else {
-      updateElement("last-login", lastLoginDate.toLocaleDateString());
-      updateElement("last-login-ago", `(${relativeTime(lastLoginDate)})`);
+      updateElement("last-login", lastLoginDate.toLocaleDateString(userLanguage));
+      updateElement("last-login-ago", `${relativeTime(lastLoginDate)}`);
       updateElement(
         "last-login-ago-full",
-        new Intl.DateTimeFormat("default", {
+        new Intl.DateTimeFormat(userLanguage, {
           dateStyle: "long",
           timeStyle: "long",
         }).format(lastLoginDate)
@@ -195,13 +195,13 @@ function generateNetwork() {
       updateElement("guild-name", guildStats["name"]);
       updateElement("guild-tag", generateMinecraftText(guildStats["tag"]), true);
       updateElement("card-guild", generateMinecraftText(guildStats["tag"]), true);
-      updateElement("guild-level", Math.floor(guildStats["level"]).toLocaleString());
-      updateElement("guild-members", guildStats["members"].toLocaleString());
-      updateElement("guild-joined", new Date(guildStats["joined"]).toLocaleDateString());
-      updateElement("guild-joined-ago", `(${relativeTime(new Date(guildStats["joined"]))})`);
+      updateElement("guild-level", checkAndFormat(guildStats["level"]));
+      updateElement("guild-members", checkAndFormat(guildStats["members"]));
+      updateElement("guild-joined", new Date(guildStats["joined"]).toLocaleDateString(userLanguage));
+      updateElement("guild-joined-ago", `${relativeTime(new Date(guildStats["joined"]))}`);
       updateElement(
         "guild-joined-ago-full",
-        new Intl.DateTimeFormat("default", {
+        new Intl.DateTimeFormat(userLanguage, {
           dateStyle: "long",
           timeStyle: "long",
         }).format(new Date(guildStats["joined"]))
@@ -209,7 +209,7 @@ function generateNetwork() {
     }
 
     hypixelLevel = profileStats["network_level"];
-    updateElement("level", Math.floor(hypixelLevel).toLocaleString());
+    updateElement("level", checkAndFormat(hypixelLevel));
     if (hypixelLevel >= 250) {
       document.getElementById("level-container").style.color = "var(--gold-transparent)";
       document.getElementById("level").style.color = "var(--gold)";

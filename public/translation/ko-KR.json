@@ -86,7 +86,8 @@
     "socials": "Socials",
     "currently_offline": "Currently Offline",
     "currently_online": "Currently Online!",
-    "birthday": "Happy %%num%% years of Hypixel!"
+    "birthday": "Happy %%num%% years of Hypixel!",
+    "coin_multiplier": "코인 배수"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
@@ -370,7 +371,7 @@
         "deathmatch": "Team Deathmatch",
         "gungame": "Gun Game",
         "guns": {
-          "category": "Guns",
+          "category": "총",
           "autoShotgun": "연사 산탄총",
           "bullpup": "불펍",
           "carbine": "카빈 소총",
@@ -426,14 +427,14 @@
       "pit": {
         "combat": "Combat",
         "performance": "Performance",
-        "perks": "Perks",
+        "perks": "퍼크",
         "mystics": "Mystics",
         "farming": "Farming",
         "misc": "Miscellaneous"
       },
       "smashheroes": {
         "classes": {
-          "category": "Classes",
+          "category": "클래스",
           "BOTMUN": "Botmun",
           "CAKE_MONSTER": "Cake Monster",
           "DUSK_CRAWLER": "Void Crawler",
@@ -601,7 +602,7 @@
     "best_time": "최고의 시간",
     "flawless_games": "Flawless Games",
     "blocks_destroyed": "파괴한 블록",
-    "powerups": "Powerups",
+    "powerups": "획득한 파워업",
     "wins_animal": "Wins (Animal)",
     "wins_hunter": "Wins (Hunter)",
     "kills_animal": "Kills (Animal)",
@@ -620,7 +621,7 @@
     "record_finals": "Record (Finals)",
     "round_wins": "라운드 우승",
     "highest_score": "최고 점수",
-    "correct_guesses": "Correct Guesses",
+    "correct_guesses": "올바른 추측",
     "wither_kills": "처치한 위더",
     "wither_damage": "위더 피해량",
     "stars_earned": "획득한 스타",
@@ -676,9 +677,9 @@
     "selected_class": "Selected Class",
     "mythic_favor": "Mythic Favor",
     "upgrades": "강화",
-    "prestige": "Prestige",
+    "prestige": "프레스티지",
     "ender_chest_rows": "Ender Chest Rows",
-    "class_points": "Class Points",
+    "class_points": "클래스 포인트",
     "total_time_survived": "총 생존한 시간",
     "wins_murderer": "Wins (Murderer)",
     "wins_detective": "Wins (Detective)",
@@ -708,7 +709,7 @@
     "blocks_placed": "블록 설치한 횟수",
     "blocks_broken": "파괴한 블록",
     "fishing_rod_launches": "Fishing Rod Launches",
-    "lava_bucket_empties": "Lava Bucket Empties",
+    "lava_bucket_empties": "용암 양동이 비운 횟수",
     "soups_drank": "Soups Drank",
     "mystics_enchanted": "Mystics Enchanted",
     "dark_pants_created": "Dark Pants Created",
@@ -720,7 +721,7 @@
     "jumps_into_pit": "구덩이로 점프",
     "launcher_launches": "발사대로 발사",
     "sewer_treasures": "Sewer Treasures",
-    "kings_quest_completions": "King's Quest Completions",
+    "kings_quest_completions": "완료한 왕의 퀘스트",
     "wheat_farmed": "수확한 밀",
     "items_fished": "Items Fished",
     "fish_fished": "Fish Fished",
@@ -751,6 +752,7 @@
     "hour_short": "h",
     "day_short": "d",
     "month_short": "mo",
-    "year_short": "y"
+    "year_short": "y",
+    "now": "now!"
   }
 }

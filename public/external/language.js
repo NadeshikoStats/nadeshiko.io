@@ -82,4 +82,16 @@ function updateTranslations() {
   });
 }
 
+ /*
+  * Replaces placeholders in a string with the values in the placeholders object
+  * @param {string} str - The string to replace placeholders in
+  * @param {object} placeholders - An object containing the placeholders and their values
+  * @returns {string} - The string with the placeholders replaced 
+  */
+function insertPlaceholders(str, placeholders) {
+  return str.replace(/%%(.*?)%%/g, (_, key) => {
+      return placeholders[key] || '';
+  });
+}
+
 fetchLanguageFile(userLanguage);

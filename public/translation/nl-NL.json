@@ -86,7 +86,8 @@
     "socials": "Socials",
     "currently_offline": "Currently Offline",
     "currently_online": "Currently Online!",
-    "birthday": "Happy %%num%% years of Hypixel!"
+    "birthday": "Happy %%num%% years of Hypixel!",
+    "coin_multiplier": "Muntvermenigvuldiger"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
@@ -370,7 +371,7 @@
         "deathmatch": "Team Deathmatch",
         "gungame": "Gun Game",
         "guns": {
-          "category": "Guns",
+          "category": "Geweren",
           "autoShotgun": "Automatische shotgun",
           "bullpup": "Bullpup",
           "carbine": "Karabijn",
@@ -426,14 +427,14 @@
       "pit": {
         "combat": "Combat",
         "performance": "Performance",
-        "perks": "Perks",
+        "perks": "Voordelen",
         "mystics": "Mystics",
         "farming": "Farming",
         "misc": "Miscellaneous"
       },
       "smashheroes": {
         "classes": {
-          "category": "Classes",
+          "category": "Klassen",
           "BOTMUN": "Botmun",
           "CAKE_MONSTER": "Cake Monster",
           "DUSK_CRAWLER": "Void Crawler",
@@ -581,7 +582,7 @@
     "beds_broken": "Bedden gebroken",
     "beds_lost": "Bedden verloren",
     "bblr": "BB/L R",
-    "slumber_tickets": "Slumber Tickets",
+    "slumber_tickets": "Sluimer kaartjes",
     "challenges_completed": "Challenges Completed",
     "clicks": "Clicks",
     "heads": "Hoofden",
@@ -601,7 +602,7 @@
     "best_time": "Beste Tijd",
     "flawless_games": "Flawless Games",
     "blocks_destroyed": "Blokken Gebroken",
-    "powerups": "Powerups",
+    "powerups": "Power-up's gekregen",
     "wins_animal": "Wins (Animal)",
     "wins_hunter": "Wins (Hunter)",
     "kills_animal": "Kills (Animal)",
@@ -620,7 +621,7 @@
     "record_finals": "Record (Finals)",
     "round_wins": "Rondeswins",
     "highest_score": "Hoogste Score",
-    "correct_guesses": "Correct Guesses",
+    "correct_guesses": "Correct Geraden",
     "wither_kills": "Witherkills",
     "wither_damage": "Wither schade",
     "stars_earned": "Sterren Verdiend",
@@ -678,7 +679,7 @@
     "upgrades": "Verbeteringen",
     "prestige": "Prestige",
     "ender_chest_rows": "Ender Chest Rows",
-    "class_points": "Class Points",
+    "class_points": "Klassepunten",
     "total_time_survived": "Totaal Tijd overleefd",
     "wins_murderer": "Wins (Murderer)",
     "wins_detective": "Wins (Detective)",
@@ -751,6 +752,7 @@
     "hour_short": "h",
     "day_short": "d",
     "month_short": "mo",
-    "year_short": "y"
+    "year_short": "y",
+    "now": "now!"
   }
 }

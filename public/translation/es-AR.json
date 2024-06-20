@@ -86,7 +86,8 @@
     "socials": "Redes sociales",
     "currently_offline": "Fuera de línea",
     "currently_online": "¡En línea!",
-    "birthday": "¡Feliz %%num%% años de Hypixel!"
+    "birthday": "¡Feliz %%num%% años de Hypixel!",
+    "coin_multiplier": "Multiplicador de monedas"
   },
   "footer": {
     "created_by": "Hecho con ♥︎ por <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> y <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
@@ -552,7 +553,7 @@
     "level": "Nivel",
     "first_login": "Primera conexión",
     "last_login": "Última conexión",
-    "achievement_points": "Puntos de Logros",
+    "achievement_points": "Puntos de logros",
     "karma": "Karma",
     "quests_completed": "Misiones completadas",
     "ranks_gifted": "Ranks regalados",
@@ -751,6 +752,7 @@
     "hour_short": "h",
     "day_short": "d",
     "month_short": "mes",
-    "year_short": "a"
+    "year_short": "a",
+    "now": "¡ahora!"
   }
 }

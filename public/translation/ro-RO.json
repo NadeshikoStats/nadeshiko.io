@@ -86,7 +86,8 @@
     "socials": "Socials",
     "currently_offline": "Currently Offline",
     "currently_online": "Currently Online!",
-    "birthday": "Happy %%num%% years of Hypixel!"
+    "birthday": "Happy %%num%% years of Hypixel!",
+    "coin_multiplier": "Monedoplicator"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
@@ -370,7 +371,7 @@
         "deathmatch": "Deathmatch",
         "gungame": "Gun Game",
         "guns": {
-          "category": "Guns",
+          "category": "Puști",
           "autoShotgun": "Shotgun Automat",
           "bullpup": "Bullpup",
           "carbine": "Carabină",
@@ -426,14 +427,14 @@
       "pit": {
         "combat": "Combat",
         "performance": "Performance",
-        "perks": "Perks",
+        "perks": "Avantaje",
         "mystics": "Mystics",
         "farming": "Farming",
         "misc": "Miscellaneous"
       },
       "smashheroes": {
         "classes": {
-          "category": "Classes",
+          "category": "Clase",
           "BOTMUN": "Botmun",
           "CAKE_MONSTER": "Cake Monster",
           "DUSK_CRAWLER": "Void Crawler",
@@ -581,7 +582,7 @@
     "beds_broken": "Paturi Sparte",
     "beds_lost": "Paturi Pierdute",
     "bblr": "BB/L R",
-    "slumber_tickets": "Slumber Tickets",
+    "slumber_tickets": "Tichete Slumber",
     "challenges_completed": "Challenges Completed",
     "clicks": "Clicks",
     "heads": "Capete",
@@ -601,7 +602,7 @@
     "best_time": "Cel Mai Bun Timp",
     "flawless_games": "Flawless Games",
     "blocks_destroyed": "Blocuri distruse",
-    "powerups": "Powerups",
+    "powerups": "Powerup-uri Primite",
     "wins_animal": "Wins (Animal)",
     "wins_hunter": "Wins (Hunter)",
     "kills_animal": "Kills (Animal)",
@@ -620,7 +621,7 @@
     "record_finals": "Record (Finals)",
     "round_wins": "Runde Câștigate",
     "highest_score": "Cel Mai Mare Scor",
-    "correct_guesses": "Correct Guesses",
+    "correct_guesses": "Ghiciri Corecte",
     "wither_kills": "Ucideri de Wither",
     "wither_damage": "Daune Wither",
     "stars_earned": "Stele Obținute",
@@ -676,7 +677,7 @@
     "selected_class": "Selected Class",
     "mythic_favor": "Mythic Favor",
     "upgrades": "Upgrade-uri",
-    "prestige": "Prestige",
+    "prestige": "Prestigiu",
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "Class Points",
     "total_time_survived": "Timp Supraviețuit În Total",
@@ -751,6 +752,7 @@
     "hour_short": "h",
     "day_short": "d",
     "month_short": "mo",
-    "year_short": "y"
+    "year_short": "y",
+    "now": "now!"
   }
 }
