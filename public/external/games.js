@@ -29,6 +29,27 @@ function locale(number, digits = 2) {
   return number.toLocaleString(userLanguage, { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
+function rawLocale(number) {
+  return number.toLocaleString(userLanguage);
+}
+
+function shortDateFormat(date) {
+  return new Intl.DateTimeFormat(userLanguage, {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    calendar: "gregory"
+  }).format(date);
+}
+
+function longDateFormat(date) {
+  return new Intl.DateTimeFormat(userLanguage, {
+    dateStyle: "long",
+    timeStyle: "long",
+    calendar: "gregory",
+  }).format(date);
+}
+
 function smallDuration(seconds, ms = false) {
   // Converts a number of seconds into a human-readable duration of time
   if (seconds == -1 || seconds == undefined || isNaN(seconds)) {
@@ -124,19 +145,13 @@ function generateNetwork() {
     updateElement("karma", checkAndFormat(profileStats["karma"]));
     updateElement("quests-completed", checkAndFormat(profileStats["quests_completed"]));
     updateElement("ranks-gifted", checkAndFormat(profileStats["ranks_gifted"]));
-    updateElement("multiplier", checkAndFormat(profileStats["coin_multiplier"]));
+    updateElement("multiplier", rawLocale(profileStats["coin_multiplier"], null));
 
     firstLoginDate = new Date(profileStats["first_login"]); // Used for birthday calculation
     if(firstLoginDate != "Invalid Date") { // Broken?
-      updateElement("first-login", firstLoginDate.toLocaleDateString(userLanguage)); // Gets first login in Unix time and turns it into a date
+      updateElement("first-login", shortDateFormat(firstLoginDate)); // Gets first login in Unix time and turns it into a date
       updateElement("first-login-ago", `${relativeTime(firstLoginDate)}`, true);
-      updateElement(
-        "first-login-ago-full",
-        new Intl.DateTimeFormat(userLanguage, {
-          dateStyle: "long",
-          timeStyle: "long",
-        }).format(new Date(firstLoginDate))
-      );
+      updateElement("first-login-ago-full", longDateFormat(firstLoginDate));
 
       if (firstLoginDate.getMonth() == dateNow.getMonth() && firstLoginDate.getDate() == dateNow.getDate() && firstLoginDate.getYear() != dateNow.getYear()) {
         document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
@@ -149,15 +164,9 @@ function generateNetwork() {
     lastLoginDate = new Date(lastLogin);
     if (lastLogin == 0) document.getElementById("last-login-container").style.display = "none";
     else {
-      updateElement("last-login", lastLoginDate.toLocaleDateString(userLanguage));
+      updateElement("last-login", shortDateFormat(lastLoginDate));
       updateElement("last-login-ago", `${relativeTime(lastLoginDate)}`);
-      updateElement(
-        "last-login-ago-full",
-        new Intl.DateTimeFormat(userLanguage, {
-          dateStyle: "long",
-          timeStyle: "long",
-        }).format(lastLoginDate)
-      );
+      updateElement("last-login-ago-full", longDateFormat(lastLoginDate));
     }
 
     if (playerData["status"]["online"]) {
@@ -197,15 +206,9 @@ function generateNetwork() {
       updateElement("card-guild", generateMinecraftText(guildStats["tag"]), true);
       updateElement("guild-level", checkAndFormat(guildStats["level"]));
       updateElement("guild-members", checkAndFormat(guildStats["members"]));
-      updateElement("guild-joined", new Date(guildStats["joined"]).toLocaleDateString(userLanguage));
+      updateElement("guild-joined", shortDateFormat(new Date(guildStats["joined"])));
       updateElement("guild-joined-ago", `${relativeTime(new Date(guildStats["joined"]))}`);
-      updateElement(
-        "guild-joined-ago-full",
-        new Intl.DateTimeFormat(userLanguage, {
-          dateStyle: "long",
-          timeStyle: "long",
-        }).format(new Date(guildStats["joined"]))
-      );
+      updateElement("guild-joined-ago-full", longDateFormat(new Date(guildStats["joined"])));
     }
 
     hypixelLevel = profileStats["network_level"];

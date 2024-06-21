@@ -491,7 +491,13 @@
       for (let i = 0; i < children.length; i++) {
         if (children[i].getAttribute("data-item") == settingValue) {
           children[i].classList.add("selected");
-          document.getElementById(`dropdown-${setting}-button`).innerText = children[i].innerText;
+
+          let dropdownItemText = children[i].querySelector(".dropdown-item-text");
+          if (dropdownItemText) {
+            document.getElementById(`dropdown-${setting}-button`).innerText = dropdownItemText.innerText;
+          } else {
+            document.getElementById(`dropdown-${setting}-button`).innerText = children[i].innerText;
+          }
         } else {
           children[i].classList.remove("selected");
         }
