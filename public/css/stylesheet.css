@@ -2040,3 +2040,8 @@
     }
   }
   
+  /* RTL overrides */
+
+  .header-name, .player-name {
+    direction: ltr;
+  }

@@ -129,8 +129,7 @@ function generateNetwork() {
 
     document.getElementById("card-rank").classList.add("rank-" + playerRankCute[0]); // Changes the rank to the player's rank colour
     document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
-    document.getElementById("quick-mode-username").style.color = `var(--mc` + playerRankCute[0] + `)`;
-
+    
     updateElement("card-uuid", playerData["uuid"]);
     updateElement("card-ranktext", playerRankCute[1], true); // Adds player's rank
 
@@ -139,7 +138,10 @@ function generateNetwork() {
     }
 
     updateElement("card-name", playerData["name"]);
-    updateElement("quick-mode-username", playerData["name"]);
+    updateElement("quick-mode-text", insertPlaceholders(getTranslation("player.quick_mode.description"), { player: playerData["name"] }), true);
+    document.getElementById("quick-mode-username").style.color = `var(--mc` + playerRankCute[0] + `)`;
+
+
     updateElement("header-name", cuteRank(profileStats["tagged_name"], 0), true);
     updateElement("achievement-points", checkAndFormat(profileStats["achievement_points"]));
     updateElement("karma", checkAndFormat(profileStats["karma"]));
@@ -180,12 +182,13 @@ function generateNetwork() {
 
       let gameType = gameNames[playerData["status"]["game"]];
       let gameModes = gameType["modeNames"] || {};
+      let playerGameMode = playerData["status"]["mode"] || "";
 
       let gameMode = "";
-      if (playerData["status"]["mode"] == "LOBBY") {
+      if (playerGameMode == "LOBBY") {
         gameMode = "Lobby";
       } else {
-        gameMode = gameModes[playerData["status"]["mode"]] || "";
+        gameMode = gameModes[playerGameMode] || playerGameMode;
       }
 
       if (gameMode != "") {
@@ -204,15 +207,15 @@ function generateNetwork() {
       updateElement("guild-name", guildStats["name"]);
       updateElement("guild-tag", generateMinecraftText(guildStats["tag"]), true);
       updateElement("card-guild", generateMinecraftText(guildStats["tag"]), true);
-      updateElement("guild-level", checkAndFormat(guildStats["level"]));
+      updateElement("guild-level", checkAndFormat(Math.floor(guildStats["level"])));
       updateElement("guild-members", checkAndFormat(guildStats["members"]));
       updateElement("guild-joined", shortDateFormat(new Date(guildStats["joined"])));
       updateElement("guild-joined-ago", `${relativeTime(new Date(guildStats["joined"]))}`);
       updateElement("guild-joined-ago-full", longDateFormat(new Date(guildStats["joined"])));
     }
 
-    hypixelLevel = profileStats["network_level"];
-    updateElement("level", checkAndFormat(hypixelLevel));
+    hypixelLevel = und(profileStats["network_level"]);
+    updateElement("level", checkAndFormat(Math.floor(hypixelLevel)));
     if (hypixelLevel >= 250) {
       document.getElementById("level-container").style.color = "var(--gold-transparent)";
       document.getElementById("level").style.color = "var(--gold)";
@@ -598,10 +601,10 @@ function generateBedWars() {
 
     totalDreamModeStats = [
       [true, [getTranslation("statistics.winstreak"), checkAndFormat(dreamModeWinstreak)]],
-      [false, [getTranslation("statistics.wins"), checkAndFormat(totalDreamModeStatsCounts[0])], [getTranslation("statistics.losses"), checkAndFormat(totalDreamModeStatsCounts[1])], [getTranslation("statistics.wlr"), calculateRatio(totalDreamModeStatsCounts[0], totalDreamModeStatsCounts[1], 2)]],
-      [false, [getTranslation("statistics.kills"), checkAndFormat(totalDreamModeStatsCounts[2])], [getTranslation("statistics.deaths"), checkAndFormat(totalDreamModeStatsCounts[3])], [getTranslation("statistics.kdr"), calculateRatio(totalDreamModeStatsCounts[2], totalDreamModeStatsCounts[3], 2)]],
-      [false, [getTranslation("statistics.final_kills"), checkAndFormat(totalDreamModeStatsCounts[4])], [getTranslation("statistics.final_deaths"), checkAndFormat(totalDreamModeStatsCounts[5])], [getTranslation("statistics.fkdr"), calculateRatio(totalDreamModeStatsCounts[4], totalDreamModeStatsCounts[5], 2)]],
-      [false, [getTranslation("statistics.beds_broken"), checkAndFormat(totalDreamModeStatsCounts[6])], [getTranslation("statistics.beds_lost"), checkAndFormat(totalDreamModeStatsCounts[7])], [getTranslation("statistics.bblr"), calculateRatio(totalDreamModeStatsCounts[6], totalDreamModeStatsCounts[7], 2)]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(totalDreamModeStatsCounts[0])], [getTranslation("statistics.losses"), checkAndFormat(totalDreamModeStatsCounts[1])], [getTranslation("statistics.wlr"), calculateRatio(totalDreamModeStatsCounts[0], totalDreamModeStatsCounts[1])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(totalDreamModeStatsCounts[2])], [getTranslation("statistics.deaths"), checkAndFormat(totalDreamModeStatsCounts[3])], [getTranslation("statistics.kdr"), calculateRatio(totalDreamModeStatsCounts[2], totalDreamModeStatsCounts[3])]],
+      [false, [getTranslation("statistics.final_kills"), checkAndFormat(totalDreamModeStatsCounts[4])], [getTranslation("statistics.final_deaths"), checkAndFormat(totalDreamModeStatsCounts[5])], [getTranslation("statistics.fkdr"), calculateRatio(totalDreamModeStatsCounts[4], totalDreamModeStatsCounts[5])]],
+      [false, [getTranslation("statistics.beds_broken"), checkAndFormat(totalDreamModeStatsCounts[6])], [getTranslation("statistics.beds_lost"), checkAndFormat(totalDreamModeStatsCounts[7])], [getTranslation("statistics.bblr"), calculateRatio(totalDreamModeStatsCounts[6], totalDreamModeStatsCounts[7])]],
     ];
 
     bedWarsChips.push([
@@ -717,33 +720,33 @@ function getBedWarsModeStats(mode) {
       false,
       [getTranslation("statistics.wins"), checkAndFormat(bedWarsStats[mode + "_wins_bedwars"])],
       [getTranslation("statistics.losses"), checkAndFormat(bedWarsStats[mode + "_losses_bedwars"])],
-      [getTranslation("statistics.wlr"), calculateRatio(bedWarsStats[mode + "_wins_bedwars"], bedWarsStats[mode + "_losses_bedwars"], 2)],
+      [getTranslation("statistics.wlr"), calculateRatio(bedWarsStats[mode + "_wins_bedwars"], bedWarsStats[mode + "_losses_bedwars"])],
     ],
     [
       false,
       [getTranslation("statistics.kills"), checkAndFormat(bedWarsStats[mode + "_kills_bedwars"])],
       [getTranslation("statistics.deaths"), checkAndFormat(bedWarsStats[mode + "_deaths_bedwars"])],
-      [getTranslation("statistics.kdr"), calculateRatio(bedWarsStats[mode + "_kills_bedwars"], bedWarsStats[mode + "_deaths_bedwars"], 2)],
+      [getTranslation("statistics.kdr"), calculateRatio(bedWarsStats[mode + "_kills_bedwars"], bedWarsStats[mode + "_deaths_bedwars"])],
     ],
     [
       false,
       [getTranslation("statistics.final_kills"), checkAndFormat(bedWarsStats[mode + "_final_kills_bedwars"])],
       [getTranslation("statistics.final_deaths"), checkAndFormat(bedWarsStats[mode + "_final_deaths_bedwars"])],
-      [getTranslation("statistics.fkdr"), calculateRatio(bedWarsStats[mode + "_final_kills_bedwars"], bedWarsStats[mode + "_final_deaths_bedwars"], 2)],
+      [getTranslation("statistics.fkdr"), calculateRatio(bedWarsStats[mode + "_final_kills_bedwars"], bedWarsStats[mode + "_final_deaths_bedwars"])],
     ],
     [
       false,
       [getTranslation("statistics.beds_broken"), checkAndFormat(bedWarsStats[mode + "_beds_broken_bedwars"])],
       [getTranslation("statistics.beds_lost"), checkAndFormat(bedWarsStats[mode + "_beds_lost_bedwars"])],
-      [getTranslation("statistics.bblr"), calculateRatio(bedWarsStats[mode + "_beds_broken_bedwars"], bedWarsStats[mode + "_beds_lost_bedwars"], 2)],
+      [getTranslation("statistics.bblr"), calculateRatio(bedWarsStats[mode + "_beds_broken_bedwars"], bedWarsStats[mode + "_beds_lost_bedwars"])],
     ],
   ];
 }
 
 function getSkyWarsModeStats(mode) {
   return [
-    [false, [getTranslation("statistics.wins"), checkAndFormat(skyWarsStats["wins_" + mode])], [getTranslation("statistics.losses"), checkAndFormat(skyWarsStats["losses_" + mode])], [getTranslation("statistics.wlr"), calculateRatio(skyWarsStats["wins_" + mode], skyWarsStats["losses_" + mode], 2)]],
-    [false, [getTranslation("statistics.kills"), checkAndFormat(skyWarsStats["kills_" + mode])], [getTranslation("statistics.deaths"), checkAndFormat(skyWarsStats["deaths_" + mode])], [getTranslation("statistics.kdr"), calculateRatio(skyWarsStats["kills_" + mode], skyWarsStats["deaths_" + mode], 2)]],
+    [false, [getTranslation("statistics.wins"), checkAndFormat(skyWarsStats["wins_" + mode])], [getTranslation("statistics.losses"), checkAndFormat(skyWarsStats["losses_" + mode])], [getTranslation("statistics.wlr"), calculateRatio(skyWarsStats["wins_" + mode], skyWarsStats["losses_" + mode])]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(skyWarsStats["kills_" + mode])], [getTranslation("statistics.deaths"), checkAndFormat(skyWarsStats["deaths_" + mode])], [getTranslation("statistics.kdr"), calculateRatio(skyWarsStats["kills_" + mode], skyWarsStats["deaths_" + mode])]],
   ];
 }
 

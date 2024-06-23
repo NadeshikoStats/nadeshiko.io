@@ -101,13 +101,19 @@
     "favorites": "Favourites",
     
     "search": "Enter a Minecraft username or UUID...",
-    "show_me": "Show me"
+    "show_me": "Show me",
+
+    "errors": {
+      "error": "ERROR",
+      "404": "No player by the name of %%player%% was found :(",
+      "computation": "Could not find stats of player %%name%% (%%error%%)"
+    }
   },
   "player": {
     "quick_mode": {
       "title": "Quick Mode",
       "key": "Shift",
-      "description": "Click an icon to instantly go to that game's page for %%player%%."
+      "description": "Click an icon to instantly go to that game's page for <span id=\"quick-mode-username\">%%player%%</span>."
     },
     "generate_card": "Generate Card",
     "skyblock_stats": "SkyBlock Stats",

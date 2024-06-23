@@ -73,13 +73,18 @@
     "recent_searches": "Búsquedas recientes",
     "favorites": "Favoritos",
     "search": "Escribe un nombre de usuario o UUID de Minecraft...",
-    "show_me": "Muéstrame"
+    "show_me": "Muéstrame",
+    "errors": {
+      "error": "ERROR",
+      "404": "No se encontró ningún jugador con el nombre %%player%% :(",
+      "computation": "No se encontraron las estadísticas del jugador %%name%% (%%error%%)"
+    }
   },
   "player": {
     "quick_mode": {
       "title": "Modo rápido",
       "key": "Mayús",
-      "description": "Haz clic en un icono para ir inmediatamente a la página de ese juego para %%player%%."
+      "description": "Haz clic en un icono para ir inmediatamente a la página de ese juego para <span id=\"quick-mode-username\">%%player%%</span>."
     },
     "generate_card": "Generar carta",
     "skyblock_stats": "Estadísticas de SkyBlock",

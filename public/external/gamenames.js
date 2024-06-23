@@ -127,7 +127,8 @@ let gameNames = {
           "DRAGONWARS2": "Dragon Wars",
           "DAYONE": "Blocking Dead",
           "GRINCH_SIMULATOR_V2": "Grinch Simulator",
-          "DRAW_THEIR_THING": "Pixel Painters"
+          "DRAW_THEIR_THING": "Pixel Painters",
+          "THROW_OUT": "Throw Out",
       },
       "databaseName": "Arcade",
       "name": "Arcade",
