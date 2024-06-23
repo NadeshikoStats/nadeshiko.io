@@ -446,14 +446,13 @@ function generateBedWars() {
   // Generates stats and chips for Bed Wars
   bedWarsStats = playerData["stats"]["Bedwars"] || {};
   if (bedWarsStats != undefined) {
-    var modes = ["eight_one", "eight_two", "four_three", "four_four", "two_four"];
 
     var modeNames = [
-      [getTranslation("games.modes.bedwars.eight_one"), "Solos"],
-      [getTranslation("games.modes.bedwars.eight_two"), "Doubles"],
-      [getTranslation("games.modes.bedwars.four_three"), "Threes"],
-      [getTranslation("games.modes.bedwars.four_four"), "Fours"],
-      [getTranslation("games.modes.bedwars.two_four"), "4v4"],
+      [getTranslation("games.modes.bedwars.eight_one"), "eight_one"],
+      [getTranslation("games.modes.bedwars.eight_two"), "eight_two"],
+      [getTranslation("games.modes.bedwars.four_three"), "four_three"],
+      [getTranslation("games.modes.bedwars.four_four"), "four_four"],
+      [getTranslation("games.modes.bedwars.two_four"), "two_four"],
     ];
 
     var dreamModes = [
@@ -570,14 +569,14 @@ function generateBedWars() {
       updateElement("bedwars-slumber-tickets", checkAndFormat(bedWarsStats["slumber"]["tickets"]));
     }
 
-    for (a = 0; a < modes.length; a++) {
+    for (a = 0; a < modeNames.length; a++) {
       // Regular stats
       let bedWarsChip = [
         "bedwars-stats-" + modeNames[a][1].toLowerCase(), // ID
         modeNames[a][0], // Title
         "", // Subtitle (none)
         `/img/games/bedwars/${modeNames[a][1].toLowerCase()}.${imageFileType}`, // Image
-        getBedWarsModeStats(modes[a][1]), // Displayed stats
+        getBedWarsModeStats(modeNames[a][1]), // Displayed stats
         [], // Other stats (shown in drop-down menu) (none here)
         "", // Icon
         "bedwars", // Gamemode (used for dropdowns)

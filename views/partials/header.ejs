@@ -705,7 +705,6 @@ function beginGeneration(task) {
         
         let dropdownItemText = selectedItem.querySelector(".dropdown-item-text");
         if (dropdownItemText) {
-          console.warn(dropdownItemText.innerHTML);
           button.innerHTML = DOMPurify.sanitize(dropdownItemText.innerHTML);
 
         } else {
