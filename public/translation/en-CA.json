@@ -630,6 +630,8 @@
     "winstreak": "Winstreak",
     "best_winstreak": "Best Winstreak",
     "wins": "Wins",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "Losses",
     "wlr": "W/L R",
     "kills": "Kills",

@@ -569,6 +569,8 @@
     "winstreak": "Kazanma Serisi",
     "best_winstreak": "En iyi Galibiyet Serisi",
     "wins": "Galibiyetler",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "Mağlubiyetler",
     "wlr": "W/L R",
     "kills": "Öldürmeler",

@@ -569,6 +569,8 @@
     "winstreak": "Racha de victorias",
     "best_winstreak": "Mejor racha de victorias",
     "wins": "Victorias",
+    "wins_to_go": "(%%num%% más)",
+    "wins_to_go_emphasis": "(¡%%num%% más!)",
     "losses": "Perdidas",
     "wlr": "W/L R",
     "kills": "Kills",

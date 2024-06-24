@@ -15,6 +15,7 @@ let userLanguage = settings["language"] || 'en-CA';
 async function fetchLanguageFile(language) {
 
   let validLanguages = ["en-CA", "ar-SA", "cs-CZ", "da-DK", "de-DE", "el-GR", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "hu-HU", "nl-NL", "no-NO", "pl-PL", "pt-PT", "pt-BR", "ro-RO", "ru-RU", "fi-FI", "sv-SE", "tr-TR", "uk-UA", "zh-CN", "zh-TW", "en-PT", "empty"];
+  let rtlLanguages = ["ar-SA"]; // Right-to-left languages
 
   try {
     language = language.replace("_", "-"); // Replace underscores with hyphens in case something goes wrong
@@ -28,6 +29,12 @@ async function fetchLanguageFile(language) {
 
     let translationJSON = await response.json();
     languageJSON = translationJSON;
+
+    if (rtlLanguages.includes(language)) {
+      document.documentElement.dir = 'rtl';
+      var textDirection = "rtl";
+    }
+
     beginGeneration("fetchLanguageFile");      
   } catch (error) {
     console.error(`Error loading translation file ${language} (${error.message})`);

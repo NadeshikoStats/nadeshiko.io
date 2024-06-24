@@ -569,6 +569,8 @@
     "winstreak": "Серия побед",
     "best_winstreak": "Лучшая серия побед",
     "wins": "Побед",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "Поражений",
     "wlr": "W/L R",
     "kills": "Убийств",

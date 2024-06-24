@@ -569,6 +569,8 @@
     "winstreak": "連勝",
     "best_winstreak": "最佳連勝紀錄",
     "wins": "獲勝次數",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "敗場數",
     "wlr": "W/L R",
     "kills": "擊殺數",

@@ -569,6 +569,8 @@
     "winstreak": "Νίκες στην σειρά",
     "best_winstreak": "Καλύτερο Σερί Νικών",
     "wins": "Νίκες",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "Ήττες",
     "wlr": "W/L R",
     "kills": "Σκοτωμοί",

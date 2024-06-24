@@ -569,6 +569,8 @@
     "winstreak": "연승",
     "best_winstreak": "최고의 연승",
     "wins": "우승",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "패배",
     "wlr": "W/L R",
     "kills": "킬",

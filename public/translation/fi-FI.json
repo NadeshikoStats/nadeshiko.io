@@ -569,6 +569,8 @@
     "winstreak": "Voittoputki",
     "best_winstreak": "Paras voittoputki",
     "wins": "Voitot",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "Tappiot",
     "wlr": "W/L R",
     "kills": "Tapot",

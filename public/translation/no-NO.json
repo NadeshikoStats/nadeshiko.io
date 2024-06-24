@@ -569,6 +569,8 @@
     "winstreak": "Seiersrekke",
     "best_winstreak": "Beste seiersrekke",
     "wins": "Seiere",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "Tap",
     "wlr": "W/L R",
     "kills": "Drap",

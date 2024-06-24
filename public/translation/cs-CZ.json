@@ -569,6 +569,8 @@
     "winstreak": "Série výher",
     "best_winstreak": "Nejdelší série:",
     "wins": "Výhry",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "Prohry",
     "wlr": "W/L R",
     "kills": "Zabití",

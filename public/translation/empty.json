@@ -562,6 +562,8 @@
     "winstreak": "statistics.winstreak",
     "best_winstreak": "statistics.best_winstreak",
     "wins": "statistics.wins",
+    "wins_to_go": "statistics.wins_to_go",
+    "wins_to_go_emphasis": "statistics.wins_to_go_emphasis",
     "losses": "statistics.losses",
     "wlr": "statistics.wlr",
     "kills": "statistics.kills",

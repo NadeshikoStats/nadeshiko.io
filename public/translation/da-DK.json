@@ -569,6 +569,8 @@
     "winstreak": "Sejrsrække",
     "best_winstreak": "Bedste Sejrække",
     "wins": "Sejre",
+    "wins_to_go": "(%%num%% to go)",
+    "wins_to_go_emphasis": "(%%num%% to go!)",
     "losses": "Tab",
     "wlr": "W/L R",
     "kills": "Drab",
