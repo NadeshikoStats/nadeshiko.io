@@ -867,7 +867,7 @@ function getTKRStats(mode) {
 
     return [
       [false, [getTranslation("statistics.coins"), checkAndFormat(tkrStats["coins"])]],
-      [false, ["Trophies", checkAndFormat(sumStatsBasic(["gold_trophy" + mode, "silver_trophy" + mode, "bronze_trophy" + mode], tkrStats))]],
+      [false, [getTranslation("statistics.trophies"), checkAndFormat(sumStatsBasic(["gold_trophy" + mode, "silver_trophy" + mode, "bronze_trophy" + mode], tkrStats))]],
       [false, [getTranslation("statistics.golds"), checkAndFormat(tkrStats["gold_trophy" + mode])], [getTranslation("statistics.silvers"), checkAndFormat(tkrStats["silver_trophy" + mode])], [getTranslation("statistics.bronzes"), checkAndFormat(tkrStats["bronze_trophy" + mode])]],
       [false, [getTranslation("statistics.games_played"), locale(tkrGamesPlayed, 0)], [getTranslation("statistics.trophy_rate"), checkAndFormat((sumStatsBasic(["gold_trophy" + mode, "silver_trophy" + mode, "bronze_trophy" + mode], tkrStats) / tkrGamesPlayed) * 100, 1) + "%"]],
       [false, [getTranslation("statistics.box_pickups"), checkAndFormat(tkrStats["box_pickups" + mode])]],
@@ -932,7 +932,7 @@ function getVampireZStats(mode) {
       [false, [getTranslation("statistics.wins"), checkAndFormat(vampireZStats["vampire_wins"])]],
       [
         false,
-        ["Human Kills", getGenericWinsPrefix(und(vampireZStats["human_kills"]), vampireZWinPrefixes, undefined, false)],
+        [getTranslation("statistics.human_kills"), getGenericWinsPrefix(und(vampireZStats["human_kills"]), vampireZWinPrefixes, undefined, false)],
         [getTranslation("statistics.deaths"), checkAndFormat(vampireZStats["vampire_deaths"])],
         [getTranslation("statistics.kdr"), calculateRatio(vampireZStats["human_kills"], vampireZStats["vampire_deaths"])],
       ],
@@ -2520,7 +2520,7 @@ function generateClassic() {
 
   let wallsChip = [
     "classic-walls",
-    "The Walls",
+    getTranslation("games.modes.classic.walls.category"),
     "",
     `/img/games/404.${imageFileType}`,
     [
@@ -2562,7 +2562,7 @@ function generateCopsAndCrims() {
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(copsAndCrimsStats["game_wins"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(copsAndCrimsStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(copsAndCrimsStats["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(copsAndCrimsStats["kills"], copsAndCrimsStats["deaths"])]],
-      [false, [getTranslation("statistics.assists"), checkAndFormat(copsAndCrimsStats["assists"])], ["Headshot Kills", checkAndFormat(copsAndCrimsStats["headshot_kills"])], [getTranslation("statistics.shots"), checkAndFormat(copsAndCrimsStats["shots_fired"])]],
+      [false, [getTranslation("statistics.assists"), checkAndFormat(copsAndCrimsStats["assists"])], [getTranslation("statistics.headshot_kills"), checkAndFormat(copsAndCrimsStats["headshot_kills"])], [getTranslation("statistics.shots"), checkAndFormat(copsAndCrimsStats["shots_fired"])]],
       [false, [getTranslation("statistics.bombs_defused"), checkAndFormat(copsAndCrimsStats["bombs_defused"])], [getTranslation("statistics.bombs_planted"), checkAndFormat(copsAndCrimsStats["bombs_planted"])], [getTranslation("statistics.round_wins"), checkAndFormat(copsAndCrimsStats["round_wins"])]],
     ],
     [],
@@ -2854,7 +2854,7 @@ function generateMegaWalls() {
 
   let megaWallsStandardChip = [
     "megawalls-standard",
-    "Standard",
+    getTranslation("games.modes.megawalls.standard"),
     "",
     `/img/games/404.${imageFileType}`,
     getMegaWallsClassStats("", "standard"),
@@ -2865,7 +2865,7 @@ function generateMegaWalls() {
 
   let megaWallsFaceOffChip = [
     "megawalls-faceoff",
-    "Face Off",
+    getTranslation("games.modes.megawalls.faceoff"),
     "",
     `/img/games/404.${imageFileType}`,
     getMegaWallsClassStats("", "face_off"),

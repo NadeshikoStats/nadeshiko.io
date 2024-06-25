@@ -73,7 +73,12 @@
     "recent_searches": "home.recent_searches",
     "favorites": "home.favorites",
     "search": "home.search",
-    "show_me": "home.show_me"
+    "show_me": "home.show_me",
+    "errors": {
+      "404": "home.errors.404",
+      "error": "home.errors.error",
+      "computation": "home.errors.computation"
+    }
   },
   "player": {
     "quick_mode": {
@@ -86,7 +91,8 @@
     "socials": "player.socials",
     "currently_offline": "player.currently_offline",
     "currently_online": "player.currently_online",
-    "birthday": "player.birthday"
+    "birthday": "player.birthday",
+    "coin_multiplier": "player.coin_multiplier"
   },
   "footer": {
     "created_by": "footer.created_by"
@@ -254,7 +260,8 @@
           "category": "games.modes.arcade.zombies.category",
           "deadend": "games.modes.arcade.zombies.deadend",
           "badblood": "games.modes.arcade.zombies.badblood",
-          "alienarcadium": "games.modes.arcade.zombies.alienarcadium"
+          "alienarcadium": "games.modes.arcade.zombies.alienarcadium",
+          "prison": "games.modes.arcade.zombies.prison"
         },
         "seasonal": {
           "category": "games.modes.arcade.seasonal.category",
@@ -586,6 +593,7 @@
     "bblr": "statistics.bblr",
     "slumber_tickets": "statistics.slumber_tickets",
     "challenges_completed": "statistics.challenges_completed",
+    "unique_challenges_completed": "statistics.unique_challenges_completed",
     "clicks": "statistics.clicks",
     "heads": "statistics.heads",
     "chests_opened": "statistics.chests_opened",
@@ -759,3 +767,4 @@
     "now": "times.now"
   }
 }
+
