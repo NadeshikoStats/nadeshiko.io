@@ -118,6 +118,10 @@ function addPrefixZero(number, totalLength) { // Adds zeroes to the start of a n
   return numberStr;
 }
 
+function sortStrings(a, b) { // Sorts strings alphabetically based on locale
+  return a.localeCompare(b, userLanguage, { sensitivity: "base" });
+}
+
 function generateNetwork() {
   // Inserts general/network stats into the DOM
   var profileStats = playerData["profile"];
@@ -1129,9 +1133,13 @@ function generateDuels() {
     if (winsToGo == -1) {
       formattedWinsToGo = ``;
     } else if (winsToGo == -2) {
-      formattedWinsToGo = `(MAXED!!!)`;
+      formattedWinsToGo = getTranslation("statistics.max_title");
     } else {
-      formattedWinsToGo = `(${checkAndFormat(winsToGo)} to go` + (winsToGo == 1 ? `!)` : `)`);
+      if (winsToGo == 1) {
+        formattedWinsToGo = insertPlaceholders(getTranslation("statistics.wins_to_go_emphasis"), { num: checkAndFormat(winsToGo) });
+      } else {
+        formattedWinsToGo = insertPlaceholders(getTranslation("statistics.wins_to_go"), { num: checkAndFormat(winsToGo) });
+      }
     }
 
     updateElement("duels-overall-title", overallDuelsTitle[0], true);
@@ -1149,17 +1157,17 @@ function generateDuels() {
       ["OP 2v2", "op_doubles", "op", false],
       ["SkyWars 1v1", "sw_duel", "sw", false],
       ["SkyWars 2v2", "sw_doubles", "sw", false],
-      ["Bow", "bow_duel", "bow", false],
-      ["Blitz", "blitz_duel", "blitz", false],
+      [getTranslation("games.modes.duels.bow.category"), "bow_duel", "bow", false],
+      [getTranslation("games.modes.duels.blitz.category"), "blitz_duel", "blitz", false],
       ["Mega Walls", "mw_duel", "mw", false],
       ["Mega Walls Doubles", "mw_doubles", "mw", false],
-      ["Sumo", "sumo_duel", "sumo", false],
-      ["Bow Spleef", "bowspleef_duel", "bowspleef", false],
-      ["Parkour", "parkour_eight", "parkour", false],
-      ["Boxing", "boxing_duel", "boxing", false],
-      ["Classic", "classic_duel", "classic", false],
-      ["NoDebuff", "potion_duel", "nodebuff", false],
-      ["Combo", "combo_duel", "combo", false],
+      [getTranslation("games.modes.duels.sumo.category"), "sumo_duel", "sumo", false],
+      [getTranslation("games.modes.duels.bowspleef.category"), "bowspleef_duel", "bowspleef", false],
+      [getTranslation("games.modes.duels.parkour.category"), "parkour_eight", "parkour", false],
+      [getTranslation("games.modes.duels.boxing.category"), "boxing_duel", "boxing", false],
+      [getTranslation("games.modes.duels.classic.category"), "classic_duel", "classic", false],
+      [getTranslation("games.modes.duels.potion.category"), "potion_duel", "nodebuff", false],
+      [getTranslation("games.modes.duels.combo.category"), "combo_duel", "combo", false],
       ["Bridge 1v1", "bridge_duel", "bridge", true],
       ["Bridge 2v2", "bridge_doubles", "bridge", true],
       ["Bridge 3v3", "bridge_threes", "bridge", true],
@@ -1167,7 +1175,7 @@ function generateDuels() {
       ["Bridge 2v2v2v2", "bridge_2v2v2v2", "bridge", true],
       ["Bridge 3v3v3v3", "bridge_3v3v3v3", "bridge", true],
       ["Bridge CTF 3v3", "capture_threes", "bridge", true],
-      ["Duel Arena", "duel_arena", "arena", false],
+      [getTranslation("games.modes.duels.arena.category"), "duel_arena", "arena", false],
     ];
 
     var duelsWithMultipleModes = [
@@ -1266,9 +1274,13 @@ function generateDuels() {
       if (winsToGo == -1) {
         formattedWinsToGo = ``;
       } else if (winsToGo == -2) {
-        formattedWinsToGo = `(MAXED!!!)`;
+        formattedWinsToGo = getTranslation("statistics.max_title");
       } else {
-        formattedWinsToGo = `(${checkAndFormat(winsToGo)} to go` + (winsToGo == 1 ? `!)` : `)`);
+        if (winsToGo == 1) {
+          formattedWinsToGo = insertPlaceholders(getTranslation("statistics.wins_to_go_emphasis"), { num: checkAndFormat(winsToGo) });
+        } else {
+          formattedWinsToGo = insertPlaceholders(getTranslation("statistics.wins_to_go"), { num: checkAndFormat(winsToGo) });
+        }
       }
 
       duelsChip = [
@@ -1297,7 +1309,16 @@ function generateBuildBattle() {
   if (buildBattleStats != undefined) {
     buildBattleTitle = getBuildBattleTitle(und(buildBattleStats["score"]));
     updateElement("buildbattle-overall-title", buildBattleTitle[0], true);
-    updateElement("buildbattle-overall-to-go", buildBattleTitle[1] == -1 ? `(Max title!)` : `(${checkAndFormat(buildBattleTitle[1])} to go)`);
+
+
+    //updateElement("buildbattle-overall-to-go", buildBattleTitle[1] == -1 ? `(Max title!)` : `(${checkAndFormat(buildBattleTitle[1])} to go)`);
+
+    if (buildBattleTitle[1] == -1) {
+      updateElement("buildbattle-overall-to-go", getTranslation("statistics.max_title"));
+    } else {
+      updateElement("buildbattle-overall-to-go", insertPlaceholders(getTranslation("statistics.wins_to_go"), { num: checkAndFormat(buildBattleTitle[1]) }));
+    }
+
     updateElement("buildbattle-overall-progress-number", Math.floor(buildBattleTitle[2] * 100) + "%");
     document.getElementById("buildbattle-overall-progress-bar").style.width = buildBattleTitle[2] * 100 + "%";
 
@@ -1569,6 +1590,9 @@ function generateTNTGames() {
     [getTranslation("games.modes.tntgames.wizards.new_toxicwizard"), "new_toxicwizard", `/img/icon/minecraft/ghast_tear.${imageFileType}`],
     [getTranslation("games.modes.tntgames.wizards.new_witherwizard"), "new_witherwizard", `/img/icon/minecraft/gold_axe.${imageFileType}`],
   ];
+
+  // Sort the list of wizards by item 0
+  wizardsList.sort((a, b) => sortStrings(a[0], b[0]));
 
   let totalWizardStats = sumStats(
     ["kills", "deaths", "healing", "damage_taken", "assists"],
@@ -2007,6 +2031,7 @@ function generateArcade() {
     zombiesCard,
     seasonalCard,
   ];
+
   for (d = 0; d < arcadeCards.length; d++) {
     generateChip(arcadeCards[d], d % 2 == 0 ? "arcade-chips-1" : "arcade-chips-2");
   }
@@ -2683,9 +2708,13 @@ function generateBlitz() {
     [getTranslation("games.modes.blitz.kits.warlock"), "warlock"],
     [getTranslation("games.modes.blitz.kits.warrior"), "warrior"],
     [getTranslation("games.modes.blitz.kits.wolftamer"), "wolftamer"],
-    [getTranslation("games.modes.blitz.kits.rambo"), "rambo"],
-    [getTranslation("games.modes.blitz.kits.random"), "random"],
   ];
+
+  // Sort the list of wizards by item 0 (sortStrings)
+  blitzKits.sort((a, b) => sortStrings(a[0], b[0]));
+
+  blitzKits.push([getTranslation("games.modes.blitz.kits.rambo"), "rambo"]);
+  blitzKits.push([getTranslation("games.modes.blitz.kits.random"), "random"]);
 
   // Add kit level to each kit name
   for(let k = 0; k < blitzKits.length; k++) {
@@ -2699,7 +2728,7 @@ function generateBlitz() {
     getTranslation("games.modes.blitz.kits.category"),
     "",
     `/img/games/404.${imageFileType}`,
-    getBlitzKitsStats("arachnologist"),
+    getBlitzKitsStats(blitzKits[0][1]),
     blitzKits,
     ``,
     "blitz",
@@ -3232,47 +3261,35 @@ function generateSmash() {
   smashStats = playerData["stats"]["SuperSmash"] || {};
 
   let easyStats = ["kills", "deaths", "wins", "losses", "coins", "damage_dealt"];
-
   let smashClasses = {
-    BOTMUN: {name: "Botmun"},
-    CAKE_MONSTER: {name: "Cake Monster"},
-    DUSK_CRAWLER: {name: "Void Crawler"},
-    FROSTY: {name: "Cryomancer"},
-    GENERAL_CLUCK: {name: "General Cluck"},
-    GOKU: {name: "Karakot"},
-    GREEN_HOOD: {name: "Green Hood"},
-    MARAUDER: {name: "Marauder"},
-    PUG: {name: "Pug"},
-    SANIC: {name: "Sanic"},
-    SERGEANT_SHIELD: {name: "Sgt. Shield"},
-    SHOOP_DA_WHOOP: {name: "Shoop"},
-    SKULLFIRE: {name: "Skullfire"},
-    SPODERMAN: {name: "Spooderman"},
-    THE_BULK: {name: "Bulk"},
-    TINMAN: {name: "Tinman"},
-
-    NONE: {name: "None"},
+    BOTMUN: {name: getTranslation("games.modes.smashheroes.classes.BOTMUN")},
+    CAKE_MONSTER: {name: getTranslation("games.modes.smashheroes.classes.CAKE_MONSTER")},
+    DUSK_CRAWLER: {name: getTranslation("games.modes.smashheroes.classes.DUSK_CRAWLER")},
+    FROSTY: {name: getTranslation("games.modes.smashheroes.classes.FROSTY")},
+    GENERAL_CLUCK: {name: getTranslation("games.modes.smashheroes.classes.GENERAL_CLUCK")},
+    GOKU: {name: getTranslation("games.modes.smashheroes.classes.GOKU")},
+    GREEN_HOOD: {name: getTranslation("games.modes.smashheroes.classes.GREEN_HOOD")},
+    MARAUDER: {name: getTranslation("games.modes.smashheroes.classes.MARAUDER")},
+    PUG: {name: getTranslation("games.modes.smashheroes.classes.PUG")},
+    SANIC: {name: getTranslation("games.modes.smashheroes.classes.SANIC")},
+    SERGEANT_SHIELD: {name: getTranslation("games.modes.smashheroes.classes.SERGEANT_SHIELD")},
+    SHOOP_DA_WHOOP: {name: getTranslation("games.modes.smashheroes.classes.SHOOP_DA_WHOOP")},
+    SKULLFIRE: {name: getTranslation("games.modes.smashheroes.classes.SKULLFIRE")},
+    SPODERMAN: {name: getTranslation("games.modes.smashheroes.classes.SPODERMAN")},
+    THE_BULK: {name: getTranslation("games.modes.smashheroes.classes.THE_BULK")},
+    TINMAN: {name: getTranslation("games.modes.smashheroes.classes.TINMAN")},
   }
 
-  let smashClassesArray = [
-    [getTranslation("games.modes.all.overall"), "overall"],
-    ["Botmun", "BOTMUN"],
-    ["Bulk", "THE_BULK"],
-    ["Cake Monster", "CAKE_MONSTER"],
-    ["Cryomancer", "FROSTY"],
-    ["General Cluck", "GENERAL_CLUCK"],
-    ["Green Hood", "GREEN_HOOD"],
-    ["Karakot", "GOKU"],
-    ["Marauder", "MARAUDER"],
-    ["Pug", "PUG"],
-    ["Sanic", "SANIC"],
-    ["Sgt. Shield", "SERGEANT_SHIELD"],
-    ["Shoop", "SHOOP_DA_WHOOP"],
-    ["Skullfire", "SKULLFIRE"],
-    ["Spooderman", "SPODERMAN"],
-    ["Tinman", "TINMAN"],
-    ["Void Crawler", "DUSK_CRAWLER"],
-  ]
+  let smashClassesArray = [];
+  
+  for (let key in smashClasses) {
+    smashClassesArray.push([smashClasses[key]["name"], key]);
+  }
+
+  smashClassesArray.sort((a, b) => sortStrings(a[0], b[0]));
+
+  smashClassesArray.unshift([getTranslation("games.modes.all.overall"), ""]);
+
 
   let smashFormattedClassesArray = [];
   for (let c = 1; c < smashClassesArray.length; c++) { // Adds the prestige to the class name using getSmashPrestige
@@ -3295,8 +3312,12 @@ function generateSmash() {
   }
   updateElement("smashheroes-overall-xp", checkAndFormat(smashTotalXP));
 
-  let smashActiveClass = smashStats["active_class"] || "NONE";
-  updateElement("smashheroes-active_class", smashClasses[smashActiveClass]["name"]);
+  let smashActiveClass = smashStats["active_class"];
+  if (smashActiveClass) {
+    updateElement("smashheroes-active_class", smashClasses[smashActiveClass]["name"]);
+  } else {
+    updateElement("smashheroes-active_class", "N/A");
+  }
 
   let smashClassesChip = [
     "smashheroes-classes",
@@ -3659,18 +3680,18 @@ function getDuelsTitle(wins, name = "") {
   multiplier = name == "" ? 2 : 1; // Multiply required wins by 2 for general Duels titles
 
   const duelsTitles = [
-    { minimumWins: 0, increment: 50, title: "No Title", color: "8" },
-    { minimumWins: 50, increment: 10, title: "Rookie", color: "8" },
-    { minimumWins: 100, increment: 30, title: "Iron", color: "f" },
-    { minimumWins: 250, increment: 50, title: "Gold", color: "6" },
-    { minimumWins: 500, increment: 100, title: "Diamond", color: "3" },
-    { minimumWins: 1000, increment: 200, title: "Master", color: "2" },
-    { minimumWins: 2000, increment: 600, title: "Legend", color: "4", bold: true },
-    { minimumWins: 5000, increment: 1000, title: "Grandmaster", color: "e", bold: true },
-    { minimumWins: 10000, increment: 3000, title: "Godlike", color: "5", bold: true },
-    { minimumWins: 25000, increment: 5000, title: "CELESTIAL", color: "b", bold: true },
-    { minimumWins: 50000, increment: 10000, title: "DIVINE", color: "d", bold: true },
-    { minimumWins: 100000, increment: 10000, max: 50, title: "ASCENDED", color: "c", bold: true },
+    { minimumWins: 0, increment: 50, title: getTranslation("games.modes.duels.titles.title_0"), color: "8" },
+    { minimumWins: 50, increment: 10, title: getTranslation("games.modes.duels.titles.title_50"), color: "8" },
+    { minimumWins: 100, increment: 30, title: getTranslation("games.modes.duels.titles.title_100"), color: "f" },
+    { minimumWins: 250, increment: 50, title: getTranslation("games.modes.duels.titles.title_250"), color: "6" },
+    { minimumWins: 500, increment: 100, title: getTranslation("games.modes.duels.titles.title_500"), color: "3" },
+    { minimumWins: 1000, increment: 200, title: getTranslation("games.modes.duels.titles.title_1000"), color: "2" },
+    { minimumWins: 2000, increment: 600, title: getTranslation("games.modes.duels.titles.title_2000"), color: "4", bold: true },
+    { minimumWins: 5000, increment: 1000, title: getTranslation("games.modes.duels.titles.title_5000"), color: "e", bold: true },
+    { minimumWins: 10000, increment: 3000, title: getTranslation("games.modes.duels.titles.title_10000"), color: "5", bold: true },
+    { minimumWins: 25000, increment: 5000, title: getTranslation("games.modes.duels.titles.title_25000"), color: "b", bold: true },
+    { minimumWins: 50000, increment: 10000, title: getTranslation("games.modes.duels.titles.title_50000"), color: "d", bold: true },
+    { minimumWins: 100000, increment: 10000, max: 50, title: getTranslation("games.modes.duels.titles.title_100000"), color: "c", bold: true },
   ];
 
   let chosenTitle = duelsTitles[0];
@@ -3685,7 +3706,7 @@ function getDuelsTitle(wins, name = "") {
 
   let winsToGo = -1;
   let level = 0;
-  if (chosenTitle["title"] != "No Title") {
+  if (chosenTitle["title"] != getTranslation("games.modes.duels.titles.title_0")) {
     level = Math.floor((wins - chosenTitle["minimumWins"] * multiplier) / (chosenTitle["increment"] * multiplier)) + 1;
     winsToGo = chosenTitle["minimumWins"] * multiplier + chosenTitle["increment"] * level * multiplier - wins;
 
@@ -3707,7 +3728,7 @@ function getDuelsTitle(wins, name = "") {
     name = `${name} `;
   }
 
-  if (chosenTitle["title"] == "No Title") {
+  if (chosenTitle["title"] == getTranslation("games.modes.duels.titles.title_0")) {
     // Remove name with no title so it just says "No Title"
     name = "";
   }

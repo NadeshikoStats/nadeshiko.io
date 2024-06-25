@@ -571,6 +571,7 @@
     "wins": "獲勝次數",
     "wins_to_go": "(%%num%% to go)",
     "wins_to_go_emphasis": "(%%num%% to go!)",
+    "max_title": "(Max title!)",
     "losses": "敗場數",
     "wlr": "W/L R",
     "kills": "擊殺數",

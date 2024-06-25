@@ -632,6 +632,7 @@
     "wins": "Wins",
     "wins_to_go": "(%%num%% to go)",
     "wins_to_go_emphasis": "(%%num%% to go!)",
+    "max_title": "(Max title!)",
     "losses": "Losses",
     "wlr": "W/L R",
     "kills": "Kills",

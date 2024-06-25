@@ -564,6 +564,7 @@
     "wins": "statistics.wins",
     "wins_to_go": "statistics.wins_to_go",
     "wins_to_go_emphasis": "statistics.wins_to_go_emphasis",
+    "max_title": "statistics.max_title",
     "losses": "statistics.losses",
     "wlr": "statistics.wlr",
     "kills": "statistics.kills",
