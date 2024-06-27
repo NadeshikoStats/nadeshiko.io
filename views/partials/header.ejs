@@ -295,34 +295,34 @@
   }
 
   let languageCodes = {
-    'en-CA': { progress: 100, label: 'English', direction: 'ltr' },
-    'ar-SA': { progress: 0, label: 'العربية', direction: 'rtl' },
-    'cs-CZ': { progress: 40, label: 'Čeština', direction: 'ltr' },
-    'da-DK': { progress: 41, label: 'Dansk', direction: 'ltr' },
-    'de-DE': { progress: 44, label: 'Deutsch', direction: 'ltr' },
-    'el-GR': { progress: 37, label: 'Ελληνικά', direction: 'ltr' },
-    'es-ES': { progress: 100, label: 'Español', direction: 'ltr' },
-    'fr-FR': { progress: 44, label: 'Français', direction: 'ltr' },
-    'it-IT': { progress: 44, label: 'Italiano', direction: 'ltr' },
-    'ja-JP': { progress: 44, label: '日本語', direction: 'ltr' },
-    'ko-KR': { progress: 43, label: '한국어', direction: 'ltr' },
-    'hu-HU': { progress: 41, label: 'Magyar', direction: 'ltr' },
-    'nl-NL': { progress: 42, label: 'Nederlands', direction: 'ltr' },
-    'no-NO': { progress: 40, label: 'Norsk', direction: 'ltr' },
-    'pl-PL': { progress: 42, label: 'Polski', direction: 'ltr' },
-    'pt-PT': { progress: 43, label: 'Português (Portugal)', direction: 'ltr' },
-    'pt-BR': { progress: 44, label: 'Português (Brasil)', direction: 'ltr' },
-    'ro-RO': { progress: 37, label: 'Română', direction: 'ltr' },
-    'ru-RU': { progress: 44, label: 'Русский', direction: 'ltr' },
-    'fi-FI': { progress: 43, label: 'Suomi', direction: 'ltr' },
-    'sv-SE': { progress: 40, label: 'Svenska', direction: 'ltr' },
-    'tr-TR': { progress: 41, label: 'Türkçe', direction: 'ltr' },
-    'uk-UA': { progress: 40, label: 'Українська', direction: 'ltr' },
-    'zh-CN': { progress: 44, label: '中文（简体）', direction: 'ltr' },
-    'zh-TW': { progress: 42, label: '中文（繁體）', direction: 'ltr' },
-    'en-PT': { progress: 58, label: 'Pirate English', direction: 'ltr' },
-    empty: { progress: 100, label: 'empty', direction: 'ltr' }
-  }
+      'en-CA': { progress: 100, label: 'English', direction: 'ltr' },
+      'ar-SA': { progress: 0, label: 'العربية', direction: 'rtl' },
+      'cs-CZ': { progress: 39, label: 'Čeština', direction: 'ltr' },
+      'da-DK': { progress: 40, label: 'Dansk', direction: 'ltr' },
+      'de-DE': { progress: 43, label: 'Deutsch', direction: 'ltr' },
+      'el-GR': { progress: 36, label: 'Ελληνικά', direction: 'ltr' },
+      'es-ES': { progress: 100, label: 'Español', direction: 'ltr' },
+      'fr-FR': { progress: 43, label: 'Français', direction: 'ltr' },
+      'it-IT': { progress: 43, label: 'Italiano', direction: 'ltr' },
+      'ja-JP': { progress: 43, label: '日本語', direction: 'ltr' },
+      'ko-KR': { progress: 43, label: '한국어', direction: 'ltr' },
+      'hu-HU': { progress: 40, label: 'Magyar', direction: 'ltr' },
+      'nl-NL': { progress: 41, label: 'Nederlands', direction: 'ltr' },
+      'no-NO': { progress: 39, label: 'Norsk', direction: 'ltr' },
+      'pl-PL': { progress: 41, label: 'Polski', direction: 'ltr' },
+      'pt-PT': { progress: 42, label: 'Português (Portugal)', direction: 'ltr' },
+      'pt-BR': { progress: 43, label: 'Português (Brasil)', direction: 'ltr' },
+      'ro-RO': { progress: 36, label: 'Română', direction: 'ltr' },
+      'ru-RU': { progress: 43, label: 'Русский', direction: 'ltr' },
+      'fi-FI': { progress: 43, label: 'Suomi', direction: 'ltr' },
+      'sv-SE': { progress: 39, label: 'Svenska', direction: 'ltr' },
+      'tr-TR': { progress: 40, label: 'Türkçe', direction: 'ltr' },
+      'uk-UA': { progress: 40, label: 'Українська', direction: 'ltr' },
+      'zh-CN': { progress: 43, label: '中文（简体）', direction: 'ltr' },
+      'zh-TW': { progress: 41, label: '中文（繁體）', direction: 'ltr' },
+      'en-PT': { progress: 100, label: 'Pirate English', direction: 'ltr' },
+      empty: { progress: 100, label: 'empty', direction: 'ltr' }
+    }
 
   // Iterate through the languageCodes object and create a dropdown item for each language
   let dropdownLanguage = document.getElementById("dropdown-language");
@@ -607,13 +607,15 @@
     return element.tagName === "INPUT" || element.tagName === "TEXTAREA" || element.isContentEditable;
   }
 
+  /*
   let tasksBeforeLoadingHeader = ["fetchLanguageFile", "DOMContentLoaded"];
 
 /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
  * This is used to ensure that all tasks are completed before the page is generated.
  * @param {string} task - The task that was completed 
- */
+
 function beginGeneration(task) {
+  console.log(task);
   if(tasksBeforeLoadingHeader.includes(task)) {
     tasksBeforeLoadingHeader.splice(tasksBeforeLoadingHeader.indexOf(task), 1);
   }
@@ -623,7 +625,7 @@ function beginGeneration(task) {
   if(tasksBeforeLoadingHeader.length == 0) {
     updateTranslations();
   }
-}
+}*/
 
   function openSelectedDropdown(dropdownId) {
     console.log("removed" + dropdownId);

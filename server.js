@@ -798,9 +798,18 @@ app.get('/player/:name/:game?', async (req, res) => {
        res.render('player', { name, playerData, game, metaImageURL, metaDescription });
    } catch(error) {
       if(error.response && error.response.status == 404) {
-        computationError = `No player by the name of ${name} was found :(`;
+        computationError = {
+          message: `No player by the name of ${name} was found :(`,
+          player: name,
+          category: "404",
+        };
       } else {
-        computationError = `Could not find stats of player ${name} (${error})`;
+        computationError = {
+          message: `Could not find stats of player ${name} (${error})`,
+          player: name,
+          error: error["message"],
+          category: "computation",
+        };
         console.error("Fetching player data failed! → ", error);
       }
       res.render('index', { computationError });

@@ -1438,10 +1438,9 @@
     font-weight: bold;
     background-color: #c9486a;
     height: 70px;
-    padding: 8px;
+    padding: 8px 14px;
     margin-inline-end: 8px;
     border-radius: 25px;
-    width: 80px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -73,11 +73,11 @@
     "recent_searches": "Recent Searches",
     "favorites": "Favourites",
     "search": "Enter a Minecraft username or UUID...",
-    "show_me": "Show me",
+    "show_me": "Show me!",
     "errors": {
       "error": "ERROR",
       "404": "No player by the name of %%player%% was found :(",
-      "computation": "Could not find stats of player %%name%% (%%error%%)"
+      "computation": "Could not find stats of player %%player%% (%%error%%)"
     }
   },
   "player": {
@@ -92,7 +92,12 @@
     "currently_offline": "Currently Offline",
     "currently_online": "Currently Online!",
     "birthday": "Happy %%num%% years of Hypixel!",
-    "coin_multiplier": "コイン倍率"
+    "coin_multiplier": "コイン倍率",
+    "errors": {
+      "no_stats": "No Hypixel Stats",
+      "no_stats_desc": "This player has no Hypixel stats.",
+      "api_disabled": "This player has their stats API disabled! Stats may be inaccurate or missing."
+    }
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."

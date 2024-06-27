@@ -92,7 +92,13 @@
     "currently_offline": "player.currently_offline",
     "currently_online": "player.currently_online",
     "birthday": "player.birthday",
-    "coin_multiplier": "player.coin_multiplier"
+    "coin_multiplier": "player.coin_multiplier",
+
+    "errors": {
+      "no_stats": "player.errors.no_stats",
+      "no_stats_desc": "player.errors.no_stats_desc",
+      "api_disabled": "player.errors.api_disabled"
+    }
   },
   "footer": {
     "created_by": "footer.created_by"

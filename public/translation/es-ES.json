@@ -73,11 +73,11 @@
     "recent_searches": "Búsquedas recientes",
     "favorites": "Favoritos",
     "search": "Escribe un nombre de usuario o UUID de Minecraft...",
-    "show_me": "Muéstrame",
+    "show_me": "¡Muéstrame!",
     "errors": {
       "error": "ERROR",
       "404": "No se encontró ningún jugador con el nombre %%player%% :(",
-      "computation": "No se encontraron las estadísticas del jugador %%name%% (%%error%%)"
+      "computation": "No se encontraron las estadísticas del jugador %%player%% (%%error%%)"
     }
   },
   "player": {
@@ -92,7 +92,12 @@
     "currently_offline": "Fuera de línea",
     "currently_online": "¡En línea!",
     "birthday": "¡Feliz %%num%% años de Hypixel!",
-    "coin_multiplier": "Multiplicador de monedas"
+    "coin_multiplier": "Multiplicador de monedas",
+    "errors": {
+      "no_stats": "Sin estadísticas de Hypixel",
+      "no_stats_desc": "Este jugador no tiene estadísticas de Hypixel.",
+      "api_disabled": "¡Este jugador desactivó su API de estadísticas! Es posible que falten sus estadísticas."
+    }
   },
   "footer": {
     "created_by": "Hecho con ♥︎ por <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> y <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."

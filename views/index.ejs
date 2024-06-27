@@ -51,9 +51,9 @@
         </div>
         <% if(typeof computationError !== 'undefined') { %>
           <div class="home-error-container">
-            <p class="home-error-message">ERROR</p>
-          <p class="home-error">
-          <%= computationError %>
+            <p class="home-error-message" data-t="home.errors.error">ERROR</p>
+          <p class="home-error" id="home-error-message-description">
+          <%= computationError["message"] %>
           </p>
         </div>
         <% } %>
@@ -111,30 +111,12 @@ let direction = 1;
 
 var texts = ["Arcade", "Arena Brawl", "Bed Wars", "Blitz", "Build Battle", "Cops and Crims", "Duels", "Mega Walls", "Murder Mystery", "Paintball", "Pit", "Quakecraft", "SkyWars", "Smash Heroes", "Speed UHC", "TNT Games", "The Walls", "Turbo Kart Racers", "UHC", "VampireZ", "Warlords", "Wool Wars"];
 
-// var texts = [
-//   getTranslation("games.arcade"),
-//   getTranslation("games.modes.classic.arena.category"),
-//   getTranslation("games.bedwars"),
-//   getTranslation("games.blitz"),
-//   getTranslation("games.buildbattle"),
-//   getTranslation("games.copsandcrims"),
-//   getTranslation("games.duels"),
-//   getTranslation("games.megawalls"),
-//   getTranslation("games.murdermystery"),
-//   getTranslation("games.modes.classic.paintball.category"),
-//   getTranslation("games.pit"),
-//   getTranslation("games.modes.classic.quakecraft.category"),
-//   getTranslation("games.skywars"),
-//   getTranslation("games.smashheroes"),
-//   getTranslation("games.modes.uhc.speeduhc.category.category"),
-//   getTranslation("games.tntgames"),
-//   getTranslation("games.modes.classic.walls.category"),
-//   getTranslation("games.modes.classic.tkr.category"),
-//   getTranslation("games.uhc"),
-//   getTranslation("games.modes.classic.vampirez.category"),
-//   getTranslation("games.warlords"),
-//   getTranslation("games.woolwars")
-// ];
+let computationError;
+<% if(typeof computationError !== 'undefined') { %>
+  computationError = <%- JSON.stringify(computationError) %>
+<% } else { %>
+  computationError = {}
+<% } %>
 
 for (let i = texts.length - 1; i > 0; i--) { // Shuffles array
         let j = Math.floor(Math.random() * (i + 1));
@@ -176,6 +158,56 @@ if(document.documentElement.clientWidth >= 800) {
   document.getElementById('searchbar2').select();
 }
 
+let tasksBeforeLoadingHeader = ["fetchLanguageFile", "DOMContentLoaded"];
+
+function beginGeneration(task) {
+  console.log(task);
+  if(tasksBeforeLoadingHeader.includes(task)) {
+    tasksBeforeLoadingHeader.splice(tasksBeforeLoadingHeader.indexOf(task), 1);
+  }
+
+  console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoadingHeader}`);
+
+  if(tasksBeforeLoadingHeader.length == 0) {
+    updateTranslations();
+
+    texts = [
+      getTranslation("games.arcade"),
+      getTranslation("games.modes.classic.arena.category"),
+      getTranslation("games.bedwars"),
+      getTranslation("games.blitz"),
+      getTranslation("games.buildbattle"),
+      getTranslation("games.copsandcrims"),
+      getTranslation("games.duels"),
+      getTranslation("games.megawalls"),
+      getTranslation("games.murdermystery"),
+      getTranslation("games.modes.classic.paintball.category"),
+      getTranslation("games.pit"),
+      getTranslation("games.modes.classic.quakecraft.category"),
+      getTranslation("games.skywars"),
+      getTranslation("games.smashheroes"),
+      getTranslation("games.modes.uhc.speeduhc.category"),
+      getTranslation("games.tntgames"),
+      getTranslation("games.modes.classic.walls.category"),
+      getTranslation("games.modes.classic.tkr.category"),
+      getTranslation("games.uhc"),
+      getTranslation("games.modes.classic.vampirez.category"),
+      getTranslation("games.warlords"),
+      getTranslation("games.woolwars")
+    ];
+
+    for (let i = texts.length - 1; i > 0; i--) { // Shuffles array
+      let j = Math.floor(Math.random() * (i + 1));
+      [texts[i], texts[j]] = [texts[j], texts[i]];
+    }
+
+    texts.unshift("Hypixel");
+
+    if (Object.keys(computationError).length != 0) { // If there's an error, display it
+      document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors." + computationError["category"]), {"player": computationError["player"], "error": computationError["error"]});
+    }
+  }
+}
 
   recentSearches = JSON.parse(localStorage.getItem("recent-searches"));
 if(recentSearches != null) {
