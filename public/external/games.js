@@ -360,8 +360,8 @@ function generateNetwork() {
     document.getElementById("real-stats").style.display = "none";
     document.getElementById("network-error").style.display = "unset";
 
-    document.getElementById("player-card").style.paddingLeft = "0px";
-    document.getElementById("player-card").style.paddingRight = "0px";
+    document.getElementById("player-card").style.paddingInlineStart = "0px";
+    document.getElementById("player-card").style.paddingInlineEnd = "0px";
     document.getElementById("player-card").style.paddingBottom = "0px";
     document.getElementById("extended-card").style.marginBottom = "0px";
     addRecentPlayer(playerData["name"]);
