@@ -3766,30 +3766,10 @@ function getFishingZoneStats(zone) {
   let fishingNumericalStats = fishingStats["stats"] || {};
   let zoneStats = getValue(fishingNumericalStats, ["permanent", zone]) || {};
 
-  // To calculate orbs caught in a zone, we need to sum the orbs caught by season by iterating over objects in the permanentStats object, look for keys that are entirely numbers, as those represent the years that the orbs were caught in
-  
-  // get all numerical keys
-  let orbsCaught = 0;
-  let years = Object.keys(fishingNumericalStats).filter(key => !isNaN(key));
-
-
-  // iterate through keys, check if grandchildren equal the zone name, if so, add to orbsCaught variable
-  for (let a = 0; a < years.length; a++) {
-    let year = years[a];
-    let seasons = Object.keys(fishingNumericalStats[year]);
-
-    for (let b = 0; b < seasons.length; b++) {
-      let season = seasons[b];
-      let zoneStats = getValue(fishingNumericalStats, [year, season, zone]) || {};
-
-      orbsCaught += und(zoneStats["orb"]);
-    }
-  }
-
   return [
-    [false, [getTranslation("statistics.items_caught"), checkAndFormat(und(zoneStats["fish"]) + und(zoneStats["junk"]) + und(zoneStats["treasure"]) + orbsCaught)]],
+    [true, [getTranslation("statistics.items_caught"), checkAndFormat(und(zoneStats["fish"]) + und(zoneStats["junk"]) + und(zoneStats["treasure"]))]],
     [false, [getTranslation("statistics.fish_caught"), checkAndFormat(zoneStats["fish"])], [getTranslation("statistics.junk_caught"), checkAndFormat(zoneStats["junk"])]],
-    [false, [getTranslation("statistics.treasure_caught"), checkAndFormat(zoneStats["treasure"])], [getTranslation("statistics.mythical_fish_caught"), checkAndFormat(orbsCaught)]],
+    [false, [getTranslation("statistics.treasure_caught"), checkAndFormat(zoneStats["treasure"])]],
   ]
 }
 
@@ -3825,7 +3805,7 @@ function getFishingParticipatedSeasons() {
 
 function formatFishingParticipatedSeason(season) {
   return [
-    [false, [getTranslation("statistics.items_caught"), checkAndFormat(season["fish"] + season["junk"] + season["treasure"] + season["orb"])]],
+    [true, [getTranslation("statistics.items_caught"), checkAndFormat(season["fish"] + season["junk"] + season["treasure"] + season["orb"])]],
     [false, [getTranslation("statistics.fish_caught"), checkAndFormat(season["fish"])], [getTranslation("statistics.junk_caught"), checkAndFormat(season["junk"])]],
     [false, [getTranslation("statistics.treasure_caught"), checkAndFormat(season["treasure"])], [getTranslation("statistics.mythical_fish_caught"), checkAndFormat(season["orb"])]],
   ]
