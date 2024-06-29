@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, warlordsStats, uhcStats, speedUHCStats, woolWarsNumericalStats, smashStats;
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, warlordsStats, uhcStats, speedUHCStats, woolWarsNumericalStats, smashStats, fishingStats, fishingParticipatedSeasons;
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
@@ -48,6 +48,16 @@ function longDateFormat(date) {
     timeStyle: "long",
     calendar: "gregory",
   }).format(date);
+}
+
+function getValue(object, valueArray) {
+  for (let i = 0; i < valueArray.length; i++) {
+    if (object == undefined) {
+      return undefined;
+    }
+    object = object[valueArray[i]];
+  }
+  return object;
 }
 
 function smallDuration(seconds, ms = false) {
@@ -269,12 +279,14 @@ function generateNetwork() {
       { id: "tntgames", name: getTranslation(["games", "tntgames"]), minecraftId: "tnt" },
       { id: "uhc", name: getTranslation(["games", "uhc"]), minecraftId: "golden_apple" },
       { id: "warlords", name: getTranslation(["games", "warlords"]), minecraftId: "stone_axe" },
-      { id: "woolwars", name: getTranslation(["games", "woolwars"]), minecraftId: "white_wool" }
+      { id: "woolwars", name: getTranslation(["games", "woolwars"]), minecraftId: "white_wool" },
+      { id: "fishing", name: getTranslation(["games", "fishing"]), minecraftId: "cod" },
     ];
 
     const quickModeGameContainer = document.getElementById("quick-mode-games");
     const gameSwitchMobileContainer = document.getElementById("game-switch-mobile");
     const gameSwitchContainer = document.getElementById("game-switch");
+    const otherSwitchContainer = document.getElementById("other-switch");
 
     quickModeGames.forEach((game) => {
       if (game.id != "network") {
@@ -300,6 +312,8 @@ function generateNetwork() {
     });
 
     let headerGames = ["network", "bedwars", "duels", "skywars"];
+    let headerOther = ["fishing"];
+
     quickModeGames.forEach((game, index) => {
       let container = document.createElement("div");
       container.setAttribute("onclick", `switchStats('${game.id}')`);
@@ -325,7 +339,9 @@ function generateNetwork() {
 
       if (headerGames.includes(game.id)) {
         gameSwitchMobileContainer.appendChild(container);
-      } else {
+      } else if(headerOther.includes(game.id)) {
+        otherSwitchContainer.appendChild(container);
+      } else{
         gameSwitchContainer.appendChild(container);
       }
     });
@@ -346,6 +362,8 @@ function generateNetwork() {
     generateUHC();
     generateSmash();
     generateWoolGames();
+
+    generateFishing();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
   } else {
@@ -3585,6 +3603,305 @@ function getWoolWarsStats(mode) {
     [false, [getTranslation("statistics.assists"), checkAndFormat(woolWarsModeStats["assists"])], [getTranslation("statistics.powerups"), checkAndFormat(woolWarsModeStats["powerups_gotten"])]],
     [false, [getTranslation("statistics.wool_placed"), checkAndFormat(woolWarsModeStats["wool_placed"])], [getTranslation("statistics.blocks_broken"), checkAndFormat(woolWarsModeStats["blocks_broken"])]],
   ]
+}
+
+function generateFishing() {
+  let mainLobbyStats = playerData["stats"]["MainLobby"] || {};
+  fishingStats = mainLobbyStats["fishing"] || {};
+  
+  const getTotalCaught = (stats, category) => {
+    const environments = ["water", "lava", "ice"];
+    return environments.reduce((total, env) => {
+      return total + und(getValue(stats, ["stats", "permanent", env, category]));
+    }, 0);
+  };
+  
+  const overallFishCaught = getTotalCaught(fishingStats, "fish");
+  const overallJunkCaught = getTotalCaught(fishingStats, "junk");
+  const overallTreasureCaught = getTotalCaught(fishingStats, "treasure");
+  
+  const orbs = ["selene", "helios", "nyx", "zeus", "aphrodite", "archimedes", "hades"];
+
+  function getMythicalFishCount(orb) {
+    const path = ["orbs", orb];
+    const value = getValue(fishingStats, path);
+    return und(value);
+  }
+  
+  const mythicalFishCounts = orbs.map(getMythicalFishCount);
+  const overallMythicalFishCaught = mythicalFishCounts.reduce((sum, count) => sum + count, 0);
+
+  let playerSpecialFish = fishingStats["special_fish"] || [];
+
+  console.log(playerSpecialFish);
+
+  let specialFishCount = 0;
+
+  for (let key in playerSpecialFish) {
+    if (playerSpecialFish[key] && key != "mahi-mahi") { // mahi-mahi is in the API two times (once as mahi-mahi and once as mahi_mahi)
+      specialFishCount++;
+    }
+  }
+
+  let maxSpecialFish = 44;
+
+  console.log(overallMythicalFishCaught);
+
+  updateElement("fishing-items_caught", checkAndFormat(und(overallFishCaught) + und(overallJunkCaught) + und(overallTreasureCaught) + und(overallMythicalFishCaught)));
+  updateElement("fishing-fish_caught", checkAndFormat(overallFishCaught));
+  updateElement("fishing-junk_caught", checkAndFormat(overallJunkCaught));
+  updateElement("fishing-treasure_caught", checkAndFormat(overallTreasureCaught));
+  updateElement("fishing-mythical_fish_caught", checkAndFormat(overallMythicalFishCaught));
+  updateElement("fishing-special_fish_caught", checkAndFormat(specialFishCount) + "/" + checkAndFormat(maxSpecialFish));
+
+  if (specialFishCount >= maxSpecialFish) {
+    document.getElementById("fishing-special_fish_caught").style.color = "var(--gold)";
+  }
+
+  let zoneChip = [
+    "fishing-zones",
+    getTranslation("games.modes.fishing.zones.category"),
+    "",
+    `/img/games/404.${imageFileType}`,
+    getFishingZoneStats("water"),
+    [
+        [getTranslation("games.modes.fishing.zones.water"), "water"],
+        [getTranslation("games.modes.fishing.zones.lava"), "lava"],
+        [getTranslation("games.modes.fishing.zones.ice"), "ice"],
+    ],
+    ``,
+    "fishing",
+  ];
+
+  let catchesChip = [
+    "fishing-catches",
+    getTranslation("games.modes.fishing.catches.category"),
+    "",
+    `/img/games/404.${imageFileType}`,
+    getFishingCatches("fish"),
+    [
+      [getTranslation("games.modes.fishing.catches.fish"), "fish"],
+      [getTranslation("games.modes.fishing.catches.junk"), "junk"],
+      [getTranslation("games.modes.fishing.catches.treasure"), "treasure"],
+    ],
+    ``,
+    "fishing",
+  ];
+
+  function getMythicalFishStats() {
+    let mythicalFishStats = fishingStats["orbs"] || {};
+    let mythicalFishWeight = mythicalFishStats["weight"] || {};
+
+    let mythicalFishArray = ["selene", "helios", "nyx", "zeus", "aphrodite", "archimedes", "hades"];
+
+    let mythicalFishStatsArray = [];
+
+    for (let i = 0; i < mythicalFishArray.length; i += 1) {
+      let fish = mythicalFishArray[i];
+      let fishWeight = und(mythicalFishWeight[fish]);
+
+      mythicalFishStatsArray.push([false, [getTranslation(`games.modes.fishing.mythicalfish.${fish}`), 
+        
+      insertPlaceholders(getTranslation("games.modes.fishing.mythicalfish.weight_formatted"), { caught: checkAndFormat(mythicalFishStats[fish]), weight: checkAndFormat(mythicalFishWeight[fish]) })]]);
+    
+    }
+    return mythicalFishStatsArray;
+  }
+
+  let mythicalFishChip = [
+    "fishing-mythicalfish",
+    getTranslation("games.modes.fishing.mythicalfish.category"),
+    "",
+    `/img/games/404.${imageFileType}`,
+    getMythicalFishStats(),
+    [],
+    ``,
+    "fishing",
+  ];
+
+  let specialFishChip = [
+    "fishing-specialfish",
+    getTranslation("games.modes.fishing.specialfish.category"),
+    "",
+    `/img/games/404.${imageFileType}`,
+    getSpecialFishStats("permanent"),
+    [
+      [getTranslation("games.modes.fishing.seasons.permanent"), "permanent"],
+      [getTranslation("games.modes.fishing.seasons.easter"), "easter"],
+      [getTranslation("games.modes.fishing.seasons.summer"), "summer"],
+      [getTranslation("games.modes.fishing.seasons.halloween"), "halloween"],
+      [getTranslation("games.modes.fishing.seasons.christmas"), "christmas"]
+    ],
+    ``,
+    "fishing",
+  ];
+
+  fishingParticipatedSeasons = getFishingParticipatedSeasons();
+
+  let seasonsChip = [
+    "fishing-seasons",
+    getTranslation("games.modes.fishing.seasons.category"),
+    "",
+    `/img/games/404.${imageFileType}`,
+    formatFishingParticipatedSeason(fishingParticipatedSeasons[0]),
+    formatFishingParticipatedSeasonDropdown(fishingParticipatedSeasons),
+    ``,
+    "fishing",
+  ];
+
+  let fishingChips = [zoneChip, catchesChip, mythicalFishChip, specialFishChip, seasonsChip];
+  for (d = 0; d < fishingChips.length; d++) {
+    generateChip(fishingChips[d], d % 2 == 0 ? "fishing-chips-1" : "fishing-chips-2");
+  }
+}
+
+function getFishingZoneStats(zone) {
+  let fishingNumericalStats = fishingStats["stats"] || {};
+  let zoneStats = getValue(fishingNumericalStats, ["permanent", zone]) || {};
+
+  // To calculate orbs caught in a zone, we need to sum the orbs caught by season by iterating over objects in the permanentStats object, look for keys that are entirely numbers, as those represent the years that the orbs were caught in
+  
+  // get all numerical keys
+  let orbsCaught = 0;
+  let years = Object.keys(fishingNumericalStats).filter(key => !isNaN(key));
+
+
+  // iterate through keys, check if grandchildren equal the zone name, if so, add to orbsCaught variable
+  for (let a = 0; a < years.length; a++) {
+    let year = years[a];
+    let seasons = Object.keys(fishingNumericalStats[year]);
+
+    for (let b = 0; b < seasons.length; b++) {
+      let season = seasons[b];
+      let zoneStats = getValue(fishingNumericalStats, [year, season, zone]) || {};
+
+      orbsCaught += und(zoneStats["orb"]);
+    }
+  }
+
+  return [
+    [false, [getTranslation("statistics.items_caught"), checkAndFormat(und(zoneStats["fish"]) + und(zoneStats["junk"]) + und(zoneStats["treasure"]) + orbsCaught)]],
+    [false, [getTranslation("statistics.fish_caught"), checkAndFormat(zoneStats["fish"])], [getTranslation("statistics.junk_caught"), checkAndFormat(zoneStats["junk"])]],
+    [false, [getTranslation("statistics.treasure_caught"), checkAndFormat(zoneStats["treasure"])], [getTranslation("statistics.mythical_fish_caught"), checkAndFormat(orbsCaught)]],
+  ]
+}
+
+function getFishingParticipatedSeasons() {
+  let fishingNumericalStats = fishingStats["stats"] || {};
+  let years = Object.keys(fishingNumericalStats).filter(key => !isNaN(key));
+
+  let participatedSeasons = [];
+
+  for (let a = 0; a < years.length; a++) {
+    let year = years[a];
+    let seasons = Object.keys(fishingNumericalStats[year]);
+
+    for (let b = 0; b < seasons.length; b++) {
+      let season = seasons[b];
+      let zoneStats = getValue(fishingNumericalStats, [year, season]) || {};
+
+      participatedSeasons.push({
+        year: year,
+        season: season,
+        fish: und(getValue(zoneStats, ["water", "fish"])) + und(getValue(zoneStats, ["lava", "fish"])) + und(getValue(zoneStats, ["ice", "fish"])),
+        junk: und(getValue(zoneStats, ["water", "junk"])) + und(getValue(zoneStats, ["lava", "junk"])) + und(getValue(zoneStats, ["ice", "junk"])),
+        treasure: und(getValue(zoneStats, ["water", "treasure"])) + und(getValue(zoneStats, ["lava", "treasure"])) + und(getValue(zoneStats, ["ice", "treasure"])),
+        orb: und(getValue(zoneStats, ["water", "orb"])) + und(getValue(zoneStats, ["lava", "orb"])) + und(getValue(zoneStats, ["ice", "orb"])),
+        name: year + " – " + getTranslation(`games.modes.fishing.seasons.${season}`),
+        id: year + "_" + season,
+      });
+    }
+  }
+
+  return participatedSeasons.reverse();
+}
+
+function formatFishingParticipatedSeason(season) {
+  return [
+    [false, [getTranslation("statistics.items_caught"), checkAndFormat(season["fish"] + season["junk"] + season["treasure"] + season["orb"])]],
+    [false, [getTranslation("statistics.fish_caught"), checkAndFormat(season["fish"])], [getTranslation("statistics.junk_caught"), checkAndFormat(season["junk"])]],
+    [false, [getTranslation("statistics.treasure_caught"), checkAndFormat(season["treasure"])], [getTranslation("statistics.mythical_fish_caught"), checkAndFormat(season["orb"])]],
+  ]
+}
+
+function formatFishingParticipatedSeasonDropdown(seasonsObject) {
+  let seasonsArray = [];
+
+  for (let i = 0; i < seasonsObject.length; i++) {
+    seasonsArray.push([seasonsObject[i]["name"], seasonsObject[i]["id"]]);
+  }
+
+  return seasonsArray;
+}
+
+function getSpecialFishStats(season) {
+  let specialFish = {
+    permanent: ["puffer_emoji", "nemo", "knockback_slimeball", "hot_potato", "fish_monger_suit_helmet", "fish_monger_suit_chestplate", "fish_monger_suit_leggings", "fish_monger_suit_boots", "barnacle", "leviathan", "star_eater_scales", "rubber_duck"],
+
+    easter: ["egg_the_fish", "cracked_egg", "raw_ham", "carrot", "soggy_hot_cross_bun", "clay_ball", "rose", "cherry_blossom"],
+   
+    summer: ["oops_the_fish", "shark", "sea_bass", "sunscreen", "pile_of_sand", "mahi_mahi", "lucent_bee_hive"],
+
+    halloween: ["spook_the_fish", "chocolate_bar", "pumpkin_spice_latte", "angler", "pumpkin_pie", "eyeball", "wayfinders_compass", "molten_iron", "regular_fish", "lava_shark"],
+
+    christmas: ["chill_the_fish_3", "frozen_fish", "festival_pufferfish_hat", "eggnog", "dawning_snowball", "frozen_meal", "festive_lights"],
+  }
+
+  let specialFishArray = specialFish[season] || [];
+
+  let playerSpecialFish = fishingStats["special_fish"] || {};
+  
+  let specialFishStats = [];
+
+  for (let i = 0; i < specialFishArray.length; i += 2) {
+
+    let specialFishRow = [false];
+
+    for (let j = 0; j < 2; j++) {
+      let fish = specialFishArray[i + j];
+
+      if(fish != undefined) {
+        let hasFish = getValue(playerSpecialFish, [fish]) || false;
+        specialFishRow.push([getTranslation(`games.modes.fishing.specialfish.${fish}`), hasFish ? `<span class="ma">✓</span>` : `<span class="mf">✗</span>`]);
+      }
+    }
+
+    specialFishStats.push(specialFishRow);
+  }
+
+  return specialFishStats;
+}
+
+function getFishingCatches(category) {
+  let fishingItemCategories = {
+    junk: ["leather", "leather_boots", "soggy_paper", "water_bottle", "lily_pad", "tripwire_hook", "ink_sac", "rotten_flesh", "bone", "bowl", "broken_fishing_rod", "stick", "rabbit_hide", "string", "nether_brick", "steak", "lava_bucket", "coal", "charcoal", "fermented_spider_eye", "burned_flesh", "clump_of_leaves", "ice_shard", "snowball", "frozen_flesh"],
+    fish: ["clownfish", "salmon", "cod", "pufferfish", "cooked_cod", "charred_pufferfish", "cooked_salmon", "perch", "pike", "trout", "kelp", "dried_kelp"],
+    treasure: ["enchanted_fishing_rod", "diamond_sword", "compass", "emerald", "gold_pickaxe", "saddle", "enchanted_bow", "diamond", "enchanted_book", "name_tag", "chainmail_chestplate", "blaze_rod", "eye_of_ender", "magma_cream", "blaze_powder", "molten_gold", "gold_sword", "iron_sword"],
+  }
+
+  let fishingItemsArray = fishingItemCategories[category] || [];
+
+  let playerFishingItems = getValue(fishingStats, ["stats", "permanent", "individual", category]) || {};
+  
+  let fishingItemsStats = [];
+
+  for (let a = 0; a < fishingItemsArray.length; a += 2) {
+      
+      let fishingItemsRow = [false];
+  
+      for (let b = 0; b < 2; b++) {
+        let item = fishingItemsArray[a + b];
+  
+        if(item != undefined) {
+          let itemCount = und(playerFishingItems[item]);
+          fishingItemsRow.push([getTranslation(`games.modes.fishing.catches.${item}`), checkAndFormat(itemCount)]);
+        }
+      }
+  
+      fishingItemsStats.push(fishingItemsRow);
+    }
+
+  return fishingItemsStats;
 }
 
 function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false) {

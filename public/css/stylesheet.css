@@ -689,6 +689,8 @@
     transition-duration: var(--transition-small);
     margin: 5px 8px;
     opacity: 30%;
+
+    image-rendering: pixelated;
   }
   
   .tooltip:nth-child(even) > .quick-mode-game:hover {

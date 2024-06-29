@@ -77,6 +77,9 @@
                 <hr class="game-switch-hr">
                 <span id="game-switch">
                 </span>
+                <hr class="dropdown-hr">
+                <span id="other-switch">
+                </span>
               </div>
             
           </div>
@@ -439,7 +442,7 @@
               </div>
             </div>
           </div>
-          <span class="general-button mright mtop" onclick="showCardWizard('BUILDBATTLE')" data-t="player.generate_card">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('BUILD_BATTLE')" data-t="player.generate_card">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="buildbattle-chips-1" class="chip-container-duo">
@@ -933,7 +936,7 @@
     <div class="chip-container">
       <div class="chip-small but-big">
         <div class="chip-small-background-filter"></div>
-        <p class="chip-small-title">Warlords</p>
+        <p class="chip-small-title" data-t="games.warlords">Warlords</p>
         <div class="chip-small-container">
           <div class="flex-two-item align-top flippable margin10">
             <div class="card-big-stats">
@@ -985,6 +988,47 @@
   </div>
   </div>
 
+  <div class="flex-container unloaded minigame-flex-container" id="flex-container-fishing">
+    <!-- main lobby fishing stats -->
+    <div class="chip-container">
+      <div class="chip-small but-big">
+        <div class="chip-small-background-filter"></div>
+        <p class="chip-small-title" data-t="games.fishing">Fishing</p>
+        <div class="chip-small-container">
+          <div class="flex-two-item align-top flippable margin10">
+            <div class="card-big-stats">
+              <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.items_caught">Items Caught</span> <span class="statistic" id="fishing-items_caught"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.fish_caught">Fish Caught</span> <span class="statistic" id="fishing-fish_caught"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.junk_caught">Junk Caught</span> <span class="statistic" id="fishing-junk_caught"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.treasure_caught">Treasure Caught</span> <span class="statistic" id="fishing-treasure_caught"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.mythical_fish_caught">Mythical Fish Caught</span> <span class="statistic" id="fishing-mythical_fish_caught"><span class="mc">Unknown</span></span></p>
+              </div>
+            </div>
+            <div class="card-big-misc">
+              <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.special_fish_caught">Special Fish Caught</span> <span class="statistic" id="fishing-special_fish_caught"><span class="mc">Unknown</span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="general-button mright mtop" onclick="showCardWizard('FISHING')" data-t="player.generate_card">Generate Card</span>
+      </div>
+      <div class="flex-two-item chip-container-duo-parent">
+        <div id="fishing-chips-1" class="chip-container-duo">
+        </div>
+        <div id="fishing-chips-2" class="chip-container-duo">
+        </div>
+      </div>
+  </div>
+  </div>
+
 </div>
 
   <div class="quick-mode hidden pushdown" id="quick-mode">
@@ -1007,7 +1051,7 @@
   var currentGamemode = "<%= game %>";
   var imageFileType;
 
-  let validGames = ["network", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolwars", "warlords", "smashheroes"];
+  let validGames = ["network", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolwars", "warlords", "smashheroes", "fishing"];
 
   let minecraftColorCodes = {
     BLACK: "§0",
@@ -1116,7 +1160,6 @@
      skinViewer.playerObject.cape.rotation.x = 1;
 
      skinViewer.controls.enableZoom = false;
-
 
      document.addEventListener('keydown', function(event) {
          if (event.keyCode === 16 && !isInputField(document.activeElement)) { // If LSHIFT pressed, adjust skin to sneak based on constants from Mine-imator

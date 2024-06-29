@@ -75,13 +75,15 @@ function getTranslation(key) {
   } else {
     keys = key;
   }
+
+  rawKey = keys.join('.');
   
   let languageJSONSubset = languageJSON;
   
   for (const k of keys) {
     if (languageJSONSubset === undefined) {
       console.warn("Unable to find key " + key + " in translation file");
-      return "ERROR";
+      return "⛔" + rawKey;
     }
 
     languageJSONSubset = languageJSONSubset[k];
@@ -91,7 +93,7 @@ function getTranslation(key) {
     return languageJSONSubset;
   } else {
     console.warn("Unable to find key " + key + " in translation file");
-    return "ERROR";
+    return "⚠️" + rawKey;
   }
 }
 

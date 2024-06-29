@@ -40,11 +40,13 @@ let gameAliases = {
   uhc: ["speeduhc", "suhc", "speed"],
   warlords: ["w", "war", "wl", "bg", "battleground"],
   woolwars: ["ww", "wool", "woolgames"],
+
+  fishing: ["fish", "lobbyfishing"]
 }
 
-let hypixelGames = ["network", "arcade", "bedwars", "blitz", "buildbattle", "classic", "copsandcrims", "duels", "megawalls", "murdermystery", "pit", "smashheroes", "skywars", "tntgames", "uhc", "warlords", "woolwars"];
+let hypixelGames = ["network", "arcade", "bedwars", "blitz", "buildbattle", "classic", "copsandcrims", "duels", "megawalls", "murdermystery", "pit", "smashheroes", "skywars", "tntgames", "uhc", "warlords", "woolwars", "fishing"];
 
-let cardSupportedGames = ["network", "bedwars", "duels"];
+let cardSupportedGames = ["network", "bedwars", "duels", "skywars", "buildbattle"];
 
 function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in the case of a missing value
   if (text === null || text === undefined || Number.isNaN(text)) return undefinedValue;

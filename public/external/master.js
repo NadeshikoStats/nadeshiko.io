@@ -65,6 +65,20 @@ function updateChipStats(name, chipId, gamemode) {
     } else if (chipId == "smashheroes-friend") {
       updateElement(chipId, generateChipStats(getSmashStats("friend", newValue)), true);
     }
+  } else if (gamemode == "fishing") {
+    if (chipId == "fishing-specialfish") {
+      updateElement(chipId, generateChipStats(getSpecialFishStats(newValue)), true);
+    } else if (chipId == "fishing-zones") {
+      updateElement(chipId, generateChipStats(getFishingZoneStats(newValue)), true);
+    } else if (chipId == "fishing-catches") {
+      updateElement(chipId, generateChipStats(getFishingCatches(newValue)), true);
+    } else if (chipId == "fishing-seasons") {
+      const fishingSeason = fishingParticipatedSeasons.find(item => item.id === newValue);
+      
+      if (fishingSeason) {
+        updateElement(chipId, generateChipStats(formatFishingParticipatedSeason(fishingSeason)), true);
+      }
+    }
   } else if (gamemode == "wizard") {
     cardWizardSettings[chipId] = newValue;
   } else if (gamemode == "settings") {
