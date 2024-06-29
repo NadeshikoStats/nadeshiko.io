@@ -761,7 +761,9 @@
           "halloween": "Halloween",
           "christmas": "Holidays",
           "easter": "Easter",
-          "permanent": "Permanent"
+          "permanent": "Permanent",
+
+          "no_seasons": "No Seasons"
         }
       }
     }

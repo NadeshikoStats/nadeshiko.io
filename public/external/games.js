@@ -3647,7 +3647,7 @@ function generateFishing() {
 
   console.log(overallMythicalFishCaught);
 
-  updateElement("fishing-items_caught", checkAndFormat(und(overallFishCaught) + und(overallJunkCaught) + und(overallTreasureCaught) + und(overallMythicalFishCaught)));
+  updateElement("fishing-items_caught", checkAndFormat(und(overallFishCaught) + und(overallJunkCaught) + und(overallTreasureCaught) + und(overallMythicalFishCaught) + specialFishCount));
   updateElement("fishing-fish_caught", checkAndFormat(overallFishCaught));
   updateElement("fishing-junk_caught", checkAndFormat(overallJunkCaught));
   updateElement("fishing-treasure_caught", checkAndFormat(overallTreasureCaught));
@@ -3738,12 +3738,19 @@ function generateFishing() {
 
   fishingParticipatedSeasons = getFishingParticipatedSeasons();
 
+  let mostReasonFishingSeason;
+  if (fishingParticipatedSeasons.length > 0) {
+    mostReasonFishingSeason = formatFishingParticipatedSeason(fishingParticipatedSeasons[0]);
+  } else {
+    mostReasonFishingSeason = [[false, [getTranslation("games.modes.fishing.seasons.no_seasons"), ""]]];
+  }
+
   let seasonsChip = [
     "fishing-seasons",
     getTranslation("games.modes.fishing.seasons.category"),
     "",
     `/img/games/404.${imageFileType}`,
-    formatFishingParticipatedSeason(fishingParticipatedSeasons[0]),
+    mostReasonFishingSeason,
     formatFishingParticipatedSeasonDropdown(fishingParticipatedSeasons),
     ``,
     "fishing",

@@ -146,6 +146,15 @@ function addPrefixZero(number, totalLength) { // Adds zeroes to the start of a n
   return numberStr;
 }
 
+function getValue(object, valueArray) {
+  for (let i = 0; i < valueArray.length; i++) {
+    if (object == undefined) {
+      return undefined;
+    }
+    object = object[valueArray[i]];
+  }
+  return object;
+}
 
 function sumStats(statNames, modeNames, statArray, separator = "_", statNamesFirst = false) {
   // Checks and adds stats, round-robin style
@@ -754,6 +763,52 @@ function getMetaDescription(game, playerData) {
 • 🏆 Achievement Points: ${checkAndFormat(playerData["profile"]["achievement_points"])}
 • 🎁 Ranks Gifted: ${checkAndFormat(playerData["profile"]["ranks_gifted"])}`;
 
+    case 'fishing':
+      let fishingStats = getValue(playerData, ["stats", "MainLobby", "fishing"]) || {};
+
+      const getTotalCaught = (stats, category) => {
+        const environments = ["water", "lava", "ice"];
+        return environments.reduce((total, env) => {
+          return total + und(getValue(stats, ["stats", "permanent", env, category]));
+        }, 0);
+      };
+      
+      const overallFishCaught = getTotalCaught(fishingStats, "fish");
+      const overallJunkCaught = getTotalCaught(fishingStats, "junk");
+      const overallTreasureCaught = getTotalCaught(fishingStats, "treasure");
+
+      const orbs = ["selene", "helios", "nyx", "zeus", "aphrodite", "archimedes", "hades"];
+
+  function getMythicalFishCount(orb) {
+    const path = ["orbs", orb];
+    const value = getValue(fishingStats, path);
+    return und(value);
+  }
+  
+  const mythicalFishCounts = orbs.map(getMythicalFishCount);
+  const overallMythicalFishCaught = mythicalFishCounts.reduce((sum, count) => sum + count, 0);
+
+  let playerSpecialFish = fishingStats["special_fish"] || [];
+
+  let specialFishCount = 0;
+
+  for (let key in playerSpecialFish) {
+    if (playerSpecialFish[key] && key != "mahi-mahi") { // mahi-mahi is in the API two times (once as mahi-mahi and once as mahi_mahi)
+      specialFishCount++;
+    }
+  }
+
+  let maxSpecialFish = 44;
+
+  return `Fishing Stats
+• 📦 Items Caught: ${checkAndFormat(und(overallFishCaught) + und(overallJunkCaught) + und(overallTreasureCaught) + und(overallMythicalFishCaught) + specialFishCount)}
+
+• 🐟 Fish Caught: ${checkAndFormat(overallFishCaught)}
+• 🗑️ Junk Caught: ${checkAndFormat(overallJunkCaught)}
+• 🎁 Treasure Caught: ${checkAndFormat(overallTreasureCaught)}
+• 🐠 Mythical Fish Caught: ${checkAndFormat(overallMythicalFishCaught)}
+
+• 🎣 Special Fish Caught: ${checkAndFormat(specialFishCount)}/${maxSpecialFish}`;
 }
 }}
 
