@@ -89,7 +89,7 @@
       "description": "Click an icon to instantly go to that game's page for <span id=\"quick-mode-username\">%%player%%</span>."
     },
     "generate_card": "Generate Card",
-    "skyblock_stats": "SkyBlock Stats",
+    "external_websites": "External Websites",
     "socials": "Socials",
     "currently_offline": "Currently Offline",
     "currently_online": "Currently Online!",

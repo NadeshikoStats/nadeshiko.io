@@ -6,25 +6,34 @@
   <link rel="stylesheet" href="/css/stylesheet.css">
   <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
 
-  <link rel="preload" href="/img/games/network/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/arcade/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/bedwars/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/blitz/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/buildbattle/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/classic/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/copsandcrims/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/duels/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/megawalls/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/murdermystery/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/pit/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/smashheroes/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/skywars/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/tntgames/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/uhc/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/warlords/lobby.webp" as="image">
-  <link rel="preload" href="/img/games/woolwars/lobby.webp" as="image">
 
   <script src="/external/master.js"></script>
+
+  <script>
+    let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
+
+    /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+    * This is used to ensure that all tasks are completed before the page is generated.
+    * @param {string} task - The task that was completed 
+    */
+    function beginGeneration(task) {
+      if(tasksBeforeLoading.includes(task)) {
+        tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+      }
+
+      console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+
+      if(tasksBeforeLoading.length == 0) {
+        switchStats(currentGamemode);
+        document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+
+        updateTranslations();
+        insertLoadedData();
+        document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
+        document.getElementById("header-name").classList.remove("unloaded");
+      }
+    }
+  </script>
   <script src="/external/language.js"></script>
 
   <script src="/external/webptest.js" type="module"></script>
@@ -32,8 +41,6 @@
   <script src="/external/minecrafttext.js"></script>
   <script src="/external/games.js"></script>
   <script src="/external/gamenames.js"></script>
-  <script src="/external/nbt.js"></script>
-  <script src="/external/pako.min.js"></script>
   <script src="/external/purify.min.js"></script>
 
   <meta name="theme-color" content="#f6adc6">
@@ -154,9 +161,20 @@
               </div>
               <div class="flex-two-item socials-buttons" id="general-bottom-bar">
                 <div class="buttons">
-                  <span class="general-button mright" onclick="showCardWizard('NETWORK')" data-t="player.generate_card">Generate Card</span>
+                  <span class="general-button" onclick="showCardWizard('NETWORK')" data-t="player.generate_card">Generate Card</span>
                   
-                  <a target="_blank" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>" class="mright" style="text-decoration: none;"><span class="general-button"><img src="/img/logo/skycrypt.svg" class="shiiyu" alt="SkyCrypt logo"><span data-t="player.skyblock_stats">SkyBlock Stats</span></span></a>
+                  <div class="dropdown">
+                    <span class="general-button dropdown-button" id="abcd" data-t="player.external_websites">uhhh idk</span>
+                    <div class="dropdown-content unloaded" id="abvc">
+                      <a target="_blank" aria-label="View SkyCrypt stats" href="https://sky.shiiyu.moe/stats/<%= playerData.uuid %>"><span class="logo-container"><img src="/img/logo/skycrypt.svg" alt="" class="social-media-dropdown"></span><span>SkyCrypt</span></span></a>
+                      <a target="_blank" aria-label="View 25Karma stats" href="https://plancke.io/hypixel/player/stats/<%= playerData.uuid %>"><span class="logo-container"><img src="/img/svg/plancke.svg" alt="" class="social-media-dropdown"></span><span>Plancke</span></span></a>
+                      <a target="_blank" aria-label="View 25Karma stats" href="https://25karma.xyz/player/<%= playerData.uuid %>"><span class="logo-container"><img src="/img/svg/25karma.svg" alt="" class="social-media-dropdown"></span><span>25Karma</span></span></a>
+                      <a target="_blank" aria-label="View Shmeado stats" href="https://shmeado.club/player/stats/<%= playerData.name %>"><span class="logo-container"><img src="/img/svg/shmeado.svg" alt="" class="social-media-dropdown"></span><span>Shmeado</span></span></a>
+                      <a target="_blank" aria-label="View Memum stats" href="https://memum.io/player/<%= playerData.name %>"><span class="logo-container"><img src="/img/svg/memum.svg" alt="" class="social-media-dropdown"></span><span>Memum</span></span></a>
+                      <a target="_blank" aria-label="View Sk1er stats" href="https://sk1er.club/stats/<%= playerData.name %>"><span class="logo-container"><img src="/img/svg/sk1er.svg" alt="" class="social-media-dropdown"></span><span>Sk1er</span></span></a>
+                    </div>
+
+                  </div>
 
                   <div class="dropdown" id="social-media-dropdown-container">
                   <span class="general-button dropdown-button unloaded" onclick="" id="social-media-button" data-t="player.socials">Socials</span>         <div class="dropdown-content unloaded" id="social-media-alternative">
@@ -1077,6 +1095,32 @@
 
   let playerAchievements = playerData["achievements"] || {};
 
+  const imageUrls = [
+    `/img/games/network/lobby.webp`,
+    `/img/games/arcade/lobby.webp`,
+    `/img/games/bedwars/lobby.webp`,
+    `/img/games/blitz/lobby.webp`,
+    `/img/games/buildbattle/lobby.webp`,
+    `/img/games/classic/lobby.webp`,
+    `/img/games/copsandcrims/lobby.webp`,
+    `/img/games/duels/lobby.webp`,
+    `/img/games/megawalls/lobby.webp`,
+    `/img/games/murdermystery/lobby.webp`,
+    `/img/games/pit/lobby.webp`,
+    `/img/games/smashheroes/lobby.webp`,
+    `/img/games/skywars/lobby.webp`,
+    `/img/games/tntgames/lobby.webp`,
+    `/img/games/uhc/lobby.webp`,
+    `/img/games/warlords/lobby.webp`,
+    `/img/games/woolwars/lobby.webp`,
+    `/img/games/fishing/lobby.webp`
+  ];
+
+  imageUrls.forEach(url => {
+    const img = new Image();
+    img.src = url;
+  });
+
   if (!validGames.includes(currentGamemode)) {
     let defaultGame;
     if(settings) {
@@ -1101,30 +1145,6 @@
   function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in the case of a missing value
     if (text === null || text === undefined || Number.isNaN(text)) return undefinedValue;
     else return text;
-  }
-
-  let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
-
-  /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
-   * This is used to ensure that all tasks are completed before the page is generated.
-   * @param {string} task - The task that was completed 
-   */
-  function beginGeneration(task) {
-    if(tasksBeforeLoading.includes(task)) {
-      tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
-    }
-
-    console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
-
-    if(tasksBeforeLoading.length == 0) {
-      switchStats(currentGamemode);
-      document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
-
-      updateTranslations();
-      insertLoadedData();
-      document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
-      document.getElementById("header-name").classList.remove("unloaded");
-    }
   }
 
   window.addEventListener("resize", checkMobileMode);

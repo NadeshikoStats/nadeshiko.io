@@ -289,7 +289,7 @@ function generateNetwork() {
     const otherSwitchContainer = document.getElementById("other-switch");
 
     quickModeGames.forEach((game) => {
-      //console.log("added " + game.id + " to quick mode games");
+      console.log("added " + game.id + " to quick mode games");
       if (game.id != "network") {
         const spanTooltip = document.createElement("span");
         spanTooltip.className = "tooltip";
@@ -3844,10 +3844,6 @@ function getSpecialFishStats(season) {
 
   formattedSpecialFishArray.sort((a, b) => sortStrings(a[0], b[0]));
 
-
-  console.log(formattedSpecialFishArray);
-  console.log(specialFishArray);
-
   for (let i = 0; i < specialFishArray.length; i += 2) {
 
     let specialFishRow = [false];
@@ -3885,11 +3881,7 @@ function getFishingCatches(category) {
 
   // sort by 2nd item in array, numerical value ascending to descending
   formattedFishingItemsArray.sort(function (a, b) { return b[2] - a[2]; });
-
-  console.log(JSON.stringify(formattedFishingItemsArray))
-  
-  console.warn(formattedFishingItemsArray);
-  
+    
   let fishingItemsStats = [];
 
   for (let a = 0; a < formattedFishingItemsArray.length; a += 2) {

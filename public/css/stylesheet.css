@@ -1087,6 +1087,10 @@
     flex-wrap: wrap;
     flex: 1;
   }
+
+  .buttons > * + * {
+    margin-inline-start: 8px;
+  }
   
   .general-button {
     background-color: #333;
