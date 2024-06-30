@@ -289,6 +289,7 @@ function generateNetwork() {
     const otherSwitchContainer = document.getElementById("other-switch");
 
     quickModeGames.forEach((game) => {
+      //console.log("added " + game.id + " to quick mode games");
       if (game.id != "network") {
         const spanTooltip = document.createElement("span");
         spanTooltip.className = "tooltip";
@@ -3633,8 +3634,6 @@ function generateFishing() {
 
   let playerSpecialFish = fishingStats["special_fish"] || [];
 
-  console.log(playerSpecialFish);
-
   let specialFishCount = 0;
 
   for (let key in playerSpecialFish) {
@@ -3644,8 +3643,6 @@ function generateFishing() {
   }
 
   let maxSpecialFish = 44;
-
-  console.log(overallMythicalFishCaught);
 
   updateElement("fishing-items_caught", checkAndFormat(und(overallFishCaught) + und(overallJunkCaught) + und(overallTreasureCaught) + und(overallMythicalFishCaught) + specialFishCount));
   updateElement("fishing-fish_caught", checkAndFormat(overallFishCaught));
@@ -3835,21 +3832,32 @@ function getSpecialFishStats(season) {
   }
 
   let specialFishArray = specialFish[season] || [];
+  let formattedSpecialFishArray = [];
 
   let playerSpecialFish = fishingStats["special_fish"] || {};
   
   let specialFishStats = [];
+
+  for (let a = 0; a < specialFishArray.length; a++) { // Alphabetize array using sortStrings (item 0)
+    formattedSpecialFishArray.push([getTranslation(`games.modes.fishing.specialfish.${specialFishArray[a]}`), specialFishArray[a]])
+  }
+
+  formattedSpecialFishArray.sort((a, b) => sortStrings(a[0], b[0]));
+
+
+  console.log(formattedSpecialFishArray);
+  console.log(specialFishArray);
 
   for (let i = 0; i < specialFishArray.length; i += 2) {
 
     let specialFishRow = [false];
 
     for (let j = 0; j < 2; j++) {
-      let fish = specialFishArray[i + j];
+      let fish = formattedSpecialFishArray[i + j];
 
       if(fish != undefined) {
-        let hasFish = getValue(playerSpecialFish, [fish]) || false;
-        specialFishRow.push([getTranslation(`games.modes.fishing.specialfish.${fish}`), hasFish ? `<span class="ma">✓</span>` : `<span class="mf">✗</span>`]);
+        let hasFish = getValue(playerSpecialFish, [fish[1]]) || false;
+        specialFishRow.push([fish[0], hasFish ? `<span class="ma">✓</span>` : `<span class="mf">✗</span>`]);
       }
     }
 
@@ -3867,21 +3875,33 @@ function getFishingCatches(category) {
   }
 
   let fishingItemsArray = fishingItemCategories[category] || [];
+  let formattedFishingItemsArray = [];
 
   let playerFishingItems = getValue(fishingStats, ["stats", "permanent", "individual", category]) || {};
+
+  for (let a = 0; a < fishingItemsArray.length; a++) { // Alphabetize array using sortStrings
+    formattedFishingItemsArray.push([getTranslation(`games.modes.fishing.catches.${fishingItemsArray[a]}`), fishingItemsArray[a], und(playerFishingItems[fishingItemsArray[a]])]);
+  }
+
+  // sort by 2nd item in array, numerical value ascending to descending
+  formattedFishingItemsArray.sort(function (a, b) { return b[2] - a[2]; });
+
+  console.log(JSON.stringify(formattedFishingItemsArray))
+  
+  console.warn(formattedFishingItemsArray);
   
   let fishingItemsStats = [];
 
-  for (let a = 0; a < fishingItemsArray.length; a += 2) {
+  for (let a = 0; a < formattedFishingItemsArray.length; a += 2) {
       
       let fishingItemsRow = [false];
   
       for (let b = 0; b < 2; b++) {
-        let item = fishingItemsArray[a + b];
+        let item = formattedFishingItemsArray[a + b];
   
         if(item != undefined) {
-          let itemCount = und(playerFishingItems[item]);
-          fishingItemsRow.push([getTranslation(`games.modes.fishing.catches.${item}`), checkAndFormat(itemCount)]);
+          let itemCount = und(playerFishingItems[item[1]]);
+          fishingItemsRow.push([item[0], checkAndFormat(itemCount)]);
         }
       }
   

@@ -636,7 +636,6 @@
           "zeus": "Spark of Zeus",
           "hades": "Wrath of Hades",
           "archimedes": "Automaton of Daedalus",
-          "weight": "Weight",
           "weight_formatted": "%%caught%% <span class=\"w400\">(%%weight%% kg)</span>"
         },
         "specialfish": {
@@ -674,7 +673,7 @@
           "shark": "Shark",
           "soggy_hot_cross_bun": "Soggy Hot Cross Bun",
           "spook_the_fish": "Spook the Fish",
-          "star_eater_scales": "Star Eater Scales",
+          "star_eater_scales": "Star-Eater Scales",
           "sunscreen": "Sunscreen",
           "wayfinders_compass": "Wayfinder's Compass",
           "rubber_duck": "Rubber Duck",
@@ -683,7 +682,7 @@
           "regular_fish": "Regular Fish",
           "frozen_meal": "Frozen Meal",
           "festive_lights": "Festive Lights",
-          "festival_pufferfish_hat": "Festival Pufferfish Hat",
+          "festival_pufferfish_hat": "Festive Pufferfish Hat",
           "mahi_mahi": "Mahi Mahi"
         },
         "seasons": {
@@ -692,7 +691,8 @@
           "halloween": "Halloween",
           "christmas": "Holidays",
           "easter": "Easter",
-          "permanent": "Permanent"
+          "permanent": "Permanent",
+          "no_seasons": "No Seasons"
         }
       }
     }
