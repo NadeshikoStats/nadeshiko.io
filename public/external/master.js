@@ -84,5 +84,10 @@ function updateChipStats(name, chipId, gamemode) {
   } else if (gamemode == "settings") {
     settings[chipId] = newValue;
     updateSetting(chipId, newValue);
+    if (chipId == "language") {
+      document.getElementById("settings-language-reload").style.display = "block";
+    }
   }
 }
+
+// TODO use swished statemetn

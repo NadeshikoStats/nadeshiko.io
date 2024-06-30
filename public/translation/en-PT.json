@@ -59,6 +59,8 @@
       "title": "Settin's",
       "language": "Lingo",
       "language_description": "Help pirates from all o'er the seven seas by translatin' nadeshiko on <a href=\"https://crowdin.com/project/nadeshiko\" target=\"_blank\">Crowdin</a>!",
+      "language_reload": "Please reload the page to change the language.",
+      "language_reload_button": "Reload",
       "quick_mode": "Swift Mode",
       "quick_mode_description": "Lets ye swiftly switch between gamemodes by holdin' <kbd>Shift</kbd>.",
       "default_game": "Default Game",

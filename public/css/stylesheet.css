@@ -192,6 +192,20 @@
     margin-top: 3px;
   }
 
+  .notice {
+    background-color: #e9c818;
+    color: black;
+    padding: 5px 10px;
+    display: inline-block;
+    margin: 10px auto;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  .flex-display-text > * + * {
+    margin-inline-start: 5px; 
+  }
+
   .settings-dropdown {
     max-height: 150px;
   }
@@ -829,6 +843,11 @@
   .tinyicon {
     height: 16px;
     transform: translateY(15%);
+  }
+  
+  .verytinyicon {
+    height: 15px;
+    width: 15px;
   }
   
   #birthday {

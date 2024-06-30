@@ -59,6 +59,8 @@
       "title": "header.settings.title",
       "language": "header.settings.language",
       "language_description": "header.settings.language_description",
+      "language_reload": "header.settings.language_reload",
+      "language_reload_button": "header.settings.language_reload_button",
       "quick_mode": "header.settings.quick_mode",
       "quick_mode_description": "header.settings.quick_mode_description",
       "default_game": "header.settings.default_game",

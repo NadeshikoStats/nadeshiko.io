@@ -59,6 +59,8 @@
       "title": "Settings",
       "language": "Language",
       "language_description": "Help us translate nadeshiko on <a href=\"https://crowdin.com/project/nadeshiko\" target=\"_blank\">Crowdin</a>!",
+      "language_reload": "Please reload the page to change the language.",
+      "language_reload_button": "Reload",
       "quick_mode": "Quick Mode",
       "quick_mode_description": "Enables the ability to quickly access a gamemode selector by holding <kbd>Shift</kbd>.",
       "default_game": "Default Game",
