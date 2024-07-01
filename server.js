@@ -903,6 +903,10 @@ app.get('/player/:name/:game?', async (req, res) => {
     }
 });
 
+  app.get('/guild', (req, res) => {
+    res.render('guild');
+  });
+
   app.get('/:name/:game?', (req, res) => {
     const { name, game } = req.params;
     res.redirect(`/player/${name}/${game == undefined ? '' : game}`);

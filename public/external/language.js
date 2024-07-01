@@ -52,8 +52,6 @@ async function fetchLanguageFile(language) {
       document.documentElement.dir = 'rtl';
       var textDirection = "rtl";
     }
-
-    beginGeneration("fetchLanguageFile");      
   } catch (error) {
     console.error(`Error loading translation file ${language} (${error.message})`);
 
@@ -63,8 +61,8 @@ async function fetchLanguageFile(language) {
     }
     let translationJSON = await fallbackResponse.json();
     languageJSON = translationJSON;
-    beginGeneration("fetchLanguageFile");
   }
+  beginGeneration("fetchLanguageFile");
 }
 
 function getTranslation(key) {

@@ -2238,6 +2238,7 @@ function generatePit() {
       }
     }
   }
+
   /* 
 // Decode NBT function
 async function decodeNBT(raw) {

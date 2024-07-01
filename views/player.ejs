@@ -1251,7 +1251,7 @@
  } catch (error) {
      console.error("Error loading SkinView3D!: " + error);
  }
-  });
+  }, { once: true });
 
   function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past
     let dateNew = new Date(currentTime);

@@ -1516,7 +1516,77 @@
     width: 100%;
     height: 100%;
   }
+
+  /* Guild */
+
+  .guild {
+    position: relative;
+    flex-grow: 1;
+    transition-duration: var(--transition);
+  }
+
+  .flex-guild {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .flex-guild-player, .flex-guild-list {
+    background-color: var(--default);
+    height: calc(100% - var(--header-height));
+    border-radius: 25px;
+    padding: 25px 20px;
+    margin: 10px;
+  }
+
+  .flex-guild-list {
+    width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    display: flex;
+    flex-direction: column;
+  }
   
+  .flex-guild-player {
+    width: 30%;
+    max-width: 300px;
+    margin-right: 10%;
+  }
+
+  .flex-guild-player > *:nth-child(n + 3) {
+    margin-top: 10px;
+  }
+
+  .flex-guild-player > .super-subtitle {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .flex-guild-player > .name {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .guild-header > * + * {
+    margin-top: 10px;
+  }
+
+  .guild-header > .name {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .guild-players {
+    background-color: var(--default);
+    flex: 1;
+
+    border-radius: 25px;
+    margin-top: 15px;
+    padding: 25px 20px;
+  }
+
   /* Cards */
   
   .chip-container {
@@ -1859,7 +1929,8 @@
     transform-origin: center;
   }
   
-  /* Check boxes */
+  /* Checkboxes */
+
   .switch-checkbox {
     display: none;
   }
@@ -1894,7 +1965,8 @@
     transform: translateX(20px);
   }
   
-  /* Scrollbar CSS */
+  /* Scrollbar */
+
   @-moz-document url-prefix() {
     * {
       scrollbar-width: auto;

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/stylesheet.css">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
+
+  <script>
+    let tasksBeforeLoading = ["fetchLanguageFile", "DOMContentLoaded"];
+
+    /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+    * This is used to ensure that all tasks are completed before the page is generated.
+    * @param {string} task - The task that was completed 
+    */
+    function beginGeneration(task) {
+      if(tasksBeforeLoading.includes(task)) {
+        tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+      }
+
+      console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+
+      if(tasksBeforeLoading.length == 0) {
+      }
+    } 
+  </script>
+  <script src="/external/master.js"></script>
+  <script src="/external/language.js"></script>
+  <script src="/external/purify.min.js"></script>
+</head>
+
+<body>
+  <div class="background" id="background" style="background-image: url('/img/games/home.webp')"></div>
+  <div class="background-filter"></div>
+
+  <div class="nadeshiko-wrapper">
+    <header>
+      <%- include('partials/header') %>
+    </header>
+
+    <div class="guild" id="guild">
+      <div class="flex-guild">
+        <div class="flex-guild-list">
+          <div class="guild-header">
+            <div class="name">Guild Name <span class="m3">[GUILDTAG]</span></div>
+            <p><span data-t="statistics.created">Created</span> <span class="tooltip"><span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-joined-ago-full"></span></span></p>
+            <p><span data-t="statistics.level">Level</span> <span class="tooltip"><span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-joined-ago-full"></span></span></p>
+            </div>
+
+            <div class="guild-players">
+
+          </div>
+        </div>
+        <!--<div class="flex-guild-player">
+          <div class="name">Player</div>
+
+          <p class="flex-item"><span id="level-container"><span data-t="statistics.level">Level</span> <span id="level" class="statistic"><span class="mc">Unknown</span></span></span> <span class="tooltip"><span class="m8">(<span id="multiplier">1</span>&times;)</span><span class="tooltiptext" data-t="player.coin_multiplier">Coin Multiplier</span></span></p>
+
+          <p class="flex-item"><span data-t="statistics.first_login">First Login</span> <span class="tooltip"><span class="statistic" id="first-login"><span class="mc">Unknown</span></span><span class="tooltiptext" id="first-login-ago-full"></span></span> <span id="first-login-ago"><span class="mc">Unknown</span></span> <span class="tooltip"><img id="birthday" class="icon tinyicon" src="/img/special/cake.png"><span class="tooltiptext" id="birthday-text"></span></span></p>
+
+          
+
+          <p id="last-login-container" class="flex-item login-duo"><span data-t="statistics.last_login">Last Login</span> <span class="tooltip"><span class="statistic" id="last-login"><span class="mc">Unknown</span></span><span class="tooltiptext" id="last-login-ago-full"></span></span> <span id="last-login-ago"><span class="mc">Unknown</span></span></p>
+
+          <p class="stat-title super-subtitle" data-t="games.modes.network.general">General</p>
+
+          <p><span data-t="statistics.achievement_points">Achievement Points</span> <span class="statistic" id="achievement-points"><span class="mc">Unknown</span></span></p>
+          <p><span data-t="statistics.karma">Karma</span> <span class="statistic" id="karma"><span class="mc">Unknown</span></span></p>
+          <p><span data-t="statistics.quests_completed">Quests Completed</span> <span class="statistic" id="quests-completed"><span class="mc">Unknown</span></span></p>
+          <p><span data-t="statistics.ranks_gifted">Ranks Gifted</span> <span class="statistic" id="ranks-gifted"><span class="mc">Unknown</span></span></p>
+
+          <p class="stat-title super-subtitle">Guild Name</p>
+
+          <p><span data-t="statistics.joined">Joined</span> <span class="tooltip"><span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-joined-ago-full"></span></span>
+
+          <p><span data-t="statistics.rank">Rank</span> <span class="statistic" id="guild-rank"><span class="mc">Unknown</span></span></p>
+
+          <p>graph</p>
+
+        </div>-->
+      </div>
+    </div>
+
+    <footer>
+      <%- include('partials/footer') %>
+    </footer>
+  </div>
+</body>
+</html>
