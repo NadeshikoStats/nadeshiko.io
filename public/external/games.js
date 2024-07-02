@@ -1371,7 +1371,7 @@ function generateBuildBattle() {
         "buildbattle-stats-" + buildBattleModes[a][1], // ID
         buildBattleModes[a][0], // Title
         ``, // Subtitle (none)
-        `/img/games/404.${imageFileType}`, // Background image
+        `/img/games/buildbattle/${buildBattleModes[a][1]}.${imageFileType}`, // Background image
         buildBattleModeStats, // Displayed stats
         [], // Other stats (shown in drop-down menu)
         ``, // Chip image
@@ -2428,7 +2428,7 @@ function generateClassic() {
     "classic-arena",
     getTranslation("games.modes.classic.arena.category"),
     ``,
-    `/img/games/404.${imageFileType}`,
+    `/img/games/classic/arenabrawl.${imageFileType}`,
     getArenaBrawlStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
@@ -2459,7 +2459,7 @@ function generateClassic() {
     "classic-paintball",
     getTranslation("games.modes.classic.paintball.category"),
     ``,
-    `/img/games/404.${imageFileType}`,
+    `/img/games/classic/paintball.${imageFileType}`,
     [
       [false, [getTranslation("statistics.coins"), checkAndFormat(paintballStats["coins"])]],
       [false, [getTranslation("statistics.wins"), checkAndFormat(paintballStats["wins"])]],
@@ -2480,7 +2480,7 @@ function generateClassic() {
     "classic-tkr",
     getTranslation("games.modes.classic.tkr.category"),
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/classic/turbokartracers.${imageFileType}`,
     getTKRStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
@@ -2498,7 +2498,7 @@ function generateClassic() {
     "classic-quakecraft",
     getTranslation("games.modes.classic.quakecraft.category"),
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/classic/quakecraft.${imageFileType}`,
     getQuakeStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
@@ -2513,7 +2513,7 @@ function generateClassic() {
     "classic-vampirez",
     getTranslation("games.modes.classic.vampirez.category"),
     ``,
-    `/img/games/404.${imageFileType}`,
+    `/img/games/classic/vampirez.${imageFileType}`,
     getVampireZStats("human"),
     [
       [getTranslation("games.modes.classic.vampirez.human"), "human"],
@@ -2542,7 +2542,7 @@ function generateClassic() {
     "classic-walls",
     getTranslation("games.modes.classic.walls.category"),
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/classic/walls.${imageFileType}`,
     [
       [false, [getTranslation("statistics.coins"), checkAndFormat(wallsStats["coins"])]],
       [false, [getTranslation("statistics.wins"), getGenericWinsPrefix(wallsStats["wins"], wallsTitles, undefined, false)], [getTranslation("statistics.losses"), checkAndFormat(wallsStats["losses"])], [getTranslation("statistics.wlr"), calculateRatio(wallsStats["wins"], wallsStats["losses"])]],
@@ -2730,7 +2730,7 @@ function generateBlitz() {
     [getTranslation("games.modes.blitz.kits.wolftamer"), "wolftamer"],
   ];
 
-  // Sort the list of wizards by item 0 (sortStrings)
+  // Sort the list of Blitz kits by item 0 (sortStrings)
   blitzKits.sort((a, b) => sortStrings(a[0], b[0]));
 
   blitzKits.push([getTranslation("games.modes.blitz.kits.rambo"), "rambo"]);
@@ -2747,7 +2747,7 @@ function generateBlitz() {
     "blitz-kits",
     getTranslation("games.modes.blitz.kits.category"),
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/blitz/classes.${imageFileType}`,
     getBlitzKitsStats(blitzKits[0][1]),
     blitzKits,
     ``,
