@@ -1306,7 +1306,7 @@ function generateDuels() {
         "duels-stats-" + currentDuel[0], // ID
         currentDuel[1], // Title
         `${currentDuelPrefix[0]} ${formattedWinsToGo}`, // Subtitle (none)
-        `/img/games/404.${imageFileType}`, // Background image
+        `/img/games/duels/${currentDuel[0]}.${imageFileType}`, // Background image
         allDuelsStats[currentDuel[0]][0], // Displayed stats
         currentDuel[2], // Other stats (shown in drop-down menu)
         `/img/icon/minecraft/${currentDuel[3]}.${imageFileType}`, // Chip image
