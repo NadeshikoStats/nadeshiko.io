@@ -32,4 +32,4 @@ Alternatively, if you are operating in an environment where port 80 is not restr
 
 ---
 
-Made with ♥&#xFE0E; by <a href="https://github.com/niqumu" target="_blank">niqumu</a> and <a href="https://brookie.dev" target="_blank">BrookeAFK</a>
+Made with ♥&#xFE0E; by <a href="https://brookie.dev" target="_blank">BrookeAFK</a> and <a href="https://github.com/niqumu" target="_blank">niqumu</a>

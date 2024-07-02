@@ -635,7 +635,7 @@ function generateBedWars() {
       "bedwars-stats-dreams",
       getTranslation("games.modes.bedwars.dreams"),
       "",
-      `/img/games/404.${imageFileType}`,
+      `/img/games/bedwars/dreams.${imageFileType}`,
       totalDreamModeStats,
       dreamModes,
       "",
@@ -694,7 +694,7 @@ function generateSkyWars() {
     skyWarsChips = [];
     skyWarsStatsToShow = [
       [
-        "Solo",
+        getTranslation("games.modes.skywars.solo"),
         "solo",
         [
           [getTranslation("games.modes.all.overall"), "solo"],
@@ -703,7 +703,7 @@ function generateSkyWars() {
         ],
       ],
       [
-        "Team",
+        getTranslation("games.modes.skywars.team"),
         "team",
         [
           [getTranslation("games.modes.all.overall"), "team"],
@@ -721,7 +721,7 @@ function generateSkyWars() {
         "skywars-stats-" + skyWarsStatsToShow[a][1], // ID
         skyWarsStatsToShow[a][0], // Title
         "", // Subtitle (none)
-        `/img/games/404.${imageFileType}`, // Image
+        `/img/games/skywars/${skyWarsStatsToShow[a][1]}.${imageFileType}`, // Image
         getSkyWarsModeStats(skyWarsStatsToShow[a][1]), // Displayed stats
         skyWarsStatsToShow[a][2], // Other stats (shown in drop-down menu)
         "", // Icon
@@ -1706,7 +1706,7 @@ function generateArcade() {
     "arcade-stats-blockingdead", // ID
     getTranslation("games.modes.arcade.blockingdead"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/blockingdead.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_dayone"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_dayone"])], [getTranslation("statistics.headshots"), checkAndFormat(arcadeStats["headshots_dayone"])]],
@@ -1721,7 +1721,7 @@ function generateArcade() {
     "arcade-stats-bountyhunters", // ID
     getTranslation("games.modes.arcade.bountyhunters"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/bountyhunters.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_oneinthequiver"])]],
       [
@@ -1742,7 +1742,7 @@ function generateArcade() {
     "arcade-stats-capturethewool", // ID
     getTranslation("games.modes.arcade.capturethewool"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/capturethewool.${imageFileType}`, // Background image
     [
       [
         false,
@@ -1765,7 +1765,7 @@ function generateArcade() {
     "arcade-stats-creeperattack", // ID
     getTranslation("games.modes.arcade.creeperattack"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/creeperattack.${imageFileType}`, // Background image
     [[false, [getTranslation("statistics.max_wave"), checkAndFormat(arcadeStats["max_wave"])]]], // Displayed stats
     [], // Other stats (shown in drop-down menu)
     `/img/icon/minecraft/creeper_head.${imageFileType}`, // Chip image
@@ -1775,7 +1775,7 @@ function generateArcade() {
     "arcade-stats-dragonwars", // ID
     getTranslation("games.modes.arcade.dragonwars"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/dragonwars.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_dragonwars2"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_dragonwars2"])]],
@@ -1809,7 +1809,7 @@ function generateArcade() {
     "arcade-stats-enderspleef", // ID
     getTranslation("games.modes.arcade.enderspleef"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/enderspleef.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_ender"])]],
       [false, [getTranslation("statistics.blocks_destroyed"), checkAndFormat(arcadeStats["blocks_destroyed_ender"])], [getTranslation("statistics.powerups"), checkAndFormat(arcadeStats["powerup_activations_ender"])]],
@@ -1823,7 +1823,7 @@ function generateArcade() {
     "arcade-stats-farmhunt", // ID
     getTranslation("games.modes.arcade.farmhunt"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/farmhunt.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_farm_hunt"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_farm_hunt"])]],
@@ -1841,7 +1841,7 @@ function generateArcade() {
     "arcade-stats-football", // ID
     getTranslation("games.modes.arcade.football"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/football.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_soccer"])]],
       [false, [getTranslation("statistics.goals"), checkAndFormat(arcadeStats["goals_soccer"])], [getTranslation("statistics.kicks"), checkAndFormat(arcadeStats["kicks_soccer"])], [getTranslation("statistics.power_kicks"), checkAndFormat(arcadeStats["powerkicks_soccer"])]],
@@ -1855,7 +1855,7 @@ function generateArcade() {
     "arcade-stats-galaxywars", // ID
     getTranslation("games.modes.arcade.galaxywars"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/galaxywars.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["sw_game_wins"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["sw_kills"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["sw_deaths"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["sw_kills"], arcadeStats["sw_deaths"])]],
@@ -1870,7 +1870,7 @@ function generateArcade() {
     "arcade-stats-hideandseek", // ID
     getTranslation("games.modes.arcade.hideandseek.category"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/hideandseek.${imageFileType}`, // Background image
     getArcadeHideAndSeekStats("overall"), // Displayed stats
     [
       [getTranslation("games.modes.all.overall"), "overall", `/img/icon/minecraft/blaze_rod.${imageFileType}`],
@@ -1885,7 +1885,7 @@ function generateArcade() {
     "arcade-stats-holeinthewall", // ID
     getTranslation("games.modes.arcade.holeinthewall"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/holeinthewall.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_hole_in_the_wall"])]],
       [false, [getTranslation("statistics.walls"), checkAndFormat(arcadeStats["rounds_hole_in_the_wall"])]],
@@ -1900,7 +1900,7 @@ function generateArcade() {
     "arcade-stats-hypixelsays", // ID
     getTranslation("games.modes.arcade.hypixelsays"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/hypixelsays.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), locale(und(arcadeStats["wins_simon_says"]) + und(arcadeStats["wins_santa_says"]), 0)]],
       [
@@ -1919,7 +1919,7 @@ function generateArcade() {
     "arcade-stats-miniwalls", // ID
     getTranslation("games.modes.arcade.miniwalls"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/miniwalls.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_mini_walls"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_mini_walls"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_mini_walls"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["kills_mini_walls"], arcadeStats["deaths_mini_walls"])]],
@@ -1939,7 +1939,7 @@ function generateArcade() {
     "arcade-stats-partygames", // ID
     getTranslation("games.modes.arcade.partygames"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/partygames.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_party"])]],
       [false, [getTranslation("statistics.round_wins"), checkAndFormat(arcadeStats["round_wins_party"])], [getTranslation("statistics.stars_earned"), checkAndFormat(arcadeStats["total_stars_party"])]],
@@ -1953,7 +1953,7 @@ function generateArcade() {
     "arcade-stats-pixelpainters", // ID
     getTranslation("games.modes.arcade.pixelpainters"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/pixelpainters.${imageFileType}`, // Background image
     [[false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_draw_their_thing"])]]],
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/pink_dye.${imageFileType}`, // Chip image
@@ -1964,7 +1964,7 @@ function generateArcade() {
     "arcade-stats-pixelparty", // ID
     getTranslation("games.modes.arcade.pixelparty"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/pixelparty.${imageFileType}`, // Background image
     [
       [
         false,
@@ -1983,7 +1983,7 @@ function generateArcade() {
     "arcade-stats-throwout", // ID
     getTranslation("games.modes.arcade.throwout"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/throwout.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_throw_out"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_throw_out"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_throw_out"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["kills_throw_out"], arcadeStats["deaths_throw_out"])]],
@@ -1997,7 +1997,7 @@ function generateArcade() {
     "arcade-stats-zombies", // ID
     getTranslation("games.modes.arcade.zombies.category"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/arcade/zombies.${imageFileType}`, // Background image
     getZombiesStats("overall"), // Displayed stats
     [
       [getTranslation("games.modes.all.overall"), "overall"],

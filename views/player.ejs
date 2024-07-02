@@ -19,19 +19,21 @@
     function beginGeneration(task) {
       if(tasksBeforeLoading.includes(task)) {
         tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+        console.log(`Task ${task} completed (${performance.now()}); remaining tasks: ${tasksBeforeLoading}`);
+
+          if(tasksBeforeLoading.length == 0) {
+          switchStats(currentGamemode);
+          document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+
+          updateTranslations();
+          insertLoadedData();
+          document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
+          document.getElementById("header-name").classList.remove("unloaded");
+        }
+      } else {
+        console.log(`Task ${task} was already completed or is not a task; Remaining tasks: ${tasksBeforeLoading}`);
       }
 
-      console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
-
-      if(tasksBeforeLoading.length == 0) {
-        switchStats(currentGamemode);
-        document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
-
-        updateTranslations();
-        insertLoadedData();
-        document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
-        document.getElementById("header-name").classList.remove("unloaded");
-      }
     }
   </script>
   <script src="/external/language.js"></script>
@@ -1251,7 +1253,7 @@
  } catch (error) {
      console.error("Error loading SkinView3D!: " + error);
  }
-  }, { once: true });
+  });
 
   function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past
     let dateNew = new Date(currentTime);
