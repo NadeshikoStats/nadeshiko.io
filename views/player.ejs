@@ -385,13 +385,6 @@
       </div>
     </div>
 
-    <div class="flex-container unloaded" id="flex-container-skyblock">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text">Coming once I get the API endpoint for it!</p>
-        <p class="subtitle-text">I can't work on SkyBlock without the API, but that's a backend problem.</p>
-      </section>
-    </div>
-
     <div class="flex-container unloaded minigame-flex-container" id="flex-container-arcade">
       <!-- arcade stats -->
       <div class="chip-container" id="arcade-chips">
@@ -1428,15 +1421,18 @@ var skinViewer;
       if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
         document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
       }
-      document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");
-      
+      document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");      
       currentGamemode = gamemode;
 
       if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
         document.getElementById("button-" + currentGamemode).classList.add("highlighted");
       }
       document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+      document.getElementById("flex-container-" + currentGamemode).style.display = "flex";
+      document.body.scrollTop; // Forces a DOM reflow to allow the transition to work
       document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
+      
+
         setBackground(currentGamemode);
 
       // Change the URL to reflect the current gamemode
