@@ -1455,7 +1455,7 @@ function generateMurderMystery() {
         "murdermystery-stats-" + currentMurderMysteryMode[1], // ID
         currentMurderMysteryMode[0], // Title
         ``, // Subtitle (none)
-        `/img/games/404.${imageFileType}`, // Background image
+        `/img/games/murdermystery/${currentMurderMysteryMode[1]}.${imageFileType}`, // Background image
         murderMysteryModeStats, // Displayed stats
         [], // Other stats (shown in drop-down menu)
         ``, // Chip image
@@ -3341,9 +3341,9 @@ function generateSmash() {
 
   let smashClassesChip = [
     "smashheroes-classes",
-    "Classes",
+    "Heroes",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/smashheroes/heroes.${imageFileType}`,
     getSmashStats("class", "BOTMUN"),
     smashFormattedClassesArray,
     ``,
@@ -3354,7 +3354,7 @@ function generateSmash() {
     "smashheroes-solo",
     "Solo",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/smashheroes/solo.${imageFileType}`,
     getSmashStats("normal", "overall"),
     smashClassesArray,
     ``,
@@ -3365,7 +3365,7 @@ function generateSmash() {
     "smashheroes-team",
     "Team",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/smashheroes/team.${imageFileType}`,
     getSmashStats("teams", "overall"),
     smashClassesArray,
     ``,
@@ -3376,7 +3376,7 @@ function generateSmash() {
     "smashheroes-2v2",
     "2v2",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/smashheroes/2v2.${imageFileType}`,
     getSmashStats("2v2", "overall"),
     smashClassesArray,
     ``,
@@ -3387,7 +3387,7 @@ function generateSmash() {
     "smashheroes-1v1",
     "1v1",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/smashheroes/1v1.${imageFileType}`,
     getSmashStats("one_v_one", "overall"),
     smashClassesArray,
     ``,
@@ -3398,7 +3398,7 @@ function generateSmash() {
     "smashheroes-friend",
     "Friends",
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/smashheroes/friend.${imageFileType}`,
     getSmashStats("friend", "overall"),
     smashClassesArray,
     ``,
