@@ -1522,7 +1522,7 @@ function generateTNTGames() {
     "tntgames-stats-tntrun", // ID
     getTranslation("games.modes.tntgames.tntrun.category"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/tntgames/tntrun.${imageFileType}`, // Background image
     [
       [
         false,
@@ -1541,7 +1541,7 @@ function generateTNTGames() {
     "tntgames-stats-pvprun", // ID
     getTranslation("games.modes.tntgames.pvprun.category"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/tntgames/pvprun.${imageFileType}`, // Background image
     [
       [
         false,
@@ -1561,7 +1561,7 @@ function generateTNTGames() {
     "tntgames-stats-tntag", // ID
     getTranslation("games.modes.tntgames.tntag.category"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/tntgames/tntag.${imageFileType}`, // Background image
     [
       [
         false,
@@ -1581,7 +1581,7 @@ function generateTNTGames() {
     "tntgames-stats-bowspleef", // ID
     getTranslation("games.modes.tntgames.bowspleef.category"), // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/tntgames/bowspleef.${imageFileType}`, // Background image
     [
       [
         false,
@@ -1651,7 +1651,7 @@ function generateTNTGames() {
     "tntgames-stats-wizards", // ID
     "Wizards", // Title
     "", // Subtitle
-    `/img/games/404.${imageFileType}`, // Background image
+    `/img/games/tntgames/wizards.${imageFileType}`, // Background image
     allTNTWizardStats["overall"], // Displayed stats
     wizardsList, // Other stats (shown in drop-down menu)
     "/img/icon/minecraft/blaze_rod.png", // Chip image
@@ -3000,7 +3000,7 @@ function generateWarlords() {
     "warlords-classes",
     getTranslation("games.modes.warlords.classes.category"),
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/warlords/classes.${imageFileType}`,
     getWarlordsClassStats("mage"),
     [
       [getTranslation("games.modes.warlords.classes.mage"), "mage"],
@@ -3028,7 +3028,7 @@ function generateWarlords() {
     "warlords-capturetheflag",
     getTranslation("games.modes.warlords.capturetheflag"),
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/warlords/capturetheflag.${imageFileType}`,
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats["wins_capturetheflag"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(warlordsStats["kills_capturetheflag"])]],
@@ -3043,7 +3043,7 @@ function generateWarlords() {
     "warlords-teamdeathmatch",
     getTranslation("games.modes.warlords.teamdeathmatch"),
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/warlords/teamdeathmatch.${imageFileType}`,
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats["wins_teamdeathmatch"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(warlordsStats["kills_teamdeathmatch"])]],
@@ -3057,7 +3057,7 @@ function generateWarlords() {
     "warlords-domination",
     getTranslation("games.modes.warlords.domination"),
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/warlords/domination.${imageFileType}`,
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats["wins_domination"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(warlordsStats["kills_domination"])]],
@@ -3164,10 +3164,10 @@ function generateUHC() {
   ]
 
   let uhcChip = [
-    "uhc-champions",
+    "uhc-uhcchampions",
     getTranslation("games.modes.uhc.uhcchampions.category"),
     getGenericWinsPrefix(uhcStats["score"], uhcPrefixes, undefined, true, "✫", false, true, true),
-    `/img/games/404.${imageFileType}`,
+    `/img/games/uhc/uhcchampions.${imageFileType}`,
     getUHCModeStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
@@ -3186,10 +3186,10 @@ function generateUHC() {
   ]
 
   let speedUHCChip = [
-    "speed-uhc",
+    "uhc-speeduhc",
     getTranslation("games.modes.uhc.speeduhc.category"),
     getGenericWinsPrefix(speedUHCStats["score"], speedUHCPrefixes, undefined, true, "❋", false, true, true),
-    `/img/games/404.${imageFileType}`,
+    `/img/games/uhc/speeduhc.${imageFileType}`,
     getSpeedUHCModeStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
@@ -3567,7 +3567,7 @@ function generateWoolGames() {
     "woolwars",
     getTranslation("games.modes.woolwars.woolwars.category"),
     "",
-    `/img/games/404.${imageFileType}`,
+    `/img/games/woolwars/woolwars.${imageFileType}`,
     getWoolWarsStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],

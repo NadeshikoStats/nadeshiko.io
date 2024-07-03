@@ -43,7 +43,7 @@ async function fetchLanguageFile(language) {
       console.warn(`Language ${language} is not a valid language`);
     }
 
-    let response = await fetch(url);
+    let response = await fetch(url); // Attempt to fetch the language file
 
     let translationJSON = await response.json();
     languageJSON = translationJSON;
