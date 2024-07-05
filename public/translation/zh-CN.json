@@ -102,7 +102,7 @@
     }
   },
   "footer": {
-    "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
+    "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
   },
   "games": {
     "arcade": "街机游戏",
@@ -120,7 +120,7 @@
     "tntgames": "掘战游戏",
     "uhc": "极限生存",
     "warlords": "战争领主",
-    "woolwars": "羊毛战争",
+    "woolgames": "Wool Games",
     "network": "Network",
     "fishing": "钓鱼",
     "modes": {
@@ -382,7 +382,7 @@
       },
       "copsandcrims": {
         "defusal": "爆破模式",
-        "deathmatch": "团队死亡竞赛",
+        "deathmatch": "Team Deathmatch",
         "gungame": "Gun Game",
         "guns": {
           "category": "枪械",
@@ -550,7 +550,7 @@
         "domination": "Domination",
         "teamdeathmatch": "团队死亡竞赛"
       },
-      "woolwars": {
+      "woolgames": {
         "woolwars": {
           "category": "羊毛战争",
           "archer": "射手",

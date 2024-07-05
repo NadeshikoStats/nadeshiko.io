@@ -33,7 +33,7 @@ function updateChipStats(name, chipId, gamemode) {
     updateElement(chipId, generateChipStats(getTKRStats(newValue)), true);
   } else if (gamemode == "copsandcrims_guns") {
     updateElement(chipId, generateChipStats(getCopsAndCrimsGunStats(newValue)), true);
-  } else if (gamemode == "woolwars") {
+  } else if (gamemode == "woolgames") {
     updateElement(chipId, generateChipStats(getWoolWarsStats(newValue)), true);
   } else if (gamemode == "blitz") {
     updateElement(chipId, generateChipStats(getBlitzKitsStats(newValue)), true);

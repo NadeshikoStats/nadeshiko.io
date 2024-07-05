@@ -89,7 +89,7 @@
       "description": "player.quick_mode.description"
     },
     "generate_card": "player.generate_card",
-    "skyblock_stats": "player.skyblock_stats",
+    "external_websites": "player.external_websites",
     "socials": "player.socials",
     "currently_offline": "player.currently_offline",
     "currently_online": "player.currently_online",
@@ -120,7 +120,7 @@
     "tntgames": "games.tntgames",
     "uhc": "games.uhc",
     "warlords": "games.warlords",
-    "woolwars": "games.woolwars",
+    "woolgames": "games.woolgames",
     "network": "games.network",
     "fishing": "games.fishing",
     "modes": {
@@ -550,7 +550,7 @@
         "domination": "games.modes.warlords.domination",
         "teamdeathmatch": "games.modes.warlords.teamdeathmatch"
       },
-      "woolwars": {
+      "woolgames": {
         "woolwars": {
           "category": "games.modes.woolwars.woolwars.category",
           "archer": "games.modes.woolwars.woolwars.archer",
@@ -694,7 +694,7 @@
           "christmas": "games.modes.fishing.seasons.christmas",
           "easter": "games.modes.fishing.seasons.easter",
           "permanent": "games.modes.fishing.seasons.permanent",
-          "no_season": "games.modes.fishing.seasons.no_season"
+          "no_seasons": "games.modes.fishing.seasons.no_seasons"
         }
       }
     }

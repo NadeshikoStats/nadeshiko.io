@@ -39,7 +39,7 @@ let gameAliases = {
   tntgames: ["tnt"],
   uhc: ["speeduhc", "suhc", "speed"],
   warlords: ["w", "war", "wl", "bg", "battleground"],
-  woolwars: ["ww", "wool", "woolgames"],
+  woolgames: ["ww", "wool", "woolwars"],
 
   fishing: ["fish", "lobbyfishing"]
 }
@@ -115,9 +115,9 @@ function smallDuration(seconds, ms = false) {
   } else if (days > 0) {
     return `${days}d ${hours}h`;
   } else if (hours > 0) {
-    return `${hours}h ${minutes}m`;
+    return `${hours}h ${minutes}min`;
   } else if (minutes > 0) {
-    return `${minutes}m ${secondsMod}s`;
+    return `${minutes}min ${secondsMod}s`;
   } else {
     return `${ms ? checkAndFormat(seconds, 3) : secondsMod}s`;
   }
@@ -679,7 +679,7 @@ function getMetaDescription(game, playerData) {
 • 🛡️ Team Deathmatch Wins: ${checkAndFormat(warlordsStats["wins_teamdeathmatch"])}
 
 • 🪙 Coins: ${checkAndFormat(warlordsStats["coins"])}`;
-  case 'woolwars':
+  case 'woolgames':
 
   function getWoolWarsLevel(exp) {
     // Calculates a player's Wool Wars level based on their experience stat

@@ -59,8 +59,8 @@
       "title": "Settin's",
       "language": "Lingo",
       "language_description": "Help pirates from all o'er the seven seas by translatin' nadeshiko on <a href=\"https://crowdin.com/project/nadeshiko\" target=\"_blank\">Crowdin</a>!",
-      "language_reload": "Please reload the page to change the language.",
-      "language_reload_button": "Reload",
+      "language_reload": "Ye need t' reboard th' ship t' change yer lingo!",
+      "language_reload_button": "Reboard",
       "quick_mode": "Swift Mode",
       "quick_mode_description": "Lets ye swiftly switch between gamemodes by holdin' <kbd>Shift</kbd>.",
       "default_game": "Default Game",
@@ -89,7 +89,7 @@
       "description": "Click one of th' pictures t' be sailed instantly t' <span id=\"quick-mode-username\">%%player%%</span>'s stats fer that there game."
     },
     "generate_card": "Craft Card",
-    "external_websites": "External Websites",
+    "external_websites": "Other Ships",
     "socials": "Socials",
     "currently_offline": "Nah be sailin'",
     "currently_online": "Sailin'!",
@@ -102,7 +102,7 @@
     }
   },
   "footer": {
-    "created_by": "Made wit' ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> an' <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
+    "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
   },
   "games": {
     "arcade": "Arcade",
@@ -120,7 +120,7 @@
     "tntgames": "TNT Games",
     "uhc": "UHC",
     "warlords": "Warlords",
-    "woolwars": "Wool Wars",
+    "woolgames": "Wool Games",
     "network": "Network",
     "fishing": "Fishin'",
     "modes": {
@@ -550,7 +550,7 @@
         "domination": "Domination",
         "teamdeathmatch": "Team Deathmatch"
       },
-      "woolwars": {
+      "woolgames": {
         "woolwars": {
           "category": "Wool Wars",
           "archer": "Archer",
@@ -574,7 +574,7 @@
           "junk": "Filth",
           "treasure": "Treasure",
           "leather": "Leather",
-          "leather_boots": "Leather Boots",
+          "leather_boots": "Boots o' Leather",
           "soggy_paper": "Soggy Paper",
           "water_bottle": "Water Bottle",
           "lily_pad": "Lily Pad",
@@ -585,7 +585,7 @@
           "bowl": "Bowl",
           "broken_fishing_rod": "Broken Fishing Rod",
           "stick": "Stick",
-          "rabbit_hide": "Rabbit Hide",
+          "rabbit_hide": "Hide o' Rabbit",
           "string": "String",
           "nether_brick": "Nether Brick",
           "steak": "Steak",
@@ -626,8 +626,8 @@
           "magma_cream": "Magma Cream",
           "blaze_powder": "Blaze Powder",
           "molten_gold": "Molten Gold",
-          "gold_sword": "Gold Sword",
-          "iron_sword": "Iron Sword"
+          "gold_sword": "Cutlass o' Gold",
+          "iron_sword": "Cutlass o' Iron"
         },
         "mythicalfish": {
           "category": "Mythical Fish",
@@ -899,12 +899,12 @@
     "wool": "Cloth",
     "layers": "Layers",
     "wool_placed": "Cloth Placed",
-    "items_caught": "Items Caught",
-    "fish_caught": "Fish Caught",
-    "junk_caught": "Junk Caught",
-    "treasure_caught": "Treasure Caught",
-    "mythical_fish_caught": "Mythical Fish Caught",
-    "special_fish_caught": "Special Fish Caught"
+    "items_caught": "Items Reeled In",
+    "fish_caught": "Fish Reeled In",
+    "junk_caught": "Junk Reeled In",
+    "treasure_caught": "Treasure Reeled In",
+    "mythical_fish_caught": "Mythical Fish Reeled In",
+    "special_fish_caught": "Special Fish Reeled In"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

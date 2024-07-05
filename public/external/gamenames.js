@@ -265,8 +265,11 @@ let gameNames = {
       "id": 52
   },
   "PIT": {
+      "modeNames": {
+        "pit": "The Pit"
+      },
       "databaseName": "Pit",
-      "name": "The Hypixel Pit",
+      "name": "Pit",
       "id": 64
   },
   "SPEED_UHC": {

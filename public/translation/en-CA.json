@@ -151,7 +151,7 @@
     "tntgames": "TNT Games",
     "uhc": "UHC",
     "warlords": "Warlords",
-    "woolwars": "Wool Wars",
+    "woolgames": "Wool Games",
 
     "network": "Network",
     "fishing": "Fishing",
@@ -611,7 +611,7 @@
         "domination": "Domination",
         "teamdeathmatch": "Team Deathmatch"
       },
-      "woolwars": {
+      "woolgames": {
         "woolwars": {
           "category": "Wool Wars",
 

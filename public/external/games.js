@@ -279,7 +279,7 @@ function generateNetwork() {
       { id: "tntgames", name: getTranslation(["games", "tntgames"]), minecraftId: "tnt" },
       { id: "uhc", name: getTranslation(["games", "uhc"]), minecraftId: "golden_apple" },
       { id: "warlords", name: getTranslation(["games", "warlords"]), minecraftId: "stone_axe" },
-      { id: "woolwars", name: getTranslation(["games", "woolwars"]), minecraftId: "white_wool" },
+      { id: "woolgames", name: getTranslation(["games", "woolgames"]), minecraftId: "white_wool" },
       { id: "fishing", name: getTranslation(["games", "fishing"]), minecraftId: "cod" },
     ];
 
@@ -3524,12 +3524,12 @@ function generateWoolGames() {
   let woolGamesProgression = woolGamesStats["progression"] || {};
   woolWarsNumericalStats = woolWarsStats["stats"] || {};
 
-  updateElement("woolwars-overall-coins", checkAndFormat(woolGamesStats["coins"]));
-  updateElement("woolwars-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
+  updateElement("woolgames-overall-coins", checkAndFormat(woolGamesStats["coins"]));
+  updateElement("woolgames-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
 
   let woolGamesLevel = getWoolWarsLevel(und(woolGamesProgression["experience"]));
-  updateElement("woolwars-progress-number", `${Math.floor(woolGamesLevel % 1 * 100)}%`, true);
-  document.getElementById("woolwars-progress-bar").style.width = `${woolGamesLevel % 1 * 100}%`;
+  updateElement("woolgames-progress-number", `${Math.floor(woolGamesLevel % 1 * 100)}%`, true);
+  document.getElementById("woolgames-progress-bar").style.width = `${woolGamesLevel % 1 * 100}%`;
 
   let woolGamesPrestigeIcon;
 
@@ -3561,30 +3561,30 @@ function generateWoolGames() {
 
   let formattedWoolWarsLevel = getGenericWinsPrefix(Math.floor(woolGamesLevel), woolWarsLevels, undefined, false, woolGamesPrestigeIcon, true);
 
-  updateElement("woolwars-level", formattedWoolWarsLevel, true);
+  updateElement("woolgames-level", formattedWoolWarsLevel, true);
 
   let woolWarsChip = [
     "woolwars",
-    getTranslation("games.modes.woolwars.woolwars.category"),
+    getTranslation("games.modes.woolgames.woolwars.category"),
     "",
-    `/img/games/woolwars/woolwars.${imageFileType}`,
+    `/img/games/woolgames/woolwars.${imageFileType}`,
     getWoolWarsStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],
-      [getTranslation("games.modes.woolwars.woolwars.archer"), "archer"],
-      [getTranslation("games.modes.woolwars.woolwars.assault"), "assault"],
-      [getTranslation("games.modes.woolwars.woolwars.engineer"), "engineer"],
-      [getTranslation("games.modes.woolwars.woolwars.golem"), "golem"],
-      [getTranslation("games.modes.woolwars.woolwars.swordsman"), "swordsman"],
-      [getTranslation("games.modes.woolwars.woolwars.tank"), "tank"],
+      [getTranslation("games.modes.woolgames.woolwars.archer"), "archer"],
+      [getTranslation("games.modes.woolgames.woolwars.assault"), "assault"],
+      [getTranslation("games.modes.woolgames.woolwars.engineer"), "engineer"],
+      [getTranslation("games.modes.woolgames.woolwars.golem"), "golem"],
+      [getTranslation("games.modes.woolgames.woolwars.swordsman"), "swordsman"],
+      [getTranslation("games.modes.woolgames.woolwars.tank"), "tank"],
     ],
     `/img/icon/minecraft/white_wool.${imageFileType}`,
-    "woolwars",
+    "woolgames",
   ];
 
   let woolGamesChips = [woolWarsChip];
   for (d = 0; d < woolGamesChips.length; d++) {
-    generateChip(woolGamesChips[d], d % 2 == 0 ? "woolwars-chips-1" : "woolwars-chips-2");
+    generateChip(woolGamesChips[d], d % 2 == 0 ? "woolgames-chips-1" : "woolgames-chips-2");
   }
 }
 

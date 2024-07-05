@@ -102,7 +102,7 @@
     }
   },
   "footer": {
-    "created_by": "Made with ♥︎ by <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> and <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
+    "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
   },
   "games": {
     "arcade": "街機遊戲",
@@ -120,7 +120,7 @@
     "tntgames": "炸藥天地",
     "uhc": "超極限生存",
     "warlords": "軍閥戰役",
-    "woolwars": "羊毛戰爭",
+    "woolgames": "Wool Games",
     "network": "Network",
     "fishing": "釣魚",
     "modes": {
@@ -382,7 +382,7 @@
       },
       "copsandcrims": {
         "defusal": "拆彈模式",
-        "deathmatch": "團隊死亡競賽",
+        "deathmatch": "Team Deathmatch",
         "gungame": "Gun Game",
         "guns": {
           "category": "槍械",
@@ -550,7 +550,7 @@
         "domination": "Domination",
         "teamdeathmatch": "團隊死鬥"
       },
-      "woolwars": {
+      "woolgames": {
         "woolwars": {
           "category": "羊毛戰爭",
           "archer": "弓箭手",

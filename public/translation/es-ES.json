@@ -102,7 +102,7 @@
     }
   },
   "footer": {
-    "created_by": "Hecho con ♥︎ por <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a> y <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a>."
+    "created_by": "Hecho con ♥︎ por <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> y <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
   },
   "games": {
     "arcade": "Arcade",
@@ -120,7 +120,7 @@
     "tntgames": "TNT Games",
     "uhc": "UHC",
     "warlords": "Warlords",
-    "woolwars": "Wool Wars",
+    "woolgames": "Wool Games",
     "network": "Red",
     "fishing": "Pesca",
     "modes": {
@@ -550,7 +550,7 @@
         "domination": "Domination",
         "teamdeathmatch": "Team Deathmatch"
       },
-      "woolwars": {
+      "woolgames": {
         "woolwars": {
           "category": "Wool Wars",
           "archer": "Arquero",
@@ -753,7 +753,7 @@
     "max_wave": "Mejor Ronda",
     "maps_completed": "Mapas completados",
     "fails": "Fallos",
-    "best_time": "Mejor Tiempo",
+    "best_time": "Mejor tiempo",
     "flawless_games": "Partidas perfectas",
     "blocks_destroyed": "Bloques Destruidos",
     "powerups": "Powerups obtenidos",

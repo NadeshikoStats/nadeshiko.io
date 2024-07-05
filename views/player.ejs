@@ -910,36 +910,36 @@
 </div>
 </div>
 
-    <div class="flex-container unloaded minigame-flex-container" id="flex-container-woolwars">
+    <div class="flex-container unloaded minigame-flex-container" id="flex-container-woolgames">
       <!-- wool games(?) stats -->
-      <div class="chip-container" id="woolwars-chips">
+      <div class="chip-container" id="woolgames-chips">
         <div class="chip-small but-big">
           <div class="chip-small-background-filter"></div>
-          <p class="chip-small-title" data-t="games.woolwars">Wool Games</p>
+          <p class="chip-small-title" data-t="games.woolgames">Wool Games</p>
           <div class="chip-small-container">
             <p class="margin10">
-              <span data-t="statistics.level">Level</span> <span id="woolwars-level"><span class="mc">Unknown</span></span>
+              <span data-t="statistics.level">Level</span> <span id="woolgames-level"><span class="mc">Unknown</span></span>
             </p>
             <div class="progress-bar">
-              <span class="progress-number" id="woolwars-progress-number"><span class="mc">Unknown</span></span>
-              <div class="progress" style="width: 0%;" id="woolwars-progress-bar"></div>
+              <span class="progress-number" id="woolgames-progress-number"><span class="mc">Unknown</span></span>
+              <div class="progress" style="width: 0%;" id="woolgames-progress-bar"></div>
             </div>
             <div class="flex-two-item align-top flippable margin10">
               <div class="card-big-stats">
                 <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
                 <div class="chip-small-statistic-row">
-                  <p><span data-t="statistics.wool">Wool</span> <span class="statistic" id="woolwars-overall-coins"><span class="mc">Unknown</span></span></p>
-                  <p><span data-t="statistics.layers">Layers</span> <span class="statistic" id="woolwars-overall-available_layers"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.wool">Wool</span> <span class="statistic" id="woolgames-overall-coins"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.layers">Layers</span> <span class="statistic" id="woolgames-overall-available_layers"><span class="mc">Unknown</span></span></p>
                 </div>
               </div>
             </div>
           </div>
-          <span class="general-button mright mtop" onclick="showCardWizard('WOOLWARS')" data-t="player.generate_card">Generate Card</span>
+          <span class="general-button mright mtop" onclick="showCardWizard('WOOLGAMES')" data-t="player.generate_card">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
-          <div id="woolwars-chips-1" class="chip-container-duo">
+          <div id="woolgames-chips-1" class="chip-container-duo">
           </div>
-          <div id="woolwars-chips-2" class="chip-container-duo">
+          <div id="woolgames-chips-2" class="chip-container-duo">
           </div>
         </div>
     </div>
@@ -1065,7 +1065,7 @@
   var currentGamemode = "<%= game %>";
   var imageFileType;
 
-  let validGames = ["network", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolwars", "warlords", "smashheroes", "fishing"];
+  let validGames = ["network", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolgames", "warlords", "smashheroes", "fishing"];
 
   let minecraftColorCodes = {
     BLACK: "§0",
@@ -1107,7 +1107,7 @@
     `/img/games/tntgames/lobby.webp`,
     `/img/games/uhc/lobby.webp`,
     `/img/games/warlords/lobby.webp`,
-    `/img/games/woolwars/lobby.webp`,
+    `/img/games/woolgames/lobby.webp`,
     `/img/games/fishing/lobby.webp`
   ];
 
