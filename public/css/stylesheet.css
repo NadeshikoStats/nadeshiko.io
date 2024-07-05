@@ -1576,7 +1576,13 @@
 
   .guild-header > .name {
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
+    color: white;
+  }
+
+  .guild-header > .description {
+    font-style: oblique;
+    color: #ffffffb0;
   }
 
   .guild-players {

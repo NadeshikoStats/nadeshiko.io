@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="/css/stylesheet.css">
   <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
 
-
   <script src="/external/master.js"></script>
 
   <script>
@@ -1135,11 +1134,6 @@
 
   if (playerData["profile"] == undefined) {
     currentGamemode = "network";
-  }
-
-  function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in the case of a missing value
-    if (text === null || text === undefined || Number.isNaN(text)) return undefinedValue;
-    else return text;
   }
 
   window.addEventListener("resize", checkMobileMode);

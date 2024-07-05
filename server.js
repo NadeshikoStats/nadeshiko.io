@@ -807,6 +807,10 @@ function getMetaDescription(game, playerData) {
 • 🐠 Mythical Fish Caught: ${checkAndFormat(overallMythicalFishCaught)}
 
 • 🎣 Special Fish Caught: ${checkAndFormat(specialFishCount)}/${maxSpecialFish}`;
+
+  case 'guild': {
+    return `guild stast!!!!!!!`;
+  }
 }
 }}
 
@@ -848,7 +852,6 @@ app.get('/player/:name/:game?', async (req, res) => {
           metaImageURL = ``;
           metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
         }
-
 
        res.render('player', { name, playerData, game, metaImageURL, metaDescription });
    } catch(error) {
@@ -903,8 +906,45 @@ app.get('/player/:name/:game?', async (req, res) => {
     }
 });
 
-  app.get('/guild', (req, res) => {
-    res.render('guild');
+  app.get('/guild/:name?', async (req, res) => {
+    const name = req.params.name;
+
+    var computationError = "";
+  
+    try {
+  
+        const response = await axios.get(`http://localhost:2000/guild?name=${name}`);
+        let guildData = response.data;
+        console.log(guildData);
+        
+        let metaDescription;
+        if (guildData) { // If the guild data is available
+          metaDescription = getMetaDescription("guild", guildData);
+        } else { // If the player data is not available, don't show a card and show a default description
+          metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+        }
+
+        res.render('guild', { name, guildData, metaDescription });
+
+     } catch(error) {
+        if(error.response && error.response.status == 404) {
+          computationError = {
+            message: `No guild by the name of ${name} was found :(`,
+            player: name,
+            category: "404",
+          };
+        } else {
+          computationError = {
+            message: `Could not find guild name ${name} (${error})`,
+            player: name,
+            error: error["message"],
+            category: "computation",
+          };
+          console.error("Fetching player data failed! → ", error);
+        }
+        res.render('index', { computationError });
+     }
+
   });
 
   app.get('/:name/:game?', (req, res) => {

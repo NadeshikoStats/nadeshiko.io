@@ -6,6 +6,16 @@
   <link rel="stylesheet" href="/css/stylesheet.css">
   <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
 
+  <meta name="theme-color" content="#f6adc6">
+  <meta property="og:site_name" content="nadeshiko.io">
+
+  <% if (guildData) { %>
+    <title><%- guildData["name"] %> | nadeshiko.io</title>
+    <% } else { %>
+    <title>Guild | nadeshiko.io</title> <!-- Fallback in case no stats -->
+    <% } %>
+    <meta name="description" content="<%= metaDescription %>">
+
   <script>
     let tasksBeforeLoading = ["fetchLanguageFile", "DOMContentLoaded"];
 
@@ -21,12 +31,16 @@
       console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
 
       if(tasksBeforeLoading.length == 0) {
+        updateTranslations();
       }
     } 
   </script>
   <script src="/external/master.js"></script>
   <script src="/external/language.js"></script>
   <script src="/external/purify.min.js"></script>
+  <script src="/external/minecrafttext.js"></script>
+
+  <script src="/external/guilds.js"></script>
 </head>
 
 <body>
@@ -42,14 +56,16 @@
       <div class="flex-guild">
         <div class="flex-guild-list">
           <div class="guild-header">
-            <div class="name">Guild Name <span class="m3">[GUILDTAG]</span></div>
-            <p><span data-t="statistics.created">Created</span> <span class="tooltip"><span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-joined-ago-full"></span></span></p>
-            <p><span data-t="statistics.level">Level</span> <span class="tooltip"><span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-joined-ago-full"></span></span></p>
+            <div class="name"><span id="guild-name">Guild Name</span> <span id="guild-tag">[GUILDTAG]</span></div>
+            
+            <div class="description" id="guild-description"></div>
+
+            <p><span data-t="statistics.created">Created</span> <span class="tooltip"><span class="statistic" id="guild-created-ago"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-created-ago-full"></span></span></p>
+            <p><span data-t="statistics.level">Level</span> <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span></p>
             </div>
 
             <div class="guild-players">
-
-          </div>
+            </div>
         </div>
         <!--<div class="flex-guild-player">
           <div class="name">Player</div>
@@ -85,5 +101,11 @@
       <%- include('partials/footer') %>
     </footer>
   </div>
+
+  <script>
+    let guildStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(guildData)) %>"));
+
+    generateGeneralGuildStats();
+  </script>
 </body>
 </html>

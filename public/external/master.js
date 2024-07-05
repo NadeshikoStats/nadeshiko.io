@@ -1,5 +1,140 @@
 var languageJSON;
 
+function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in the case of a missing value
+  if (text === null || text === undefined || Number.isNaN(text)) return undefinedValue;
+  else return text;
+}
+
+function calculateRatio(numerator, denominator, digits = 2) {
+  // Calculates a ratio based on two stats
+  return checkAndFormat(numerator / (und(denominator) == 0 ? 1 : denominator), digits);
+}
+
+function checkAndFormat(number, digits = 0) {
+  // Ensures undefined values become zero and format to user's locale
+  return locale(und(number), digits);
+}
+
+function updateElement(id, value, useInnerHTML = false) {
+  const element = document.getElementById(id);
+  if (element) {
+    if (useInnerHTML) {
+      element.innerHTML = DOMPurify.sanitize(value);
+    } else {
+      element.textContent = value;
+    }
+  } else {
+    console.warn(`Element with ID ${id} not found!`);
+  }
+}
+
+function locale(number, digits = 2) {
+  return number.toLocaleString(userLanguage, { minimumFractionDigits: digits, maximumFractionDigits: digits });
+}
+
+function rawLocale(number) {
+  return number.toLocaleString(userLanguage);
+}
+
+function shortDateFormat(date) {
+  return new Intl.DateTimeFormat(userLanguage, {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    calendar: "gregory"
+  }).format(date);
+}
+
+function longDateFormat(date) {
+  return new Intl.DateTimeFormat(userLanguage, {
+    dateStyle: "long",
+    timeStyle: "long",
+    calendar: "gregory",
+  }).format(date);
+}
+
+function getValue(object, valueArray) {
+  for (let i = 0; i < valueArray.length; i++) {
+    if (object == undefined) {
+      return undefined;
+    }
+    object = object[valueArray[i]];
+  }
+  return object;
+}
+
+function smallDuration(seconds, ms = false) {
+  // Converts a number of seconds into a human-readable duration of time
+  if (seconds == -1 || seconds == undefined || isNaN(seconds)) {
+    return "N/A";
+  }
+
+  let dateNames = {
+    year: getTranslation("times.year_short"),
+    day: getTranslation("times.day_short"),
+    hour: getTranslation("times.hour_short"),
+    minute: getTranslation("times.minute_short"),
+    second: getTranslation("times.second_short"),
+  }
+
+  const MINUTE = 60;
+  const HOUR = 3600;
+  const DAY = 86400;
+  const YEAR = 31556952;
+
+  const years = Math.floor(seconds / YEAR);
+  const days = Math.floor((seconds % YEAR) / DAY);
+  const hours = Math.floor((seconds % DAY) / HOUR);
+  const minutes = Math.floor((seconds % HOUR) / MINUTE);
+  const secondsMod = Math.floor(seconds % MINUTE);
+
+  if (years > 0) {
+    return `${years}${dateNames["year"]} ${days}${dateNames["day"]}`;
+  } else if (days > 0) {
+    return `${days}${dateNames["day"]} ${hours}${dateNames["hour"]}`;
+  } else if (hours > 0) {
+    return `${hours}${dateNames["hour"]} ${minutes}${dateNames["minute"]}`;
+  } else if (minutes > 0) {
+    return `${minutes}${dateNames["minute"]} ${secondsMod}${dateNames["second"]}`;
+  } else {
+    return `${ms ? checkAndFormat(seconds, 3) : secondsMod}${dateNames["second"]}`;
+  }
+}
+
+function rainbowText(text, colorCodes = ["c", "6", "e", "a", "b", "d", "5"]) {
+  // Returns a string with cycling colour codes after providing an array of colour codes
+  let coloredText = "";
+
+  for (let i = 0; i < text.length; i++) {
+    let character = text.charAt(i);
+    let colorCode = colorCodes[i % colorCodes.length];
+    coloredText += `§${colorCode}${character}`;
+  }
+
+  return coloredText;
+}
+
+function veryLargeNumber(number) { // Changes number to compact notation if it's over a million
+  number = und(number);
+  if (number >= 1000000) {
+    return new Intl.NumberFormat("default", { notation: "compact", compactDisplay: "short", maximumSignificantDigits: 4 }).format(number);
+  } else {
+    return locale(number, 0);
+  }
+}
+
+function addPrefixZero(number, totalLength) { // Adds zeroes to the start of a number to make it a certain length
+  let numberStr = number.toString();
+  while (numberStr.length < totalLength) {
+    numberStr = '0' + numberStr;
+  }
+  return numberStr;
+}
+
+function sortStrings(a, b) { // Sorts strings alphabetically based on locale
+  return a.localeCompare(b, userLanguage, { sensitivity: "base" });
+}
+
 function updateChipStats(name, chipId, gamemode) {
   // Updates what a chip does when a dropdown is clicked
   newValue = name;
