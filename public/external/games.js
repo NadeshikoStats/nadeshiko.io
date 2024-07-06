@@ -33,8 +33,11 @@ function generateNetwork() {
     updateElement("ranks-gifted", checkAndFormat(profileStats["ranks_gifted"]));
     updateElement("multiplier", rawLocale(profileStats["coin_multiplier"], null));
 
-    firstLoginDate = new Date(profileStats["first_login"]); // Used for birthday calculation
-    if(firstLoginDate != "Invalid Date") { // Broken?
+    firstLogin = und(profileStats["first_login"]);
+    firstLoginDate = new Date(firstLogin); // Used for birthday calculation
+    if (firstLogin == 0) {
+      document.getElementById("first-login-container").style.display = "none";
+    } else {
       updateElement("first-login", shortDateFormat(firstLoginDate)); // Gets first login in Unix time and turns it into a date
       updateElement("first-login-ago", `${relativeTime(firstLoginDate)}`, true);
       updateElement("first-login-ago-full", longDateFormat(firstLoginDate));
@@ -46,10 +49,11 @@ function generateNetwork() {
       }
     }
 
-    lastLogin = profileStats["last_login"];
+    lastLogin = und(profileStats["last_login"]);
     lastLoginDate = new Date(lastLogin);
-    if (lastLogin == 0) document.getElementById("last-login-container").style.display = "none";
-    else {
+    if (lastLogin == 0) {
+      document.getElementById("last-login-container").style.display = "none";
+    } else {
       updateElement("last-login", shortDateFormat(lastLoginDate));
       updateElement("last-login-ago", `${relativeTime(lastLoginDate)}`);
       updateElement("last-login-ago-full", longDateFormat(lastLoginDate));
