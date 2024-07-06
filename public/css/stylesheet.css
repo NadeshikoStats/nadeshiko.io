@@ -1623,6 +1623,7 @@
   .guild-players .head {
     image-rendering: pixelated;
     height: 100%;
+    max-height: 25px;
   }
 
   .guild-players .row-content {
@@ -1660,6 +1661,39 @@
 
   .guild-players .date > * + * {
     margin-inline-start: 5px;
+  }
+
+  .guild-players .header-row {
+    font-weight: 500;
+    color: white;
+  }
+
+  .guild-players .content-joined-header {
+    display: none;
+  }
+
+  .guild-players a {
+    text-decoration: none;
+  }
+
+  .guild-players a * {
+    transition-duration: var(--transition-small);
+  }
+
+  .guild-players a:hover * {
+    color: var(--accent);
+  }
+
+  .deactivated {
+    opacity: 0.5;
+  }
+
+  .flipped {
+    transform: scale(1, -1);
+  }
+
+  .nowrap {
+    white-space: nowrap;
   }
 
   /* Cards */
@@ -2199,6 +2233,16 @@
     }
     .card-wizard-output {
       padding: 7.6px 15px;
+    }
+
+    .row-header {
+      grid-template-columns: 0.3fr 2fr 1fr 0.1fr !important;
+    }
+    .row-header > *:nth-child(4) {
+      display: none;
+    }
+    .guild-players .content-joined-header {
+      display: block;
     }
   }
   

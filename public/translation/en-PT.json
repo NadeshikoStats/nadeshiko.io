@@ -557,7 +557,7 @@
           "assault": "Assault",
           "engineer": "Engineer",
           "golem": "Golem",
-          "swordsman": "Cutlassman",
+          "swordsman": "Swordsman",
           "tank": "Tank"
         }
       },
@@ -904,7 +904,10 @@
     "junk_caught": "Junk Reeled In",
     "treasure_caught": "Treasure Reeled In",
     "mythical_fish_caught": "Mythical Fish Reeled In",
-    "special_fish_caught": "Special Fish Reeled In"
+    "special_fish_caught": "Special Fish Reeled In",
+    "created": "Created",
+    "player": "Player",
+    "rank": "Rank"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

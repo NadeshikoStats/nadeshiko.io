@@ -904,7 +904,10 @@
     "junk_caught": "Basura atrapada",
     "treasure_caught": "Tesoros atrapados",
     "mythical_fish_caught": "Peces míticos atrapados",
-    "special_fish_caught": "Peces especiales atrapados"
+    "special_fish_caught": "Peces especiales atrapados",
+    "created": "Creado",
+    "player": "Jugador",
+    "rank": "Rango"
   },
   "times": {
     "time_ago": "(hace %%time%%)",

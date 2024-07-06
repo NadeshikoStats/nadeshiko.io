@@ -552,13 +552,13 @@
       },
       "woolgames": {
         "woolwars": {
-          "category": "羊毛戰爭",
-          "archer": "弓箭手",
-          "assault": "突襲手",
-          "engineer": "工程師",
-          "golem": "鐵魔像",
-          "swordsman": "劍士",
-          "tank": "愈發堅韌"
+          "category": "Wool Wars",
+          "archer": "Archer",
+          "assault": "Assault",
+          "engineer": "Engineer",
+          "golem": "Golem",
+          "swordsman": "Swordsman",
+          "tank": "Tank"
         }
       },
       "fishing": {
@@ -904,7 +904,10 @@
     "junk_caught": "Junk Caught",
     "treasure_caught": "Treasure Caught",
     "mythical_fish_caught": "Mythical Fish Caught",
-    "special_fish_caught": "Special Fish Caught"
+    "special_fish_caught": "Special Fish Caught",
+    "created": "Created",
+    "player": "Player",
+    "rank": "Rank"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

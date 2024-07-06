@@ -86,13 +86,12 @@
             </div>
 
             <div class="guild-players" id="guild-players">
-              <div class="row">
+              <div class="row header-row">
                 <div class="row-header">
-                        
                   <div class="column"></div>
-                  <div class="column headercolumn" onclick="sortData('name')">Player <img class="verytinyicon" src="/img/svg/sort.svg"></div>
-                  <div class="column headercolumn" onclick="sortData('priority')">Rank <img class="verytinyicon" src="/img/svg/sort.svg"></div>       
-                  <div class="column headercolumn" onclick="sortData('joined')">Joined <img class="verytinyicon" src="/img/svg/sort.svg"></div>
+                  <div class="column headercolumn" onclick="sortData('name')"><span data-t="statistics.player" id="header-name" class="deactivated">Player</span> <img class="verytinyicon deactivated" id="header-name-icon" src="/img/svg/sort.svg"></div>
+                  <div class="column headercolumn" onclick="sortData('priority')"><span data-t="statistics.rank" id="header-priority" class="deactivated">Rank</span> <img class="verytinyicon deactivated" id="header-priority-icon" src="/img/svg/sort.svg"></div>       
+                  <div class="column headercolumn" onclick="sortData('joined')"><span data-t="statistics.joined" id="header-joined" class="deactivated">Joined</span> <img class="verytinyicon deactivated" id="header-joined-icon" src="/img/svg/sort.svg"></div>
                 
                   <div class="column" data-i="expandable"></div>
                 </div>

@@ -553,11 +553,11 @@
       "woolgames": {
         "woolwars": {
           "category": "Wool Wars",
-          "archer": "Bogenschütze",
-          "assault": "Angreifer",
-          "engineer": "Ingenieur",
+          "archer": "Archer",
+          "assault": "Assault",
+          "engineer": "Engineer",
           "golem": "Golem",
-          "swordsman": "Schwertkämpfer",
+          "swordsman": "Swordsman",
           "tank": "Tank"
         }
       },
@@ -904,7 +904,10 @@
     "junk_caught": "Junk Caught",
     "treasure_caught": "Treasure Caught",
     "mythical_fish_caught": "Mythical Fish Caught",
-    "special_fish_caught": "Special Fish Caught"
+    "special_fish_caught": "Special Fish Caught",
+    "created": "Created",
+    "player": "Player",
+    "rank": "Rank"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

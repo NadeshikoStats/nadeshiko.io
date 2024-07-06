@@ -10,6 +10,10 @@ function getRankPriorities() {
 }
 
 function deformatName(text) {
+  if(text == undefined || text == null) {
+    return text;
+  }
+
   return text
       .replace(/§[0-9a-fk-or]\[.*?\]/g, '')
       .replace(/§[0-9a-fk-or]/g, '')
@@ -39,7 +43,9 @@ function guildPlayerObjectToRow(guildObj) {
   <div class="row-header">
 
   <div class="column"><img class="head" data-i="head"></div>
-  <div class="column" data-i="name"></div>
+  <div class="column nowrap">
+    <a data-i="name" target="_blank"></a>
+  </div>
   <div class="column" data-i="rank"></div>
 
   <div class="column date">
@@ -54,18 +60,26 @@ function guildPlayerObjectToRow(guildObj) {
   <div class="column" data-i="expandable"><img class="arrow-icon" src="/img/svg/bigarrow.svg" /></div>
 </div>
 <div class="row-content">
-  <p id="level-container-container">
-    <span id="level-container"><span>${getTranslation("statistics.level")}</span> <span data-i="level" class="statistic"></span></span>
+  
+<div class="login-info flex-two-item">
+  <p class="flex-item margin10">
+    <span><span>${getTranslation("statistics.level")}</span> <span data-i="level" class="statistic"></span></span>
     <span class="tooltip">
       <span class="m8">(<span data-i="multiplier"></span>×)</span><span class="tooltiptext">${getTranslation("player.coin_multiplier")}</span>
     </span>
   </p>
 
+  <p class="flex-item margin10 content-joined-header">
+    <span>${getTranslation("statistics.joined")}</span> <span class="tooltip"><span class="statistic" data-i="content-joined"></span><span class="tooltiptext" data-i="content-joined-ago-full"></span></span>
+        <span data-i="content-joined-ago"></span>
+  </p>
+</div>
+
   <div class="stats">
     <div class="login-info flex-two-item">
       <p class="flex-item margin10">
         <span>${getTranslation("statistics.first_login")}</span> <span class="tooltip"><span class="statistic" data-i="first-login"></span><span class="tooltiptext" data-i="first-login-ago-full"></span></span>
-        <span data-i="first-login-ago">(hace 9a)</span> <span class="tooltip"><img data-i="birthday" class="icon tinyicon birthday" src="/img/special/cake.png" /><span class="tooltiptext" data-i="birthday-text"></span></span>
+        <span data-i="first-login-ago"></span> <span class="tooltip"><img data-i="birthday" class="icon tinyicon birthday" src="/img/special/cake.png" /><span class="tooltiptext" data-i="birthday-text"></span></span>
       </p>
 
       <p data-i="last-login-container" class="flex-item login-duo">
@@ -103,14 +117,15 @@ function guildPlayerObjectToRow(guildObj) {
     }
   }
 
-  console.warn("uuid: " + guildObj["uuid"]);
-  console.log(playerProfile);
+  //console.warn("uuid: " + guildObj["uuid"]);
+  //console.log(playerProfile);
 
   if(playerProfile["tagged_name"] == undefined || playerProfile["tagged_name"] == null) {
     updateTag("name", `<i class="m4">${guildObj["uuid"]}</i>`, true);
   } else {
     updateTag("name", generateMinecraftText(playerProfile["tagged_name"]), true);
   }
+  newRow.querySelector(`[data-i="name"]`).href = `/player/${guildObj["uuid"]}`;
   
   newRow.querySelector(`[data-i="head"]`).src = `https://minotar.net/helm/${guildObj["uuid"]}/8.png`;
 
@@ -120,6 +135,10 @@ function guildPlayerObjectToRow(guildObj) {
   updateTag("joined", shortDateFormat(joined));
   updateTag("joined-ago", relativeTime(joined));
   updateTag("joined-ago-full", longDateFormat(joined));
+
+  updateTag("content-joined", shortDateFormat(joined));
+  updateTag("content-joined-ago", relativeTime(joined));
+  updateTag("content-joined-ago-full", longDateFormat(joined));
 
   let firstLoginDate = new Date(und(playerProfile["first_login"]))
   updateTag("first-login", shortDateFormat(firstLoginDate));
@@ -135,6 +154,9 @@ function guildPlayerObjectToRow(guildObj) {
   }
 
   newRow.setAttribute('data-joined', joined); 
+
+  console.log(playerProfile["tagged_name"]);
+  console.log(guildObj["uuid"]);
   newRow.setAttribute('data-name', deformatName(playerProfile["tagged_name"]));
 
   if (guildRanks[guildObj["rank"]] == undefined) {
@@ -186,7 +208,7 @@ function compareAttributes(attribute, reverse = false) {
   let attributeClassification = attributeClassifications[attribute];
   
   if (attributeClassification["reverse"] == true) {
-    reverseMultiplier *= -1;
+    reverseMultiplier *= -1; // This is here because certain attributes should have their sorting reversed, such as name where lower values should be at the top (A-Z)
   }
 
   return function(a, b) {
@@ -209,7 +231,38 @@ function compareAttributes(attribute, reverse = false) {
   };
 }
 
+
+let currentSort;
+let currentReverse = false;
+
 function sortData(attribute = "priority", reverse = false) { 
+
+  if (currentSort == attribute) {
+    reverse = !currentReverse;
+    currentReverse = reverse;
+  } else {
+    reverse = false;
+    currentReverse = false;
+  }
+
+  
+  let guildHeaderElements = ["header-priority", "header-joined", "header-name"];
+  guildHeaderElements.forEach((id) => {
+    const iconId = id + "-icon";
+    document.getElementById(id).classList.add("deactivated");
+    document.getElementById(iconId).classList.add("deactivated");
+    document.getElementById(iconId).classList.remove("flipped");
+  });
+
+  console.warn(attribute);
+  document.getElementById("header-" + attribute).classList.remove("deactivated");
+  document.getElementById("header-" + attribute + "-icon").classList.remove("deactivated");
+
+  if (reverse) {
+    document.getElementById("header-" + attribute + "-icon").classList.add("flipped");
+  }
+
+  currentSort = attribute;
 
   let guildPlayers = document.getElementById("guild-players");
   let guildPlayerRows = guildPlayers.querySelectorAll(".row");

@@ -1017,7 +1017,9 @@
     "mythical_fish_caught": "Mythical Fish Caught",
     "special_fish_caught": "Special Fish Caught",
 
-    "created": "Created"
+    "created": "Created",
+    "player": "Player",
+    "rank": "Rank"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

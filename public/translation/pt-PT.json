@@ -553,12 +553,12 @@
       "woolgames": {
         "woolwars": {
           "category": "Wool Wars",
-          "archer": "Arqueiro",
-          "assault": "Assalto",
-          "engineer": "O engenheiro",
+          "archer": "Archer",
+          "assault": "Assault",
+          "engineer": "Engineer",
           "golem": "Golem",
-          "swordsman": "Espadachim",
-          "tank": "Tanque"
+          "swordsman": "Swordsman",
+          "tank": "Tank"
         }
       },
       "fishing": {
@@ -904,7 +904,10 @@
     "junk_caught": "Junk Caught",
     "treasure_caught": "Treasure Caught",
     "mythical_fish_caught": "Mythical Fish Caught",
-    "special_fish_caught": "Special Fish Caught"
+    "special_fish_caught": "Special Fish Caught",
+    "created": "Created",
+    "player": "Player",
+    "rank": "Rank"
   },
   "times": {
     "time_ago": "(%%time%% ago)",
