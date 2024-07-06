@@ -1606,7 +1606,7 @@
     overflow-y: scroll;
   }
 
-  .guild-players .row:nth-child(odd) .row-header {
+  .guild-players .row:nth-child(odd) .row-header, .guild-players .row:nth-child(odd) .row-content {
     background-color: #0008;
   }
 
@@ -1614,10 +1614,15 @@
     padding: 8px 16px;
 
     display: inline-grid;
-    grid-template-columns: 2fr 1fr 1.5fr 0.2fr;
+    grid-template-columns: 0.3fr 2fr 1fr 1.5fr 0.2fr;
     gap: 3px;
     cursor: pointer;
     width: 100%;
+  }
+
+  .guild-players .head {
+    image-rendering: pixelated;
+    height: 100%;
   }
 
   .guild-players .row-content {
@@ -1646,6 +1651,15 @@
   
   .guild-players .column {
     display: flex;
+    align-items: center;
+  }
+
+  .guild-players .headercolumn > img {
+    margin-inline-start: 5px;
+  }
+
+  .guild-players .date > * + * {
+    margin-inline-start: 5px;
   }
 
   /* Cards */

@@ -276,4 +276,8 @@ function updateChipStats(name, chipId, gamemode) {
   }
 }
 
+setTimeout(function() {
+  console.log("%c                                               \r\n                 _           _     _ _         \r\n                | |         | |   (_) |        \r\n _ __   __ _  __| | ___  ___| |__  _| | _____  \r\n| \'_ \\ \/ _` |\/ _` |\/ _ \\\/ __| \'_ \\| | |\/ \/ _ \\ \r\n| | | | (_| | (_| |  __\/\\__ \\ | | | |   < (_) |\r\n|_| |_|\\__,_|\\__,_|\\___||___\/_| |_|_|_|\\_\\___\/ \r\n                                               \r\n  The simple, beautiful Hypixel stats tracker  \r\n                                               ", "background: #2d0614; color: #f6acd6;");
+}, 5000);
+
 // TODO use swished statemetn

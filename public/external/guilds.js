@@ -1,4 +1,19 @@
+let guildRanks = {};
+
 function getRankPriorities() {
+  let guildRankObject = guildStats["ranks"] || [];
+
+  for (let a = 0; a < guildRankObject.length; a++) {
+    let rank = guildRankObject[a];
+    guildRanks[rank["name"]] = rank["priority"];
+  }
+}
+
+function deformatName(text) {
+  return text
+      .replace(/§[0-9a-fk-or]\[.*?\]/g, '')
+      .replace(/§[0-9a-fk-or]/g, '')
+      .trim();
 }
 
 function generateGeneralGuildStats() {
@@ -22,10 +37,12 @@ function guildPlayerObjectToRow(guildObj) {
 
   let guildRowTemplate = `
   <div class="row-header">
+
+  <div class="column"><img class="head" data-i="head"></div>
   <div class="column" data-i="name"></div>
   <div class="column" data-i="rank"></div>
 
-  <div class="column">
+  <div class="column date">
     <span class="tooltip">
       <span data-i="joined"></span>
       <span class="tooltiptext" data-i="joined-ago-full"></span>
@@ -38,9 +55,9 @@ function guildPlayerObjectToRow(guildObj) {
 </div>
 <div class="row-content">
   <p id="level-container-container">
-    <span id="level-container"><span>${getTranslation("statistics.level")}</span> <span data-i="level" class="statistic">60</span></span>
+    <span id="level-container"><span>${getTranslation("statistics.level")}</span> <span data-i="level" class="statistic"></span></span>
     <span class="tooltip">
-      <span class="m8">(<span data-i="multiplier">5</span>×)</span><span class="tooltiptext">${getTranslation("player.coin_multiplier")}</span>
+      <span class="m8">(<span data-i="multiplier"></span>×)</span><span class="tooltiptext">${getTranslation("player.coin_multiplier")}</span>
     </span>
   </p>
 
@@ -71,6 +88,7 @@ function guildPlayerObjectToRow(guildObj) {
 </div>
   `;
 
+
   let newRow = document.createElement("div");
   newRow.classList.add("row");
   newRow.innerHTML = guildRowTemplate;
@@ -85,7 +103,6 @@ function guildPlayerObjectToRow(guildObj) {
     }
   }
 
-
   console.warn("uuid: " + guildObj["uuid"]);
   console.log(playerProfile);
 
@@ -95,11 +112,14 @@ function guildPlayerObjectToRow(guildObj) {
     updateTag("name", generateMinecraftText(playerProfile["tagged_name"]), true);
   }
   
-  updateTag("rank", guildObj["rank"]);
+  newRow.querySelector(`[data-i="head"]`).src = `https://minotar.net/helm/${guildObj["uuid"]}/8.png`;
 
-  updateTag("joined", shortDateFormat(guildObj["joined"]));
-  updateTag("joined-ago", relativeTime(guildObj["joined"]));
-  updateTag("joined-ago-full", longDateFormat(guildObj["joined"]));
+  updateTag("rank", guildObj["rank"]);
+  
+  let joined = guildObj["joined"];
+  updateTag("joined", shortDateFormat(joined));
+  updateTag("joined-ago", relativeTime(joined));
+  updateTag("joined-ago-full", longDateFormat(joined));
 
   let firstLoginDate = new Date(und(playerProfile["first_login"]))
   updateTag("first-login", shortDateFormat(firstLoginDate));
@@ -114,6 +134,16 @@ function guildPlayerObjectToRow(guildObj) {
     console.log("Birthday cake visible");
   }
 
+  newRow.setAttribute('data-joined', joined); 
+  newRow.setAttribute('data-name', deformatName(playerProfile["tagged_name"]));
+
+  if (guildRanks[guildObj["rank"]] == undefined) {
+    newRow.setAttribute('data-priority', Number.MAX_SAFE_INTEGER);
+  } else {
+    newRow.setAttribute('data-priority', guildRanks[guildObj["rank"]]);
+  }
+  
+
   let lastLogin = und(playerProfile["last_login"]);
 
     lastLoginDate = new Date(lastLogin);
@@ -124,6 +154,7 @@ function guildPlayerObjectToRow(guildObj) {
       updateTag("last-login-ago-full", longDateFormat(lastLoginDate));
     }
 
+    updateTag("level", locale(Math.floor(und(playerProfile["network_level"])), 0));
     updateTag("achievement-points", checkAndFormat(playerProfile["achievement_points"]));
     updateTag("karma", checkAndFormat(playerProfile["karma"]));
     updateTag("quests-completed", checkAndFormat(playerProfile["quests_completed"]));
@@ -131,5 +162,62 @@ function guildPlayerObjectToRow(guildObj) {
     updateTag("multiplier", rawLocale(und(playerProfile["coin_multiplier"]), null));
 
   return newRow;
+}
 
+function compareAttributes(attribute, reverse = false) { 
+
+  let reverseMultiplier = reverse ? -1 : 1;
+
+  let attributeClassifications = {
+    "priority": {
+      type: "number",
+      reverse: false
+    },
+    "joined": {
+      type: "number",
+      reverse: true
+    },
+    "name": {
+      type: "string",
+      reverse: true
+    }
+  };
+
+  let attributeClassification = attributeClassifications[attribute];
+  
+  if (attributeClassification["reverse"] == true) {
+    reverseMultiplier *= -1;
+  }
+
+  return function(a, b) {
+
+    let aValue, bValue;
+    if (attributeClassification["type"] == "string") {
+      aValue = a.dataset[attribute];
+      bValue = b.dataset[attribute];
+    } else if (attributeClassification["type"] == "number") {
+      aValue = Number(a.dataset[attribute]);
+      bValue = Number(b.dataset[attribute]);
+    }
+
+    if (aValue < bValue) {
+      return 1 * reverseMultiplier;
+    } else if (aValue > bValue) {
+      return -1 * reverseMultiplier;
+    }
+    return 0;
+  };
+}
+
+function sortData(attribute = "priority", reverse = false) { 
+
+  let guildPlayers = document.getElementById("guild-players");
+  let guildPlayerRows = guildPlayers.querySelectorAll(".row");
+  let guildPlayerRowsArray = Array.from(guildPlayerRows);
+
+  guildPlayerRowsArray.sort(compareAttributes(attribute, reverse));
+
+  guildPlayerRowsArray.forEach((element) => {
+    guildPlayers.appendChild(element);
+  });
 }
