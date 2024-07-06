@@ -915,7 +915,6 @@ app.get('/player/:name/:game?', async (req, res) => {
   
         const response = await axios.get(`http://localhost:2000/guild?name=${name}`);
         let guildData = response.data;
-        console.log(guildData);
         
         let metaDescription;
         if (guildData) { // If the guild data is available
