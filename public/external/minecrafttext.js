@@ -1,4 +1,9 @@
 function generateMinecraftText(minecraftText, blackShadow = false) { // Generates HTML from Minecraft text
+
+    if (minecraftText === null || minecraftText === undefined) {
+      return "";
+    }
+
     const regex = /[^§&]*[^§&]|[§&][0-9a-z][^§&]*/g;
     const brokenUpStrings = minecraftText.match(regex) || [];
     let returnString = "";

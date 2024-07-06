@@ -135,6 +135,57 @@ function sortStrings(a, b) { // Sorts strings alphabetically based on locale
   return a.localeCompare(b, userLanguage, { sensitivity: "base" });
 }
 
+function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past
+  let dateNew = new Date(currentTime);
+  let dateOld = new Date(timestamp);
+
+  let years = dateNew.getFullYear() - dateOld.getFullYear();
+  let months = dateNew.getMonth() - dateOld.getMonth();
+  let days = dateNew.getDate() - dateOld.getDate();
+  let hours = dateNew.getHours() - dateOld.getHours();
+  let minutes = dateNew.getMinutes() - dateOld.getMinutes();
+  let seconds = dateNew.getSeconds() - dateOld.getSeconds();
+
+  if (seconds < 0) {
+    minutes--;
+    seconds += 60;
+  }
+
+  if (minutes < 0) {
+    hours--;
+    minutes += 60;
+  }
+
+  if (hours < 0) {
+    days--;
+    hours += 24;
+  }
+
+  if (days < 0) {
+    months--;
+    days += new Date(dateOld.getFullYear(), dateOld.getMonth() + 1, 0).getDate(); // Ensures that a month has the correct number of days.
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  let timeValue;
+  let dateIsInFuture = false;
+
+  if (years > 0) timeValue = `${years}${getTranslation("times.year_short")}`;
+  else if (months > 0) timeValue = `${months}${getTranslation("times.month_short")}`;
+  else if (days > 0) timeValue = `${days}${getTranslation("times.day_short")}`;
+  else if (hours > 0) timeValue = `${hours}${getTranslation("times.hour_short")}`;
+  else if (minutes > 0) timeValue = `${minutes}${getTranslation("times.minute_short")}`;
+  else if (seconds > 0) timeValue = `${seconds}${getTranslation("times.second_short")}`;
+  else dateIsInFuture = true;
+
+  if (dateIsInFuture) return getTranslation("times.now");
+  else return insertPlaceholders(getTranslation("times.time_ago"), { time: timeValue });
+}
+
 function updateChipStats(name, chipId, gamemode) {
   // Updates what a chip does when a dropdown is clicked
   newValue = name;

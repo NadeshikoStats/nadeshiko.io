@@ -59,7 +59,10 @@
     /* Yellow */
     --mcf: #ffffff;
     /* White */
+
     --header-height: 51px;
+    --footer-height: 39.2px;
+
     --transition-large: 1s;
     --transition: 0.5s;
     --transition-small: 0.3s;
@@ -94,7 +97,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #000000cc;
+    background-color: #000c;
     font-size: 18px;
     position: relative;
     backdrop-filter: blur(6px);
@@ -340,6 +343,10 @@
   
   .header-button > * {
     transition-duration: var(--transition-small);
+  }
+
+  .header-button-text {
+    white-space: nowrap;
   }
   
   .header-button:hover {
@@ -851,7 +858,7 @@
     width: 15px;
   }
   
-  #birthday {
+  #birthday, .birthday {
     display: none;
   }
   
@@ -1524,6 +1531,10 @@
     position: relative;
     flex-grow: 1;
     transition-duration: var(--transition);
+
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - var(--header-height) - var(--footer-height));
   }
 
   .flex-guild {
@@ -1586,12 +1597,55 @@
   }
 
   .guild-players {
-    background-color: var(--default);
+    background-color: #0008;
     flex: 1;
 
     border-radius: 25px;
     margin-top: 15px;
-    padding: 25px 20px;
+
+    overflow-y: scroll;
+  }
+
+  .guild-players .row:nth-child(odd) .row-header {
+    background-color: #0008;
+  }
+
+  .guild-players .row-header {
+    padding: 8px 16px;
+
+    display: inline-grid;
+    grid-template-columns: 2fr 1fr 1.5fr 0.2fr;
+    gap: 3px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .guild-players .row-content {
+    display: none;
+    padding: 10px;
+  }
+
+  .guild-players .row.active .row-content {
+      display: block;
+  }
+
+  .guild-players .arrow-icon {
+    width: 19px;
+    opacity: 0.5;
+    transition-duration: var(--transition);
+  }
+
+  .guild-players .arrow-icon:hover {
+    opacity: 1;
+  }
+
+  .guild-players .row.active .arrow-icon {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+  
+  .guild-players .column {
+    display: flex;
   }
 
   /* Cards */
