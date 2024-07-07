@@ -10,8 +10,8 @@
     "about": {
       "title": "About",
       "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.",
-      "assistance": "Find a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a>!",
-      "disclaimer": "nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.",
+      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a>!",
+      "disclaimer": "nadeshiko.io is not affiliated with Hypixel Inc., Mojang AB, or Microsoft.",
       "credits": {
         "title": "Credits",
         "0_name": "kittycatchloe",
