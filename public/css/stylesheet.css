@@ -506,6 +506,10 @@
   .mleft {
     margin-inline-start: 10px;
   }
+
+  .mleft-5 {
+    margin-inline-start: 5px;
+  }
   
   .mbottom {
     margin-bottom: 10px;
@@ -748,7 +752,7 @@
     flex-wrap: wrap;
   }
   
-  .general-stats > p {
+  .general-stats > p, .general-stats > a {
     margin: 10px;
   }
   
@@ -977,6 +981,7 @@
     vertical-align: middle;
     margin-inline-end: 8px;
     flex-shrink: 0;
+    transition-duration: var(--transition);
   }
   
   .dropdown-arrow {

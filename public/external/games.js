@@ -86,13 +86,20 @@ function generateNetwork() {
       updateElement("online-status-location", gameType["name"] + gameMode);
     } else updateElement("online-status", getTranslation("player.currently_offline"));
 
+    let guildName;
+
     if (playerData["guild"] == undefined) {
       console.log(playerData);
       document.getElementById("guild-stats").style.display = "none";
       document.getElementById("card-guild").style.display = "none";
+
+      guildName = null;
     } else {
       guildStats = playerData["guild"];
-      updateElement("guild-name", guildStats["name"]);
+
+      guildName = guildStats["name"];
+      document.getElementById("guild-stats-header").href = `/guild/${guildName}`;
+      updateElement("guild-name", guildName);
       updateElement("guild-tag", generateMinecraftText(guildStats["tag"]), true);
       updateElement("card-guild", generateMinecraftText(guildStats["tag"]), true);
       updateElement("guild-level", checkAndFormat(Math.floor(guildStats["level"])));
@@ -154,7 +161,9 @@ function generateNetwork() {
       { id: "uhc", name: getTranslation(["games", "uhc"]), minecraftId: "golden_apple" },
       { id: "warlords", name: getTranslation(["games", "warlords"]), minecraftId: "stone_axe" },
       { id: "woolgames", name: getTranslation(["games", "woolgames"]), minecraftId: "white_wool" },
+
       { id: "fishing", name: getTranslation(["games", "fishing"]), minecraftId: "cod" },
+      { id: "guild", name: getTranslation(["games", "modes", "network", "guild"]), minecraftId: "head_guild" },      
     ];
 
     const quickModeGameContainer = document.getElementById("quick-mode-games");
@@ -162,8 +171,14 @@ function generateNetwork() {
     const gameSwitchContainer = document.getElementById("game-switch");
     const otherSwitchContainer = document.getElementById("other-switch");
 
+    let headerObjectTypes = {
+      "games": ["network", "bedwars", "duels", "skywars"],
+      "other": ["fishing", "guild"],
+      "special": ["guild"],
+    };
+
     quickModeGames.forEach((game) => {
-      console.log("added " + game.id + " to quick mode games");
+      console.log("Adding " + game.id + " to quick mode games");
       if (game.id != "network") {
         const spanTooltip = document.createElement("span");
         spanTooltip.className = "tooltip";
@@ -172,9 +187,18 @@ function generateNetwork() {
         img.src = `/img/icon/hypixel/${game.id}.webp`;
         img.alt = "";
         img.className = "quick-mode-game";
-        img.onclick = function () {
-          switchStats(game.id);
-        };
+
+        if(headerObjectTypes["special"].includes(game.id)) {
+          /*if (game.id == "guild") {
+            img.onclick = function () {
+              switchStats("guild");
+            };
+          } TODO */
+        } else {
+          img.onclick = function () {
+            switchStats(game.id);
+          };
+        }
 
         const spanText = document.createElement("span");
         spanText.className = "tooltiptext";
@@ -186,12 +210,25 @@ function generateNetwork() {
       }
     });
 
-    let headerGames = ["network", "bedwars", "duels", "skywars"];
-    let headerOther = ["fishing"];
-
     quickModeGames.forEach((game, index) => {
-      let container = document.createElement("div");
-      container.setAttribute("onclick", `switchStats('${game.id}')`);
+      let container;
+
+      if (headerObjectTypes["special"].includes(game.id)) {
+        container = document.createElement("a");
+        container.setAttribute("target", "_blank");
+
+        if(game.id == "guild") {
+          if(guildName == null) {
+            return;
+          } else {
+            container.setAttribute("href", `/guild/${guildName}`);
+          }
+        }
+      } else {
+        container = document.createElement("div");
+        container.setAttribute("onclick", `switchStats('${game.id}')`);
+      }
+
       container.setAttribute("aria-label", `View ${game.name} stats`);
 
       let span = document.createElement("span");
@@ -203,6 +240,7 @@ function generateNetwork() {
       } else {
         img.src = `/img/icon/minecraft/${game.minecraftId}.${imageFileType}`;
       }
+
       img.alt = "";
       img.classList.add("social-media-dropdown", "icon");
 
@@ -212,11 +250,20 @@ function generateNetwork() {
       let text = document.createTextNode(game.name);
       container.appendChild(text);
 
-      if (headerGames.includes(game.id)) {
+      if (headerObjectTypes["special"].includes(game.id)) {
+        let externalIcon = document.createElement("img");
+        externalIcon.src = "/img/svg/external.svg";
+        externalIcon.alt = "";
+        externalIcon.classList.add("verytinyicon");
+        externalIcon.classList.add("mleft-5");
+        container.appendChild(externalIcon);
+      }
+
+      if (headerObjectTypes["games"].includes(game.id)) {
         gameSwitchMobileContainer.appendChild(container);
-      } else if(headerOther.includes(game.id)) {
+      } else if(headerObjectTypes["other"].includes(game.id)) {
         otherSwitchContainer.appendChild(container);
-      } else{
+      } else {
         gameSwitchContainer.appendChild(container);
       }
     });
