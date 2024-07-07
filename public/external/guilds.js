@@ -215,18 +215,23 @@ function compareAttributes(attribute, reverse = false) {
 
     let aValue, bValue;
     if (attributeClassification["type"] == "string") {
-      aValue = a.dataset[attribute];
-      bValue = b.dataset[attribute];
+      aValue = und(a.dataset[attribute]);
+      bValue = und(b.dataset[attribute]);
+
+      console.warn([aValue, bValue]);
+
+      return aValue.localeCompare(bValue, userLanguage, { sensitivity: "base" }) * reverseMultiplier;
     } else if (attributeClassification["type"] == "number") {
-      aValue = Number(a.dataset[attribute]);
-      bValue = Number(b.dataset[attribute]);
+      aValue = und(Number(a.dataset[attribute]));
+      bValue = und(Number(b.dataset[attribute]));
+
+      if (aValue < bValue) {
+        return 1 * reverseMultiplier;
+      } else if (aValue > bValue) {
+        return -1 * reverseMultiplier;
+      }
     }
 
-    if (aValue < bValue) {
-      return 1 * reverseMultiplier;
-    } else if (aValue > bValue) {
-      return -1 * reverseMultiplier;
-    }
     return 0;
   };
 }
@@ -235,8 +240,12 @@ function compareAttributes(attribute, reverse = false) {
 let currentSort;
 let currentReverse = false;
 
-function sortData(attribute = "priority", reverse = false) { 
-
+ /* 
+  * Sorts the guild data by a certain attribute
+  * @param {string} attribute - The attribute to sort by (like "priority" or "joined")
+  * @param {boolean} reverse - Whether to reverse the sorting
+  */
+function sortData(attribute = "priority", reverse = false) {
   if (currentSort == attribute) {
     reverse = !currentReverse;
     currentReverse = reverse;
@@ -245,7 +254,6 @@ function sortData(attribute = "priority", reverse = false) {
     currentReverse = false;
   }
 
-  
   let guildHeaderElements = ["header-priority", "header-joined", "header-name"];
   guildHeaderElements.forEach((id) => {
     const iconId = id + "-icon";
@@ -265,7 +273,7 @@ function sortData(attribute = "priority", reverse = false) {
   currentSort = attribute;
 
   let guildPlayers = document.getElementById("guild-players");
-  let guildPlayerRows = guildPlayers.querySelectorAll(".row");
+  let guildPlayerRows = guildPlayers.querySelectorAll(".row:not(.header-row)");
   let guildPlayerRowsArray = Array.from(guildPlayerRows);
 
   guildPlayerRowsArray.sort(compareAttributes(attribute, reverse));
