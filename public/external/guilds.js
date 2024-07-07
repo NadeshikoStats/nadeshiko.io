@@ -37,8 +37,6 @@ function generateGeneralGuildStats() {
 
 function guildPlayerObjectToRow(guildObj) {  
 
-  let fake = ``
-
   let guildRowTemplate = `
   <div class="row-header">
 
@@ -100,7 +98,7 @@ function guildPlayerObjectToRow(guildObj) {
     </div>
   </div>
 </div>
-  `;
+`;
 
 
   let newRow = document.createElement("div");

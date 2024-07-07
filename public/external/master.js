@@ -190,94 +190,159 @@ function updateChipStats(name, chipId, gamemode) {
   // Updates what a chip does when a dropdown is clicked
   newValue = name;
   console.log([newValue, chipId, gamemode]);
-  if (gamemode == "duels") {
-    updateElement(chipId, generateChipStats(allDuelsStats[newValue][0]), true);
-  } else if (gamemode == "bedwars") {
-    if (newValue == "overall") {
-      updateElement(chipId, generateChipStats(totalDreamModeStats), true);
-    } else {
-      console.log(newValue);
-      updateElement(chipId, generateChipStats(getBedWarsModeStats(newValue)), true);
-    }
-  } else if (gamemode == "skywars") {
-    updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
-  } else if (gamemode == "tntgames") {
-    updateElement(chipId, generateChipStats(allTNTWizardStats[newValue]), true);
-  } else if (gamemode == "arcade_zombies") {
-    updateElement(chipId, generateChipStats(getZombiesStats(newValue)), true);
-  } else if (gamemode == "arcade_seasonal") {
-    updateElement(chipId, generateChipStats(getArcadeSeasonalStats(newValue)), true);
-  } else if (gamemode == "arcade_hide_and_seek") {
-    updateElement(chipId, generateChipStats(getArcadeHideAndSeekStats(newValue)), true);
-  } else if (gamemode == "arena") {
-    updateElement(chipId, generateChipStats(getArenaBrawlStats(newValue)), true);
-  } else if (gamemode == "quake") {
-    updateElement(chipId, generateChipStats(getQuakeStats(newValue)), true);
-  } else if (gamemode == "vampirez") {
-    updateElement(chipId, generateChipStats(getVampireZStats(newValue)), true);
-  } else if (gamemode == "tkr") {
-    updateElement(chipId, generateChipStats(getTKRStats(newValue)), true);
-  } else if (gamemode == "copsandcrims_guns") {
-    updateElement(chipId, generateChipStats(getCopsAndCrimsGunStats(newValue)), true);
-  } else if (gamemode == "woolgames") {
-    updateElement(chipId, generateChipStats(getWoolWarsStats(newValue)), true);
-  } else if (gamemode == "blitz") {
-    updateElement(chipId, generateChipStats(getBlitzKitsStats(newValue)), true);
-  } else if (gamemode == "megawalls") {
-    if (chipId == "megawalls-classes") {
-      updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue)), true);
-    } else if (chipId == "megawalls-standard") {
-      updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, "standard")), true);
-    } else if (chipId == "megawalls-faceoff") {
-      updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, "face_off")), true);
-    }
-  } else if (gamemode == "warlords") {
-    updateElement(chipId, generateChipStats(getWarlordsClassStats(newValue)), true);
-  } else if (gamemode == "uhc") {
-    updateElement(chipId, generateChipStats(getUHCModeStats(newValue)), true);
-  } else if (gamemode == "speeduhc") {
-    updateElement(chipId, generateChipStats(getSpeedUHCModeStats(newValue)), true);
-  } else if (gamemode == "smashheroes") {
-    if (chipId == "smashheroes-classes") {
-      updateElement(chipId, generateChipStats(getSmashStats("class", newValue)), true);
-    } else if (chipId == "smashheroes-solo") {
-      updateElement(chipId, generateChipStats(getSmashStats("normal", newValue)), true);
-    } else if (chipId == "smashheroes-team") {
-      updateElement(chipId, generateChipStats(getSmashStats("teams", newValue)), true);
-    } else if (chipId == "smashheroes-2v2") {
-      updateElement(chipId, generateChipStats(getSmashStats("2v2", newValue)), true);
-    } else if (chipId == "smashheroes-1v1") {
-      updateElement(chipId, generateChipStats(getSmashStats("one_v_one", newValue)), true);
-    } else if (chipId == "smashheroes-friend") {
-      updateElement(chipId, generateChipStats(getSmashStats("friend", newValue)), true);
-    }
-  } else if (gamemode == "fishing") {
-    if (chipId == "fishing-specialfish") {
-      updateElement(chipId, generateChipStats(getSpecialFishStats(newValue)), true);
-    } else if (chipId == "fishing-zones") {
-      updateElement(chipId, generateChipStats(getFishingZoneStats(newValue)), true);
-    } else if (chipId == "fishing-catches") {
-      updateElement(chipId, generateChipStats(getFishingCatches(newValue)), true);
-    } else if (chipId == "fishing-seasons") {
-      const fishingSeason = fishingParticipatedSeasons.find(item => item.id === newValue);
-      
-      if (fishingSeason) {
-        updateElement(chipId, generateChipStats(formatFishingParticipatedSeason(fishingSeason)), true);
+
+  switch (gamemode) {
+    case "duels":
+      updateElement(chipId, generateChipStats(allDuelsStats[newValue][0]), true);
+      break;
+    
+    case "bedwars":
+      if (newValue == "overall") {
+        updateElement(chipId, generateChipStats(totalDreamModeStats), true);
+      } else {
+        console.log(newValue);
+        updateElement(chipId, generateChipStats(getBedWarsModeStats(newValue)), true);
       }
-    }
-  } else if (gamemode == "wizard") {
-    cardWizardSettings[chipId] = newValue;
-  } else if (gamemode == "settings") {
-    settings[chipId] = newValue;
-    updateSetting(chipId, newValue);
-    if (chipId == "language") {
-      document.getElementById("settings-language-reload").style.display = "block";
-    }
+      break;
+    
+    case "skywars":
+      updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
+      break;
+    
+    case "tntgames":
+      updateElement(chipId, generateChipStats(allTNTWizardStats[newValue]), true);
+      break;
+    
+    case "arcade_zombies":
+      updateElement(chipId, generateChipStats(getZombiesStats(newValue)), true);
+      break;
+    
+    case "arcade_seasonal":
+      updateElement(chipId, generateChipStats(getArcadeSeasonalStats(newValue)), true);
+      break;
+
+    case "arcade_hide_and_seek":
+      updateElement(chipId, generateChipStats(getArcadeHideAndSeekStats(newValue)), true);
+      break;
+    
+    case "arena":
+      updateElement(chipId, generateChipStats(getArenaBrawlStats(newValue)), true);
+      break;
+    
+    case "quake":
+      updateElement(chipId, generateChipStats(getQuakeStats(newValue)), true);
+      break;
+
+    case "vampirez":
+      updateElement(chipId, generateChipStats(getVampireZStats(newValue)), true);
+      break;
+
+    case "tkr":
+      updateElement(chipId, generateChipStats(getTKRStats(newValue)), true);
+      break;
+
+    case "copsandcrims_guns":
+      updateElement(chipId, generateChipStats(getCopsAndCrimsGunStats(newValue)), true);
+      break;
+
+    case "woolgames":
+      updateElement(chipId, generateChipStats(getWoolWarsStats(newValue)), true);
+      break;
+
+    case "blitz":
+      updateElement(chipId, generateChipStats(getBlitzKitsStats(newValue)), true);
+      break;
+
+    case "megawalls":
+      if (chipId == 'megawalls-classes') {
+        updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue)), true);
+      } else if (chipId == 'megawalls-standard') {
+        updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, 'standard')), true);
+      } else if (chipId == 'megawalls-faceoff') {
+        updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, 'face_off')), true);
+      }
+      break;
+
+    case "warlords":
+      updateElement(chipId, generateChipStats(getWarlordsClassStats(newValue)), true);
+      break;
+
+    case "uhc":
+      updateElement(chipId, generateChipStats(getUHCModeStats(newValue)), true);
+      break;
+
+    case "speeduhc":
+      updateElement(chipId, generateChipStats(getSpeedUHCModeStats(newValue)), true);
+      break;
+
+    case "smashheroes":
+      if (chipId == 'smashheroes-classes') {
+        updateElement(chipId, generateChipStats(getSmashStats('class', newValue)), true);
+      } else if (chipId == 'smashheroes-solo') {
+        updateElement(chipId, generateChipStats(getSmashStats('normal', newValue)), true);
+      } else if (chipId == 'smashheroes-team') {
+        updateElement(chipId, generateChipStats(getSmashStats('teams', newValue)), true);
+      } else if (chipId == 'smashheroes-2v2') {
+        updateElement(chipId, generateChipStats(getSmashStats('2v2', newValue)), true);
+      } else if (chipId == 'smashheroes-1v1') {
+        updateElement(chipId, generateChipStats(getSmashStats('one_v_one', newValue)), true);
+      } else if (chipId == 'smashheroes-friend') {
+        updateElement(chipId, generateChipStats(getSmashStats('friend', newValue)), true);
+      }
+      break;
+
+    case "fishing":
+      if (chipId == 'fishing-specialfish') {
+        updateElement(chipId, generateChipStats(getSpecialFishStats(newValue)), true);
+      } else if (chipId == 'fishing-zones') {
+        updateElement(chipId, generateChipStats(getFishingZoneStats(newValue)), true);
+      } else if (chipId == 'fishing-catches') {
+        updateElement(chipId, generateChipStats(getFishingCatches(newValue)), true);
+      } else if (chipId == 'fishing-seasons') {
+        const fishingSeason = fishingParticipatedSeasons.find(item => item.id === newValue);
+        if (fishingSeason) {
+          updateElement(chipId, generateChipStats(formatFishingParticipatedSeason(fishingSeason)), true);
+        }
+      }
+      break;
+
+    case "wizard":
+      cardWizardSettings[chipId] = newValue;
+      break;
+
+    case "settings":
+      settings[chipId] = newValue;
+      updateSetting(chipId, newValue);
+      if (chipId == 'language') {
+        document.getElementById('settings-language-reload').style.display = 'block';
+      }
+      break;
+
+    default:
+      console.warn(`Unknown gamemode ${gamemode}`);
+      break;
   }
 }
 
 setTimeout(function() {
-  console.log("%c                                               \r\n                 _           _     _ _         \r\n                | |         | |   (_) |        \r\n _ __   __ _  __| | ___  ___| |__  _| | _____  \r\n| \'_ \\ \/ _` |\/ _` |\/ _ \\\/ __| \'_ \\| | |\/ \/ _ \\ \r\n| | | | (_| | (_| |  __\/\\__ \\ | | | |   < (_) |\r\n|_| |_|\\__,_|\\__,_|\\___||___\/_| |_|_|_|\\_\\___\/ \r\n                                               \r\n  The simple, beautiful Hypixel stats tracker  \r\n                                               ", "background: #2d0614; color: #f6acd6;");
-}, 5000);
+  let text = "                                               \r\n                 _           _     _ _         \r\n                | |         | |   (_) |        \r\n _ __   __ _  __| | ___  ___| |__  _| | _____  \r\n| \'_ \\ \/ _` |\/ _` |\/ _ \\\/ __| \'_ \\| | |\/ \/ _ \\ \r\n| | | | (_| | (_| |  __\/\\__ \\ | | | |   < (_) |\r\n|_| |_|\\__,_|\\__,_|\\___||___\/_| |_|_|_|\\_\\___\/ \r\n                                               \r\n  The simple, beautiful Hypixel stats tracker  \r\n                                               ";
+  const colors = ["#2D0614", "#2D0514", "#2D0514", "#2D0515", "#2D0515", "#2D0516", "#2D0516", "#2D0517", "#2D0517", "#2D0518", "#2D0518", "#2D0519", "#2D0519", "#2D0519", "#2D051A", "#2D051A", "#2D051B", "#2D051B", "#2D051C", "#2D051C", "#2D051D", "#2D051D", "#2D051E", "#2D051E", "#2D051E", "#2D051F", "#2D051F", "#2D0520", "#2D0520", "#2D0521", "#2D0521", "#2D0522", "#2D0522", "#2D0523", "#2D0523", "#2D0523", "#2D0524", "#2D0524", "#2D0525", "#2D0525", "#2D0526", "#2D0526", "#2D0527", "#2D0527", "#2D0528", "#2D0528", "#2D0528", "#2D0529", "#2D0529", "#2D052A", "#2D052A", "#2D052B", "#2D052B", "#2D052C", "#2D052C", "#2D052D"];
+
+  let styleText = '';
+  let styleInstructions = [];
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+
+    let row = Math.floor(i / 49);
+    let column = i % 49;
+
+    const color = colors[row + column];
+    styleText += `%c${char}`;
+    styleInstructions.push(`color: #f6acd6; background-color: ${color};`);
+  }
+
+  console.log(styleText, ...styleInstructions);
+}, 4000);
 
 // TODO use swished statemetn

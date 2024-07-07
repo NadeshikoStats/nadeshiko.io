@@ -18,14 +18,11 @@ function checkWebPSupport(feature) {
 
 checkWebPSupport('alpha').then(isSupported => {
   if(isSupported) {
-    console.log("WebP supported!");
     imageFileType = "webp";
     document.getElementById("supports-webp").innerText = "Supports WEBP ";
   } else {
-    console.log("WebP not supported :(");
     imageFileType = "png";
     document.getElementById("supports-webp").innerText = "Outdated browser ";
   }
-  console.log(imageFileType + " " + performance.now());
   beginGeneration("checkWebPSupport");
 });

@@ -181,7 +181,6 @@ function generateNetwork() {
       if(headerObjectTypes["special"].includes(game.id)) {
         // TODO
       } else {
-        console.log("Adding " + game.id + " to quick mode games");
         if (game.id != "network") {
           const spanTooltip = document.createElement("span");
           spanTooltip.className = "tooltip";
@@ -3992,10 +3991,8 @@ function addRecentPlayer(player, colorCode = 7) {
     }
 
     if (foundDuplicate != -1) {
-      console.log("Removing duplicate player");
       recentPlayers.splice(foundDuplicate, 1);
     }
-    console.log("Adding new player");
     recentPlayers.unshift(newRecentPlayer);
     if (recentPlayers.length > 5) {
       recentPlayers.pop();
