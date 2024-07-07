@@ -178,35 +178,27 @@ function generateNetwork() {
     };
 
     quickModeGames.forEach((game) => {
-      console.log("Adding " + game.id + " to quick mode games");
-      if (game.id != "network") {
-        const spanTooltip = document.createElement("span");
-        spanTooltip.className = "tooltip";
+      if(headerObjectTypes["special"].includes(game.id)) {
+        // TODO
+      } else {
+        console.log("Adding " + game.id + " to quick mode games");
+        if (game.id != "network") {
+          const spanTooltip = document.createElement("span");
+          spanTooltip.className = "tooltip";
 
-        const img = document.createElement("img");
-        img.src = `/img/icon/hypixel/${game.id}.webp`;
-        img.alt = "";
-        img.className = "quick-mode-game";
+          const img = document.createElement("img");
+          img.src = `/img/icon/hypixel/${game.id}.webp`;
+          img.alt = "";
+          img.className = "quick-mode-game";
 
-        if(headerObjectTypes["special"].includes(game.id)) {
-          /*if (game.id == "guild") {
-            img.onclick = function () {
-              switchStats("guild");
-            };
-          } TODO */
-        } else {
-          img.onclick = function () {
-            switchStats(game.id);
-          };
+          const spanText = document.createElement("span");
+          spanText.className = "tooltiptext";
+          spanText.textContent = game.name;
+
+          spanTooltip.appendChild(img);
+          spanTooltip.appendChild(spanText);
+          quickModeGameContainer.appendChild(spanTooltip);
         }
-
-        const spanText = document.createElement("span");
-        spanText.className = "tooltiptext";
-        spanText.textContent = game.name;
-
-        spanTooltip.appendChild(img);
-        spanTooltip.appendChild(spanText);
-        quickModeGameContainer.appendChild(spanTooltip);
       }
     });
 
