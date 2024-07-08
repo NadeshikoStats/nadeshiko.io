@@ -59,7 +59,9 @@ function generateNetwork() {
       updateElement("last-login-ago-full", longDateFormat(lastLoginDate));
     }
 
-    if (playerData["status"]["online"]) {
+    let playerStatus = playerData["status"] || {};
+
+    if (playerStatus["online"]) {
       // Checks player's online status
       updateElement("online-status", getTranslation("player.currently_online"));
       document.getElementById("online-status").style.color = "var(--mca)";

@@ -7,6 +7,7 @@
     --default: #00000080;
     --accent: var(--nadeshiko-dark);
     --accent-network: #bc6ff8;
+    --accent-guild: #4fd334;
     
     --accent-tntgames: #c55757;
     --accent-bedwars: #ff835c;
@@ -1687,6 +1688,10 @@
 
   .guild-players a:hover * {
     color: var(--accent);
+  }
+
+  .guild-players .chart-container {
+    height: 125px;
   }
 
   .deactivated {

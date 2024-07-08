@@ -94,7 +94,12 @@ function guildPlayerObjectToRow(guildObj) {
         <p><span>${getTranslation("statistics.ranks_gifted")}</span> <span class="statistic" data-i="ranks-gifted"></span></p>
       </div>
 
-      <div class="general-stats flex-item" data-i="guild-stats"></div>
+      <div class="general-stats flex-item" data-i="guild-stats">
+        <p class="stat-title super-subtitle">${getTranslation("statistics.guild_experience")}</p>
+        <div class="chart-container">
+          <canvas class="chart" style="max-height: 100%"></canvas>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -117,6 +122,11 @@ function guildPlayerObjectToRow(guildObj) {
 
   //console.warn("uuid: " + guildObj["uuid"]);
   //console.log(playerProfile);
+  guildUUIDs.push(guildObj["uuid"]);
+
+  const myChartCanvas = newRow.querySelector('.chart');
+  myChartCanvas.id = "chart-" + guildObj["uuid"];
+  console.warn(myChartCanvas.id);
 
   if(playerProfile["tagged_name"] == undefined || playerProfile["tagged_name"] == null) {
     updateTag("name", `<i class="m4">${guildObj["uuid"]}</i>`, true);
@@ -237,6 +247,7 @@ function compareAttributes(attribute, reverse = false) {
 
 let currentSort;
 let currentReverse = false;
+let guildUUIDs = [];
 
  /* 
   * Sorts the guild data by a certain attribute
@@ -278,5 +289,42 @@ function sortData(attribute = "priority", reverse = false) {
 
   guildPlayerRowsArray.forEach((element) => {
     guildPlayers.appendChild(element);
+  });
+}
+
+
+Chart.defaults.font.family = "Inter, sans-serif";
+
+function generateChart(uuid) {
+  let memberExpHistory = guildStats["members"].find(member => member["uuid"] == uuid)["expHistory"];
+
+  let memberExpDates = Object.keys(memberExpHistory);
+  let memberExpValues = Object.values(memberExpHistory);
+
+  memberExpDates = memberExpDates.reverse();
+  memberExpValues = memberExpValues.reverse();
+
+  new Chart(("chart-" + uuid), {
+    type: "bar",
+    data: {
+      labels: memberExpDates,
+      datasets: [{
+        backgroundColor: "#f6acd6",
+        data: memberExpValues
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false
+        },
+      }
+    }
+  });
+}
+
+function generateCharts() {
+  guildUUIDs.forEach((uuid) => {
+    generateChart(uuid);
   });
 }

@@ -52,6 +52,7 @@
           });
 
           sortData("priority");
+          generateCharts();
       }
     } 
   </script>
@@ -59,12 +60,13 @@
   <script src="/external/language.js"></script>
   <script src="/external/purify.min.js"></script>
   <script src="/external/minecrafttext.js"></script>
+  <script src="/external/chart.min.js"></script>
 
   <script src="/external/guilds.js"></script>
 </head>
 
 <body>
-  <div class="background" id="background" style="background-image: url('/img/games/home.webp')"></div>
+  <div class="background" id="background" style="background-image: url('/img/games/guild/lobby.webp')"></div>
   <div class="background-filter"></div>
 
   <div class="nadeshiko-wrapper">
@@ -109,6 +111,7 @@
   <script>
     let guildStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(guildData)) %>"));
 
+    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-guild'));
     generateGeneralGuildStats();
   </script>
 </body>

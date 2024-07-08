@@ -747,7 +747,9 @@ function getMetaDescription(game, playerData) {
 • 🧶 Wool: ${checkAndFormat(woolGamesStats["coins"])}`;
   default:
     let playerOnline;
-    if(playerData["status"]["online"]) {
+    let playerStatus = playerData["status"] || {};
+
+    if(playerStatus["online"]) {
       playerOnline = "🟢 Online!";
     } else {
       playerOnline = "🔴 Offline";

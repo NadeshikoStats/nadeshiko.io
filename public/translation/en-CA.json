@@ -1019,7 +1019,8 @@
 
     "created": "Created",
     "player": "Player",
-    "rank": "Rank"
+    "rank": "Rank",
+    "guild_experience": "Guild Experience"
   },
   "times": {
     "time_ago": "(%%time%% ago)",
