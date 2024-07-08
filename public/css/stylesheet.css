@@ -1209,7 +1209,7 @@
     z-index: 6;
     bottom: 100%;
     left: 50%;
-    margin-inline-start: -90px;
+    margin-left: -90px;
     opacity: 0;
     transform: translateY(-15px);
     transition-duration: var(--transition-small);
