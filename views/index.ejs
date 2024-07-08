@@ -54,7 +54,11 @@
           texts.unshift("Hypixel");
 
           if (Object.keys(computationError).length != 0) { // If there's an error, display it
-            document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors." + computationError["category"]), {"player": computationError["player"], "error": computationError["error"]});
+            if (computationError["page"] == "player") {
+              document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors." + computationError["category"]), {"player": computationError["player"], "error": computationError["error"]});
+            } else if (computationError["page"] == "guild") {
+              document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors.guild." + computationError["category"]), {"guild": computationError["guild"], "error": computationError["error"]});
+            }
           }
         }
       }

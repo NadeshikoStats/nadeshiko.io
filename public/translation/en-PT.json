@@ -79,7 +79,10 @@
     "errors": {
       "error": "TH' SHIP SUNK",
       "404": "There nah be a pirate named %%player%% on 'tis 'ere sea :(",
-      "computation": "%%player%%'s stats 'ave gone overboard (%%error%%)"
+      "computation": "%%player%%'s stats 'ave gone overboard (%%error%%)",
+      "guild": {
+        "computation": "Th' ship sunk while tryin' t' find guild wit' name %%guild%% (%%error%%)"
+      }
     }
   },
   "player": {
@@ -620,10 +623,10 @@
           "diamond": "Jewel",
           "enchanted_book": "Enchanted Book",
           "name_tag": "Name Tag",
-          "chainmail_chestplate": "Chainmail Chestplate",
+          "chainmail_chestplate": "Chestplate o' Chain",
           "blaze_rod": "Blaze Rod",
-          "eye_of_ender": "Eye of Ender",
-          "magma_cream": "Magma Cream",
+          "eye_of_ender": "Eye o' Ender",
+          "magma_cream": "Flamin' Cream",
           "blaze_powder": "Blaze Powder",
           "molten_gold": "Molten Gold",
           "gold_sword": "Cutlass o' Gold",
@@ -636,7 +639,7 @@
           "nyx": "Shanty o' th' Siren",
           "aphrodite": "Pearl o' Salacia",
           "zeus": "Seaweed o' Pontus",
-          "hades": "Wrath of Hades",
+          "hades": "Fury o' Hades",
           "archimedes": "Puppet o' Daedalus",
           "weight_formatted": "%%caught%% <span class=\"w400\">(%%weight%% kg)</span>"
         },
@@ -684,7 +687,7 @@
           "regular_fish": "Common Cod",
           "frozen_meal": "Glacial Grub",
           "festive_lights": "Festive Lights",
-          "festival_pufferfish_hat": "Festive Pufferfish Hat",
+          "festival_pufferfish_hat": "Festive Tricorne o' Blowfish",
           "mahi_mahi": "Dolphinfish"
         },
         "seasons": {
@@ -693,8 +696,8 @@
           "halloween": "Halloween",
           "christmas": "Holidays",
           "easter": "Easter",
-          "permanent": "Permanent",
-          "no_seasons": "No Seasons"
+          "permanent": "All Yer Life",
+          "no_seasons": "There nah be seasons"
         }
       }
     }
@@ -905,9 +908,10 @@
     "treasure_caught": "Treasure Reeled In",
     "mythical_fish_caught": "Mythical Fish Reeled In",
     "special_fish_caught": "Special Fish Reeled In",
-    "created": "Created",
-    "player": "Player",
-    "rank": "Rank"
+    "created": "Built",
+    "player": "Pirate",
+    "rank": "Rank",
+    "guild_experience": "Guild Experience"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

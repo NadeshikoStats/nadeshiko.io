@@ -79,7 +79,10 @@
     "errors": {
       "error": "ERROR",
       "404": "No se encontró ningún jugador con el nombre %%player%% :(",
-      "computation": "No se encontraron las estadísticas del jugador %%player%% (%%error%%)"
+      "computation": "No se encontraron las estadísticas del jugador %%player%% (%%error%%)",
+      "guild": {
+        "computation": "No se encontró el guild con el nombre %%guild%% (%%error%%)"
+      }
     }
   },
   "player": {
@@ -907,7 +910,8 @@
     "special_fish_caught": "Peces especiales atrapados",
     "created": "Creado",
     "player": "Jugador",
-    "rank": "Rango"
+    "rank": "Rango",
+    "guild_experience": "Experiencia del Guild"
   },
   "times": {
     "time_ago": "(hace %%time%%)",

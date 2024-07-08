@@ -108,7 +108,10 @@
     "errors": {
       "error": "ERROR",
       "404": "No player by the name of %%player%% was found :(",
-      "computation": "Could not find stats of player %%player%% (%%error%%)"
+      "computation": "Could not find stats of player %%player%% (%%error%%)",
+      "guild": {
+        "computation": "Could not find guild with name %%guild%% (%%error%%)"
+      }
     }
   },
   "player": {

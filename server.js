@@ -862,6 +862,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           message: `No player by the name of ${name} was found :(`,
           player: name,
           category: "404",
+          page: "player"
         };
       } else {
         computationError = {
@@ -869,6 +870,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           player: name,
           error: error["message"],
           category: "computation",
+          "page": "player"
         };
         console.error("Fetching player data failed! → ", error);
       }
@@ -928,21 +930,14 @@ app.get('/player/:name/:game?', async (req, res) => {
         res.render('guild', { name, guildData, metaDescription });
 
      } catch(error) {
-        if(error.response && error.response.status == 404) {
-          computationError = {
-            message: `No guild by the name of ${name} was found :(`,
-            player: name,
-            category: "404",
-          };
-        } else {
-          computationError = {
-            message: `Could not find guild name ${name} (${error})`,
-            player: name,
-            error: error["message"],
-            category: "computation",
-          };
-          console.error("Fetching player data failed! → ", error);
-        }
+        computationError = {
+          message: `Could not find guild with name ${name} (${error})`,
+          player: name,
+          error: error["message"],
+          category: "computation",
+          page: "guild"
+        };
+        console.error("Fetching guild data failed! → ", error);
         res.render('index', { computationError });
      }
 
