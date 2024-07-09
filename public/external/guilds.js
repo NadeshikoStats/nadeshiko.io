@@ -9,17 +9,6 @@ function getRankPriorities() {
   }
 }
 
-function deformatName(text) {
-  if(text == undefined || text == null) {
-    return text;
-  }
-
-  return text
-      .replace(/§[0-9a-fk-or]\[.*?\]/g, '')
-      .replace(/§[0-9a-fk-or]/g, '')
-      .trim();
-}
-
 function generateGeneralGuildStats() {
   updateElement("guild-name", guildStats["name"]);
   updateElement("guild-tag", generateMinecraftText(guildStats["tag"]), true);

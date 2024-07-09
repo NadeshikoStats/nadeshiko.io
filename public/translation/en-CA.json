@@ -135,6 +135,13 @@
       "api_disabled": "This player has their stats API disabled! Stats may be inaccurate or missing."
     }
   },
+  "achievements": {
+    "achievements": "Achievements",
+    "maxed_game": "Max %game%",
+    "easiest_uncompleted": "Easiest Uncompleted",
+    "closest_tiers": "Closest Tiers",
+    "recently_completed": "Recently Completed"
+  },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
   },

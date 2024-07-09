@@ -1062,7 +1062,6 @@
   var playerData;
   let playerName = "<%= name %>";
   var currentGamemode = "<%= game %>";
-  var imageFileType;
 
   let validGames = ["network", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "classic", "megawalls", "copsandcrims", "uhc", "blitz", "woolgames", "warlords", "smashheroes", "fishing"];
 
@@ -1242,19 +1241,6 @@
  }
   });
 
-  function cuteRank(text, style = 0) {
-    if(style == 0) return generateMinecraftText(text);
-    else {
-      var playerRankColorRegexMatch = (text.match(/§([0-9a-f])/));
-      var playerRankColor = (playerRankColorRegexMatch == null) ? "7" : (playerRankColorRegexMatch)[1];
-
-      if(playerRankColorRegexMatch != null) { var playerRankRest = (text.substring(2)).replace(/\[|\]/g, "") }
-      else { var playerRankRest = text } // Emergency fallback if no section code is detected
-
-      return([playerRankColor, generateMinecraftText(playerRankRest)]);
-    }
-  }
-
 
 function isInputField(element) { // Determines if the user's actively in an input field (so Quick Mode and easter eggs don't get messed up)
   return (
@@ -1337,14 +1323,6 @@ var skinViewer;
       
       generateNetwork();
       checkMobileMode(event, true);
-  }
-
-  function ordinal(num) { // Returns the ordinal number format of an integer (3 → 3rd)
-    let ordinals = ["st", "nd", "rd"];
-    for(a = 0; a < ordinals.length; a++) {
-      if(num % 100 !== (11 + a) && num % 10 == (1 + a)) return (num + ordinals[a])
-    }
-    return num + "th";
   }
 
   /**

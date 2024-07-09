@@ -777,7 +777,7 @@ function getMetaDescription(game, playerData) {
       const overallJunkCaught = getTotalCaught(fishingStats, "junk");
       const overallTreasureCaught = getTotalCaught(fishingStats, "treasure");
 
-      const orbs = ["selene", "helios", "nyx", "zeus", "aphrodite", "archimedes", "hades"];
+      const orbs = ["helios", "selene", "nyx", "aphrodite", "zeus", "archimedes", "hades"];
 
   function getMythicalFishCount(orb) {
     const path = ["orbs", orb];
@@ -812,6 +812,9 @@ function getMetaDescription(game, playerData) {
 
   case 'guild': {
     return `guild stast!!!!!!!`;
+  }
+  case 'achievements': {
+    return `achievements stast!!!!!!!`;
   }
 }
 }}
@@ -938,6 +941,39 @@ app.get('/player/:name/:game?', async (req, res) => {
           page: "guild"
         };
         console.error("Fetching guild data failed! → ", error);
+        res.render('index', { computationError });
+     }
+
+  });
+
+  app.get('/achievements/:name?', async (req, res) => {
+    const name = req.params.name;
+
+    var computationError = "";
+  
+    try {
+  
+        const response = await axios.get(`http://localhost:2000/achievements?name=${name}`);
+        let achievementsData = response.data;
+        
+        let metaDescription;
+        if (achievementsData) { // If the guild data is available
+          metaDescription = getMetaDescription("achievements", achievementsData);
+        } else { // If the player data is not available, don't show a card and show a default description
+          metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+        }
+
+        res.render('achievements', { name, achievementsData, metaDescription });
+
+     } catch(error) {
+        computationError = {
+          message: `Could not find guild with name ${name} (${error})`,
+          player: name,
+          error: error["message"],
+          category: "computation",
+          page: "achievements"
+        };
+        console.error("Fetching achievements data failed! → ", error);
         res.render('index', { computationError });
      }
 

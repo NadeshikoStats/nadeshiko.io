@@ -1,4 +1,4 @@
-var languageJSON;
+var languageJSON, imageFileType;
 
 function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in the case of a missing value
   if (text === null || text === undefined || Number.isNaN(text)) return undefinedValue;
@@ -13,6 +13,28 @@ function calculateRatio(numerator, denominator, digits = 2) {
 function checkAndFormat(number, digits = 0) {
   // Ensures undefined values become zero and format to user's locale
   return locale(und(number), digits);
+}
+
+function deformatName(text) {
+  if(text == undefined || text == null) {
+    return text;
+  }
+
+  return text
+      .replace(/§[0-9a-fk-or]\[.*?\]/g, '')
+      .replace(/§[0-9a-fk-or]/g, '')
+      .trim();
+}
+
+
+function getValue(object, valueArray) {
+  for (let i = 0; i < valueArray.length; i++) {
+    if (object == undefined) {
+      return undefined;
+    }
+    object = object[valueArray[i]];
+  }
+  return object;
 }
 
 function updateElement(id, value, useInnerHTML = false) {
@@ -321,6 +343,19 @@ function updateChipStats(name, chipId, gamemode) {
     default:
       console.warn(`Unknown gamemode ${gamemode}`);
       break;
+  }
+}
+
+function cuteRank(text, style = 0) {
+  if(style == 0) return generateMinecraftText(text);
+  else {
+    var playerRankColorRegexMatch = (text.match(/§([0-9a-f])/));
+    var playerRankColor = (playerRankColorRegexMatch == null) ? "7" : (playerRankColorRegexMatch)[1];
+
+    if(playerRankColorRegexMatch != null) { var playerRankRest = (text.substring(2)).replace(/\[|\]/g, "") }
+    else { var playerRankRest = text } // Emergency fallback if no section code is detected
+
+    return([playerRankColor, generateMinecraftText(playerRankRest)]);
   }
 }
 

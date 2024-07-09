@@ -3536,7 +3536,7 @@ function generateFishing() {
   const overallJunkCaught = getTotalCaught(fishingStats, "junk");
   const overallTreasureCaught = getTotalCaught(fishingStats, "treasure");
   
-  const orbs = ["selene", "helios", "nyx", "zeus", "aphrodite", "archimedes", "hades"];
+  const orbs = ["helios", "selene", "nyx", "aphrodite", "zeus", "archimedes", "hades"];
 
   function getMythicalFishCount(orb) {
     const path = ["orbs", orb];
@@ -3604,7 +3604,7 @@ function generateFishing() {
     let mythicalFishStats = fishingStats["orbs"] || {};
     let mythicalFishWeight = mythicalFishStats["weight"] || {};
 
-    let mythicalFishArray = ["selene", "helios", "nyx", "zeus", "aphrodite", "archimedes", "hades"];
+    let mythicalFishArray = ["helios", "selene", "nyx", "aphrodite", "zeus", "archimedes", "hades"];
 
     let mythicalFishStatsArray = [];
 

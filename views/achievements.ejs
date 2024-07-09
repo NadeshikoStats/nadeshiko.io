@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/stylesheet.css">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
+
+  <meta name="theme-color" content="#f6adc6">
+  <meta property="og:site_name" content="nadeshiko.io">
+
+  <% if (achievementsData) { %>
+    <title><%- achievementsData["name"] %> | nadeshiko.io</title>
+    <% } else { %>
+    <title>Achievements | nadeshiko.io</title> <!-- Fallback in case no stats -->
+    <% } %>
+    <meta name="description" content="<%= metaDescription %>">
+
+  <script>
+    let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
+
+    /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+    * This is used to ensure that all tasks are completed before the page is generated.
+    * @param {string} task - The task that was completed 
+    */
+    function beginGeneration(task) {
+      if(tasksBeforeLoading.includes(task)) {
+        tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+      }
+
+      console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+
+      if(tasksBeforeLoading.length == 0) {
+        updateTranslations();
+      }
+    } 
+  </script>
+  <script src="/external/master.js"></script>
+  <script src="/external/language.js"></script>
+  <script src="/external/purify.min.js"></script>
+  <script src="/external/minecrafttext.js"></script>
+  <script src="/external/webptest.js"></script>
+
+  <script src="/external/achievements.js"></script>
+</head>
+
+<body>
+  <div class="background" id="background1"></div>
+  <div class="background" id="background2"></div>
+  <div class="background-filter"></div>
+
+  <div class="nadeshiko-wrapper">
+    <header>
+      <%- include('partials/header') %>
+      <div class="header2"> <!-- secondary header for game bar -->
+        <div class="header-left">
+          <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
+        </div>
+        <div class="header-right" id="game-buttons">
+          <p class="header-game" onclick="switchStats('network')" id="button-network" data-t="games.network">Network</p>
+          <p class="header-game" onclick="switchStats('bedwars')" id="button-bedwars" data-t="games.bedwars">Bed Wars</p>
+          <p class="header-game" onclick="switchStats('duels')" id="button-duels" data-t="games.duels">Duels</p>
+          <p class="header-game" onclick="switchStats('skywars')" id="button-skywars" data-t="games.skywars">SkyWars</p>
+          <div class="dropdown">
+            <p class="header-down dropdown-button">
+              <img class="dropdown-arrow" src="/img/svg/arrow.svg" alt="More games">
+            </p>
+              <div class="dropdown-content dropdown-games unloaded">
+                <span class="mobile-exclusive" id="game-switch-mobile">
+                </span>
+                <hr class="game-switch-hr">
+                <span id="game-switch">
+                </span>
+                <hr class="dropdown-hr">
+                <span id="other-switch">
+                </span>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </header>   
+    
+    <div class="games" id="games">
+      <div class="flex-container unloaded minigame-flex-container" id="flex-container-overall">
+        <!-- overall achievements -->
+        <div class="chip-container">
+          <div class="chip-small but-big">
+            <div class="chip-small-background-filter"></div>
+            <div class="flex-vertical">
+              <span class="player-name">
+                <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <img class="special icon smallicon" id="special" alt="User badge">
+              </span>
+              <span id="card-uuid"></span>
+            </div>
+            <div class="chip-small-container">
+              <div class="flex-two-item align-top flippable margin10">
+                <div class="card-big-stats">
+
+                      <span data-t="statistics.achievement_points">Achievement Points</span> <span class="statistic" id="overall-achievement-points"><span class="mc">Unknown</span></span>
+                      <div class="progress-bar">
+                        <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
+                        <div class="progress" style="width: 0%;" id="xp-progress-bar"></div>
+                      </div>
+
+                      <span data-t="achievements.achievements">Achievements</span> <span class="statistic" id="overall-achievements"><span class="mc">Unknown</span></span>
+
+                      <div class="progress-bar">
+                        <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
+                        <div class="progress" style="width: 0%;" id="xp-progress-bar"></div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-two-item chip-container-duo-parent">
+            <div id="overall-chips-1" class="chip-container-duo"></div>
+            <div id="overall-chips-2" class="chip-container-duo"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="quick-mode hidden pushdown" id="quick-mode">
+      <section class="player-card" style="align-content: center;">
+        <p class="title-text margin-top-bottom"><span data-t="player.quick_mode.title">Quick Mode</span> <kbd data-t="player.quick_mode.key">SHIFT</kbd></p>
+        <p class="subtitle-text" id="quick-mode-text">Click an icon to instantly go to that game's page for <span id="quick-mode-username">%%player%%</span>.</p>
+        <p class="flex-quick-mode margin-top-bottom" id="quick-mode-games"></p>
+      </section>
+    </div>
+
+    
+    <footer>
+      <%- include('partials/footer') %>
+    </footer>
+  </div>
+
+  <script>
+    let achievementsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(achievementsData)) %>"));
+    let validGames = ["overall", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "turbokartracers", "arenabrawl", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holidays", "easter", "halloween", "summer"];
+    let currentGamemode = "overall";
+
+
+    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-guild'));
+
+      /**
+   * Changes the current gamemode (background, highlighted button, etc.) to the specified gamemode
+   * @param {string} gamemode The gamemode to switch to
+   */
+  function switchStats(gamemode) {
+    // if not in validGames 
+    if (!validGames.includes(gamemode)) {
+      console.error(`Invalid game mode "${gamemode}"!`);
+      return;
+    }
+      gamesWithEasilyClickableButtons = ["network", "bedwars", "skywars", "duels"];
+    //if(gamemode != currentGamemode) {
+      if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
+        document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
+      }
+      document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");      
+      currentGamemode = gamemode;
+
+      if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
+        document.getElementById("button-" + currentGamemode).classList.add("highlighted");
+      }
+      document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+      document.getElementById("flex-container-" + currentGamemode).style.display = "flex";
+      document.body.scrollTop; // Forces a DOM reflow to allow the transition to work
+      document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
+      
+
+        setBackground(currentGamemode);
+
+      // Change the URL to reflect the current gamemode
+      if (history.replaceState && achievementsStats != undefined) {
+        //window.history.replaceState({}, null, `/achievements/PLEASE_ADD_PLAYER_NAME/${currentGamemode}`);
+      }
+    //}
+  }
+
+  function setBackground(gamemode) { // Allows a fade between two backgrounds. Is this totally inefficient? Probably
+    const bg1 = document.getElementById("background1");
+    const bg2 = document.getElementById("background2");
+    if (bg1.style.opacity == '1' || bg1.style.opacity === '') {
+      bg2.style.backgroundImage = `url('/img/games/${gamemode}/lobby.${imageFileType}')`;
+      bg1.style.opacity = '0';
+      bg2.style.opacity = '1';
+    } else {
+      bg1.style.backgroundImage = `url('/img/games/${gamemode}/lobby.${imageFileType}')`;
+      bg2.style.opacity = '0';
+      bg1.style.opacity = '1';
+    }
+  }
+
+  switchStats("overall");
+
+  let globalAchievements = getValue(achievementsStats, ["global", "achievements"]) || [];
+
+  let playerOneTimeAchievements = getValue(achievementsStats, ["player", "achievements_one_time"]) || [];
+  let playerTieredAchievements = getValue(achievementsStats, ["player", "achievements"]) || [];
+
+  generateNetwork();
+  </script>
+</body>
+</html>
