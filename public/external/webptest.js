@@ -19,10 +19,14 @@ function checkWebPSupport(feature) {
 checkWebPSupport('alpha').then(isSupported => {
   if(isSupported) {
     imageFileType = "webp";
-    document.getElementById("supports-webp").innerText = "Supports WEBP ";
+    if (document.getElementById("supports-webp")) {
+      document.getElementById("supports-webp").innerText = "Supports WEBP ";
+    }
   } else {
     imageFileType = "png";
-    document.getElementById("supports-webp").innerText = "Outdated browser ";
+    if (document.getElementById("supports-webp")) {
+      document.getElementById("supports-webp").innerText = "Outdated browser ";
+    }
   }
   beginGeneration("checkWebPSupport");
 });

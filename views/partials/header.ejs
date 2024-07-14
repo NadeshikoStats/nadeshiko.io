@@ -21,7 +21,6 @@
 </div>
 <div id="modal-card-wizard" class="modal unloaded">
   <div class="about" id="card-wizard-ui">
-    <p id="modal-card-wizard-close">&times;</p>
     <p class="about-title" data-t="header.cards.title">Cards</p>
     <p class="stat-subtitle">
       <span data-t="header.cards.description_0">Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!</span>
@@ -392,12 +391,6 @@
       cardWizardExpanded = false;
     }
   }
-
-  document.getElementById("modal-card-wizard-close").onclick = function () {
-    document.getElementById("modal-card-wizard").classList.add("unloaded");
-    document.getElementById("button-card-wizard").classList.remove("selected");
-    cardWizardExpanded = false;
-  };
 
   function showAbout() {
     if (!aboutExpanded) {

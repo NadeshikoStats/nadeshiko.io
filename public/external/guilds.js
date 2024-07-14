@@ -101,14 +101,6 @@ function guildPlayerObjectToRow(guildObj) {
 
   let playerProfile = guildObj["profile"] || {};
 
-  function updateTag(dataI, value, useHTML = false) {
-    let element = newRow.querySelector(`[data-i=${dataI}]`);
-    element.innerText = value;
-    if (useHTML) {
-      element.innerHTML = value;
-    }
-  }
-
   //console.warn("uuid: " + guildObj["uuid"]);
   //console.log(playerProfile);
   guildUUIDs.push(guildObj["uuid"]);
@@ -118,29 +110,29 @@ function guildPlayerObjectToRow(guildObj) {
   console.warn(myChartCanvas.id);
 
   if(playerProfile["tagged_name"] == undefined || playerProfile["tagged_name"] == null) {
-    updateTag("name", `<i class="m4">${guildObj["uuid"]}</i>`, true);
+    updateTag(newRow, "name", `<i class="m4">${guildObj["uuid"]}</i>`, true);
   } else {
-    updateTag("name", generateMinecraftText(playerProfile["tagged_name"]), true);
+    updateTag(newRow, "name", generateMinecraftText(playerProfile["tagged_name"]), true);
   }
   newRow.querySelector(`[data-i="name"]`).href = `/player/${guildObj["uuid"]}`;
   
   newRow.querySelector(`[data-i="head"]`).src = `https://minotar.net/helm/${guildObj["uuid"]}/8.png`;
 
-  updateTag("rank", guildObj["rank"]);
+  updateTag(newRow, "rank", guildObj["rank"]);
   
   let joined = guildObj["joined"];
-  updateTag("joined", shortDateFormat(joined));
-  updateTag("joined-ago", relativeTime(joined));
-  updateTag("joined-ago-full", longDateFormat(joined));
+  updateTag(newRow, "joined", shortDateFormat(joined));
+  updateTag(newRow, "joined-ago", relativeTime(joined));
+  updateTag(newRow, "joined-ago-full", longDateFormat(joined));
 
-  updateTag("content-joined", shortDateFormat(joined));
-  updateTag("content-joined-ago", relativeTime(joined));
-  updateTag("content-joined-ago-full", longDateFormat(joined));
+  updateTag(newRow, "content-joined", shortDateFormat(joined));
+  updateTag(newRow, "content-joined-ago", relativeTime(joined));
+  updateTag(newRow, "content-joined-ago-full", longDateFormat(joined));
 
   let firstLoginDate = new Date(und(playerProfile["first_login"]))
-  updateTag("first-login", shortDateFormat(firstLoginDate));
-  updateTag("first-login-ago", relativeTime(firstLoginDate));
-  updateTag("first-login-ago-full", longDateFormat(firstLoginDate));
+  updateTag(newRow, "first-login", shortDateFormat(firstLoginDate));
+  updateTag(newRow, "first-login-ago", relativeTime(firstLoginDate));
+  updateTag(newRow, "first-login-ago-full", longDateFormat(firstLoginDate));
   
   let dateNow = new Date();
 
@@ -168,17 +160,17 @@ function guildPlayerObjectToRow(guildObj) {
     lastLoginDate = new Date(lastLogin);
     if (lastLogin == 0) newRow.querySelector(`[data-i="last-login-container"]`).style.display = "none";
     else {
-      updateTag("last-login", shortDateFormat(lastLoginDate));
-      updateTag("last-login-ago", `${relativeTime(lastLoginDate)}`);
-      updateTag("last-login-ago-full", longDateFormat(lastLoginDate));
+      updateTag(newRow, "last-login", shortDateFormat(lastLoginDate));
+      updateTag(newRow, "last-login-ago", `${relativeTime(lastLoginDate)}`);
+      updateTag(newRow, "last-login-ago-full", longDateFormat(lastLoginDate));
     }
 
-    updateTag("level", locale(Math.floor(und(playerProfile["network_level"])), 0));
-    updateTag("achievement-points", checkAndFormat(playerProfile["achievement_points"]));
-    updateTag("karma", checkAndFormat(playerProfile["karma"]));
-    updateTag("quests-completed", checkAndFormat(playerProfile["quests_completed"]));
-    updateTag("ranks-gifted", checkAndFormat(playerProfile["ranks_gifted"]));
-    updateTag("multiplier", rawLocale(und(playerProfile["coin_multiplier"]), null));
+    updateTag(newRow, "level", locale(Math.floor(und(playerProfile["network_level"])), 0));
+    updateTag(newRow, "achievement-points", checkAndFormat(playerProfile["achievement_points"]));
+    updateTag(newRow, "karma", checkAndFormat(playerProfile["karma"]));
+    updateTag(newRow, "quests-completed", checkAndFormat(playerProfile["quests_completed"]));
+    updateTag(newRow, "ranks-gifted", checkAndFormat(playerProfile["ranks_gifted"]));
+    updateTag(newRow, "multiplier", rawLocale(und(playerProfile["coin_multiplier"]), null));
 
   return newRow;
 }

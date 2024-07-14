@@ -104,6 +104,17 @@
       "api_disabled": "¡Este jugador desactivó su API de estadísticas! Es posible que falten sus estadísticas."
     }
   },
+  "achievements": {
+    "achievements": "Logros",
+    "maxed_game": "Máx. %%game%%",
+    "easiest_uncompleted": "Lo más fácil sin completar",
+    "closest_tiers": "Niveles más cercanos",
+    "recently_completed": "Completados recientemente",
+    "tiered": "Progresivos",
+    "one_time": "Desafiantes",
+    "check": "✓",
+    "tiers": "Niveles"
+  },
   "footer": {
     "created_by": "Hecho con ♥︎ por <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> y <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
   },
@@ -124,6 +135,22 @@
     "uhc": "UHC",
     "warlords": "Warlords",
     "woolgames": "Wool Games",
+    "arena": "Arena Brawl",
+    "paintball": "Paintball",
+    "quakecraft": "Quakecraft",
+    "tkr": "Turbo Kart Racers",
+    "vampirez": "VampireZ",
+    "walls": "Walls",
+    "easter": "Pascua",
+    "halloween": "Halloween",
+    "holiday": "Fiesta",
+    "summer": "Verano",
+    "housing": "Housing",
+    "skyblock": "SkyBlock",
+    "speeduhc": "Speed UHC",
+    "overall": "General",
+    "legacy": "Legado",
+    "general": "General",
     "network": "Red",
     "fishing": "Pesca",
     "modes": {
@@ -353,21 +380,15 @@
       },
       "classic": {
         "arena": {
-          "category": "Arena Brawl",
           "1v1": "1v1",
           "2v2": "2v2",
           "4v4": "4v4"
         },
-        "paintball": {
-          "category": "Paintball"
-        },
         "quakecraft": {
-          "category": "Quakecraft",
           "solo": "Solo",
           "teams": "Teams"
         },
         "tkr": {
-          "category": "Turbo Kart Racers",
           "canyon": "Canyon",
           "hypixelgp": "Hypixel GP",
           "junglerush": "Jungle Rush",
@@ -375,12 +396,8 @@
           "retro": "Retro"
         },
         "vampirez": {
-          "category": "VampireZ",
           "human": "Humano",
           "vampire": "Vampiro"
-        },
-        "walls": {
-          "category": "The Walls"
         }
       },
       "copsandcrims": {
@@ -911,7 +928,7 @@
     "created": "Creado",
     "player": "Jugador",
     "rank": "Rango",
-    "guild_experience": "Experiencia del Guild"
+    "guild_experience": "Experiencia del guild"
   },
   "times": {
     "time_ago": "(hace %%time%%)",

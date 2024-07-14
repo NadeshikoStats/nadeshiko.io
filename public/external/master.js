@@ -26,6 +26,23 @@ function deformatName(text) {
       .trim();
 }
 
+function updateTag(parentElement, dataI, value, useHTML = false) {
+  let element = parentElement.querySelector(`[data-i=${dataI}]`);
+  element.innerText = value;
+  if (useHTML) {
+    element.innerHTML = value;
+  }
+}
+
+function updateAllTags(parentElement, dataI, value, useHTML = false) {
+  let elements = parentElement.querySelectorAll(`[data-i=${dataI}]`);
+  elements.forEach(element => {
+    element.innerText = value;
+    if (useHTML) {
+      element.innerHTML = value;
+    }
+  });
+}
 
 function getValue(object, valueArray) {
   for (let i = 0; i < valueArray.length; i++) {
@@ -151,6 +168,34 @@ function addPrefixZero(number, totalLength) { // Adds zeroes to the start of a n
     numberStr = '0' + numberStr;
   }
   return numberStr;
+}
+
+function convertToRoman(num) {
+  const romanNumerals = {
+    M: 1000,
+    CM: 900,
+    D: 500,
+    CD: 400,
+    C: 100,
+    XC: 90,
+    L: 50,
+    XL: 40,
+    X: 10,
+    IX: 9,
+    V: 5,
+    IV: 4,
+    I: 1,
+  };
+
+  let result = "";
+
+  for (const numeral in romanNumerals) {
+    const count = Math.floor(num / romanNumerals[numeral]);
+    num -= count * romanNumerals[numeral];
+    result += numeral.repeat(count);
+  }
+
+  return result;
 }
 
 function sortStrings(a, b) { // Sorts strings alphabetically based on locale
@@ -379,5 +424,3 @@ setTimeout(function() {
 
   console.log(styleText, ...styleInstructions);
 }, 4000);
-
-// TODO use swished statemetn

@@ -330,34 +330,6 @@ function getSkyWarsLevel(exp) {
   }
 }
 
-function convertToRoman(num) {
-  const romanNumerals = {
-    M: 1000,
-    CM: 900,
-    D: 500,
-    CD: 400,
-    C: 100,
-    XC: 90,
-    L: 50,
-    XL: 40,
-    X: 10,
-    IX: 9,
-    V: 5,
-    IV: 4,
-    I: 1,
-  };
-
-  let result = "";
-
-  for (const numeral in romanNumerals) {
-    const count = Math.floor(num / romanNumerals[numeral]);
-    num -= count * romanNumerals[numeral];
-    result += numeral.repeat(count);
-  }
-
-  return result;
-}
-
 function linearGradient(colors) {
   // Generates a linear gradient based on an array of hex colour or Minecraft colour code inputs
   var gradient = "linear-gradient(90deg";
@@ -1933,8 +1905,8 @@ function generateArcade() {
     [
       [getTranslation("games.modes.all.overall"), "overall"],
       [getTranslation("games.modes.arcade.seasonal.grinch_simulator_v2"), "grinch_simulator_v2", `/img/icon/minecraft/head_grinchsimulator.${imageFileType}`],
-      [getTranslation("games.modes.arcade.seasonal.easter_simulator"), "easter_simulator", `/img/icon/minecraft/head_eastersimulator.${imageFileType}`],
-      [getTranslation("games.modes.arcade.seasonal.halloween_simulator"), "halloween_simulator", `/img/icon/minecraft/head_halloweensimulator.${imageFileType}`],
+      [getTranslation("games.modes.arcade.seasonal.easter_simulator"), "easter_simulator", `/img/icon/minecraft/head_easter.${imageFileType}`],
+      [getTranslation("games.modes.arcade.seasonal.halloween_simulator"), "halloween_simulator", `/img/icon/minecraft/head_halloween.${imageFileType}`],
       [getTranslation("games.modes.arcade.seasonal.scuba_simulator"), "scuba_simulator", `/img/icon/minecraft/head_scubasimulator.${imageFileType}`],
       [getTranslation("games.modes.arcade.seasonal.santa_simulator"), "santa_simulator", `/img/icon/minecraft/head_santasimulator.${imageFileType}`],
     ], // Other stats (shown in drop-down menu]
@@ -2340,7 +2312,7 @@ function generateClassic() {
 
   let arenaChip = [
     "classic-arena",
-    getTranslation("games.modes.classic.arena.category"),
+    getTranslation("games.arena"),
     ``,
     `/img/games/classic/arenabrawl.${imageFileType}`,
     getArenaBrawlStats("overall"),
@@ -2371,7 +2343,7 @@ function generateClassic() {
 
   let paintballChip = [
     "classic-paintball",
-    getTranslation("games.modes.classic.paintball.category"),
+    getTranslation("games.paintball"),
     ``,
     `/img/games/classic/paintball.${imageFileType}`,
     [
@@ -2392,7 +2364,7 @@ function generateClassic() {
 
   let tkrChip = [
     "classic-tkr",
-    getTranslation("games.modes.classic.tkr.category"),
+    getTranslation("games.tkr"),
     "",
     `/img/games/classic/turbokartracers.${imageFileType}`,
     getTKRStats("overall"),
@@ -2410,7 +2382,7 @@ function generateClassic() {
 
   let quakecraftChip = [
     "classic-quakecraft",
-    getTranslation("games.modes.classic.quakecraft.category"),
+    getTranslation("games.quakecraft"),
     "",
     `/img/games/classic/quakecraft.${imageFileType}`,
     getQuakeStats("overall"),
@@ -2425,7 +2397,7 @@ function generateClassic() {
 
   let vampireZChip = [
     "classic-vampirez",
-    getTranslation("games.modes.classic.vampirez.category"),
+    getTranslation("games.vampirez"),
     ``,
     `/img/games/classic/vampirez.${imageFileType}`,
     getVampireZStats("human"),
@@ -2454,7 +2426,7 @@ function generateClassic() {
 
   let wallsChip = [
     "classic-walls",
-    getTranslation("games.modes.classic.walls.category"),
+    getTranslation("games.walls"),
     "",
     `/img/games/classic/walls.${imageFileType}`,
     [

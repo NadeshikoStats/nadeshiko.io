@@ -32,6 +32,36 @@
 
       if(tasksBeforeLoading.length == 0) {
         updateTranslations();
+
+        globalAchievements = getValue(achievementsStats, ["global", "achievements"]) || [];
+
+        playerOneTimeAchievements = getValue(achievementsStats, ["player", "achievements_one_time"]) || [];
+        playerTieredAchievements = getValue(achievementsStats, ["player", "achievements"]) || [];
+
+        generateNetwork();
+
+        console.warn(globalAchievements);
+        for (let a = 2; a < validGames.length; a++) {
+          achievementsDatabase[validGames[a]] = getAllAchievements(validGames[a]);
+          generateAchievementPage(validGames[a]);
+        }
+
+        updateOverall();
+        updateClosestTiered();
+        updateEasiestOneTime();
+        updateRecentlyCompleted();
+
+        const rows = document.querySelectorAll('.achievements-overall-container .row-header');
+        
+        rows.forEach(row => {
+          row.addEventListener('click', function () {
+            const parent = this.parentElement;
+            parent.classList.toggle('active');
+          });
+        });
+
+        checkMobileMode(event, true);
+        document.getElementById("header-name").classList.remove("unloaded");
       }
     } 
   </script>
@@ -57,10 +87,9 @@
           <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
         </div>
         <div class="header-right" id="game-buttons">
-          <p class="header-game" onclick="switchStats('network')" id="button-network" data-t="games.network">Network</p>
-          <p class="header-game" onclick="switchStats('bedwars')" id="button-bedwars" data-t="games.bedwars">Bed Wars</p>
-          <p class="header-game" onclick="switchStats('duels')" id="button-duels" data-t="games.duels">Duels</p>
-          <p class="header-game" onclick="switchStats('skywars')" id="button-skywars" data-t="games.skywars">SkyWars</p>
+          <p class="header-game" onclick="switchStats('overall')" id="button-overall" data-t="games.overall">Overall</p>
+          <p class="header-game" onclick="switchStats('legacy')" id="button-legacy" data-t="games.legacy">Legacy</p>
+          <p class="header-game" onclick="switchStats('general')" id="button-general" data-t="games.general">General</p>
           <div class="dropdown">
             <p class="header-down dropdown-button">
               <img class="dropdown-arrow" src="/img/svg/arrow.svg" alt="More games">
@@ -70,6 +99,9 @@
                 </span>
                 <hr class="game-switch-hr">
                 <span id="game-switch">
+                </span>
+                <hr class="dropdown-hr">
+                <span id="seasonal-switch">
                 </span>
                 <hr class="dropdown-hr">
                 <span id="other-switch">
@@ -97,25 +129,56 @@
               <div class="flex-two-item align-top flippable margin10">
                 <div class="card-big-stats">
 
-                      <span data-t="statistics.achievement_points">Achievement Points</span> <span class="statistic" id="overall-achievement-points"><span class="mc">Unknown</span></span>
+                      <span data-t="statistics.achievement_points">Achievement Points</span> <span class="statistic" id="achievement-points"><span class="mc">Unknown</span></span> / <span id="total-achievement-points"><span class="mc">Unknown</span></span>
                       <div class="progress-bar">
-                        <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
-                        <div class="progress" style="width: 0%;" id="xp-progress-bar"></div>
+                        <span class="progress-number" id="achievement-points-progress-number"><span class="mc">Unknown</span></span>
+                        <div class="progress" style="width: 0%;" id="achievement-points-progress-bar"></div>
                       </div>
 
-                      <span data-t="achievements.achievements">Achievements</span> <span class="statistic" id="overall-achievements"><span class="mc">Unknown</span></span>
+                      <span data-t="achievements.achievements">Achievements</span> <span class="statistic" id="achievements"><span class="mc">Unknown</span></span> / <span id="total-achievements"><span class="mc">Unknown</span></span>
 
                       <div class="progress-bar">
-                        <span class="progress-number" id="xp-progress-number"><span class="mc">Unknown</span></span>
-                        <div class="progress" style="width: 0%;" id="xp-progress-bar"></div>
+                        <span class="progress-number" id="achievements-progress-number"><span class="mc">Unknown</span></span>
+                        <div class="progress" style="width: 0%;" id="achievements-progress-bar"></div>
                       </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="flex-two-item chip-container-duo-parent">
-            <div id="overall-chips-1" class="chip-container-duo"></div>
-            <div id="overall-chips-2" class="chip-container-duo"></div>
+            <div id="overall-chips-1" class="chip-container-duo">
+
+              <div class="chip-small achievement-chip">
+                <div class="chip-small-top">
+                  <p class="chip-small-title" data-t="achievements.easiest_uncompleted">Easiest Uncompleted</p>
+                  <span class="flex-two-item"></span>
+                </div>
+                <div class="list achievements-overall-container" id="achievements-easiest-uncompleted">
+                </div>
+              </div>
+
+              <div class="chip-small achievement-chip">
+                <div class="chip-small-top">
+                  <p class="chip-small-title" data-t="achievements.recently_completed">Recently Completed</p>
+                  <span class="flex-two-item"></span>
+                </div>
+                <div class="list achievements-overall-container" id="achievements-recently-completed">
+                </div>
+              </div>
+
+            </div>
+            <div id="overall-chips-2" class="chip-container-duo">
+
+              <div class="chip-small achievement-chip">
+                <div class="chip-small-top">
+                  <p class="chip-small-title" data-t="achievements.closest_tiers">Closest Tiered</p>
+                  <span class="flex-two-item"></span>
+                </div>
+                <div class="list achievements-overall-container" id="achievements-closest-tiers">
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -137,13 +200,90 @@
 
   <script>
     let achievementsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(achievementsData)) %>"));
-    let validGames = ["overall", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "turbokartracers", "arenabrawl", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holidays", "easter", "halloween", "summer"];
+    let validGames = ["overall", "legacy", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "tkr", "arena", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holiday", "easter", "halloween", "summer"];
+    let generalGames = ["general", "holiday", "easter", "halloween", "summer"];
     let currentGamemode = "overall";
+
+    let globalAchievementStats = {
+      "total": {
+        "achievements": 0,
+        "points": 0
+      },
+      "player": {
+        "achievements": 0,
+        "points": 0
+      },
+      "legacy": {
+        "achievements": 0,
+        "points": 0
+      },
+    };
+
+    let globalAchievements, playerOneTimeAchievements, playerTieredAchievements;
+    let playerFormattedTierAchievements = [];
+    let playerFormattedOneTimeAchievements = [];
+    let achievementsDatabase = {};
 
 
     document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-guild'));
 
-      /**
+    window.addEventListener("resize", checkMobileMode);
+
+    function checkMobileMode(event, override = false) {
+    if (window.innerWidth < 800) {
+      if (!mobileMode || override) {
+        console.log("Mobile mode activated!" + override);
+        mobileMode = true;
+        const duoParents = document.querySelectorAll('.chip-container-duo-parent');
+
+        duoParents.forEach(duoParent => {
+          const parent1 = duoParent.children[0];
+          const parent2 = duoParent.children[1];
+          const children1 = Array.from(parent1.children);
+          const children2 = Array.from(parent2.children);
+
+          let maxLength = Math.max(children1.length, children2.length);
+          for (let i = 0; i < maxLength; i++) {
+            if (children1[i]) {
+              parent1.appendChild(children1[i]);
+            }
+            if (children2[i]) {
+              parent1.appendChild(children2[i]);
+            }
+          }
+
+          parent2.style.display = 'none';
+        });
+      }
+    } else {
+      if (mobileMode) {
+        mobileMode = false;
+        const duoParents = document.querySelectorAll('.chip-container-duo-parent');
+
+        duoParents.forEach(duoParent => {
+          const parent1 = duoParent.children[0];
+          const parent2 = duoParent.children[1];
+          const children1 = Array.from(parent1.children);
+
+          parent1.innerHTML = ''
+          parent2.innerHTML = '';
+
+          children1.forEach((child, index) => {
+            if (index % 2 === 0) {
+              parent1.appendChild(child);
+            } else {
+              parent2.appendChild(child);
+            }
+          });
+
+          parent2.style.display = '';
+        });
+      }
+    }
+  }
+
+
+  /*
    * Changes the current gamemode (background, highlighted button, etc.) to the specified gamemode
    * @param {string} gamemode The gamemode to switch to
    */
@@ -153,7 +293,7 @@
       console.error(`Invalid game mode "${gamemode}"!`);
       return;
     }
-      gamesWithEasilyClickableButtons = ["network", "bedwars", "skywars", "duels"];
+      gamesWithEasilyClickableButtons = ["overall", "legacy", "general"];
     //if(gamemode != currentGamemode) {
       if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
         document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
@@ -169,8 +309,7 @@
       document.body.scrollTop; // Forces a DOM reflow to allow the transition to work
       document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
       
-
-        setBackground(currentGamemode);
+      setBackground(currentGamemode);
 
       // Change the URL to reflect the current gamemode
       if (history.replaceState && achievementsStats != undefined) {
@@ -194,13 +333,6 @@
   }
 
   switchStats("overall");
-
-  let globalAchievements = getValue(achievementsStats, ["global", "achievements"]) || [];
-
-  let playerOneTimeAchievements = getValue(achievementsStats, ["player", "achievements_one_time"]) || [];
-  let playerTieredAchievements = getValue(achievementsStats, ["player", "achievements"]) || [];
-
-  generateNetwork();
   </script>
 </body>
 </html>

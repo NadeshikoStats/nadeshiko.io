@@ -104,6 +104,17 @@
       "api_disabled": "This player has their stats API disabled! Stats may be inaccurate or missing."
     }
   },
+  "achievements": {
+    "achievements": "Achievements",
+    "maxed_game": "Max %game%",
+    "easiest_uncompleted": "Easiest Uncompleted",
+    "closest_tiers": "Closest Tiers",
+    "recently_completed": "Recently Completed",
+    "tiered": "Tiered",
+    "one_time": "Challenge",
+    "check": "✓",
+    "tiers": "Tiers"
+  },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
   },
@@ -124,6 +135,22 @@
     "uhc": "UHC",
     "warlords": "Warlords",
     "woolgames": "Wool Games",
+    "arena": "Arena Brawl",
+    "paintball": "Paintball",
+    "quakecraft": "Quakecraft",
+    "tkr": "Turbo Kart Racers",
+    "vampirez": "VampireZ",
+    "walls": "Walls",
+    "easter": "Easter",
+    "halloween": "Halloween",
+    "holiday": "Holiday",
+    "summer": "Summer",
+    "housing": "Housing",
+    "skyblock": "SkyBlock",
+    "speeduhc": "Speed UHC",
+    "overall": "Overall",
+    "legacy": "Legacy",
+    "general": "General",
     "network": "Network",
     "fishing": "Риболовля",
     "modes": {
@@ -353,21 +380,15 @@
       },
       "classic": {
         "arena": {
-          "category": "Arena Brawl",
           "1v1": "1v1",
           "2v2": "2v2",
           "4v4": "4v4"
         },
-        "paintball": {
-          "category": "Paintball"
-        },
         "quakecraft": {
-          "category": "Quakecraft",
           "solo": "Solo",
           "teams": "Teams"
         },
         "tkr": {
-          "category": "Turbo Kart Racers",
           "canyon": "Canyon",
           "hypixelgp": "Hypixel GP",
           "junglerush": "Jungle Rush",
@@ -375,12 +396,8 @@
           "retro": "Retro"
         },
         "vampirez": {
-          "category": "VampireZ",
           "human": "Human",
           "vampire": "Вампір"
-        },
-        "walls": {
-          "category": "The Walls"
         }
       },
       "copsandcrims": {

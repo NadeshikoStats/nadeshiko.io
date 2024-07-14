@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 48 48" style="enable-background:new 0 0 48 48" xml:space="preserve">
+    <defs>
+        <mask id="mask">
+            <rect width="48" height="48" fill="white"/>
+            <path d="M9.837 28.977 8.012 17.115a.99.99 0 0 1 1.572-.942l6.686 4.264a1.358 1.358 0 0 0 1.945-.333L21.949 13a1.263 1.263 0 0 1 2.1 0l4.734 7.1a1.358 1.358 0 0 0 1.945.333l6.686-4.264a.99.99 0 0 1 1.572.942l-1.825 11.862zM8.837 31.171h28.326v3.015a1.373 1.373 0 0 1-1.373 1.373H11.21a1.373 1.373 0 0 1-1.373-1.373v-3.015z" fill="black"/>
+        </mask>
+    </defs>
+    <circle cx="24" cy="24" r="24" fill="white" mask="url(#mask)"/>
+</svg>
