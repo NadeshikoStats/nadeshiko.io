@@ -30,18 +30,53 @@ let gameAliases = {
   buildbattle: ["bb", "build"],
   classic: ["legacy", "ab", "arena", "arenabrawl", "pb", "paint", "paintball", "q", "qc", "quake", "quakecraft", "tkr", "turbo", "gingerbread", "turbokartracers", "vz", "vampire", "vampirez", "vampz", "walls"],
   copsandcrims: ["cac", "cvc", "cops", "mcgo"],
-  duels: ["d", "duel"],
+  duels: ["d", "duel", "bridge"],
   megawalls: ["mw", "megawall", "megawalls", "mega", "walls3"],
   murdermystery: ["mm", "murder"],
   pit: ["thepit"],
   smashheroes: ["smash", "supersmash"],
   skywars: ["s", "sw", "sky"],
-  tntgames: ["tnt"],
+  tntgames: ["tnt", "bow"],
   uhc: ["speeduhc", "suhc", "speed"],
   warlords: ["w", "war", "wl", "bg", "battleground"],
   woolgames: ["ww", "wool", "woolwars"],
 
   fishing: ["fish", "lobbyfishing"]
+}
+
+let gameAliasesAchievements = {
+  overall: ["hypixel", "network"],
+  general: ["gen"],
+  arcade: ["a"],
+  bedwars: ["b", "bw", "bed"],
+  blitz: ["bsg", "sg", "hungergames"],
+  buildbattle: ["bb", "build"],
+  copsandcrims: ["cac", "cvc", "cops", "mcgo"],
+  duels: ["d", "duel", "bridge"],
+  megawalls: ["mw", "megawall", "megawalls", "mega", "walls3"],
+  murdermystery: ["mm", "murder"],
+  pit: ["thepit"],
+  smashheroes: ["smash", "supersmash"],
+  skywars: ["s", "sw", "sky"],
+  tntgames: ["tnt", "bow"],
+  uhc: [],
+  warlords: ["w", "war", "wl", "bg", "battleground"],
+  woolgames: ["ww", "wool", "woolwars"],
+
+  housing: [],
+  arena: ["ab", "arenabrawl"],
+  paintball: ["pb", "paint"],
+  quakecraft: ["q", "qc", "quake"],
+  tkr: ["turbokartracers", "turbo", "gingerbread"],
+  vampirez: ["vz", "vampire", "vampz"],
+  walls: [],
+  speeduhc: ["speeduhc", "suhc", "speed"],
+
+  holiday: ["christmas", "christmas2017"],
+  halloween: ["halloween2017"],
+  summer: [],
+  easter: ["spring"],
+  legacy: [],
 }
 
 let cardSupportedGames = ["network", "bedwars", "duels", "skywars", "buildbattle"];
@@ -946,12 +981,26 @@ app.get('/player/:name/:game?', async (req, res) => {
 
   });
 
-  app.get('/achievements/:name?', async (req, res) => {
+  app.get('/achievements/:name/:game?', async (req, res) => {
     const name = req.params.name;
+
 
     var computationError = "";
   
     try {
+
+        let game = req.params.game;
+        if (game) {
+          game = game.toLowerCase();
+      
+          // Check if the specified game name is an alias
+          for (let key in gameAliasesAchievements) {
+            if (gameAliasesAchievements[key].includes(game)) {
+              game = key;
+              break;
+            }
+          }
+        }
   
         const response = await axios.get(`http://localhost:2000/achievements?name=${name}`);
         let achievementsData = response.data;
@@ -959,15 +1008,15 @@ app.get('/player/:name/:game?', async (req, res) => {
         let metaDescription;
         if (achievementsData) { // If the guild data is available
           metaDescription = getMetaDescription("achievements", achievementsData);
-        } else { // If the player data is not available, don't show a card and show a default description
+        } else { // If the achievements data is not available, show a default description
           metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
         }
 
-        res.render('achievements', { name, achievementsData, metaDescription });
+        res.render('achievements', { name, achievementsData, game, metaDescription });
 
      } catch(error) {
         computationError = {
-          message: `Could not find guild with name ${name} (${error})`,
+          message: `Could not find achievement stats of player ${name} (${error})`,
           player: name,
           error: error["message"],
           category: "computation",

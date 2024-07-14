@@ -165,6 +165,7 @@ function generateNetwork() {
       { id: "woolgames", name: getTranslation(["games", "woolgames"]), minecraftId: "white_wool" },
 
       { id: "fishing", name: getTranslation(["games", "fishing"]), minecraftId: "cod" },
+      { id: "achievements", name: getTranslation(["achievements", "achievements"]), minecraftId: "diamond" },
       { id: "guild", name: getTranslation(["games", "modes", "network", "guild"]), minecraftId: "head_guild" },      
     ];
 
@@ -175,8 +176,8 @@ function generateNetwork() {
 
     let headerObjectTypes = {
       "games": ["network", "bedwars", "duels", "skywars"],
-      "other": ["fishing", "guild"],
-      "special": ["guild"],
+      "other": ["fishing", "achievements", "guild"],
+      "special": ["achievements", "guild"],
     };
 
     quickModeGames.forEach((game) => {
@@ -216,6 +217,8 @@ function generateNetwork() {
           } else {
             container.setAttribute("href", `/guild/${guildName}`);
           }
+        } else if (game.id == "achievements") {
+          container.setAttribute("href", `/achievements/${playerData["uuid"]}`);
         }
       } else {
         container = document.createElement("div");

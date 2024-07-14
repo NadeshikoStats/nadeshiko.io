@@ -61,6 +61,7 @@
         });
 
         checkMobileMode(event, true);
+        switchStats(currentGamemode);
         document.getElementById("header-name").classList.remove("unloaded");
       }
     } 
@@ -182,6 +183,9 @@
           </div>
         </div>
       </div>
+      <div class="flex-container unloaded minigame-flex-container" id="flex-container-legacy">
+        Coming soon!
+      </div>
     </div>
     
     <div class="quick-mode hidden pushdown" id="quick-mode">
@@ -202,7 +206,7 @@
     let achievementsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(achievementsData)) %>"));
     let validGames = ["overall", "legacy", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "tkr", "arena", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holiday", "easter", "halloween", "summer"];
     let generalGames = ["general", "holiday", "easter", "halloween", "summer"];
-    let currentGamemode = "overall";
+    let currentGamemode = "<%= game %>";
 
     let globalAchievementStats = {
       "total": {
@@ -225,7 +229,7 @@
     let achievementsDatabase = {};
 
 
-    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-guild'));
+    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-achievements-overall'));
 
     window.addEventListener("resize", checkMobileMode);
 
@@ -304,7 +308,17 @@
       if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
         document.getElementById("button-" + currentGamemode).classList.add("highlighted");
       }
-      document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+
+      let customAccents = {
+        "general": "network",
+        "overall": "achievements-overall"
+      };
+
+      if (customAccents[currentGamemode] != undefined) {
+        document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + customAccents[currentGamemode]));
+      } else {
+        document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+      }
       document.getElementById("flex-container-" + currentGamemode).style.display = "flex";
       document.body.scrollTop; // Forces a DOM reflow to allow the transition to work
       document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
@@ -313,26 +327,39 @@
 
       // Change the URL to reflect the current gamemode
       if (history.replaceState && achievementsStats != undefined) {
-        //window.history.replaceState({}, null, `/achievements/PLEASE_ADD_PLAYER_NAME/${currentGamemode}`);
+       window.history.replaceState({}, null, `/achievements/${deformatName(achievementsStats["player"]["profile"]["tagged_name"])}/${currentGamemode}`);
       }
     //}
   }
 
   function setBackground(gamemode) { // Allows a fade between two backgrounds. Is this totally inefficient? Probably
-    const bg1 = document.getElementById("background1");
-    const bg2 = document.getElementById("background2");
-    if (bg1.style.opacity == '1' || bg1.style.opacity === '') {
-      bg2.style.backgroundImage = `url('/img/games/${gamemode}/lobby.${imageFileType}')`;
-      bg1.style.opacity = '0';
-      bg2.style.opacity = '1';
-    } else {
-      bg1.style.backgroundImage = `url('/img/games/${gamemode}/lobby.${imageFileType}')`;
-      bg2.style.opacity = '0';
-      bg1.style.opacity = '1';
-    }
-  }
+    console.log(`Changing background to ${gamemode}`);
+    let backgroundUrl;
+    let irregularBackgrounds = {
+      overall: `/img/games/achievements/overall.${imageFileType || 'webp'}`,
+      general: `/img/games/network/lobby.${imageFileType || 'webp'}`,
+    };
 
-  switchStats("overall");
+    if (irregularBackgrounds[gamemode] != undefined) {
+      console.warn(`Using irregular background for ${gamemode}`);
+      backgroundUrl = irregularBackgrounds[gamemode];
+    } else {
+      backgroundUrl = `/img/games/${gamemode}/lobby.${imageFileType}`;
+    }
+    
+     const bg1 = document.getElementById("background1");
+     const bg2 = document.getElementById("background2");
+     if (bg1.style.opacity == '1' || bg1.style.opacity === '') {
+       bg2.style.backgroundImage = `url('${backgroundUrl}')`;
+       bg1.style.opacity = '0';
+       bg2.style.opacity = '1';
+     } else {
+       bg1.style.backgroundImage = `url('${backgroundUrl}')`;
+       bg2.style.opacity = '0';
+       bg1.style.opacity = '1';
+     }
+   }
+
   </script>
 </body>
 </html>

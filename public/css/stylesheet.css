@@ -5,21 +5,34 @@
     --gold: #e99a3f;
     --gold-transparent: #e99a3f90;
     --default: #00000080;
+
     --accent: var(--nadeshiko-dark);
     --accent-network: #bc6ff8;
     --accent-guild: #4fd334;
+    --accent-achievements-overall: #6b68bb;
     
+    --accent-vampirez: #b73131;
     --accent-tntgames: #c55757;
+    --accent-walls: #9c4131;
+    --accent-tkr: #b0672c;
     --accent-bedwars: #ff835c;
+    --accent-halloween: #d87321;
     --accent-megawalls: #f77659;
     --accent-classic: #f7aa59;
-    --accent-warlords: #fcc971;
+    --accent-arena: #ae9c45;
+    --accent-paintball: #ab9e29;
+    --accent-quakecraft: #acac61;
+    --accent-warlords: #cc9d4c;
+    --accent-summer: #bbb100;
     --accent-copsandcrims: #aaaa10;
+    --accent-easter: #64ce3d;
     --accent-skywars: #75df43;
     --accent-skyblock: #4ace38;
+    --accent-speeduhc: #3d8c3d; 
     --accent-pit: #5e72ab;
     --accent-smashheroes: #30536b;
     --accent-fishing: #3666a4;
+    --accent-holiday: #6a8eb0;
     --accent-buildbattle: #3f84fc;
     --accent-duels: #6f85f8;
     --accent-murdermystery: #312093;
@@ -27,6 +40,7 @@
     --accent-uhc: #a663c1;
     --accent-arcade: #8e2d7f;
     --accent-woolgames: #bc6d7e;
+    --accent-housing: #ce586a;
 
     --grey: #888;
     --mc0: #000000;
@@ -1610,6 +1624,7 @@
   .guild-players .column {
     display: flex;
     align-items: center;
+    height: 100%;
   }
 
   .list .headercolumn > img {
