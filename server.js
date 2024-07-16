@@ -849,10 +849,164 @@ function getMetaDescription(game, playerData) {
     return `guild stast!!!!!!!`;
   }
   case 'achievements': {
-    return `achievements stast!!!!!!!`;
+    let playerTieredAchievements = getValue(playerData, ["player", "achievements"]);
+    let playerOneTimeAchievements = getValue(playerData, ["player", "achievements_one_time"]);
+    let globalAchievements = getValue(playerData, ["global", "achievements"]);
+
+    let achievementGames = ["arcade", "arena", "bedwars", "blitz", "buildbattle", "christmas2017", "copsandcrims", "duels", "easter", "general", "gingerbread", "halloween2017", "housing", "murdermystery", "paintball", "pit", "quake", "skyblock", /*"skyclash",*/ "skywars", "speeduhc", "summer", "supersmash", "tntgames", /*"truecombat",*/ "uhc", "vampirez", "walls", "walls3", "warlords", "woolgames"];
+    
+    let achievementNames = {
+      "arcade": "🕹️ Arcade",
+      "arena": "🏟️ Arena Brawl",
+      "bedwars": "🛏️ Bed Wars",
+      "blitz": "💫 Blitz",
+      "buildbattle": "🛠️ Build Battle",
+      "copsandcrims": "🚔 Cops and Crims",
+      "truecombat": "🪙 Crazy Walls",
+      "duels": "⚔️ Duels",
+      "easter": "🐰 Easter",
+      "general": "⭐ General",
+      "christmas2017": "🎁 Holiday",
+      "halloween2017": "🎃 Halloween",
+      "housing": "🏠 Housing",
+      "walls3": "💀 Mega Walls",
+      "murdermystery": "🔪 Murder Mystery",
+      "paintball": "🎨 Paintball",
+      "pit": "🕳️ Pit",
+      "quake": "💥 Quakecraft",
+      "skyblock": "🏝️ SkyBlock",
+      "skyclash": "☀️ SkyClash",
+      "skywars": "🌌 SkyWars",
+      "speeduhc": "🥕 Speed UHC",
+      "summer": "☀️ Summer",
+      "supersmash": "🥊 Smash Heroes",
+      "tntgames": "💣 TNT Games",
+      "gingerbread": "🏎️ Turbo Kart Racers",
+      "uhc": "🍎 UHC",
+      "vampirez": "🧛 VampireZ",
+      "walls": "🏰 Walls",
+      "warlords": "⚔️ Warlords",
+      "woolgames": "🧶 Wool Games"
+    }
+
+    let maxedGames = [];
+    
+    let achievementStatistics = {
+      "points": 0,
+      "achievements": 0,
+      "global_points": 0,
+      "global_achievements": 0,
+      "legacy_points": 0,
+      "legacy_achievements": 0,
+
+      "games": {
+      }
+    }
+
+    let achievementGamesArray = [];
+
+    for (let a = 0; a < achievementGames.length; a++) {
+      let achievementGame = achievementGames[a];
+      let gameObject = {
+        "points": 0,
+        "achievements": 0,
+        "global_points": 0,
+        "global_achievements": 0,
+        "legacy_points": 0,
+        "legacy_achievements": 0,
+        "progress_achievements": 0,
+      };
+
+      achievementStatistics["games"][achievementGame] = {};
+
+      let gameAchievements = getValue(globalAchievements, [achievementGame]);
+      let gameOneTimeAchievements = getValue(gameAchievements, ["one_time"]);
+      let gameTieredAchievements = getValue(gameAchievements, ["tiered"]);
+
+      for (let key in gameOneTimeAchievements) {
+        let achievement = gameOneTimeAchievements[key];
+        
+        key = key.toLowerCase();
+        
+        if (achievement["legacy"]) {
+          // TODO
+        } else {
+          if (playerOneTimeAchievements.includes(`${achievementGame}_${key}`)) {
+            gameObject["achievements"]++;
+            gameObject["points"] += achievement["points"];
+            achievementStatistics["achievements"]++;
+            achievementStatistics["points"] += achievement["points"];
+          }
+          gameObject["global_achievements"]++;
+          gameObject["global_points"] += achievement["points"];
+          achievementStatistics["global_achievements"]++;
+          achievementStatistics["global_points"] += achievement["points"];
+        }
+      }
+
+      for (let key in gameTieredAchievements) {
+        let achievement = gameTieredAchievements[key];
+
+        if (achievement["legacy"]) {
+          // TODO
+        } else {
+
+        let playerAchievement = und(playerTieredAchievements[achievementGame + "_" + key.toLowerCase()]);
+
+
+        for (let a = 0; a < achievement["tiers"].length; a++) {
+          let tier = achievement["tiers"][a];
+          if (playerAchievement >= tier["amount"]) {
+            gameObject["achievements"]++;
+            gameObject["points"] += tier["points"];
+            achievementStatistics["achievements"]++;
+            achievementStatistics["points"] += tier["points"];
+          }
+
+          gameObject["global_achievements"]++;
+          gameObject["global_points"] += tier["points"];
+          achievementStatistics["global_achievements"]++;
+          achievementStatistics["global_points"] += tier["points"];
+        }
+      }
+    }
+
+      gameObject["progress_achievements"] = und(gameObject["achievements"] / gameObject["global_achievements"]);
+      gameObject["game"] = achievementGame;
+      if (gameObject["progress_achievements"] == 1) {
+        maxedGames.push(achievementNames[achievementGame]);
+      } else {
+        achievementGamesArray.push(gameObject);
+      }
+
+      achievementStatistics["games"][achievementGame] = gameObject;
+    }
+
+    // sort achievementGamesArray by points
+    achievementGamesArray.sort((a, b) => b["progress_achievements"] - a["progress_achievements"]);
+    console.log(achievementGamesArray);
+
+    let achievementGamesString = "";
+
+    for (let a = 0; a < Math.min(achievementGamesArray.length, 10); a++) {
+      let gameObject = achievementGamesArray[a];
+      if (gameObject) {
+        achievementGamesString += `• ${achievementNames[gameObject["game"]]}: ${gameObject["achievements"]} / ${gameObject["global_achievements"]} (${checkAndFormat(gameObject["progress_achievements"] * 100, 1)}%)\n`;
+      }
+    }
+      
+
+    return `Achievements Stats
+    
+• 🏆 Achievement Points: ${checkAndFormat(achievementStatistics["points"])} / ${checkAndFormat(achievementStatistics["global_points"])}
+• 🌟 Achievements: ${checkAndFormat(achievementStatistics["achievements"])} / ${checkAndFormat(achievementStatistics["global_achievements"])}
+• 🌠 Maxed Games: ${maxedGames.join(", ") || "None"}
+
+${achievementGamesString}`;
   }
-}
-}}
+
+
+}}}
 
 app.get('/player/:name/:game?', async (req, res) => {
   const name = req.params.name;

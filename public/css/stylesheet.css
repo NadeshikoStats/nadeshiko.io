@@ -19,7 +19,6 @@
     --accent-halloween: #d87321;
     --accent-megawalls: #f77659;
     --accent-classic: #f7aa59;
-    --accent-arena: #ae9c45;
     --accent-paintball: #ab9e29;
     --accent-quakecraft: #acac61;
     --accent-warlords: #cc9d4c;
@@ -29,6 +28,7 @@
     --accent-skywars: #75df43;
     --accent-skyblock: #4ace38;
     --accent-speeduhc: #3d8c3d; 
+    --accent-arena: #45ae84;
     --accent-pit: #5e72ab;
     --accent-smashheroes: #30536b;
     --accent-fishing: #3666a4;
@@ -1729,6 +1729,10 @@
     display: none;
   }
 
+  .one-time-container.game-general .column:nth-child(3) {
+    display: none;
+  }
+
   .unlocked {
     color: white;
   }
@@ -2413,6 +2417,7 @@
     .one-time-container .column:nth-child(5) {
       display: initial;
     }
+
     .tiered-container .row-header {
       display: flex;
       flex-direction: column;

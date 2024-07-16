@@ -38,6 +38,63 @@ function demodernifyGameName(game) {
   return game;
 }
 
+let secretAchievements = {
+  "general_code_breaker": "Enter the Hypixel Vault room.",
+  "general_hot_potato": "Hot, hot, hot!",
+  "general_keep_quiet": "Keep your noise down in the Castle Library",
+  "general_hypixel_historian": "View all historical records in the Castle Library",
+  "general_crash_landed": "Join SkyBlock through the crashed portal",
+  "arcade_zombies_prison_secret_beyond": "",
+  "arcade_dropper_well_well_well": "Find the hidden frog on the Floating Islands map",
+  "arcade_ctw_magician": "Capture 3 wools in one game",
+  "arcade_hypixel_says_movement": "Jump off the Platform instead of standing still",
+  "arcade_zombies_prison_computers": "",
+  "arcade_snake": "Earn 50 points in the lobby Snake minigame",
+  "arcade_ender_spleef_no_powerhouse": "Win a game of Ender Spleef without using any powerups",
+  "arcade_dw_void": "Get out of the map and into the void in a game of Dragon Wars",
+  "murdermystery_secret_chamber": "Find and enter the combination to open the secret chamber on Gold Rush",
+  "walls3_configuration": "Finish a game having final killed exactly 3 players from one team, 2 from another, and 1 from the third",
+  "uhc_one_pound_slap": "Hit a player off a cliff using the Slap Fish",
+  "woolgames_enderman": "Travel through 15 portals in a single game",
+  "skyblock_i_am_superior": "Take down a Superior Dragon",
+  "skyblock_jakes_mystery": "Complete Beth's Quest",
+  "skyblock_defeating_death": "Slay a Deathmite",
+  "skyblock_rebirth": "Kill a Fairy while you are a Ghost",
+  "skyblock_royal_resident_dialogue": "Finish talking to the Royal Resident",
+  "skyblock_nightmare": "Complete Bednom's secret quest",
+  "skyblock_fallen_star_cult": "Wear the Fallen Star Helmet to a cult meeting",
+  "skyblock_this_is_the_way": "Find the Belly of the Beast",
+  "skyblock_existential_revelations": "Find the mushroom dream in the Catacombs",
+  "skyblock_the_itsy_bitsy_spider": "Feed a player to Aranya",
+  "skyblock_empty_flower_pot": "Why is it there? Why are we all here?",
+  "skyblock_responsible_pet_owner": "Have your rabbit get squashed in the Half-Eaten Cave",
+  "skyblock_shrimp": "Obtain Shrimp the Traveler Fish",
+  "skyblock_eternal_flame_ring": "Throw the Eternal Flame Ring into a specific pool of lava",
+  "skyblock_secret_end_place": "Enter the secret room in The End",
+  "skyblock_dragon_slayer": "Kill an Ender Dragon",
+  "skyblock_geronimo": "Get launched into the air by the Blazing Volcano",
+  "skyblock_meal_fit_for_a_king": "Put a Trophy Fish into the Melancholic Viking's furnace",
+  "skyblock_i_knew_it": "Unlock a Secret Armor Set",
+  "skyblock_wasted_potential": "Feed a Staff of the Volcano to a Cow",
+  "skyblock_sirius_business": "Participate in the Dark Auction",
+  "skyblock_end_credits": "Face your demise with the Temporal Pillar in the Rift",
+  "christmas2017_new_years_celebrations": "Watch the fireworks go off in the SkyBlock Hub or Main lobby",
+  "halloween2017_that_time_of_year": "Find the dancing Spooky Scary Skeleton in the Main Lobby",
+  "summer_collectors_edition": "Collect all Special Fish while fishing in the Main Lobby",
+};
+
+function getSecretAchievement(achievement) {
+  let secretAchievementTemplate = `
+    <span class="tooltip">
+      <span data-i="achievement-name"></span>
+      </span>
+  `;
+
+  if (secretAchievements[achievement]) {
+    return secretAchievements[achievement];
+  }
+}
+
 /* 
  * Counts the number of significant digits in a number
   * @param {number} number - The number to count the significant digits for
@@ -134,7 +191,6 @@ function generateNetwork() {
     */   
   ];
 
-  const quickModeGameContainer = document.getElementById("quick-mode-games");
   const gameSwitchMobileContainer = document.getElementById("game-switch-mobile");
   const gameSwitchContainer = document.getElementById("game-switch");
   const otherSwitchContainer = document.getElementById("other-switch");
@@ -146,24 +202,6 @@ function generateNetwork() {
     "seasonal": ["easter", "halloween", "holiday", "summer"],
     "special": ["guild"],
   };
-
-  quickModeGames.forEach((game) => {
-    const spanTooltip = document.createElement("span");
-    spanTooltip.className = "tooltip";
-
-    const img = document.createElement("img");
-    img.src = `/img/icon/hypixel/${game.id}.webp`;
-    img.alt = "";
-    img.className = "quick-mode-game";
-
-    const spanText = document.createElement("span");
-    spanText.className = "tooltiptext";
-    spanText.textContent = game.name;
-
-    spanTooltip.appendChild(img);
-    spanTooltip.appendChild(spanText);
-    quickModeGameContainer.appendChild(spanTooltip);
-  });
 
   quickModeGames.forEach((game, index) => {
     let container;
@@ -237,6 +275,10 @@ function getOneTimeStats(fullName) {
     "globalPercentUnlocked": achievementStats["globalPercentUnlocked"] || 0,
     "legacy": achievementStats["legacy"] || false,
   };
+
+  if(oneTimeAchievementObject["description"] == "???") {
+    console.warn(`Achievement ${fullName} has a placeholder name`);
+  }
 
   oneTimeAchievementObject["unlocked"] = playerOneTimeAchievements.includes(fullName) || false;
 
@@ -429,8 +471,6 @@ function updateClosestTiered() {
   // Sorting the remaining achievements by progress value, highest to lowest
   playerFormattedTierAchievements.sort((a, b) => b[1].progress - a[1].progress);
 
-  console.warn(playerFormattedTierAchievements);
-
   let maximumIndex = Math.min(50, playerFormattedTierAchievements.length);
   for (let i = 0; i < maximumIndex; i++) {
     let achievement = playerFormattedTierAchievements[i];
@@ -441,7 +481,6 @@ function updateClosestTiered() {
 
 function updateEasiestOneTime() {
   playerFormattedOneTimeAchievements.sort((a, b) => b[1]["global_unlocked"] - a[1]["global_unlocked"]);
-  console.warn(playerFormattedOneTimeAchievements);
 
   let maximumIndex = Math.min(50, playerFormattedOneTimeAchievements.length);
   for (let i = 0; i < maximumIndex; i++) {
@@ -453,7 +492,6 @@ function updateEasiestOneTime() {
 
 function updateRecentlyCompleted() {
   let recentAchievements = playerOneTimeAchievements.reverse().slice(0, 50);
-  console.warn(recentAchievements);
 
   for (let a = 0; a < recentAchievements.length; a++) {
     let achievement = getOneTimeStats(recentAchievements[a]);
@@ -775,6 +813,11 @@ function generateAchievementPage(game) {
 
   let oneTimeContainer = gameElement.querySelector("[data-i='one-time-container']");
   oneTimeContainer.id = game + "-one-time";
+
+  let generalGames = ["general", "halloween", "holiday", "summer", "easter"];
+  if (generalGames.includes(game)) {
+    oneTimeContainer.classList.add("game-general");
+  }
 
   for (let achievement in allAchievements["one_time"]) {
 

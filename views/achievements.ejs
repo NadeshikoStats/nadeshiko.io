@@ -10,7 +10,7 @@
   <meta property="og:site_name" content="nadeshiko.io">
 
   <% if (achievementsData) { %>
-    <title><%- achievementsData["name"] %> | nadeshiko.io</title>
+    <title><%- (achievementsData["player"]["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
     <% } else { %>
     <title>Achievements | nadeshiko.io</title> <!-- Fallback in case no stats -->
     <% } %>
@@ -40,7 +40,6 @@
 
         generateNetwork();
 
-        console.warn(globalAchievements);
         for (let a = 2; a < validGames.length; a++) {
           achievementsDatabase[validGames[a]] = getAllAchievements(validGames[a]);
           generateAchievementPage(validGames[a]);
@@ -188,15 +187,6 @@
       </div>
     </div>
     
-    <div class="quick-mode hidden pushdown" id="quick-mode">
-      <section class="player-card" style="align-content: center;">
-        <p class="title-text margin-top-bottom"><span data-t="player.quick_mode.title">Quick Mode</span> <kbd data-t="player.quick_mode.key">SHIFT</kbd></p>
-        <p class="subtitle-text" id="quick-mode-text">Click an icon to instantly go to that game's page for <span id="quick-mode-username">%%player%%</span>.</p>
-        <p class="flex-quick-mode margin-top-bottom" id="quick-mode-games"></p>
-      </section>
-    </div>
-
-    
     <footer>
       <%- include('partials/footer') %>
     </footer>
@@ -207,6 +197,13 @@
     let validGames = ["overall", "legacy", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "tkr", "arena", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holiday", "easter", "halloween", "summer"];
     let generalGames = ["general", "holiday", "easter", "halloween", "summer"];
     let currentGamemode = "<%= game %>";
+
+    if (!validGames.includes(currentGamemode)) {
+      console.warn(`Invalid game mode; defaulting to the default game (overall)`);
+      currentGamemode = "overall";
+    } else {
+      console.log(`Valid game mode: ${currentGamemode}`);
+    }
 
     let globalAchievementStats = {
       "total": {
@@ -341,7 +338,6 @@
     };
 
     if (irregularBackgrounds[gamemode] != undefined) {
-      console.warn(`Using irregular background for ${gamemode}`);
       backgroundUrl = irregularBackgrounds[gamemode];
     } else {
       backgroundUrl = `/img/games/${gamemode}/lobby.${imageFileType}`;
