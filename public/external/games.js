@@ -28,6 +28,7 @@ function generateNetwork() {
 
     updateElement("header-name", cuteRank(profileStats["tagged_name"], 0), true);
     updateElement("achievement-points", checkAndFormat(profileStats["achievement_points"]));
+    document.getElementById("achievement-points-text").href = `/achievements/${playerData["uuid"]}`;
     updateElement("karma", checkAndFormat(profileStats["karma"]));
     updateElement("quests-completed", checkAndFormat(profileStats["quests_completed"]));
     updateElement("ranks-gifted", checkAndFormat(profileStats["ranks_gifted"]));

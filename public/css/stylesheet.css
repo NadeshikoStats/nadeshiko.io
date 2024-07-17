@@ -1807,6 +1807,54 @@
     display: flex;
   }
 
+  #maxed-games {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .maxed-game {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 9px;
+    margin: 3px;
+    border-radius: 16px;
+    color: white;
+  }
+
+  .maxed-game.tier-8 {
+    background: linear-gradient(139deg, #f0ec0c 0%, #ef9505 100%);
+    color: black;
+  }
+
+  .maxed-game.tier-7 {
+    background: linear-gradient(139deg, #d42c2c 0%, #dbc72b 100%);
+  }
+
+  .maxed-game.tier-6 {
+    background: linear-gradient(139deg, #b33131 0%, #d30d8a 100%);
+  }
+
+  .maxed-game.tier-5 {
+    background: linear-gradient(139deg, #b1309c 0%, #580c6a 100%);
+  }
+
+  .maxed-game.tier-4 {
+    background: linear-gradient(139deg, #aa32aa 0%, #4947a9 100%);
+  }
+
+  .maxed-game.tier-3 {
+    background: linear-gradient(139deg, #5067b1 0%, #1b5a91 100%);
+  }
+
+  .maxed-game.tier-2 {
+    background: linear-gradient(139deg, #5ca1aa 0%, #189e68 100%);
+  }
+
+  .maxed-game.tier-1 {
+    background: linear-gradient(139deg, #5b905f 0%, #425a50 100%);
+  }
+
   .transitionable-small {
     transition-duration: var(--transition-small);
   }

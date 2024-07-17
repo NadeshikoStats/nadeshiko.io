@@ -880,7 +880,7 @@ function getMetaDescription(game, playerData) {
       "speeduhc": "🥕 Speed UHC",
       "summer": "☀️ Summer",
       "supersmash": "🥊 Smash Heroes",
-      "tntgames": "💣 TNT Games",
+      "tntgames": "🧨 TNT Games",
       "gingerbread": "🏎️ Turbo Kart Racers",
       "uhc": "🍎 UHC",
       "vampirez": "🧛 VampireZ",
@@ -988,7 +988,7 @@ function getMetaDescription(game, playerData) {
 
     let achievementGamesString = "";
 
-    for (let a = 0; a < Math.min(achievementGamesArray.length, 10); a++) {
+    for (let a = 0; a < Math.min(achievementGamesArray.length, 5); a++) {
       let gameObject = achievementGamesArray[a];
       if (gameObject) {
         achievementGamesString += `• ${achievementNames[gameObject["game"]]}: ${gameObject["achievements"]} / ${gameObject["global_achievements"]} (${checkAndFormat(gameObject["progress_achievements"] * 100, 1)}%)\n`;

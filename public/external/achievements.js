@@ -129,6 +129,46 @@ function simplifyNumber(number) {
   }
 }
 
+function getGameTier(gameName) {
+
+  let gameDifficulties = {
+    general: 1,
+    bedwars: 3,
+    duels: 4,
+    skywars: 7,
+    arcade: 4,
+    buildbattle: 2,
+    murdermystery: 3,
+    tntgames: 4,
+    pit: 7,
+    tkr: 2,
+    arena: 6,
+    quakecraft: 5,
+    walls: 3,
+    vampirez: 2,
+    paintball: 5,
+    megawalls: 7,
+    copsandcrims: 5,
+    uhc: 7,
+    speeduhc: 4,
+    blitz: 6,
+    woolgames: 4,
+    warlords: 6,
+    smashheroes: 5,
+    skyblock: 5,
+    housing: 1,
+    holiday: 1,
+    easter: 1,
+    halloween: 1,
+    summer: 1
+  };
+
+  if (gameDifficulties[gameName] == undefined) {
+    console.warn(`Game ${gameName} does not have a tier assigned`);
+  }
+  return gameDifficulties[gameName] || -1;
+}
+
 function generateNetwork() {
   let playerProfileStats = achievementsStats["player"]["profile"] || {};
 
@@ -335,12 +375,6 @@ function getTieredStats(fullName) {
 }
 
 function getAllAchievements(game) {
-  game = demodernifyGameName(game);
-
-  let gameStats = globalAchievements[game] || {};
-  let oneTimeAchievementStats = gameStats["one_time"] || {};
-  let tieredAchievementStats = gameStats["tiered"] || {};
-
   let allAchievements = {};
   let legacyAchievements = {};
   allAchievements["tiered"] = {};
@@ -348,6 +382,14 @@ function getAllAchievements(game) {
 
   legacyAchievements["tiered"] = {};
   legacyAchievements["one_time"] = {};
+
+  allAchievements["tier"] = getGameTier(game);
+  
+  game = demodernifyGameName(game);
+
+  let gameStats = globalAchievements[game] || {};
+  let oneTimeAchievementStats = gameStats["one_time"] || {};
+  let tieredAchievementStats = gameStats["tiered"] || {};
 
   for (let achievement in oneTimeAchievementStats) {
 
@@ -455,6 +497,10 @@ function gameProgress(game) {
         }
       }*/
     }
+
+  if (unlockedAchievements == totalAchievements) {
+    maxedGames.push(game);
+  }
 
   return {
     "unlocked_achievements": unlockedAchievements,
@@ -955,6 +1001,25 @@ function updateOverall() {
 
   updateElement("total-achievement-points", checkAndFormat(globalAchievementStats["total"]["points"]));
   updateElement("total-achievements", checkAndFormat(globalAchievementStats["total"]["achievements"]));
+
+  function formatMaxedGame(game) {
+    let tier = achievementsDatabase[game]["tier"];
+
+    let gameElement = document.createElement("span");
+    gameElement.classList.add("maxed-game");
+
+    let gameName = getTranslation(["games", game]);
+    gameElement.textContent = insertPlaceholders(getTranslation(["achievements", "maxed_game"]), {game: gameName});
+    gameElement.classList.add(`tier-${tier}`);
+
+    return gameElement;
+  }
+
+  maxedGames.sort((a, b) => achievementsDatabase[b]["tier"] - achievementsDatabase[a]["tier"]);
+  for (let a = 0; a < maxedGames.length; a++) {
+    let game = maxedGames[a];
+    document.getElementById("maxed-games").appendChild(formatMaxedGame(game));
+  }
 
   let pointsPercentage = (globalAchievementStats["player"]["points"] / globalAchievementStats["total"]["points"]);
   updateElement("achievement-points-progress-number", Math.floor(pointsPercentage * 100) + "%");
