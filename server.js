@@ -849,9 +849,9 @@ function getMetaDescription(game, playerData) {
     return `guild stast!!!!!!!`;
   }
   case 'achievements': {
-    let playerTieredAchievements = getValue(playerData, ["player", "achievements"]);
-    let playerOneTimeAchievements = getValue(playerData, ["player", "achievements_one_time"]);
-    let globalAchievements = getValue(playerData, ["global", "achievements"]);
+    let playerTieredAchievements = getValue(playerData, ["player", "achievements"]) || {};
+    let playerOneTimeAchievements = getValue(playerData, ["player", "achievements_one_time"]) || [];
+    let globalAchievements = getValue(playerData, ["global", "achievements"]) || {};
 
     let achievementGames = ["arcade", "arena", "bedwars", "blitz", "buildbattle", "christmas2017", "copsandcrims", "duels", "easter", "general", "gingerbread", "halloween2017", "housing", "murdermystery", "paintball", "pit", "quake", "skyblock", /*"skyclash",*/ "skywars", "speeduhc", "summer", "supersmash", "tntgames", /*"truecombat",*/ "uhc", "vampirez", "walls", "walls3", "warlords", "woolgames"];
     
@@ -984,7 +984,6 @@ function getMetaDescription(game, playerData) {
 
     // sort achievementGamesArray by points
     achievementGamesArray.sort((a, b) => b["progress_achievements"] - a["progress_achievements"]);
-    console.log(achievementGamesArray);
 
     let achievementGamesString = "";
 

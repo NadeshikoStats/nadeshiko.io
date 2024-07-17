@@ -1820,6 +1820,7 @@
     margin: 3px;
     border-radius: 16px;
     color: white;
+    cursor: pointer;
   }
 
   .maxed-game.tier-8 {

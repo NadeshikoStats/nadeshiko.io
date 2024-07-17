@@ -1011,6 +1011,7 @@ function updateOverall() {
     let gameName = getTranslation(["games", game]);
     gameElement.textContent = insertPlaceholders(getTranslation(["achievements", "maxed_game"]), {game: gameName});
     gameElement.classList.add(`tier-${tier}`);
+    gameElement.setAttribute("onclick", `switchStats("${game}")`);
 
     return gameElement;
   }
