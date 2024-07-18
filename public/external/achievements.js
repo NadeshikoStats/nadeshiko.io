@@ -690,10 +690,10 @@ function generateAchievementPage(game) {
           <p class="chip-small-title">${getTranslation(`achievements.tiered`)}</p>
           <div class="list achievements-container tiered-container" data-i="tiered-container">
 
-            <div class="row">
+            <div class="row header-row">
               <div class="row-header">
-                <div class="achievement column">${getTranslation(`statistics.name`)}</div>
-                <div class="column tiers">${getTranslation("achievements.tiers")}</div>
+                <div class="achievement column pointer" data-i="sort-name_tiered">${getTranslation(`statistics.name`)}</div>
+                <div class="column tiers pointer" data-i="sort-tiers">${getTranslation("achievements.tiers")}</div>
               </div>
             </div>
 
@@ -705,7 +705,7 @@ function generateAchievementPage(game) {
             
             <div class="row header-row">
               <div class="row-header">
-                <div class="achievement column faded transitionable-small pointer" data-i="sort-name">${getTranslation(`statistics.name`)}</div>
+                <div class="achievement column faded transitionable-small pointer" data-i="sort-name_one_time">${getTranslation(`statistics.name`)}</div>
                 <p class="column tabular faded transitionable-small pointer" data-i="sort-points">
                   <span class="tooltip pointer">
                     <img class="smallicon" src="/img/svg/trophy.svg">
@@ -742,10 +742,13 @@ function generateAchievementPage(game) {
   gameElement.classList.add("minigame-flex-container");
   gameElement.setAttribute("id", "flex-container-" + game);
 
-  gameElement.querySelector("[data-i='sort-name']").setAttribute("onclick", `sortData("${game}", "one-time", "name")`);
+  gameElement.querySelector("[data-i='sort-name_one_time']").setAttribute("onclick", `sortData("${game}", "one-time", "name_one_time")`);
   gameElement.querySelector("[data-i='sort-points']").setAttribute("onclick", `sortData("${game}", "one-time", "points")`);
   gameElement.querySelector("[data-i='sort-game']").setAttribute("onclick", `sortData("${game}", "one-time", "game")`);
   gameElement.querySelector("[data-i='sort-global']").setAttribute("onclick", `sortData("${game}", "one-time", "global")`);
+
+  gameElement.querySelector("[data-i='sort-name_tiered']").setAttribute("onclick", `sortData("${game}", "tiered", "name_tiered")`);
+  gameElement.querySelector("[data-i='sort-tiers']").setAttribute("onclick", `sortData("${game}", "tiered", "tiers")`);
 
   let gameStats = gameProgress(game);
 
@@ -787,55 +790,59 @@ function generateAchievementPage(game) {
     </div>
 `
 
-    for (let achievement in allAchievements["tiered"]) {
+    if (Object.keys(allAchievements["tiered"]).length == 0) {
+      gameElement.querySelector("[data-i='tiered']").style.display = "none";
+    } else {
+      for (let achievement in allAchievements["tiered"]) {
 
-      let achievementStats = allAchievements["tiered"][achievement];
-  
-      let row = document.createElement("div");
-      row.classList.add("row");
-  
-      let achievementElement = document.createElement("div");
-      achievementElement.classList.add("row-header");
-      achievementElement.innerHTML = tieredAchievementTemplate;
-  
-      for (let a = 0; a < achievementStats["tiers"].length; a++) {
-        let tier = document.createElement("div");
-        tier.innerHTML = tierTemplate;
-        tier.classList.add("tier");
-  
-        let tierStats = achievementStats["tiers"][a];
-  
-        if (achievementStats["unlocked_tiers"] > a) {
-          tier.classList.add("unlocked");
-        } else if (achievementStats["unlocked_tiers"] < a) {
-          tier.classList.add("locked");
-        }
-  
-        updateTag(tier, "tier-quantity", simplifyNumber(tierStats["amount"]));
-        updateTag(tier, "tier-points", `+${checkAndFormat(tierStats["points"])}`);
-  
-        achievementElement.querySelector(".tiers").appendChild(tier);
-      }
-
-      if (achievementStats["unlocked"]) {
-        row.classList.add("unlocked");
-      }
-  
-      let formattedAchievementDescription = (replaceAchievementPlaceholder(achievementStats["description"], achievementStats["amount"], achievementStats["tiers"]));
-
-      updateTag(achievementElement, "achievement-name", achievementStats["name"]);
-      updateTag(achievementElement, "achievement-description", formattedAchievementDescription);
-      updateAllTags(achievementElement, "achievement-points", checkAndFormat(achievementStats["points"]));
-      updateAllTags(achievementElement, "achievement-percentage-unlocked-game", checkAndFormat(achievementStats["gamePercentUnlocked"], 2) + "%");
-      updateAllTags(achievementElement, "achievement-percentage-unlocked-global", checkAndFormat(achievementStats["globalPercentUnlocked"], 2) + "%");
-
-      row.setAttribute("data-name", achievementStats["name"]);
-      row.setAttribute("data-tiers", achievementStats["unlocked_tiers"]);
+        let achievementStats = allAchievements["tiered"][achievement];
     
-      row.appendChild(achievementElement);
-  
-      tieredContainer.appendChild(row);
+        let row = document.createElement("div");
+        row.classList.add("row");
+    
+        let achievementElement = document.createElement("div");
+        achievementElement.classList.add("row-header");
+        achievementElement.innerHTML = tieredAchievementTemplate;
+    
+        for (let a = 0; a < achievementStats["tiers"].length; a++) {
+          let tier = document.createElement("div");
+          tier.innerHTML = tierTemplate;
+          tier.classList.add("tier");
+    
+          let tierStats = achievementStats["tiers"][a];
+    
+          if (achievementStats["unlocked_tiers"] > a) {
+            tier.classList.add("unlocked");
+          } else if (achievementStats["unlocked_tiers"] < a) {
+            tier.classList.add("locked");
+          }
+    
+          updateTag(tier, "tier-quantity", simplifyNumber(tierStats["amount"]));
+          updateTag(tier, "tier-points", `+${checkAndFormat(tierStats["points"])}`);
+    
+          achievementElement.querySelector(".tiers").appendChild(tier);
+        }
+
+        if (achievementStats["unlocked"]) {
+          row.classList.add("unlocked");
+        }
+    
+        let formattedAchievementDescription = (replaceAchievementPlaceholder(achievementStats["description"], achievementStats["amount"], achievementStats["tiers"]));
+
+        updateTag(achievementElement, "achievement-name", achievementStats["name"]);
+        updateTag(achievementElement, "achievement-description", formattedAchievementDescription);
+        updateAllTags(achievementElement, "achievement-points", checkAndFormat(achievementStats["points"]));
+        updateAllTags(achievementElement, "achievement-percentage-unlocked-game", checkAndFormat(achievementStats["gamePercentUnlocked"], 2) + "%");
+        updateAllTags(achievementElement, "achievement-percentage-unlocked-global", checkAndFormat(achievementStats["globalPercentUnlocked"], 2) + "%");
+
+        row.setAttribute("data-name_tiered", achievementStats["name"]);
+        row.setAttribute("data-tiers", achievementStats["unlocked_tiers"]);
       
+        row.appendChild(achievementElement);
+    
+        tieredContainer.appendChild(row);
+        
+      }
     }
 
   let oneTimeAchievementTemplate = 
@@ -887,7 +894,7 @@ function generateAchievementPage(game) {
     updateAllTags(achievementElement, "achievement-percentage-unlocked-game", checkAndFormat(achievementStats["gamePercentUnlocked"], 2) + "%");
     updateAllTags(achievementElement, "achievement-percentage-unlocked-global", checkAndFormat(achievementStats["globalPercentUnlocked"], 2) + "%");
 
-    row.setAttribute("data-name", achievementStats["name"]);
+    row.setAttribute("data-name_one_time", achievementStats["name"]);
     row.setAttribute("data-points", achievementStats["points"]);
     row.setAttribute("data-game", achievementStats["gamePercentUnlocked"]);
     row.setAttribute("data-global", achievementStats["globalPercentUnlocked"]);
@@ -904,7 +911,11 @@ function compareAttributes(attribute, reverse = false) {
   let reverseMultiplier = reverse ? -1 : 1;
 
   let attributeClassifications = {
-    "name": {
+    "name_tiered": {
+      type: "string",
+      reverse: false
+    },
+    "name_one_time": {
       type: "string",
       reverse: false
     },
@@ -919,6 +930,10 @@ function compareAttributes(attribute, reverse = false) {
     "global": {
       type: "number",
       reverse: true
+    },
+    "tiers": {
+      type: "number",
+      reverse: false
     }
   };
 
@@ -932,8 +947,8 @@ function compareAttributes(attribute, reverse = false) {
 
     let aValue, bValue;
     if (attributeClassification["type"] == "string") {
-      aValue = und(a.dataset[attribute]);
-      bValue = und(b.dataset[attribute]);
+      aValue = und(a.dataset[attribute], "");
+      bValue = und(b.dataset[attribute], "");
 
       console.warn([aValue, bValue]);
 
@@ -975,12 +990,19 @@ function sortData(game, type, attribute = "points", reverse = false) {
   currentSort = attribute;
 
   let achievementTable = document.getElementById(`${game}-${type}`);
+  console.log(`${game}-${type}-${attribute}-${reverse}`);
   let achievementTableRows = achievementTable.querySelectorAll(".row:not(.header-row)");
   let achievementTableRowsArray = Array.from(achievementTableRows);
 
   console.log("Sorting by " + attribute + " in " + game + " " + type + " with reverse " + reverse);
 
-  let achievementHeaderElements = ["sort-name", "sort-points", "sort-game", "sort-global"];
+  let achievementHeaderElements;
+  if (type == "one-time") {
+    achievementHeaderElements = ["sort-name_one_time", "sort-points", "sort-game", "sort-global"];
+  } else if (type == "tiered") {
+    achievementHeaderElements = ["sort-name_tiered", "sort-tiers"];
+  }
+
   achievementHeaderElements.forEach((dataI) => {
     let element = achievementTable.querySelector(`[data-i="${dataI}"]`);
     element.classList.add("faded");

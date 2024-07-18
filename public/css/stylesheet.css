@@ -1640,6 +1640,10 @@
     color: white;
   }
 
+  .list .header-row .row-header {
+    height: 45px;
+  }
+
   .list .content-joined-header {
     display: none;
   }
