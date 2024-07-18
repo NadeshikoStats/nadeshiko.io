@@ -106,14 +106,16 @@
   },
   "achievements": {
     "achievements": "Achievements",
-    "maxed_game": "Max %game%",
+    "maxed_game": "%%game%% – All Plundered",
     "easiest_uncompleted": "Easiest Uncompleted",
     "closest_tiers": "Closest Tiers",
-    "recently_completed": "Recently Completed",
+    "recently_completed": "Recently Plundered",
     "tiered": "Tiered",
     "one_time": "Challenge",
-    "check": "✓",
-    "tiers": "Tiers"
+    "check": "☠",
+    "tiers": "Tiers",
+    "game": "% o' %%game%% pirates that 'ave accomplished 'tis",
+    "global": "% o' all pirates in th' seven seas who 'ave completed 'tis"
   },
   "footer": {
     "created_by": "'Tis ship be built by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> an' <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
@@ -148,7 +150,7 @@
     "housing": "Housing",
     "skyblock": "SkyBlock",
     "speeduhc": "Speed UHC",
-    "overall": "Overall",
+    "overall": "Th' Seas",
     "legacy": "Legacy",
     "general": "General",
     "network": "Network",

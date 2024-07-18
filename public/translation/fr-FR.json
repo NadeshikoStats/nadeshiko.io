@@ -106,14 +106,16 @@
   },
   "achievements": {
     "achievements": "Achievements",
-    "maxed_game": "Max %game%",
+    "maxed_game": "Max %%game%%",
     "easiest_uncompleted": "Easiest Uncompleted",
     "closest_tiers": "Closest Tiers",
     "recently_completed": "Recently Completed",
     "tiered": "Tiered",
     "one_time": "Challenge",
-    "check": "✓",
-    "tiers": "Tiers"
+    "check": "🐇",
+    "tiers": "Tiers",
+    "game": "% of %%game%% players with this achievement",
+    "global": "% of all players with this achievement"
   },
   "footer": {
     "created_by": "Fait avec ♥︎ par <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> et <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
