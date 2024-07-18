@@ -214,6 +214,66 @@ function sumStatsBasic(statNames, statArray) {
   return statSum;
 }
 
+function shortDateFormat(date) {
+  return new Intl.DateTimeFormat("en-CA", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    calendar: "gregory"
+  }).format(date);
+}
+
+function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past
+  let dateNew = new Date(currentTime);
+  let dateOld = new Date(timestamp);
+
+  let years = dateNew.getFullYear() - dateOld.getFullYear();
+  let months = dateNew.getMonth() - dateOld.getMonth();
+  let days = dateNew.getDate() - dateOld.getDate();
+  let hours = dateNew.getHours() - dateOld.getHours();
+  let minutes = dateNew.getMinutes() - dateOld.getMinutes();
+  let seconds = dateNew.getSeconds() - dateOld.getSeconds();
+
+  if (seconds < 0) {
+    minutes--;
+    seconds += 60;
+  }
+
+  if (minutes < 0) {
+    hours--;
+    minutes += 60;
+  }
+
+  if (hours < 0) {
+    days--;
+    hours += 24;
+  }
+
+  if (days < 0) {
+    months--;
+    days += new Date(dateOld.getFullYear(), dateOld.getMonth() + 1, 0).getDate(); // Ensures that a month has the correct number of days.
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  let timeValue;
+  let dateIsInFuture = false;
+
+  if (years > 0) timeValue = `${years}y`;
+  else if (months > 0) timeValue = `${months}mo}`;
+  else if (days > 0) timeValue = `${days}day`;
+  else if (hours > 0) timeValue = `${hours}h`;
+  else if (minutes > 0) timeValue = `${minutes}min`;
+  else if (seconds > 0) timeValue = `${seconds}s`;
+  else dateIsInFuture = true;
+
+  if (dateIsInFuture) return `(now!)`;
+  else return `(${timeValue} ago)`;
+}
+
 function getMetaDescription(game, playerData) {
   if(typeof playerData != "undefined") {
   switch(game) {
@@ -846,7 +906,19 @@ function getMetaDescription(game, playerData) {
 • 🎣 Special Fish Caught: ${checkAndFormat(specialFishCount)}/${maxSpecialFish}`;
 
   case 'guild': {
-    return `guild stast!!!!!!!`;
+    let guildDescription = playerData["description"] || "No description";
+    if (guildDescription != null) {
+      guildDescription = `“${guildDescription}”`;
+    }
+
+    return `${guildDescription}
+    
+Guild Stats
+    
+• 🏅 Level: ${checkAndFormat(Math.floor(playerData["level"]))}
+• 👥 Members: ${checkAndFormat(playerData["members"].length)}
+• 📆 Created: ${shortDateFormat(playerData["created"])} ${relativeTime(playerData["created"])}
+`;
   }
   case 'achievements': {
     let playerTieredAchievements = getValue(playerData, ["player", "achievements"]) || {};
