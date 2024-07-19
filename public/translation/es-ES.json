@@ -115,7 +115,10 @@
     "check": "✓",
     "tiers": "Niveles",
     "game": "% de jugadores de %%game%% con este logro",
-    "global": "% de todos los jugadores con este logro"
+    "global": "% de todos los jugadores con este logro",
+    "all": "Todos",
+    "locked": "Bloqueados",
+    "unlocked": "Desbloqueados"
   },
   "footer": {
     "created_by": "Hecho con ♥︎ por <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> y <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."

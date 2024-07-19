@@ -115,7 +115,10 @@
     "check": "☠",
     "tiers": "Tiers",
     "game": "% o' %%game%% pirates that 'ave accomplished 'tis",
-    "global": "% o' all pirates in th' seven seas who 'ave completed 'tis"
+    "global": "% o' all pirates in th' seven seas who 'ave completed 'tis",
+    "all": "All",
+    "locked": "Plundered",
+    "unlocked": "Nah Plundered"
   },
   "footer": {
     "created_by": "'Tis ship be built by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> an' <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."

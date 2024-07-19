@@ -79,7 +79,10 @@
     "errors": {
       "404": "home.errors.404",
       "error": "home.errors.error",
-      "computation": "home.errors.computation"
+      "computation": "home.errors.computation",
+      "guild": {
+        "computation": "home.errors.guild.computation"
+      }
     }
   },
   "player": {
@@ -101,6 +104,22 @@
       "api_disabled": "player.errors.api_disabled"
     }
   },
+  "achievements": {
+    "achievements": "achievements.achievements",
+    "maxed_game": "achievements.maxed_game",
+    "easiest_uncompleted": "achievements.easiest_uncompleted",
+    "closest_tiers": "achievements.closest_tiers",
+    "recently_completed": "achievements.recently_completed",
+    "tiered": "achievements.tiered",
+    "one_time": "achievements.one_time",
+    "check": "achievements.check",
+    "tiers": "achievements.tiers",
+    "game": "achievements.game",
+    "global": "achievements.global",
+    "all": "achievements.all",
+    "locked": "achievements.locked",
+    "unlocked": "achievements.unlocked"
+  },
   "footer": {
     "created_by": "footer.created_by"
   },
@@ -121,6 +140,22 @@
     "uhc": "games.uhc",
     "warlords": "games.warlords",
     "woolgames": "games.woolgames",
+    "arena": "games.arena",
+    "paintball": "games.paintball",
+    "quakecraft": "games.quakecraft",
+    "tkr": "games.tkr",
+    "vampirez": "games.vampirez",
+    "walls": "games.walls",
+    "easter": "games.easter",
+    "halloween": "games.halloween",
+    "holiday": "games.holiday",
+    "summer": "games.summer",
+    "housing": "games.housing",
+    "skyblock": "games.skyblock",
+    "speeduhc": "games.speeduhc",
+    "overall": "games.overall",
+    "legacy": "games.legacy",
+    "general": "games.general",
     "network": "games.network",
     "fishing": "games.fishing",
     "modes": {
@@ -350,21 +385,15 @@
       },
       "classic": {
         "arena": {
-          "category": "games.modes.classic.arena.category",
           "1v1": "games.modes.classic.arena.1v1",
           "2v2": "games.modes.classic.arena.2v2",
           "4v4": "games.modes.classic.arena.4v4"
         },
-        "paintball": {
-          "category": "games.modes.classic.paintball.category"
-        },
         "quakecraft": {
-          "category": "games.modes.classic.quakecraft.category",
           "solo": "games.modes.classic.quakecraft.solo",
           "teams": "games.modes.classic.quakecraft.teams"
         },
         "tkr": {
-          "category": "games.modes.classic.tkr.category",
           "canyon": "games.modes.classic.tkr.canyon",
           "hypixelgp": "games.modes.classic.tkr.hypixelgp",
           "junglerush": "games.modes.classic.tkr.junglerush",
@@ -372,12 +401,8 @@
           "retro": "games.modes.classic.tkr.retro"
         },
         "vampirez": {
-          "category": "games.modes.classic.vampirez.category",
           "human": "games.modes.classic.vampirez.human",
           "vampire": "games.modes.classic.vampirez.vampire"
-        },
-        "walls": {
-          "category": "games.modes.classic.walls.category"
         }
       },
       "copsandcrims": {
@@ -552,13 +577,13 @@
       },
       "woolgames": {
         "woolwars": {
-          "category": "games.modes.woolwars.woolwars.category",
-          "archer": "games.modes.woolwars.woolwars.archer",
-          "assault": "games.modes.woolwars.woolwars.assault",
-          "engineer": "games.modes.woolwars.woolwars.engineer",
-          "golem": "games.modes.woolwars.woolwars.golem",
-          "swordsman": "games.modes.woolwars.woolwars.swordsman",
-          "tank": "games.modes.woolwars.woolwars.tank"
+          "category": "games.modes.woolgames.woolwars.category",
+          "archer": "games.modes.woolgames.woolwars.archer",
+          "assault": "games.modes.woolgames.woolwars.assault",
+          "engineer": "games.modes.woolgames.woolwars.engineer",
+          "golem": "games.modes.woolgames.woolwars.golem",
+          "swordsman": "games.modes.woolgames.woolwars.swordsman",
+          "tank": "games.modes.woolgames.woolwars.tank"
         }
       },
       "fishing": {
@@ -904,7 +929,11 @@
     "junk_caught": "statistics.junk_caught",
     "treasure_caught": "statistics.treasure_caught",
     "mythical_fish_caught": "statistics.mythical_fish_caught",
-    "special_fish_caught": "statistics.special_fish_caught"
+    "special_fish_caught": "statistics.special_fish_caught",
+    "created": "statistics.created",
+    "player": "statistics.player",
+    "rank": "statistics.rank",
+    "guild_experience": "statistics.guild_experience"
   },
   "times": {
     "time_ago": "times.time_ago",

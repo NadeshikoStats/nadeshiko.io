@@ -148,7 +148,11 @@
     "tiers": "Tiers",
 
     "game": "% of %%game%% players with this achievement",
-    "global": "% of all players with this achievement"
+    "global": "% of all players with this achievement",
+
+    "all": "All",
+    "locked": "Locked",
+    "unlocked": "Unlocked"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."

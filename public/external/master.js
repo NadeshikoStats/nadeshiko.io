@@ -385,6 +385,10 @@ function updateChipStats(name, chipId, gamemode) {
       }
       break;
 
+    case "achievements":
+      filterData(chipId, newValue);
+      break;
+
     default:
       console.warn(`Unknown gamemode ${gamemode}`);
       break;

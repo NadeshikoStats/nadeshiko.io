@@ -687,7 +687,20 @@ function generateAchievementPage(game) {
           </div>
         </div>
         <div class="chip-small but-big no-overflow" data-i="tiered">
-          <p class="chip-small-title">${getTranslation(`achievements.tiered`)}</p>
+          <div class="chip-small-top">
+            <p class="chip-small-title">${getTranslation(`achievements.tiered`)}</p>
+            <span class="flex-two-item">
+              <div class="dropdown">  
+                <p class="dropdown-button chip-dropdown-button"><span>${getTranslation("achievements.all")}</span></p>
+                <div class="dropdown-content unloaded dropdown-chip" data-i="filter-tiered" data-game="achievements">
+                
+                <div class="dropdown-item selected" data-item="all"><span class="dropdown-item-text">${getTranslation("achievements.all")}</span></div>
+                <div class="dropdown-item" data-item="locked"><span class="dropdown-item-text">${getTranslation("achievements.locked")}</span></div>
+                <div class="dropdown-item" data-item="unlocked"><span class="dropdown-item-text">${getTranslation("achievements.unlocked")}</span></div>
+              </div>
+              </div>
+            </span>
+          </div>
           <div class="list achievements-container tiered-container" data-i="tiered-container">
 
             <div class="row header-row">
@@ -700,7 +713,20 @@ function generateAchievementPage(game) {
           </div>
         </div>
         <div class="chip-small but-big no-overflow" data-i="one-time">
-        <p class="chip-small-title">${getTranslation(`achievements.one_time`)}</p>
+          <div class="chip-small-top">
+            <p class="chip-small-title">${getTranslation(`achievements.one_time`)}</p>
+            <span class="flex-two-item">
+              <div class="dropdown">  
+                <p class="dropdown-button chip-dropdown-button"><span>${getTranslation("achievements.all")}</span></p>
+                <div class="dropdown-content unloaded dropdown-chip" data-i="filter-one-time" data-game="achievements">
+                
+                <div class="dropdown-item selected" data-item="all"><span class="dropdown-item-text">${getTranslation("achievements.all")}</span></div>
+                <div class="dropdown-item" data-item="locked"><span class="dropdown-item-text">${getTranslation("achievements.locked")}</span></div>
+                <div class="dropdown-item" data-item="unlocked"><span class="dropdown-item-text">${getTranslation("achievements.unlocked")}</span></div>
+              </div>
+              </div>
+            </span>
+          </div>
           <div class="list achievements-container one-time-container" data-i="one-time-container">
             
             <div class="row header-row">
@@ -741,6 +767,9 @@ function generateAchievementPage(game) {
   gameElement.classList.add("unloaded");
   gameElement.classList.add("minigame-flex-container");
   gameElement.setAttribute("id", "flex-container-" + game);
+
+  gameElement.querySelector("[data-i='filter-tiered']").setAttribute("data-modify", `${game}-tiered`);
+  gameElement.querySelector("[data-i='filter-one-time']").setAttribute("data-modify", `${game}-one-time`);
 
   gameElement.querySelector("[data-i='sort-name_one_time']").setAttribute("onclick", `sortData("${game}", "one-time", "name_one_time")`);
   gameElement.querySelector("[data-i='sort-points']").setAttribute("onclick", `sortData("${game}", "one-time", "points")`);
@@ -1014,6 +1043,22 @@ function sortData(game, type, attribute = "points", reverse = false) {
 
   achievementTableRowsArray.forEach((element) => {
     achievementTable.appendChild(element);
+  });
+}
+
+function filterData(id, filterBy = "all") {
+  let element = document.getElementById(id);
+  let rows = element.querySelectorAll(".row:not(.header-row)");
+
+  rows.forEach((row) => {
+    let displayType = "flex";
+    if (filterBy == "locked") {
+      displayType = row.classList.contains("unlocked") ? "none" : "flex";
+    } else if (filterBy == "unlocked") {
+      displayType = row.classList.contains("unlocked") ? "flex" : "none";
+    }
+
+    row.style.display = displayType;
   });
 }
 
