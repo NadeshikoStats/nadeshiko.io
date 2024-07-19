@@ -84,14 +84,10 @@ let secretAchievements = {
 };
 
 function getSecretAchievement(achievement) {
-  let secretAchievementTemplate = `
-    <span class="tooltip">
-      <span data-i="achievement-name"></span>
-      </span>
-  `;
-
   if (secretAchievements[achievement]) {
     return secretAchievements[achievement];
+  } else {
+    return getTranslation(["achievements", "secret_achievement"]);
   }
 }
 
@@ -860,6 +856,7 @@ function generateAchievementPage(game) {
 
         updateTag(achievementElement, "achievement-name", achievementStats["name"]);
         updateTag(achievementElement, "achievement-description", formattedAchievementDescription);
+        
         updateAllTags(achievementElement, "achievement-points", checkAndFormat(achievementStats["points"]));
         updateAllTags(achievementElement, "achievement-percentage-unlocked-game", checkAndFormat(achievementStats["gamePercentUnlocked"], 2) + "%");
         updateAllTags(achievementElement, "achievement-percentage-unlocked-global", checkAndFormat(achievementStats["globalPercentUnlocked"], 2) + "%");
@@ -918,7 +915,16 @@ function generateAchievementPage(game) {
     }
 
     updateTag(achievementElement, "achievement-name", achievementStats["name"]);
-    updateTag(achievementElement, "achievement-description", achievementStats["description"]);
+
+    if (achievementStats["description"] == "???") {
+      let secretAchievementTemplate = `<span class="tooltip"><span>???</span><span class="tooltiptext" data-i="secret-achievement-text"></span></span>`;
+
+      achievementElement.querySelector("[data-i='achievement-description']").innerHTML = secretAchievementTemplate;
+      achievementElement.querySelector("[data-i='secret-achievement-text']").textContent = getSecretAchievement(`${game}_${ achievement}`);
+    } else {
+      updateTag(achievementElement, "achievement-description", achievementStats["description"]);
+    }
+
     updateAllTags(achievementElement, "achievement-points", checkAndFormat(achievementStats["points"]));
     updateAllTags(achievementElement, "achievement-percentage-unlocked-game", checkAndFormat(achievementStats["gamePercentUnlocked"], 2) + "%");
     updateAllTags(achievementElement, "achievement-percentage-unlocked-global", checkAndFormat(achievementStats["globalPercentUnlocked"], 2) + "%");
