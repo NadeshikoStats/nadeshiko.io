@@ -42,6 +42,17 @@
     --accent-woolgames: #bc6d7e;
     --accent-housing: #ce586a;
 
+    --badge-none: #931f1d;
+    --badge-low: #ff7f11;
+    --badge-medium: #ffe74c;
+    --badge-high: #06aed5;
+    --nadeshiko-transparent: #f6adc690;
+
+    --badge-none-transparent: #931f1d90;
+    --badge-low-transparent: #ff7f1190;
+    --badge-medium-transparent: #ffe74c90;
+    --badge-high-transparent: #06aed590;
+
     --grey: #888;
     --mc0: #000000;
     /* Black */
@@ -946,7 +957,8 @@
   }
   
   .dropdown-games {
-    min-width: min(220px, 100vw);
+    width: 100vw;
+    max-width: max-content;
     max-height: 70vh;
   }
   

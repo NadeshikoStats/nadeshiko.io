@@ -248,6 +248,7 @@ function generateNetwork() {
     } else {
       container = document.createElement("div");
       container.setAttribute("onclick", `switchStats('${game.id}')`);
+      container.setAttribute("data-game", game.id);
     }
 
     container.setAttribute("aria-label", `View ${game.name} stats`);
@@ -498,12 +499,54 @@ function gameProgress(game) {
     maxedGames.push(game);
   }
 
+  allAchievementsGame["unlocked_achievements"] = unlockedAchievements;
+  allAchievementsGame["total_achievements"] = totalAchievements;
+  allAchievementsGame["unlocked_points"] = unlockedPoints;
+  allAchievementsGame["total_points"] = totalPoints;
+
   return {
     "unlocked_achievements": unlockedAchievements,
     "total_achievements": totalAchievements,
     "unlocked_points": unlockedPoints,
     "total_points": totalPoints
   };
+}
+
+function updateHeaderGameProgress() {
+  let gameDropdownChildren = document.querySelectorAll(".dropdown-games div");
+
+  for (let a = 0; a < gameDropdownChildren.length; a++) {
+    let dropdownItem = gameDropdownChildren[a];
+    let game = dropdownItem.getAttribute("data-game");
+    console.log(game);
+
+    let achievementsDatabaseGame = achievementsDatabase[game];
+    if (achievementsDatabaseGame == undefined) continue;
+    
+    let gameProgress = und(achievementsDatabaseGame["unlocked_achievements"] / achievementsDatabaseGame["total_achievements"]) * 100;
+
+    let gameProgressTitle;
+    if(gameProgress == 100) {
+      gameProgressTitle = "nadeshiko";
+    } else if(gameProgress >= 80) {
+      gameProgressTitle = "badge-high";
+    } else if(gameProgress >= 50) {
+      gameProgressTitle = "badge-medium";
+    } else if(gameProgress > 0) {
+      gameProgressTitle = "badge-low";
+    } else {
+      gameProgressTitle = "badge-none";
+    }
+
+    let badge = document.createElement("span");
+    badge.classList.add("dropdown-item-badge");
+    //badge.classList.add(gameProgressTitle);
+    badge.style.background = `linear-gradient(108deg, var(--${gameProgressTitle}) ${gameProgress}%, var(--${gameProgressTitle}-transparent) ${gameProgress}%, var(--${gameProgressTitle}-transparent) 100%)`;
+    badge.style.border = `1px solid var(--${gameProgressTitle})`;
+    badge.textContent = Math.floor(gameProgress) + "%";
+
+    dropdownItem.appendChild(badge);
+  }
 }
 
 function updateClosestTiered() {
