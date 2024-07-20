@@ -525,24 +525,19 @@ function updateHeaderGameProgress() {
     
     let gameProgress = und(achievementsDatabaseGame["unlocked_achievements"] / achievementsDatabaseGame["total_achievements"]) * 100;
 
-    let gameProgressTitle;
-    if(gameProgress == 100) {
-      gameProgressTitle = "nadeshiko";
-    } else if(gameProgress >= 80) {
-      gameProgressTitle = "badge-high";
-    } else if(gameProgress >= 50) {
-      gameProgressTitle = "badge-medium";
-    } else if(gameProgress > 0) {
-      gameProgressTitle = "badge-low";
-    } else {
-      gameProgressTitle = "badge-none";
-    }
+    let gameProgressFloored = Math.floor(gameProgress);
+
+    let gameProgressColors = ["#bb2e2e","#b92e30","#b72e33","#b62e36","#b42f38","#b22f3b","#b12f3e","#af2f40","#ae3043","#ac3046","#aa3048","#a9314b","#a7314e","#a63150","#a43153","#a23256","#a13258","#9f325b","#9e325e","#9c3360","#9a3363","#993366","#973468","#96346b","#94346e","#923470","#913573","#8f3576","#8e3578","#8c357b","#8a367e","#893680","#873683","#863786","#843787","#823888","#80398a","#7e398b","#7c3a8d","#7a3b8e","#783b90","#763c91","#743d93","#723d94","#703e96","#6e3f97","#6c3f99","#6a409a","#68419c","#66419d","#64429f","#6243a0","#6043a2","#5e44a3","#5c45a5","#5a45a6","#5846a8","#5647a9","#5447ab","#5248ac","#5049ae","#4e49af","#4c4ab1","#4a4bb2","#494cb4","#4752b5","#4658b6","#455fb7","#4465b8","#436bb9","#4272ba","#4178bb","#407ebc","#3f85bd","#3d8bbe","#3c91bf","#3b98c0","#3a9ec1","#39a4c2","#38abc3","#37b1c4","#36b7c5","#35bec6","#38c1bd","#3cc5b5","#40c9ad","#44cca5","#48d09d","#4bd495","#4fd78d","#53db85","#57df7d","#5be375","#5fe66d","#62ea65","#66ee5d","#6af155","#6ef54d","#72f945","#76fd3d","#f0ec0c"];
 
     let badge = document.createElement("span");
     badge.classList.add("dropdown-item-badge");
-    //badge.classList.add(gameProgressTitle);
-    badge.style.background = `linear-gradient(108deg, var(--${gameProgressTitle}) ${gameProgress}%, var(--${gameProgressTitle}-transparent) ${gameProgress}%, var(--${gameProgressTitle}-transparent) 100%)`;
-    badge.style.border = `1px solid var(--${gameProgressTitle})`;
+    badge.style.background = `linear-gradient(108deg, ${gameProgressColors[gameProgressFloored]} ${gameProgress}%, ${gameProgressColors[gameProgressFloored]}80 ${gameProgress}%, ${gameProgressColors[gameProgressFloored]}80 100%)`;
+
+    if (gameProgress < 50) {
+      badge.style.color = "white";
+    }
+
+    badge.style.border = `1px solid ${gameProgressColors[gameProgressFloored]}`;
     badge.textContent = Math.floor(gameProgress) + "%";
 
     dropdownItem.appendChild(badge);
@@ -825,7 +820,7 @@ function generateAchievementPage(game) {
   updateTag(gameElement, "total-points", checkAndFormat(gameStats["total_points"]));
   updateTag(gameElement, "total-achievements", checkAndFormat(gameStats["total_achievements"]));
 
-  if (gameStats["unlocked_points"] == gameStats["total_points"]) {
+  if (gameStats["unlocked_achievements"] == gameStats["total_achievements"]) {
     gameElement.querySelector("[data-i='maxed']").style.display = "inline";
   }
 

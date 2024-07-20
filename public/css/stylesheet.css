@@ -42,17 +42,6 @@
     --accent-woolgames: #bc6d7e;
     --accent-housing: #ce586a;
 
-    --badge-none: #931f1d;
-    --badge-low: #ff7f11;
-    --badge-medium: #ffe74c;
-    --badge-high: #06aed5;
-    --nadeshiko-transparent: #f6adc690;
-
-    --badge-none-transparent: #931f1d90;
-    --badge-low-transparent: #ff7f1190;
-    --badge-medium-transparent: #ffe74c90;
-    --badge-high-transparent: #06aed590;
-
     --grey: #888;
     --mc0: #000000;
     /* Black */
@@ -1034,7 +1023,6 @@
     border-radius: 10px;
     margin-inline-start: 5px;
     color: #000000;
-    opacity: 0.7;
   }
 
   .badge-none {
