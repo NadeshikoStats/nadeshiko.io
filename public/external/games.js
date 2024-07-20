@@ -742,6 +742,9 @@ function getArenaBrawlStats(mode) {
   ];
 }
 
+function getArcadePartyGamesStats(mode) {
+}
+
 function getTKRStats(mode) {
   let tkrTitles = [
     { req: 0, color: "§8", internalId: "dark_gray" },

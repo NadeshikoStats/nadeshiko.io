@@ -291,6 +291,10 @@ function updateChipStats(name, chipId, gamemode) {
     case "arcade_hide_and_seek":
       updateElement(chipId, generateChipStats(getArcadeHideAndSeekStats(newValue)), true);
       break;
+
+    case "arcade_party_games":
+      updateElement(chipId, generateChipStats(getArcadePartyGamesStats(newValue)), true);
+      break;
     
     case "arena":
       updateElement(chipId, generateChipStats(getArenaBrawlStats(newValue)), true);

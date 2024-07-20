@@ -9,6 +9,16 @@ function getRankPriorities() {
   }
 }
 
+function shortDate(date) {
+  let [year, month, day] = und(date.split('-'));
+
+  let dateObject = new Date(year, month - 1, day)
+
+  let formattedDate = new Intl.DateTimeFormat(userLanguage, { day: 'numeric', month: 'short' }).format(dateObject);
+
+  return(formattedDate);
+}
+
 function generateGeneralGuildStats() {
   updateElement("guild-name", guildStats["name"]);
   updateElement("guild-tag", generateMinecraftText(guildStats["tag"]), true);
@@ -283,6 +293,11 @@ function generateChart(uuid) {
   let memberExpValues = Object.values(memberExpHistory);
 
   memberExpDates = memberExpDates.reverse();
+
+  for (let a = 0; a < memberExpDates.length; a++) {
+    memberExpDates[a] = shortDate(memberExpDates[a]);
+  }
+
   memberExpValues = memberExpValues.reverse();
 
   new Chart(("chart-" + uuid), {
