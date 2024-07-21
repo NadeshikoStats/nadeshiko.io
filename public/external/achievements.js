@@ -81,12 +81,15 @@ let secretAchievements = {
   "christmas2017_new_years_celebrations": "Watch the fireworks go off in the SkyBlock Hub or Main lobby",
   "halloween2017_that_time_of_year": "Find the dancing Spooky Scary Skeleton in the Main Lobby",
   "summer_collectors_edition": "Collect all Special Fish while fishing in the Main Lobby",
+  "arcade_zombies_prison_secret_beyond": "Find the Black Hole Gun",
+  "arcade_zombies_prison_computers": " In one game, interact with all the computers in the Prison Map",
 };
 
 function getSecretAchievement(achievement) {
   if (secretAchievements[achievement]) {
     return secretAchievements[achievement];
   } else {
+    console.warn(`No description found for secret achievement ${achievement}`);
     return getTranslation(["achievements", "secret_achievement"]);
   }
 }
@@ -313,10 +316,6 @@ function getOneTimeStats(fullName) {
     "legacy": achievementStats["legacy"] || false,
   };
 
-  if(oneTimeAchievementObject["description"] == "???") {
-    console.warn(`Achievement ${fullName} has a placeholder name`);
-  }
-
   oneTimeAchievementObject["unlocked"] = playerOneTimeAchievements.includes(fullName) || false;
 
   return oneTimeAchievementObject;
@@ -525,19 +524,20 @@ function updateHeaderGameProgress() {
     
     let gameProgress = und(achievementsDatabaseGame["unlocked_achievements"] / achievementsDatabaseGame["total_achievements"]) * 100;
 
-    let gameProgressFloored = Math.floor(gameProgress);
-
-    let gameProgressColors = ["#bb2e2e","#b92e30","#b72e33","#b62e36","#b42f38","#b22f3b","#b12f3e","#af2f40","#ae3043","#ac3046","#aa3048","#a9314b","#a7314e","#a63150","#a43153","#a23256","#a13258","#9f325b","#9e325e","#9c3360","#9a3363","#993366","#973468","#96346b","#94346e","#923470","#913573","#8f3576","#8e3578","#8c357b","#8a367e","#893680","#873683","#863786","#843787","#823888","#80398a","#7e398b","#7c3a8d","#7a3b8e","#783b90","#763c91","#743d93","#723d94","#703e96","#6e3f97","#6c3f99","#6a409a","#68419c","#66419d","#64429f","#6243a0","#6043a2","#5e44a3","#5c45a5","#5a45a6","#5846a8","#5647a9","#5447ab","#5248ac","#5049ae","#4e49af","#4c4ab1","#4a4bb2","#494cb4","#4752b5","#4658b6","#455fb7","#4465b8","#436bb9","#4272ba","#4178bb","#407ebc","#3f85bd","#3d8bbe","#3c91bf","#3b98c0","#3a9ec1","#39a4c2","#38abc3","#37b1c4","#36b7c5","#35bec6","#38c1bd","#3cc5b5","#40c9ad","#44cca5","#48d09d","#4bd495","#4fd78d","#53db85","#57df7d","#5be375","#5fe66d","#62ea65","#66ee5d","#6af155","#6ef54d","#72f945","#76fd3d","#f0ec0c"];
-
     let badge = document.createElement("span");
     badge.classList.add("dropdown-item-badge");
-    badge.style.background = `linear-gradient(108deg, ${gameProgressColors[gameProgressFloored]} ${gameProgress}%, ${gameProgressColors[gameProgressFloored]}80 ${gameProgress}%, ${gameProgressColors[gameProgressFloored]}80 100%)`;
 
-    if (gameProgress < 50) {
-      badge.style.color = "white";
+    if (gameProgress != 100) {
+      let badgeColor = `color-mix(in srgb, var(--accent) ${gameProgress}%, white)`;
+      let badgeColorTransparent = `color-mix(in srgb, var(--accent) ${gameProgress}%, #ffffff80)`;
+
+      badge.style.background = `linear-gradient(108deg, ${badgeColor} ${gameProgress}%, ${badgeColorTransparent} ${gameProgress}%, ${badgeColorTransparent} 100%)`;
+      badge.style.border = `1px solid color-mix(in srgb, var(--accent) ${gameProgress}%, white)`;
+    } else {
+      badge.style.background = `linear-gradient(108deg, #cec2a1 33%, #feeebe 66%, #775730 100%)`;
+      badge.style.border = `1px solid #cfc09f`;
     }
-
-    badge.style.border = `1px solid ${gameProgressColors[gameProgressFloored]}`;
+    
     badge.textContent = Math.floor(gameProgress) + "%";
 
     dropdownItem.appendChild(badge);
@@ -958,7 +958,7 @@ function generateAchievementPage(game) {
       let secretAchievementTemplate = `<span class="tooltip"><span>???</span><span class="tooltiptext" data-i="secret-achievement-text"></span></span>`;
 
       achievementElement.querySelector("[data-i='achievement-description']").innerHTML = secretAchievementTemplate;
-      achievementElement.querySelector("[data-i='secret-achievement-text']").textContent = getSecretAchievement(`${game}_${ achievement}`);
+      achievementElement.querySelector("[data-i='secret-achievement-text']").textContent = getSecretAchievement(`${demodernifyGameName(game)}_${ achievement}`);
     } else {
       updateTag(achievementElement, "achievement-description", achievementStats["description"]);
     }
