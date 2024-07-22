@@ -888,6 +888,8 @@ function generateAchievementPage(game) {
 
         if (achievementStats["unlocked"]) {
           row.classList.add("unlocked");
+        } else {
+          row.classList.add("locked");
         }
     
         let formattedAchievementDescription = (replaceAchievementPlaceholder(achievementStats["description"], achievementStats["amount"], achievementStats["tiers"]));
@@ -950,6 +952,8 @@ function generateAchievementPage(game) {
     if (achievementStats["unlocked"]) {
       row.classList.add("unlocked");
       achievementElement.querySelector("[data-i='achievement-check']").style.display = "inline";
+    } else {
+      row.classList.add("locked");
     }
 
     updateTag(achievementElement, "achievement-name", achievementStats["name"]);

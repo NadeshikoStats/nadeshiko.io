@@ -1749,6 +1749,14 @@
     color: white;
   }
 
+  .locked {
+    color: #888;
+  }
+
+  .locked [data-i="achievement-name"] {
+    text-decoration: line-through;
+  }
+
   .list .value-percentage {
     text-align: right;
     width: 72px;
