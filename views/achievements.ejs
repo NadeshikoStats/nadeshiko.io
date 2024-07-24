@@ -40,10 +40,16 @@
 
         generateNetwork();
 
-        for (let a = 2; a < validGames.length; a++) {
+        for (let a = 4; a < validGames.length; a++) {
           achievementsDatabase[validGames[a]] = getAllAchievements(validGames[a]);
           generateAchievementPage(validGames[a]);
         }
+
+        achievementsDatabase["skyclash"] = getAllAchievements("skyclash");
+        achievementsDatabase["crazywalls"] = getAllAchievements("crazywalls");
+
+        generateAchievementPage("legacy");
+
 
         updateOverall();
         updateClosestTiered();
@@ -184,9 +190,6 @@
           </div>
         </div>
       </div>
-      <div class="flex-container unloaded minigame-flex-container" id="flex-container-legacy">
-        Coming soon!
-      </div>
     </div>
     
     <footer>
@@ -196,7 +199,7 @@
 
   <script>
     let achievementsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(achievementsData)) %>"));
-    let validGames = ["overall", "legacy", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "tkr", "arena", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holiday", "easter", "halloween", "summer"];
+    let validGames = ["overall", "legacy", "skyclash", "truecombat", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "tkr", "arena", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holiday", "easter", "halloween", "summer",];
     let generalGames = ["general", "holiday", "easter", "halloween", "summer"];
     let currentGamemode = "<%= game %>";
 
@@ -225,7 +228,12 @@
     let globalAchievements, playerOneTimeAchievements, playerTieredAchievements;
     let playerFormattedTierAchievements = [];
     let playerFormattedOneTimeAchievements = [];
-    let achievementsDatabase = {};
+    let achievementsDatabase = {
+      "legacy": {
+        "tiered": {},
+        "one_time": {}
+      }
+    };
     let maxedGames = [];
 
     document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-achievements-overall'));

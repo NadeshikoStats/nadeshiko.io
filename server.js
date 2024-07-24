@@ -1229,6 +1229,10 @@ app.get('/player/:name/:game?', async (req, res) => {
   
         const response = await axios.get(`http://localhost:2000/achievements?name=${name}`);
         let achievementsData = response.data;
+
+        if (achievementsData["player"]["profile"] == null) {
+          throw new Error("Player has no Hypixel stats");
+        }
         
         let metaDescription;
         if (achievementsData) { // If the guild data is available

@@ -393,6 +393,8 @@ function getAllAchievements(game) {
 
     if (selectedAchievement["legacy"] == true) {
       legacyAchievements["one_time"][achievement.toLowerCase()] = selectedAchievement;
+      achievementsDatabase["legacy"]["one_time"][achievement.toLowerCase()] = selectedAchievement;
+      //console.log(JSON.stringify(achievementsDatabase["legacy"]));
     } else {
       allAchievements["one_time"][achievement.toLowerCase()] = selectedAchievement;
     }
@@ -403,6 +405,7 @@ function getAllAchievements(game) {
 
     if (selectedAchievement["legacy"] == true) {
       legacyAchievements["tiered"][achievement.toLowerCase()] = selectedAchievement;
+      achievementsDatabase["legacy"]["tiered"][achievement.toLowerCase()] = selectedAchievement;
     } else {
       allAchievements["tiered"][achievement.toLowerCase()] = selectedAchievement;
     }
@@ -517,7 +520,6 @@ function updateHeaderGameProgress() {
   for (let a = 0; a < gameDropdownChildren.length; a++) {
     let dropdownItem = gameDropdownChildren[a];
     let game = dropdownItem.getAttribute("data-game");
-    console.log(game);
 
     let achievementsDatabaseGame = achievementsDatabase[game];
     if (achievementsDatabaseGame == undefined) continue;
@@ -936,6 +938,10 @@ function generateAchievementPage(game) {
   let generalGames = ["general", "halloween", "holiday", "summer", "easter"];
   if (generalGames.includes(game)) {
     oneTimeContainer.classList.add("game-general");
+  }
+
+  if (game == "legacy") {
+    oneTimeContainer.classList.add("game-legacy");
   }
 
   for (let achievement in allAchievements["one_time"]) {

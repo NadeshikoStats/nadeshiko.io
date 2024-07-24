@@ -1741,7 +1741,11 @@
     display: none;
   }
 
-  .one-time-container.game-general .column:nth-child(3) {
+  .one-time-container.game-general .column:nth-child(3), .one-time-container.game-legacy .column:nth-child(3) {
+    display: none;
+  }
+
+  .one-time-container.game-legacy .column:nth-child(4) {
     display: none;
   }
 
