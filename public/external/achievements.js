@@ -433,8 +433,10 @@ function gameProgress(game) {
     if (allAchievementsGame["one_time"][achievement]["unlocked"]) {
       unlockedAchievements += 1;
       unlockedPoints += specificAchievementPoints;
-      globalAchievementStats["player"]["achievements"] += 1;
-      globalAchievementStats["player"]["points"] += specificAchievementPoints;
+      if (game != "legacy") {
+        globalAchievementStats["player"]["achievements"] += 1;
+        globalAchievementStats["player"]["points"] += specificAchievementPoints;
+      }
     } else {
       playerFormattedOneTimeAchievements.push([`${game}_${achievement}`, {
         "game": game,
@@ -447,8 +449,10 @@ function gameProgress(game) {
 
     totalAchievements += 1;
     totalPoints += specificAchievementPoints;
-    globalAchievementStats["total"]["achievements"] += 1;
-    globalAchievementStats["total"]["points"] += specificAchievementPoints;
+    if (game != "legacy") {
+      globalAchievementStats["total"]["achievements"] += 1;
+      globalAchievementStats["total"]["points"] += specificAchievementPoints;
+    }
   }
 
   for (let achievement in allAchievementsGame["tiered"]) {
@@ -460,16 +464,19 @@ function gameProgress(game) {
       let achievementTotalTiers = und(specificAchievement["total_tiers"]);
     
       unlockedAchievements += achievementUnlockedTiers;
-      globalAchievementStats["player"]["achievements"] += achievementUnlockedTiers;
 
       totalAchievements += achievementTotalTiers;
-      globalAchievementStats["total"]["achievements"] += achievementTotalTiers;
 
       unlockedPoints += achievementUnlockedPoints;
-      globalAchievementStats["player"]["points"] += achievementUnlockedPoints;
 
       totalPoints += achievementTotalPoints;
-      globalAchievementStats["total"]["points"] += achievementTotalPoints;
+
+      if (game != "legacy") {
+        globalAchievementStats["player"]["achievements"] += achievementUnlockedTiers;
+        globalAchievementStats["total"]["achievements"] += achievementTotalTiers;
+        globalAchievementStats["player"]["points"] += achievementUnlockedPoints;
+        globalAchievementStats["total"]["points"] += achievementTotalPoints;
+      }
 
       for (let a = 0; a < specificAchievement["tiers"].length; a++) {
         playerFormattedTierAchievements.push([`${game}_${achievement}-${a}`, {

@@ -90,6 +90,9 @@ let gameNames = {
       "id": 68
   },
   "SURVIVAL_GAMES": {
+      "modeNames": {
+        "solo_normal": "Solo",
+      },
       "databaseName": "HungerGames",
       "name": "Blitz Survival Games",
       "id": 5
