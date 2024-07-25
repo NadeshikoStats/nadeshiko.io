@@ -438,13 +438,15 @@ function gameProgress(game) {
         globalAchievementStats["player"]["points"] += specificAchievementPoints;
       }
     } else {
-      playerFormattedOneTimeAchievements.push([`${game}_${achievement}`, {
-        "game": game,
-        "name": allAchievementsGame["one_time"][achievement]["name"],
-        "description": allAchievementsGame["one_time"][achievement]["description"],
-        "points": specificAchievementPoints,
-        "global_unlocked": allAchievementsGame["one_time"][achievement]["globalPercentUnlocked"],
-      }]);
+      if (game != "legacy") {
+        playerFormattedOneTimeAchievements.push([`${game}_${achievement}`, {
+          "game": game,
+          "name": allAchievementsGame["one_time"][achievement]["name"],
+          "description": allAchievementsGame["one_time"][achievement]["description"],
+          "points": specificAchievementPoints,
+          "global_unlocked": allAchievementsGame["one_time"][achievement]["globalPercentUnlocked"],
+        }]);
+      }
     }
 
     totalAchievements += 1;
@@ -476,32 +478,19 @@ function gameProgress(game) {
         globalAchievementStats["total"]["achievements"] += achievementTotalTiers;
         globalAchievementStats["player"]["points"] += achievementUnlockedPoints;
         globalAchievementStats["total"]["points"] += achievementTotalPoints;
-      }
 
-      for (let a = 0; a < specificAchievement["tiers"].length; a++) {
-        playerFormattedTierAchievements.push([`${game}_${achievement}-${a}`, {
-          "game": game,
-          "name": specificAchievement["name"] + " " + convertToRoman(a + 1),
-          "description": specificAchievement["description"],
-          "points": specificAchievement["tiers"][a]["points"],
-          "requirement": specificAchievement["tiers"][a]["amount"],
-          "current": specificAchievement["amount"],
-          "progress": specificAchievement["amount"] / specificAchievement["tiers"][a]["amount"],
-        }]);
-      }
-
-
-    
-      /*for (const tier of tiers) {
-        const points = tier["points"];
-        totalPoints += points;
-        globalAchievementStats["total"]["points"] += points;
-    
-        if (tier["tier"] <= unlockedTiers) {
-          unlockedPoints += points;
-          globalAchievementStats["player"]["points"] += points;
+        for (let a = 0; a < specificAchievement["tiers"].length; a++) {
+          playerFormattedTierAchievements.push([`${game}_${achievement}-${a}`, {
+            "game": game,
+            "name": specificAchievement["name"] + " " + convertToRoman(a + 1),
+            "description": specificAchievement["description"],
+            "points": specificAchievement["tiers"][a]["points"],
+            "requirement": specificAchievement["tiers"][a]["amount"],
+            "current": specificAchievement["amount"],
+            "progress": specificAchievement["amount"] / specificAchievement["tiers"][a]["amount"],
+          }]);
         }
-      }*/
+      }
     }
 
   if (unlockedAchievements == totalAchievements) {
