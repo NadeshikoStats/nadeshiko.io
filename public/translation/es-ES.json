@@ -35,7 +35,9 @@
         "9_name": "Tutoriales de GSAP",
         "9_desc": "por Diaco M Lotfolahi en CodePen",
         "10_name": "API de Hypixel",
-        "10_desc": "por Hypixel Inc."
+        "10_desc": "por Hypixel Inc.",
+        "11_name": "Chart.js",
+        "11_desc": "por Chart.js"
       }
     },
     "cards": {
@@ -118,7 +120,8 @@
     "global": "% de todos los jugadores con este logro",
     "all": "Todos",
     "locked": "Bloqueados",
-    "unlocked": "Desbloqueados"
+    "unlocked": "Desbloqueados",
+    "secret_achievement": "Logro secreto"
   },
   "footer": {
     "created_by": "Hecho con ♥︎ por <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> y <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."

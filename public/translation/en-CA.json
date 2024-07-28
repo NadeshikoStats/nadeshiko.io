@@ -50,7 +50,10 @@
         "9_desc": "by Diaco M Lotfolahi on CodePen",
 
         "10_name": "Hypixel API",
-        "10_desc": "by Hypixel Inc."
+        "10_desc": "by Hypixel Inc.",
+
+        "11_name": "Chart.js",
+        "11_desc": "by Chart.js"
       }
     },
     "cards": {

@@ -35,7 +35,9 @@
         "9_name": "Tutoriels GSAP",
         "9_desc": "par Diaco M Lotfolahi sur CodePen",
         "10_name": "API Hypixel",
-        "10_desc": "par Hypixel Inc."
+        "10_desc": "par Hypixel Inc.",
+        "11_name": "Chart.js",
+        "11_desc": "by Chart.js"
       }
     },
     "cards": {
@@ -112,13 +114,14 @@
     "recently_completed": "Recently Completed",
     "tiered": "Tiered",
     "one_time": "Challenge",
-    "check": "🐇",
+    "check": "✓",
     "tiers": "Tiers",
     "game": "% of %%game%% players with this achievement",
     "global": "% of all players with this achievement",
     "all": "All",
     "locked": "Locked",
-    "unlocked": "Unlocked"
+    "unlocked": "Unlocked",
+    "secret_achievement": "Secret Achievement"
   },
   "footer": {
     "created_by": "Fait avec ♥︎ par <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> et <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
