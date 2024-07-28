@@ -194,6 +194,10 @@ function generateNetwork() {
           img.alt = "";
           img.className = "quick-mode-game";
 
+          img.onclick = function() {
+            switchStats(game.id);
+          };
+
           const spanText = document.createElement("span");
           spanText.className = "tooltiptext";
           spanText.textContent = game.name;
