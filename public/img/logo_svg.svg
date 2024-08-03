@@ -1,5 +1,5 @@
 <svg width="130" height="41" viewBox="0 0 130 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_1_2)">
+<g clip-path="url(#clip0_1_2)" style="shape-rendering: crispedges" shape-rendering="crispEdges">
 <path d="M12 3.5H13ZM10 12.5H11Z" fill="black"/>
 <path d="M12 3.5H13M10 12.5H11" stroke="#924F68"/>
 <path d="M13 3.5H14Z" fill="black"/>
