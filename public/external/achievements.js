@@ -444,7 +444,7 @@ function gameProgress(game) {
           "name": allAchievementsGame["one_time"][achievement]["name"],
           "description": allAchievementsGame["one_time"][achievement]["description"],
           "points": specificAchievementPoints,
-          "global_unlocked": allAchievementsGame["one_time"][achievement]["globalPercentUnlocked"],
+          "max_unlocked": Math.max(und(allAchievementsGame["one_time"][achievement]["globalPercentUnlocked"]), und(allAchievementsGame["one_time"][achievement]["gamePercentUnlocked"])),
         }]);
       }
     }
@@ -558,7 +558,7 @@ function updateClosestTiered() {
 }
 
 function updateEasiestOneTime() {
-  playerFormattedOneTimeAchievements.sort((a, b) => b[1]["global_unlocked"] - a[1]["global_unlocked"]);
+  playerFormattedOneTimeAchievements.sort((a, b) => b[1]["max_unlocked"] - a[1]["max_unlocked"]);
 
   let maximumIndex = Math.min(50, playerFormattedOneTimeAchievements.length);
   for (let i = 0; i < maximumIndex; i++) {
@@ -662,7 +662,7 @@ function formatTieredAchievement(achievementObject, type) {
     updateTag(row, "tier-requirement", simplifyNumber(achievementObject["requirement"]));
     updateTag(row, "tier-percentage", checkAndFormat(Math.floor(achievementObject["progress"] * 1000) / 10, 1) + "%");
   } else if (type == "easiestUncompleted") {
-    updateTag(row, "tier-percentage", checkAndFormat(achievementObject["global_unlocked"], 2) + "%");
+    updateTag(row, "tier-percentage", checkAndFormat(achievementObject["max_unlocked"], 2) + "%");
   } else if (type == "recentlyCompleted") {
     updateTag(row, "tier-points", `${checkAndFormat(achievementObject["points"])}`);
   }
@@ -1069,7 +1069,6 @@ function sortData(game, type, attribute = "points", reverse = false) {
   currentSort = attribute;
 
   let achievementTable = document.getElementById(`${game}-${type}`);
-  console.log(`${game}-${type}-${attribute}-${reverse}`);
   let achievementTableRows = achievementTable.querySelectorAll(".row:not(.header-row)");
   let achievementTableRowsArray = Array.from(achievementTableRows);
 
