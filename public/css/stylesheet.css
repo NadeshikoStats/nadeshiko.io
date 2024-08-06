@@ -1685,8 +1685,16 @@
     display: none;
   }
 
+  .list.achievements-container:not(.game-legacy) .column:nth-child(1) {
+    display: none;
+  }
+
   .achievements-container .row-header {
     grid-template-columns: 6fr 0.8fr 0fr 0fr;
+  }
+
+  .achievements-container.game-legacy .row-header {
+    grid-template-columns: 1.5fr 6fr 0.8fr 0fr 0fr;
   }
 
   .tiered-container .row-header {
@@ -1712,15 +1720,15 @@
     text-align: right;
   }
 
-  .tiered-container .column:nth-child(2) {
+  .tiered-container .column:nth-child(3) {
     flex-wrap: wrap;
   }
 
-  .achievements-container .column:nth-child(2) span {
+  .achievements-container .column:nth-child(3) span {
     text-align: right;
   }
 
-  .achievements-container .column:nth-child(2) {
+  .achievements-container .column:nth-child(3) {
     display: flex;
     justify-content: end;
     margin: 0px 5px;
@@ -1736,16 +1744,16 @@
     display: flex;
   }
 
-  .achievements-container .column:nth-child(5) {
+  .achievements-container .column:nth-child(6) {
     width: 120px;
     display: none;
   }
 
-  .one-time-container.game-general .column:nth-child(3), .one-time-container.game-legacy .column:nth-child(3) {
+  .one-time-container.game-general .column:nth-child(4), .one-time-container.game-legacy .column:nth-child(4) {
     display: none;
   }
 
-  .one-time-container.game-legacy .column:nth-child(4) {
+  .one-time-container.game-legacy .column:nth-child(5) {
     display: none;
   }
 
@@ -2484,10 +2492,10 @@
     .one-time-container .row-header {
       grid-template-columns: 6fr 0fr;
     }
-    .one-time-container .column:nth-child(2), .one-time-container .column:nth-child(3), .one-time-container .column:nth-child(4) {
+    .one-time-container .column:nth-child(3), .one-time-container .column:nth-child(4), .one-time-container .column:nth-child(5) {
       display: none;
     }
-    .one-time-container .column:nth-child(5) {
+    .one-time-container .column:nth-child(6) {
       display: initial;
     }
 
@@ -2498,7 +2506,7 @@
     .achievements-container .tier {
       font-size: 12px;
     }
-    .achievements-container .column:nth-child(2) {
+    .achievements-container .column:nth-child(3) {
       justify-content: start;
     }
     .guild-players .row-header > *:nth-child(4) {

@@ -198,6 +198,8 @@
     "overall": "Overall",
     "legacy": "Legacy",
     "general": "General",
+    "crazywalls": "Crazy Walls",
+    "skyclash": "SkyClash",
 
     "network": "Network",
     "fishing": "Fishing",
@@ -1052,7 +1054,9 @@
     "created": "Created",
     "player": "Player",
     "rank": "Rank",
-    "guild_experience": "Guild Experience"
+    "guild_experience": "Guild Experience",
+
+    "game": "Game"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

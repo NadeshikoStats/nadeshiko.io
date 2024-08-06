@@ -737,6 +737,7 @@ function generateAchievementPage(game) {
 
             <div class="row header-row">
               <div class="row-header">
+                <div class="achievement column pointer" data-i="sort-game_tiered">${getTranslation(`statistics.game`)}</div>
                 <div class="achievement column pointer" data-i="sort-name_tiered">${getTranslation(`statistics.name`)}</div>
                 <div class="column tiers pointer" data-i="sort-tiers">${getTranslation("achievements.tiers")}</div>
               </div>
@@ -763,6 +764,7 @@ function generateAchievementPage(game) {
             
             <div class="row header-row">
               <div class="row-header">
+                <div class="achievement column faded transitionable-small pointer" data-i="sort-game_one_time">${getTranslation(`statistics.game`)}</div>
                 <div class="achievement column faded transitionable-small pointer" data-i="sort-name_one_time">${getTranslation(`statistics.name`)}</div>
                 <p class="column tabular faded transitionable-small pointer" data-i="sort-points">
                   <span class="tooltip pointer">
@@ -803,6 +805,8 @@ function generateAchievementPage(game) {
   gameElement.querySelector("[data-i='filter-tiered']").setAttribute("data-modify", `${game}-tiered`);
   gameElement.querySelector("[data-i='filter-one-time']").setAttribute("data-modify", `${game}-one-time`);
 
+  gameElement.querySelector("[data-i='sort-game_one_time']").setAttribute("onclick", `sortData("${game}", "one-time", "game")`);
+
   gameElement.querySelector("[data-i='sort-name_one_time']").setAttribute("onclick", `sortData("${game}", "one-time", "name_one_time")`);
   gameElement.querySelector("[data-i='sort-points']").setAttribute("onclick", `sortData("${game}", "one-time", "points")`);
   gameElement.querySelector("[data-i='sort-game']").setAttribute("onclick", `sortData("${game}", "one-time", "game")`);
@@ -836,7 +840,11 @@ function generateAchievementPage(game) {
   let tieredContainer = gameElement.querySelector("[data-i='tiered-container']");
   tieredContainer.id = game + "-tiered";
 
-  let tieredAchievementTemplate = `<div class="achievement column">
+  let tieredAchievementTemplate = `
+    <div class="achievement column">
+      <span class="w700" data-i="achievement-game"></span>
+    </div>
+    <div class="achievement column">
       <span class="w700" data-i="achievement-name"></span> – <span data-i="achievement-description"></span></p>
     </div>
     <div class="column tiers">
@@ -892,6 +900,7 @@ function generateAchievementPage(game) {
     
         let formattedAchievementDescription = (replaceAchievementPlaceholder(achievementStats["description"], achievementStats["amount"], achievementStats["tiers"]));
 
+        
         updateTag(achievementElement, "achievement-name", achievementStats["name"]);
         updateTag(achievementElement, "achievement-description", formattedAchievementDescription);
         
@@ -910,7 +919,12 @@ function generateAchievementPage(game) {
     }
 
   let oneTimeAchievementTemplate = 
-  `<div class="achievement column">
+  `
+    <div class="achievement column">
+      <span class="w700" data-i="achievement-game"></span>
+    </div>
+    </div>
+    <div class="achievement column">
       <span class="w700" data-i="achievement-name"></span> – <span data-i="achievement-description"></span></p>
     </div>
     <p class="column tabular">
@@ -958,6 +972,9 @@ function generateAchievementPage(game) {
       row.classList.add("locked");
     }
 
+    if (game == "legacy") {
+      updateTag(achievementElement, "achievement-game", getTranslation(`games.${modernifyGameName(achievementStats["game"])}`));
+    }
     updateTag(achievementElement, "achievement-name", achievementStats["name"]);
 
     if (achievementStats["description"] == "???") {
@@ -995,6 +1012,14 @@ function compareAttributes(attribute, reverse = false) {
       reverse: false
     },
     "name_one_time": {
+      type: "string",
+      reverse: false
+    },
+    "game_tiered": {
+      type: "string",
+      reverse: false
+    },
+    "game_one_time": {
       type: "string",
       reverse: false
     },
