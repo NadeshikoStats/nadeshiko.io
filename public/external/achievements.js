@@ -609,6 +609,9 @@ let gameIcons = {
   "halloween": "head_halloween",
   "holiday": "head_seasonal",
   "summer": "head_summer",
+
+  "crazywalls": "head_crazywalls",
+  "skyclash": "fire_charge",
 };
 
 function formatTieredAchievement(achievementObject, type) {
@@ -920,7 +923,8 @@ function generateAchievementPage(game) {
 
   let oneTimeAchievementTemplate = 
   `
-    <div class="achievement column">
+    <div class="achievement column flex-two-item-basic flex-display-text">
+      <img data-i="achievement-icon" class="icon smallicon">
       <span class="w700" data-i="achievement-game"></span>
     </div>
     </div>
@@ -974,6 +978,10 @@ function generateAchievementPage(game) {
 
     if (game == "legacy") {
       updateTag(achievementElement, "achievement-game", getTranslation(`games.${modernifyGameName(achievementStats["game"])}`));
+
+      let icon = achievementElement.querySelector("[data-i='achievement-icon']");
+      icon.src = `/img/icon/minecraft/${gameIcons[modernifyGameName(achievementStats["game"])]}.${imageFileType}`;
+    
     }
     updateTag(achievementElement, "achievement-name", achievementStats["name"]);
 
