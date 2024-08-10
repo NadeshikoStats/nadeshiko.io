@@ -1693,12 +1693,16 @@
     grid-template-columns: 6fr 0.8fr 0fr 0fr;
   }
 
-  .achievements-container.game-legacy .row-header {
+  .achievements-container.game-legacy.one-time-container .row-header {
     grid-template-columns: 1.5fr 6fr 0.8fr 0fr 0fr;
   }
 
   .tiered-container .row-header {
     grid-template-columns: 2fr 3fr;
+  }
+
+  .tiered-container.game-legacy .row-header {
+    grid-template-columns: 0.7fr 2fr 2fr;
   }
 
   .achievements-overall-container {

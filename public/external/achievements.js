@@ -844,7 +844,8 @@ function generateAchievementPage(game) {
   tieredContainer.id = game + "-tiered";
 
   let tieredAchievementTemplate = `
-    <div class="achievement column">
+    <div class="achievement column flex-two-item-basic flex-display-text">
+      <img data-i="achievement-icon" class="icon smallicon">
       <span class="w700" data-i="achievement-game"></span>
     </div>
     <div class="achievement column">
@@ -861,6 +862,10 @@ function generateAchievementPage(game) {
       <div data-i="tier-points" class="tier-points"></div>
     </div>
 `
+
+if (game == "legacy") {
+  tieredContainer.classList.add("game-legacy");
+}
 
     if (Object.keys(allAchievements["tiered"]).length == 0) {
       gameElement.querySelector("[data-i='tiered']").style.display = "none";
@@ -891,8 +896,16 @@ function generateAchievementPage(game) {
     
           updateTag(tier, "tier-quantity", simplifyNumber(tierStats["amount"]));
           updateTag(tier, "tier-points", `+${checkAndFormat(tierStats["points"])}`);
+
     
           achievementElement.querySelector(".tiers").appendChild(tier);
+        }
+
+        if (game == "legacy") {
+          updateTag(achievementElement, "achievement-game", getTranslation(`games.${modernifyGameName(achievementStats["game"])}`));
+    
+          let icon = achievementElement.querySelector("[data-i='achievement-icon']");
+          icon.src = `/img/icon/minecraft/${gameIcons[modernifyGameName(achievementStats["game"])]}.${imageFileType}`;
         }
 
         if (achievementStats["unlocked"]) {
