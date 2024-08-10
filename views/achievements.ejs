@@ -318,7 +318,8 @@
 
       let customAccents = {
         "general": "network",
-        "overall": "achievements-overall"
+        "overall": "achievements-overall",
+        "legacy": "achievements-legacy"
       };
 
       if (customAccents[currentGamemode] != undefined) {
@@ -345,6 +346,7 @@
     let irregularBackgrounds = {
       overall: `/img/games/achievements/overall.${imageFileType || 'webp'}`,
       general: `/img/games/network/lobby.${imageFileType || 'webp'}`,
+      legacy: `/img/games/achievements/legacy.${imageFileType || 'webp'}`
     };
 
     if (irregularBackgrounds[gamemode] != undefined) {
