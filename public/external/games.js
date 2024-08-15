@@ -1634,29 +1634,6 @@ function generateArcade() {
     "arcade", // gamemode
   ];
 
-  // Capture The Wool
-  let captureTheWoolCard = [
-    "arcade-stats-capturethewool", // ID
-    getTranslation("games.modes.arcade.capturethewool"), // Title
-    "", // Subtitle
-    `/img/games/arcade/capturethewool.${imageFileType}`, // Background image
-    [
-      [
-        false,
-        [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["woolhunt_participated_wins"])],
-        [getTranslation("statistics.losses"), checkAndFormat(arcadeStats["woolhunt_participated_losses"])],
-        [getTranslation("statistics.wlr"), calculateRatio(arcadeStats["woolhunt_participated_wins"], arcadeStats["woolhunt_participated_losses"])],
-      ],
-      [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["woolhunt_kills"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["woolhunt_deaths"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["woolhunt_kills"], arcadeStats["woolhunt_deaths"])]],
-      [false, [getTranslation("statistics.draws"), checkAndFormat(arcadeStats["woolhunt_experienced_draws"])], [getTranslation("statistics.assists"), checkAndFormat(arcadeStats["woolhunt_assists"])]],
-      [false, [getTranslation("statistics.wool_picked_up"), checkAndFormat(arcadeStats["woolhunt_wools_stolen"])], [getTranslation("statistics.wool_captured"), checkAndFormat(arcadeStats["woolhunt_wools_captured"])]],
-      [false, [getTranslation("statistics.fastest_win"), smallDuration(und(arcadeStats["woolhunt_fastest_win"]))], [getTranslation("statistics.fastest_capture"), smallDuration(und(arcadeStats["woolhunt_fastest_capture"], -1))]],
-    ], // Displayed stats
-    [], // Other stats (shown in drop-down menu)
-    `/img/icon/minecraft/orange_wool.${imageFileType}`, // Chip image
-    "arcade", // gamemode
-  ];
-
   // Creeper Attack
   let creeperAttackCard = [
     "arcade-stats-creeperattack", // ID
@@ -1928,7 +1905,6 @@ function generateArcade() {
   arcadeCards = [
     blockingDeadCard,
     bountyHuntersCard,
-    captureTheWoolCard,
     creeperAttackCard,
     dragonWarsCard,
     dropperCard,
@@ -3418,8 +3394,15 @@ function generateWoolGames() {
   
   let woolGamesStats = playerData["stats"]["WoolGames"] || {};
   let woolWarsStats = woolGamesStats["wool_wars"] || {};
+
   let woolGamesProgression = woolGamesStats["progression"] || {};
   woolWarsNumericalStats = woolWarsStats["stats"] || {};
+
+  let captureTheWoolStats = woolGamesStats["capture_the_wool"] || {};
+  let captureTheWoolNumericalStats = captureTheWoolStats["stats"] || {};
+
+  let sheepWarsStats = woolGamesStats["sheep_wars"] || {};
+  let sheepWarsNumericalStats = sheepWarsStats["stats"] || {};
 
   updateElement("woolgames-overall-coins", checkAndFormat(woolGamesStats["coins"]));
   updateElement("woolgames-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
@@ -3475,11 +3458,99 @@ function generateWoolGames() {
       [getTranslation("games.modes.woolgames.woolwars.swordsman"), "swordsman"],
       [getTranslation("games.modes.woolgames.woolwars.tank"), "tank"],
     ],
-    `/img/icon/minecraft/white_wool.${imageFileType}`,
+    `/img/icon/minecraft/shears.${imageFileType}`,
     "woolgames",
   ];
 
-  let woolGamesChips = [woolWarsChip];
+    let captureTheWoolStatsObject = {};
+    captureTheWoolStatsObject["wins"] = und(captureTheWoolNumericalStats["participated_wins"] || arcadeStats["woolhunt_participated_wins"]);
+    captureTheWoolStatsObject["losses"] = und(captureTheWoolNumericalStats["participated_losses"] || arcadeStats["woolhunt_participated_losses"]);
+    captureTheWoolStatsObject["kills"] = und(captureTheWoolNumericalStats["kills"] || arcadeStats["woolhunt_kills"]);
+    captureTheWoolStatsObject["deaths"] = und(captureTheWoolNumericalStats["deaths"] || arcadeStats["woolhunt_deaths"]);
+    captureTheWoolStatsObject["draws"] = und(captureTheWoolNumericalStats["participated_draws"] || arcadeStats["participated_draws"]);
+    captureTheWoolStatsObject["assists"] = und(captureTheWoolNumericalStats["assists"] || arcadeStats["woolhunt_assists"]);
+    captureTheWoolStatsObject["wools_stolen"] = und(captureTheWoolNumericalStats["wools_stolen"] || arcadeStats["woolhunt_wools_stolen"]);
+    captureTheWoolStatsObject["wools_captured"] = und(captureTheWoolNumericalStats["wools_captured"] || arcadeStats["woolhunt_wools_captured"]);
+    captureTheWoolStatsObject["fastest_win"] = und(captureTheWoolNumericalStats["fastest_win"] || arcadeStats["woolhunt_fastest_win"]);
+    captureTheWoolStatsObject["fastest_capture"] = und(captureTheWoolNumericalStats["fastest_wool_capture"] || arcadeStats["woolhunt_fastest_capture"]);
+    
+    
+
+    // Capture The Wool
+    let captureTheWoolChip = [
+      "arcade-stats-capturethewool", // ID
+      getTranslation("games.modes.arcade.capturethewool"), // Title
+      "", // Subtitle
+      `/img/games/woolgames/capturethewool.${imageFileType}`, // Background image
+      [
+        [
+          false,
+          [getTranslation("statistics.wins"), checkAndFormat(captureTheWoolStatsObject["wins"])],
+          [getTranslation("statistics.losses"), checkAndFormat(captureTheWoolStatsObject["losses"])],
+          [getTranslation("statistics.wlr"), calculateRatio(checkAndFormat(captureTheWoolStatsObject["wins"]), checkAndFormat(captureTheWoolStatsObject["losses"]))],
+        ],
+        [
+          false,
+          [getTranslation("statistics.kills"), checkAndFormat(captureTheWoolStatsObject["kills"])],
+          [getTranslation("statistics.deaths"), checkAndFormat(captureTheWoolStatsObject["deaths"])],
+          [getTranslation("statistics.kdr"), calculateRatio(checkAndFormat(captureTheWoolStatsObject["kills"]), checkAndFormat(captureTheWoolStatsObject["deaths"]))],
+        ],
+        [
+          false,
+          [getTranslation("statistics.draws"), checkAndFormat(captureTheWoolStatsObject["draws"])],
+          [getTranslation("statistics.assists"), checkAndFormat(captureTheWoolStatsObject["assists"])],
+        ],
+        [
+          false,
+          [getTranslation("statistics.wool_picked_up"), checkAndFormat(captureTheWoolStatsObject["wools_stolen"])],
+          [getTranslation("statistics.wool_captured"), checkAndFormat(captureTheWoolStatsObject["wools_captured"])],
+        ],
+        [
+          false,
+          [getTranslation("statistics.fastest_win"), smallDuration(und(captureTheWoolStatsObject["fastest_win"], -1))],
+          [getTranslation("statistics.fastest_capture"), smallDuration(und(captureTheWoolStatsObject["fastest_capture"], -1))],
+        ],
+      ], // Displayed stats
+      [], // Other stats (shown in drop-down menu)
+      `/img/icon/minecraft/orange_wool.${imageFileType}`, // Chip image
+      "woolgames", // gamemode
+    ];
+
+  let sheepWarsChip = [
+    "sheepwars",
+    getTranslation("games.modes.woolgames.sheepwars.category"),
+    "",
+    `/img/games/woolgames/sheepwars.${imageFileType}`,
+    [
+      [
+        false,
+        [getTranslation("statistics.wins"), checkAndFormat(sheepWarsNumericalStats["wins"])],
+        [getTranslation("statistics.losses"), checkAndFormat(sheepWarsNumericalStats["losses"])],
+        [getTranslation("statistics.wlr"), calculateRatio(sheepWarsNumericalStats["wins"], sheepWarsNumericalStats["losses"])],
+      ],
+      [
+        false,
+        [getTranslation("statistics.kills"), checkAndFormat(sheepWarsNumericalStats["kills"])],
+        [getTranslation("statistics.deaths"), checkAndFormat(sheepWarsNumericalStats["deaths"])],
+        [getTranslation("statistics.kdr"), calculateRatio(sheepWarsNumericalStats["kills"], sheepWarsNumericalStats["deaths"])],
+      ],
+      [
+        false,
+        [getTranslation("statistics.damage_dealt"), veryLargeNumber(sheepWarsNumericalStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`],
+        [getTranslation("statistics.magic_wool_hit"), checkAndFormat(sheepWarsNumericalStats["magic_wool_hit"])],
+      ],
+      [
+        false,
+        [getTranslation("statistics.sheep_thrown"), checkAndFormat(sheepWarsNumericalStats["sheep_thrown"])],
+        [getTranslation("statistics.sheep_killed"), checkAndFormat(playerAchievements["woolgames_sheep_wars_sheep_slayer"])],
+      ]
+    ],
+    [],
+    `/img/icon/minecraft/sheep_spawn_egg.${imageFileType}`,
+    "woolgames",
+  ];
+
+  let woolGamesChips = [captureTheWoolChip, sheepWarsChip, woolWarsChip];
   for (d = 0; d < woolGamesChips.length; d++) {
     generateChip(woolGamesChips[d], d % 2 == 0 ? "woolgames-chips-1" : "woolgames-chips-2");
   }
@@ -3493,7 +3564,7 @@ function getWoolWarsStats(mode) {
   } else {
     woolWarsClassStats = woolWarsNumericalStats["classes"] || {};
     woolWarsModeStats = woolWarsClassStats[mode] || {};
-    woolWarsWinStats = []
+    woolWarsWinStats = [];
   }
 
   return [

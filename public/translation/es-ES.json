@@ -159,6 +159,8 @@
     "overall": "Total",
     "legacy": "Legado",
     "general": "General",
+    "crazywalls": "Crazy Walls",
+    "skyclash": "SkyClash",
     "network": "Red",
     "fishing": "Pesca",
     "modes": {
@@ -587,6 +589,9 @@
           "golem": "Gólem",
           "swordsman": "Espadachín",
           "tank": "Tanque"
+        },
+        "sheepwars": {
+          "category": "Sheep Wars"
         }
       },
       "fishing": {
@@ -927,6 +932,9 @@
     "wool": "Lana",
     "layers": "Capas",
     "wool_placed": "Lanas colocadas",
+    "sheep_thrown": "Sheep Thrown",
+    "sheep_killed": "Sheep Killed",
+    "magic_wool_hit": "Magic Wool Hit",
     "items_caught": "Objetos atrapados",
     "fish_caught": "Peces atrapados",
     "junk_caught": "Basura atrapada",
@@ -936,7 +944,8 @@
     "created": "Creado",
     "player": "Jugador",
     "rank": "Rango",
-    "guild_experience": "Experiencia del guild"
+    "guild_experience": "Experiencia del guild",
+    "game": "Game"
   },
   "times": {
     "time_ago": "(hace %%time%%)",

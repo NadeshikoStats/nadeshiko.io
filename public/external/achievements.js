@@ -46,7 +46,7 @@ let secretAchievements = {
   "general_crash_landed": "Join SkyBlock through the crashed portal",
   "arcade_zombies_prison_secret_beyond": "",
   "arcade_dropper_well_well_well": "Find the hidden frog on the Floating Islands map",
-  "arcade_ctw_magician": "Capture 3 wools in one game",
+  "woolgames_magician": "Capture 3 wools in one game",
   "arcade_hypixel_says_movement": "Jump off the Platform instead of standing still",
   "arcade_zombies_prison_computers": "",
   "arcade_snake": "Earn 50 points in the lobby Snake minigame",
@@ -82,7 +82,8 @@ let secretAchievements = {
   "halloween2017_that_time_of_year": "Find the dancing Spooky Scary Skeleton in the Main Lobby",
   "summer_collectors_edition": "Collect all Special Fish while fishing in the Main Lobby",
   "arcade_zombies_prison_secret_beyond": "Find the Black Hole Gun",
-  "arcade_zombies_prison_computers": " In one game, interact with all the computers in the Prison Map",
+  "arcade_zombies_prison_computers": "In one game, interact with all the computers in the Prison Map",
+  "woolgames_shopping_for_wool": "Shoot every Magic Wool that spawns in a single game",
 };
 
 function getSecretAchievement(achievement) {

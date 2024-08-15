@@ -159,6 +159,8 @@
     "overall": "Th' Seas",
     "legacy": "Legacy",
     "general": "General",
+    "crazywalls": "Crazy Walls",
+    "skyclash": "SkyClash",
     "network": "Network",
     "fishing": "Fishin'",
     "modes": {
@@ -587,6 +589,9 @@
           "golem": "Golem",
           "swordsman": "Cutlassman",
           "tank": "Tank"
+        },
+        "sheepwars": {
+          "category": "Sheep Wars"
         }
       },
       "fishing": {
@@ -927,6 +932,9 @@
     "wool": "Cloth",
     "layers": "Layers",
     "wool_placed": "Cloth Placed",
+    "sheep_thrown": "Sheep Thrown",
+    "sheep_killed": "Sheep Killed",
+    "magic_wool_hit": "Magic Wool Hit",
     "items_caught": "Items Reeled In",
     "fish_caught": "Fish Reeled In",
     "junk_caught": "Junk Reeled In",
@@ -936,7 +944,8 @@
     "created": "Built",
     "player": "Pirate",
     "rank": "Rank",
-    "guild_experience": "Guild Experience"
+    "guild_experience": "Guild Experience",
+    "game": "Game"
   },
   "times": {
     "time_ago": "(%%time%% ago)",
