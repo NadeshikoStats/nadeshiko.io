@@ -1571,7 +1571,6 @@ function generateArcade() {
     [
       "wins_dayone",
       "wins_oneinthequiver",
-      "woolhunt_participated_wins",
       "wins_dragonwars2",
       "wins_ender",
       "wins_farm_hunt",

@@ -83,10 +83,13 @@ let gameNames = {
   },
   "WOOL_GAMES": {
       "modeNames": {
-          "wool_wars_two_four_tourney": "4v4 (Tournament)"
+          "sheep_wars_two_six": "Sheep Wars",
+          "capture_the_wool_two_twenty": "Capture the Wool",
+          "wool_wars_two_four": "Wool Wars",
+          "wool_wars_two_four_tourney": "Wool Wars (Tournament)",
       },
       "databaseName": "WoolGames",
-      "name": "Wool Wars",
+      "name": "Wool Games",
       "id": 68
   },
   "SURVIVAL_GAMES": {
