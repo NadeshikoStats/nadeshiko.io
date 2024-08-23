@@ -118,7 +118,18 @@
     font-size: 18px;
     position: relative;
     backdrop-filter: blur(6px);
+    z-index: 5;
+  }
+
+  .header2 {
+    background-color: #000a;
+    backdrop-filter: blur(4px);
+    height: 55px;
+  }
+
+  .header1 {
     height: var(--header-height);
+    z-index: 6;
   }
   
   header {
@@ -136,17 +147,6 @@
   .header-left p {
     margin-inline-end: 15px;
     text-decoration: none;
-  }
-  
-  .header2 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #000000a0;
-    font-size: 18px;
-    backdrop-filter: blur(4px);
-    height: 55px;
   }
   
   .about {
@@ -549,6 +549,38 @@
     right: 0px;
     width: 100%;
   }
+
+  .searchbar-selector {
+    position: absolute;
+    width: 325px;
+    background-color: #000d;
+    border-radius: 15px;
+    top: 40px;
+    right: 0px;
+    clip-path: circle(0% at 100% 0);
+    transition-duration: var(--transition-small);
+
+    padding: 15px 25px;
+  }
+
+  .selector-button {
+    font-size: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .selector-button:hover {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .selector-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    position: relative;
+    transition-duration: var(--transition-small);
+  }
   
   ::placeholder {
     color: var(--pale-grey);
@@ -660,6 +692,10 @@
   
   .searchbar-container:focus-within > .search-icon {
     opacity: 100%;
+  }
+
+  .searchbar-container:focus-within > .searchbar-selector {
+    clip-path: circle(350px at 100% 0);
   }
   
   .player-card {

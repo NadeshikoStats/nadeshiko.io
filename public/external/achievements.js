@@ -46,7 +46,7 @@ let secretAchievements = {
   "general_crash_landed": "Join SkyBlock through the crashed portal",
   "arcade_zombies_prison_secret_beyond": "",
   "arcade_dropper_well_well_well": "Find the hidden frog on the Floating Islands map",
-  "woolgames_magician": "Capture 3 wools in one game",
+  "woolgames_magician": "Capture 2 wools in one game",
   "arcade_hypixel_says_movement": "Jump off the Platform instead of standing still",
   "arcade_zombies_prison_computers": "",
   "arcade_snake": "Earn 50 points in the lobby Snake minigame",

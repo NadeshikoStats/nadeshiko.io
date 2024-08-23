@@ -1103,7 +1103,6 @@ app.get('/player/:name/:game?', async (req, res) => {
        
        let metaImageURL, metaDescription;
         if (playerData && playerData["profile"]) { // If the player data is available
-
           metaDescription = getMetaDescription(game, playerData);
 
           if (cardSupportedGames.includes(game)) { // Check if the game is supported by the card generator
@@ -1168,7 +1167,7 @@ app.get('/player/:name/:game?', async (req, res) => {
       } else {
         console.error('Error forwarding the request:', error);
       }
-      res.status(500).send('Error forwarding request');
+      res.status(500).send('Error forwarding request: '  + error);
     }
 });
 

@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header header1">
   <!-- site-wide header -->
   <div class="header-left">
     <a href="/" style="display: flex;">
@@ -13,10 +13,17 @@
     <p class="header-button" onclick="showSettings()" id="button-settings"><img src="/img/svg/settings.svg" class="header-icon" alt="" /><span class="header-button-text" data-t="header.settings.title">Settings</span></p>
   </div>
   <div class="header-right">
-    <span class="searchbar-container">
+    <div class="searchbar-container"> <!-- sirhc -->
       <img src="/img/svg/search.svg" alt="" class="search-icon" id="search-icon" />
-      <input type="search" class="searchbar" id="searchbar" data-t="header.searchbar.placeholder" placeholder=" Search for a player..." spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
-    </span>
+      <input type="search" class="searchbar" id="searchbar" data-t="header.searchbar.placeholder" placeholder="Search for a player..." spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
+      <div class="searchbar-selector">   
+        <div class="flex-two-item">
+          <p class="header-button selector-button selected" onclick="changeScope('player')" id="scope-player"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.all.stats">Stats</span></p>
+          <p class="header-button selector-button" onclick="changeScope('guild')" id="scope-guild"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.network.guild">Guild</span></p>
+          <p class="header-button selector-button" onclick="changeScope('achievements')" id="scope-achievements"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="achievements.achievements">Achievements</span></p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div id="modal-card-wizard" class="modal unloaded">
@@ -273,6 +280,7 @@
   let aboutExpanded = false;
   let settingsExpanded = false;
   let cardWizardExpanded = false;
+  let currentScope = "stats";
   let svgCycleCounter = 0;
   let cardWizardSettings = {
     game: "NETWORK",
@@ -398,6 +406,25 @@
     }
   }
 
+  function changeScope(scope) {
+    currentScope = scope;
+    let scopes = ["player", "guild", "achievements"];
+
+    for (let a of scopes) {
+      if (a == currentScope) {
+        document.getElementById(`.scope-${a}`).classList.add("selected"); // make forEach loop
+      } else {
+        document.getElementById(`.scope-${a}`).classList.remove("selected");
+      }
+    }
+
+    if (scope == "guild") {
+      document.getElementById("searchbar").placeholder = getTranslation(["header", "searchbar", "placeholder_guild"]);
+    } else {
+      document.getElementById("searchbar").placeholder = getTranslation(["header", "searchbar", "placeholder"]);
+    }
+  }
+
   function showAbout() {
     if (!aboutExpanded) {
       document.getElementById("about").classList.remove("unloaded");
@@ -463,7 +490,7 @@
       event.preventDefault();
       var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
       if (userInput.length == 0) return;
-      window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+      window.location.href = `/${currentScope}/${userInput}`; // Redirect to the desired URL
     }
   });
 

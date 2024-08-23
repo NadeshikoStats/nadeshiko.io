@@ -3403,6 +3403,33 @@ function generateWoolGames() {
   let sheepWarsStats = woolGamesStats["sheep_wars"] || {};
   let sheepWarsNumericalStats = sheepWarsStats["stats"] || {};
 
+  let captureTheWoolStatsObject = {};
+  captureTheWoolStatsObject["wins"] = und(captureTheWoolNumericalStats["participated_wins"] || arcadeStats["woolhunt_participated_wins"]);
+  captureTheWoolStatsObject["losses"] = und(captureTheWoolNumericalStats["participated_losses"] || arcadeStats["woolhunt_participated_losses"]);
+  captureTheWoolStatsObject["kills"] = und(captureTheWoolNumericalStats["kills"] || arcadeStats["woolhunt_kills"]);
+  captureTheWoolStatsObject["deaths"] = und(captureTheWoolNumericalStats["deaths"] || arcadeStats["woolhunt_deaths"]);
+  captureTheWoolStatsObject["draws"] = und(captureTheWoolNumericalStats["participated_draws"] || arcadeStats["participated_draws"]);
+  captureTheWoolStatsObject["assists"] = und(captureTheWoolNumericalStats["assists"] || arcadeStats["woolhunt_assists"]);
+  captureTheWoolStatsObject["wools_stolen"] = und(captureTheWoolNumericalStats["wools_stolen"] || arcadeStats["woolhunt_wools_stolen"]);
+  captureTheWoolStatsObject["wools_captured"] = und(captureTheWoolNumericalStats["wools_captured"] || arcadeStats["woolhunt_wools_captured"]);
+  captureTheWoolStatsObject["fastest_win"] = und(captureTheWoolNumericalStats["fastest_win"] || arcadeStats["woolhunt_fastest_win"]);
+  captureTheWoolStatsObject["fastest_capture"] = und(captureTheWoolNumericalStats["fastest_wool_capture"] || arcadeStats["woolhunt_fastest_capture"]);
+
+  let woolGamesOverallStats = {};
+  woolGamesOverallStats["wins"] = captureTheWoolStatsObject["wins"] + und(woolWarsNumericalStats["wins"]) + und(sheepWarsNumericalStats["wins"]);
+  woolGamesOverallStats["losses"] = captureTheWoolStatsObject["losses"] + und(woolWarsNumericalStats["games_played"]) - und(woolWarsNumericalStats["wins"]) + und(sheepWarsNumericalStats["losses"]);
+  woolGamesOverallStats["kills"] = captureTheWoolStatsObject["kills"] + und(woolWarsNumericalStats["kills"]) + und(sheepWarsNumericalStats["kills"]);
+  woolGamesOverallStats["deaths"] = captureTheWoolStatsObject["deaths"] + und(woolWarsNumericalStats["deaths"]) + und(sheepWarsNumericalStats["deaths"]);
+
+  updateElement("woolgames-overall-wins", checkAndFormat(woolGamesOverallStats["wins"]));
+  updateElement("woolgames-overall-losses", checkAndFormat(woolGamesOverallStats["losses"]));
+  updateElement("woolgames-overall-kills", checkAndFormat(woolGamesOverallStats["kills"]));
+  updateElement("woolgames-overall-deaths", checkAndFormat(woolGamesOverallStats["deaths"]));
+
+  updateElement("woolgames-overall-wlr", calculateRatio(woolGamesOverallStats["wins"], woolGamesOverallStats["losses"]));
+  updateElement("woolgames-overall-kdr", calculateRatio(woolGamesOverallStats["kills"], woolGamesOverallStats["deaths"]));
+  
+
   updateElement("woolgames-overall-coins", checkAndFormat(woolGamesStats["coins"]));
   updateElement("woolgames-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
 
@@ -3460,21 +3487,7 @@ function generateWoolGames() {
     `/img/icon/minecraft/shears.${imageFileType}`,
     "woolgames",
   ];
-
-    let captureTheWoolStatsObject = {};
-    captureTheWoolStatsObject["wins"] = und(captureTheWoolNumericalStats["participated_wins"] || arcadeStats["woolhunt_participated_wins"]);
-    captureTheWoolStatsObject["losses"] = und(captureTheWoolNumericalStats["participated_losses"] || arcadeStats["woolhunt_participated_losses"]);
-    captureTheWoolStatsObject["kills"] = und(captureTheWoolNumericalStats["kills"] || arcadeStats["woolhunt_kills"]);
-    captureTheWoolStatsObject["deaths"] = und(captureTheWoolNumericalStats["deaths"] || arcadeStats["woolhunt_deaths"]);
-    captureTheWoolStatsObject["draws"] = und(captureTheWoolNumericalStats["participated_draws"] || arcadeStats["participated_draws"]);
-    captureTheWoolStatsObject["assists"] = und(captureTheWoolNumericalStats["assists"] || arcadeStats["woolhunt_assists"]);
-    captureTheWoolStatsObject["wools_stolen"] = und(captureTheWoolNumericalStats["wools_stolen"] || arcadeStats["woolhunt_wools_stolen"]);
-    captureTheWoolStatsObject["wools_captured"] = und(captureTheWoolNumericalStats["wools_captured"] || arcadeStats["woolhunt_wools_captured"]);
-    captureTheWoolStatsObject["fastest_win"] = und(captureTheWoolNumericalStats["fastest_win"] || arcadeStats["woolhunt_fastest_win"]);
-    captureTheWoolStatsObject["fastest_capture"] = und(captureTheWoolNumericalStats["fastest_wool_capture"] || arcadeStats["woolhunt_fastest_capture"]);
     
-    
-
     // Capture The Wool
     let captureTheWoolChip = [
       "arcade-stats-capturethewool", // ID

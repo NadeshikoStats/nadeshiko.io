@@ -67,7 +67,7 @@
   <div class="nadeshiko-wrapper">
     <header>
       <%- include('partials/header') %>
-      <div class="header2"> <!-- secondary header for game bar -->
+      <div class="header header2"> <!-- secondary header for game bar -->
         <div class="header-left">
           <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
         </div>
@@ -927,6 +927,19 @@
               <div class="card-big-stats">
                 <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
                 <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="woolgames-overall-wins"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="woolgames-overall-losses"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="woolgames-overall-wlr"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="woolgames-overall-kills"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="woolgames-overall-deaths"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="woolgames-overall-kdr"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+              <div class="card-big-misc">
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+                <div class="chip-small-statistic-row">
                   <p><span data-t="statistics.wool">Wool</span> <span class="statistic" id="woolgames-overall-coins"><span class="mc">Unknown</span></span></p>
                   <p><span data-t="statistics.layers">Layers</span> <span class="statistic" id="woolgames-overall-available_layers"><span class="mc">Unknown</span></span></p>
                 </div>
@@ -998,7 +1011,7 @@
         <div id="warlords-chips-2" class="chip-container-duo">
         </div>
       </div>
-  </div>
+    </div>
   </div>
 
   <div class="flex-container unloaded minigame-flex-container" id="flex-container-fishing">
@@ -1039,7 +1052,7 @@
         <div id="fishing-chips-2" class="chip-container-duo">
         </div>
       </div>
-  </div>
+    </div>
   </div>
 
 </div>

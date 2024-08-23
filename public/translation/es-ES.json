@@ -932,9 +932,9 @@
     "wool": "Lana",
     "layers": "Capas",
     "wool_placed": "Lanas colocadas",
-    "sheep_thrown": "Sheep Thrown",
-    "sheep_killed": "Sheep Killed",
-    "magic_wool_hit": "Magic Wool Hit",
+    "sheep_thrown": "Ovejas lanzadas",
+    "sheep_killed": "Ovejas asesinadas",
+    "magic_wool_hit": "Lanas mágicas golpeadas",
     "items_caught": "Objetos atrapados",
     "fish_caught": "Peces atrapados",
     "junk_caught": "Basura atrapada",
@@ -945,7 +945,7 @@
     "player": "Jugador",
     "rank": "Rango",
     "guild_experience": "Experiencia del guild",
-    "game": "Game"
+    "game": "Juego"
   },
   "times": {
     "time_ago": "(hace %%time%%)",

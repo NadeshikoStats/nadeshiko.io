@@ -2,7 +2,8 @@
   "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "Search for a player..."
+      "placeholder": "Search for a player...",
+      "placeholder_guild": "Search for a guild..."
     },
     "home": {
       "title": "Home"
@@ -106,6 +107,7 @@
     "favorites": "Favourites",
     
     "search": "Enter a Minecraft username or UUID...",
+    "search_guild": "Enter the name of a guild...",
     "show_me": "Show me!",
 
     "errors": {
