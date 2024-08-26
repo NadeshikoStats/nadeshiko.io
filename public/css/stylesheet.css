@@ -682,7 +682,7 @@
     opacity: 1;
   }
   
-  .searchbar-container:focus-within {
+  .searchbar-container:focus-within, .searchbar-container.selected {
     outline: none;
     box-shadow: 0 0 10px rgba(200, 200, 200, 0.2);
     position: relative;
@@ -690,11 +690,12 @@
     background-color: var(--nadeshiko-dark);
   }
   
+  
   .searchbar-container:focus-within > .search-icon {
     opacity: 100%;
   }
 
-  .searchbar-container:focus-within > .searchbar-selector {
+  .searchbar-container.selected > .searchbar-selector {
     clip-path: circle(350px at 100% 0);
   }
   
@@ -1491,7 +1492,7 @@
   }
   
   .typing {
-    white-space: nowrap;
+    white-space: pre-wrap;
     border-right: 2px solid;
     animation: blink var(--transition-large) step-end infinite;
     min-height: 40px;

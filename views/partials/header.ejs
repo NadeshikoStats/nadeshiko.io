@@ -13,14 +13,14 @@
     <p class="header-button" onclick="showSettings()" id="button-settings"><img src="/img/svg/settings.svg" class="header-icon" alt="" /><span class="header-button-text" data-t="header.settings.title">Settings</span></p>
   </div>
   <div class="header-right">
-    <div class="searchbar-container"> <!-- sirhc -->
+    <div class="searchbar-container" id="header-searchbar-container">
       <img src="/img/svg/search.svg" alt="" class="search-icon" id="search-icon" />
       <input type="search" class="searchbar" id="searchbar" data-t="header.searchbar.placeholder" placeholder="Search for a player..." spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
       <div class="searchbar-selector">   
         <div class="flex-two-item">
-          <p class="header-button selector-button selected" onclick="changeScope('player')" id="scope-player"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.all.stats">Stats</span></p>
-          <p class="header-button selector-button" onclick="changeScope('guild')" id="scope-guild"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.network.guild">Guild</span></p>
-          <p class="header-button selector-button" onclick="changeScope('achievements')" id="scope-achievements"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="achievements.achievements">Achievements</span></p>
+          <p class="header-button selector-button selected scope-player" onmousedown="changeScope('player', 'header')"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.all.stats">Stats</span></p>
+          <p class="header-button selector-button scope-guild" onmousedown="changeScope('guild', 'header')"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.network.guild">Guild</span></p>
+          <p class="header-button selector-button scope-achievements" onmousedown="changeScope('achievements', 'header')"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="achievements.achievements">Achievements</span></p>
         </div>
       </div>
     </div>
@@ -273,15 +273,12 @@
 </div>
 
 <script>
-  document.getElementById("search-icon").addEventListener("click", function () {
-    document.getElementById("searchbar").focus();
-  });
-
   let aboutExpanded = false;
   let settingsExpanded = false;
   let cardWizardExpanded = false;
   let currentScope = "player";
   let svgCycleCounter = 0;
+  let headerSearchbarSelected = false;
   let cardWizardSettings = {
     game: "NETWORK",
     size: "FULL",
@@ -341,9 +338,22 @@
     empty: { progress: 100, label: 'empty', direction: 'ltr' }
   }
 
+  document.getElementById("header-searchbar-container").addEventListener("mousedown", function () {
+    document.getElementById("header-searchbar-container").classList.add("selected");
+  });
+
+  document.getElementById("header-searchbar-container").addEventListener("click", function () {
+    if (document.activeElement != document.getElementById("searchbar")) {
+      document.getElementById("searchbar").focus();
+      document.getElementById("searchbar").select();
+    }
+
+    headerSearchbarSelected = true;
+    document.getElementById("header-searchbar-container").classList.add("selected");
+  });
+
   // Iterate through the languageCodes object and create a dropdown item for each language
   let dropdownLanguage = document.getElementById("dropdown-language");
-
 
   for (const [key, value] of Object.entries(languageCodes)) {
 
@@ -406,17 +416,30 @@
     }
   }
 
-  function changeScope(scope) {
+  function changeScope(scope, selectorLocation) {
     currentScope = scope;
     let scopes = ["player", "guild", "achievements"];
 
     for (let a of scopes) {
       if (a == currentScope) {
-        document.getElementById(`.scope-${a}`).classList.add("selected"); // make forEach loop
+        document.querySelectorAll(`.scope-${a}`).forEach(element => {
+          element.classList.add("selected");
+        });
       } else {
-        document.getElementById(`.scope-${a}`).classList.remove("selected");
+        document.querySelectorAll(`.scope-${a}`).forEach(element => {
+          element.classList.remove("selected");
+        });
       }
     }
+
+    let selectorElement;
+    if (selectorLocation == "home") {
+      selectorElement = document.getElementById("searchbar2");
+    } else {
+      selectorElement = document.getElementById("searchbar");
+    }
+
+    selectorElement.select();
 
     if (scope == "guild") {
       document.getElementById("searchbar").placeholder = getTranslation(["header", "searchbar", "placeholder_guild"]);
@@ -630,6 +653,13 @@
     }
 
     console.log(event.target);
+  };
+
+  window.onmousedown = function (event) {
+    if (!event.target.closest(".searchbar-container") && headerSearchbarSelected) {
+      document.getElementById("header-searchbar-container").classList.remove("selected");
+      headerSearchbarSelected = false;
+    }
   };
 
   function isInputField(element) {

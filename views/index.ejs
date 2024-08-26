@@ -93,14 +93,14 @@
             </span>
             <section class="player-card-home">
                 <div class="flex-two-item">
-                  <div class="searchbar-container searchbar-home">
+                  <div class="searchbar-container searchbar-home selected" id="index-searchbar-container">
                     <img src="/img/svg/search.svg" class="search-icon bigicon" id="search-icon2">
                     <input type="search" class="searchbar" id="searchbar2" data-t="home.search" placeholder=" Enter a Minecraft username or UUID..." style="font-size: 16px; flex: 1; padding: 7px 0px;" spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off">
                     <div class="searchbar-selector">   
                       <div class="flex-two-item">
-                        <p class="header-button selector-button selected" onclick="changeScope('player')" id="scope-player"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.all.stats">Stats</span></p>
-                        <p class="header-button selector-button" onclick="changeScope('guild')" id="scope-guild"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.network.guild">Guild</span></p>
-                        <p class="header-button selector-button" onclick="changeScope('achievements')" id="scope-achievements"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="achievements.achievements">Achievements</span></p>
+                        <p class="header-button selector-button selected scope-player" onclick="changeScope('player', 'home')" ><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.all.stats">Stats</span></p>
+                        <p class="header-button selector-button scope-guild" onclick="changeScope('guild', 'home')"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.network.guild">Guild</span></p>
+                        <p class="header-button selector-button scope-achievements" onclick="changeScope('achievements', 'home')"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="achievements.achievements">Achievements</span></p>
                       </div>
                     </div>
                   </div>
@@ -141,6 +141,8 @@
 
 
 <script>
+let indexSearchbarSelected = true;
+
 document.getElementById("searchbar2").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
     if (event.key === "Enter") { // Did the user press enter?
         event.preventDefault();
@@ -150,9 +152,33 @@ document.getElementById("searchbar2").addEventListener("keypress", function(even
     }
 });
 
+window.onmousedown = function (event) {
+    if (!event.target.closest(".searchbar-container") && indexSearchbarSelected) {
+      document.getElementById("index-searchbar-container").classList.remove("selected");
+      indexSearchbarSelected = false;
+    }
+  };
+
 document.getElementById('search-icon2').addEventListener('click', function() {
   document.getElementById('searchbar2').focus();
 });
+
+document.getElementById("index-searchbar-container").addEventListener("mousedown", function () {
+    document.getElementById("index-searchbar-container").classList.add("selected");
+  });
+
+  
+  document.getElementById("index-searchbar-container").addEventListener("click", function () {
+    if (document.activeElement != document.getElementById("searchbar2")) {
+      document.getElementById("searchbar2").focus();
+      document.getElementById("searchbar2").select();
+    }
+
+    indexSearchbarSelected = true;
+    document.getElementById("index-searchbar-container").classList.add("selected");
+  });
+
+
 
 function showMe() {
     var userInput = document.getElementById("searchbar2").value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
