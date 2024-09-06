@@ -137,7 +137,8 @@
     "errors": {
       "no_stats": "No Hypixel Stats",
       "no_stats_desc": "This player has no Hypixel stats.",
-      "api_disabled": "This player has their stats API disabled! Stats may be inaccurate or missing."
+      "api_disabled": "This player has their stats API disabled! Stats may be inaccurate or missing.",
+      "not_applicable": "N/A"
     }
   },
   "achievements": {

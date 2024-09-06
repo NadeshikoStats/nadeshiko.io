@@ -2,7 +2,8 @@
   "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "Rechercher un joueur..."
+      "placeholder": "Rechercher un joueur...",
+      "placeholder_guild": "Search for a guild..."
     },
     "home": {
       "title": "Accueil"
@@ -37,7 +38,7 @@
         "10_name": "API Hypixel",
         "10_desc": "par Hypixel Inc.",
         "11_name": "Chart.js",
-        "11_desc": "by Chart.js"
+        "11_desc": "par Chart.js"
       }
     },
     "cards": {
@@ -77,6 +78,7 @@
     "recent_searches": "Recherches récentes",
     "favorites": "Favoris",
     "search": "Entrez un pseudo ou un UUID Minecraft...",
+    "search_guild": "Enter the name of a guild...",
     "show_me": "Montre-moi !",
     "errors": {
       "error": "ERREUR",
@@ -103,13 +105,14 @@
     "errors": {
       "no_stats": "Pas de statistiques Hypixel",
       "no_stats_desc": "Ce joueur n'a pas de statistiques Hypixel.",
-      "api_disabled": "Ce joueur a désactivé son API de statistiques ! Les statistiques peuvent être inexactes ou manquantes."
+      "api_disabled": "Ce joueur a désactivé son API de statistiques ! Les statistiques peuvent être inexactes ou manquantes.",
+      "not_applicable": "N/A"
     }
   },
   "achievements": {
-    "achievements": "Achievements",
-    "maxed_game": "Max %%game%%",
-    "easiest_uncompleted": "Easiest Uncompleted",
+    "achievements": "Succès",
+    "maxed_game": "%%game%% Maxé",
+    "easiest_uncompleted": "Plus faciles non accomplis",
     "closest_tiers": "Closest Tiers",
     "recently_completed": "Recently Completed",
     "tiered": "Tiered",
@@ -118,9 +121,9 @@
     "tiers": "Tiers",
     "game": "% of %%game%% players with this achievement",
     "global": "% of all players with this achievement",
-    "all": "All",
-    "locked": "Locked",
-    "unlocked": "Unlocked",
+    "all": "Tout",
+    "locked": "Verrouillé",
+    "unlocked": "Déverrouillé",
     "secret_achievement": "Secret Achievement"
   },
   "footer": {
@@ -149,16 +152,16 @@
     "tkr": "Turbo Kart Racers",
     "vampirez": "VampireZ",
     "walls": "Walls",
-    "easter": "Easter",
+    "easter": "Pâques",
     "halloween": "Halloween",
-    "holiday": "Holiday",
-    "summer": "Summer",
+    "holiday": "Noël",
+    "summer": "Été",
     "housing": "Housing",
     "skyblock": "SkyBlock",
     "speeduhc": "Speed UHC",
     "overall": "Overall",
     "legacy": "Legacy",
-    "general": "General",
+    "general": "Général",
     "crazywalls": "Crazy Walls",
     "skyclash": "SkyClash",
     "network": "Global",
@@ -406,7 +409,7 @@
           "retro": "Retro"
         },
         "vampirez": {
-          "human": "Human",
+          "human": "Humain",
           "vampire": "Vampire"
         }
       },
@@ -500,7 +503,7 @@
         "teams": "Team",
         "2v2": "2v2",
         "one_v_one": "1v1",
-        "friend": "Friends"
+        "friend": "Amis"
       },
       "tntgames": {
         "tntrun": {
@@ -584,7 +587,7 @@
         "woolwars": {
           "category": "Wool Wars",
           "archer": "Archer",
-          "assault": "Assault",
+          "assault": "Assaut",
           "engineer": "Ingénieur",
           "golem": "Golem",
           "swordsman": "Swordsman",
@@ -868,14 +871,14 @@
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "Points de classe",
     "total_time_survived": "Temps total survécu",
-    "wins_murderer": "Wins (Murderer)",
-    "wins_detective": "Wins (Detective)",
-    "fastest_win_murderer": "Fastest Win (Murderer)",
-    "fastest_win_detective": "Fastest Win (Detective)",
-    "gold_picked_up": "Gold Picked Up",
+    "wins_murderer": "Victoires (Meurtrier)",
+    "wins_detective": "Victoires (Détective)",
+    "fastest_win_murderer": "Victoire la plus rapide (Meurtrier)",
+    "fastest_win_detective": "Victoire la plus rapide (Détective)",
+    "gold_picked_up": "Or Récupéré",
     "kills_murderer": "Kills (Murderer)",
-    "wins_hero": "Wins (Hero)",
-    "wins_survivor": "Wins (Survivor)",
+    "wins_hero": "Victoires (Héros)",
+    "wins_survivor": "Victoires (Survivant)",
     "kills_infected": "Kills (Infected)",
     "kills_survivor": "Kills (Survivor)",
     "gold": "Or",
@@ -915,7 +918,7 @@
     "fish_fished": "Poissons pêchés",
     "selected_hero": "Selected Hero",
     "smash_level": "Niveau en Smash",
-    "total_xp": "Total XP",
+    "total_xp": "Total d'XP",
     "blocks_ran": "Blocks Ran",
     "tags": "Tags",
     "overall_wins": "Victoires globales",
@@ -931,7 +934,7 @@
     "damage_prevented": "Damage Prevented",
     "wool": "Laine",
     "layers": "Layers",
-    "wool_placed": "Wool Placed",
+    "wool_placed": "Laines Placées",
     "sheep_thrown": "Sheep Thrown",
     "sheep_killed": "Sheep Killed",
     "magic_wool_hit": "Magic Wool Hit",

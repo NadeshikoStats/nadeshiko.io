@@ -2,7 +2,8 @@
   "nadeshiko": "nARRRRdeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "Scour fer a pirate..."
+      "placeholder": "Scour fer a pirate...",
+      "placeholder_guild": "Scour fer a guild..."
     },
     "home": {
       "title": "Ship"
@@ -77,6 +78,7 @@
     "recent_searches": "Recent Pirates",
     "favorites": "Favourites",
     "search": "Scrawl a pirate's Minecraft username or UUID 'ere...",
+    "search_guild": "Scrawl th' name o' a guild 'ere...",
     "show_me": "Set sail",
     "errors": {
       "error": "TH' SHIP SUNK",
@@ -103,7 +105,8 @@
     "errors": {
       "no_stats": "No Hypixel Stats",
       "no_stats_desc": "'Tis pirate be a lousy landlubber wit' no Hypixel stats!",
-      "api_disabled": "'Tis pirate disabled their stats API, so ye may find missin' information!"
+      "api_disabled": "'Tis pirate disabled their stats API, so ye may find missin' information!",
+      "not_applicable": "N/A"
     }
   },
   "achievements": {

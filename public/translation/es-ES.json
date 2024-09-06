@@ -2,7 +2,8 @@
   "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "Buscar un jugador..."
+      "placeholder": "Buscar un jugador...",
+      "placeholder_guild": "Buscar un guild..."
     },
     "home": {
       "title": "Inicio"
@@ -77,6 +78,7 @@
     "recent_searches": "Búsquedas recientes",
     "favorites": "Favoritos",
     "search": "Escribe un nombre de usuario o UUID de Minecraft...",
+    "search_guild": "Escribe el nombre de un guild...",
     "show_me": "¡Muéstrame!",
     "errors": {
       "error": "ERROR",
@@ -103,7 +105,8 @@
     "errors": {
       "no_stats": "Sin estadísticas de Hypixel",
       "no_stats_desc": "Este jugador no tiene estadísticas de Hypixel.",
-      "api_disabled": "¡Este jugador desactivó su API de estadísticas! Es posible que falten sus estadísticas."
+      "api_disabled": "¡Este jugador desactivó su API de estadísticas! Es posible que falten sus estadísticas.",
+      "not_applicable": "N/A"
     }
   },
   "achievements": {

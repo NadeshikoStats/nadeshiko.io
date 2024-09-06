@@ -792,10 +792,29 @@ function getMetaDescription(game, playerData) {
   }
 
 
-    let woolGamesStats = playerData["stats"]["WoolGames"] || {};
-    let woolWarsStats = woolGamesStats["wool_wars"] || {};
-    let woolGamesProgression = woolGamesStats["progression"] || {};
-    let woolWarsNumericalStats = woolWarsStats["stats"] || {};
+  let woolGamesStats = playerData["stats"]["WoolGames"] || {};
+  let woolWarsStats = woolGamesStats["wool_wars"] || {};
+
+  let woolGamesProgression = woolGamesStats["progression"] || {};
+  woolWarsNumericalStats = woolWarsStats["stats"] || {};
+
+  let captureTheWoolStats = woolGamesStats["capture_the_wool"] || {};
+  let captureTheWoolNumericalStats = captureTheWoolStats["stats"] || {};
+
+  let sheepWarsStats = woolGamesStats["sheep_wars"] || {};
+  let sheepWarsNumericalStats = sheepWarsStats["stats"] || {};
+
+  let captureTheWoolStatsObject = {};
+  captureTheWoolStatsObject["wins"] = und(captureTheWoolNumericalStats["participated_wins"] || arcadeStats["woolhunt_participated_wins"]);
+  captureTheWoolStatsObject["losses"] = und(captureTheWoolNumericalStats["participated_losses"] || arcadeStats["woolhunt_participated_losses"]);
+  captureTheWoolStatsObject["kills"] = und(captureTheWoolNumericalStats["kills"] || arcadeStats["woolhunt_kills"]);
+  captureTheWoolStatsObject["deaths"] = und(captureTheWoolNumericalStats["deaths"] || arcadeStats["woolhunt_deaths"]);
+
+  let woolGamesOverallStats = {};
+  woolGamesOverallStats["wins"] = captureTheWoolStatsObject["wins"] + und(woolWarsNumericalStats["wins"]) + und(sheepWarsNumericalStats["wins"]);
+  woolGamesOverallStats["losses"] = captureTheWoolStatsObject["losses"] + und(woolWarsNumericalStats["games_played"]) - und(woolWarsNumericalStats["wins"]) + und(sheepWarsNumericalStats["losses"]);
+  woolGamesOverallStats["kills"] = captureTheWoolStatsObject["kills"] + und(woolWarsNumericalStats["kills"]) + und(sheepWarsNumericalStats["kills"]);
+  woolGamesOverallStats["deaths"] = captureTheWoolStatsObject["deaths"] + und(woolWarsNumericalStats["deaths"]) + und(sheepWarsNumericalStats["deaths"]);
 
     let woolWarsPrestigeIcons = {
       HEART: {icon: "❤\uFE0E", minStars: 0 },
@@ -825,18 +844,21 @@ function getMetaDescription(game, playerData) {
       }
     }
 
-    return `Wool Wars Stats
+    return `Wool Games Stats
 
 • ⭐ Level: [${Math.floor(woolGamesLevel)}${woolGamesPrestigeIcon}]
 
-• 🏆 Wins: ${checkAndFormat(woolWarsNumericalStats["wins"])}
-• 💔 Losses: ${locale(und(woolWarsNumericalStats["games_played"]) - und(woolWarsNumericalStats["wins"]), 0)}
-• 🏅 W/L R: ${calculateRatio(woolWarsNumericalStats["wins"], und(woolWarsNumericalStats["games_played"]) - und(woolWarsNumericalStats["wins"]))}
+• 🏆 Wins: ${checkAndFormat(woolGamesOverallStats["wins"])}
+• 💔 Losses: ${checkAndFormat(woolGamesOverallStats["losses"])}
+• 🏅 W/L R: ${calculateRatio(woolGamesOverallStats["wins"], woolGamesOverallStats["losses"])}
 
-• 💀 Kills: ${checkAndFormat(woolWarsNumericalStats["kills"])}
-• 🤝 Assists: ${checkAndFormat(woolWarsNumericalStats["assists"])}
-• ⚰️ Deaths: ${checkAndFormat(woolWarsNumericalStats["deaths"])}
-• ⚔️ K/D R: ${calculateRatio(woolWarsNumericalStats["kills"], woolWarsNumericalStats["deaths"])}
+• 💀 Kills: ${checkAndFormat(woolGamesOverallStats["kills"])}
+• ⚰️ Deaths: ${checkAndFormat(woolGamesOverallStats["deaths"])}
+• ⚔️ K/D R: ${calculateRatio(woolGamesOverallStats["kills"], woolGamesOverallStats["deaths"])}
+
+• 🟧 Capture the Wool Wins: ${checkAndFormat(captureTheWoolStatsObject["wins"])}
+• 🐑 Sheep Wars Wins: ${checkAndFormat(sheepWarsNumericalStats["wins"])}
+• 🥊 Wool Wars Wins: ${checkAndFormat(woolWarsNumericalStats["wins"])}
 
 • 🧶 Wool: ${checkAndFormat(woolGamesStats["coins"])}`;
   default:
@@ -1102,7 +1124,7 @@ app.get('/player/:name/:game?', async (req, res) => {
        let playerData = response.data;
        
        let metaImageURL, metaDescription;
-        if (playerData && playerData["profile"]) { // If the player data is available
+       if (playerData && playerData["profile"]) { // If the player data is available
           metaDescription = getMetaDescription(game, playerData);
 
           if (cardSupportedGames.includes(game)) { // Check if the game is supported by the card generator
