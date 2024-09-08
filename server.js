@@ -1279,7 +1279,19 @@ app.get('/player/:name/:game?', async (req, res) => {
 
   app.get('/:name/:game?', (req, res) => {
     const { name, game } = req.params;
-    res.redirect(`/player/${name}/${game == undefined ? '' : game}`);
+
+    if (/[^A-Za-z0-9_-]/.test(name)) {
+      computationError = {
+        message: `No player by the name of ${name} was found :(`,
+        player: name,
+        category: "404",
+        page: "player"
+      };
+      
+      res.render('index', { computationError });
+    } else {
+      res.redirect(`/player/${name}/${game == undefined ? '' : game}`);
+    }
   });
   
   app.listen(port, () => {

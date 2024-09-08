@@ -3570,21 +3570,26 @@ function generateWoolGames() {
 
 function getWoolWarsStats(mode) {
   let woolWarsModeStats, woolWarsWinStats;
+  
   if(mode == "overall") {
     woolWarsModeStats = woolWarsNumericalStats;
     woolWarsWinStats = [false, [getTranslation("statistics.wins"), checkAndFormat(woolWarsModeStats["wins"])], [getTranslation("statistics.losses"), checkAndFormat(und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))], [getTranslation("statistics.wlr"), calculateRatio(woolWarsModeStats["wins"], und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))]];
   } else {
     woolWarsClassStats = woolWarsNumericalStats["classes"] || {};
     woolWarsModeStats = woolWarsClassStats[mode] || {};
-    woolWarsWinStats = [];
   }
 
-  return [
-    woolWarsWinStats,
+  let woolWarsModeStatsObject = [
     [false, [getTranslation("statistics.kills"), checkAndFormat(woolWarsModeStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(woolWarsModeStats["deaths"])],  [getTranslation("statistics.kdr"), calculateRatio(woolWarsModeStats["kills"], woolWarsModeStats["deaths"])]],
     [false, [getTranslation("statistics.assists"), checkAndFormat(woolWarsModeStats["assists"])], [getTranslation("statistics.powerups"), checkAndFormat(woolWarsModeStats["powerups_gotten"])]],
     [false, [getTranslation("statistics.wool_placed"), checkAndFormat(woolWarsModeStats["wool_placed"])], [getTranslation("statistics.blocks_broken"), checkAndFormat(woolWarsModeStats["blocks_broken"])]],
-  ]
+  ];
+
+  if (mode == "overall") {
+    woolWarsModeStatsObject.unshift(woolWarsWinStats);
+  }
+
+  return woolWarsModeStatsObject;
 }
 
 function generateFishing() {
