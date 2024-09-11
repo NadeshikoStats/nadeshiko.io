@@ -53,6 +53,17 @@
 
           texts.unshift("Hypixel");
 
+          let computationError = {};
+          <% if(typeof computationError !== 'undefined') { %>
+            computationError["message"] = "<%= computationError["message"] %>"
+            computationError["player"] = "<%= computationError["player"] %>"
+            computationError["error"] = "<%= computationError["error"] %>"
+            computationError["category"] = "<%= computationError["category"] %>"
+            computationError["page"] = "<%= computationError["page"] %>"
+          <% } else { %>
+            computationError = {}
+          <% } %>
+
           if (Object.keys(computationError).length != 0) { // If there's an error, display it
             if (computationError["page"] == "player") {
               document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors." + computationError["category"]), {"player": computationError["player"], "error": computationError["error"]});
@@ -118,7 +129,6 @@
           <div class="home-error-container">
             <p class="home-error-message" data-t="home.errors.error">ERROR</p>
           <p class="home-error" id="home-error-message-description">
-          <%= computationError["message"] %>
           </p>
         </div>
         <% } %>
@@ -201,13 +211,6 @@ let charIndex = 0;
 let direction = 1;
 
 var texts = ["Arcade", "Arena Brawl", "Bed Wars", "Blitz", "Build Battle", "Cops and Crims", "Duels", "Mega Walls", "Murder Mystery", "Paintball", "Pit", "Quakecraft", "SkyWars", "Smash Heroes", "Speed UHC", "TNT Games", "The Walls", "Turbo Kart Racers", "UHC", "VampireZ", "Warlords", "Wool Wars"];
-
-let computationError;
-<% if(typeof computationError !== 'undefined') { %>
-  computationError = <%- JSON.stringify(computationError) %>
-<% } else { %>
-  computationError = {}
-<% } %>
 
 for (let i = texts.length - 1; i > 0; i--) { // Shuffles array
         let j = Math.floor(Math.random() * (i + 1));

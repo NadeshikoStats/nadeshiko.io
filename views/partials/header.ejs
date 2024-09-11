@@ -685,14 +685,6 @@ function beginGeneration(task) {
   }
 }*/
 
-  function openSelectedDropdown(dropdownId) {
-    console.log("removed" + dropdownId);
-
-    console.log(document.getElementById(dropdownId).classList);
-    document.getElementById(dropdownId).classList.remove("unloaded");
-    console.log(document.getElementById(dropdownId).classList);
-  }
-
   document.addEventListener("click", function (event) {
     let dropdownButton = event.target.closest(".dropdown-button");
     if (dropdownButton) {
