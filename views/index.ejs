@@ -9,6 +9,7 @@
 
     <script>
       let tasksBeforeLoadingHeader = ["fetchLanguageFile", "DOMContentLoaded"];
+      let serverComputationError = {};
 
       function beginGeneration(task) {
         console.log(task);
@@ -53,22 +54,21 @@
 
           texts.unshift("Hypixel");
 
-          let computationError = {};
           <% if(typeof computationError !== 'undefined') { %>
-            computationError["message"] = "<%= computationError["message"] %>"
-            computationError["player"] = "<%= computationError["player"] %>"
-            computationError["error"] = "<%= computationError["error"] %>"
-            computationError["category"] = "<%= computationError["category"] %>"
-            computationError["page"] = "<%= computationError["page"] %>"
+            serverComputationError["message"] = "<%= computationError["message"] %>";
+            serverComputationError["player"] = "<%= computationError["player"] %>";
+            serverComputationError["error"] = "<%= computationError["error"] %>";
+            serverComputationError["category"] = "<%= computationError["category"] %>";
+            serverComputationError["page"] = "<%= computationError["page"] %>";
           <% } else { %>
-            computationError = {}
+            serverComputationError = {};
           <% } %>
 
-          if (Object.keys(computationError).length != 0) { // If there's an error, display it
-            if (computationError["page"] == "player") {
-              document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors." + computationError["category"]), {"player": computationError["player"], "error": computationError["error"]});
-            } else if (computationError["page"] == "guild") {
-              document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors.guild." + computationError["category"]), {"guild": computationError["guild"], "error": computationError["error"]});
+          if (serverComputationError["message"] != "") { // If there's an error, display it
+            if (serverComputationError["page"] == "player") {
+              document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors." + serverComputationError["category"]), {"player": serverComputationError["player"], "error": serverComputationError["error"]});
+            } else if (serverComputationError["page"] == "guild") {
+              document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors.guild." + serverComputationError["category"]), {"guild": serverComputationError["guild"], "error": serverComputationError["error"]});
             }
           }
         }
@@ -125,9 +125,13 @@
       <div class="in-development" style="text-align: center;">
           <span style="padding: 20px;">⚠️ <b>nadeshiko's actively being developed!</b><br><br>We're close to launching, but you might still find bugs. Check our <a href="https://github.com/NadeshikoStats/" target="_blank" style="color: var(--nadeshiko)">GitHub</a> to watch the site grow!</span>
         </div>
-        <% if(typeof computationError !== 'undefined') { %>
+        <% if(typeof computationError !== 'undefined' && computationError["message"] != "") { %>
           <div class="home-error-container">
             <p class="home-error-message" data-t="home.errors.error">ERROR</p>
+            <script>
+            console.warn("<%= computationError["message"] %>");
+            console.warn(`<%= JSON.stringify(computationError) %>`);
+            </script>
           <p class="home-error" id="home-error-message-description">
           </p>
         </div>

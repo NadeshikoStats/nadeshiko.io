@@ -19,6 +19,12 @@ console.log("Minify enabled!");
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
+  computationError = {
+    message: ``,
+    player: ``,
+    category: ``,
+    page: ``
+  };
   res.render('index');
 });
 
@@ -1103,7 +1109,12 @@ ${achievementGamesString}`;
 app.get('/player/:name/:game?', async (req, res) => {
   const name = req.params.name;
   
-  var computationError = "";
+  computationError = {
+    message: ``,
+    player: ``,
+    category: ``,
+    page: ``
+  };
   
   try {
 
@@ -1196,7 +1207,12 @@ app.get('/player/:name/:game?', async (req, res) => {
   app.get('/guild/:name?', async (req, res) => {
     const name = req.params.name;
 
-    var computationError = "";
+    computationError = {
+      message: ``,
+      player: ``,
+      category: ``,
+      page: ``
+    };
   
     try {
   
@@ -1230,7 +1246,12 @@ app.get('/player/:name/:game?', async (req, res) => {
     const name = req.params.name;
 
 
-    var computationError = "";
+    computationError = {
+      message: ``,
+      player: ``,
+      category: ``,
+      page: ``
+    };
   
     try {
 
