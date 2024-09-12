@@ -2318,7 +2318,7 @@
 
   @-moz-document url-prefix() {
     * {
-      scrollbar-width: auto;
+      scrollbar-width: thin;
       scrollbar-color: var(--accent) transparent;
     }
   }
@@ -2335,6 +2335,11 @@
     background: var(--accent);
     border-radius: 99px;
   }
+
+  html {
+    scrollbar-width: thin;
+  }
+
 
   /* Tooltips */
 
