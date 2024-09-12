@@ -412,6 +412,21 @@ function cuteRank(text, style = 0) {
   }
 }
 
+function checkBadge(badge) {
+  if (badge != "NONE") {
+
+    let badgeLinks = {
+      "DEVELOPER": "https://github.com/nadeshikoStats",
+      "PATREON": "https://patreon.com/nadeshikoStats",
+    };
+
+    document.getElementById("badge").style.display = "unset";
+    document.getElementById("badge").src = `/img/special/${badge}.png`;
+    document.getElementById("badge-link").href = badgeLinks[badge] || "#";
+    document.getElementById("badge-text").textContent = getTranslation(["player", "badges", badge.toLowerCase()]);
+  }
+}
+
 setTimeout(function() {
   let text = "                                               \r\n                 _           _     _ _         \r\n                | |         | |   (_) |        \r\n _ __   __ _  __| | ___  ___| |__  _| | _____  \r\n| \'_ \\ \/ _` |\/ _` |\/ _ \\\/ __| \'_ \\| | |\/ \/ _ \\ \r\n| | | | (_| | (_| |  __\/\\__ \\ | | | |   < (_) |\r\n|_| |_|\\__,_|\\__,_|\\___||___\/_| |_|_|_|\\_\\___\/ \r\n                                               \r\n  The simple, beautiful Hypixel stats tracker  \r\n                                               ";
   const colors = ["#2D0614", "#2D0514", "#2D0514", "#2D0515", "#2D0515", "#2D0516", "#2D0516", "#2D0517", "#2D0517", "#2D0518", "#2D0518", "#2D0519", "#2D0519", "#2D0519", "#2D051A", "#2D051A", "#2D051B", "#2D051B", "#2D051C", "#2D051C", "#2D051D", "#2D051D", "#2D051E", "#2D051E", "#2D051E", "#2D051F", "#2D051F", "#2D0520", "#2D0520", "#2D0521", "#2D0521", "#2D0522", "#2D0522", "#2D0523", "#2D0523", "#2D0523", "#2D0524", "#2D0524", "#2D0525", "#2D0525", "#2D0526", "#2D0526", "#2D0527", "#2D0527", "#2D0528", "#2D0528", "#2D0528", "#2D0529", "#2D0529", "#2D052A", "#2D052A", "#2D052B", "#2D052B", "#2D052C", "#2D052C", "#2D052D"];

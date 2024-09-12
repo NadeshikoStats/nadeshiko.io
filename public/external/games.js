@@ -77,7 +77,7 @@ function generateNetwork() {
 
       let gameMode = "";
       if (playerGameMode == "LOBBY") {
-        gameMode = "Lobby";
+        gameMode = getTranslation(["games", "modes", "network", "lobby"]);
       } else {
         gameMode = gameModes[playerGameMode] || playerGameMode;
       }
@@ -87,7 +87,9 @@ function generateNetwork() {
       }
 
       updateElement("online-status-location", gameType["name"] + gameMode);
-    } else updateElement("online-status", getTranslation("player.currently_offline"));
+    } else {
+      updateElement("online-status", getTranslation("player.currently_offline"));
+    }
 
     let guildName;
 
@@ -128,6 +130,10 @@ function generateNetwork() {
       document.getElementById("social-media-button").classList.remove("unloaded");
       document.getElementById("social-media-dropdown-container").style.display = "flex";
     }
+
+    let playerBadge = playerData["badge"] || "NONE";
+    checkBadge(playerBadge);
+
     var socials = ["HYPIXEL", "YOUTUBE", "TWITTER", "TIKTOK", "TWITCH", "DISCORD"];
     for (a = 0; a < socials.length; a++) {
       // Iterates through social media and hides icons that don't exist for the player

@@ -188,6 +188,9 @@ function generateNetwork() {
 
   updateElement("card-name", deformatName(playerProfileStats["tagged_name"]));
 
+  let playerBadge = achievementsStats["player"]["badge"] || "NONE";
+  checkBadge(playerBadge);
+
   const quickModeGames = [
     { id: "overall", name: getTranslation(["games", "overall"]), minecraftId: "hypixel_logo" },
     { id: "legacy", name: getTranslation(["games", "legacy"]), minecraftId: "diamond_block" },

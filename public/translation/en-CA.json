@@ -116,6 +116,9 @@
       "computation": "Could not find stats of player %%player%% (%%error%%)",
       "guild": {
         "computation": "Could not find guild with name %%guild%% (%%error%%)"
+      },
+      "achievements": {
+        "computation": "Could not find achievements of player %%player%% (%%error%%)"
       }
     }
   },
@@ -124,6 +127,11 @@
       "title": "Quick Mode",
       "key": "Shift",
       "description": "Click an icon to instantly go to that game's page for <span id=\"quick-mode-username\">%%player%%</span>."
+    },
+
+    "badges": {
+      "developer": "Developer",
+      "patreon": "Patreon Supporter"
     },
     
     "generate_card": "Generate Card",
@@ -215,7 +223,8 @@
       },
       "network": {
         "general": "General",
-        "guild": "Guild"
+        "guild": "Guild",
+        "lobby": "Lobby"
       },
       "bedwars": {
         "eight_one": "Solos",

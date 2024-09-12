@@ -446,6 +446,7 @@
     width: 25px;
     height: 25px;
     display: none;
+    margin-inline-start: 5px;
   }
   
   .header-game:hover,
@@ -1648,7 +1649,7 @@
   .list .arrow-icon {
     width: 19px;
     opacity: 0.5;
-    transition-duration: var(--transition);
+    transition-duration: var(--transition-small);
   }
 
   .list .arrow-icon:hover {
