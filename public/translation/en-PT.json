@@ -11,11 +11,11 @@
     "about": {
       "title": "About",
       "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> be a fine piece o' open-source work fer lookin' at Hypixel pirate stats.",
-      "assistance": "Are ye havin' some trouble sailin'? Tell it t' th' captains on <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub</a>!",
+      "assistance": "Are ye havin' some trouble sailin'? Tell it t' th' captains on <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord</a>!",
       "disclaimer": "nadeshiko.io nah be related t' th' Hypixel Network, Mojang AB, or Microsoft.",
       "credits": {
         "title": "Crew",
-        "0_name": "kittycatchloe",
+        "0_name": "niqumu",
         "0_desc": "– Backend Captain",
         "1_name": "BrookeAFK",
         "1_desc": "– Frontend Captain",
@@ -86,6 +86,9 @@
       "computation": "%%player%%'s stats 'ave gone overboard (%%error%%)",
       "guild": {
         "computation": "Th' ship sunk while tryin' t' find guild wit' name %%guild%% (%%error%%)"
+      },
+      "achievements": {
+        "computation": "%%player%%'s achievements 'ave gone overboard (%%error%%)"
       }
     }
   },
@@ -94,6 +97,10 @@
       "title": "Swift Mode",
       "key": "Shift",
       "description": "Click one of th' pictures t' be sailed instantly t' <span id=\"quick-mode-username\">%%player%%</span>'s stats fer that there game."
+    },
+    "badges": {
+      "developer": "Captain o' nadeshiko",
+      "patreon": "Patreon Crew Member"
     },
     "generate_card": "Craft Card",
     "external_websites": "Other Ships",
@@ -127,7 +134,7 @@
     "secret_achievement": "Secret Achievement"
   },
   "footer": {
-    "created_by": "'Tis ship be built by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> an' <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
+    "created_by": "'Tis ship be built by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> an' <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."
   },
   "games": {
     "arcade": "Arcade",
@@ -174,7 +181,8 @@
       },
       "network": {
         "general": "Th' Seas",
-        "guild": "Guild"
+        "guild": "Guild",
+        "lobby": "Port"
       },
       "bedwars": {
         "eight_one": "Solo",

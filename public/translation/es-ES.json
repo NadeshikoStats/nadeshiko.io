@@ -11,11 +11,11 @@
     "about": {
       "title": "Acerca de",
       "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> es un bonito visor de estadísticas para jugadores de Hypixel, de código abierto.",
-      "assistance": "¿Has encontrado un bug o necesitas ayuda? ¡Dínoslo en <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">la página de GitHub</a> del proyecto!",
+      "assistance": "¿Has encontrado un bug o necesitas ayuda? ¡Dínoslo en <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">la página de GitHub</a> o <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">el servidor de Discord</a> del proyecto!",
       "disclaimer": "nadeshiko.io no está afiliado con Hypixel Inc., Mojang AB o Microsoft.",
       "credits": {
         "title": "Créditos",
-        "0_name": "kittycatchloe",
+        "0_name": "niqumu",
         "0_desc": "– Desarrolladora de backend",
         "1_name": "BrookeAFK",
         "1_desc": "– Desarrolladora de frontend",
@@ -86,6 +86,9 @@
       "computation": "No se encontraron las estadísticas del jugador %%player%% (%%error%%)",
       "guild": {
         "computation": "No se encontró el guild con el nombre %%guild%% (%%error%%)"
+      },
+      "achievements": {
+        "computation": "No se encontraron los logros del jugador %%player%% (%%error%%)"
       }
     }
   },
@@ -94,6 +97,10 @@
       "title": "Modo rápido",
       "key": "Mayús",
       "description": "Haz clic en un icono para ir inmediatamente a la página de <span id=\"quick-mode-username\">%%player%%</span> para ese juego."
+    },
+    "badges": {
+      "developer": "Desarrolladora",
+      "patreon": "Miembro de Patreon"
     },
     "generate_card": "Generar carta",
     "external_websites": "Sitios web externos",
@@ -127,7 +134,7 @@
     "secret_achievement": "Logro secreto"
   },
   "footer": {
-    "created_by": "Hecho con ♥︎ por <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> y <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
+    "created_by": "Hecho con ♥︎ por <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> y <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."
   },
   "games": {
     "arcade": "Arcade",
@@ -174,7 +181,8 @@
       },
       "network": {
         "general": "General",
-        "guild": "Guild"
+        "guild": "Guild",
+        "lobby": "Lobby"
       },
       "bedwars": {
         "eight_one": "Solo",

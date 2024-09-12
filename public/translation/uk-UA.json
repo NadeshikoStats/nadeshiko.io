@@ -11,11 +11,11 @@
     "about": {
       "title": "About",
       "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.",
-      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a>!",
+      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord server</a>!",
       "disclaimer": "nadeshiko.io is not affiliated with Hypixel Inc., Mojang AB, or Microsoft.",
       "credits": {
         "title": "Credits",
-        "0_name": "kittycatchloe",
+        "0_name": "niqumu",
         "0_desc": "– Backend Developer",
         "1_name": "BrookeAFK",
         "1_desc": "– Frontend Developer",
@@ -86,6 +86,9 @@
       "computation": "Could not find stats of player %%player%% (%%error%%)",
       "guild": {
         "computation": "Could not find guild with name %%guild%% (%%error%%)"
+      },
+      "achievements": {
+        "computation": "Could not find achievements of player %%player%% (%%error%%)"
       }
     }
   },
@@ -94,6 +97,10 @@
       "title": "Quick Mode",
       "key": "Shift",
       "description": "Click an icon to instantly go to that game's page for <span id=\"quick-mode-username\">%%player%%</span>."
+    },
+    "badges": {
+      "developer": "Developer",
+      "patreon": "Patreon Supporter"
     },
     "generate_card": "Generate Card",
     "external_websites": "External Websites",
@@ -127,7 +134,7 @@
     "secret_achievement": "Secret Achievement"
   },
   "footer": {
-    "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
+    "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."
   },
   "games": {
     "arcade": "Arcade",
@@ -174,7 +181,8 @@
       },
       "network": {
         "general": "General",
-        "guild": "Guild’ія"
+        "guild": "Guild’ія",
+        "lobby": "Lobby"
       },
       "bedwars": {
         "eight_one": "Solo",

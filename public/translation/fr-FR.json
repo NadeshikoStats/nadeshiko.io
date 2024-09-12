@@ -11,11 +11,11 @@
     "about": {
       "title": "À propos",
       "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> est une belle visionneuse de statistiques de joueur Hypixel, ouverte et facile à utiliser.",
-      "assistance": "Vous avez trouvé un bug ou besoin d'aide ? Veuillez-nous le faire savoir sur la <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">page GitHub</a> du projet !",
+      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord server</a>!",
       "disclaimer": "nadeshiko.io n'est pas affilié avec Hypixel Inc., Mojang AB, ou Microsoft.",
       "credits": {
         "title": "Crédits",
-        "0_name": "kittycatchloe",
+        "0_name": "niqumu",
         "0_desc": "- Développeuse du serveur",
         "1_name": "BrookeAFK",
         "1_desc": "- Développeuse du site",
@@ -86,6 +86,9 @@
       "computation": "Impossible de trouver les statistiques du joueur %%player%% (%%error%%)",
       "guild": {
         "computation": "Impossible de trouver une guilde avec le nom %%guild%% (%%error%%)"
+      },
+      "achievements": {
+        "computation": "Could not find achievements of player %%player%% (%%error%%)"
       }
     }
   },
@@ -94,6 +97,10 @@
       "title": "Mode rapide",
       "key": "Shift",
       "description": "Cliquez sur une icône pour accéder instantanément à la page de ce jeu pour <span id=\"quick-mode-username\">%%player%%</span>."
+    },
+    "badges": {
+      "developer": "Developer",
+      "patreon": "Patreon Supporter"
     },
     "generate_card": "Générer carte",
     "external_websites": "Sites web externes",
@@ -127,7 +134,7 @@
     "secret_achievement": "Secret Achievement"
   },
   "footer": {
-    "created_by": "Fait avec ♥︎ par <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> et <a href=\"https://github.com/niqumu\" target=\"_blank\">kittycatchloe</a>."
+    "created_by": "Fait avec ♥︎ par <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> et <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."
   },
   "games": {
     "arcade": "Arcade",
@@ -174,7 +181,8 @@
       },
       "network": {
         "general": "Général",
-        "guild": "Guilde"
+        "guild": "Guilde",
+        "lobby": "Lobby"
       },
       "bedwars": {
         "eight_one": "Solo",
