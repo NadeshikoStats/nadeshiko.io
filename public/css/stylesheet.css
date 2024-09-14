@@ -915,6 +915,12 @@
     height: 15px;
     width: 15px;
   }
+
+  .tinybadge {
+    width: 16px;
+    height: 16px;
+    transform: translateY(15%);
+  }
   
   #birthday, .birthday {
     display: none;
@@ -1665,6 +1671,18 @@
     display: flex;
     align-items: center;
     height: 100%;
+  }
+
+  .list .row {
+    position: relative;
+  }
+
+  .list .badge-gradient {
+    width: 13px;
+    height: 100%;
+    position: absolute;
+    display: inline-block;
+    top: 0;
   }
 
   .list .headercolumn > img {

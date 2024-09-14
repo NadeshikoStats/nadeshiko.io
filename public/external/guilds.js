@@ -167,20 +167,46 @@ function guildPlayerObjectToRow(guildObj) {
 
   let lastLogin = und(playerProfile["last_login"]);
 
-    lastLoginDate = new Date(lastLogin);
-    if (lastLogin == 0) newRow.querySelector(`[data-i="last-login-container"]`).style.display = "none";
-    else {
-      updateTag(newRow, "last-login", shortDateFormat(lastLoginDate));
-      updateTag(newRow, "last-login-ago", `${relativeTime(lastLoginDate)}`);
-      updateTag(newRow, "last-login-ago-full", longDateFormat(lastLoginDate));
-    }
+  lastLoginDate = new Date(lastLogin);
+  if (lastLogin == 0) newRow.querySelector(`[data-i="last-login-container"]`).style.display = "none";
+  else {
+    updateTag(newRow, "last-login", shortDateFormat(lastLoginDate));
+    updateTag(newRow, "last-login-ago", `${relativeTime(lastLoginDate)}`);
+    updateTag(newRow, "last-login-ago-full", longDateFormat(lastLoginDate));
+  }
 
-    updateTag(newRow, "level", locale(Math.floor(und(playerProfile["network_level"])), 0));
-    updateTag(newRow, "achievement-points", checkAndFormat(playerProfile["achievement_points"]));
-    updateTag(newRow, "karma", checkAndFormat(playerProfile["karma"]));
-    updateTag(newRow, "quests-completed", checkAndFormat(playerProfile["quests_completed"]));
-    updateTag(newRow, "ranks-gifted", checkAndFormat(playerProfile["ranks_gifted"]));
-    updateTag(newRow, "multiplier", rawLocale(und(playerProfile["coin_multiplier"]), null));
+  updateTag(newRow, "level", locale(Math.floor(und(playerProfile["network_level"])), 0));
+  updateTag(newRow, "achievement-points", checkAndFormat(playerProfile["achievement_points"]));
+  updateTag(newRow, "karma", checkAndFormat(playerProfile["karma"]));
+  updateTag(newRow, "quests-completed", checkAndFormat(playerProfile["quests_completed"]));
+  updateTag(newRow, "ranks-gifted", checkAndFormat(playerProfile["ranks_gifted"]));
+  updateTag(newRow, "multiplier", rawLocale(und(playerProfile["coin_multiplier"]), null));
+
+  let playerBadge = guildObj["badge"] || "NONE";
+
+  if (playerBadge != "NONE") {
+    let badgeElement = document.createElement("img");
+    badgeElement.src = `/img/special/${playerBadge}.png`;
+    
+    badgeElement.classList.add("tinybadge");
+    badgeElement.classList.add("icon");
+    badgeElement.classList.add("special");
+    badgeElement.style.display = "inline-block";
+
+    let badgeGradient = document.createElement("p");
+    badgeGradient.classList.add("badge-gradient");
+
+    let badgeColor = badgeColors[playerBadge] || "#f6acd6";
+    badgeGradient.style.background = `linear-gradient(90deg, ${badgeColor} 0%, ${badgeColor} 20%, ${badgeColor}80 20%, transparent 100%)`;
+
+    newRow.style.backgroundColor = `${badgeColor}30`;
+
+    newRow.classList.add("has-badge");
+    newRow.querySelector(`[data-i="name"]`).appendChild(badgeElement);
+
+    newRow.appendChild(badgeGradient);
+    console.warn(badgeElement);
+  }
 
   return newRow;
 }

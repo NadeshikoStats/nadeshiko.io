@@ -31,6 +31,7 @@ function generateNetwork() {
     document.getElementById("achievement-points-text").href = `/achievements/${playerData["uuid"]}`;
     updateElement("karma", checkAndFormat(profileStats["karma"]));
     updateElement("quests-completed", checkAndFormat(profileStats["quests_completed"]));
+    document.getElementById("quests-completed-text").href = `/quests/${playerData["uuid"]}`;
     updateElement("ranks-gifted", checkAndFormat(profileStats["ranks_gifted"]));
     updateElement("multiplier", rawLocale(profileStats["coin_multiplier"], null));
 
@@ -173,6 +174,7 @@ function generateNetwork() {
 
       { id: "fishing", name: getTranslation(["games", "fishing"]), minecraftId: "cod" },
       { id: "achievements", name: getTranslation(["achievements", "achievements"]), minecraftId: "diamond" },
+      { id: "quests", name: getTranslation(["quests", "quests"]), minecraftId: "writable_book" },
       { id: "guild", name: getTranslation(["games", "modes", "network", "guild"]), minecraftId: "head_guild" },      
     ];
 
@@ -183,8 +185,8 @@ function generateNetwork() {
 
     let headerObjectTypes = {
       "games": ["network", "bedwars", "duels", "skywars"],
-      "other": ["fishing", "achievements", "guild"],
-      "special": ["achievements", "guild"],
+      "other": ["fishing", "achievements", "quests", "guild"],
+      "special": ["achievements", "quests", "guild"],
     };
 
     quickModeGames.forEach((game) => {
@@ -230,6 +232,8 @@ function generateNetwork() {
           }
         } else if (game.id == "achievements") {
           container.setAttribute("href", `/achievements/${playerData["uuid"]}`);
+        } else if (game.id == "quests") {
+          container.setAttribute("href", `/quests/${playerData["uuid"]}`);
         }
       } else {
         container = document.createElement("div");

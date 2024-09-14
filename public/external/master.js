@@ -412,6 +412,11 @@ function cuteRank(text, style = 0) {
   }
 }
 
+let badgeColors = { // Badge colours for the badge system, must be in 6-digit hex format
+  "DEVELOPER": "#85d8f9",
+  "PATREON": "#f6adc6",
+};
+
 function checkBadge(badge) {
   if (badge != "NONE") {
 
