@@ -114,10 +114,13 @@
                     <img src="/img/svg/search.svg" class="search-icon bigicon" id="search-icon2">
                     <input type="search" class="searchbar" id="searchbar2" data-t="home.search" placeholder=" Enter a Minecraft username or UUID..." style="font-size: 16px; flex: 1; padding: 7px 0px;" spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off">
                     <div class="searchbar-selector">   
-                      <div class="flex-two-item">
-                        <p class="header-button selector-button selected scope-player" onclick="changeScope('player', 'home')" ><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.all.stats">Stats</span></p>
-                        <p class="header-button selector-button scope-guild" onclick="changeScope('guild', 'home')"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="games.modes.network.guild">Guild</span></p>
-                        <p class="header-button selector-button scope-achievements" onclick="changeScope('achievements', 'home')"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span class="header-button-text" data-t="achievements.achievements">Achievements</span></p>
+                      <div class="flex-two-item-basic" style="justify-content: end">
+                        <p class="header-button selector-button selected scope-player" onmousedown="changeScope('player', 'header')"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span data-t="games.modes.all.stats">Stats</span></p>
+                        <p class="header-button selector-button scope-guild" onmousedown="changeScope('guild', 'header')"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span data-t="games.modes.network.guild">Guild</span></p>
+                      </div>
+                      <div class="flex-two-item-basic" style="justify-content: end">
+                        <p class="header-button selector-button scope-achievements" onmousedown="changeScope('achievements', 'header')"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span data-t="achievements.achievements">Achievements</span></p>
+                        <p class="header-button selector-button scope-achievements" onmousedown="changeScope('quests', 'header')"><img src="/img/icon/minecraft/writable_book.webp" class="header-icon selector-icon icon" alt=""><span data-t="quests.quests">Quests</span></p>
                       </div>
                     </div>
                   </div>

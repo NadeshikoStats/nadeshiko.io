@@ -17,11 +17,14 @@
     <div class="searchbar-container" id="header-searchbar-container">
       <img src="/img/svg/search.svg" alt="" class="search-icon" id="search-icon" />
       <input type="search" class="searchbar" id="searchbar" data-t="header.searchbar.placeholder" placeholder="Search for a player..." spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
-      <div class="searchbar-selector">   
-        <div class="flex-two-item">
+      <div class="searchbar-selector">
+        <div class="flex-two-item-basic" style="justify-content: end">
           <p class="header-button selector-button selected scope-player" onmousedown="changeScope('player', 'header')"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span data-t="games.modes.all.stats">Stats</span></p>
           <p class="header-button selector-button scope-guild" onmousedown="changeScope('guild', 'header')"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span data-t="games.modes.network.guild">Guild</span></p>
+        </div>
+        <div class="flex-two-item-basic" style="justify-content: end">
           <p class="header-button selector-button scope-achievements" onmousedown="changeScope('achievements', 'header')"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span data-t="achievements.achievements">Achievements</span></p>
+          <p class="header-button selector-button scope-achievements" onmousedown="changeScope('quests', 'header')"><img src="/img/icon/minecraft/writable_book.webp" class="header-icon selector-icon icon" alt=""><span data-t="quests.quests">Quests</span></p>
         </div>
       </div>
     </div>
@@ -35,6 +38,9 @@
       <br />
       <br />
       <span data-t="header.cards.description_1">Cards update in real time as your stats change, so you never have to worry about them!</span>
+      <br />
+      <br />
+      <span data-t="header.cards.warning" style="color: #ff3333">Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will "come back to this issue in the near future". However, you can still paste a static version of the card and use that.</span>
     </p>
     <hr style="margin: 20px auto;" />
     <div class="flex-two-item-basic">
@@ -473,6 +479,29 @@
     }
   }
 
+  document.getElementById("card-wizard-name").addEventListener("keypress", function (event) {
+    generateCardLink();
+  });
+
+  function generateCardLink() {
+    cardName = document.getElementById("card-wizard-name").value;
+    cardGame = cardWizardSettings["game"];
+    cardSize = cardWizardSettings["size"];
+    cardFormat = cardWizardSettings["format"];
+
+    base64Card = btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
+
+    if (cardName == "") {
+      return;
+    }
+
+    if (cardFormat == "bbcode") {
+      document.getElementById("card-wizard-output").value = `[URL='https://nadeshiko.io/player/${cardName}/${cardGame}'][IMG]https://nadeshiko.io/card/${base64Card}[/IMG][/URL]`;
+    } else {
+      document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/${base64Card}`;
+    }
+  }
+
   function generateCard() {
     cardName = document.getElementById("card-wizard-name").value;
     cardGame = cardWizardSettings["game"];
@@ -499,12 +528,6 @@
       document.getElementById("card-wizard-image").style.display = "initial";
       document.getElementById("card-wizard-preview-watermark").style.display = "flex";
     };
-
-    if (cardFormat == "bbcode") {
-      document.getElementById("card-wizard-output").value = `[URL='https://nadeshiko.io/player/${cardName}/${cardGame}'][IMG]https://nadeshiko.io/card/${base64Card}[/IMG][/URL]`;
-    } else {
-      document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/${base64Card}`;
-    }
   }
 
   document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box

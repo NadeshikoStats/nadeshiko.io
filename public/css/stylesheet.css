@@ -147,7 +147,7 @@
   
   .header-left a,
   .header-left p,
-  .header-right p {
+  .header-right > p {
     margin-inline-end: 15px;
     text-decoration: none;
   }
@@ -360,6 +360,7 @@
     transition-duration: var(--transition-small);
     font-size: 14px;
     cursor: pointer;
+    margin: 3px;
   }
   
   .header-button > * {
@@ -561,7 +562,6 @@
 
   .searchbar-selector {
     position: absolute;
-    width: 325px;
     background-color: #000d;
     border-radius: 15px;
     top: 40px;
@@ -2581,7 +2581,7 @@
     }
     .header-left a,
     .header-left p,
-    .header-right p {
+    .header-right > p {
       margin-inline-end: 5px;
     }
     .searchbar-container,

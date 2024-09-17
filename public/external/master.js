@@ -462,6 +462,7 @@ function updateChipStats(name, chipId, gamemode) {
 
     case "wizard":
       cardWizardSettings[chipId] = newValue;
+      generateCardLink();
       break;
 
     case "settings":

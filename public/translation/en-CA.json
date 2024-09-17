@@ -63,6 +63,8 @@
       "description_0": "Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!",
       "description_1": "Cards update in real time as your stats change, so you never have to worry about them!",
 
+      "warning": "Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will \"come back to this issue in the near future\". However, you can still paste a static version of the card and use that.",
+
       "username": "Username",
       "username_placeholder": "Player",
 
@@ -75,8 +77,9 @@
       "format": "Format",
       "format_tooltip": "Where the card will be displayed.",
 
-      "button_generate": "Generate Card",
-      "copy": "Click \"Generate Card\" and a link will appear here.",
+      "button_generate": "Generate Preview",
+      "copy": "Fill out the items above and a link will appear here.",
+      "preview_showcase": "Click \"Generate Preview\" and a preview of the card will appear here.",
 
       "loading_preview": "Loading preview...",
       "preview": "Preview"
