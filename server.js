@@ -781,7 +781,7 @@ function getMetaDescription(game, playerData) {
 • 🪙 Coins: ${checkAndFormat(warlordsStats["coins"])}`;
   case 'woolgames':
 
-  function getWoolWarsLevel(exp) {
+  function getWoolGamesLevel(exp) {
     // Calculates a player's Wool Wars level based on their experience stat
     let level = 100 * Math.floor(exp / 490000) + 1;
     exp = exp % 490000;
@@ -836,7 +836,7 @@ function getMetaDescription(game, playerData) {
     }
 
     let woolGamesPrestigeIcon;
-    let woolGamesLevel = getWoolWarsLevel(und(woolGamesProgression["experience"]));
+    let woolGamesLevel = getWoolGamesLevel(und(woolGamesProgression["experience"]));
 
     if(woolGamesStats["wool_wars_prestige_icon"] != undefined) {
       selectedWoolGamesPrestige = woolWarsPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolWarsPrestigeIcons["HEART"];

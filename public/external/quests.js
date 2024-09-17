@@ -41,7 +41,7 @@ function generateQuestsTable(game, timestamp = Date.now()) {
   </div>`);
 
   let questTemplate = DOMPurify.sanitize(`
-    <div class="flex-two-item row-header quest-header">
+    <div class="flex-two-item row-header no-column-header">
       <span class="w600">
         <span class="quest-type" data-i="quest-type"></span>
         <span data-i="quest-name"></span>
@@ -121,7 +121,7 @@ function generateQuestsTable(game, timestamp = Date.now()) {
       let thisQuestObjectiveFormatted = document.createElement("div");
       thisQuestObjectiveFormatted.classList.add("flex-two-item");
       thisQuestObjectiveFormatted.classList.add("row-header");
-      thisQuestObjectiveFormatted.classList.add("quest-header");
+      thisQuestObjectiveFormatted.classList.add("no-column-header");
       thisQuestObjectiveFormatted.innerHTML = questObjectiveTemplate;
 
       let thisQuestObjectiveDescription = thisQuestObjectiveFormatted.querySelector("[data-i='quest-objective-description']");

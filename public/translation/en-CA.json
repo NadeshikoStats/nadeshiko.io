@@ -197,7 +197,12 @@
     }
   },
   "leaderboards": {
-    "title": "Leaderboards"
+    "title": "Leaderboards",
+    "select": "Select a leaderboard.",
+    "total_players": "%%num%% total players.",
+    "next_page": "Next ►",
+    "previous_page": "◀ Prev",
+    "page_number": "Page %%page%% of %%total%%"
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."

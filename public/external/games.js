@@ -319,35 +319,6 @@ function generateNetwork() {
   }
 }
 
-function getBedWarsLevel(exp) {
-  // Calculates a player's Bed Wars level based on their experience stat
-  let level = 100 * Math.floor(exp / 487000);
-  exp = exp % 487000;
-  if (exp < 500) return level + exp / 500;
-  level++;
-  if (exp < 1500) return level + (exp - 500) / 1000;
-  level++;
-  if (exp < 3500) return level + (exp - 1500) / 2000;
-  level++;
-  if (exp < 7000) return level + (exp - 3500) / 3500;
-  level++;
-  exp -= 7000;
-  return level + exp / 5000;
-}
-
-function getSkyWarsLevel(exp) {
-  // Calculates a player's SkyWars level based on their experience stat
-  const skyWarsXp = [0, 20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000];
-  if (exp >= 15000) {
-    return (exp - 15000) / 10000 + 12;
-  }
-  for (a = 0; a < skyWarsXp.length; a++) {
-    if (exp < skyWarsXp[a]) {
-      return a + (exp - skyWarsXp[a - 1]) / (skyWarsXp[a] - skyWarsXp[a - 1]);
-    }
-  }
-}
-
 function linearGradient(colors) {
   // Generates a linear gradient based on an array of hex colour or Minecraft colour code inputs
   var gradient = "linear-gradient(90deg";
@@ -1943,60 +1914,6 @@ function generatePit() {
   pitProfileStats = pitStats["profile"] || {};
   pitPtlStats = pitStats["pit_stats_ptl"] || {};
 
-  let pitXpMap = [15, 30, 50, 75, 125, 300, 600, 800, 900, 1000, 1200, 1500, 0];
-  let pitPrestiges = [
-    100,
-    110,
-    120,
-    130,
-    140,
-    150,
-    175,
-    200,
-    250,
-    300,
-    400,
-    500,
-    600,
-    700,
-    800,
-    900,
-    1000,
-    1200,
-    1400,
-    1600,
-    1800,
-    2000,
-    2400,
-    2800,
-    3200,
-    3600,
-    4000,
-    4500,
-    5000,
-    7500,
-    10000,
-    10100,
-    10100,
-    10100,
-    10100,
-    10100,
-    20000,
-    30000,
-    40000,
-    50000,
-    75000,
-    100000,
-    125000,
-    150000,
-    175000,
-    200000,
-    300000,
-    500000,
-    1000000,
-    5000000,
-    10000000,
-  ];
   let pitPrestigeXp = [
     65950,
     138510,
@@ -2050,76 +1967,6 @@ function generatePit() {
     5192293080,
     11787293080,
   ];
-
-  let pitPrestigeColors = ["§7", "§9", "§e", "§6", "§c", "§5", "§d", "§f", "§b", "§1", "§0", "§4", "§8"];
-  let pitLevelColors = ["§7", "§9", "§3", "§2", "§a", "§e", "§6", "§c", "§4", "§5", "§d", "§f", "§b"];
-
-  /* 
-   * Converts an amount of XP to a level in The Pit
-  * @param {number} experience - The amount of XP to convert
-  * @param {number} data_type - The type of data to return
-  *   Data Types:
-  *    0: Unformatted      - "[I-26]"
-  *    1: Formatting codes - "§9[§eI§9-..."
-  *    2: Just prestige    - 1
-  *    3: Just level       - 26
-  *    4: [120] of pres XP - 138510
-  */
-  function pitXpToLevel(experience, data_type) {
-    x_prestige = 0;
-    x_level = 120;
-    x_120level = 0;
-
-    for (; x_prestige < 50; x_prestige++) {
-      if (experience <= pitPrestigeXp[x_prestige]) {
-        break;
-      }
-    }
-
-    x_120level = pitPrestigeXp[x_prestige];
-
-    while (x_120level > experience) {
-      x_level = x_level - 1;
-      x_120level = x_120level - Math.ceil((pitXpMap[Math.floor(x_level / 10)] * pitPrestiges[x_prestige]) / 100);
-    }
-
-    x_levelcolor = pitLevelColors[Math.floor(x_level / 10)];
-    if (x_level >= 60) {
-      x_levelcolor += "§l";
-    }
-
-    if (x_prestige === 0) {
-      x_prestigecolor = pitPrestigeColors[0];
-    } else if (x_prestige === 48 || x_prestige === 49) {
-      x_prestigecolor = pitPrestigeColors[11];
-    } else if (x_prestige === 50) {
-      x_prestigecolor = pitPrestigeColors[12];
-    } else {
-      x_prestigecolor = pitPrestigeColors[Math.floor(x_prestige / 5) + 1];
-    }
-
-    if (level == 0) {
-      level = 1;
-    }
-
-    if (data_type == 2) {
-      return x_prestige;
-    } else if (data_type == 3) {
-      return x_level;
-    } else if (x_prestige == 0) {
-      if (data_type == 0) {
-        return "[" + x_level + "]";
-      } else if (data_type == 1) {
-        return `§7[${x_levelcolor}${x_level}§7]`;
-      }
-    } else {
-      if (data_type == 0) {
-        return "[" + convertToRoman(x_prestige) + "-" + x_level + "]";
-      } else {
-        return `${x_prestigecolor}[§e${convertToRoman(x_prestige)}-${x_levelcolor}${x_level}${x_prestigecolor}]`;
-      }
-    }
-  }
 
   /* 
 // Decode NBT function
@@ -3372,22 +3219,6 @@ function getSmashStats(modeName = "", className = "") {
 
 function generateWoolGames() {
 
-  function getWoolWarsLevel(exp) {
-    // Calculates a player's Wool Wars level based on their experience stat
-    let level = 100 * Math.floor(exp / 490000) + 1;
-    exp = exp % 490000;
-    if (exp < 1000) return level + exp / 500;
-    level++;
-    if (exp < 3000) return level + (exp - 500) / 1000;
-    level++;
-    if (exp < 6000) return level + (exp - 1500) / 2000;
-    level++;
-    if (exp < 10000) return level + (exp - 3500) / 3500;
-    level++;
-    exp -= 10000;
-    return level + exp / 5000;
-  }
-
   let woolWarsPrestigeIcons = {
     HEART: {icon: "❤\uFE0E", minStars: 0 },
     PLUS: {icon: "✙\uFE0E", minStars: 100 },
@@ -3443,7 +3274,7 @@ function generateWoolGames() {
   updateElement("woolgames-overall-coins", checkAndFormat(woolGamesStats["coins"]));
   updateElement("woolgames-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
 
-  let woolGamesLevel = getWoolWarsLevel(und(woolGamesProgression["experience"]));
+  let woolGamesLevel = getWoolGamesLevel(und(woolGamesProgression["experience"]));
   updateElement("woolgames-progress-number", `${Math.floor(woolGamesLevel % 1 * 100)}%`, true);
   document.getElementById("woolgames-progress-bar").style.width = `${woolGamesLevel % 1 * 100}%`;
 

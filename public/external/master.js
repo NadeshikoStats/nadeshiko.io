@@ -84,6 +84,15 @@ function shortDateFormat(date) {
   }).format(date);
 }
 
+function mediumDateFormat(date) {
+  return new Intl.DateTimeFormat(userLanguage, {
+    dateStyle: "short",
+    timeStyle: "short",
+    calendar: "gregory",
+    hour12: false
+  }).format(date)
+}
+
 function longDateFormat(date) {
   return new Intl.DateTimeFormat(userLanguage, {
     dateStyle: "long",
@@ -284,6 +293,32 @@ function simplifyNumber(number) {
     return numberFormatter.format(number);
   } else {
     return locale(number, 0);
+  }
+}
+
+function checkBadgeInList(badge, where) {
+  if (badge != "NONE") {
+    let badgeElement = document.createElement("img");
+    badgeElement.src = `/img/special/${badge}.png`;
+    
+    badgeElement.classList.add("badge-small");
+    badgeElement.classList.add("icon");
+    badgeElement.classList.add("special");
+    badgeElement.style.display = "inline-block";
+
+    let badgeGradient = document.createElement("p");
+    badgeGradient.classList.add("badge-gradient");
+
+    let badgeColor = badgeColors[badge] || "#f6acd6";
+    badgeGradient.style.background = `linear-gradient(90deg, ${badgeColor} 0%, ${badgeColor} 20%, ${badgeColor}80 20%, transparent 100%)`;
+
+    where.style.backgroundColor = `${badgeColor}30`;
+
+    where.classList.add("has-badge");
+    where.querySelector(`[data-i="name"]`).appendChild(badgeElement);
+
+    where.appendChild(badgeGradient);
+    console.warn(badgeElement);
   }
 }
 

@@ -27,6 +27,7 @@
 
       if(tasksBeforeLoading.length == 0) {
         updateTranslations();
+        getLeaderboardGames();
       }
     } 
   </script>
@@ -34,6 +35,10 @@
   <script src="/external/language.js"></script>
   <script src="/external/purify.min.js"></script>
   <script src="/external/minecrafttext.js"></script>
+  <script src="/external/webptest.js"></script>
+  <script src="/external/calculations.js"></script>
+
+  <script src="/external/leaderboards.js"></script>
 </head>
 
 <body>
@@ -45,30 +50,28 @@
       <%- include('partials/header') %>
     </header>
 
-    <div class="guild" id="guild">
-      <div class="flex-guild">
-        <div class="flex-guild-list">
-          <div class="guild-header">
-            <div class="name"><span id="guild-name"></span> <span id="guild-tag"></span></div>
-            
-            <div class="description" id="guild-description"></div>
-
-            <p><span data-t="statistics.created">Created</span> <span class="tooltip"><span class="statistic" id="guild-created-ago"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-created-ago-full"></span></span></p>
-            <p><span data-t="statistics.members">Members</span> <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span></p>
-            <p><span data-t="statistics.level">Level</span> <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span></p>
+    <div class="guild overflow-scroll mask-fade">
+      <div class="leaderboard-container">
+        <div class="chip-small but-big">
+          <div>
+           
+            <p>Select a game:</p>
+            <div class="button-array" id="game-selector">
             </div>
+            <div class="button-array" id="leaderboard-selector">
+            </div>
+          </div>
 
-            <div class="list guild-players" id="guild-players">
-              <div class="row header-row">
-                <div class="row-header">
-                  <div class="column"></div>
-                  <div class="column headercolumn" onclick="sortData('name')"><span data-t="statistics.player" id="header-name" class="deactivated">Player</span> <img class="verytinyicon deactivated" id="header-name-icon" src="/img/svg/sort.svg"></div>
-                  <div class="column headercolumn" onclick="sortData('priority')"><span data-t="statistics.rank" id="header-priority" class="deactivated">Rank</span> <img class="verytinyicon deactivated" id="header-priority-icon" src="/img/svg/sort.svg"></div>       
-                  <div class="column headercolumn" onclick="sortData('joined')"><span data-t="statistics.joined" id="header-joined" class="deactivated">Joined</span> <img class="verytinyicon deactivated" id="header-joined-icon" src="/img/svg/sort.svg"></div>
-                
-                  <div class="column" data-i="expandable"></div>
-                </div>
+            <div class="list quest-list" id="leaderboard">
+              <div class="flex-two-item row-header no-column-header w500">
+                <span data-t="leaderboards.select">Select a leaderboard.</span>
               </div>
+            </div>
+            
+            <div class="flex-two-item-basic" id="pagination" style="display: none; justify-content: center;">
+              <span class="general-button" onclick="showNewPage('previous')" data-t="leaderboards.previous_page">◀ Prev</span>
+              <span class="w500" id="page-number"></span>
+              <span class="general-button" onclick="showNewPage('next')" data-t="leaderboards.next_page">Next ▶</span>
             </div>
         </div>
       </div>
@@ -81,7 +84,11 @@
 
   <script>
     document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-leaderboards'));
-    generateGeneralGuildStats();
+    let currentLeaderboardInformation = {
+      leaderboard: "",
+      total_players: 0,
+      page: 1
+    };
   </script>
 </body>
 </html>

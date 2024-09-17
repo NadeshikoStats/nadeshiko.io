@@ -37,6 +37,7 @@
     --accent-holiday: #6a8eb0;
     --accent-buildbattle: #3f84fc;
     --accent-duels: #6f85f8;
+    --accent-leaderboards: #4962a8;
     --accent-murdermystery: #312093;
     --accent-blitz: #8639f9;
     --accent-uhc: #a663c1;
@@ -135,7 +136,7 @@
   
   header {
     position: relative;
-    z-index: 3;
+    z-index: 4;
   }
   
   .header-left,
@@ -803,6 +804,10 @@
     mask: linear-gradient(to top, transparent 5%, black 95%, transparent 100%), linear-gradient(to bottom, transparent 5%, black 95%, transparent 100%);
     display: none;
   }
+
+  .mask-fade {
+    mask: linear-gradient(to top, transparent 5%, black 95%, transparent 100%), linear-gradient(to bottom, transparent 5%, black 95%, transparent 100%);
+  }
   
   .flex-item {
     flex: 1;
@@ -921,6 +926,13 @@
   .verytinyicon {
     height: 15px;
     width: 15px;
+  }
+
+  .leaderboard-icon {
+    width: 15px;
+    height: 15px;
+    margin-inline-end: 5px;
+    object-fit: contain;
   }
 
   .badge-large {
@@ -1623,7 +1635,7 @@
     background-color: #0008;
     flex: 1;
 
-    border-radius: 25px;
+    border-radius: 15px;
     margin-top: 15px;
   }
 
@@ -1631,7 +1643,7 @@
     overflow-y: scroll;
   }
 
-  .list .row:nth-child(odd) .row-header, .list .row:nth-child(odd) .row-content {
+  .list .row:nth-child(odd) .row-header, .list .row:nth-child(odd) .row-content, .leaderboard-row:nth-child(odd) {
     background-color: #0008;
   }
 
@@ -1644,7 +1656,7 @@
     align-items: center;
   }
 
-  .list .quest-header {
+  .list .no-column-header {
     display: flex;
   }
 
@@ -1653,7 +1665,7 @@
     grid-template-columns: 0.3fr 2fr 1fr 1.5fr 0.2fr;
   }
 
-  .guild-players .head {
+  .list .head {
     image-rendering: pixelated;
     height: 100%;
     max-height: 25px;
@@ -1699,6 +1711,7 @@
     position: absolute;
     display: inline-block;
     top: 0;
+    left: 0;
   }
 
   .list .headercolumn > img {
@@ -1860,12 +1873,12 @@
     margin-inline-start: 5px;
   }
   
-  .list .row:first-child .row-header {
+  .list .row:first-child .row-header, .leaderboard-row:first-child {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
   }
 
-  .list .row:last-child .row-header {
+  .list .row:last-child .row-header, .leaderboard-row:last-child {
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
   }
@@ -1921,7 +1934,7 @@
     overflow-y: scroll;
   }
 
-  #maxed-games {
+  #maxed-games, .button-array {
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
@@ -1935,6 +1948,57 @@
     border-radius: 16px;
     color: white;
     cursor: pointer;
+  }
+
+  .leaderboard-selector-button {
+    opacity: 0.4;
+    border: 2px solid white;
+    transition-duration: var(--transition-small);
+    display: flex;
+    align-items: center;
+  }
+
+  .leaderboard-selector-button:not(.selected):hover {
+    opacity: 0.75;
+  }
+
+  .leaderboard-container {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .leaderboard-row {
+    height: 36px;
+    display: block;
+    position: relative;
+  }
+
+  .leaderboard-selector-button.selected {
+    opacity: 1;
+    border: none;
+    background-color: var(--accent);
+    border: 2px solid white;
+  }
+
+  .list .leaderboard-rank {
+    min-width: 30px;
+    text-align: right;
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .list .leaderboard-head {
+    height: 16px;
+    margin: 0px 10px;
+    image-rendering: pixelated;
+  }
+
+  #pagination {
+    margin: 10px 0px;
+  }
+
+  #page-number {
+    margin: 0px 15px;
   }
 
   .maxed-game.tier-8 {
@@ -2066,7 +2130,7 @@
   .chip-small {
     position: relative;
   
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 15px;
   
     margin: 15px 0px;
@@ -2117,7 +2181,7 @@
     z-index: 2;
     background-color: #000c;
     padding: 20px;
-    border-radius: 13px;
+    border-radius: 15px;
   
     padding-top: 10px;
     padding-bottom: 10px;

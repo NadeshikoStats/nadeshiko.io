@@ -183,30 +183,7 @@ function guildPlayerObjectToRow(guildObj) {
   updateTag(newRow, "multiplier", rawLocale(und(playerProfile["coin_multiplier"]), null));
 
   let playerBadge = guildObj["badge"] || "NONE";
-
-  if (playerBadge != "NONE") {
-    let badgeElement = document.createElement("img");
-    badgeElement.src = `/img/special/${playerBadge}.png`;
-    
-    badgeElement.classList.add("badge-small");
-    badgeElement.classList.add("icon");
-    badgeElement.classList.add("special");
-    badgeElement.style.display = "inline-block";
-
-    let badgeGradient = document.createElement("p");
-    badgeGradient.classList.add("badge-gradient");
-
-    let badgeColor = badgeColors[playerBadge] || "#f6acd6";
-    badgeGradient.style.background = `linear-gradient(90deg, ${badgeColor} 0%, ${badgeColor} 20%, ${badgeColor}80 20%, transparent 100%)`;
-
-    newRow.style.backgroundColor = `${badgeColor}30`;
-
-    newRow.classList.add("has-badge");
-    newRow.querySelector(`[data-i="name"]`).appendChild(badgeElement);
-
-    newRow.appendChild(badgeGradient);
-    console.warn(badgeElement);
-  }
+  checkBadgeInList(playerBadge, newRow);
 
   return newRow;
 }
