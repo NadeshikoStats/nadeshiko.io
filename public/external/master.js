@@ -462,7 +462,11 @@ function checkBadge(badge) {
     document.getElementById("badge").style.display = "unset";
     document.getElementById("badge").src = `/img/special/${badge}.png`;
     document.getElementById("badge-link").href = badgeLinks[badge] || "#";
-    document.getElementById("badge-text").textContent = getTranslation(["player", "badges", badge.toLowerCase()]);
+    if (badge.startsWith("PATREON")) {
+      document.getElementById("badge-text").textContent = getTranslation(["player", "badges", "patreon"]);
+    } else {
+      document.getElementById("badge-text").textContent = getTranslation(["player", "badges", badge.toLowerCase()]);
+    }
   }
 }
 

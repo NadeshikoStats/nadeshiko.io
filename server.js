@@ -1106,6 +1106,9 @@ ${achievementGamesString}`;
   case 'quests': {
     return `This embed has not yet been implemented.`
   }
+  case 'leaderboards': {
+    return `🥇 Check out the top players in over one hundred categories using nadeshiko's leaderboards!`
+  }
 
 
 }}}
@@ -1341,6 +1344,25 @@ app.get('/player/:name/:game?', async (req, res) => {
         res.render('index', { computationError });
      }
 
+  });
+
+  app.get('/leaderboard', async (req, res) => {
+    const leaderboardType = req.query.leaderboard || 'NETWORK_LEVEL';
+    const page = req.query.page || 1;
+
+    try {
+        const backendUrl = `http://localhost:2000/leaderboard?leaderboard=${leaderboardType}&page=${page}`;
+        const response = await axios.get(backendUrl);
+
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching data from backend:', error);
+        res.status(500).send('Internal server error');
+    }
+  });
+
+  app.get('/leaderboards', async (req, res) => {
+    res.render('leaderboards');
   });
 
   app.get('/:name/:game?', (req, res) => {
