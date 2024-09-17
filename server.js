@@ -1236,6 +1236,19 @@ app.get('/player/:name/:game?', async (req, res) => {
         res.render('guild', { name, guildData, metaDescription });
 
      } catch(error) {
+      try {
+        const response = await axios.get(`http://localhost:2000/guild?player=${name}`);
+        let guildData = response.data;
+        
+        let metaDescription;
+        if (guildData) { // If the guild data is available
+          metaDescription = getMetaDescription("guild", guildData);
+        } else { // If the player data is not available, don't show a card and show a default description
+          metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+        }
+
+        res.render('guild', { name, guildData, metaDescription });
+      } catch(error) {
         computationError = {
           message: `Could not find guild with name ${name} (${error})`,
           player: name,
@@ -1246,7 +1259,7 @@ app.get('/player/:name/:game?', async (req, res) => {
         console.error("Fetching guild data failed! → ", error);
         res.render('index', { computationError });
      }
-
+    }
   });
 
   app.get('/achievements/:name/:game?', async (req, res) => {
