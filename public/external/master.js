@@ -253,6 +253,40 @@ function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timest
   else return insertPlaceholders(getTranslation("times.time_ago"), { time: timeValue });
 }
 
+/* 
+ * Counts the number of significant digits in a number
+  * @param {number} number - The number to count the significant digits for
+  * @returns {number} The number of significant digits
+ */
+function countSignificantDigits(number) {
+  const numberStr = number.toString();
+  const significantStr = numberStr.replace(/0+$/, '');
+  return significantStr.length;
+}
+
+ /*
+  * Simplifies a number to a more readable format if it has fewer than or equal to 3 significant digits
+  * @param {number} number - The number to simplify
+  * @returns {string} The simplified number
+  * @example
+  * simplifyNumber(1230) // returns "1.23K" in en-CA
+  * simplifyNumber(1234567) // returns "1,234,567" in en-CA
+  */
+function simplifyNumber(number) {
+  const numberFormatter = new Intl.NumberFormat(userLanguage, {
+    notation: 'compact',
+    compactDisplay: 'short'
+  });
+
+  let significantDigits = countSignificantDigits(number);
+
+  if (significantDigits <= 3) {
+    return numberFormatter.format(number);
+  } else {
+    return locale(number, 0);
+  }
+}
+
 function updateChipStats(name, chipId, gamemode) {
   // Updates what a chip does when a dropdown is clicked
   newValue = name;
@@ -433,7 +467,7 @@ function checkBadge(badge) {
 }
 
 setTimeout(function() {
-  let text = "                                               \r\n                 _           _     _ _         \r\n                | |         | |   (_) |        \r\n _ __   __ _  __| | ___  ___| |__  _| | _____  \r\n| \'_ \\ \/ _` |\/ _` |\/ _ \\\/ __| \'_ \\| | |\/ \/ _ \\ \r\n| | | | (_| | (_| |  __\/\\__ \\ | | | |   < (_) |\r\n|_| |_|\\__,_|\\__,_|\\___||___\/_| |_|_|_|\\_\\___\/ \r\n                                               \r\n  The simple, beautiful Hypixel stats tracker  \r\n                                               ";
+  let text = "                                               \r\n                 _           _     _ _         \r\n                | |         | |   (_) |        \r\n _ __   __ _  __| | ___  ___| |__  _| | _____  \r\n| \'_ \\ \/ _` |\/ _` |\/ _ \\\/ __| \'_ \\| | |\/ \/ _ \\ \r\n| | | | (_| | (_| |  __\/\\__ \\ | | | |   < (_) |\r\n|_| |_|\\__,_|\\__,_|\\___||___\/_| |_|_|_|\\_\\___\/ \r\n                                               \r\n  the simple, beautiful Hypixel stats tracker  \r\n                                               ";
   const colors = ["#2D0614", "#2D0514", "#2D0514", "#2D0515", "#2D0515", "#2D0516", "#2D0516", "#2D0517", "#2D0517", "#2D0518", "#2D0518", "#2D0519", "#2D0519", "#2D0519", "#2D051A", "#2D051A", "#2D051B", "#2D051B", "#2D051C", "#2D051C", "#2D051D", "#2D051D", "#2D051E", "#2D051E", "#2D051E", "#2D051F", "#2D051F", "#2D0520", "#2D0520", "#2D0521", "#2D0521", "#2D0522", "#2D0522", "#2D0523", "#2D0523", "#2D0523", "#2D0524", "#2D0524", "#2D0525", "#2D0525", "#2D0526", "#2D0526", "#2D0527", "#2D0527", "#2D0528", "#2D0528", "#2D0528", "#2D0529", "#2D0529", "#2D052A", "#2D052A", "#2D052B", "#2D052B", "#2D052C", "#2D052C", "#2D052D"];
 
   let styleText = '';

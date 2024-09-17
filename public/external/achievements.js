@@ -95,40 +95,6 @@ function getSecretAchievement(achievement) {
   }
 }
 
-/* 
- * Counts the number of significant digits in a number
-  * @param {number} number - The number to count the significant digits for
-  * @returns {number} The number of significant digits
- */
-function countSignificantDigits(number) {
-  const numberStr = number.toString();
-  const significantStr = numberStr.replace(/0+$/, '');
-  return significantStr.length;
-}
-
- /*
-  * Simplifies a number to a more readable format if it has fewer than or equal to 3 significant digits
-  * @param {number} number - The number to simplify
-  * @returns {string} The simplified number
-  * @example
-  * simplifyNumber(1230) // returns "1.23K" in en-CA
-  * simplifyNumber(1234567) // returns "1,234,567" in en-CA
-  */
-function simplifyNumber(number) {
-  const numberFormatter = new Intl.NumberFormat(userLanguage, {
-    notation: 'compact',
-    compactDisplay: 'short'
-  });
-
-  let significantDigits = countSignificantDigits(number);
-
-  if (significantDigits <= 3) {
-    return numberFormatter.format(number);
-  } else {
-    return locale(number, 0);
-  }
-}
-
 function getGameTier(gameName) {
 
   let gameDifficulties = {

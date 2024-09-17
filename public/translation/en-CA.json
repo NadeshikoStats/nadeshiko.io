@@ -119,6 +119,9 @@
       },
       "achievements": {
         "computation": "Could not find achievements of player %%player%% (%%error%%)"
+      },
+      "quests": {
+        "computation": "Could not find quests of player %%player%% (%%error%%)"
       }
     }
   },
@@ -170,7 +173,28 @@
     "secret_achievement": "Secret Achievement"
   },
   "quests": {
-    "quests": "Quests"
+    "quests": "Quests",
+    "types": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "daily_literal": "Daily Quest: ",
+      "weekly_literal": "Weekly Quest: "
+    },
+    "rewards": {
+      "hypixel_experience": "Hypixel Experience",
+      "pit_gold": "Pit Gold",
+      "souls": "Souls",
+      "game_coins": "%%game%% Coins",
+      "game_tokens": "%%game%% Tokens",
+      "game_experience": "%%game%% Experience",
+      "broken_weapons": "Broken Weapons",
+      "event_experience": "Event Experience"
+    },
+    "completions": {
+      "completed": "%%num%%/%%total%% completed",
+      "daily_quests_completed": "Daily Quests Completed",
+      "weekly_quests_completed": "Weekly Quests Completed"
+    }
   },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."

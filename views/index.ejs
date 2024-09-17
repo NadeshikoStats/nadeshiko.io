@@ -71,6 +71,10 @@
               document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors.guild." + serverComputationError["category"]), {"guild": serverComputationError["guild"], "error": serverComputationError["error"]});
             } else if (serverComputationError["page"] == "achievements") {
               document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors.achievements." + serverComputationError["category"]), {"player": serverComputationError["player"], "error": serverComputationError["error"]});
+            } else if (serverComputationError["page"] == "quests") {
+              document.getElementById("home-error-message-description").textContent = insertPlaceholders(getTranslation("home.errors.quests." + serverComputationError["category"]), {"player": serverComputationError["player"], "error": serverComputationError["error"]});
+            } else {
+              document.getElementById("home-error-message-description").textContent = serverComputationError["message"];
             }
           }
         }

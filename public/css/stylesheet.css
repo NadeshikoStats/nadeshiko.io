@@ -23,6 +23,7 @@
     --accent-paintball: #ab9e29;
     --accent-quakecraft: #acac61;
     --accent-warlords: #cc9d4c;
+    --accent-quests: #c7772b;
     --accent-summer: #bbb100;
     --accent-copsandcrims: #aaaa10;
     --accent-easter: #64ce3d;
@@ -532,6 +533,10 @@
   .mbottom {
     margin-bottom: 10px;
   }
+
+  .mbottom-20 {
+    margin-bottom: 20px;
+  }
   
   .mtop {
     margin-top: 10px;
@@ -916,7 +921,11 @@
     width: 15px;
   }
 
-  .tinybadge {
+  .badge-large {
+    transform: translateY(9%);
+  }
+
+  .badge-small {
     width: 16px;
     height: 16px;
     transform: translateY(15%);
@@ -942,7 +951,8 @@
   
   .flex-container.unloaded,
   .avatar.unloaded,
-  .special.unloaded {
+  .special.unloaded,
+  #quests-games.unloaded {
     opacity: 0;
     transform: scale(0.8);
     filter: brightness(0.2);
@@ -1632,6 +1642,10 @@
     align-items: center;
   }
 
+  .list .quest-header {
+    display: flex;
+  }
+
   .guild-players .row-header {
     cursor: pointer;
     grid-template-columns: 0.3fr 2fr 1fr 1.5fr 0.2fr;
@@ -1799,7 +1813,7 @@
   .achievement-check {
     color: var(--accent);
     display: none;
-    margin: 0px 5px
+    margin: 0px 5px;
   }
 
   .achievement-icon-container {
@@ -1844,12 +1858,12 @@
     margin-inline-start: 5px;
   }
   
-  .achievements-container .row:first-child .row-header {
+  .list .row:first-child .row-header {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
   }
 
-  .achievements-container .row:last-child .row-header {
+  .list .row:last-child .row-header {
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
   }
@@ -1899,6 +1913,10 @@
 
   .achievements-container .tier-container {
     display: flex;
+  }
+
+  .overflow-scroll {
+    overflow-y: scroll;
   }
 
   #maxed-games {
@@ -1977,6 +1995,39 @@
   
     padding-left: 12%;
     padding-right: 12%;
+  }
+
+  .quest-type {
+    background-color: #485a6d;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 10px;
+  }
+
+  .quest-row {
+    justify-content: space-between;
+  }
+
+  .chip-container.quest-game-container {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .quest-rewards {
+    flex-wrap: wrap;
+    justify-content: end;
+  }
+
+  .quest-reward {
+    display: flex;
+    align-items: center;
+    margin: auto 5px;
+    justify-content: end;
+  }
+
+  .quest-reward img {
+    margin-inline-end: 5px;
   }
   
   .chip-sub-container {

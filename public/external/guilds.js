@@ -188,7 +188,7 @@ function guildPlayerObjectToRow(guildObj) {
     let badgeElement = document.createElement("img");
     badgeElement.src = `/img/special/${playerBadge}.png`;
     
-    badgeElement.classList.add("tinybadge");
+    badgeElement.classList.add("badge-small");
     badgeElement.classList.add("icon");
     badgeElement.classList.add("special");
     badgeElement.style.display = "inline-block";

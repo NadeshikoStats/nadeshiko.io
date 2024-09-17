@@ -867,6 +867,7 @@ function getMetaDescription(game, playerData) {
 • 🥊 Wool Wars Wins: ${checkAndFormat(woolWarsNumericalStats["wins"])}
 
 • 🧶 Wool: ${checkAndFormat(woolGamesStats["coins"])}`;
+
   default:
     let playerOnline;
     let playerStatus = playerData["status"] || {};
@@ -1102,6 +1103,9 @@ Guild Stats
 
 ${achievementGamesString}`;
   }
+  case 'quests': {
+    return `This embed has not yet been implemented.`
+  }
 
 
 }}}
@@ -1293,6 +1297,47 @@ app.get('/player/:name/:game?', async (req, res) => {
           page: "achievements"
         };
         console.error("Fetching achievements data failed! → ", error);
+        res.render('index', { computationError });
+     }
+
+  });
+
+  app.get('/quests/:name?', async (req, res) => {
+    const name = req.params.name;
+
+    computationError = {
+      message: ``,
+      player: ``,
+      category: ``,
+      page: ``
+    };
+  
+    try {
+        const response = await axios.get(`http://localhost:2000/quests?name=${name}`);
+        let questsData = response.data;
+
+        if (questsData["player"]["profile"] == null) {
+          throw new Error("Player has no Hypixel stats");
+        }
+        
+        let metaDescription;
+        if (questsData) { // If the guild data is available
+          metaDescription = getMetaDescription("quests", questsData);
+        } else { // If the quests data is not available, show a default description
+          metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+        }
+
+        res.render('quests', { name, questsData, metaDescription });
+
+     } catch(error) {
+        computationError = {
+          message: `Could not find quests stats of player ${name} (${error})`,
+          player: name,
+          error: error["message"],
+          category: "computation",
+          page: "quests"
+        };
+        console.error("Fetching quests data failed! → ", error);
         res.render('index', { computationError });
      }
 
