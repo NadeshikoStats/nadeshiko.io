@@ -307,6 +307,8 @@ function formatLeaderboardStatistic(leaderboard, value) {
       return smallDuration(Number(value));
     case "duration_seconds_ms":
       return smallDuration(Number(value), true);
+    case "duration_milliseconds":
+      return smallDuration(Number(value / 1000), true);
     case "date_and_time":
       return mediumDateFormat(Number(value));
     case "number":
@@ -359,7 +361,7 @@ function getLeaderboardType(leaderboardName) {
     PIT_PLAYTIME: "duration_minutes",
     PIT_CLICKS: "large_number",
     DROPPER_BEST_TIME: "duration_seconds_ms",
-    TNT_GAMES_PVPRUN_LONGEST: "duration_seconds",
+    ARCADE_DROPPER_BEST_TIME: "duration_milliseconds",
     TNT_GAMES_TNTRUN_LONGEST: "duration_seconds",
   };
 
