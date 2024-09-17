@@ -45,6 +45,7 @@
       "title": "Cards",
       "description_0": "Use 'tis fine tool t' craft beautiful cards ye can show off anywhere ye like – even in yer Hypixel Forums signature!",
       "description_1": "Yer cards keep up wit' yer exploits in real time, so ye can swashbuckle in peace!",
+      "warning": "Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will \"come back to this issue in the near future\". However, you can still paste a static version of the card and use that.",
       "username": "Username",
       "username_placeholder": "Pirate",
       "game": "Game",
@@ -53,8 +54,9 @@
       "size_tooltip": "How tall th' card be.",
       "format": "Format",
       "format_tooltip": "Where ye will show th' card.",
-      "button_generate": "Craft Card",
-      "copy": "Click \"Craft Card\" an' ye will get a link t' yer card 'ere.",
+      "button_generate": "Craft Preview",
+      "copy": "Fill out the items above and a link will appear here.",
+      "preview_showcase": "Jab at \"Craft Preview\" an' ye will be seein' a preview of yer card in no time!",
       "loading_preview": "Loadin' preview...",
       "preview": "Preview"
     },
@@ -89,6 +91,9 @@
       },
       "achievements": {
         "computation": "%%player%%'s achievements 'ave gone overboard (%%error%%)"
+      },
+      "quests": {
+        "computation": "Could not find quests of player %%player%% (%%error%%)"
       }
     }
   },
@@ -132,6 +137,37 @@
     "locked": "Nah Plundered",
     "unlocked": "Plundered",
     "secret_achievement": "Secret Achievement"
+  },
+  "quests": {
+    "quests": "Quests",
+    "types": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "daily_literal": "Daily Quest: ",
+      "weekly_literal": "Weekly Quest: "
+    },
+    "rewards": {
+      "hypixel_experience": "Hypixel Experience",
+      "pit_gold": "Pit Gold",
+      "souls": "Souls",
+      "game_coins": "Doubloons fer %%game%%",
+      "game_tokens": "%%game%% Tokens",
+      "game_experience": "%%game%% Experience",
+      "broken_weapons": "Busted Weapons",
+      "event_experience": "Event Experience"
+    },
+    "completions": {
+      "completed": "%%num%%/%%total%% completed",
+      "daily_quests_completed": "Daily Quests Completed",
+      "weekly_quests_completed": "Weekly Quests Completed"
+    }
+  },
+  "leaderboards": {
+    "title": "Scallywag Rankin's",
+    "select": "Pick a rankin'.",
+    "next_page": "Sail Ahead ►",
+    "previous_page": "◀ Reverse Course",
+    "page_number": "Page %%page%% o' %%total%%"
   },
   "footer": {
     "created_by": "'Tis ship be built by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> an' <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."

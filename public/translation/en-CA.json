@@ -202,7 +202,6 @@
   "leaderboards": {
     "title": "Leaderboards",
     "select": "Select a leaderboard.",
-    "total_players": "%%num%% total players.",
     "next_page": "Next ►",
     "previous_page": "◀ Prev",
     "page_number": "Page %%page%% of %%total%%"
