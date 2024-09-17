@@ -196,6 +196,9 @@
       "weekly_quests_completed": "Weekly Quests Completed"
     }
   },
+  "leaderboards": {
+    "title": "Leaderboards"
+  },
   "footer": {
     "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."
   },

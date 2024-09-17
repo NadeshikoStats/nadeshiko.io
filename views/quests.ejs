@@ -38,7 +38,16 @@
         playerQuests = getValue(questsStats, ["player", "quests"]) || {};
 
         for (let a = 0; a < validGames.length; a++) {
-          generateQuestsTable(validGames[a]);
+          formattedGameNames.push({
+            formatted: getTranslation(`games.${modernifyGameName(validGames[a])}`),
+            raw: validGames[a]
+          });
+        }
+
+        formattedGameNames.sort((a, b) => sortStrings(a["formatted"], b["formatted"]));
+
+        for (let a = 0; a < formattedGameNames.length; a++) {
+          generateQuestsTable(formattedGameNames[a]["raw"]);
         }
 
         generateNetwork();
@@ -73,8 +82,7 @@
     <div class="guild overflow-scroll unloaded" id="quests-games">
       <div>
       <div class="chip-container quest-game-container">
-        <div class="chip-small but-big">
-          <div class="chip-small-background-filter"></div>
+        <div class="chip-small but-big no-overflow">
           <div class="flex-vertical">
             <span class="player-name">
               <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span>
@@ -127,6 +135,7 @@
     let globalQuests = {};
     let questsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(questsData)) %>"));
     let validGames = ["arcade", "arena", "battleground", "bedwars", "buildbattle", "duels", "gingerbread", "hungergames", "mcgo", "murdermystery", "paintball", "pit", "quake", /*"skyclash",*/ "skywars", "supersmash", "tntgames", /*"truecombat",*/ "uhc", "vampirez", "walls", "walls3", "woolgames"];
+    let formattedGameNames = [];
 
     let questsCompletedByTime = {
       "daily": {
