@@ -1,18 +1,14 @@
 let leaderboards = {
   "NETWORK": [
-      "NETWORK_FIRST_LOGIN",
       "NETWORK_NETWORK_LEVEL",
       "NETWORK_ACHIEVEMENT_POINTS",
       "NETWORK_KARMA",
+      "NETWORK_QUESTS_COMPLETED",
       "NETWORK_RANKS_GIFTED",
-      "NETWORK_QUESTS_COMPLETED"
+      "NETWORK_FIRST_LOGIN"
   ],
   "BEDWARS": [
       "BEDWARS_EXP",
-      "BEDWARS_TICKETS_EARNED",
-      "BEDWARS_COMPLETED_CHALLENGES",
-      "BEDWARS_COLLECTED_EMERALDS",
-      "BEDWARS_COLLECTED_DIAMONDS",
       "BEDWARS_WINS",
       "BEDWARS_WLR",
       "BEDWARS_FINALS",
@@ -40,10 +36,13 @@ let leaderboards = {
       "BEDWARS_FOURVFOUR_WINS",
       "BEDWARS_FOURVFOUR_WLR",
       "BEDWARS_FOURVFOUR_FINALS",
-      "BEDWARS_FOURVFOUR_FKDR"
+      "BEDWARS_FOURVFOUR_FKDR",
+      "BEDWARS_TICKETS_EARNED",
+      "BEDWARS_COMPLETED_CHALLENGES",
+      "BEDWARS_COLLECTED_EMERALDS",
+      "BEDWARS_COLLECTED_DIAMONDS"
   ],
   "DUELS": [
-      "DUELS_CLICKS",
       "DUELS_WINS",
       "DUELS_WLR",
       "DUELS_KILLS",
@@ -66,12 +65,11 @@ let leaderboards = {
       "DUELS_COMBO_WINS",
       "DUELS_BOXING_WINS",
       "DUELS_NODEBUFF_WINS",
-      "DUELS_ARENA_WINS"
+      "DUELS_ARENA_WINS",
+      "DUELS_CLICKS"
   ],
   "SKYWARS": [
       "SKYWARS_EXP",
-      "SKYWARS_LONGEST_BOW_KILL",
-      "SKYWARS_WINSTREAK",
       "SKYWARS_WINS",
       "SKYWARS_WLR",
       "SKYWARS_KILLS",
@@ -94,19 +92,19 @@ let leaderboards = {
       "SKYWARS_TEAM_INSANE_KDR"
   ],
   "PIT": [
+      "PIT_KILLS",
+      "PIT_KDR",
       "PIT_JOINS",
       "PIT_PLAYTIME",
       "PIT_CHAT_MESSAGES",
       "PIT_CLICKS",
-      "PIT_KILLS",
-      "PIT_KDR",
       "PIT_WHEAT_FARMED"
   ],
   "BUILD_BATTLE": [
+      "BUILD_BATTLE_SCORE",
       "BUILD_BATTLE_WINS",
       "BUILD_BATTLE_GTB_WINS",
       "BUILD_BATTLE_GTB_CORRECT_GUESSES",
-      "BUILD_BATTLE_SCORE",
       "BUILD_BATTLE_VOTES"
   ],
   "MURDER_MYSTERY": [
@@ -206,7 +204,7 @@ function selectGame(game) {
     leaderboard.classList.add("leaderboard-selector-button");
     leaderboard.classList.add("maxed-game");
     leaderboard.setAttribute("data-i", a);
-    leaderboard.innerText = englishTranslations[a] || "???" /*getTranslation(["leaderboards", a]);*/
+    leaderboard.innerText = englishTranslations[a] || a /*getTranslation(["leaderboards", a]);*/
     leaderboard.addEventListener("click", () => {
       selectLeaderboard(a);
     });

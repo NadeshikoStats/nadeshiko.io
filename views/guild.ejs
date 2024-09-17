@@ -53,6 +53,8 @@
 
           sortData("priority");
           generateCharts();
+
+          document.getElementById("guild").classList.remove("unloaded");
       }
     } 
   </script>
@@ -74,7 +76,7 @@
       <%- include('partials/header') %>
     </header>
 
-    <div class="guild" id="guild">
+    <div class="guild unloaded" id="guild">
       <div class="flex-guild">
         <div class="flex-guild-list">
           <div class="guild-header">

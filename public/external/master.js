@@ -211,6 +211,20 @@ function sortStrings(a, b) { // Sorts strings alphabetically based on locale
   return a.localeCompare(b, userLanguage, { sensitivity: "base" });
 }
 
+function checkSearchBox(event, textBoxValue) { // Check if the user's typing in the search box
+  if (event.key === "Enter") { // Did the user press enter?
+    event.preventDefault();
+    let userInput;
+    if (currentScope == "guild") {
+      userInput = textBoxValue.replaceAll(/[^A-Za-z0-9_ ]/g, ""); // Spaces are allowed in guild names
+    } else {
+      userInput = textBoxValue.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+    }
+    if(userInput.length == 0) return;
+    window.location.href = `/${currentScope || "player"}/${userInput}`; // Redirect to the desired URL
+  }
+}
+
 function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past
   let dateNew = new Date(currentTime);
   let dateOld = new Date(timestamp);

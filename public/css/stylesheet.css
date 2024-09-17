@@ -966,7 +966,8 @@
   .flex-container.unloaded,
   .avatar.unloaded,
   .special.unloaded,
-  #quests-games.unloaded {
+  #quests-games.unloaded,
+  .guild.unloaded {
     opacity: 0;
     transform: scale(0.8);
     filter: brightness(0.2);

@@ -507,15 +507,8 @@
     }
   }
 
-  document.getElementById("searchbar").addEventListener("keypress", function (event) {
-    // Check if the user's typing in the search box
-    if (event.key === "Enter") {
-      // Did the user press enter?
-      event.preventDefault();
-      var userInput = this.value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
-      if (userInput.length == 0) return;
-      window.location.href = `/${currentScope}/${userInput}`; // Redirect to the desired URL
-    }
+  document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
+    checkSearchBox(event, this.value);
   });
 
   function updateSetting(settingKey, settingValue) {
