@@ -2,7 +2,8 @@
   "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "header.searchbar.placeholder"
+      "placeholder": "header.searchbar.placeholder",
+      "placeholder_guild": "header.searchbar.placeholder_guild"
     },
     "home": {
       "title": "header.home.title"
@@ -35,13 +36,16 @@
         "9_name": "header.about.credits.9_name",
         "9_desc": "header.about.credits.9_desc",
         "10_name": "header.about.credits.10_name",
-        "10_desc": "header.about.credits.10_desc"
+        "10_desc": "header.about.credits.10_desc",
+        "11_name": "header.about.credits.11_name",
+        "11_desc": "header.about.credits.11_desc"
       }
     },
     "cards": {
       "title": "header.cards.title",
       "description_0": "header.cards.description_0",
       "description_1": "header.cards.description_1",
+      "warning": "header.cards.warning",
       "username": "header.cards.username",
       "username_placeholder": "header.cards.username_placeholder",
       "game": "header.cards.game",
@@ -52,6 +56,7 @@
       "format_tooltip": "header.cards.format_tooltip",
       "button_generate": "header.cards.button_generate",
       "copy": "header.cards.copy",
+      "preview_showcase": "header.cards.preview_showcase",
       "loading_preview": "header.cards.loading_preview",
       "preview": "header.cards.preview"
     },
@@ -75,6 +80,7 @@
     "recent_searches": "home.recent_searches",
     "favorites": "home.favorites",
     "search": "home.search",
+    "search_guild": "home.search_guild",
     "show_me": "home.show_me",
     "errors": {
       "404": "home.errors.404",
@@ -82,6 +88,12 @@
       "computation": "home.errors.computation",
       "guild": {
         "computation": "home.errors.guild.computation"
+      },
+      "achievements": {
+        "computation": "home.errors.achievements.computation"
+      },
+      "quests": {
+        "computation": "home.errors.quests.computation"
       }
     }
   },
@@ -90,6 +102,10 @@
       "title": "player.quick_mode.title",
       "key": "player.quick_mode.key",
       "description": "player.quick_mode.description"
+    },
+    "badges": {
+      "developer": "player.badges.developer",
+      "patreon": "player.badges.patreon"
     },
     "generate_card": "player.generate_card",
     "external_websites": "player.external_websites",
@@ -101,7 +117,8 @@
     "errors": {
       "no_stats": "player.errors.no_stats",
       "no_stats_desc": "player.errors.no_stats_desc",
-      "api_disabled": "player.errors.api_disabled"
+      "api_disabled": "player.errors.api_disabled",
+      "not_applicable": "player.errors.not_applicable"
     }
   },
   "achievements": {
@@ -118,7 +135,39 @@
     "global": "achievements.global",
     "all": "achievements.all",
     "locked": "achievements.locked",
-    "unlocked": "achievements.unlocked"
+    "unlocked": "achievements.unlocked",
+    "secret_achievement": "achievements.secret_achievement"
+  },
+  "quests": {
+    "quests": "quests.quests",
+    "types": {
+      "daily": "quests.types.daily",
+      "weekly": "quests.types.weekly",
+      "daily_literal": "quests.types.daily_literal",
+      "weekly_literal": "quests.types.weekly_literal"
+    },
+    "rewards": {
+      "hypixel_experience": "quests.rewards.hypixel_experience",
+      "pit_gold": "quests.rewards.pit_gold",
+      "souls": "quests.rewards.souls",
+      "game_coins": "quests.rewards.game_coins",
+      "game_tokens": "quests.rewards.game_tokens",
+      "game_experience": "quests.rewards.game_experience",
+      "broken_weapons": "quests.rewards.broken_weapons",
+      "event_experience": "quests.rewards.event_experience"
+    },
+    "completions": {
+      "completed": "quests.completions.completed",
+      "daily_quests_completed": "quests.completions.daily_quests_completed",
+      "weekly_quests_completed": "quests.completions.weekly_quests_completed"
+    }
+  },
+  "leaderboards": {
+    "title": "leaderboards.title",
+    "select": "leaderboards.select",
+    "next_page": "leaderboards.next_page",
+    "previous_page": "leaderboards.previous_page",
+    "page_number": "leaderboards.page_number"
   },
   "footer": {
     "created_by": "footer.created_by"
@@ -156,6 +205,8 @@
     "overall": "games.overall",
     "legacy": "games.legacy",
     "general": "games.general",
+    "crazywalls": "games.crazywalls",
+    "skyclash": "games.skyclash",
     "network": "games.network",
     "fishing": "games.fishing",
     "modes": {
@@ -166,7 +217,8 @@
       },
       "network": {
         "general": "games.modes.network.general",
-        "guild": "games.modes.network.guild"
+        "guild": "games.modes.network.guild",
+        "lobby": "games.modes.network.lobby"
       },
       "bedwars": {
         "eight_one": "games.modes.bedwars.eight_one",
@@ -584,6 +636,9 @@
           "golem": "games.modes.woolgames.woolwars.golem",
           "swordsman": "games.modes.woolgames.woolwars.swordsman",
           "tank": "games.modes.woolgames.woolwars.tank"
+        },
+        "sheepwars": {
+          "category": "games.modes.woolgames.sheepwars.category"
         }
       },
       "fishing": {
@@ -924,6 +979,9 @@
     "wool": "statistics.wool",
     "layers": "statistics.layers",
     "wool_placed": "statistics.wool_placed",
+    "sheep_thrown": "statistics.sheep_thrown",
+    "sheep_killed": "statistics.sheep_killed",
+    "magic_wool_hit": "statistics.magic_wool_hit",
     "items_caught": "statistics.items_caught",
     "fish_caught": "statistics.fish_caught",
     "junk_caught": "statistics.junk_caught",
@@ -933,7 +991,8 @@
     "created": "statistics.created",
     "player": "statistics.player",
     "rank": "statistics.rank",
-    "guild_experience": "statistics.guild_experience"
+    "guild_experience": "statistics.guild_experience",
+    "game": "statistics.game"
   },
   "times": {
     "time_ago": "times.time_ago",

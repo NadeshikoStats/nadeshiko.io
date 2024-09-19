@@ -54,6 +54,8 @@ function guildPlayerObjectToRow(guildObj) {
     <span class="tooltiptext" data-i="joined-ago"></span>
   </div>
 
+  <div class="column tabular" data-i="weekly-gexp"></div>
+
   <div class="column" data-i="expandable"><img class="arrow-icon" src="/img/svg/bigarrow.svg" /></div>
 </div>
 <div class="row-content">
@@ -95,6 +97,9 @@ function guildPlayerObjectToRow(guildObj) {
 
       <div class="general-stats flex-item" data-i="guild-stats">
         <p class="stat-title super-subtitle">${getTranslation("statistics.guild_experience")}</p>
+      <p class="flex-item margin10 content-gexp-header">
+          <span>${getTranslation("statistics.weekly_gexp")}</span> <span class="statistic" data-i="content-weekly-gexp"></span>
+        </p>
         <div class="chart-container">
           <canvas class="chart" style="max-height: 100%"></canvas>
         </div>
@@ -154,8 +159,6 @@ function guildPlayerObjectToRow(guildObj) {
 
   newRow.setAttribute('data-joined', joined); 
 
-  console.log(playerProfile["tagged_name"]);
-  console.log(guildObj["uuid"]);
   newRow.setAttribute('data-name', deformatName(playerProfile["tagged_name"]));
 
   if (guildRanks[guildObj["rank"]] == undefined) {
@@ -164,6 +167,17 @@ function guildPlayerObjectToRow(guildObj) {
     newRow.setAttribute('data-priority', guildRanks[guildObj["rank"]]);
   }
   
+  let weeklyGuildExperience = 0;
+  let guildExperienceHistory = guildObj["expHistory"];
+
+  for (const key in guildExperienceHistory) {
+    weeklyGuildExperience += guildExperienceHistory[key];
+  }
+
+  newRow.setAttribute('data-gexp', weeklyGuildExperience);
+  updateTag(newRow, "weekly-gexp", checkAndFormat(weeklyGuildExperience));
+  updateTag(newRow, "content-weekly-gexp", checkAndFormat(weeklyGuildExperience));
+
 
   let lastLogin = und(playerProfile["last_login"]);
 
@@ -203,7 +217,11 @@ function compareAttributes(attribute, reverse = false) {
     },
     "name": {
       type: "string",
-      reverse: true
+      reverse: false
+    },
+    "gexp": {
+      type: "number",
+      reverse: false
     }
   };
 
@@ -219,8 +237,6 @@ function compareAttributes(attribute, reverse = false) {
     if (attributeClassification["type"] == "string") {
       aValue = und(a.dataset[attribute]);
       bValue = und(b.dataset[attribute]);
-
-      console.warn([aValue, bValue]);
 
       return aValue.localeCompare(bValue, userLanguage, { sensitivity: "base" }) * reverseMultiplier;
     } else if (attributeClassification["type"] == "number") {
@@ -257,7 +273,7 @@ function sortData(attribute = "priority", reverse = false) {
     currentReverse = false;
   }
 
-  let guildHeaderElements = ["header-priority", "header-joined", "header-name"];
+  let guildHeaderElements = ["header-priority", "header-joined", "header-name", "header-gexp"];
   guildHeaderElements.forEach((id) => {
     const iconId = id + "-icon";
     document.getElementById(id).classList.add("deactivated");

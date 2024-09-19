@@ -1663,7 +1663,7 @@
 
   .guild-players .row-header {
     cursor: pointer;
-    grid-template-columns: 0.3fr 2fr 1fr 1.5fr 0.2fr;
+    grid-template-columns: 0.3fr 2fr 1fr 1.5fr 1fr 0.2fr;
   }
 
   .list .head {
@@ -1736,6 +1736,10 @@
     display: none;
   }
 
+  .list .content-gexp-header {
+    display: none;
+  }
+
   .list a {
     text-decoration: none;
   }
@@ -1749,7 +1753,7 @@
   }
 
   .list .chart-container {
-    height: 125px;
+    height: 100px;
   }
 
   .deactivated {
@@ -1990,6 +1994,7 @@
 
   .list .leaderboard-head {
     height: 16px;
+    width: 16px;
     margin: 0px 10px;
     image-rendering: pixelated;
   }
@@ -2542,6 +2547,20 @@
     }
     .petal {
       display: none;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .guild-players .row-header > *:nth-child(5) {
+      display: none;
+    }
+
+    .guild-players .row-header {
+      grid-template-columns: 0.3fr 2fr 1fr 1.5fr 0.1fr !important;
+    }
+
+    .list .content-gexp-header {
+      display: block;
     }
   }
   

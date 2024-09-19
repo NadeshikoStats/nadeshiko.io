@@ -342,7 +342,7 @@
     'zh-CN': { progress: 40, label: '中文（简体）', direction: 'ltr' },
     'zh-TW': { progress: 38, label: '中文（繁體）', direction: 'ltr' },
     'en-PT': { progress: 100, label: 'Pirate English', direction: 'ltr' },
-    empty: { progress: 100, label: 'empty', direction: 'ltr' }
+   /*empty: { progress: 100, label: 'empty', direction: 'ltr' }*/
   }
 
   document.getElementById("header-searchbar-container").addEventListener("mousedown", function () {
@@ -425,7 +425,7 @@
 
   function changeScope(scope, selectorLocation) {
     currentScope = scope;
-    let scopes = ["player", "guild", "achievements"];
+    let scopes = ["player", "guild", "achievements", "quests"];
 
     for (let a of scopes) {
       if (a == currentScope) {
@@ -450,8 +450,14 @@
 
     if (scope == "guild") {
       document.getElementById("searchbar").placeholder = getTranslation(["header", "searchbar", "placeholder_guild"]);
+      if (document.getElementById("searchbar2")) {
+        document.getElementById("searchbar2").placeholder = getTranslation(["home", "search_guild"]);
+      }
     } else {
       document.getElementById("searchbar").placeholder = getTranslation(["header", "searchbar", "placeholder"]);
+      if (document.getElementById("searchbar2")) {
+        document.getElementById("searchbar2").placeholder = getTranslation(["home", "search"]);
+      }
     }
   }
 

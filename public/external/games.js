@@ -23,8 +23,9 @@ function generateNetwork() {
 
     updateElement("card-name", playerData["name"]);
     updateElement("quick-mode-text", insertPlaceholders(getTranslation("player.quick_mode.description"), { player: playerData["name"] }), true);
-    document.getElementById("quick-mode-username").style.color = `var(--mc` + playerRankCute[0] + `)`;
-
+    if (document.getElementById("quick-mode-username") != null) {
+      document.getElementById("quick-mode-username").style.color = `var(--mc` + playerRankCute[0] + `)`;
+    }
 
     updateElement("header-name", cuteRank(profileStats["tagged_name"], 0), true);
     updateElement("achievement-points", checkAndFormat(profileStats["achievement_points"]));
