@@ -1171,9 +1171,12 @@
         skinUrl = skinUrl.replace("http:", "https:");
       }
 
-      var capeUrl = undefined;
-      if (playerData["cape"] && playerData["cape"].startsWith("http:")) {
-        capeUrl = playerData["cape"].replace("http:", "https:");
+      let capeBase64 = playerData["cape"];
+      
+      if (capeBase64 && capeBase64 != "") {
+        capeBase64 = "data:image/png;base64," + playerData["cape"];
+      } else {
+        capeBase64 = "";
       }
 
       skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
@@ -1182,7 +1185,7 @@
         height: 400,
         model: skinViewModel,
         skin: skinUrl,
-        cape: capeUrl
+        cape: capeBase64
       });
 
      skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
