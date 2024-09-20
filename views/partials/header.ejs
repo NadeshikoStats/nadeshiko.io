@@ -30,8 +30,10 @@
     </div>
   </div>
 </div>
-<div id="modal-card-wizard" class="modal unloaded">
-  <div class="about" id="card-wizard-ui">
+
+<div id="modal-background-blur" class="unloaded">
+
+  <div class="about unloaded" id="card-wizard-ui">
     <p class="about-title" data-t="header.cards.title">Cards</p>
     <p class="stat-subtitle">
       <span data-t="header.cards.description_0">Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!</span>
@@ -110,10 +112,8 @@
       <img src="" id="card-wizard-image" class="card-wizard-image" alt="" />
     </div>
   </div>
-</div>
 
-<div class="modal unloaded" id="about">
-  <div class="about" id="about-ui">
+  <div class="about unloaded" id="about-ui">
     <p class="margin10" data-t="header.about.basic"><span class="nadeshiko-bold">nadeshiko</span> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
     <p class="margin10" data-t="header.about.assistance">Find a bug or need some assistance? Please let us know on the project's <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
     <hr style="margin: 20px auto;" />
@@ -208,10 +208,8 @@
     <hr style="opacity: 0;" />
     <p style="opacity: 0.7; font-size: 14px; margin-top: 10px;" data-t="header.about.disclaimer">nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.</p>
   </div>
-</div>
 
-<div class="modal unloaded" id="modal-settings">
-  <div class="about" id="settings-ui">
+  <div class="about unloaded" id="settings-ui">
     <p class="about-title" data-t="header.settings.title">Settings</p>
     <hr style="margin: 20px auto;" />
 
@@ -277,9 +275,11 @@
       <p class="settings-description" data-t="header.settings.developer_mode_description">Shows UUIDs and version information.</p>
     </div>
   </div>
+
 </div>
 
 <script>
+  let modalBackgrouldBlurEnabled = false;
   let aboutExpanded = false;
   let settingsExpanded = false;
   let cardWizardExpanded = false;
@@ -412,12 +412,15 @@
 
       if (typeof playerData !== "undefined" && playerData["name"] !== undefined) {
         document.getElementById("card-wizard-name").value = playerData["name"];
+        generateCardLink();
       }
-      document.getElementById("modal-card-wizard").classList.remove("unloaded");
+      document.getElementById("modal-background-blur").classList.remove("unloaded");
+      document.getElementById("card-wizard-ui").classList.remove("unloaded");
       document.getElementById("button-card-wizard").classList.add("selected");
       cardWizardExpanded = true;
     } else {
-      document.getElementById("modal-card-wizard").classList.add("unloaded");
+      document.getElementById("modal-background-blur").classList.add("unloaded");
+      document.getElementById("card-wizard-ui").classList.add("unloaded");
       document.getElementById("button-card-wizard").classList.remove("selected");
       cardWizardExpanded = false;
     }
@@ -463,25 +466,33 @@
 
   function showAbout() {
     if (!aboutExpanded) {
-      document.getElementById("about").classList.remove("unloaded");
+      document.getElementById("about-ui").classList.remove("unloaded");
       document.getElementById("button-about").classList.add("selected");
       aboutExpanded = true;
+
+      document.getElementById("modal-background-blur").classList.remove("unloaded");
     } else {
-      document.getElementById("about").classList.add("unloaded");
+      document.getElementById("about-ui").classList.add("unloaded");
       document.getElementById("button-about").classList.remove("selected");
       aboutExpanded = false;
+
+      document.getElementById("modal-background-blur").classList.add("unloaded");
     }
   }
 
   function showSettings() {
     if (!settingsExpanded) {
-      document.getElementById("modal-settings").classList.remove("unloaded");
+      document.getElementById("settings-ui").classList.remove("unloaded");
       document.getElementById("button-settings").classList.add("selected");
       settingsExpanded = true;
+
+      document.getElementById("modal-background-blur").classList.remove("unloaded");
     } else {
-      document.getElementById("modal-settings").classList.add("unloaded");
+      document.getElementById("settings-ui").classList.add("unloaded");
       document.getElementById("button-settings").classList.remove("selected");
       settingsExpanded = false;
+
+      document.getElementById("modal-background-blur").classList.add("unloaded");
     }
   }
 
@@ -619,20 +630,21 @@
     // Close modals on escape key
     if (event.key === "Escape") {
       if (aboutExpanded) {
-        document.getElementById("about").classList.add("unloaded");
+        document.getElementById("about-ui").classList.add("unloaded");
         document.getElementById("button-about").classList.remove("selected");
         aboutExpanded = false;
       }
       if (settingsExpanded) {
-        document.getElementById("modal-settings").classList.add("unloaded");
+        document.getElementById("settings-ui").classList.add("unloaded");
         document.getElementById("button-settings").classList.remove("selected");
         settingsExpanded = false;
       }
       if (cardWizardExpanded) {
-        document.getElementById("modal-card-wizard").classList.add("unloaded");
+        document.getElementById("card-wizard-ui").classList.add("unloaded");
         document.getElementById("button-card-wizard").classList.remove("selected");
         cardWizardExpanded = false;
       }
+      document.getElementById("modal-background-blur").classList.add("unloaded");
     }
     if (event.key === "/" && !isInputField(event.target)) {
       event.preventDefault();
@@ -658,25 +670,37 @@
 
     if (!event.target.closest("#button-about") && !event.target.closest("#about-ui")) {
       if (aboutExpanded) {
-        document.getElementById("about").classList.add("unloaded");
+        document.getElementById("about-ui").classList.add("unloaded");
         document.getElementById("button-about").classList.remove("selected");
         aboutExpanded = false;
+
+        if (!aboutExpanded && !settingsExpanded && !cardWizardExpanded) {
+          document.getElementById("modal-background-blur").classList.add("unloaded");
+        }
       }
     }
 
     if (!event.target.closest("#button-settings") && !event.target.closest("#settings-ui")) {
       if (settingsExpanded) {
-        document.getElementById("modal-settings").classList.add("unloaded");
+        document.getElementById("settings-ui").classList.add("unloaded");
         document.getElementById("button-settings").classList.remove("selected");
         settingsExpanded = false;
+
+        if (!aboutExpanded && !settingsExpanded && !cardWizardExpanded) {
+          document.getElementById("modal-background-blur").classList.add("unloaded");
+        }
       }
     }
 
     if (!event.target.closest("#button-card-wizard") && !event.target.closest("#card-wizard-ui") && !event.target.closest(".general-button")) {
       if (cardWizardExpanded) {
-        document.getElementById("modal-card-wizard").classList.add("unloaded");
+        document.getElementById("card-wizard-ui").classList.add("unloaded");
         document.getElementById("button-card-wizard").classList.remove("selected");
         cardWizardExpanded = false;
+
+        if (!aboutExpanded && !settingsExpanded && !cardWizardExpanded) {
+          document.getElementById("modal-background-blur").classList.add("unloaded");
+        }
       }
     }
 

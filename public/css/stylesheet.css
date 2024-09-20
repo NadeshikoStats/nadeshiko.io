@@ -973,7 +973,7 @@
     filter: brightness(0.2);
   }
   
-  .modal.unloaded {
+  #modal-background-blur.unloaded {
     opacity: 0;
     clip-path: circle(0% at 100% 0);
     pointer-events: none;
@@ -2286,7 +2286,7 @@
   
   /* Modals */
   
-  .modal {
+  #modal-background-blur {
     background-color: #0005;
     position: fixed;
     z-index: 6;
@@ -2304,6 +2304,10 @@
     clip-path: circle(calc((100vh + 100vh) * 1.42) at 100% 0);
     top: var(--header-height);
     pointer-events: all;
+  }
+
+  .about-container {
+    top: 0;
   }
   
   .modal-content {

@@ -189,7 +189,7 @@ function getLeaderboardGames() {
 function selectGame(game) {
   let gameId = getGameId(game);
 
-  document.querySelectorAll(".leaderboard-selector-button").forEach((button) => {
+  document.querySelectorAll("#game-selector span").forEach((button) => {
     button.classList.remove("selected");
   });
 
@@ -198,19 +198,23 @@ function selectGame(game) {
   let gameLeaderboards = leaderboards[game];
   let leaderboardSelector = document.getElementById("leaderboard-selector");
 
-  leaderboardSelector.innerHTML = "";
-  for (let a of gameLeaderboards) {
-    let leaderboard = document.createElement("span");
-    leaderboard.classList.add("leaderboard-selector-button");
-    leaderboard.classList.add("maxed-game");
-    leaderboard.setAttribute("data-i", a);
-    leaderboard.innerText = englishTranslations[a] || a /*getTranslation(["leaderboards", a]);*/
-    leaderboard.addEventListener("click", () => {
-      selectLeaderboard(a);
-    });
+  if (currentLeaderboardInformation["selected_game"] != game) {
+    leaderboardSelector.innerHTML = "";
+    for (let a of gameLeaderboards) {
+      let leaderboard = document.createElement("span");
+      leaderboard.classList.add("leaderboard-selector-button");
+      leaderboard.classList.add("maxed-game");
+      leaderboard.setAttribute("data-i", a);
+      leaderboard.innerText = englishTranslations[a] || a /*getTranslation(["leaderboards", a]);*/
+      leaderboard.addEventListener("click", () => {
+        selectLeaderboard(a);
+      });
 
-    leaderboardSelector.appendChild(leaderboard);
+      leaderboardSelector.appendChild(leaderboard);
+    }
   }
+
+  currentLeaderboardInformation["selected_game"] = game;
 }
 
 function selectLeaderboard(leaderboard) {
