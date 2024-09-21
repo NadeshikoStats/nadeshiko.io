@@ -20,7 +20,7 @@ function generateNetwork() {
     if (playerRankCute[1] == "") {
       document.getElementById("card-rank").style.display = "none";
     }
-
+    
     updateElement("card-name", playerData["name"]);
     updateElement("quick-mode-text", insertPlaceholders(getTranslation("player.quick_mode.description"), { player: playerData["name"] }), true);
     if (document.getElementById("quick-mode-username") != null) {
@@ -2857,8 +2857,10 @@ function getWarlordsClassStats(specName) {
 function generateUHC() {
   uhcStats = playerData["stats"]["UHC"] || {};
   speedUHCStats = playerData["stats"]["SpeedUHC"] || {};
+
+  let uhcTotalWins = und(speedUHCStats["wins"]) + sumStats(["wins"], ["_solo", "", "_no_diamonds", "_brawl", "_solo_brawl", "_duo_brawl", "_vanilla_doubles"], uhcStats, "", true)[0]; // Add all UHC wins together, including Speed UHC
   
-  updateElement("uhc-overall-wins", locale(und(uhcStats["wins"]) + und(speedUHCStats["wins"]), 0));
+  updateElement("uhc-overall-wins", locale(uhcTotalWins, 0));
   updateElement("uhc-overall-score", checkAndFormat(und(uhcStats["score"]) + und(speedUHCStats["score"])));
   updateElement("uhc-overall-coins", checkAndFormat(und(uhcStats["coins"])));
 

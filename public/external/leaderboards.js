@@ -367,6 +367,7 @@ function getLeaderboardType(leaderboardName) {
     DROPPER_BEST_TIME: "duration_seconds_ms",
     ARCADE_DROPPER_BEST_TIME: "duration_milliseconds",
     TNT_GAMES_TNTRUN_LONGEST: "duration_seconds",
+    TNT_GAMES_PVPRUN_LONGEST: "duration_seconds",
   };
 
   if (specialLeaderboardTypes[leaderboardName]) {
@@ -434,7 +435,7 @@ let englishTranslations = {
   "DUELS_BLITZ_WINS": "Blitz: Wins",
   "DUELS_BOW_WINS": "Bow: Wins",
   "DUELS_MW_WINS": "MW: Wins",
-  "DUELS_BOWSPLEEF_WINS": "Bowspleef: Wins",
+  "DUELS_BOWSPLEEF_WINS": "Bow Spleef: Wins",
   "DUELS_OP_WINS": "OP: Wins",
   "DUELS_COMBO_WINS": "Combo: Wins",
   "DUELS_BOXING_WINS": "Boxing: Wins",
@@ -482,7 +483,7 @@ let englishTranslations = {
   "MURDER_MYSTERY_ASSASSINS_WINS": "Assassins: Wins",
   "MURDER_MYSTERY_INFECTION_WINS": "Infection: Wins",
   "TNT_GAMES_WINS": "Overall: Wins",
-  "TNT_GAMES_BOWSPLEEF_WINS": "Bowspleef: Wins",
+  "TNT_GAMES_BOWSPLEEF_WINS": "Bow Spleef: Wins",
   "TNT_GAMES_PVPRUN_WINS": "PVP Run: Wins",
   "TNT_GAMES_PVPRUN_KILLS": "PVP Run: Kills",
   "TNT_GAMES_PVPRUN_LONGEST": "PVP Run: Longest Game",
