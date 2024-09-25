@@ -318,31 +318,30 @@
   let languageCodes = {
     'en-CA': { progress: 100, label: 'English', direction: 'ltr' },
     'ar-SA': { progress: 0, label: 'العربية', direction: 'rtl' },
-    'cs-CZ': { progress: 36, label: 'Čeština', direction: 'ltr' },
-    'da-DK': { progress: 37, label: 'Dansk', direction: 'ltr' },
-    'de-DE': { progress: 39, label: 'Deutsch', direction: 'ltr' },
-    'el-GR': { progress: 34, label: 'Ελληνικά', direction: 'ltr' },
+    'cs-CZ': { progress: 34, label: 'Čeština', direction: 'ltr' },
+    'da-DK': { progress: 34, label: 'Dansk', direction: 'ltr' },
+    'de-DE': { progress: 36, label: 'Deutsch', direction: 'ltr' },
+    'el-GR': { progress: 31, label: 'Ελληνικά', direction: 'ltr' },
     'es-ES': { progress: 100, label: 'Español', direction: 'ltr' },
-    'fr-FR': { progress: 82, label: 'Français', direction: 'ltr' },
-    'it-IT': { progress: 39, label: 'Italiano', direction: 'ltr' },
-    'ja-JP': { progress: 39, label: '日本語', direction: 'ltr' },
-    'ko-KR': { progress: 39, label: '한국어', direction: 'ltr' },
-    'hu-HU': { progress: 37, label: 'Magyar', direction: 'ltr' },
-    'nl-NL': { progress: 38, label: 'Nederlands', direction: 'ltr' },
-    'no-NO': { progress: 37, label: 'Norsk', direction: 'ltr' },
-    'pl-PL': { progress: 38, label: 'Polski', direction: 'ltr' },
-    'pt-PT': { progress: 39, label: 'Português (Portugal)', direction: 'ltr' },
-    'pt-BR': { progress: 39, label: 'Português (Brasil)', direction: 'ltr' },
-    'ro-RO': { progress: 34, label: 'Română', direction: 'ltr' },
-    'ru-RU': { progress: 40, label: 'Русский', direction: 'ltr' },
-    'fi-FI': { progress: 39, label: 'Suomi', direction: 'ltr' },
-    'sv-SE': { progress: 37, label: 'Svenska', direction: 'ltr' },
-    'tr-TR': { progress: 38, label: 'Türkçe', direction: 'ltr' },
-    'uk-UA': { progress: 37, label: 'Українська', direction: 'ltr' },
-    'zh-CN': { progress: 40, label: '中文（简体）', direction: 'ltr' },
-    'zh-TW': { progress: 38, label: '中文（繁體）', direction: 'ltr' },
+    'fr-FR': { progress: 75, label: 'Français', direction: 'ltr' },
+    'it-IT': { progress: 36, label: 'Italiano', direction: 'ltr' },
+    'ja-JP': { progress: 36, label: '日本語', direction: 'ltr' },
+    'ko-KR': { progress: 36, label: '한국어', direction: 'ltr' },
+    'hu-HU': { progress: 35, label: 'Magyar', direction: 'ltr' },
+    'nl-NL': { progress: 35, label: 'Nederlands', direction: 'ltr' },
+    'no-NO': { progress: 34, label: 'Norsk', direction: 'ltr' },
+    'pl-PL': { progress: 35, label: 'Polski', direction: 'ltr' },
+    'pt-PT': { progress: 36, label: 'Português (Portugal)', direction: 'ltr' },
+    'pt-BR': { progress: 89, label: 'Português (Brasil)', direction: 'ltr' },
+    'ro-RO': { progress: 32, label: 'Română', direction: 'ltr' },
+    'ru-RU': { progress: 37, label: 'Русский', direction: 'ltr' },
+    'fi-FI': { progress: 36, label: 'Suomi', direction: 'ltr' },
+    'sv-SE': { progress: 34, label: 'Svenska', direction: 'ltr' },
+    'tr-TR': { progress: 35, label: 'Türkçe', direction: 'ltr' },
+    'uk-UA': { progress: 34, label: 'Українська', direction: 'ltr' },
+    'zh-CN': { progress: 37, label: '中文（简体）', direction: 'ltr' },
+    'zh-TW': { progress: 36, label: '中文（繁體）', direction: 'ltr' },
     'en-PT': { progress: 100, label: 'Pirate English', direction: 'ltr' },
-   /*empty: { progress: 100, label: 'empty', direction: 'ltr' }*/
   }
 
   document.getElementById("header-searchbar-container").addEventListener("mousedown", function () {
@@ -652,6 +651,10 @@
     }
   });
 
+  document.querySelectorAll(".dropdown-content").forEach((dropdownContent) => {
+    adjustDropdown(dropdownContent);
+  });
+
   var wordmark = document.querySelector(".wordmark");
   wordmark.addEventListener("mouseenter", function () {
     if (!wordmark.classList.contains("animate")) {
@@ -712,33 +715,8 @@
     return element.tagName === "INPUT" || element.tagName === "TEXTAREA" || element.isContentEditable;
   }
 
-  /*
-  let tasksBeforeLoadingHeader = ["fetchLanguageFile", "DOMContentLoaded"];
-
-/* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
- * This is used to ensure that all tasks are completed before the page is generated.
- * @param {string} task - The task that was completed 
-
-function beginGeneration(task) {
-  console.log(task);
-  if(tasksBeforeLoadingHeader.includes(task)) {
-    tasksBeforeLoadingHeader.splice(tasksBeforeLoadingHeader.indexOf(task), 1);
-  }
-
-  console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoadingHeader}`);
-
-  if(tasksBeforeLoadingHeader.length == 0) {
-    updateTranslations();
-  }
-}*/
-
-  document.addEventListener("click", function (event) {
-    let dropdownButton = event.target.closest(".dropdown-button");
-    if (dropdownButton) {
-      console.log("Dropdown button clicked");
-      var dropdownContent = dropdownButton.nextElementSibling;
-
-      if (dropdownContent.classList.contains("unloaded")) {
+  function adjustDropdown(dropdownContent) {
+    if (dropdownContent.classList.contains("unloaded")) {
         // If not visible
         // Reset styles first
         dropdownContent.style.insetInlineEnd = "0px";
@@ -790,6 +768,16 @@ function beginGeneration(task) {
         //   dropdownContent.style.right = "auto";
         // }
       }
+  }
+
+  document.addEventListener("click", function (event) {
+    let dropdownButton = event.target.closest(".dropdown-button");
+    if (dropdownButton) {
+      console.log("Dropdown button clicked");
+      let dropdownContent = dropdownButton.nextElementSibling;
+
+      adjustDropdown(dropdownContent);
+
       dropdownContent.classList.toggle("unloaded");
     }
 

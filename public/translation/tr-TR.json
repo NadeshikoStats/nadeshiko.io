@@ -3,7 +3,7 @@
   "header": {
     "searchbar": {
       "placeholder": "Search for a player...",
-      "placeholder_guild": "Search for a guild..."
+      "placeholder_guild": "Search for a guild name or player..."
     },
     "home": {
       "title": "Home"
@@ -80,7 +80,7 @@
     "recent_searches": "Recent Searches",
     "favorites": "Favourites",
     "search": "Enter a Minecraft username or UUID...",
-    "search_guild": "Enter the name of a guild...",
+    "search_guild": "Enter a guild name, Minecraft username, or UUID...",
     "show_me": "Show me!",
     "errors": {
       "error": "ERROR",
@@ -992,7 +992,8 @@
     "player": "Player",
     "rank": "Rank",
     "guild_experience": "Guild Experience",
-    "game": "Game"
+    "game": "Game",
+    "weekly_gexp": "Weekly GEXP"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

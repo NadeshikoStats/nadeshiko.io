@@ -3,7 +3,7 @@
   "header": {
     "searchbar": {
       "placeholder": "Scour fer a pirate...",
-      "placeholder_guild": "Scour fer a guild..."
+      "placeholder_guild": "Scour fer th' name o' a guild or player..."
     },
     "home": {
       "title": "Ship"
@@ -45,7 +45,7 @@
       "title": "Cards",
       "description_0": "Use 'tis fine tool t' craft beautiful cards ye can show off anywhere ye like – even in yer Hypixel Forums signature!",
       "description_1": "Yer cards keep up wit' yer exploits in real time, so ye can swashbuckle in peace!",
-      "warning": "Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will \"come back to this issue in the near future\". However, you can still paste a static version of the card and use that.",
+      "warning": "If ye want t' use yer magical real-time card on th' forums, ye be out o' luck: Hypixel's ship carryin' th' external images t' th' Hypixel Forums sunk an' we can nah do a thing about it. However, there still be hope: Hypixel said that they be dealin' wit' th' issue \"in th' near future\". If ye still really want t' show off yer stats, ye can paste a static version o' th' card int' yer signature.",
       "username": "Username",
       "username_placeholder": "Pirate",
       "game": "Game",
@@ -55,7 +55,7 @@
       "format": "Format",
       "format_tooltip": "Where ye will show th' card.",
       "button_generate": "Craft Preview",
-      "copy": "Fill out the items above and a link will appear here.",
+      "copy": "Fill out what ye want above an' ye be gettin' a link 'ere.",
       "preview_showcase": "Jab at \"Craft Preview\" an' ye will be seein' a preview of yer card in no time!",
       "loading_preview": "Loadin' preview...",
       "preview": "Preview"
@@ -80,7 +80,7 @@
     "recent_searches": "Recent Pirates",
     "favorites": "Favourites",
     "search": "Scrawl a pirate's Minecraft username or UUID 'ere...",
-    "search_guild": "Scrawl th' name o' a guild 'ere...",
+    "search_guild": "Scrawl a guild name, Minecraft username, or UUID...",
     "show_me": "Set sail",
     "errors": {
       "error": "TH' SHIP SUNK",
@@ -93,7 +93,7 @@
         "computation": "%%player%%'s achievements 'ave gone overboard (%%error%%)"
       },
       "quests": {
-        "computation": "Could not find quests of player %%player%% (%%error%%)"
+        "computation": "%%player%%'s quests 'ave gone overboard (%%error%%)"
       }
     }
   },
@@ -151,15 +151,15 @@
       "pit_gold": "Pit Gold",
       "souls": "Souls",
       "game_coins": "Doubloons fer %%game%%",
-      "game_tokens": "%%game%% Tokens",
-      "game_experience": "%%game%% Experience",
+      "game_tokens": "Tokens fer %%game%%",
+      "game_experience": "Experience fer %%game%%",
       "broken_weapons": "Busted Weapons",
       "event_experience": "Event Experience"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
-      "daily_quests_completed": "Daily Quests Completed",
-      "weekly_quests_completed": "Weekly Quests Completed"
+      "completed": "%%num%%/%%total%% plundered",
+      "daily_quests_completed": "Daily Quests Plundered",
+      "weekly_quests_completed": "Weekly Quests Plundered"
     }
   },
   "leaderboards": {
@@ -992,7 +992,8 @@
     "player": "Pirate",
     "rank": "Rank",
     "guild_experience": "Guild Experience",
-    "game": "Game"
+    "game": "Game",
+    "weekly_gexp": "Th' Week's GEXP"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

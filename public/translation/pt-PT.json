@@ -3,7 +3,7 @@
   "header": {
     "searchbar": {
       "placeholder": "Search for a player...",
-      "placeholder_guild": "Search for a guild..."
+      "placeholder_guild": "Search for a guild name or player..."
     },
     "home": {
       "title": "Home"
@@ -80,7 +80,7 @@
     "recent_searches": "Recent Searches",
     "favorites": "Favourites",
     "search": "Enter a Minecraft username or UUID...",
-    "search_guild": "Enter the name of a guild...",
+    "search_guild": "Enter a guild name, Minecraft username, or UUID...",
     "show_me": "Show me!",
     "errors": {
       "error": "ERROR",
@@ -251,8 +251,8 @@
           "title_500": " Diamante",
           "title_1000": " Mestre",
           "title_2000": " Lenda",
-          "title_5000": "\nGrande Mestre",
-          "title_10000": "\nImbatível",
+          "title_5000": "Grandmaster",
+          "title_10000": "Godlike",
           "title_25000": " CELESTIAL",
           "title_50000": " DIVINO",
           "title_100000": " Subir"
@@ -397,10 +397,10 @@
           "pigman": "Pigman",
           "ranger": "Guarda",
           "reaper": "Ceifeiro",
-          "reddragon": "Dragão Vermelho",
+          "reddragon": "Reddragon",
           "rogue": "Ladino",
           "scout": "Escuteiro",
-          "shadow knight": "Cavaleiro das Trevas",
+          "shadow knight": "Shadow Knight",
           "shark": "Tubarão",
           "slimeyslime": "Slime",
           "snowman": "Boneco de neve",
@@ -731,7 +731,7 @@
           "clay_ball": "Bola de argila",
           "cracked_egg": "Ovo partido",
           "dawning_snowball": "Bola de neve da alvorada",
-          "egg_the_fish": "Ovo, o Peixe",
+          "egg_the_fish": "Egg the Fish",
           "eggnog": "Gemada",
           "eyeball": "Olho",
           "fish_monger_suit_boots": "Botas do fato de peixeiro",
@@ -757,7 +757,7 @@
           "spook_the_fish": "Bu o peixe",
           "star_eater_scales": "Star-Eater Scales",
           "sunscreen": "Protetor solar",
-          "wayfinders_compass": "Bússola do Explorador",
+          "wayfinders_compass": "Bússola do explorador",
           "rubber_duck": "Patinho de borracha",
           "molten_iron": "Ferro derretido",
           "lava_shark": "Tubarão de lava",
@@ -801,7 +801,7 @@
     "kills": "Kills",
     "deaths": "Mortes",
     "kdr": "K/D R",
-    "final_kills": "Kills Finais",
+    "final_kills": "Final Kills",
     "final_deaths": "Mortes finais",
     "fkdr": "FK/D R",
     "tokens": "Tokens",
@@ -938,9 +938,9 @@
     "xp": "XP",
     "lifetime_gold": "Lifetime Gold",
     "contracts_started": "Contracts Started",
-    "contracts_completed": "Contratos Completados",
+    "contracts_completed": "Contracts Completed",
     "golden_apples_eaten": "Maçãs douradas comidas",
-    "golden_heads_eaten": "Cabeças Douradas comidas",
+    "golden_heads_eaten": "Golden Heads Eaten",
     "blocks_placed": "Blocos colocados",
     "blocks_broken": "Blocos destruídos",
     "fishing_rod_launches": "Fishing Rod Launches",
@@ -965,10 +965,10 @@
     "total_xp": "Total XP",
     "blocks_ran": "Blocks Ran",
     "tags": "Tags",
-    "overall_wins": "Vitórias Totais",
+    "overall_wins": "Overall Wins",
     "overall_captures": "Overall Captures",
     "heads_eaten": "Cabeças comidas",
-    "ultimates_crafted": "Supremos Criados",
+    "ultimates_crafted": "Ultimates Crafted",
     "magic_dust": "Magic Dust",
     "void_shards": "Void Shards",
     "weapons_repaired": "Weapons Repaired",
@@ -992,7 +992,8 @@
     "player": "Player",
     "rank": "Rank",
     "guild_experience": "Guild Experience",
-    "game": "Game"
+    "game": "Game",
+    "weekly_gexp": "Weekly GEXP"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

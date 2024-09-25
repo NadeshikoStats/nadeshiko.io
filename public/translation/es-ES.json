@@ -3,7 +3,7 @@
   "header": {
     "searchbar": {
       "placeholder": "Buscar un jugador...",
-      "placeholder_guild": "Buscar un guild..."
+      "placeholder_guild": "Buscar un nombre de guild o jugador..."
     },
     "home": {
       "title": "Inicio"
@@ -45,7 +45,7 @@
       "title": "Tarjetas",
       "description_0": "Utiliza esta herramienta para generar lindas tarjetas que puedes poner en cualquier lugar – ¡incluso en tu firma de los foros de Hypixel!",
       "description_1": "¡Las tarjetas se actualizan en tiempo real a medida que cambian tus estadísticas, así que nunca tienes que preocuparte por ellas!",
-      "warning": "Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will \"come back to this issue in the near future\". However, you can still paste a static version of the card and use that.",
+      "warning": "Las tarjetas de actualización en tiempo real no funcionan actualmente en los foros de Hypixel, ya que Hypixel ha roto accidentalmente todas las imágenes externas. Lamentablemente, no podemos resolver este problema. Hypixel ha declarado que \"intentaremos solucionarlo en breve\". Sin embargo, aún puedes pegar una versión estática de la tarjeta y usarla.",
       "username": "Nombre de usuario",
       "username_placeholder": "Jugador",
       "game": "Juego",
@@ -54,9 +54,9 @@
       "size_tooltip": "La altura de la tarjeta.",
       "format": "Formato",
       "format_tooltip": "Donde se mostrará la tarjeta.",
-      "button_generate": "Generate Preview",
-      "copy": "Fill out the items above and a link will appear here.",
-      "preview_showcase": "Click \"Generate Preview\" and a preview of the card will appear here.",
+      "button_generate": "Generar vista previa",
+      "copy": "Rellena los campos de arriba y aparecerá un enlace aquí.",
+      "preview_showcase": "Haz clic en \"Generar vista previa\" y aparecerá una vista previa de la tarjeta.",
       "loading_preview": "Cargando vista previa...",
       "preview": "Vista previa"
     },
@@ -80,7 +80,7 @@
     "recent_searches": "Búsquedas recientes",
     "favorites": "Favoritos",
     "search": "Escribe un nombre de usuario o UUID de Minecraft...",
-    "search_guild": "Escribe el nombre de un guild...",
+    "search_guild": "Escribe un nombre de guild, nombre de usuario o UUID...",
     "show_me": "¡Muéstrame!",
     "errors": {
       "error": "ERROR",
@@ -93,7 +93,7 @@
         "computation": "No se encontraron los logros del jugador %%player%% (%%error%%)"
       },
       "quests": {
-        "computation": "Could not find quests of player %%player%% (%%error%%)"
+        "computation": "No se encontraron las misiones del jugador %%player%% (%%error%%)"
       }
     }
   },
@@ -139,35 +139,35 @@
     "secret_achievement": "Logro secreto"
   },
   "quests": {
-    "quests": "Quests",
+    "quests": "Misiones",
     "types": {
-      "daily": "Daily",
-      "weekly": "Weekly",
+      "daily": "Diaria",
+      "weekly": "Semanal",
       "daily_literal": "Daily Quest: ",
       "weekly_literal": "Weekly Quest: "
     },
     "rewards": {
       "hypixel_experience": "Hypixel Experience",
-      "pit_gold": "Pit Gold",
-      "souls": "Souls",
-      "game_coins": "%%game%% Coins",
-      "game_tokens": "%%game%% Tokens",
-      "game_experience": "%%game%% Experience",
-      "broken_weapons": "Broken Weapons",
-      "event_experience": "Event Experience"
+      "pit_gold": "Oro de Pit",
+      "souls": "Almas",
+      "game_coins": "Monedas de %%game%%",
+      "game_tokens": "Tokens de %%game%%",
+      "game_experience": "Experiencia de %%game%%",
+      "broken_weapons": "Armas rotas",
+      "event_experience": "Experiencia de evento"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
-      "daily_quests_completed": "Daily Quests Completed",
-      "weekly_quests_completed": "Weekly Quests Completed"
+      "completed": "%%num%%/%%total%% completadas",
+      "daily_quests_completed": "Misiones diarias completadas",
+      "weekly_quests_completed": "Misiones semanales completadas"
     }
   },
   "leaderboards": {
-    "title": "Leaderboards",
-    "select": "Select a leaderboard.",
-    "next_page": "Next ►",
-    "previous_page": "◀ Prev",
-    "page_number": "Page %%page%% of %%total%%"
+    "title": "Podios",
+    "select": "Selecciona un podio.",
+    "next_page": "Siguiente ►",
+    "previous_page": "◀ Anterior",
+    "page_number": "Página %%page%% de %%total%%"
   },
   "footer": {
     "created_by": "Hecho con ♥︎ por <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> y <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."
@@ -992,7 +992,8 @@
     "player": "Jugador",
     "rank": "Rango",
     "guild_experience": "Experiencia del guild",
-    "game": "Juego"
+    "game": "Juego",
+    "weekly_gexp": "GEXP semanal"
   },
   "times": {
     "time_ago": "(hace %%time%%)",
