@@ -132,6 +132,46 @@ function getWoolGamesLevel(exp) {
   return level + exp / 5000;
 }
 
+function getBuildBattleTitle(score) {
+  // Gets player's Build Battle title based on an amount of score
+
+  let buildBattleTitles = [
+    { minimumScore: 0, difference: 100, title: getTranslation("games.modes.buildbattle.titles.rookie"), color: "f" },
+    { minimumScore: 100, difference: 150, title: getTranslation("games.modes.buildbattle.titles.untrained"), color: "8" },
+    { minimumScore: 250, difference: 250, title: getTranslation("games.modes.buildbattle.titles.amateur"), color: "e" },
+    { minimumScore: 500, difference: 500, title: getTranslation("games.modes.buildbattle.titles.apprentice"), color: "a" },
+    { minimumScore: 1000, difference: 1000, title: getTranslation("games.modes.buildbattle.titles.experienced"), color: "d" },
+    { minimumScore: 2000, difference: 1500, title: getTranslation("games.modes.buildbattle.titles.seasoned"), color: "9" },
+    { minimumScore: 3500, difference: 4000, title: getTranslation("games.modes.buildbattle.titles.skilled"), color: "3" },
+    { minimumScore: 7500, difference: 2500, title: getTranslation("games.modes.buildbattle.titles.talented"), color: "c" },
+    { minimumScore: 10000, difference: 5000, title: getTranslation("games.modes.buildbattle.titles.professional"), color: "5" },
+    { minimumScore: 15000, difference: 5000, title: getTranslation("games.modes.buildbattle.titles.expert"), color: "1" },
+    { minimumScore: 20000, difference: -1, title: getTranslation("games.modes.buildbattle.titles.master"), color: "4" },
+  ]
+
+  let scoreToGo;
+  let chosenTitle = buildBattleTitles[0];
+  for (a = 0; a < buildBattleTitles.length; a++) {
+    if (score >= buildBattleTitles[a]["minimumScore"]) {
+      if (a === buildBattleTitles.length - 1) {
+        scoreToGo = -1;
+      } else {
+        scoreToGo = buildBattleTitles[a + 1]["minimumScore"] - score;
+      }
+      chosenTitle = buildBattleTitles[a];
+    }
+  }
+
+  let nextTitlePercentage;
+  if (chosenTitle["difference"] == -1) {
+    nextTitlePercentage = 1;
+  } else {
+    nextTitlePercentage = (score - chosenTitle["minimumScore"]) / chosenTitle["difference"];
+  }
+
+  return [`§${chosenTitle["color"]}${chosenTitle["title"]}`, scoreToGo, nextTitlePercentage];
+}
+
 let pitXpMap = [15, 30, 50, 75, 125, 300, 600, 800, 900, 1000, 1200, 1500, 0];
   let pitPrestiges = [100,110,120,130,140,150,175,200,250,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2400,2800,3200,3600,4000,4500,5000,7500,10000,10100,10100,10100,10100,10100,20000,30000,40000,50000,75000,100000,125000,150000,175000,200000,300000,500000,1000000,5000000,10000000,];
   let pitPrestigeXp = [65950,138510,217680,303430,395760,494700,610140,742040,906930,1104780,1368580,1698330,2094030,2555680,3083280,3676830,4336330,5127730,6051030,7106230,8293330,9612330,11195130,13041730,15152130,17526330,20164330,23132080,26429580,31375830,37970830,44631780,51292730,57953680,64614630,71275580,84465580,104250580,130630580,163605580,213068080,279018080,361455580,460380580,575793080,707693080,905543080,1235293080,1894793080,5192293080,11787293080,];
@@ -142,7 +182,7 @@ let pitXpMap = [15, 30, 50, 75, 125, 300, 600, 800, 900, 1000, 1200, 1500, 0];
   /* 
    * Converts an amount of XP to a level in The Pit
   * @param {number} experience - The amount of XP to convert
-  * @param {number} data_type - The type of data to return
+  * @param {number} dataType - The type of data to return
   *   Data Types:
   *    0: Unformatted      - "[I-26]"
   *    1: Formatting codes - "§9[§eI§9-..."
@@ -150,58 +190,58 @@ let pitXpMap = [15, 30, 50, 75, 125, 300, 600, 800, 900, 1000, 1200, 1500, 0];
   *    3: Just level       - 26
   *    4: [120] of pres XP - 138510
   */
-  function pitXpToLevel(experience, data_type) {
-    x_prestige = 0;
-    x_level = 120;
-    x_120level = 0;
+  function pitXpToLevel(experience, dataType = 1) {
+    thisPrestige = 0;
+    thisLevel = 120;
+    xpAtLevel120 = 0;
 
-    for (; x_prestige < 50; x_prestige++) {
-      if (experience <= pitPrestigeXp[x_prestige]) {
+    for (; thisPrestige < 50; thisPrestige++) {
+      if (experience <= pitPrestigeXp[thisPrestige]) {
         break;
       }
     }
 
-    x_120level = pitPrestigeXp[x_prestige];
+    xpAtLevel120 = pitPrestigeXp[thisPrestige];
 
-    while (x_120level > experience) {
-      x_level = x_level - 1;
-      x_120level = x_120level - Math.ceil((pitXpMap[Math.floor(x_level / 10)] * pitPrestiges[x_prestige]) / 100);
+    while (xpAtLevel120 > experience) {
+      thisLevel = thisLevel - 1;
+      xpAtLevel120 = xpAtLevel120 - Math.ceil((pitXpMap[Math.floor(thisLevel / 10)] * pitPrestiges[thisPrestige]) / 100);
     }
 
-    x_levelcolor = pitLevelColors[Math.floor(x_level / 10)];
-    if (x_level >= 60) {
-      x_levelcolor += "§l";
+    thisLevelColor = pitLevelColors[Math.floor(thisLevel / 10)];
+    if (thisLevel >= 60) {
+      thisLevelColor += "§l";
     }
 
-    if (x_prestige === 0) {
-      x_prestigecolor = pitPrestigeColors[0];
-    } else if (x_prestige === 48 || x_prestige === 49) {
-      x_prestigecolor = pitPrestigeColors[11];
-    } else if (x_prestige === 50) {
-      x_prestigecolor = pitPrestigeColors[12];
+    if (thisPrestige === 0) {
+      thisPrestigeColor = pitPrestigeColors[0];
+    } else if (thisPrestige === 48 || thisPrestige === 49) {
+      thisPrestigeColor = pitPrestigeColors[11];
+    } else if (thisPrestige === 50) {
+      thisPrestigeColor = pitPrestigeColors[12];
     } else {
-      x_prestigecolor = pitPrestigeColors[Math.floor(x_prestige / 5) + 1];
+      thisPrestigeColor = pitPrestigeColors[Math.floor(thisPrestige / 5) + 1];
     }
 
-    if (level == 0) {
-      level = 1;
+    if (thisLevel == 0) {
+      thisLevel = 1;
     }
 
-    if (data_type == 2) {
-      return x_prestige;
-    } else if (data_type == 3) {
-      return x_level;
-    } else if (x_prestige == 0) {
-      if (data_type == 0) {
-        return "[" + x_level + "]";
-      } else if (data_type == 1) {
-        return `§7[${x_levelcolor}${x_level}§7]`;
+    if (dataType == 2) {
+      return thisPrestige;
+    } else if (dataType == 3) {
+      return thisLevel;
+    } else if (thisPrestige == 0) {
+      if (dataType == 0) {
+        return "[" + thisLevel + "]";
+      } else if (dataType == 1) {
+        return `§7[${thisLevelColor}${thisLevel}§7]`;
       }
     } else {
-      if (data_type == 0) {
-        return "[" + convertToRoman(x_prestige) + "-" + x_level + "]";
+      if (dataType == 0) {
+        return "[" + convertToRoman(thisPrestige) + "-" + thisLevel + "]";
       } else {
-        return `${x_prestigecolor}[§e${convertToRoman(x_prestige)}-${x_levelcolor}${x_level}${x_prestigecolor}]`;
+        return `${thisPrestigeColor}[§e${convertToRoman(thisPrestige)}-${thisLevelColor}${thisLevel}${thisPrestigeColor}]`;
       }
     }
   }

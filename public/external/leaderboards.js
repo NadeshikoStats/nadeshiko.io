@@ -17,26 +17,32 @@ let leaderboards = {
       "BEDWARS_KDR",
       "BEDWARS_BEDS",
       "BEDWARS_BBLR",
+      "BEDWARS_WINSTREAK",
       "BEDWARS_SOLO_WINS",
       "BEDWARS_SOLO_WLR",
       "BEDWARS_SOLO_FINALS",
       "BEDWARS_SOLO_FKDR",
+      "BEDWARS_SOLO_WINSTREAK",
       "BEDWARS_DOUBLES_WINS",
       "BEDWARS_DOUBLES_WLR",
       "BEDWARS_DOUBLES_FINALS",
       "BEDWARS_DOUBLES_FKDR",
+      "BEDWARS_DOUBLES_WINSTREAK",
       "BEDWARS_THREES_WINS",
       "BEDWARS_THREES_WLR",
       "BEDWARS_THREES_FINALS",
       "BEDWARS_THREES_FKDR",
+      "BEDWARS_THREES_WINSTREAK",
       "BEDWARS_FOURS_WINS",
       "BEDWARS_FOURS_WLR",
       "BEDWARS_FOURS_FINALS",
       "BEDWARS_FOURS_FKDR",
+      "BEDWARS_FOURS_WINSTREAK",
       "BEDWARS_FOURVFOUR_WINS",
       "BEDWARS_FOURVFOUR_WLR",
       "BEDWARS_FOURVFOUR_FINALS",
       "BEDWARS_FOURVFOUR_FKDR",
+      "BEDWARS_FOURVFOUR_WINSTREAK",
       "BEDWARS_TICKETS_EARNED",
       "BEDWARS_COMPLETED_CHALLENGES",
       "BEDWARS_COLLECTED_EMERALDS",
@@ -92,8 +98,11 @@ let leaderboards = {
       "SKYWARS_TEAM_INSANE_KDR"
   ],
   "PIT": [
+      "PIT_EXP",
       "PIT_KILLS",
+      "PIT_GOLD",
       "PIT_KDR",
+      "PIT_DAMAGE_DEALT",
       "PIT_JOINS",
       "PIT_PLAYTIME",
       "PIT_CHAT_MESSAGES",
@@ -162,7 +171,6 @@ function getGameId(game) {
 /* <span class="maxed-game leaderboard-selector-button"><img>Housing</span>*/
 function getLeaderboardGames() {
   for (let a in leaderboards) {
-    console.log(a);
     let game = a;
     let gameId = getGameId(game);
 
@@ -250,10 +258,8 @@ async function getLeaderboardData(leaderboard, page = 1) {
   currentLeaderboardInformation["page"] = page;
 
   for (let a of leaderboardData["data"]) {
-    console.log(a);
     let row = document.createElement("div");
     row.innerHTML = leaderboardRowTemplate;
-    console.log(row.innerHTML);
     row.classList.add("flex-two-item");
     row.classList.add("row-header");
     row.classList.add("leaderboard-row");
@@ -303,6 +309,10 @@ function formatLeaderboardStatistic(leaderboard, value) {
       return checkAndFormat(Number(value), 2);
     case "bedwars_experience":
       return generateMinecraftText(formatBedWarsLevel(getBedWarsLevel(value)));
+    case "pit_experience":
+      return generateMinecraftText(pitXpToLevel(value));
+    case "buildbattle_experience":
+      return generateMinecraftText(getBuildBattleTitle(value)[0]) + " / " + checkAndFormat(Number(value));
     case "large_number":
       return veryLargeNumber(Number(value));
     case "duration_minutes":
@@ -362,7 +372,10 @@ function getLeaderboardType(leaderboardName) {
     DUELS_HEALTH_REGENERATED: "large_number",
     DUELS_CLICKS: "large_number",
     SKYWARS_EXP: "skywars_experience",
+    BUILD_BATTLE_SCORE: "buildbattle_experience",
+    PIT_EXP: "pit_experience",
     PIT_PLAYTIME: "duration_minutes",
+    PIT_DAMAGE_DEALT: "large_number",
     PIT_CLICKS: "large_number",
     DROPPER_BEST_TIME: "duration_seconds_ms",
     ARCADE_DROPPER_BEST_TIME: "duration_milliseconds",
@@ -377,6 +390,7 @@ function getLeaderboardType(leaderboardName) {
   return "number";
 }
 
+// This is temporary until the backend starts returning translation data
 let englishTranslations = {  
   "NETWORK_FIRST_LOGIN": "First Login",
   "NETWORK_NETWORK_LEVEL": "Network Level",
@@ -506,5 +520,14 @@ let englishTranslations = {
   "ARCADE_ZOMBIES_KILLS": "Zombies: Kills",
   "ARCADE_ZOMBIES_WINDOWS_REPAIRED": "Zombies: Windows Repaired",
   "ARCADE_ZOMBIES_PLAYERS_REVIVED": "Zombies: Players Revived",
-  "ARCADE_ZOMBIES_DOORS_OPENED": "Zombies: Doors Opened"
+  "ARCADE_ZOMBIES_DOORS_OPENED": "Zombies: Doors Opened",
+  "BEDWARS_WINSTREAK": "Overall: Winstreak",
+  "BEDWARS_SOLO_WINSTREAK": "Solo: Winstreak",
+  "BEDWARS_DOUBLES_WINSTREAK": "Doubles: Winstreak",
+  "BEDWARS_THREES_WINSTREAK": "3v3v3v3: Winstreak",
+  "BEDWARS_FOURS_WINSTREAK": "4v4v4v4: Winstreak",
+  "BEDWARS_FOURVFOUR_WINSTREAK": "4v4: Winstreak",
+  "PIT_EXP": "Level",
+  "PIT_GOLD": "Gold",
+  "PIT_DAMAGE_DEALT": "Damage Dealt",
 };

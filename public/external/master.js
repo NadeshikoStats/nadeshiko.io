@@ -114,7 +114,7 @@ function getValue(object, valueArray) {
 function smallDuration(seconds, ms = false) {
   // Converts a number of seconds into a human-readable duration of time
   if (seconds == -1 || seconds == undefined || isNaN(seconds)) {
-    return getTranslation("player.not_applicable");
+    return getTranslation(["player", "errors", "not_applicable"]);
   }
 
   let dateNames = {

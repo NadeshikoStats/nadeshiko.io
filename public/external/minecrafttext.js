@@ -71,5 +71,5 @@ function generateMinecraftText(minecraftText, blackShadow = false) { // Generate
       }
     });
   
-    return returnString;
+    return DOMPurify.sanitize(returnString);
   }

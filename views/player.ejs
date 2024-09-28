@@ -18,7 +18,7 @@
     function beginGeneration(task) {
       if(tasksBeforeLoading.includes(task)) {
         tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
-        console.log(`Task ${task} completed (${performance.now()}); remaining tasks: ${tasksBeforeLoading}`);
+        console.log(`Task ${task} completed (${performance.now()}ms); remaining tasks: ${tasksBeforeLoading}`);
 
           if(tasksBeforeLoading.length == 0) {
           switchStats(currentGamemode);
@@ -39,11 +39,11 @@
 
   <script src="/external/webptest.js" type="module"></script>
   <script src="/external/skinview3d.bundle.js" type="module"></script>
+  <script src="/external/purify.min.js"></script>
   <script src="/external/minecrafttext.js"></script>
   <script src="/external/calculations.js"></script>
   <script src="/external/games.js"></script>
   <script src="/external/gamenames.js"></script>
-  <script src="/external/purify.min.js"></script>
 
   <meta name="theme-color" content="#f6adc6">
   <meta property="og:site_name" content="nadeshiko.io">
@@ -1176,7 +1176,7 @@
       if (capeBase64 && capeBase64 != "") {
         capeBase64 = "data:image/png;base64," + playerData["cape"];
       } else {
-        capeBase64 = "";
+        capeBase64 = null;
       }
 
       skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
