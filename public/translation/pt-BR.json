@@ -164,6 +164,7 @@
   },
   "leaderboards": {
     "title": "Pódios",
+    "select_game": "Select a game:",
     "select": "Selecione um pódio.",
     "next_page": "Próximo ►",
     "previous_page": "◀ Anterior",

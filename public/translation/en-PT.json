@@ -164,6 +164,7 @@
   },
   "leaderboards": {
     "title": "Scallywag Rankin's",
+    "select_game": "T' set sail, ye need t' pick a game first:",
     "select": "Pick a rankin'.",
     "next_page": "Sail Ahead ►",
     "previous_page": "◀ Reverse Course",

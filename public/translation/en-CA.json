@@ -201,6 +201,7 @@
   },
   "leaderboards": {
     "title": "Leaderboards",
+    "select_game": "Select a game:",
     "select": "Select a leaderboard.",
     "next_page": "Next ►",
     "previous_page": "◀ Prev",

@@ -1208,9 +1208,6 @@ function generateBuildBattle() {
     buildBattleTitle = getBuildBattleTitle(und(buildBattleStats["score"]));
     updateElement("buildbattle-overall-title", generateMinecraftText(buildBattleTitle[0]), true);
 
-
-    //updateElement("buildbattle-overall-to-go", buildBattleTitle[1] == -1 ? `(Max title!)` : `(${checkAndFormat(buildBattleTitle[1])} to go)`);
-
     if (buildBattleTitle[1] == -1) {
       updateElement("buildbattle-overall-to-go", getTranslation("statistics.max_title"));
     } else {
@@ -3754,9 +3751,9 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
 
   if (useToGo) {
     if (wins >= winsObject[winsObject.length - 1]["req"]) {
-      nextTitleWins = " (Max title!)";
+      nextTitleWins = ` ` + getTranslation(["statistics", "max_title"]);
     } else {
-      nextTitleWins = ` (${checkAndFormat(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins)} to go)`;
+      nextTitleWins = ` ` + insertPlaceholders(getTranslation(["statistics", "wins_to_go"]), {num: checkAndFormat(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins)});
     }
   }
 
