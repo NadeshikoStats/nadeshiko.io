@@ -42,7 +42,7 @@
       <span data-t="header.cards.description_1">Cards update in real time as your stats change, so you never have to worry about them!</span>
       <br />
       <br />
-      <span data-t="header.cards.warning" style="color: #ff3333">Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will "come back to this issue in the near future". However, you can still paste a static version of the card and use that.</span>
+      <span style="color: #ff3333">UPDATE (2024-10-10): We believe that Hypixel has fixed images not loading in forum signatures. Please let us know if you experience any issues.</span>
     </p>
     <hr style="margin: 20px auto;" />
     <div class="flex-two-item-basic">
@@ -423,6 +423,8 @@
       document.getElementById("button-card-wizard").classList.remove("selected");
       cardWizardExpanded = false;
     }
+
+    generateCardLink();
   }
 
   function changeScope(scope, selectorLocation) {
@@ -495,7 +497,7 @@
     }
   }
 
-  document.getElementById("card-wizard-name").addEventListener("keypress", function (event) {
+  document.getElementById("card-wizard-name").addEventListener("keyup", function (event) {
     generateCardLink();
   });
 
@@ -504,6 +506,7 @@
     cardGame = cardWizardSettings["game"];
     cardSize = cardWizardSettings["size"];
     cardFormat = cardWizardSettings["format"];
+    let currentDate = Math.floor(Date.now() / 1000); // Adding a random number to the end of the URL prevents Hypixel's cache from erroring out on old cards. It's weird.
 
     base64Card = btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
 
@@ -512,7 +515,7 @@
     }
 
     if (cardFormat == "bbcode") {
-      document.getElementById("card-wizard-output").value = `[URL='https://nadeshiko.io/player/${cardName}/${cardGame}'][IMG]https://nadeshiko.io/card/${base64Card}[/IMG][/URL]`;
+      document.getElementById("card-wizard-output").value = `[URL='https://nadeshiko.io/player/${cardName}/${cardGame}'][IMG]https://nadeshiko.io/card/${base64Card}?i=${currentDate}[/IMG][/URL]`;
     } else {
       document.getElementById("card-wizard-output").value = `https://nadeshiko.io/card/${base64Card}`;
     }
