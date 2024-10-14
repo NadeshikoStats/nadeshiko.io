@@ -33,7 +33,7 @@ let gameAliases = {
   arcade: ["a"],
   bedwars: ["b", "bw", "bed"],
   blitz: ["bsg", "sg", "hungergames"],
-  buildbattle: ["bb", "build"],
+  buildbattle: ["bb", "build", "build_battle"],
   classic: ["legacy", "ab", "arena", "arenabrawl", "pb", "paint", "paintball", "q", "qc", "quake", "quakecraft", "tkr", "turbo", "gingerbread", "turbokartracers", "vz", "vampire", "vampirez", "vampz", "walls"],
   copsandcrims: ["cac", "cvc", "cops", "mcgo"],
   duels: ["d", "duel", "bridge"],
