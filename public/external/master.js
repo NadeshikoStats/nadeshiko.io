@@ -296,7 +296,13 @@ function countSignificantDigits(number) {
   * simplifyNumber(1234567) // returns "1,234,567" in en-CA
   */
 function simplifyNumber(number) {
-  const numberFormatter = new Intl.NumberFormat(userLanguage, {
+  let languageToUse;
+  if (userLanguage.startsWith("zh")) { // Apparently 万 is falling out of favour
+    languageToUse = "en-CA";
+  } else {
+    languageToUse = userLanguage;
+  }
+  const numberFormatter = new Intl.NumberFormat(languageToUse, {
     notation: 'compact',
     compactDisplay: 'short'
   });
