@@ -2,16 +2,16 @@
   "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "Search for a player...",
-      "placeholder_guild": "Search for a guild name or player..."
+      "placeholder": "Cerca un giocatore...",
+      "placeholder_guild": "Cerca un nome di una gilda o un giocatore..."
     },
     "home": {
       "title": "Home"
     },
     "about": {
       "title": "About",
-      "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.",
-      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord server</a>!",
+      "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> è un visualizzatore di statistiche di giocatori di Hypixel bellissimo, open-source e semplice da usare.",
+      "assistance": "Hai trovato un bug o ti serve assistenza? Fallo sapere nel progetto <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">pagina di GitHub </a> o <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\"></a> server Discord!",
       "disclaimer": "nadeshiko.io is not affiliated with Hypixel Inc., Mojang AB, or Microsoft.",
       "credits": {
         "title": "Credits",
@@ -45,7 +45,7 @@
       "title": "Cards",
       "description_0": "Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!",
       "description_1": "Cards update in real time as your stats change, so you never have to worry about them!",
-      "warning": "Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will \"come back to this issue in the near future\". However, you can still paste a static version of the card and use that.",
+      "warning": "UPDATE (2024-10-10): We believe that Hypixel has fixed images not loading in forum signatures. Please let us know if you experience any issues.",
       "username": "Username",
       "username_placeholder": "Player",
       "game": "Game",
@@ -58,7 +58,19 @@
       "copy": "Fill out the items above and a link will appear here.",
       "preview_showcase": "Click \"Generate Preview\" and a preview of the card will appear here.",
       "loading_preview": "Loading preview...",
-      "preview": "Preview"
+      "preview": "Preview",
+      "settings": {
+        "size": {
+          "full": "Full"
+        },
+        "format": {
+          "hypixel_forums": "Hypixel Forums",
+          "raw_link": "Raw Link"
+        },
+        "cards": {
+          "skyblock_general": "SkyBlock – General"
+        }
+      }
     },
     "settings": {
       "title": "Settings",

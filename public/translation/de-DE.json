@@ -45,111 +45,123 @@
       "title": "Cards",
       "description_0": "Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!",
       "description_1": "Cards update in real time as your stats change, so you never have to worry about them!",
-      "warning": "Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will \"come back to this issue in the near future\". However, you can still paste a static version of the card and use that.",
-      "username": "Username",
-      "username_placeholder": "Player",
-      "game": "Game",
+      "warning": "UPDATE (2024-10-10): We believe that Hypixel has fixed images not loading in forum signatures. Please let us know if you experience any issues.",
+      "username": "Benutzername",
+      "username_placeholder": "Spieler",
+      "game": "Spiel",
       "game_tooltip": "The game to be used in the card.",
-      "size": "Size",
-      "size_tooltip": "The height of the card.",
+      "size": "Größe",
+      "size_tooltip": "Die Höhe der Karte.",
       "format": "Format",
-      "format_tooltip": "Where the card will be displayed.",
-      "button_generate": "Generate Preview",
+      "format_tooltip": "Wo die Karte angezeigt wird.",
+      "button_generate": "Vorschau generieren",
       "copy": "Fill out the items above and a link will appear here.",
       "preview_showcase": "Click \"Generate Preview\" and a preview of the card will appear here.",
-      "loading_preview": "Loading preview...",
-      "preview": "Preview"
+      "loading_preview": "Lade Vorschau...",
+      "preview": "Vorschau",
+      "settings": {
+        "size": {
+          "full": "Full"
+        },
+        "format": {
+          "hypixel_forums": "Hypixel Forums",
+          "raw_link": "Raw Link"
+        },
+        "cards": {
+          "skyblock_general": "SkyBlock – General"
+        }
+      }
     },
     "settings": {
-      "title": "Settings",
-      "language": "Language",
-      "language_description": "Help us translate nadeshiko on <a href=\"https://crowdin.com/project/nadeshiko\" target=\"_blank\">Crowdin</a>!",
+      "title": "Einstellungen",
+      "language": "Sprache",
+      "language_description": "Hilf uns, nadeshiko auf <a href=\"https://crowdin.com/project/nadeshiko\" target=\"_blank\">Crowdin</a> zu übersetzen!",
       "language_reload": "Please reload the page to change the language.",
       "language_reload_button": "Reload",
-      "quick_mode": "Quick Mode",
-      "quick_mode_description": "Enables the ability to quickly access a gamemode selector by holding <kbd>Shift</kbd>.",
-      "default_game": "Default Game",
-      "default_game_description": "Changes the first page that's shown when searching a player.",
-      "developer_mode": "Developer Mode",
-      "developer_mode_description": "Shows UUIDs and version information."
+      "quick_mode": "Schnell-Modus",
+      "quick_mode_description": "Aktiviert die Möglichkeit, schnell auf einen Gamemode-Selektor zuzugreifen, indem Sie <kbd>Shift</kbd> gedrückt halten.",
+      "default_game": "Standard Spiel",
+      "default_game_description": "Ändert die erste Seite, die bei der Suche nach einem Spieler angezeigt wird.",
+      "developer_mode": "Entwicklermodus",
+      "developer_mode_description": "Zeigt UUIDs und Versionsinformationen an."
     }
   },
   "home": {
-    "pre_title": "Check out stats for",
+    "pre_title": "Statistiken ansehen für",
     "post_title": "",
-    "recent_searches": "Recent Searches",
-    "favorites": "Favourites",
-    "search": "Enter a Minecraft username or UUID...",
-    "search_guild": "Enter a guild name, Minecraft username, or UUID...",
-    "show_me": "Show me!",
+    "recent_searches": "Zuletzt gesucht",
+    "favorites": "Favoriten",
+    "search": "Gib einen Minecraft-Benutzernamen oder eine UUID ein...",
+    "search_guild": "Gib einen Gildennamen, Minecraft-Benutzernamen oder eine UUID ein...",
+    "show_me": "Zeig's mir!",
     "errors": {
-      "error": "ERROR",
-      "404": "No player by the name of %%player%% was found :(",
-      "computation": "Could not find stats of player %%player%% (%%error%%)",
+      "error": "FEHLER",
+      "404": "Kein Spieler mit dem Namen %%player%% wurde gefunden :(",
+      "computation": "Konnte Statistiken des Spielers %%player%% nicht finden (%%error%%)",
       "guild": {
-        "computation": "Could not find guild with name %%guild%% (%%error%%)"
+        "computation": "Konnte Gilde mit dem Namen %%guild%% nicht finden (%%error%%)"
       },
       "achievements": {
-        "computation": "Could not find achievements of player %%player%% (%%error%%)"
+        "computation": "Konnte keine Erfolge von Spieler %%player%% finden (%%error%%)"
       },
       "quests": {
-        "computation": "Could not find quests of player %%player%% (%%error%%)"
+        "computation": "Quests des Spielers %%player%% konnten nicht gefunden werden (%%error%%)"
       }
     }
   },
   "player": {
     "quick_mode": {
-      "title": "Quick Mode",
-      "key": "Shift",
-      "description": "Click an icon to instantly go to that game's page for <span id=\"quick-mode-username\">%%player%%</span>."
+      "title": "Schnell-Modus",
+      "key": "Umschalttaste",
+      "description": "Klicke auf ein Symbol, um sofort auf die Seite des Spiels für <span id=\"quick-mode-username\">%%player%%</span> zu gelangen."
     },
     "badges": {
-      "developer": "Developer",
-      "patreon": "Patreon Supporter"
+      "developer": "Entwicklerin",
+      "patreon": "Patreon Unterstützer"
     },
-    "generate_card": "Generate Card",
-    "external_websites": "External Websites",
-    "socials": "Socials",
-    "currently_offline": "Currently Offline",
-    "currently_online": "Currently Online!",
-    "birthday": "Happy %%num%% years of Hypixel!",
+    "generate_card": "Karte generieren",
+    "external_websites": "Externe Webseiten",
+    "socials": "Soziale Netzwerke",
+    "currently_offline": "Derzeit Offline",
+    "currently_online": "Derzeit Online!",
+    "birthday": "Fröhliche %%num%% Jahre auf Hypixel!",
     "coin_multiplier": "Münz-Multiplikator",
     "errors": {
-      "no_stats": "No Hypixel Stats",
-      "no_stats_desc": "This player has no Hypixel stats.",
-      "api_disabled": "This player has their stats API disabled! Stats may be inaccurate or missing.",
-      "not_applicable": "N/A"
+      "no_stats": "Keine Hypixel Statistiken",
+      "no_stats_desc": "Dieser Spieler hat keine Hypixel Statistiken.",
+      "api_disabled": "Dieser Spieler hat seine Statistik-API deaktiviert! Statistiken können ungenau sein oder fehlen.",
+      "not_applicable": "N/V"
     }
   },
   "achievements": {
-    "achievements": "Achievements",
-    "maxed_game": "Max %%game%%",
+    "achievements": "Errungenschaften",
+    "maxed_game": "Max. %%game%%",
     "easiest_uncompleted": "Easiest Uncompleted",
     "closest_tiers": "Closest Tiers",
-    "recently_completed": "Recently Completed",
+    "recently_completed": "Kürzlich abgeschlossen",
     "tiered": "Tiered",
-    "one_time": "Challenge",
+    "one_time": "Herausforderung",
     "check": "✓",
     "tiers": "Tiers",
     "game": "% of %%game%% players with this achievement",
-    "global": "% of all players with this achievement",
-    "all": "All",
-    "locked": "Locked",
-    "unlocked": "Unlocked",
+    "global": "% alle Spieler mit dieser Errungenschaft",
+    "all": "Alle",
+    "locked": "Gesperrt",
+    "unlocked": "Freigeschaltet",
     "secret_achievement": "Secret Achievement"
   },
   "quests": {
     "quests": "Quests",
     "types": {
-      "daily": "Daily",
-      "weekly": "Weekly",
-      "daily_literal": "Daily Quest: ",
-      "weekly_literal": "Weekly Quest: "
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "daily_literal": "Tägliche Quest: ",
+      "weekly_literal": "Wöchentliche Quest: "
     },
     "rewards": {
-      "hypixel_experience": "Hypixel Experience",
+      "hypixel_experience": "Hypixel Erfahrung",
       "pit_gold": "Pit Gold",
-      "souls": "Souls",
+      "souls": "Seelen",
       "game_coins": "%%game%% Coins",
       "game_tokens": "%%game%% Tokens",
       "game_experience": "%%game%% Experience",
@@ -208,7 +220,7 @@
     "general": "General",
     "crazywalls": "Crazy Walls",
     "skyclash": "SkyClash",
-    "network": "Network",
+    "network": "Netzwerk",
     "fishing": "Fischen",
     "modes": {
       "all": {
@@ -217,7 +229,7 @@
         "overall": "Insgesamt"
       },
       "network": {
-        "general": "General",
+        "general": "Allgemein",
         "guild": "Guild",
         "lobby": "Lobby"
       },
@@ -245,7 +257,7 @@
       },
       "duels": {
         "titles": {
-          "title_0": "No Title",
+          "title_0": "Kein Titel",
           "title_50": " Anfänger",
           "title_100": " Eisen",
           "title_250": " Gold",
@@ -454,7 +466,7 @@
           "retro": "Retro"
         },
         "vampirez": {
-          "human": "Human",
+          "human": "Mensch",
           "vampire": "Vampir"
         }
       },
@@ -521,7 +533,7 @@
         "performance": "Performance",
         "perks": "Vorteile",
         "mystics": "Mystics",
-        "farming": "Farming",
+        "farming": "Farmen",
         "misc": "Miscellaneous"
       },
       "smashheroes": {
@@ -535,7 +547,7 @@
           "GOKU": "Karakot",
           "GREEN_HOOD": "Green Hood",
           "MARAUDER": "Marauder",
-          "PUG": "Pug",
+          "PUG": "Mops",
           "SANIC": "Sanic",
           "SERGEANT_SHIELD": "Sgt. Shield",
           "SHOOP_DA_WHOOP": "Shoop",
@@ -631,11 +643,11 @@
       "woolgames": {
         "woolwars": {
           "category": "Wool Wars",
-          "archer": "Archer",
+          "archer": "Bogenschütze",
           "assault": "Assault",
-          "engineer": "Engineer",
+          "engineer": "Ingenieur",
           "golem": "Golem",
-          "swordsman": "Swordsman",
+          "swordsman": "Schwertkämpfer",
           "tank": "Tank"
         },
         "sheepwars": {
@@ -644,52 +656,52 @@
       },
       "fishing": {
         "zones": {
-          "category": "Zones",
+          "category": "Zonen",
           "water": "Wasser",
           "lava": "Lava",
           "ice": "Eis"
         },
         "catches": {
-          "category": "Catches",
+          "category": "Fänge",
           "fish": "Fisch",
           "junk": "Trödel",
           "treasure": "Schatz",
-          "leather": "Leather",
-          "leather_boots": "Leather Boots",
+          "leather": "Leder",
+          "leather_boots": "Lederstiefel",
           "soggy_paper": "Soggy Paper",
-          "water_bottle": "Water Bottle",
-          "lily_pad": "Lily Pad",
+          "water_bottle": "Wasserflasche",
+          "lily_pad": "Seerosenblatt",
           "tripwire_hook": "Tripwire Hook",
-          "ink_sac": "Ink Sac",
-          "rotten_flesh": "Rotten Flesh",
-          "bone": "Bone",
-          "bowl": "Bowl",
-          "broken_fishing_rod": "Broken Fishing Rod",
-          "stick": "Stick",
-          "rabbit_hide": "Rabbit Hide",
-          "string": "String",
-          "nether_brick": "Nether Brick",
+          "ink_sac": "Tintenbeutel",
+          "rotten_flesh": "Verrottetes Fleisch",
+          "bone": "Knochen",
+          "bowl": "Schüssel",
+          "broken_fishing_rod": "Zerbrochene Angelrute",
+          "stick": "Stock",
+          "rabbit_hide": "Kaninchenversteck",
+          "string": "Schnur",
+          "nether_brick": "Netherziegel",
           "steak": "Steak",
-          "lava_bucket": "Lava Bucket",
-          "coal": "Coal",
-          "charcoal": "Charcoal",
-          "fermented_spider_eye": "Fermented Spider Eye",
-          "burned_flesh": "Burned Flesh",
+          "lava_bucket": "Lavaeimer",
+          "coal": "Kohle",
+          "charcoal": "Holzkohle",
+          "fermented_spider_eye": "Fermentiertes Spinnenauge",
+          "burned_flesh": "Verbranntes Fleisch",
           "clump_of_leaves": "Clump of Leaves",
           "ice_shard": "Ice Shard",
-          "snowball": "Snowball",
-          "frozen_flesh": "Frozen Flesh",
+          "snowball": "Schneeball",
+          "frozen_flesh": "Gefrorenes Fleisch",
           "clownfish": "Clownfish",
-          "salmon": "Salmon",
-          "cod": "Cod",
-          "pufferfish": "Pufferfish",
-          "cooked_cod": "Cooked Cod",
+          "salmon": "Lachs",
+          "cod": "Kabeljau",
+          "pufferfish": "Kugelfisch",
+          "cooked_cod": "Gekochter Kabeljau",
           "charred_pufferfish": "Charred Pufferfish",
-          "cooked_salmon": "Cooked Salmon",
+          "cooked_salmon": "Gebratener Lachs",
           "perch": "Perch",
           "pike": "Pike",
           "trout": "Trout",
-          "kelp": "Kelp",
+          "kelp": "Seetang",
           "dried_kelp": "Dried Kelp",
           "enchanted_fishing_rod": "Enchanted Fishing Rod",
           "diamond_sword": "Diamond Sword",
@@ -697,7 +709,7 @@
           "emerald": "Emerald",
           "gold_pickaxe": "Gold Pickaxe",
           "saddle": "Saddle",
-          "enchanted_bow": "Enchanted Bow",
+          "enchanted_bow": "Verzauberter Bogen",
           "diamond": "Diamond",
           "enchanted_book": "Enchanted Book",
           "name_tag": "Name Tag",
@@ -707,8 +719,8 @@
           "magma_cream": "Magma Cream",
           "blaze_powder": "Blaze Powder",
           "molten_gold": "Molten Gold",
-          "gold_sword": "Gold Sword",
-          "iron_sword": "Iron Sword"
+          "gold_sword": "Goldschwert",
+          "iron_sword": "Eisenschwert"
         },
         "mythicalfish": {
           "category": "Mythical Fish",
@@ -794,9 +806,9 @@
     "winstreak": "Siegesserie",
     "best_winstreak": "Beste Siegesserie",
     "wins": "Siege",
-    "wins_to_go": "(%%num%% to go)",
-    "wins_to_go_emphasis": "(%%num%% to go!)",
-    "max_title": "(Max title!)",
+    "wins_to_go": "(%%num%% zu gehen)",
+    "wins_to_go_emphasis": "(%%num%% zu gehen!)",
+    "max_title": "(Maximaler Titel!)",
     "losses": "Niederlagen",
     "wlr": "W/L R",
     "kills": "Kills",
@@ -819,7 +831,7 @@
     "slumber_tickets": "Schlummertickets",
     "challenges_completed": "Challenges Completed",
     "unique_challenges_completed": "(%%num%%/%%total%% unique)",
-    "clicks": "Clicks",
+    "clicks": "Klicks",
     "heads": "Köpfe",
     "chests_opened": "Geöffnete Truhen",
     "corruption": "Verderben",
@@ -903,13 +915,13 @@
     "coin_pickups": "Coin Pickups",
     "vampire_kills": "Vampirkills",
     "zombie_kills": "Zombies getötet",
-    "most_vampire_kills": "Most Vampire Kills",
+    "most_vampire_kills": "Meisten Vampir Kills",
     "human_kills": "Menschenkills",
-    "headshot_kills": "Headshot Kills",
+    "headshot_kills": "Kopfschuss-Kills",
     "bombs_defused": "Bomben entschärft",
     "bombs_planted": "Bomben platziert",
     "final_assists": "Finale Vorlagen",
-    "selected_class": "Selected Class",
+    "selected_class": "Ausgewählte Klasse",
     "mythic_favor": "Mythic Favor",
     "upgrades": "Upgrades",
     "prestige": "Prestige",
@@ -933,7 +945,7 @@
     "sword_hits": "Schwerttreffer",
     "damage_taken": "Schaden erlitten",
     "highest_killstreak": "Highest Killstreak",
-    "bounty": "Bounty",
+    "bounty": "Kopfgeld",
     "arrows_shot": "Pfeile verschossen",
     "night_quests": "Night Quests",
     "xp": "XP",
@@ -989,12 +1001,12 @@
     "treasure_caught": "Treasure Caught",
     "mythical_fish_caught": "Mythical Fish Caught",
     "special_fish_caught": "Special Fish Caught",
-    "created": "Created",
-    "player": "Player",
-    "rank": "Rank",
-    "guild_experience": "Guild Experience",
+    "created": "Erstellt",
+    "player": "Spieler",
+    "rank": "Rang",
+    "guild_experience": "Guild-Erfahrung",
     "game": "Game",
-    "weekly_gexp": "Weekly GEXP"
+    "weekly_gexp": "Wöchentliche GEXP"
   },
   "times": {
     "time_ago": "(%%time%% ago)",
@@ -1004,6 +1016,6 @@
     "day_short": "d",
     "month_short": "mo",
     "year_short": "y",
-    "now": "now!"
+    "now": "jetzt!"
   }
 }

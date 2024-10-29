@@ -45,7 +45,7 @@
       "title": "Cards",
       "description_0": "Use 'tis fine tool t' craft beautiful cards ye can show off anywhere ye like – even in yer Hypixel Forums signature!",
       "description_1": "Yer cards keep up wit' yer exploits in real time, so ye can swashbuckle in peace!",
-      "warning": "If ye want t' use yer magical real-time card on th' forums, ye be out o' luck: Hypixel's ship carryin' th' external images t' th' Hypixel Forums sunk an' we can nah do a thing about it. However, there still be hope: Hypixel said that they be dealin' wit' th' issue \"in th' near future\". If ye still really want t' show off yer stats, ye can paste a static version o' th' card int' yer signature.",
+      "warning": "UPDATE (2024-10-10): 'Tis be a great day fer all scallywags: Hypixel has finally fixed up th' ship that be fetchin' an' loadin' th' images on their end, so cards on nadeshiko be workin' on th' Hypixel Forums! Let yer captains on nadeshiko know if ye be findin' errors.",
       "username": "Username",
       "username_placeholder": "Pirate",
       "game": "Game",
@@ -58,7 +58,19 @@
       "copy": "Fill out what ye want above an' ye be gettin' a link 'ere.",
       "preview_showcase": "Jab at \"Craft Preview\" an' ye will be seein' a preview of yer card in no time!",
       "loading_preview": "Loadin' preview...",
-      "preview": "Preview"
+      "preview": "Preview",
+      "settings": {
+        "size": {
+          "full": "Vast"
+        },
+        "format": {
+          "hypixel_forums": "Hypixel Forums",
+          "raw_link": "Jus' th' Link"
+        },
+        "cards": {
+          "skyblock_general": "SkyBlock – General"
+        }
+      }
     },
     "settings": {
       "title": "Settin's",

@@ -599,6 +599,14 @@
   .faded {
     opacity: 0.5;
   }
+
+  .faded:has(.smallicon) { /* This is to prevent the tooltip text from being faded, making it unreadable */
+    opacity: 1;
+  }
+
+  .faded:has(.smallicon) .smallicon {
+    opacity: 0.5;
+  }
   
   .search-icon {
     height: 15px;
@@ -2528,6 +2536,14 @@
   
   .dashed-underline {
     border-bottom: 1px dotted #fff8;
+  }
+
+  .gilded span {
+    color: var(--gold-transparent);
+  }
+
+  .gilded .statistic {
+    color: var(--gold);
   }
   
   .tooltip .tooltiptext::after {

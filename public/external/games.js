@@ -73,7 +73,7 @@ function generateNetwork() {
 
       // If the player is online, show the game and mode
 
-      let gameType = gameNames[playerData["status"]["game"]];
+      let gameType = gameNames[getValue(playerData, ["status", "game"])] || {};
       let gameModes = gameType["modeNames"] || {};
       let playerGameMode = playerData["status"]["mode"] || "";
 
@@ -2298,8 +2298,22 @@ function generateCopsAndCrims() {
     updateElement(`copsandcrims-overall-${easyStats[e]}`, checkAndFormat(copsAndCrimsBasicStats[e]));
   }
 
+  let copsAndCrimsScore = und(copsAndCrimsStats["score"] || (copsAndCrimsBasicStats[1] / 2 + (und(copsAndCrimsStats["bombs_defused"]) + und(copsAndCrimsStats["bombs_planted"])) / 3 + copsAndCrimsBasicStats[0])); // Calculating the score based on the formula in-game. It's off by like 1%
+  let copsAndCrimsLevel = getCopsAndCrimsLevel(copsAndCrimsScore);
+  let copsAndCrimsLevelProgress = copsAndCrimsLevel % 1;
+
+  updateElement("copsandcrims-level", Math.floor(copsAndCrimsLevel));
+
+  if (copsAndCrimsLevel >= 50) {
+    document.getElementById("copsandcrims-level-container").classList.add("gilded");
+    document.getElementById("copsandcrims-progress-bar-container").style.display = "none";
+  }
+  updateElement("copsandcrims-progress-number", `${Math.floor(copsAndCrimsLevelProgress * 100)}%`, true);
+  document.getElementById("copsandcrims-progress-bar").style.width = `${copsAndCrimsLevelProgress * 100}%`;
+
   updateElement("copsandcrims-overall-kdr", calculateRatio(copsAndCrimsBasicStats[1], copsAndCrimsBasicStats[2]));
   updateElement("copsandcrims-overall-coins", checkAndFormat(copsAndCrimsStats["coins"]));
+
 
   let defusalChip = [
     "copsandcrims-defusal",

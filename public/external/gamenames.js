@@ -327,5 +327,8 @@ let gameNames = {
       "databaseName": "GingerBread",
       "name": "Turbo Kart Racers",
       "id": 25
-  }
+  },
+  "TOURNAMENT": {
+    "name": "Tournament Hall",
+  },
 };

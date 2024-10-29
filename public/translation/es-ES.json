@@ -45,7 +45,7 @@
       "title": "Tarjetas",
       "description_0": "Utiliza esta herramienta para generar lindas tarjetas que puedes poner en cualquier lugar – ¡incluso en tu firma de los foros de Hypixel!",
       "description_1": "¡Las tarjetas se actualizan en tiempo real a medida que cambian tus estadísticas, así que nunca tienes que preocuparte por ellas!",
-      "warning": "Las tarjetas de actualización en tiempo real no funcionan actualmente en los foros de Hypixel, ya que Hypixel ha roto accidentalmente todas las imágenes externas. Lamentablemente, no podemos resolver este problema. Hypixel ha declarado que \"intentaremos solucionarlo en breve\". Sin embargo, aún puedes pegar una versión estática de la tarjeta y usarla.",
+      "warning": "ACTUALIZACIÓN (2024-10-10): Creemos que Hypixel ha solucionado el problema con las imágenes que no se cargan en las firmas de los Foros de Hypixel. Por favor, avísanos si tienes algún problema.",
       "username": "Nombre de usuario",
       "username_placeholder": "Jugador",
       "game": "Juego",
@@ -58,7 +58,19 @@
       "copy": "Rellena los campos de arriba y aparecerá un enlace aquí.",
       "preview_showcase": "Haz clic en \"Generar vista previa\" y aparecerá una vista previa de la tarjeta.",
       "loading_preview": "Cargando vista previa...",
-      "preview": "Vista previa"
+      "preview": "Vista previa",
+      "settings": {
+        "size": {
+          "full": "Completo"
+        },
+        "format": {
+          "hypixel_forums": "Foros de Hypixel",
+          "raw_link": "Enlace sin formato"
+        },
+        "cards": {
+          "skyblock_general": "SkyBlock – General"
+        }
+      }
     },
     "settings": {
       "title": "Configuración",
@@ -936,7 +948,7 @@
     "bounty": "Recompensa",
     "arrows_shot": "Flechas disparadas",
     "night_quests": "Misiones nocturnas",
-    "xp": "XP",
+    "xp": "EXP",
     "lifetime_gold": "Total de oro obtenido",
     "contracts_started": "Contratos iniciados",
     "contracts_completed": "Contratos completados",

@@ -14,6 +14,30 @@ function getBedWarsLevel(exp) {
   return level + exp / 5000;
 }
 
+
+/* Determines the Cops and Crims level based on the amount of score. This doesn't use the "level" key because we need to determine the fractional amount of the level.
+ * @param {number} score - The amount of score to determine the level from
+ * @returns {number} The Cops and Crims level, including the fractional amount
+ */
+function getCopsAndCrimsLevel(score) {
+  let copsAndCrimsLevels = [0, 0, 25, 75, 175, 325, 525, 775, 1075, 1425, 1825, 2325, 2925, 3625, 4425, 5325, 6325, 7575, 9075, 10825, 12825, 15025, 17425, 20025, 22825, 25825, 28825, 31825, 34825, 37825, 40825, 43825, 46825, 49825, 52825, 55825, 58825, 61825, 64825, 67825, 70825, 73825, 76825, 79825, 82825, 85825, 88825, 91825, 94825, 97825, 100825];
+  let level = 0;
+  for (let a = 0; a < copsAndCrimsLevels.length; a++) {
+    if (score < copsAndCrimsLevels[a]) {
+      break;
+    }
+    level = a;
+  }
+
+  // determine fractional amount of level
+  let levelFraction = 0;
+  if (level < copsAndCrimsLevels.length - 1) {
+    levelFraction = (score - copsAndCrimsLevels[level]) / (copsAndCrimsLevels[level + 1] - copsAndCrimsLevels[level]);
+  }
+
+  return level + levelFraction;
+}
+
 function formatBedWarsLevel(level) {
   let bedWarsPrestigeColors = [
     ["7"],

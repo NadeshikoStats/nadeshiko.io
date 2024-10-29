@@ -2,176 +2,188 @@
   "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "Search for a player...",
-      "placeholder_guild": "Search for a guild name or player..."
+      "placeholder": "搜尋玩家……",
+      "placeholder_guild": "搜尋公會或玩家……"
     },
     "home": {
-      "title": "Home"
+      "title": "首頁"
     },
     "about": {
-      "title": "About",
-      "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.",
-      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord server</a>!",
-      "disclaimer": "nadeshiko.io is not affiliated with Hypixel Inc., Mojang AB, or Microsoft.",
+      "title": "關於",
+      "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> 是以美感設計、開放原始碼、容易上手為特色，專為 Hypixel 玩家打造的戰績查詢平臺。",
+      "assistance": "需要回報錯誤或是取得協助？請在本平臺的 <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub 頁面</a>或 <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord 伺服器</a>與我們聯絡！",
+      "disclaimer": "nadeshiko.io 不與 Hypixel Inc.、Mojang AB 以及 Microsoft 有附屬關係。",
       "credits": {
-        "title": "Credits",
+        "title": "製作名單",
         "0_name": "niqumu",
-        "0_desc": "– Backend Developer",
+        "0_desc": "– 後端開發者",
         "1_name": "BrookeAFK",
-        "1_desc": "– Frontend Developer",
+        "1_desc": "– 前端開發者",
         "2_name": "Skinview3D",
-        "2_desc": "by Blessing Skin",
+        "2_desc": "（Blessing Skin 製作）",
         "3_name": "GSAP",
-        "3_desc": "by GreenSock",
+        "3_desc": "（GreenSock 製作）",
         "4_name": "Visage",
-        "4_desc": "by Una",
+        "4_desc": "（Una 製作）",
         "5_name": "Minotar",
-        "5_desc": "by The Minotar Team",
+        "5_desc": "（The Minotar Team 製作）",
         "6_name": "SkyCrypt",
-        "6_desc": "by Shiiyu and friends",
+        "6_desc": "（Shiiyu 與其友人共同製作）",
         "7_name": "Isometric Renders",
-        "7_desc": "by gliscowo",
+        "7_desc": "（gliscowo 製作）",
         "8_name": "Complementary Shaders",
-        "8_desc": "by EminGT",
-        "9_name": "GSAP Tutorials",
-        "9_desc": "by Diaco M Lotfolahi on CodePen",
-        "10_name": "Hypixel API",
-        "10_desc": "by Hypixel Inc.",
+        "8_desc": "（EminGT 製作）",
+        "9_name": "GSAP 教學",
+        "9_desc": "（Diaco M Lotfolahi 製作；CodePen 託管）",
+        "10_name": "Hypixel 應用程式介面",
+        "10_desc": "（Hypixel Inc. 製作）",
         "11_name": "Chart.js",
-        "11_desc": "by Chart.js"
+        "11_desc": "（Chart.js 製作）"
       }
     },
     "cards": {
-      "title": "Cards",
-      "description_0": "Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!",
-      "description_1": "Cards update in real time as your stats change, so you never have to worry about them!",
-      "warning": "Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will \"come back to this issue in the near future\". However, you can still paste a static version of the card and use that.",
-      "username": "Username",
-      "username_placeholder": "Player",
-      "game": "Game",
-      "game_tooltip": "The game to be used in the card.",
-      "size": "Size",
-      "size_tooltip": "The height of the card.",
-      "format": "Format",
-      "format_tooltip": "Where the card will be displayed.",
-      "button_generate": "Generate Preview",
-      "copy": "Fill out the items above and a link will appear here.",
-      "preview_showcase": "Click \"Generate Preview\" and a preview of the card will appear here.",
-      "loading_preview": "Loading preview...",
-      "preview": "Preview"
+      "title": "名牌",
+      "description_0": "藉助此工具，產生出隨處供你展示的小巧名牌——放在 Hypixel 論壇簽名檔嘛欸通！",
+      "description_1": "請放心！當自身戰績變動時，名牌也會即時更新。",
+      "warning": "最新消息（2024/10/10）：關於論壇簽名檔無法載入圖片的問題，Hypixel 方面已完成修正。若有任何疑難雜症，還請不吝告知我們。",
+      "username": "使用者名稱",
+      "username_placeholder": "玩家",
+      "game": "遊戲",
+      "game_tooltip": "用於名牌展示的遊戲。",
+      "size": "尺寸",
+      "size_tooltip": "名牌的高度。",
+      "format": "格式",
+      "format_tooltip": "名牌展示的地方。",
+      "button_generate": "產生預覽",
+      "copy": "連結置放處；連結在填充完上方區域後便會出現。",
+      "preview_showcase": "點選「產生預覽」後，此處便會出現名牌預覽。",
+      "loading_preview": "正在載入預覽……",
+      "preview": "預覽",
+      "settings": {
+        "size": {
+          "full": "大"
+        },
+        "format": {
+          "hypixel_forums": "Hypixel 論壇",
+          "raw_link": "原始連結"
+        },
+        "cards": {
+          "skyblock_general": "空島生存 – 總體"
+        }
+      }
     },
     "settings": {
-      "title": "Settings",
-      "language": "Language",
-      "language_description": "Help us translate nadeshiko on <a href=\"https://crowdin.com/project/nadeshiko\" target=\"_blank\">Crowdin</a>!",
-      "language_reload": "Please reload the page to change the language.",
-      "language_reload_button": "Reload",
-      "quick_mode": "Quick Mode",
-      "quick_mode_description": "Enables the ability to quickly access a gamemode selector by holding <kbd>Shift</kbd>.",
-      "default_game": "Default Game",
-      "default_game_description": "Changes the first page that's shown when searching a player.",
-      "developer_mode": "Developer Mode",
-      "developer_mode_description": "Shows UUIDs and version information."
+      "title": "設定",
+      "language": "顯示語言",
+      "language_description": "誠摯邀請你前往 <a href=\"https://crowdin.com/project/nadeshiko\" target=\"_blank\">Crowdin</a> 協助翻譯！",
+      "language_reload": "請重新整理頁面以更改顯示語言。",
+      "language_reload_button": "重新整理",
+      "quick_mode": "捷徑介面",
+      "quick_mode_description": "啟用可供快速切換遊戲模式的捷徑介面，只需長按 <kbd>Shift</kbd> 鍵即可。",
+      "default_game": "預設分頁",
+      "default_game_description": "更改搜尋玩家時最先顯示的頁面。",
+      "developer_mode": "開發者模式",
+      "developer_mode_description": "顯示識別符（UUID）以及版本資訊。"
     }
   },
   "home": {
-    "pre_title": "Check out stats for",
+    "pre_title": "戰績資訊，立即查詢",
     "post_title": "",
-    "recent_searches": "Recent Searches",
-    "favorites": "Favourites",
-    "search": "Enter a Minecraft username or UUID...",
-    "search_guild": "Enter a guild name, Minecraft username, or UUID...",
-    "show_me": "Show me!",
+    "recent_searches": "搜尋紀錄",
+    "favorites": "收藏夾",
+    "search": "輸入《Minecraft》使用者名稱或其識別符（UUID）……",
+    "search_guild": "輸入公會名稱、《Minecraft》使用者名稱或其識別符（UUID）……",
+    "show_me": "開始查詢！",
     "errors": {
-      "error": "ERROR",
-      "404": "No player by the name of %%player%% was found :(",
-      "computation": "Could not find stats of player %%player%% (%%error%%)",
+      "error": "發生錯誤",
+      "404": "查無玩家 %%player%% :(",
+      "computation": "查無玩家 %%player%% 的統計數據（%%error%%）",
       "guild": {
-        "computation": "Could not find guild with name %%guild%% (%%error%%)"
+        "computation": "查無名為「%%guild%%」的公會（%%error%%）"
       },
       "achievements": {
-        "computation": "Could not find achievements of player %%player%% (%%error%%)"
+        "computation": "查無玩家 %%player%% 的成就進度（%%error%%）"
       },
       "quests": {
-        "computation": "Could not find quests of player %%player%% (%%error%%)"
+        "computation": "查無玩家 %%player%% 的任務進度（%%error%%）"
       }
     }
   },
   "player": {
     "quick_mode": {
-      "title": "Quick Mode",
+      "title": "捷徑",
       "key": "Shift",
-      "description": "Click an icon to instantly go to that game's page for <span id=\"quick-mode-username\">%%player%%</span>."
+      "description": "點選圖示即可前往 <span id=\"quick-mode-username\">%%player%%</span> 的各個遊戲分頁。"
     },
     "badges": {
-      "developer": "Developer",
-      "patreon": "Patreon Supporter"
+      "developer": "開發者",
+      "patreon": "Patreon 贊助會員"
     },
-    "generate_card": "Generate Card",
-    "external_websites": "External Websites",
-    "socials": "Socials",
-    "currently_offline": "Currently Offline",
-    "currently_online": "Currently Online!",
-    "birthday": "Happy %%num%% years of Hypixel!",
+    "generate_card": "產生名牌",
+    "external_websites": "外部網站",
+    "socials": "社群",
+    "currently_offline": "離線",
+    "currently_online": "正在線上！",
+    "birthday": "祝 Hypixel %%num%% 歲生日快樂！",
     "coin_multiplier": "硬幣加成",
     "errors": {
-      "no_stats": "No Hypixel Stats",
-      "no_stats_desc": "This player has no Hypixel stats.",
-      "api_disabled": "This player has their stats API disabled! Stats may be inaccurate or missing.",
-      "not_applicable": "N/A"
+      "no_stats": "查無 Hypixel 戰績",
+      "no_stats_desc": "此玩家尚無與 Hypixel 相關的統計數據。",
+      "api_disabled": "此玩家已將統計數據介面（API）停用！其所記錄的統計數據或將失准與遺失。",
+      "not_applicable": "不適用"
     }
   },
   "achievements": {
-    "achievements": "Achievements",
-    "maxed_game": "Max %%game%%",
-    "easiest_uncompleted": "Easiest Uncompleted",
-    "closest_tiers": "Closest Tiers",
-    "recently_completed": "Recently Completed",
-    "tiered": "Tiered",
-    "one_time": "Challenge",
+    "achievements": "成就進度",
+    "maxed_game": "%%game%%全成就解鎖",
+    "easiest_uncompleted": "建議完成的挑戰成就",
+    "closest_tiers": "即將達成的位階成就",
+    "recently_completed": "最近已完成的成就",
+    "tiered": "位階成就",
+    "one_time": "挑戰成就",
     "check": "✓",
-    "tiers": "Tiers",
-    "game": "% of %%game%% players with this achievement",
-    "global": "% of all players with this achievement",
-    "all": "All",
-    "locked": "Locked",
-    "unlocked": "Unlocked",
-    "secret_achievement": "Secret Achievement"
+    "tiers": "階級",
+    "game": "%%game%%玩家解鎖此成就的百分比",
+    "global": "所有玩家解鎖此成就的百分比",
+    "all": "全部",
+    "locked": "未解鎖",
+    "unlocked": "已解鎖",
+    "secret_achievement": "隱藏成就"
   },
   "quests": {
-    "quests": "Quests",
+    "quests": "任務",
     "types": {
-      "daily": "Daily",
-      "weekly": "Weekly",
-      "daily_literal": "Daily Quest: ",
-      "weekly_literal": "Weekly Quest: "
+      "daily": "每日任務",
+      "weekly": "每週任務",
+      "daily_literal": "每日任務：",
+      "weekly_literal": "每週任務："
     },
     "rewards": {
-      "hypixel_experience": "Hypixel Experience",
-      "pit_gold": "Pit Gold",
-      "souls": "Souls",
-      "game_coins": "%%game%% Coins",
-      "game_tokens": "%%game%% Tokens",
-      "game_experience": "%%game%% Experience",
-      "broken_weapons": "Broken Weapons",
-      "event_experience": "Event Experience"
+      "hypixel_experience": "Hypixel 經驗值",
+      "pit_gold": "天坑亂鬥金幣",
+      "souls": "戰魂",
+      "game_coins": "%%game%%硬幣",
+      "game_tokens": "%%game%%代幣",
+      "game_experience": "%%game%%經驗值",
+      "broken_weapons": "破損兵器",
+      "event_experience": "活動經驗值"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
-      "daily_quests_completed": "Daily Quests Completed",
-      "weekly_quests_completed": "Weekly Quests Completed"
+      "completed": "%%num%%/%%total%% 已完成",
+      "daily_quests_completed": "已完成的每日任務",
+      "weekly_quests_completed": "已完成的每週任務"
     }
   },
   "leaderboards": {
-    "title": "Leaderboards",
-    "select_game": "Select a game:",
-    "select": "Select a leaderboard.",
-    "next_page": "Next ►",
-    "previous_page": "◀ Prev",
-    "page_number": "Page %%page%% of %%total%%"
+    "title": "排行榜",
+    "select_game": "選擇遊戲：",
+    "select": "請先選擇排行榜分類。",
+    "next_page": "下一頁 ►",
+    "previous_page": "◀ 上一頁",
+    "page_number": "第 %%page%%/%%total%% 頁"
   },
   "footer": {
-    "created_by": "Made with ♥︎ by <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> and <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a>."
+    "created_by": "此平臺為 <a href=\"https://brookie.dev\" target=\"_blank\">BrookeAFK</a> 與 <a href=\"https://niqumu.dev\" target=\"_blank\">niqumu</a> 的匠 ♥︎ 之作。"
   },
   "games": {
     "arcade": "街機遊戲",
@@ -189,26 +201,26 @@
     "tntgames": "炸藥天地",
     "uhc": "超極限生存",
     "warlords": "軍閥戰役",
-    "woolgames": "Wool Games",
-    "arena": "Arena Brawl",
-    "paintball": "Paintball",
-    "quakecraft": "Quakecraft",
-    "tkr": "Turbo Kart Racers",
-    "vampirez": "VampireZ",
-    "walls": "Walls",
-    "easter": "Easter",
-    "halloween": "Halloween",
-    "holiday": "Holiday",
-    "summer": "Summer",
-    "housing": "Housing",
-    "skyblock": "SkyBlock",
-    "speeduhc": "Speed UHC",
-    "overall": "Overall",
-    "legacy": "Legacy",
-    "general": "General",
-    "crazywalls": "Crazy Walls",
-    "skyclash": "SkyClash",
-    "network": "Network",
+    "woolgames": "羊絨選集",
+    "arena": "競技場搏鬥",
+    "paintball": "漆彈大戰",
+    "quakecraft": "未來槍戰",
+    "tkr": "跑跑方塊車",
+    "vampirez": "嗜血風雲",
+    "walls": "戰牆",
+    "easter": "復活節",
+    "halloween": "萬聖夜",
+    "holiday": "佳節",
+    "summer": "夏日",
+    "housing": "家園",
+    "skyblock": "空島生存",
+    "speeduhc": "超速戰生存",
+    "overall": "總體",
+    "legacy": "舊有成就",
+    "general": "綜合",
+    "crazywalls": "瘋狂戰牆",
+    "skyclash": "浮島競技場",
+    "network": "全伺服器",
     "fishing": "釣魚",
     "modes": {
       "all": {
@@ -786,10 +798,10 @@
     "last_login": "Last Login",
     "achievement_points": "成就點數",
     "karma": "Karma",
-    "quests_completed": "Quests Completed",
+    "quests_completed": "已完成任務",
     "ranks_gifted": "Ranks Gifted",
     "name": "Name",
-    "members": "Members",
+    "members": "成員數",
     "joined": "Joined",
     "winstreak": "連勝",
     "best_winstreak": "最佳連勝紀錄",
@@ -817,7 +829,7 @@
     "beds_lost": "遭破床數",
     "bblr": "BB/L R",
     "slumber_tickets": "睡夢券",
-    "challenges_completed": "Challenges Completed",
+    "challenges_completed": "已完成挑戰",
     "unique_challenges_completed": "(%%num%%/%%total%% unique)",
     "clicks": "Clicks",
     "heads": "頭顱數",
@@ -989,21 +1001,21 @@
     "treasure_caught": "Treasure Caught",
     "mythical_fish_caught": "Mythical Fish Caught",
     "special_fish_caught": "Special Fish Caught",
-    "created": "Created",
-    "player": "Player",
-    "rank": "Rank",
-    "guild_experience": "Guild Experience",
-    "game": "Game",
-    "weekly_gexp": "Weekly GEXP"
+    "created": "建立日期",
+    "player": "玩家",
+    "rank": "職位",
+    "guild_experience": "公會經驗值",
+    "game": "遊戲",
+    "weekly_gexp": "每週公會經驗值"
   },
   "times": {
-    "time_ago": "(%%time%% ago)",
-    "second_short": "s",
-    "minute_short": "min",
-    "hour_short": "h",
-    "day_short": "d",
-    "month_short": "mo",
-    "year_short": "y",
-    "now": "now!"
+    "time_ago": "（%%time%%前）",
+    "second_short": " 秒",
+    "minute_short": " 分鐘",
+    "hour_short": " 小時",
+    "day_short": " 天",
+    "month_short": " 個月",
+    "year_short": " 年",
+    "now": "就是現在！"
   }
 }

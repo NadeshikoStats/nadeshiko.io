@@ -68,9 +68,9 @@
     <div class="flex-two-item-basic">
       <p class="tooltip"><span class="card-wizard-subtitle" data-t="header.cards.size">Size</span><span class="tooltiptext" data-t="header.cards.size_tooltip">The height of the card.</span></p>
       <div class="dropdown">
-        <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-size-button">Full</p>
+        <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-size-button" data-t="header.cards.settings.size.full">Full</p>
         <div class="dropdown-content unloaded dropdown-chip dropdown-wizard dropdown-header" id="card-wizard-size" data-game="wizard" data-modify="size">
-          <div class="dropdown-item selected" data-item="FULL">Full</div>
+          <div class="dropdown-item selected" data-item="FULL" data-t="header.cards.settings.size.full">Full</div>
         </div>
       </div>
     </div>
@@ -78,10 +78,10 @@
     <div class="flex-two-item-basic">
       <p class="tooltip"><span class="card-wizard-subtitle" data-t="header.cards.format">Format</span><span class="tooltiptext" data-t="header.cards.format_tooltip">Where you want to show the card.</span></p>
       <div class="dropdown">
-        <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-format-button">Hypixel Forums</p>
+        <p class="dropdown-button chip-dropdown-button card-wizard-button" id="card-wizard-format-button" data-t="header.cards.settings.format.hypixel_forums">Hypixel Forums</p>
         <div class="dropdown-content unloaded dropdown-chip dropdown-wizard dropdown-header" id="card-wizard-format" data-game="wizard" data-modify="format">
-          <div class="dropdown-item selected" data-item="bbcode">Hypixel Forums</div>
-          <div class="dropdown-item" data-item="full">Raw Link</div>
+          <div class="dropdown-item selected" data-item="bbcode" data-t="header.cards.settings.format.hypixel_forums">Hypixel Forums</div>
+          <div class="dropdown-item" data-item="full" data-t="header.cards.settings.format.raw_link">Raw Link</div>
         </div>
       </div>
     </div>
@@ -318,31 +318,31 @@
   let languageCodes = {
     'en-CA': { progress: 100, label: 'English', direction: 'ltr' },
     'ar-SA': { progress: 0, label: 'العربية', direction: 'rtl' },
-    'cs-CZ': { progress: 33, label: 'Čeština', direction: 'ltr' },
-    'da-DK': { progress: 34, label: 'Dansk', direction: 'ltr' },
-    'de-DE': { progress: 55, label: 'Deutsch', direction: 'ltr' },
-    'el-GR': { progress: 31, label: 'Ελληνικά', direction: 'ltr' },
+    'cs-CZ': { progress: 34, label: 'Čeština', direction: 'ltr' },
+    'da-DK': { progress: 35, label: 'Dansk', direction: 'ltr' },
+    'de-DE': { progress: 58, label: 'Deutsch', direction: 'ltr' },
+    'el-GR': { progress: 32, label: 'Ελληνικά', direction: 'ltr' },
     'es-ES': { progress: 100, label: 'Español', direction: 'ltr' },
-    'fr-FR': { progress: 74, label: 'Français', direction: 'ltr' },
+    'fr-FR': { progress: 76, label: 'Français', direction: 'ltr' },
     'it-IT': { progress: 40, label: 'Italiano', direction: 'ltr' },
-    'ja-JP': { progress: 36, label: '日本語', direction: 'ltr' },
-    'ko-KR': { progress: 36, label: '한국어', direction: 'ltr' },
-    'hu-HU': { progress: 34, label: 'Magyar', direction: 'ltr' },
-    'nl-NL': { progress: 35, label: 'Nederlands', direction: 'ltr' },
+    'ja-JP': { progress: 37, label: '日本語', direction: 'ltr' },
+    'ko-KR': { progress: 99, label: '한국어', direction: 'ltr' },
+    'hu-HU': { progress: 35, label: 'Magyar', direction: 'ltr' },
+    'nl-NL': { progress: 36, label: 'Nederlands', direction: 'ltr' },
     'no-NO': { progress: 34, label: 'Norsk', direction: 'ltr' },
     'pl-PL': { progress: 35, label: 'Polski', direction: 'ltr' },
     'pt-PT': { progress: 36, label: 'Português (Portugal)', direction: 'ltr' },
-    'pt-BR': { progress: 95, label: 'Português (Brasil)', direction: 'ltr' },
+    'pt-BR': { progress: 99, label: 'Português (Brasil)', direction: 'ltr' },
     'ro-RO': { progress: 32, label: 'Română', direction: 'ltr' },
     'ru-RU': { progress: 37, label: 'Русский', direction: 'ltr' },
-    'fi-FI': { progress: 36, label: 'Suomi', direction: 'ltr' },
-    'sv-SE': { progress: 34, label: 'Svenska', direction: 'ltr' },
+    'fi-FI': { progress: 37, label: 'Suomi', direction: 'ltr' },
+    'sv-SE': { progress: 35, label: 'Svenska', direction: 'ltr' },
     'tr-TR': { progress: 35, label: 'Türkçe', direction: 'ltr' },
-    'uk-UA': { progress: 34, label: 'Українська', direction: 'ltr' },
-    'zh-CN': { progress: 63, label: '简体中文', direction: 'ltr' },
-    'zh-TW': { progress: 54, label: '繁體中文', direction: 'ltr' },
+    'uk-UA': { progress: 35, label: 'Українська', direction: 'ltr' },
+    'zh-CN': { progress: 86, label: '简体中文', direction: 'ltr' },
+    'zh-TW': { progress: 71, label: '繁體中文', direction: 'ltr' },
     'en-PT': { progress: 100, label: 'Pirate English', direction: 'ltr' }
-  }
+  };
 
   document.getElementById("header-searchbar-container").addEventListener("mousedown", function () {
     document.getElementById("header-searchbar-container").classList.add("selected");

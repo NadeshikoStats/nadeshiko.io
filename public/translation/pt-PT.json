@@ -45,7 +45,7 @@
       "title": "Cards",
       "description_0": "Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!",
       "description_1": "Cards update in real time as your stats change, so you never have to worry about them!",
-      "warning": "Real-time updating cards currently do not work on the Hypixel Forums as Hypixel has accidentally broken all external images. We are unfortunately unable to fix this. Hypixel has stated that they will \"come back to this issue in the near future\". However, you can still paste a static version of the card and use that.",
+      "warning": "UPDATE (2024-10-10): We believe that Hypixel has fixed images not loading in forum signatures. Please let us know if you experience any issues.",
       "username": "Username",
       "username_placeholder": "Player",
       "game": "Game",
@@ -58,7 +58,19 @@
       "copy": "Fill out the items above and a link will appear here.",
       "preview_showcase": "Click \"Generate Preview\" and a preview of the card will appear here.",
       "loading_preview": "Loading preview...",
-      "preview": "Preview"
+      "preview": "Preview",
+      "settings": {
+        "size": {
+          "full": "Full"
+        },
+        "format": {
+          "hypixel_forums": "Hypixel Forums",
+          "raw_link": "Raw Link"
+        },
+        "cards": {
+          "skyblock_general": "SkyBlock – General"
+        }
+      }
     },
     "settings": {
       "title": "Settings",
@@ -252,8 +264,8 @@
           "title_500": " Diamante",
           "title_1000": " Mestre",
           "title_2000": " Lenda",
-          "title_5000": "Grandmaster",
-          "title_10000": "Godlike",
+          "title_5000": "Grande Mestre",
+          "title_10000": "Imbatível",
           "title_25000": " CELESTIAL",
           "title_50000": " DIVINO",
           "title_100000": " Subir"
@@ -398,10 +410,10 @@
           "pigman": "Pigman",
           "ranger": "Guarda",
           "reaper": "Ceifeiro",
-          "reddragon": "Reddragon",
+          "reddragon": "Dragão vermelho",
           "rogue": "Ladino",
           "scout": "Escuteiro",
-          "shadow knight": "Shadow Knight",
+          "shadow knight": "Cavaleiro das trevas",
           "shark": "Tubarão",
           "slimeyslime": "Slime",
           "snowman": "Boneco de neve",
@@ -732,7 +744,7 @@
           "clay_ball": "Bola de argila",
           "cracked_egg": "Ovo partido",
           "dawning_snowball": "Bola de neve da alvorada",
-          "egg_the_fish": "Egg the Fish",
+          "egg_the_fish": "Ovo, o peixe",
           "eggnog": "Gemada",
           "eyeball": "Olho",
           "fish_monger_suit_boots": "Botas do fato de peixeiro",
@@ -802,7 +814,7 @@
     "kills": "Kills",
     "deaths": "Mortes",
     "kdr": "K/D R",
-    "final_kills": "Final Kills",
+    "final_kills": "Kills finais",
     "final_deaths": "Mortes finais",
     "fkdr": "FK/D R",
     "tokens": "Tokens",
@@ -939,9 +951,9 @@
     "xp": "XP",
     "lifetime_gold": "Lifetime Gold",
     "contracts_started": "Contracts Started",
-    "contracts_completed": "Contracts Completed",
+    "contracts_completed": "Contratos completados",
     "golden_apples_eaten": "Maçãs douradas comidas",
-    "golden_heads_eaten": "Golden Heads Eaten",
+    "golden_heads_eaten": "Cabeças douradas comidas",
     "blocks_placed": "Blocos colocados",
     "blocks_broken": "Blocos destruídos",
     "fishing_rod_launches": "Fishing Rod Launches",
@@ -966,10 +978,10 @@
     "total_xp": "Total XP",
     "blocks_ran": "Blocks Ran",
     "tags": "Tags",
-    "overall_wins": "Overall Wins",
+    "overall_wins": "Vitórias totais",
     "overall_captures": "Overall Captures",
     "heads_eaten": "Cabeças comidas",
-    "ultimates_crafted": "Ultimates Crafted",
+    "ultimates_crafted": "Supremos criados",
     "magic_dust": "Magic Dust",
     "void_shards": "Void Shards",
     "weapons_repaired": "Weapons Repaired",
