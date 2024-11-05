@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "Prospect",
           "rookie": "初來乍到",
-          "untrained": "技藝生疏",
           "amateur": "初窺門徑",
           "apprentice": "學徒",
+          "trained": "Trained",
           "experienced": "駕輕就熟",
           "seasoned": "識途老馬",
           "skilled": "爐火純青",
           "talented": "技驚四座",
           "professional": "巧奪天工",
+          "artisan": "Artisan",
           "expert": "聞名於世",
-          "master": "大師"
+          "master": "大師",
+          "grandmaster": "Grandmaster"
         },
         "solo_normal": "單打",
         "teams_normal": "多人模式",
         "solo_pro": "高手",
-        "guess_the_build": "你蓋我猜"
+        "guess_the_build": "你蓋我猜",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {

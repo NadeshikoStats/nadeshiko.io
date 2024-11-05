@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "Prospect",
           "rookie": "Débutant",
-          "untrained": "Novice",
           "amateur": "Amateur",
           "apprentice": "Apprenti",
+          "trained": "Trained",
           "experienced": "Expérimenté",
           "seasoned": "Saisonnier",
           "skilled": "Compétent",
           "talented": "Talentueux",
           "professional": "Professionnel",
+          "artisan": "Artisan",
           "expert": "Expert",
-          "master": "Maitre"
+          "master": "Maitre",
+          "grandmaster": "Grandmaster"
         },
         "solo_normal": "Solo",
         "teams_normal": "Equipes",
         "solo_pro": "Pro",
-        "guess_the_build": "Guess The Build"
+        "guess_the_build": "Guess The Build",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {

@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "Prospect",
           "rookie": "Πρωτάρης",
-          "untrained": "Ανειδίκευτος",
           "amateur": "Ερασιτέχνης",
           "apprentice": "Μαθητευόμενος",
+          "trained": "Trained",
           "experienced": "Έμπειρος",
           "seasoned": "Σκληραγωγημένος",
           "skilled": "Επιδέξιος",
           "talented": "Ταλαντούχος",
           "professional": "Επαγγελματίας",
+          "artisan": "Artisan",
           "expert": "Ειδικός",
-          "master": "Μάστερ"
+          "master": "Μάστερ",
+          "grandmaster": "Grandmaster"
         },
         "solo_normal": "Solo",
         "teams_normal": "Teams",
         "solo_pro": "Pro",
-        "guess_the_build": "Guess The Build"
+        "guess_the_build": "Guess The Build",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {

@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "Prospect",
           "rookie": "新人",
-          "untrained": "一般人",
           "amateur": "アマチュア",
           "apprentice": "見習",
+          "trained": "Trained",
           "experienced": "経験者",
           "seasoned": "熟達者",
           "skilled": "熟練者",
           "talented": "人材",
           "professional": "職業人",
+          "artisan": "Artisan",
           "expert": "専門家",
-          "master": "マスター"
+          "master": "マスター",
+          "grandmaster": "Grandmaster"
         },
         "solo_normal": "Solo",
         "teams_normal": "Teams",
         "solo_pro": "Pro",
-        "guess_the_build": "Guess The Build"
+        "guess_the_build": "Guess The Build",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {

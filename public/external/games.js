@@ -1220,8 +1220,9 @@ function generateBuildBattle() {
     updateElement("buildbattle-overall-losses", locale(und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"]), 0));
     updateElement("buildbattle-overall-wlr", calculateRatio(buildBattleStats["wins"], und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"])));
     updateElement("buildbattle-overall-highest-score", checkAndFormat(playerAchievements["buildbattle_build_battle_points"]));
+    updateElement("buildbattle-overall-tokens", checkAndFormat(buildBattleStats["coins"]));
 
-    let easyStats = ["score", "wins", "total_votes", "coins"];
+    let easyStats = ["score", "wins", "total_votes"];
     for (e = 0; e < easyStats.length; e++) {
       updateElement("buildbattle-overall-" + easyStats[e], checkAndFormat(buildBattleStats[easyStats[e]]));
     }
@@ -1231,6 +1232,7 @@ function generateBuildBattle() {
       [getTranslation("games.modes.buildbattle.teams_normal"), "teams_normal", []],
       [getTranslation("games.modes.buildbattle.solo_pro"), "solo_pro", []],
       [getTranslation("games.modes.buildbattle.guess_the_build"), "guess_the_build", []],
+      [getTranslation("games.modes.buildbattle.speed_builders"), "speed_builders", []],
     ];
 
     buildBattleChips = [];
@@ -1681,7 +1683,7 @@ function generateArcade() {
       [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_farm_hunt"])]],
 
       [false, [getTranslation("statistics.wins_animal"), checkAndFormat(arcadeStats["animal_wins_farm_hunt"])], [getTranslation("statistics.wins_hunter"), checkAndFormat(arcadeStats["hunter_wins_farm_hunt"])]],
-      [false, [getTranslation("statistics.kills_animal"), checkAndFormat(arcadeStats["hunter_kills_farm_hunt"])], [getTranslation("statistics.kills_hunter"), checkAndFormat(arcadeStats["animal_kills_farm_hunt"])]],
+      [false, [getTranslation("statistics.kills_animal"), checkAndFormat(arcadeStats["animal_kills_farm_hunt"])], [getTranslation("statistics.kills_hunter"), checkAndFormat(arcadeStats["hunter_kills_farm_hunt"])]],
       [false, [getTranslation("statistics.taunts"), checkAndFormat(arcadeStats["taunts_used_farm_hunt"])], [getTranslation("statistics.poop_collected"), checkAndFormat(arcadeStats["poop_collected_farm_hunt"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)

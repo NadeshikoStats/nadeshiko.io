@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "Prospect",
           "rookie": "Çaylak",
-          "untrained": "Eğitimsiz",
           "amateur": "Amatör",
           "apprentice": "Acemi",
+          "trained": "Trained",
           "experienced": "Deneyimli",
           "seasoned": "Tecrübeli",
           "skilled": "Becerikli",
           "talented": "Yetenekli",
           "professional": "Profesyonel",
+          "artisan": "Artisan",
           "expert": "Uzman",
-          "master": "Usta"
+          "master": "Usta",
+          "grandmaster": "Grandmaster"
         },
         "solo_normal": "Solo",
         "teams_normal": "Teams\n",
         "solo_pro": "Pro",
-        "guess_the_build": "Guess The Build"
+        "guess_the_build": "Guess The Build",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {

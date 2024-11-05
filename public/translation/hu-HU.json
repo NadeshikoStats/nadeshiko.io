@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "Prospect",
           "rookie": "Újonc",
-          "untrained": "Képzetlen",
           "amateur": "Amatőr",
           "apprentice": "Tanonc",
+          "trained": "Trained",
           "experienced": "Tapasztalt",
           "seasoned": "Szezonális",
           "skilled": "Ügyes",
           "talented": "Tehetséges",
           "professional": "Profi",
+          "artisan": "Artisan",
           "expert": "Szakértő",
-          "master": "Mester"
+          "master": "Mester",
+          "grandmaster": "Grandmaster"
         },
         "solo_normal": "Solo",
         "teams_normal": "Teams",
         "solo_pro": "Pro",
-        "guess_the_build": "Guess The Build"
+        "guess_the_build": "Guess The Build",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {

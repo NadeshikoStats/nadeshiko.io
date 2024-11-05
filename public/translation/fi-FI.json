@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "Prospect",
           "rookie": "Aloittelija",
-          "untrained": "Kokematon",
           "amateur": "Amatööri",
           "apprentice": "Oppipoika",
+          "trained": "Trained",
           "experienced": "Harjoitellut",
           "seasoned": "Kokenut",
           "skilled": "Taitava",
           "talented": "Lahjakas",
           "professional": "Pro",
+          "artisan": "Artisan",
           "expert": "Ekspertti",
-          "master": "Mestari"
+          "master": "Mestari",
+          "grandmaster": "Grandmaster"
         },
         "solo_normal": "Solo",
         "teams_normal": "Teams",
         "solo_pro": "Pro",
-        "guess_the_build": "Guess The Build"
+        "guess_the_build": "Guess The Build",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {

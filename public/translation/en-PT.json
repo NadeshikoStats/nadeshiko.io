@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "New Sailor",
           "rookie": "Rookie",
-          "untrained": "Untrained",
           "amateur": "Amateur",
           "apprentice": "Apprentice",
+          "trained": "Trained",
           "experienced": "Experienced",
           "seasoned": "Seasoned",
           "skilled": "Skilled",
           "talented": "Talented",
           "professional": "Professional",
+          "artisan": "Artisan",
           "expert": "Expert",
-          "master": "Master"
+          "master": "Master",
+          "grandmaster": "Grandcaptain"
         },
         "solo_normal": "Solo",
         "teams_normal": "Crews",
         "solo_pro": "Pro",
-        "guess_the_build": "Guess The Build"
+        "guess_the_build": "Guess The Build",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {

@@ -160,17 +160,21 @@ function getBuildBattleTitle(score) {
   // Gets player's Build Battle title based on an amount of score
 
   let buildBattleTitles = [
-    { minimumScore: 0, difference: 100, title: getTranslation("games.modes.buildbattle.titles.rookie"), color: "f" },
-    { minimumScore: 100, difference: 150, title: getTranslation("games.modes.buildbattle.titles.untrained"), color: "8" },
-    { minimumScore: 250, difference: 250, title: getTranslation("games.modes.buildbattle.titles.amateur"), color: "e" },
+    { minimumScore: 0, difference: 100, title: getTranslation("games.modes.buildbattle.titles.prospect"), color: "f" },
+    { minimumScore: 100, difference: 150, title: getTranslation("games.modes.buildbattle.titles.rookie"), color: "7" },
+    { minimumScore: 250, difference: 250, title: getTranslation("games.modes.buildbattle.titles.amateur"), color: "8" },
     { minimumScore: 500, difference: 500, title: getTranslation("games.modes.buildbattle.titles.apprentice"), color: "a" },
-    { minimumScore: 1000, difference: 1000, title: getTranslation("games.modes.buildbattle.titles.experienced"), color: "d" },
-    { minimumScore: 2000, difference: 1500, title: getTranslation("games.modes.buildbattle.titles.seasoned"), color: "9" },
-    { minimumScore: 3500, difference: 4000, title: getTranslation("games.modes.buildbattle.titles.skilled"), color: "3" },
-    { minimumScore: 7500, difference: 2500, title: getTranslation("games.modes.buildbattle.titles.talented"), color: "c" },
-    { minimumScore: 10000, difference: 5000, title: getTranslation("games.modes.buildbattle.titles.professional"), color: "5" },
-    { minimumScore: 15000, difference: 5000, title: getTranslation("games.modes.buildbattle.titles.expert"), color: "1" },
-    { minimumScore: 20000, difference: -1, title: getTranslation("games.modes.buildbattle.titles.master"), color: "4" },
+    { minimumScore: 1000, difference: 1500, title: getTranslation("games.modes.buildbattle.titles.trained"), color: "2" },
+    { minimumScore: 2500, difference: 2500, title: getTranslation("games.modes.buildbattle.titles.experienced"), color: "b" },
+    { minimumScore: 5000, difference: 5000, title: getTranslation("games.modes.buildbattle.titles.seasoned"), color: "3" },
+    { minimumScore: 10000, difference: 15000, title: getTranslation("games.modes.buildbattle.titles.skilled"), color: "9" },
+    { minimumScore: 25000, difference: 25000, title: getTranslation("games.modes.buildbattle.titles.talented"), color: "1" },
+    { minimumScore: 50000, difference: 50000, title: getTranslation("games.modes.buildbattle.titles.professional"), color: "5" },
+    { minimumScore: 100000, difference: 100000, title: getTranslation("games.modes.buildbattle.titles.artisan"), color: "d" },
+    { minimumScore: 200000, difference: 150000, title: getTranslation("games.modes.buildbattle.titles.expert"), color: "c" },
+    { minimumScore: 350000, difference: 150000, title: getTranslation("games.modes.buildbattle.titles.master"), color: "4" },
+    { minimumScore: 500000, difference: -1, title: getTranslation("games.modes.buildbattle.titles.grandmaster"), color: "6" },
+
   ]
 
   let scoreToGo;

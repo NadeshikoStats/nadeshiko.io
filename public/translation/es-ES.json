@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "Promesa",
           "rookie": "Novato",
-          "untrained": "Iniciado",
           "amateur": "Aficionado",
           "apprentice": "Aprendiz",
+          "trained": "Capacitado",
           "experienced": "Experimentado",
           "seasoned": "Habilidoso",
           "skilled": "Habilidoso",
           "talented": "Talentoso",
           "professional": "Profesional",
+          "artisan": "Artesano",
           "expert": "Experto",
-          "master": "Maestro"
+          "master": "Maestro",
+          "grandmaster": "Gran Maestro"
         },
         "solo_normal": "Solo",
         "teams_normal": "Equipos",
         "solo_pro": "Experto",
-        "guess_the_build": "Guess The Build"
+        "guess_the_build": "Guess The Build",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {

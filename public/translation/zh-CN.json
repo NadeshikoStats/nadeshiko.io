@@ -87,7 +87,7 @@
     }
   },
   "home": {
-    "pre_title": "查看",
+    "pre_title": "Check out stats for",
     "post_title": "的统计信息",
     "recent_searches": "最近搜索",
     "favorites": "收藏",
@@ -431,22 +431,26 @@
       },
       "buildbattle": {
         "titles": {
+          "prospect": "Prospect",
           "rookie": "初来乍到",
-          "untrained": "未经雕琢",
           "amateur": "初窥门径",
           "apprentice": "学有所成",
+          "trained": "Trained",
           "experienced": "驾轻就熟",
           "seasoned": "历练老成",
           "skilled": "炉火纯青",
           "talented": "技惊四座",
           "professional": "巧夺天工",
+          "artisan": "Artisan",
           "expert": "闻名于世",
-          "master": "建筑大师"
+          "master": "建筑大师",
+          "grandmaster": "Grandmaster"
         },
         "solo_normal": "单人模式",
         "teams_normal": "团队",
         "solo_pro": "高手",
-        "guess_the_build": "建筑猜猜乐"
+        "guess_the_build": "建筑猜猜乐",
+        "speed_builders": "Speed Builders"
       },
       "classic": {
         "arena": {
