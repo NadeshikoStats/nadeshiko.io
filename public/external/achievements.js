@@ -84,6 +84,7 @@ let secretAchievements = {
   "arcade_zombies_prison_secret_beyond": "Find the Black Hole Gun",
   "arcade_zombies_prison_computers": "In one game, interact with all the computers in the Prison Map",
   "woolgames_shopping_for_wool": "Shoot every Magic Wool that spawns in a single game",
+  "buildbattle_perfectceptionception": "Be the first to complete every round with 100% accuracy in a game of Speed Builders",
 };
 
 function getSecretAchievement(achievement) {

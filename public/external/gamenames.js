@@ -26,7 +26,8 @@ let gameNames = {
           "BUILD_BATTLE_SOLO_NORMAL": "Solo",
           "BUILD_BATTLE_SOLO_PRO": "Pro",
           "BUILD_BATTLE_CHRISTMAS_NEW_SOLO": "Holiday Solo",
-          "BUILD_BATTLE_CHRISTMAS": "Christmas"
+          "BUILD_BATTLE_CHRISTMAS": "Christmas",
+          "BUILD_BATTLE_SPEED_BUILDERS": "Speed Builders",
       },
       "databaseName": "BuildBattle",
       "name": "Build Battle",
