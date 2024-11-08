@@ -108,23 +108,49 @@ function formatBedWarsLevel(level) {
 
   let prestige = Math.min(Math.floor(level / 100), 50);
   let levelWithIcon = "[" + level.toString() + prefixIcon + "]";
-  let formattedLevel = cycleArrayBeforeChars(bedWarsPrestigeColors[prestige], levelWithIcon, true);
+  let formattedLevel = cycleArrayBeforeChars(bedWarsPrestigeColors[prestige], levelWithIcon, "§");
   return formattedLevel;
 }
 
-function cycleArrayBeforeChars(arr, str, addSection = false) {
+
+/*
+ * cycleArrayBeforeChars: Cycles through an array and adds items of an array before each character of a string. Useful for adding formatting codes in Bed Wars and SkyWars levels
+  * @param {Array} arr - The array containing the formatting codes to cycle through
+  * @param {string} str - The string (usually a level)
+  * @param {string} addBefore - The string to add before each array item and character
+  * @param {string} addAfter - The string to add after the array item, but before the string character (useful for bolding)
+ */
+
+function cycleArrayBeforeChars(arr, str, addBefore = "", addAfter = "") {
   let result = '';
   let arrIndex = 0;
 
   for (let i = 0; i < str.length; i++) {
-    if (addSection) {
-      result += '§';
-    }
-    result += arr[arrIndex] + str[i];
+    result += addBefore;
+    result += arr[arrIndex] + addAfter + str[i];
     arrIndex = (arrIndex + 1) % arr.length;
   }
 
   return result;
+}
+
+function formatSkyWarsLevel(level) {
+  let skyWarsPrestiges = [{ "colors": ["7"], "icon": "⋆" },{ "colors": ["f"], "icon": "✙" },{ "colors": ["6"], "icon": "❤" },{ "colors": ["b"], "icon": "☠" },{ "colors": ["2"], "icon": "✦" },{ "colors": ["5"], "icon": "✌" },{ "colors": ["c"], "icon": "❦" },{ "colors": ["d"], "icon": "✵" },{ "colors": ["9"], "icon": "❣" },{ "colors": ["5"], "icon": "☯" },{ "colors": ["c","6","e","a","b","d","5"], "icon": "✺" },{ "colors": ["7","f","f","f","7"], "icon": "✈" },{ "colors": ["4","c","c","c","4"], "icon": "⚰" },{ "colors": ["c","f","f","f","c"], "icon": "✠" },{ "colors": ["e","6","6","6","e"], "icon": "♕" },{ "colors": ["f","9","9","9","f"], "icon": "⚡︎" },{ "colors": ["f","b","b","b","f"], "icon": "⁂" },{ "colors": ["f","3","3","3","f"], "icon": "✰" },{ "colors": ["a","3","3","3","a"], "icon": "⁑" },{ "colors": ["c","e","e","e","c"], "icon": "☢" },{ "colors": ["9","1","1","1","1","9"], "icon": "✥" },{ "colors": ["6","4","4","4","4","6"], "icon": "♝" },{ "colors": ["1","b","b","b","b","1"], "icon": "♆" },{ "colors": ["8","7","7","7","7","8"], "icon": "☁" },{ "colors": ["d","5","5","5","5","d"], "icon": "⍟" },{ "colors": ["f","e","e","e","e","f"], "icon": "♗" },{ "colors": ["c","e","e","e","e","c"], "icon": "♔" },{ "colors": ["6","c","c","c","c","6"], "icon": "♞" },{ "colors": ["a","c","c","c","c","a"], "icon": "✏" },{ "colors": ["a","b","b","b","b","a"], "icon": "❈" },{ "colors": ["c","6","e","a","b","d","5"], "icon": "ಠ_ಠ" }];
+
+  level = Math.floor(level);
+
+  let prestige = Math.min(Math.floor(level / 5), 30);
+  let levelWithIcon = "[" + level.toString() + skyWarsPrestiges[prestige]["icon"] + "]";
+  let formattedLevel;
+
+  if (level >= 150) {
+    formattedLevel = cycleArrayBeforeChars(skyWarsPrestiges[prestige]["colors"], levelWithIcon, "§", "§l");
+  } else {
+    formattedLevel = cycleArrayBeforeChars(skyWarsPrestiges[prestige]["colors"], levelWithIcon, "§");
+  }
+
+  console.warn(formattedLevel);
+  return formattedLevel;
 }
 
 function getSkyWarsLevel(exp) {

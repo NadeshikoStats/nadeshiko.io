@@ -313,6 +313,8 @@ function formatLeaderboardStatistic(leaderboard, value) {
       return generateMinecraftText(pitXpToLevel(value));
     case "buildbattle_experience":
       return generateMinecraftText(getBuildBattleTitle(value)[0]) + " / " + checkAndFormat(Number(value));
+    case "skywars_experience":
+      return generateMinecraftText(formatSkyWarsLevel(getSkyWarsLevel(value)));
     case "large_number":
       return veryLargeNumber(Number(value));
     case "duration_minutes":

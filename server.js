@@ -380,19 +380,21 @@ function getMetaDescription(game, playerData) {
 • 🪙 Coins: ${checkAndFormat(blitzStats["coins"])}
 • 📦 Chests Opened: ${checkAndFormat(blitzStats["chests_opened"])}`;
     case 'buildbattle':
-
     let buildBattleTitles = [
-      { minimumScore: 0, title: "Rookie" },
-      { minimumScore: 100, title: "Untrained" },
+      { minimumScore: 0, title: "Prospect" },
+      { minimumScore: 100, title: "Rookie" },
       { minimumScore: 250, title: "Amateur" },
       { minimumScore: 500, title: "Apprentice" },
-      { minimumScore: 1000, title: "Experienced" },
-      { minimumScore: 2000, title: "Seasoned" },
-      { minimumScore: 3500, title: "Skilled" },
-      { minimumScore: 7500, title: "Talented" },
-      { minimumScore: 10000, title: "Professional" },
-      { minimumScore: 15000, title: "Expert" },
-      { minimumScore: 20000, title: "Master" },
+      { minimumScore: 1000, title: "Trained" },
+      { minimumScore: 2500, title: "Experienced" },
+      { minimumScore: 5000, title: "Seasoned" },
+      { minimumScore: 10000, title: "Skilled" },
+      { minimumScore: 25000, title: "Talented" },
+      { minimumScore: 50000, title: "Professional" },
+      { minimumScore: 100000, title: "Artisan" },
+      { minimumScore: 200000, title: "Expert" },
+      { minimumScore: 350000, title: "Master" },
+      { minimumScore: 500000, title: "Grandmaster" }
     ];
 
       let buildBattleStats = playerData["stats"]["BuildBattle"] || {};
