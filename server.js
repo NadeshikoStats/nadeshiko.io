@@ -414,7 +414,7 @@ function getMetaDescription(game, playerData) {
 • 💔 Losses: ${locale(und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"]), 0)}
 • 🏅 W/L R: ${calculateRatio(buildBattleStats["wins"], und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"]))}
 
-• 🪙 Coins: ${checkAndFormat(buildBattleStats["coins"])}
+• 🟢 Tokens: ${checkAndFormat(buildBattleStats["coins"])}
 • 🗳️ Votes: ${checkAndFormat(buildBattleStats["total_votes"])}`;
     case 'classic':
       let classicStats = playerData["stats"]["Legacy"] || {};

@@ -526,7 +526,7 @@ function generateSkyWars() {
   skyWarsStats = playerData["stats"]["SkyWars"] || {};
   if (skyWarsStats != undefined) {
     if (skyWarsStats["levelFormatted"] != undefined) {
-      updateElement("skywars-level", generateMinecraftText(skyWarsStats["levelFormatted"]), true);
+      updateElement("skywars-level", generateMinecraftText(skyWarsStats["levelFormatted"], true), true);
     } else {
       let skyWarsLevels = [
         { req: 0, color: "§7" },
@@ -1206,7 +1206,7 @@ function generateBuildBattle() {
   let buildBattleStats = playerData["stats"]["BuildBattle"] || {};
   if (buildBattleStats != undefined) {
     buildBattleTitle = getBuildBattleTitle(und(buildBattleStats["score"]));
-    updateElement("buildbattle-overall-title", generateMinecraftText(buildBattleTitle[0]), true);
+    updateElement("buildbattle-overall-title", generateMinecraftText(buildBattleTitle[0], true), true);
 
     if (buildBattleTitle[1] == -1) {
       updateElement("buildbattle-overall-to-go", getTranslation("statistics.max_title"));
@@ -2356,7 +2356,7 @@ function generateCopsAndCrims() {
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(copsAndCrimsStats["game_wins_gungame"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(copsAndCrimsStats["kills_gungame"])], [getTranslation("statistics.deaths"), checkAndFormat(copsAndCrimsStats["deaths_gungame"])], [getTranslation("statistics.kdr"), calculateRatio(copsAndCrimsStats["kills_gungame"], copsAndCrimsStats["deaths_gungame"])]],
-      [false, [getTranslation("statistics.assists"), checkAndFormat(copsAndCrimsStats["assists_gungame"])], [getTranslation("statistics.fastest_win"), smallDuration(copsAndCrimsStats["fastest_win_gungame"] / 1000, true)]]
+      [false, [getTranslation("statistics.assists"), checkAndFormat(copsAndCrimsStats["assists_gungame"])], [getTranslation("statistics.fastest_win"), smallDuration(copsAndCrimsStats["game_wins_gungame"] > 0 ?(copsAndCrimsStats["fastest_win_gungame"] / 1000) : -1, true)]]
     ],
     [],
     ``,

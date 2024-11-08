@@ -308,13 +308,13 @@ function formatLeaderboardStatistic(leaderboard, value) {
     case "decimal_2":
       return checkAndFormat(Number(value), 2);
     case "bedwars_experience":
-      return generateMinecraftText(formatBedWarsLevel(getBedWarsLevel(value)));
+      return generateMinecraftText(formatBedWarsLevel(getBedWarsLevel(value)), true);
     case "pit_experience":
       return generateMinecraftText(pitXpToLevel(value));
     case "buildbattle_experience":
-      return generateMinecraftText(getBuildBattleTitle(value)[0]) + " / " + checkAndFormat(Number(value));
+      return generateMinecraftText(getBuildBattleTitle(value)[0], true) + " / " + checkAndFormat(Number(value));
     case "skywars_experience":
-      return generateMinecraftText(formatSkyWarsLevel(getSkyWarsLevel(value)));
+      return generateMinecraftText(formatSkyWarsLevel(getSkyWarsLevel(value)), true);
     case "large_number":
       return veryLargeNumber(Number(value));
     case "duration_minutes":

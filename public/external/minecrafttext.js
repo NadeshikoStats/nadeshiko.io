@@ -20,8 +20,8 @@ function generateMinecraftText(minecraftText, blackShadow = false) { // Generate
   
         if (validColors.includes(actualCode)) {
 
-          if(blackShadow && actualCode == "0") { // Adds shadow to black text
-            returnString += `<span class="m0 shadowf">`;
+          if(blackShadow && (actualCode == "0" || actualCode == "1")) { // Adds a white shadow to dark text
+            returnString += `<span class="m${actualCode} shadowf">`;
           } else {
             returnString += `<span class="m${actualCode}">`;
           }
