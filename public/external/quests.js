@@ -299,7 +299,7 @@ function parseReward(game, reward, amount) {
       break;
     case "MultipliedCoinReward":
     case "CoinReward":
-      if (game == "bedwars" || game == "tnt" || game == "duels" || game == "murdermystery") { // These games say they use coins, but they actually use tokens.
+      if (game == "bedwars" || game == "tnt" || game == "duels" || game == "murdermystery" || game == "buildbattle") { // These games say they use coins, but they actually use tokens.
         formattedReward = {
           icon: "emerald",
           text: insertPlaceholders(getTranslation(["quests", "rewards", "game_tokens"]), {
