@@ -3,7 +3,7 @@
   "header": {
     "searchbar": {
       "placeholder": "Rechercher un joueur...",
-      "placeholder_guild": "Search for a guild name or player..."
+      "placeholder_guild": "Rechercher le nom d'une guilde ou d'un joueur..."
     },
     "home": {
       "title": "Accueil"
@@ -11,7 +11,7 @@
     "about": {
       "title": "À propos",
       "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> est une belle visionneuse de statistiques de joueur Hypixel, ouverte et facile à utiliser.",
-      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord server</a>!",
+      "assistance": "Vous avez trouvé un bug ou besoin d'aide ? Faites-le-nous savoir sur la <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">page GitHub</a> du projet ou sur le <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">serveur Discord</a> !",
       "disclaimer": "nadeshiko.io n'est pas affilié avec Hypixel Inc., Mojang AB, ou Microsoft.",
       "credits": {
         "title": "Crédits",
@@ -54,21 +54,21 @@
       "size_tooltip": "La hauteur de la carte.",
       "format": "Format",
       "format_tooltip": "Où la carte sera affichée.",
-      "button_generate": "Generate Preview",
-      "copy": "Fill out the items above and a link will appear here.",
+      "button_generate": "Générer un aperçu",
+      "copy": "Remplissez les éléments ci-dessus et un lien apparaîtra ici.",
       "preview_showcase": "Click \"Generate Preview\" and a preview of the card will appear here.",
       "loading_preview": "Chargement de l'aperçu...",
       "preview": "Aperçu",
       "settings": {
         "size": {
-          "full": "Full"
+          "full": "Grande"
         },
         "format": {
-          "hypixel_forums": "Hypixel Forums",
+          "hypixel_forums": "Forums d'Hypixel",
           "raw_link": "Raw Link"
         },
         "cards": {
-          "skyblock_general": "SkyBlock – General"
+          "skyblock_general": "SkyBlock – Général"
         }
       }
     },
@@ -116,8 +116,8 @@
       "description": "Cliquez sur une icône pour accéder instantanément à la page de ce jeu pour <span id=\"quick-mode-username\">%%player%%</span>."
     },
     "badges": {
-      "developer": "Developer",
-      "patreon": "Patreon Supporter"
+      "developer": "Développeuse",
+      "patreon": "Supporteur Patreon"
     },
     "generate_card": "Générer carte",
     "external_websites": "Sites web externes",
@@ -151,10 +151,10 @@
     "secret_achievement": "Secret Achievement"
   },
   "quests": {
-    "quests": "Quests",
+    "quests": "Quêtes",
     "types": {
-      "daily": "Daily",
-      "weekly": "Weekly",
+      "daily": "Quotidien",
+      "weekly": "Hebdomadaire",
       "daily_literal": "Daily Quest: ",
       "weekly_literal": "Weekly Quest: "
     },
@@ -166,6 +166,7 @@
       "game_tokens": "%%game%% Tokens",
       "game_experience": "%%game%% Experience",
       "broken_weapons": "Broken Weapons",
+      "legendary_broken_weapons": "Legendary Broken Weapons",
       "event_experience": "Event Experience"
     },
     "completions": {
@@ -217,7 +218,7 @@
     "speeduhc": "Speed UHC",
     "overall": "Overall",
     "legacy": "Legacy",
-    "general": "Général",
+    "general": "General",
     "crazywalls": "Crazy Walls",
     "skyclash": "SkyClash",
     "network": "Global",
@@ -621,6 +622,20 @@
         }
       },
       "warlords": {
+        "titles": {
+          "rookie": "Rookie",
+          "recruit": "Recruit",
+          "novice": "Novice",
+          "apprentice": "Apprentice",
+          "soldier": "Soldier",
+          "captain": "Captain",
+          "general": "General",
+          "vanquisher": "Vanquisher",
+          "gladiator": "Gladiator",
+          "champion": "Champion",
+          "warlord": "Warlord",
+          "overlord": "Overlord"
+        },
         "classes": {
           "category": "Classes",
           "mage": "Mage",
@@ -943,7 +958,7 @@
     "kills_infected": "Kills (Infected)",
     "kills_survivor": "Kills (Survivor)",
     "gold": "Or",
-    "renown": "Renown",
+    "renown": "Renommée",
     "joins": "Joins",
     "left_clicks": "Clics gauche",
     "sword_hits": "Coups d'épée",

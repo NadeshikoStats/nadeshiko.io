@@ -166,6 +166,7 @@
       "game_tokens": "Tokens fer %%game%%",
       "game_experience": "Experience fer %%game%%",
       "broken_weapons": "Busted Weapons",
+      "legendary_broken_weapons": "Legendary Broken Weapons",
       "event_experience": "Event Experience"
     },
     "completions": {
@@ -621,6 +622,20 @@
         }
       },
       "warlords": {
+        "titles": {
+          "rookie": "Rookie",
+          "recruit": "Recruit",
+          "novice": "Novice",
+          "apprentice": "Apprentice",
+          "soldier": "Soldier",
+          "captain": "Captain",
+          "general": "General",
+          "vanquisher": "Vanquisher",
+          "gladiator": "Gladiator",
+          "champion": "Champion",
+          "warlord": "Warlord",
+          "overlord": "Overlord"
+        },
         "classes": {
           "category": "Classes",
           "mage": "Mage",

@@ -341,6 +341,12 @@ function parseReward(game, reward, amount) {
         text: getTranslation(["quests", "rewards", "broken_weapons"])
       }
       break;
+    case "WarlordsLegendaryBrokenWeaponReward":
+      formattedReward = {
+        icon: "glowstone_dust",
+        text: getTranslation(["quests", "rewards", "legendary_broken_weapons"])
+      }
+      break;
     case "WarlordsMagicDustReward":
       formattedReward = {
         icon: "light_blue_dye",

@@ -11,7 +11,7 @@
     "about": {
       "title": "정보",
       "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> 는 아름다우며, 오픈 소스이자 사용하기 쉬운 Hypixel 플레이어 통계 뷰어입니다.",
-      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord server</a>!",
+      "assistance": "버그를 발견했거나 도움이 필요한가요? 저희의 프로젝트의 <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub 페이지</a> 혹은 <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord 서버</a>를 통해 알려주세요!",
       "disclaimer": "nadeshiko.io는 Hypixel Inc., Mojang AB, 혹은 Microsoft와 제휴하지 않습니다.",
       "credits": {
         "title": "크레딧",
@@ -68,7 +68,7 @@
           "raw_link": "원본 링크"
         },
         "cards": {
-          "skyblock_general": "SkyBlock – General"
+          "skyblock_general": "SkyBlock – 일반"
         }
       }
     },
@@ -166,6 +166,7 @@
       "game_tokens": "%%game%% 토큰",
       "game_experience": "%%game%% 경험치",
       "broken_weapons": "부서진 무기",
+      "legendary_broken_weapons": "Legendary Broken Weapons",
       "event_experience": "이벤트 경험치"
     },
     "completions": {
@@ -621,6 +622,20 @@
         }
       },
       "warlords": {
+        "titles": {
+          "rookie": "Rookie",
+          "recruit": "Recruit",
+          "novice": "Novice",
+          "apprentice": "Apprentice",
+          "soldier": "Soldier",
+          "captain": "Captain",
+          "general": "General",
+          "vanquisher": "Vanquisher",
+          "gladiator": "Gladiator",
+          "champion": "Champion",
+          "warlord": "Warlord",
+          "overlord": "Overlord"
+        },
         "classes": {
           "category": "클래스",
           "mage": "마법사",

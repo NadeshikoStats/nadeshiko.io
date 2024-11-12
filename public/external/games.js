@@ -527,7 +527,7 @@ function generateSkyWars() {
   if (skyWarsStats != undefined) {
     if (skyWarsStats["levelFormatted"] != undefined) {
       updateElement("skywars-level", generateMinecraftText(skyWarsStats["levelFormatted"], true), true);
-    } else {
+    } else { // only runs if the player hasn't logged in since 2021(?)
       let skyWarsLevels = [
         { req: 0, color: "§7" },
         { req: 5, color: "§f" },
@@ -2726,7 +2726,46 @@ function getMegaWallsClassStats(className = "", modeName = "") {
 function generateWarlords() {
   warlordsStats = playerData["stats"]["Battleground"] || {};
 
+  let warlordsTitles = [
+    { req: 0, color: "§8", altName: getTranslation("games.modes.warlords.titles.rookie") },
+    { req: 5, color: "§7", altName: getTranslation("games.modes.warlords.titles.recruit") },
+    { req: 25, color: "§e", altName: getTranslation("games.modes.warlords.titles.novice") },
+    { req: 50, color: "§a", altName: getTranslation("games.modes.warlords.titles.apprentice") },
+    { req: 125, color: "§2", altName: getTranslation("games.modes.warlords.titles.soldier") },
+    { req: 250, color: "§b", altName: getTranslation("games.modes.warlords.titles.captain") },
+    { req: 500, color: "§9", altName: getTranslation("games.modes.warlords.titles.general") },
+    { req: 1000, color: "§d", altName: getTranslation("games.modes.warlords.titles.vanquisher") },
+    { req: 2500, color: "§5", altName: getTranslation("games.modes.warlords.titles.gladiator") },
+    { req: 5000, color: "§c", altName: getTranslation("games.modes.warlords.titles.champion") },
+    { req: 7500, color: "§6", altName: getTranslation("games.modes.warlords.titles.warlord") },
+    { req: 10000, color: "rainbow", colorArray: ["§c§l", "§6§l", "§e§l", "§a§l", "§2§l", "§9§l", "§d§l", "§5§l"], altName: getTranslation("games.modes.warlords.titles.overlord") },
+  ];
+
+  let warlordsWins = warlordsStats["wins"] || 0;
+
+  let warlordsTitleObject = getGenericWinsPrefix(warlordsWins, warlordsTitles, undefined, true, "", false, false, true, true);
+
+  console.log(warlordsTitleObject);
+
+  if (warlordsTitleObject["winsToGo"] >= 0) {
+    winsPastTitleUnlock = warlordsWins - warlordsTitleObject["currentTitleRequirement"];
+    winsToNextTitle = warlordsWins + warlordsTitleObject["winsToGo"] - warlordsTitleObject["currentTitleRequirement"];
+    console.log(`${warlordsWins} + ${warlordsTitleObject["winsToGo"]} - ${warlordsTitleObject["currentTitleRequirement"]} = ${winsToNextTitle}`);
+
+    document.getElementById("warlords-progress-bar-container").style.display = "block";
+
+    warlordsWinProgress = winsPastTitleUnlock / winsToNextTitle;
+
+    updateElement("warlords-overall-progress-number", Math.floor(warlordsWinProgress * 100) + "%");
+    document.getElementById("warlords-overall-progress-bar").style.width = Math.floor(warlordsWinProgress * 100) + "%";
+  }
+  
+  
+  updateElement("warlords-overall-title", warlordsTitleObject["title"], true);
+
+
   let easyStats = ["kills", "deaths", "wins", "assists", "coins", "void_shards", "magic_dust", "repaired", "powerups_collected"];
+
 
   for(let e = 0; e < easyStats.length; e++) {
     updateElement(`warlords-overall-${easyStats[e]}`, checkAndFormat(warlordsStats[easyStats[e]]));
@@ -3746,12 +3785,27 @@ function getFishingCatches(category) {
   return fishingItemsStats;
 }
 
-function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false) {
-  // Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
+/*
+ * Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
+  * @param {number} wins - The number of wins (kills) a player has
+  * @param {string} winsObject - The object containing the titles and their requirements
+  * @param {string} definedColor - i forgor
+  * @param {boolean} useToGo - Whether to display the number of wins to the next title in (x to go) format
+  * @param {string} suffix - The suffix to add to the number of wins
+  * @param {boolean} useDifferentBracketColors - Whether to use a provided custom colour for the brackets
+  * @param {boolean} useBrackets - Whether to even use brackets around the title
+  * @param {boolean} alternativeNaming - Whether to use supplied names for the title
+  * @param {boolean} returnAsObject - Whether to return the title as an object or a string
+  * 
+  * @returns {string} - The title generated based on the number of wins (if returnAsObject is false)
+  * @returns {object} - The title generated based on the number of wins (if returnAsObject is true)
+ */
+function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false, returnAsObject = false) {
   let chosenTitle = winsObject[0];
   wins = und(wins);
   let chosenBracketColor;
   let nextTitleWins = ``; // number of wins to next title
+  let winsToGoNum;
   let brackets = ["[", "]"];
   let winsPrefixText = wins.toString();
 
@@ -3765,12 +3819,26 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
     }
   }
 
-  if (useToGo) {
+  if (useToGo || returnAsObject) {
     if (wins >= winsObject[winsObject.length - 1]["req"]) {
+      winsToGoNum = -2;
+    } else {
+      winsToGoNum = und(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins);
+    }
+
+    if (useToGo) {
+      if (winsToGoNum >= 0) {
+        nextTitleWins = ` ` + insertPlaceholders(getTranslation(["statistics", "wins_to_go"]), {num: checkAndFormat(winsToGoNum)});
+      } else {
+        nextTitleWins = ` ` + getTranslation(["statistics", "max_title"]);
+      }
+    }
+    /*if (wins >= winsObject[winsObject.length - 1]["req"]) {
       nextTitleWins = ` ` + getTranslation(["statistics", "max_title"]);
+      winsToGoNum = -2;
     } else {
       nextTitleWins = ` ` + insertPlaceholders(getTranslation(["statistics", "wins_to_go"]), {num: checkAndFormat(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins)});
-    }
+    }*/
   }
 
   if (definedColor != undefined) {
@@ -3787,10 +3855,24 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
     winsPrefixText = chosenTitle["altName"] || winsPrefixText;
   }
 
+  let winsPrefix;
+
   if (chosenTitle["color"] != "rainbow") {
-    return `${generateMinecraftText(`${chosenBracketColor}${brackets[0]}${chosenTitle["color"]}${winsPrefixText}${suffix}${chosenBracketColor}${brackets[1]}`, true)}${nextTitleWins}`;
+    winsPrefix = `${generateMinecraftText(`${chosenBracketColor}${brackets[0]}${chosenTitle["color"]}${winsPrefixText}${suffix}${chosenBracketColor}${brackets[1]}`, true)}${nextTitleWins}`;
   } else {
-    return `${generateMinecraftText(rainbowText(brackets[0] + winsPrefixText + suffix + brackets[1]), true)}${nextTitleWins}`;
+    let colorCodeArray = chosenTitle["colorArray"] || undefined;
+
+    winsPrefix = `${generateMinecraftText(rainbowText(brackets[0] + winsPrefixText + suffix + brackets[1], colorCodeArray), true)}${nextTitleWins}`;
+  }
+
+  if (returnAsObject) {
+    return { 
+      title: winsPrefix,
+      winsToGo: winsToGoNum,
+      currentTitleRequirement: chosenTitle["req"],
+    };
+  } else {
+    return winsPrefix;
   }
 }
 

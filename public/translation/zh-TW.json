@@ -166,6 +166,7 @@
       "game_tokens": "%%game%%代幣",
       "game_experience": "%%game%%經驗值",
       "broken_weapons": "破損兵器",
+      "legendary_broken_weapons": "Legendary Broken Weapons",
       "event_experience": "活動經驗值"
     },
     "completions": {
@@ -621,6 +622,20 @@
         }
       },
       "warlords": {
+        "titles": {
+          "rookie": "Rookie",
+          "recruit": "Recruit",
+          "novice": "Novice",
+          "apprentice": "Apprentice",
+          "soldier": "Soldier",
+          "captain": "Captain",
+          "general": "General",
+          "vanquisher": "Vanquisher",
+          "gladiator": "Gladiator",
+          "champion": "Champion",
+          "warlord": "Warlord",
+          "overlord": "Overlord"
+        },
         "classes": {
           "category": "職業",
           "mage": "法師",

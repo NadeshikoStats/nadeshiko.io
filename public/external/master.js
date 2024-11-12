@@ -149,14 +149,14 @@ function smallDuration(seconds, ms = false) {
   }
 }
 
-function rainbowText(text, colorCodes = ["c", "6", "e", "a", "b", "d", "5"]) {
+function rainbowText(text, colorCodes = ["§c", "§6", "§e", "§a", "§b", "§d", "§5"]) {
   // Returns a string with cycling colour codes after providing an array of colour codes
   let coloredText = "";
 
   for (let i = 0; i < text.length; i++) {
     let character = text.charAt(i);
     let colorCode = colorCodes[i % colorCodes.length];
-    coloredText += `§${colorCode}${character}`;
+    coloredText += `${colorCode}${character}`;
   }
 
   return coloredText;

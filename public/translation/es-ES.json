@@ -166,6 +166,7 @@
       "game_tokens": "Tokens de %%game%%",
       "game_experience": "Experiencia de %%game%%",
       "broken_weapons": "Armas rotas",
+      "legendary_broken_weapons": "Armas rotas legendarias",
       "event_experience": "Experiencia de evento"
     },
     "completions": {
@@ -621,6 +622,20 @@
         }
       },
       "warlords": {
+        "titles": {
+          "rookie": "Principiante",
+          "recruit": "Recluta",
+          "novice": "Novato",
+          "apprentice": "Aprendiz",
+          "soldier": "Soldado",
+          "captain": "Capitán",
+          "general": "General",
+          "vanquisher": "Vencedor",
+          "gladiator": "Gladiador",
+          "champion": "Campeón",
+          "warlord": "Líder de Guerra",
+          "overlord": "Jefe Supremo"
+        },
         "classes": {
           "category": "Clases",
           "mage": "Mago",
