@@ -409,7 +409,7 @@ function getLastMidnight(datestamp = Date.now()) {
   const totalSecondsPassedToday = (parseInt(hours) * 3600) + (parseInt(minutes) * 60) + parseInt(seconds);
   const lastMidnightTimestampET = now.getTime() / 1000 - totalSecondsPassedToday;
 
-  return Math.floor(lastMidnightTimestampET);
+  return Math.floor(lastMidnightTimestampET) * 1000;
 }
 
 /*
@@ -418,7 +418,7 @@ function getLastMidnight(datestamp = Date.now()) {
  * @returns {number} The datestamp of the most recent Friday midnight in Eastern Time
  */
 function getLastFridayMidnight(datestamp = Date.now()) {
-  const lastMidnightTimestamp = getLastMidnight(datestamp) * 1000;
+  const lastMidnightTimestamp = getLastMidnight(datestamp);
   const lastMidnightDate = new Date(lastMidnightTimestamp);
   
   let dayOfWeek = lastMidnightDate.getUTCDay();
@@ -429,7 +429,7 @@ function getLastFridayMidnight(datestamp = Date.now()) {
 
   const lastFridayMidnightTimestamp = lastMidnightDate.getTime() - (daysToSubtract * 86400000);
 
-  return Math.floor(lastFridayMidnightTimestamp / 1000);
+  return Math.floor(lastFridayMidnightTimestamp);
 }
 
 function generateNetwork() {

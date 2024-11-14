@@ -1004,6 +1004,7 @@
     "magic_dust": "Magic Dust",
     "void_shards": "Abyss Shards",
     "weapons_repaired": "Weapons Fixed",
+    "flags_captured": "Flags Stolen",
     "flags_returned": "Flags Returned",
     "captures": "Captures",
     "total_score": "Total Score",

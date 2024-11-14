@@ -1004,6 +1004,7 @@
     "magic_dust": "Magic Dust",
     "void_shards": "Void Shards",
     "weapons_repaired": "Weapons Repaired",
+    "flags_captured": "Flags Captured",
     "flags_returned": "Flags Returned",
     "captures": "奪獲數",
     "total_score": "總分 ",

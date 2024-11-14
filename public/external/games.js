@@ -2814,7 +2814,7 @@ function generateWarlords() {
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats["wins_capturetheflag"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(warlordsStats["kills_capturetheflag"])]],
-      [false, [getTranslation("statistics.flags_returned"), checkAndFormat(warlordsStats["flag_returns"])]]
+      [false, [getTranslation("statistics.flags_captured"), checkAndFormat(warlordsStats["flag_conquer_self"])], [getTranslation("statistics.flags_returned"), checkAndFormat(warlordsStats["flag_returns"])]]
     ],
     [],
     ``,

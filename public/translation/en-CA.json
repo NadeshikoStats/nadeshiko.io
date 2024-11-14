@@ -1120,6 +1120,8 @@
     "magic_dust": "Magic Dust",
     "void_shards": "Void Shards",
     "weapons_repaired": "Weapons Repaired",
+    
+    "flags_captured": "Flags Captured",
     "flags_returned": "Flags Returned",
     "captures": "Captures",
     "total_score": "Total Score",
