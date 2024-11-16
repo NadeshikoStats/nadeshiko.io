@@ -122,7 +122,6 @@ function guildPlayerObjectToRow(guildObj) {
 
   const myChartCanvas = newRow.querySelector('.chart');
   myChartCanvas.id = "chart-" + guildObj["uuid"];
-  console.warn(myChartCanvas.id);
 
   if(playerProfile["tagged_name"] == undefined || playerProfile["tagged_name"] == null) {
     updateTag(newRow, "name", `<i class="m4">${guildObj["uuid"]}</i>`, true);
@@ -281,7 +280,6 @@ function sortData(attribute = "priority", reverse = false) {
     document.getElementById(iconId).classList.remove("flipped");
   });
 
-  console.warn(attribute);
   document.getElementById("header-" + attribute).classList.remove("deactivated");
   document.getElementById("header-" + attribute + "-icon").classList.remove("deactivated");
 

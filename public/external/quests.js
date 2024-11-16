@@ -343,7 +343,7 @@ function parseReward(game, reward, amount) {
       break;
     case "WarlordsLegendaryBrokenWeaponReward":
       formattedReward = {
-        icon: "glowstone_dust",
+        icon: "cookie",
         text: getTranslation(["quests", "rewards", "legendary_broken_weapons"])
       }
       break;

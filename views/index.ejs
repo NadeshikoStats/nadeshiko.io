@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
-    <link rel="stylesheet" href="/css/stylesheet.css">
-    <script src="/external/master.js"></script>
+    <link rel="stylesheet" href="/css/stylesheet.css?v=<%= version || 0 %>">
+    <script src="/external/master.js?v=<%= version || 0 %>"></script>
 
     <script>
       let tasksBeforeLoadingHeader = ["fetchLanguageFile", "DOMContentLoaded"];
@@ -80,11 +80,11 @@
         }
       }
     </script>
-    <script src="/external/language.js"></script>
+    <script src="/external/language.js?v=<%= version || 0 %>"></script>
     
-    <script src="/external/gsap.min.js"></script>
-    <script src="/external/petals.js"></script>
-    <script src="/external/purify.min.js"></script>
+    <script src="/external/gsap.min.js?v=<%= version || 0 %>"></script>
+    <script src="/external/petals.js?v=<%= version || 0 %>"></script>
+    <script src="/external/purify.min.js?v=<%= version || 0 %>"></script>
 
     <meta name="theme-color" content="#f6adc6">
     <meta property="og:site_name" content="nadeshiko.io">

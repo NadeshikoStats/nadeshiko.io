@@ -1,0 +1,46 @@
+.skyblock-profile {
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  flex: 1 1 auto;
+
+  position: absolute;
+  width: 100%;
+  transition-duration: var(--transition-large);
+}
+
+.skill, .skill-container {
+  width: 100%;
+}
+
+.skill, .skill .progress-number {
+  font-size: 14px;
+}
+
+.skill-container .progress-bar {
+  margin-inline-start: 0; /* Lines up the progress bar with the skill name */
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-inline-end: 0;
+}
+
+.skill-container .progress-bar, .skill-container .progress {
+  height: 12px;
+}
+
+.skill:first-child {
+  margin-inline-end: 20px;
+}
+
+.basic-player-info {
+  font-size: 14px;
+  margin: 10px auto;
+}
+
+.skill.tooltip > :not(:last-child), .skyblock-level-container > :not(:last-child) { /* Tooltips need to be adjusted slightly */
+  text-decoration: none;
+}
+
+.skyblock-level-container {
+  width: 100%;
+}

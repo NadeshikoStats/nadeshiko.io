@@ -11,7 +11,8 @@
     --accent-guild: #4fd334;
     --accent-achievements-overall: #6b68bb;
     --accent-achievements-legacy: #309c45;
-    
+    --accent-skyblock-page: #ff90e0;
+
     --accent-vampirez: #b73131;
     --accent-tntgames: #c55757;
     --accent-walls: #9c4131;
@@ -1210,6 +1211,10 @@
     min-width: max-content;
     display: inline-block;
   }
+
+  a.general-button {
+    text-decoration: none;
+  }
   
   .general-button:hover {
     background-color: var(--accent);
@@ -1652,7 +1657,7 @@
     overflow-y: scroll;
   }
 
-  .list .row:nth-child(odd) .row-header, .list .row:nth-child(odd) .row-content, .leaderboard-row:nth-child(odd) {
+  .list .row:nth-child(odd):not(.has-badge) .row-header, .list .row:nth-child(odd):not(.has-badge) .row-content, .leaderboard-row:nth-child(odd) {
     background-color: #0008;
   }
 
@@ -2526,6 +2531,7 @@
     padding: 10px;
     font-size: 15px;
     cursor: text;
+    text-wrap: balance;
   }
   
   .tooltip:hover .tooltiptext {

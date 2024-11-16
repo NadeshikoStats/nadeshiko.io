@@ -295,7 +295,7 @@ function countSignificantDigits(number) {
   * simplifyNumber(1230) // returns "1.23K" in en-CA
   * simplifyNumber(1234567) // returns "1,234,567" in en-CA
   */
-function simplifyNumber(number) {
+function simplifyNumber(number, maxSigDigits = 3) {
   let languageToUse;
   if (userLanguage.startsWith("zh")) { // Apparently 万 is falling out of favour
     languageToUse = "en-CA";
@@ -304,12 +304,13 @@ function simplifyNumber(number) {
   }
   const numberFormatter = new Intl.NumberFormat(languageToUse, {
     notation: 'compact',
-    compactDisplay: 'short'
+    compactDisplay: 'short',
+    maximumSignificantDigits: maxSigDigits,
   });
 
   let significantDigits = countSignificantDigits(number);
 
-  if (significantDigits <= 3) {
+  if (significantDigits <= maxSigDigits) {
     return numberFormatter.format(number);
   } else {
     return locale(number, 0);
@@ -546,3 +547,94 @@ setTimeout(function() {
 
   console.log(styleText, ...styleInstructions);
 }, 4000);
+
+/*
+ * Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
+  * @param {number} wins - The number of wins (kills) a player has
+  * @param {string} winsObject - The object containing the titles and their requirements
+  * @param {string} definedColor - i forgor
+  * @param {boolean} useToGo - Whether to display the number of wins to the next title in (x to go) format
+  * @param {string} suffix - The suffix to add to the number of wins
+  * @param {boolean} useDifferentBracketColors - Whether to use a provided custom colour for the brackets
+  * @param {boolean} useBrackets - Whether to even use brackets around the title
+  * @param {boolean} alternativeNaming - Whether to use supplied names for the title
+  * @param {boolean} returnAsObject - Whether to return the title as an object or a string
+  * 
+  * @returns {string} - The title generated based on the number of wins (if returnAsObject is false)
+  * @returns {object} - The title generated based on the number of wins (if returnAsObject is true)
+ */
+function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false, returnAsObject = false) {
+  let chosenTitle = winsObject[0];
+  wins = und(wins);
+  let chosenBracketColor;
+  let nextTitleWins = ``; // number of wins to next title
+  let winsToGoNum;
+  let brackets = ["[", "]"];
+  let winsPrefixText = wins.toString();
+
+  if (!useBrackets) {
+    brackets = ["", ""];
+  }
+
+  for (let i = 0; i < winsObject.length; i++) {
+    if (wins >= winsObject[i]["req"]) {
+      chosenTitle = winsObject[i];
+    }
+  }
+
+  if (useToGo || returnAsObject) {
+    if (wins >= winsObject[winsObject.length - 1]["req"]) {
+      winsToGoNum = -2;
+    } else {
+      winsToGoNum = und(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins);
+    }
+
+    if (useToGo) {
+      if (winsToGoNum >= 0) {
+        nextTitleWins = ` ` + insertPlaceholders(getTranslation(["statistics", "wins_to_go"]), {num: checkAndFormat(winsToGoNum)});
+      } else {
+        nextTitleWins = ` ` + getTranslation(["statistics", "max_title"]);
+      }
+    }
+    /*if (wins >= winsObject[winsObject.length - 1]["req"]) {
+      nextTitleWins = ` ` + getTranslation(["statistics", "max_title"]);
+      winsToGoNum = -2;
+    } else {
+      nextTitleWins = ` ` + insertPlaceholders(getTranslation(["statistics", "wins_to_go"]), {num: checkAndFormat(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins)});
+    }*/
+  }
+
+  if (definedColor != undefined) {
+    chosenTitle = winsObject.find((x) => x.internalId == definedColor) || { color: "§f" };
+  }
+
+  if(useDifferentBracketColors) {
+    chosenBracketColor = chosenTitle["bracketColor"] || chosenTitle["color"];
+  } else {
+    chosenBracketColor = chosenTitle["color"];
+  }
+
+  if (alternativeNaming) {
+    winsPrefixText = chosenTitle["altName"] || winsPrefixText;
+  }
+
+  let winsPrefix;
+
+  if (chosenTitle["color"] != "rainbow") {
+    winsPrefix = `${generateMinecraftText(`${chosenBracketColor}${brackets[0]}${chosenTitle["color"]}${winsPrefixText}${suffix}${chosenBracketColor}${brackets[1]}`, true)}${nextTitleWins}`;
+  } else {
+    let colorCodeArray = chosenTitle["colorArray"] || undefined;
+
+    winsPrefix = `${generateMinecraftText(rainbowText(brackets[0] + winsPrefixText + suffix + brackets[1], colorCodeArray), true)}${nextTitleWins}`;
+  }
+
+  if (returnAsObject) {
+    return { 
+      title: winsPrefix,
+      winsToGo: winsToGoNum,
+      currentTitleRequirement: chosenTitle["req"],
+    };
+  } else {
+    return winsPrefix;
+  }
+}

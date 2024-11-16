@@ -5,6 +5,8 @@ const minify = require('express-minify');
 const app = express();
 const port = 8080;
 
+const version = "1.1.0"; // Updating this will force the cache to clear for all users
+
 app.set('view engine', 'ejs');
 app.set('views', './views');
 /*
@@ -25,7 +27,7 @@ app.get('/', (req, res) => {
     category: ``,
     page: ``
   };
-  res.render('index');
+  res.render('index', { version });
 });
 
 let gameAliases = {
@@ -1111,6 +1113,9 @@ ${achievementGamesString}`;
   case 'leaderboards': {
     return `🥇 Check out the top players in over one hundred categories using nadeshiko's leaderboards!`
   }
+  case 'skyblock': {
+    return `View your SkyBlock stats on nadeshiko!`
+  }
 
 
 }}}
@@ -1158,7 +1163,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
         }
 
-       res.render('player', { name, playerData, game, metaImageURL, metaDescription });
+       res.render('player', { name, playerData, game, metaImageURL, metaDescription, version });
    } catch(error) {
       if(error.response && error.response.status == 404) {
         computationError = {
@@ -1177,9 +1182,56 @@ app.get('/player/:name/:game?', async (req, res) => {
         };
         console.error("Fetching player data failed! → ", error);
       }
-      res.render('index', { computationError });
+      res.render('index', { computationError, version });
    }
 });
+
+  app.get('/skyblock/:name?', async (req, res) => {
+    const name = req.params.name;
+    
+    computationError = {
+      message: ``,
+      player: ``,
+      category: ``,
+      page: ``
+    };
+    
+    try {
+
+        const response = await axios.get(`http://localhost:2000/skyblock?name=${name}`);
+        let skyblockData = response.data;
+        
+        let metaDescription;
+        if (skyblockData && skyblockData["profile"]) { // If the player data is available
+            metaDescription = getMetaDescription("skyblock");
+
+          } else { // If the player data is not available, don't show a card and show a default description
+            metaImageURL = ``;
+            metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+          }
+
+        res.render('skyblock', { name, skyblockData, metaDescription, version });
+    } catch(error) {
+        if(error.response && error.response.status == 404) {
+          computationError = {
+            message: `No player by the name of ${name} was found :(`,
+            player: name,
+            category: "404",
+            page: "skyblock"
+          };
+        } else {
+          computationError = {
+            message: `Could not find SkyBlock stats of player ${name} (${error})`,
+            player: name,
+            error: error["message"],
+            category: "computation",
+            "page": "skyblock"
+          };
+          console.error("Fetching player data failed! → ", error);
+        }
+        res.render('index', { computationError, version });
+    }
+  });
 
   app.get('/isnadeshikodown', (req, res) => {
     res.send('No (probably)');
@@ -1235,7 +1287,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
         }
 
-        res.render('guild', { name, guildData, metaDescription });
+        res.render('guild', { name, guildData, metaDescription, version });
 
      } catch(error) {
       try {
@@ -1249,7 +1301,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
         }
 
-        res.render('guild', { name, guildData, metaDescription });
+        res.render('guild', { name, guildData, metaDescription, version });
       } catch(error) {
         computationError = {
           message: `Could not find guild with name ${name} (${error})`,
@@ -1259,7 +1311,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           page: "guild"
         };
         console.error("Fetching guild data failed! → ", error);
-        res.render('index', { computationError });
+        res.render('index', { computationError, version });
      }
     }
   });
@@ -1304,7 +1356,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
         }
 
-        res.render('achievements', { name, achievementsData, game, metaDescription });
+        res.render('achievements', { name, achievementsData, game, metaDescription, version });
 
      } catch(error) {
         computationError = {
@@ -1315,7 +1367,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           page: "achievements"
         };
         console.error("Fetching achievements data failed! → ", error);
-        res.render('index', { computationError });
+        res.render('index', { computationError, version });
      }
 
   });
@@ -1345,7 +1397,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
         }
 
-        res.render('quests', { name, questsData, metaDescription });
+        res.render('quests', { name, questsData, metaDescription, version });
 
      } catch(error) {
         computationError = {
@@ -1356,7 +1408,7 @@ app.get('/player/:name/:game?', async (req, res) => {
           page: "quests"
         };
         console.error("Fetching quests data failed! → ", error);
-        res.render('index', { computationError });
+        res.render('index', { computationError, version });
      }
 
   });
@@ -1377,7 +1429,7 @@ app.get('/player/:name/:game?', async (req, res) => {
   });
 
   app.get('/leaderboards', async (req, res) => {
-    res.render('leaderboards');
+    res.render('leaderboards', { version });
   });
 
   app.get('/:name/:game?', (req, res) => {
@@ -1391,7 +1443,7 @@ app.get('/player/:name/:game?', async (req, res) => {
         page: "player"
       };
       
-      res.render('index', { computationError });
+      res.render('index', { computationError, version });
     } else {
       res.redirect(`/player/${name}/${game == undefined ? '' : game}`);
     }

@@ -55,6 +55,7 @@ let gameNames = {
           "foraging_1": "The Park",
           "dark_auction": "Dark Auction",
           "dungeon": "Dungeons",
+          "dungeon_hub": "Dungeon Hub",
           "combat_3": "The End",
           "crimson_isle": "Crimson Isle",
           "hub": "Hub",

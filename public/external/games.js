@@ -280,24 +280,24 @@ function generateNetwork() {
       }
     });
 
-    generateBedWars();
-    generateDuels();
-    generateSkyWars();
-    generateBuildBattle();
-    generateMurderMystery();
-    generateTNTGames();
-    generateArcade();
-    generatePit();
-    generateClassic();
-    generateCopsAndCrims();
-    generateBlitz();
-    generateMegaWalls();
-    generateWarlords();
-    generateUHC();
-    generateSmash();
-    generateWoolGames();
+      generateBedWars();
+      generateDuels();
+      generateSkyWars();
+      generateBuildBattle();
+      generateMurderMystery();
+      generateTNTGames();
+      generateArcade();
+      generatePit();
+      generateClassic();
+      generateCopsAndCrims();
+      generateBlitz();
+      generateMegaWalls();
+      generateWarlords();
+      generateUHC();
+      generateSmash();
+      generateWoolGames();
 
-    generateFishing();
+      generateFishing();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
   } else {
@@ -444,7 +444,7 @@ function generateBedWars() {
     }
 
     updateElement("bedwars-level", checkAndFormat(Math.floor(bedWarsLevel)) + prefixIcon);
-    document.getElementById("bedwars-level").style.background = linearGradient(bedWarsPrestigeColors[Math.floor(Math.max(bedWarsLevel / 100), 49)]);
+    document.getElementById("bedwars-level").style.background = linearGradient(bedWarsPrestigeColors[Math.min(Math.floor(bedWarsLevel / 100), 50)]);
     document.getElementById("bedwars-xp-progress-bar").style.width = ((bedWarsLevel % 1) * 100).toFixed(0) + "%";
     updateElement("bedwars-xp-progress-number", ((bedWarsLevel % 1) * 100).toFixed(0) + "%");
 
@@ -2745,12 +2745,9 @@ function generateWarlords() {
 
   let warlordsTitleObject = getGenericWinsPrefix(warlordsWins, warlordsTitles, undefined, true, "", false, false, true, true);
 
-  console.log(warlordsTitleObject);
-
   if (warlordsTitleObject["winsToGo"] >= 0) {
     winsPastTitleUnlock = warlordsWins - warlordsTitleObject["currentTitleRequirement"];
     winsToNextTitle = warlordsWins + warlordsTitleObject["winsToGo"] - warlordsTitleObject["currentTitleRequirement"];
-    console.log(`${warlordsWins} + ${warlordsTitleObject["winsToGo"]} - ${warlordsTitleObject["currentTitleRequirement"]} = ${winsToNextTitle}`);
 
     document.getElementById("warlords-progress-bar-container").style.display = "block";
 
@@ -3783,97 +3780,6 @@ function getFishingCatches(category) {
     }
 
   return fishingItemsStats;
-}
-
-/*
- * Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
-  * @param {number} wins - The number of wins (kills) a player has
-  * @param {string} winsObject - The object containing the titles and their requirements
-  * @param {string} definedColor - i forgor
-  * @param {boolean} useToGo - Whether to display the number of wins to the next title in (x to go) format
-  * @param {string} suffix - The suffix to add to the number of wins
-  * @param {boolean} useDifferentBracketColors - Whether to use a provided custom colour for the brackets
-  * @param {boolean} useBrackets - Whether to even use brackets around the title
-  * @param {boolean} alternativeNaming - Whether to use supplied names for the title
-  * @param {boolean} returnAsObject - Whether to return the title as an object or a string
-  * 
-  * @returns {string} - The title generated based on the number of wins (if returnAsObject is false)
-  * @returns {object} - The title generated based on the number of wins (if returnAsObject is true)
- */
-function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false, returnAsObject = false) {
-  let chosenTitle = winsObject[0];
-  wins = und(wins);
-  let chosenBracketColor;
-  let nextTitleWins = ``; // number of wins to next title
-  let winsToGoNum;
-  let brackets = ["[", "]"];
-  let winsPrefixText = wins.toString();
-
-  if (!useBrackets) {
-    brackets = ["", ""];
-  }
-
-  for (let i = 0; i < winsObject.length; i++) {
-    if (wins >= winsObject[i]["req"]) {
-      chosenTitle = winsObject[i];
-    }
-  }
-
-  if (useToGo || returnAsObject) {
-    if (wins >= winsObject[winsObject.length - 1]["req"]) {
-      winsToGoNum = -2;
-    } else {
-      winsToGoNum = und(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins);
-    }
-
-    if (useToGo) {
-      if (winsToGoNum >= 0) {
-        nextTitleWins = ` ` + insertPlaceholders(getTranslation(["statistics", "wins_to_go"]), {num: checkAndFormat(winsToGoNum)});
-      } else {
-        nextTitleWins = ` ` + getTranslation(["statistics", "max_title"]);
-      }
-    }
-    /*if (wins >= winsObject[winsObject.length - 1]["req"]) {
-      nextTitleWins = ` ` + getTranslation(["statistics", "max_title"]);
-      winsToGoNum = -2;
-    } else {
-      nextTitleWins = ` ` + insertPlaceholders(getTranslation(["statistics", "wins_to_go"]), {num: checkAndFormat(winsObject[winsObject.indexOf(chosenTitle) + 1]["req"] - wins)});
-    }*/
-  }
-
-  if (definedColor != undefined) {
-    chosenTitle = winsObject.find((x) => x.internalId == definedColor) || { color: "§f" };
-  }
-
-  if(useDifferentBracketColors) {
-    chosenBracketColor = chosenTitle["bracketColor"] || chosenTitle["color"];
-  } else {
-    chosenBracketColor = chosenTitle["color"];
-  }
-
-  if (alternativeNaming) {
-    winsPrefixText = chosenTitle["altName"] || winsPrefixText;
-  }
-
-  let winsPrefix;
-
-  if (chosenTitle["color"] != "rainbow") {
-    winsPrefix = `${generateMinecraftText(`${chosenBracketColor}${brackets[0]}${chosenTitle["color"]}${winsPrefixText}${suffix}${chosenBracketColor}${brackets[1]}`, true)}${nextTitleWins}`;
-  } else {
-    let colorCodeArray = chosenTitle["colorArray"] || undefined;
-
-    winsPrefix = `${generateMinecraftText(rainbowText(brackets[0] + winsPrefixText + suffix + brackets[1], colorCodeArray), true)}${nextTitleWins}`;
-  }
-
-  if (returnAsObject) {
-    return { 
-      title: winsPrefix,
-      winsToGo: winsToGoNum,
-      currentTitleRequirement: chosenTitle["req"],
-    };
-  } else {
-    return winsPrefix;
-  }
 }
 
 function getDuelsTitle(wins, name = "") {
