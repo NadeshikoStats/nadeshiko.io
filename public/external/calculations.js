@@ -182,48 +182,33 @@ function getWoolGamesLevel(exp) {
   return level + exp / 5000;
 }
 
-function getBuildBattleTitle(score) {
+function getBuildBattleTitle(score, includeToGo = false) {
   // Gets player's Build Battle title based on an amount of score
 
   let buildBattleTitles = [
-    { minimumScore: 0, difference: 100, title: getTranslation("games.modes.buildbattle.titles.prospect"), color: "f" },
-    { minimumScore: 100, difference: 150, title: getTranslation("games.modes.buildbattle.titles.rookie"), color: "7" },
-    { minimumScore: 250, difference: 250, title: getTranslation("games.modes.buildbattle.titles.amateur"), color: "8" },
-    { minimumScore: 500, difference: 500, title: getTranslation("games.modes.buildbattle.titles.apprentice"), color: "a" },
-    { minimumScore: 1000, difference: 1500, title: getTranslation("games.modes.buildbattle.titles.trained"), color: "2" },
-    { minimumScore: 2500, difference: 2500, title: getTranslation("games.modes.buildbattle.titles.experienced"), color: "b" },
-    { minimumScore: 5000, difference: 5000, title: getTranslation("games.modes.buildbattle.titles.seasoned"), color: "3" },
-    { minimumScore: 10000, difference: 15000, title: getTranslation("games.modes.buildbattle.titles.skilled"), color: "9" },
-    { minimumScore: 25000, difference: 25000, title: getTranslation("games.modes.buildbattle.titles.talented"), color: "1" },
-    { minimumScore: 50000, difference: 50000, title: getTranslation("games.modes.buildbattle.titles.professional"), color: "5" },
-    { minimumScore: 100000, difference: 100000, title: getTranslation("games.modes.buildbattle.titles.artisan"), color: "d" },
-    { minimumScore: 200000, difference: 150000, title: getTranslation("games.modes.buildbattle.titles.expert"), color: "c" },
-    { minimumScore: 350000, difference: 150000, title: getTranslation("games.modes.buildbattle.titles.master"), color: "4" },
-    { minimumScore: 500000, difference: -1, title: getTranslation("games.modes.buildbattle.titles.grandmaster"), color: "6" },
+    { req: 0, color: "§f", altName: getTranslation("games.modes.buildbattle.titles.rookie") },
+    { req: 100, color: "§7", altName: getTranslation("games.modes.buildbattle.titles.untrained") },
+    { req: 250, color: "§8", altName: getTranslation("games.modes.buildbattle.titles.amateur") },
+    { req: 500, color: "§a", altName: getTranslation("games.modes.buildbattle.titles.prospect") },
+    { req: 1000, color: "§2", altName: getTranslation("games.modes.buildbattle.titles.apprentice") },
+    { req: 2000, color: "§b", altName: getTranslation("games.modes.buildbattle.titles.experienced") },
+    { req: 3500, color: "§3", altName: getTranslation("games.modes.buildbattle.titles.seasoned") },
+    { req: 5000, color: "§9", altName: getTranslation("games.modes.buildbattle.titles.trained") },
+    { req: 7500, color: "§1", altName: getTranslation("games.modes.buildbattle.titles.skilled") },
+    { req: 10000, color: "§5", altName: getTranslation("games.modes.buildbattle.titles.talented") },
+    { req: 15000, color: "§2", altName: getTranslation("games.modes.buildbattle.titles.professional") },
+    { req: 20000, color: "§c", altName: getTranslation("games.modes.buildbattle.titles.artisan") },
+    { req: 30000, color: "§4", altName: getTranslation("games.modes.buildbattle.titles.expert") },
+    { req: 50000, color: "§6", altName: getTranslation("games.modes.buildbattle.titles.master") },
+    { req: 100000, color: "§a§l", altName: getTranslation("games.modes.buildbattle.titles.legend") },
+    { req: 200000, color: "§b§l", altName: getTranslation("games.modes.buildbattle.titles.grandmaster") },
+    { req: 300000, color: "§d§l", altName: getTranslation("games.modes.buildbattle.titles.celestial") },
+    { req: 400000, color: "§c§l", altName: getTranslation("games.modes.buildbattle.titles.divine") },
+    { req: 500000, color: "§6§l", altName: getTranslation("games.modes.buildbattle.titles.ascended") },
+  ];
 
-  ]
-
-  let scoreToGo;
-  let chosenTitle = buildBattleTitles[0];
-  for (a = 0; a < buildBattleTitles.length; a++) {
-    if (score >= buildBattleTitles[a]["minimumScore"]) {
-      if (a === buildBattleTitles.length - 1) {
-        scoreToGo = -1;
-      } else {
-        scoreToGo = buildBattleTitles[a + 1]["minimumScore"] - score;
-      }
-      chosenTitle = buildBattleTitles[a];
-    }
-  }
-
-  let nextTitlePercentage;
-  if (chosenTitle["difference"] == -1) {
-    nextTitlePercentage = 1;
-  } else {
-    nextTitlePercentage = (score - chosenTitle["minimumScore"]) / chosenTitle["difference"];
-  }
-
-  return [`§${chosenTitle["color"]}${chosenTitle["title"]}`, scoreToGo, nextTitlePercentage];
+  let titleObject = getGenericWinsPrefix(score, buildBattleTitles, undefined, includeToGo, "", false, false, true, true);
+  return titleObject;
 }
 
 let pitXpMap = [15, 30, 50, 75, 125, 300, 600, 800, 900, 1000, 1200, 1500, 0];

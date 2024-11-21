@@ -1,4 +1,4 @@
-var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, warlordsStats, uhcStats, speedUHCStats, woolWarsNumericalStats, smashStats, fishingStats, fishingParticipatedSeasons;
+var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, paintballStats, quakeStats, vampireZStats, wallsStats, tkrStats, copsAndCrimsStats, blitzStats, megaWallsStats, warlordsStats, warlordsFormattedWeapons, uhcStats, speedUHCStats, woolWarsNumericalStats, smashStats, fishingStats, fishingParticipatedSeasons;
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
@@ -1205,24 +1205,28 @@ function generateBuildBattle() {
 
   let buildBattleStats = playerData["stats"]["BuildBattle"] || {};
   if (buildBattleStats != undefined) {
-    buildBattleTitle = getBuildBattleTitle(und(buildBattleStats["score"]));
-    updateElement("buildbattle-overall-title", generateMinecraftText(buildBattleTitle[0], true), true);
+    let buildBattleScore = und(buildBattleStats["score"]);
+    updateElement("buildbattle-overall-score", checkAndFormat(buildBattleScore));
 
-    if (buildBattleTitle[1] == -1) {
-      updateElement("buildbattle-overall-to-go", getTranslation("statistics.max_title"));
-    } else {
-      updateElement("buildbattle-overall-to-go", insertPlaceholders(getTranslation("statistics.wins_to_go"), { num: checkAndFormat(buildBattleTitle[1]) }));
+    let buildBattleTitle = getBuildBattleTitle(buildBattleScore, true);
+
+    if (buildBattleTitle["winsToGo"] > 0) {
+      let buildBattleProgressToNextTitle = und((buildBattleScore - buildBattleTitle["currentTitleRequirement"]) / (buildBattleScore - buildBattleTitle["currentTitleRequirement"] + buildBattleTitle["winsToGo"]))
+
+      updateElement("buildbattle-overall-progress-number", Math.floor(buildBattleProgressToNextTitle * 100) + "%");
+      document.getElementById("buildbattle-overall-progress-bar").style.width = buildBattleProgressToNextTitle * 100 + "%";
+
+      document.getElementById("buildbattle-overall-progress-bar-container").style.display = "block";
     }
 
-    updateElement("buildbattle-overall-progress-number", Math.floor(buildBattleTitle[2] * 100) + "%");
-    document.getElementById("buildbattle-overall-progress-bar").style.width = buildBattleTitle[2] * 100 + "%";
+    updateElement("buildbattle-overall-title", buildBattleTitle["title"], true);
 
     updateElement("buildbattle-overall-losses", locale(und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"]), 0));
     updateElement("buildbattle-overall-wlr", calculateRatio(buildBattleStats["wins"], und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"])));
     updateElement("buildbattle-overall-highest-score", checkAndFormat(playerAchievements["buildbattle_build_battle_points"]));
     updateElement("buildbattle-overall-tokens", checkAndFormat(buildBattleStats["coins"]));
 
-    let easyStats = ["score", "wins", "total_votes"];
+    let easyStats = ["wins", "total_votes"];
     for (e = 0; e < easyStats.length; e++) {
       updateElement("buildbattle-overall-" + easyStats[e], checkAndFormat(buildBattleStats[easyStats[e]]));
     }
@@ -2757,8 +2761,325 @@ function generateWarlords() {
     document.getElementById("warlords-overall-progress-bar").style.width = Math.floor(warlordsWinProgress * 100) + "%";
   }
   
-  
   updateElement("warlords-overall-title", warlordsTitleObject["title"], true);
+
+  function getWarlordsWeaponName(weaponObject) {
+    // Calculate weapon quality
+    let weaponGrader = {
+      "COMMON": {
+        "damage": {
+          "min": 90,
+          "max": 100
+        },
+        "chance": {
+          "min": 10,
+          "max": 18,
+        },
+        "multiplier": {
+          "min": 150,
+          "max": 170,
+        },
+        "health": {
+          "min": 180,
+          "max": 220,
+        },
+        "total_score": {
+          min: 430 + 4, // Discrepancy for skill boosts
+          max: 508 + 6, // Discrepancy for skill boosts
+          divisions: ["crumbly", "flimsy", "rough", "honed", "refined", "balanced"]
+        }
+      },
+      "RARE": {
+        "damage": {
+          "min": 95,
+          "max": 105
+        },
+        "chance": {
+          "min": 12,
+          "max": 20,
+        },
+        "multiplier": {
+          "min": 160,
+          "max": 180,
+        },
+        "health": {
+          "min": 200,
+          "max": 250,
+        },
+        "energy": {
+          min: 10,
+          max: 18,
+        },
+        "total_score": {
+          min: 477 + 6, // Discrepancy for skill boosts
+          max: 573 + 8, // Discrepancy for skill boosts
+          divisions: ["savage", "vicious", "deadly", "perfect"]
+        }
+      },
+      "EPIC": {
+        "damage": {
+          "min": 100,
+          "max": 110
+        },
+        "chance": {
+          "min": 15,
+          "max": 20,
+        },
+        "multiplier": {
+          "min": 160,
+          "max": 190,
+        },
+        "health": {
+          "min": 220,
+          "max": 275,
+        },
+        "energy": {
+          min: 15,
+          max: 20,
+        },
+        "cooldown": {
+          min: 3,
+          max: 5,
+        },
+        "total_score": {
+          min: 513 + 7, // Discrepancy for skill boosts
+          max: 620 + 9, // Discrepancy for skill boosts
+          divisions: ["fierce", "mighty", "brutal", "gladiators"]
+        }
+      },
+      "LEGENDARY": {
+        "damage": {
+          "min": 110,
+          "max": 120
+        },
+        "chance": {
+          "min": 15,
+          "max": 25,
+        },
+        "multiplier": {
+          "min": 180,
+          "max": 200,
+        },
+        "health": {
+          "min": 250,
+          "max": 400,
+        },
+        "energy": {
+          min: 20,
+          max: 25,
+        },
+        "cooldown": {
+          min: 5,
+          max: 10,
+        },
+        "movement": {
+          min: 5,
+          max: 10,
+        },
+        "total_score": {
+          min: 585 + 10, // Discrepancy for skill boosts
+          max: 790 + 15, // Discrepancy for skill boosts
+          divisions: ["vanquishers", "champions", "warlords"]
+        }
+      }
+    }
+
+    let weaponSpecs = [
+      ["pyromancer", "cryomancer", "aquamancer"],
+      ["berserker", "defender", "revenant"],
+      ["avenger", "crusader", "protector"],
+      ["thunderlord", "earthwarden", "spiritguard"], // Shaman's last two specializations are swapped
+    ];
+
+    let weaponRarityColors = {
+      "COMMON": "§a",
+      "RARE": "§9",
+      "EPIC": "§5",
+      "LEGENDARY": "§6",
+    }
+
+    let weaponForgeIncreases = {
+      "damage": 0.075,
+      "health": 0.25,
+      "energy": 0.1,
+      "cooldown": 0.075,
+      "movement": 0.075,
+
+      "chance": 0,
+      "multiplier": 0,
+    };
+
+    let weaponStats = { // Base default stats
+      "damage": weaponObject["damage"],
+      "chance": weaponObject["chance"],
+      "multiplier": weaponObject["multiplier"],
+      "energy": weaponObject["energy"],
+      "health": weaponObject["health"],
+      "cooldown": weaponObject["cooldown"],
+      "movement": weaponObject["movement"],
+    }
+
+    console.log(JSON.stringify(weaponStats));
+
+    let weaponPercentiles = {};
+    let totalWeaponScore = 0;
+
+    // determine ranked % of each item
+    let weaponRarity = weaponObject["category"] || "COMMON";
+
+    let weaponRarityGrading = weaponGrader[weaponRarity];
+
+    let weaponUpgrades = und(weaponObject["upgradeTimes"]); // Number of upgrades the weapon has
+    let weaponMaxUpgrades = und(weaponObject["upgradeMax"]); // Maximum number of upgrades (magic / void forging)
+
+    if (weaponRarity == "COMMON" || weaponRarity == "RARE") { // The API says common and rare weapons can be upgraded 2 times, but they can't
+      weaponUpgrades = 0;
+      weaponMaxUpgrades = 0;
+    }
+    
+    console.log(weaponUpgrades, weaponMaxUpgrades);
+
+    for (let comparator in weaponRarityGrading) {
+      if (comparator != "total_score") {
+        if (weaponForgeIncreases[comparator]) {
+          weaponStats[comparator] = und(Math.ceil(weaponStats[comparator] * (1 + (weaponForgeIncreases[comparator] * weaponUpgrades)))); // Applies void forge stat increases to base stats
+        }
+
+        totalWeaponScore += weaponStats[comparator] || 0; // Weapon score is based on the upgraded stats
+
+        weaponPercentiles[comparator] = (weaponObject[comparator] - weaponRarityGrading[comparator]["min"]) / (weaponRarityGrading[comparator]["max"] - weaponRarityGrading[comparator]["min"]); // Calculate the weapon quality, which is based on the **non-upgraded** stats
+      }
+    }
+
+
+    let averagePercentile = 0;
+    for (let percentile in weaponPercentiles) {
+      averagePercentile += weaponPercentiles[percentile];
+      //console.log(`Percentile for ${percentile}: ${checkAndFormat(weaponPercentiles[percentile]*100, 1)}% (value: ${weaponObject[percentile]}, min: ${weaponGrader[weaponRarity][percentile]["min"]}, max: ${weaponGrader[weaponRarity][percentile]["max"]})`);
+    }
+
+    //console.log(`Summing up percents and dividing by ${Object.keys(weaponPercentiles).length + 1} (currently bugged)`);
+    averagePercentile /= (Object.keys(weaponPercentiles).length + 1);
+    averagePercentile *= 100;
+
+    //console.log(`Average percentile: ${checkAndFormat(averagePercentile*100, 2)}%`);
+
+    let weaponPossibleTitles = weaponRarityGrading["total_score"]["divisions"];
+    let weaponMinimumScore = weaponRarityGrading["total_score"]["min"];
+    let weaponMaximumScore = weaponRarityGrading["total_score"]["max"];
+
+    let weaponTitlePosition = und(Math.floor((totalWeaponScore - weaponMinimumScore)/((weaponMaximumScore - weaponMinimumScore)/weaponPossibleTitles.length)));
+    console.log(`(${totalWeaponScore} - ${weaponMinimumScore}) / ((${weaponMaximumScore} - ${weaponMinimumScore})/${weaponPossibleTitles.length}) = ${weaponTitlePosition}`);
+
+    if (weaponTitlePosition < 0) {
+      weaponTitlePosition = 0;
+    }
+
+    if (weaponTitlePosition >= weaponPossibleTitles.length) {
+      weaponTitlePosition = weaponPossibleTitles.length - 1;
+    }
+
+    let weaponTitleToUse = weaponPossibleTitles[weaponTitlePosition] || "Unknown"; // This line of code determines the weapon title (prefix) to use. It's based on the total score of the weapon, which is calculated by summing up the values of the weapon's stats. It then divides the total score by the number of possible titles to get the index of the title to use. e.g. if there were 3 titles, and the weapon's total score was >67% of the way to the maximum score, it would use the third title.
+
+    let weaponSpecData = weaponObject["spec"] || {};
+    let weaponSpec = weaponSpecs[und(weaponSpecData["playerClass"])][und(weaponSpecData["spec"])];
+
+    let translatedWeaponTitle = getTranslation(`games.modes.warlords.weapons.titles.${weaponTitleToUse}`) || weaponTitleToUse;
+    let translatedWeaponItem = getTranslation(`games.modes.warlords.weapons.items.${weaponObject["material"]}`) || weaponObject["item"];
+    let translatedWeaponSpec = getTranslation(`games.modes.warlords.classes.${weaponSpec}`) || weaponSpec;
+    let weaponRarityColor = weaponRarityColors[weaponRarity] || "§f";
+
+    let fullName = insertPlaceholders(getTranslation(`games.modes.warlords.weapons.format`), {
+      "title": translatedWeaponTitle,
+      "item": translatedWeaponItem,
+      "spec": translatedWeaponSpec,
+    });
+
+    return {
+      name: `${weaponRarityColor}${fullName}`,
+      id: weaponObject["id"],
+      damage: weaponStats["damage"],
+      damage_min: Math.floor(weaponStats["damage"] * 0.85),
+      damage_max: Math.floor(weaponStats["damage"] * 1.15),
+      chance: weaponStats["chance"],
+      multiplier: weaponStats["multiplier"],
+      energy: weaponStats["energy"],
+      health: weaponStats["health"],
+      cooldown: weaponStats["cooldown"],
+      movement: weaponStats["movement"],
+      rarity: weaponRarity,
+
+      total_score: totalWeaponScore,
+      weapon_score: averagePercentile,
+      upgrades: weaponUpgrades,
+      max_upgrades: weaponMaxUpgrades,
+    }
+  }
+
+  warlordsFormattedWeapons = [];
+
+  for (let a in warlordsStats["weapon_inventory"]) {
+    warlordsFormattedWeapons.push(getWarlordsWeaponName(warlordsStats["weapon_inventory"][a]));
+    console.log(warlordsFormattedWeapons[a]);
+  }
+
+  let warlordsSelectedClass = warlordsStats["chosen_class"];
+  let warlordsSelectedSpecialization;
+
+  if (warlordsSelectedClass) {
+    warlordsSelectedSpecialization = warlordsStats[warlordsSelectedClass + "_spec"];
+  }
+
+  if (warlordsSelectedSpecialization) {
+    updateElement("warlords-specialization", getTranslation(`games.modes.warlords.classes.${warlordsSelectedSpecialization}`));
+  } else {
+    updateElement("warlords-specialization", getTranslation("statistics.na"));
+  }
+
+  let warlordsSelectedWeaponId = warlordsStats["current_weapon"];
+
+  let boundOverrideWeaponId = getValue(warlordsStats, ["bound_weapon", warlordsSelectedClass, warlordsSelectedSpecialization]); // If the user has a bound weapon, that's actually their weapon and not current_weapon
+
+  let warlordsSelectedWeapon, warlordsWeaponToDisplayAsDefaultInWeaponsChip;
+
+  if (boundOverrideWeaponId) {
+
+    warlordsSelectedWeapon = warlordsFormattedWeapons.find((a) => a["id"] == boundOverrideWeaponId);
+    if (warlordsSelectedWeapon) { // This check is needed because you can salvage your bound weapon, which would make it not exist in the weapon inventory
+      console.warn("Bound weapon override");
+      warlordsSelectedWeaponId = boundOverrideWeaponId;
+    }
+  }
+
+  warlordsSelectedWeapon = warlordsFormattedWeapons.find((a) => a["id"] == warlordsSelectedWeaponId);
+
+  warlordsWeaponToDisplayAsDefaultInWeaponsChip = warlordsFormattedWeapons.findIndex((a) => a["id"] == warlordsSelectedWeaponId);
+  
+  console.log(warlordsSelectedWeapon, warlordsSelectedWeaponId);
+
+  if (warlordsSelectedWeapon) {
+    updateElement("warlords-selected-weapon", generateMinecraftText(`${warlordsSelectedWeapon["name"]} §7(${checkAndFormat(warlordsSelectedWeapon["weapon_score"], 2)}%)`), true);
+  } else {
+    updateElement("warlords-selected-weapon", getTranslation("player.errors.not_applicable"));
+
+    if (warlordsFormattedWeapons.length > 0) { // No selected weapon, default to first weapon
+      warlordsWeaponToDisplayAsDefaultInWeaponsChip = 0;
+    } else {
+      warlordsWeaponToDisplayAsDefaultInWeaponsChip = -1;
+    }
+  }
+
+  // Move item in position warlordsWeaponToDisplayAsDefaultInWeaponsChip to position 0
+  if (warlordsWeaponToDisplayAsDefaultInWeaponsChip != -1) {
+    let temp = warlordsFormattedWeapons[0];
+    warlordsFormattedWeapons[0] = warlordsFormattedWeapons[warlordsWeaponToDisplayAsDefaultInWeaponsChip];
+    warlordsFormattedWeapons[warlordsWeaponToDisplayAsDefaultInWeaponsChip] = temp;
+  }
+
+  warlordsWeaponToDisplayAsDefaultInWeaponsChip = 0;
+
+  let warlordsWeaponNames = warlordsFormattedWeapons.map((a, index) => [generateMinecraftText(a["name"]), index]);
+  console.log(warlordsWeaponNames);
 
 
   let easyStats = ["kills", "deaths", "wins", "assists", "coins", "void_shards", "magic_dust", "repaired", "powerups_collected"];
@@ -2799,6 +3120,18 @@ function generateWarlords() {
         [getTranslation("games.modes.warlords.classes.spiritguard"), "spiritguard"],
         [getTranslation("games.modes.warlords.classes.earthwarden"), "earthwarden"],
     ],
+    ``,
+    "warlords",
+  ]
+
+
+  let warlordsWeaponsChip = [
+    "warlords-weapons",
+    getTranslation("games.modes.warlords.weapons.category"),
+    "",
+    `/img/games/warlords/weapons.${imageFileType}`,
+    formatWarlordsWeaponStats(warlordsWeaponToDisplayAsDefaultInWeaponsChip),
+    warlordsWeaponNames,
     ``,
     "warlords",
   ]
@@ -2847,13 +3180,44 @@ function generateWarlords() {
     "warlords",
   ];
 
-  generateChip(warlordsClassesChip, "warlords-chips");
-
-  let warlordsChips = [warlordsCaptureTheFlagChip, warlordsDominationChip, warlordsTeamDeathmatchChip];
+  let warlordsChips = [warlordsClassesChip, warlordsWeaponsChip, warlordsCaptureTheFlagChip, warlordsDominationChip, warlordsTeamDeathmatchChip];
   for (let d = 0; d < warlordsChips.length; d++) {
     generateChip(warlordsChips[d], d % 2 == 0 ? "warlords-chips-1" : "warlords-chips-2");
   }
 
+}
+
+function formatWarlordsWeaponStats(weaponObjectId) {
+
+  if (weaponObjectId == -1) {
+    return [[false, [getTranslation("games.modes.warlords.weapons.no_weapons"), ``]]];
+  }
+
+  let weaponObject = warlordsFormattedWeapons[weaponObjectId] || {};
+
+  let formattedWeaponStats = [
+    [false, [getTranslation("statistics.weapon_score"), `${checkAndFormat(weaponObject["weapon_score"], 2)}%`]],
+    [false, [getTranslation("statistics.damage"), checkAndFormat(weaponObject["damage_min"]) + " – " + checkAndFormat(weaponObject["damage_max"])], [getTranslation("statistics.crit_chance"), checkAndFormat(weaponObject["chance"]) + "%"]],
+    [false, [getTranslation("statistics.crit_multiplier"), checkAndFormat(weaponObject["multiplier"]) + "%"], [getTranslation("statistics.health"), `+${checkAndFormat(weaponObject["health"])}`]],
+  ];
+
+  if (weaponObject["rarity"] == "COMMON") {
+    return formattedWeaponStats;
+  } else {
+    formattedWeaponStats.push([false, [getTranslation("statistics.max_energy"), `+${checkAndFormat(weaponObject["energy"])}`]]);
+
+    if (weaponObject["rarity"] == "EPIC" || weaponObject["rarity"] == "LEGENDARY") {
+      formattedWeaponStats[3].push([getTranslation("statistics.cooldown_reduction"), `+${checkAndFormat(weaponObject["cooldown"])}%`]);
+
+      if (weaponObject["rarity"] == "LEGENDARY") {
+        formattedWeaponStats.push([false, [getTranslation("statistics.movement_speed"), `+${checkAndFormat(weaponObject["movement"])}%`]]);
+      }
+
+      formattedWeaponStats.push([false, [getTranslation("statistics.forges"), `${checkAndFormat(weaponObject["upgrades"])}/${checkAndFormat(weaponObject["max_upgrades"])}`]]);
+    }
+  }
+
+  return formattedWeaponStats;
 }
 
 function getWarlordsClassStats(specName) {

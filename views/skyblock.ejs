@@ -34,6 +34,8 @@
       if(tasksBeforeLoading.length == 0) {
         updateTranslations();
         updateBasicStats();
+        updateArmorEquipment();
+        updateWardrobe();
         document.getElementById("header-name").classList.remove("unloaded");
         document.getElementById("skyblock-page").classList.remove("unloaded");
       }
@@ -247,9 +249,6 @@
                   <div>
                     Fairy Souls <span class="statistic" id="fairy-souls"><span class="mc">Unknown</span></span>
                   </div>
-                  <div>
-                    Lily Weight <span class="statistic" id="lily-weight"><span class="mc">Missing</span></span>
-                  </div>
                 </div>
               </div>
 
@@ -260,6 +259,27 @@
                 </div>
           </div>
         </div>
+      </div>
+
+      <div class="skyblock-base-container">
+
+        <p class="stat-title super-subtitle skyblock-box">Gear</p>
+
+        <div class="skyblock-box">
+          <p class="stat-title">Armor & Equipment</p>
+          <div class="armor-equipment">
+            <div class="equipment">
+              <p class="stat-subtitle">Active</p>
+              <div class="equipment-grid" id="equipment-grid">
+              </div>
+            </div>
+            <div class="wardrobe">
+              <p class="stat-subtitle">Wardrobe</p>
+              <div class="wardrobe-grid" id="wardrobe-grid">
+              </div>
+          </div>
+        </div>
+      </div>
       </div>
 
     </div>

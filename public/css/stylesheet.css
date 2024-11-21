@@ -905,6 +905,11 @@
     color: white;
     font-weight: 500;
   }
+
+  .stat-subtitle {
+    font-weight: 500;
+    color: white;
+  }
   
   .statistic {
     font-weight: 600;

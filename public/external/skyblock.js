@@ -1,3 +1,5 @@
+let allItems = [];
+
 function skillXpToLevel(xp, skillName, skillCap) {
 
   let levelsObject = {
@@ -264,4 +266,87 @@ if (profileStats != undefined) {
 
   updateElement("skyblock-level", formattedSkyBlockLevel["title"], true);
   document.getElementById("skyblock-level-progress-bar").style.width = (skyblockLevel % 1) * 100 + "%";
+}
+
+function addToAllItems(itemObject) {
+  return allItems.push(itemObject); 
+}
+
+function updateArmorEquipment() {
+  let armor = getValue(skyblockProfile, ["inventory", "inv_armor"]) || [{}, {}, {}, {}];
+  let equipment = getValue(skyblockProfile, ["inventory", "equipment_contents"]) || [{}, {}, {}, {}];
+  let armorTemplate = `<div class="ae-item"></div>`;
+  for (let a in armor) {
+    if (Object.keys(a).length == 0) {
+      document.getElementById(`equipment-grid`).insertAdjacentHTML("beforeend", armorTemplate);
+    } else { // Armor slot is empty
+      let armorSlot = armor[a];
+      let nadeshikoId = addToAllItems(armorSlot);
+
+      let formattedArmorSlot = document.createElement("div");
+      formattedArmorSlot.classList.add("ae-item");
+      formattedArmorSlot.setAttribute("n-id", nadeshikoId);
+
+      formattedArmorSlot.classList.add("rarity-rare");
+
+      document.getElementById(`equipment-grid`).appendChild(formattedArmorSlot);
+    }
+  }
+
+  for (let a in equipment) {
+    if (Object.keys(a).length == 0) {
+      document.getElementById(`equipment-grid`).insertAdjacentHTML("beforeend", armorTemplate);
+    } else { // Armor slot is empty
+      let equipmentSlot = equipment[a];
+      let nadeshikoId = addToAllItems(equipmentSlot);
+
+      let formattedEquipmentSlot = document.createElement("div");
+      formattedEquipmentSlot.classList.add("ae-item");
+      formattedEquipmentSlot.setAttribute("n-id", nadeshikoId);
+
+      formattedEquipmentSlot.classList.add("rarity-rare");
+
+      document.getElementById(`equipment-grid`).appendChild(formattedEquipmentSlot);
+    }
+  }
+}
+
+function updateWardrobe() {
+  let wardrobeItemTemplate = `<div class="ae-item"></div>`;
+  
+  let wardrobe = getValue(skyblockProfile, ["inventory", "wardrobe_contents"]) || [];
+
+  function getWardrobeIndex(slot, piece) {
+    base = (piece * 9) + (slot % 9);
+    return slot > 8 ? base + 36 : base;
+  }
+
+  for (let a = 0; a < 18; a++) {
+    let thisWardrobeSlot = [wardrobe[getWardrobeIndex(a, 0)], wardrobe[getWardrobeIndex(a, 1)], wardrobe[getWardrobeIndex(a, 2)], wardrobe[getWardrobeIndex(a, 3)]]
+    console.log([getWardrobeIndex(a, 0), getWardrobeIndex(a, 1), getWardrobeIndex(a, 2), getWardrobeIndex(a, 3)]);
+    console.log(thisWardrobeSlot);
+
+    if (thisWardrobeSlot.every(x => Object.keys(x).length == 0)) {
+      continue;
+    } else {
+      for (let b in thisWardrobeSlot) {
+        let thisWardrobeItem = und(thisWardrobeSlot[b], {});
+
+        if (Object.keys(und(thisWardrobeSlot[b])).length > 0) {
+          let nadeshikoId = addToAllItems(thisWardrobeItem);
+    
+          let formattedWardrobeSlot = document.createElement("div");
+          formattedWardrobeSlot.classList.add("ae-item");
+          formattedWardrobeSlot.setAttribute("n-id", nadeshikoId);
+          formattedWardrobeSlot.innerText = thisWardrobeItem["name"];
+          formattedWardrobeSlot.classList.add("rarity-rare");
+    
+          document.getElementById(`wardrobe-grid`).appendChild(formattedWardrobeSlot);
+        } else {
+          document.getElementById(`wardrobe-grid`).insertAdjacentHTML("beforeend", wardrobeItemTemplate);
+        }
+      }
+    }
+  }
+  
 }

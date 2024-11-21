@@ -425,7 +425,11 @@ function updateChipStats(name, chipId, gamemode) {
       break;
 
     case "warlords":
-      updateElement(chipId, generateChipStats(getWarlordsClassStats(newValue)), true);
+      if (chipId == "warlords-classes") {
+        updateElement(chipId, generateChipStats(getWarlordsClassStats(newValue)), true);
+      } else {
+        updateElement(chipId, generateChipStats(formatWarlordsWeaponStats(Number(newValue))), true);
+      }
       break;
 
     case "uhc":

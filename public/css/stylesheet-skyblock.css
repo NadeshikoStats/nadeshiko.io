@@ -1,10 +1,13 @@
+#skyblock-page {
+  display: flex;
+  align-items: center;
+}
+
 .skyblock-profile {
   display: flex;
   justify-content: center;
   align-content: space-between;
   flex: 1 1 auto;
-
-  position: absolute;
   width: 100%;
   transition-duration: var(--transition-large);
 }
@@ -43,4 +46,121 @@
 
 .skyblock-level-container {
   width: 100%;
+}
+
+.skyblock-base-container {
+  width: calc(min(60%, 800px) + 300px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.skyblock-box {
+  padding: 20px;
+  border-radius: 20px;
+  background-color: var(--default);
+  width: 100%;
+  margin: 6px auto;
+}
+
+.armor-equipment {
+  display: flex;
+  margin-top: 10px;
+  overflow-x: scroll;
+}
+
+.equipment, .wardrobe {
+  background-color: var(--default);
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.equipment {
+  margin-inline-end: 10px;
+}
+
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 60px);
+  grid-template-rows: repeat(4, 60px);
+  gap: 5px;
+  width: 100%;
+  margin: 10px auto;
+  grid-auto-flow: column;
+}
+
+.wardrobe-grid {
+  display: grid;
+  grid-template-columns: repeat(14, 60px);
+  grid-template-rows: repeat(4, 60px);
+  gap: 5px;
+  width: 100%;
+  margin: 10px auto;
+  grid-auto-flow: column;
+}
+
+.ae-item {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+
+  background-color: #fff8;
+}
+
+.ae-item.recombobulated:after {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: white;
+  display: block;
+  position: relative;
+  top: 6px;
+  left: 6px;
+  content: "";
+}
+
+.ae-item.rarity-divine {
+  background-color: #5ff;
+}
+
+.ae-item.rarity-mythic {
+  background-color: #f5f;
+}
+
+.ae-item.rarity-legendary {
+  background-color: #fa0;
+}
+
+.ae-item.rarity-epic {
+  background-color: #a0a;
+}
+
+.ae-item.rarity-rare {
+  background-color: #55f;
+}
+
+.ae-item.rarity-uncommon {
+  background-color: #5f5;
+}
+
+.ae-item.rarity-common {
+  background-color: #fff;
+}
+
+.ae-item.rarity-very-special {
+  background-color: #f55;
+}
+
+.ae-item.rarity-special {
+  background-color: #f55;
+}
+
+.ae-item.rarity-admin {
+  background-color: #a00;
+}
+
+@media (max-width: 800px) {
+  .skyblock-base-container, .skyblock-profile .player-card {
+    width: 92%;
+  }
 }

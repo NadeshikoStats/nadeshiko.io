@@ -433,9 +433,9 @@
           <p class="chip-small-title" data-t="games.buildbattle">Build Battle</p>
           <div class="chip-small-container">
             <p class="margin10">
-              <span id="buildbattle-overall-title"><span class="mc">Unknown</span></span> <span id="buildbattle-overall-to-go"></span>
+              <span id="buildbattle-overall-title"><span class="mc">Unknown</span></span>
             </p>
-            <div class="progress-bar">
+            <div class="progress-bar" id="buildbattle-overall-progress-bar-container" style="display: none">
               <span class="progress-number" id="buildbattle-overall-progress-number"><span class="mc">Unknown</span></span>
               <div class="progress" style="width: 0%;" id="buildbattle-overall-progress-bar"></div>
             </div>
@@ -1001,15 +1001,21 @@
               </div>
               <div class="chip-small-statistic-row">
                 <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="warlords-overall-assists"><span class="mc">Unknown</span></span></p>
-
-                <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="warlords-overall-damage"><span class="mc">Unknown</span></span></p>
-                <p><span data-t="statistics.damage_healed">Damage Healed</span> <span class="statistic" id="warlords-overall-heal"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.powerups">Powerups</span> <span class="statistic" id="warlords-overall-powerups_collected"><span class="mc">Unknown</span></span></p>
               </div>
               <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="warlords-overall-damage"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.damage_healed">Damage Healed</span> <span class="statistic" id="warlords-overall-heal"><span class="mc">Unknown</span></span></p>
               </div>
             </div>
             <div class="card-big-misc">
               <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.specialization">Specialization</span> <span class="statistic" id="warlords-specialization"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.selected_weapon">Current Weapon</span> <span class="statistic" id="warlords-selected-weapon"><span class="mc">Unknown</span></span></p>
+              </div>
               <div class="chip-small-statistic-row">
                 <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="warlords-overall-coins"><span class="mc">Unknown</span></span></p>
               </div>
@@ -1019,14 +1025,12 @@
               </div>
               <div class="chip-small-statistic-row">
                 <p><span data-t="statistics.weapons_repaired">Weapons Repaired</span> <span class="statistic" id="warlords-overall-repaired"><span class="mc">Unknown</span></span></p>
-                <p><span data-t="statistics.powerups">Powerups</span> <span class="statistic" id="warlords-overall-powerups_collected"><span class="mc">Unknown</span></span></p>
               </div>
             </div>
           </div>
         </div>
         <span class="general-button mright mtop" onclick="showCardWizard('WARLORDS')" data-t="player.generate_card">Generate Card</span>
       </div>
-      <div id="warlords-chips" class="width-100"></div>
       <div class="flex-two-item chip-container-duo-parent">
         <div id="warlords-chips-1" class="chip-container-duo">
         </div>

@@ -5,7 +5,7 @@ const minify = require('express-minify');
 const app = express();
 const port = 8080;
 
-const version = "1.1.0"; // Updating this will force the cache to clear for all users
+const version = "1.1.1"; // Updating this will force the cache to clear for all users
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -382,22 +382,27 @@ function getMetaDescription(game, playerData) {
 • 🪙 Coins: ${checkAndFormat(blitzStats["coins"])}
 • 📦 Chests Opened: ${checkAndFormat(blitzStats["chests_opened"])}`;
     case 'buildbattle':
-    let buildBattleTitles = [
-      { minimumScore: 0, title: "Prospect" },
-      { minimumScore: 100, title: "Rookie" },
-      { minimumScore: 250, title: "Amateur" },
-      { minimumScore: 500, title: "Apprentice" },
-      { minimumScore: 1000, title: "Trained" },
-      { minimumScore: 2500, title: "Experienced" },
-      { minimumScore: 5000, title: "Seasoned" },
-      { minimumScore: 10000, title: "Skilled" },
-      { minimumScore: 25000, title: "Talented" },
-      { minimumScore: 50000, title: "Professional" },
-      { minimumScore: 100000, title: "Artisan" },
-      { minimumScore: 200000, title: "Expert" },
-      { minimumScore: 350000, title: "Master" },
-      { minimumScore: 500000, title: "Grandmaster" }
-    ];
+      let buildBattleTitles = [
+        { minimumScore: 0, title: "Rookie" },
+        { minimumScore: 100, title: "Untrained" },
+        { minimumScore: 250, title: "Amateur" },
+        { minimumScore: 500, title: "Prospect" },
+        { minimumScore: 1000, title: "Apprentice" },
+        { minimumScore: 2000, title: "Experienced" },
+        { minimumScore: 3500, title: "Seasoned" },
+        { minimumScore: 5000, title: "Trained" },
+        { minimumScore: 7500, title: "Skilled" },
+        { minimumScore: 10000, title: "Talented" },
+        { minimumScore: 15000, title: "Professional" },
+        { minimumScore: 20000, title: "Artisan" },
+        { minimumScore: 30000, title: "Expert" },
+        { minimumScore: 50000, title: "Master" },
+        { minimumScore: 100000, title: "Legend" },
+        { minimumScore: 200000, title: "Grandmaster" },
+        { minimumScore: 300000, title: "Celestial" },
+        { minimumScore: 400000, title: "Divine" },
+        { minimumScore: 500000, title: "Ascended" },
+      ];
 
       let buildBattleStats = playerData["stats"]["BuildBattle"] || {};
 
