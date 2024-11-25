@@ -105,6 +105,7 @@
   border-radius: 10px;
 
   background-color: #fff8;
+  cursor: pointer;
 }
 
 .ae-item.recombobulated:after {
@@ -163,4 +164,75 @@
   .skyblock-base-container, .skyblock-profile .player-card {
     width: 92%;
   }
+}
+
+#item-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+
+  position: fixed;
+
+  min-width: 360px;
+  width: max-content;
+  max-width: min(500px, 100vw - 40px);
+
+  background-color: #0f0f0f;
+
+  margin: 10px;
+  border-radius: 30px;
+
+  overflow: hidden; 
+
+  transition: opacity var(--transition-small), transform var(--transition-small);
+
+  outline: 1px solid #5ff;
+  box-shadow: 0 0 10px #5ff;
+
+  pointer-events: auto;
+  z-index: 9;
+}
+
+#item-tooltip-name-background {
+  background-color: #123456;
+  padding: 15px 0;
+}
+
+#item-tooltip-name {
+  font-size: 18px;
+  text-align: center;
+  font-weight: 600;
+  margin: auto 20px;
+}
+
+#item-tooltip-lore {
+  padding: 20px;
+}
+
+#item-tooltip.unloaded {
+  opacity: 0;
+  transform: translateY(-25px);
+
+  pointer-events: none;
+}
+
+#item-tooltip-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--header-height) - var(--header2-height));
+  top: calc(var(--header-height) + var(--header2-height));
+  background-color: #0005;
+  z-index: 6;
+  backdrop-filter: blur(5px);
+  clip-path: circle(calc((100vh + 100vh) * 1.42) at 100% 0);
+  transition-duration: var(--transition-small);
+
+  pointer-events: all;
+}
+
+#item-tooltip-modal.unloaded {
+  opacity: 0;
+  clip-path: circle(0% at 100% 0);
+  pointer-events: none;
 }

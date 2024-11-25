@@ -5,7 +5,7 @@ const minify = require('express-minify');
 const app = express();
 const port = 8080;
 
-const version = "1.1.1"; // Updating this will force the cache to clear for all users
+const version = "1.1.2"; // Updating this will force the cache to clear for all users
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -1113,7 +1113,7 @@ Guild Stats
 ${achievementGamesString}`;
   }
   case 'quests': {
-    return `This embed has not yet been implemented.`
+    return `View your quest stats on nadeshiko!`
   }
   case 'leaderboards': {
     return `🥇 Check out the top players in over one hundred categories using nadeshiko's leaderboards!`
@@ -1191,8 +1191,21 @@ app.get('/player/:name/:game?', async (req, res) => {
    }
 });
 
-  app.get('/skyblock/:name?', async (req, res) => {
-    const name = req.params.name;
+app.use((req, res, next) => {
+  const host = req.headers.host;
+  const subdomain = host.split('.')[0];
+
+  if (subdomain === 'skyblock') { // Middleware handling for /skyblock subdomain. I'm not using express-subdomain because I couldn't get it to work (is she stupid??)
+    let paths = req.path.split('/').filter(pathSegment => pathSegment !== "");
+    console.log(paths);
+    let name = paths[0] || "";
+    handleSkyBlockRoute(name, req, res);
+  } else {
+    next();
+  }
+});
+
+  const handleSkyBlockRoute = async (name, req, res) => {
     
     computationError = {
       message: ``,
@@ -1236,7 +1249,13 @@ app.get('/player/:name/:game?', async (req, res) => {
         }
         res.render('index', { computationError, version });
     }
+  };
+
+  app.get('/skyblock/:name?', async (req, res) => {
+    const name = req.params.name;
+    handleSkyBlockRoute(name, req, res);
   });
+
 
   app.get('/isnadeshikodown', (req, res) => {
     res.send('No (probably)');

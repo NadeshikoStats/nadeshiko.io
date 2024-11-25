@@ -52,6 +52,12 @@ function generateMinecraftText(minecraftText, blackShadow = false) { // Generate
                 ending = "</i>" + ending;
               }
               break;
+            case "k":
+              if(individual.length>2) {
+                returnString += '<span class="mk">';
+                ending = "</span>" + ending;
+              }
+              break;
             case "r":
               returnString += ending;
               ending = '';

@@ -81,6 +81,7 @@
     /* White */
 
     --header-height: 51px;
+    --header2-height: 55px;
     --footer-height: 39.2px;
 
     --transition-large: 1s;
@@ -121,13 +122,14 @@
     font-size: 18px;
     position: relative;
     backdrop-filter: blur(6px);
-    z-index: 5;
+    z-index: 8;
   }
 
   .header2 {
     background-color: #000a;
     backdrop-filter: blur(4px);
-    height: 55px;
+    height: var(--header2-height);
+    z-index: 4;
   }
 
   .header1 {
@@ -160,7 +162,7 @@
     padding: 15px 25px;
     opacity: 1;
     transition-duration: var(--transition);
-    z-index: 4;
+    z-index: 7;
     transform: translateY(0px);
     clip-path: circle(100vh at 50% 0);
     height: max-content;
@@ -1388,6 +1390,11 @@
   
   .mf {
     color: #fff;
+  }
+
+  .mk {
+    background-color: currentColor;
+    border-radius: 99px;
   }
   
   .shadowf {

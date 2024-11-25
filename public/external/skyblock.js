@@ -1,4 +1,9 @@
 let allItems = [];
+let tooltipState = {
+  set_x: null,
+  item: null,
+  modal_active: false,
+};
 
 function skillXpToLevel(xp, skillName, skillCap) {
 
@@ -233,6 +238,7 @@ if (profileStats != undefined) {
   document.getElementById("skill-average-progress-bar").style.width = skillAveragePercentage + "%";
 
   if (skillAverageSum == skillAverageMax) {
+    document.getElementById("skill-average").style.color = `var(--gold)`;
     document.getElementById("skill-average-progress-bar").style.backgroundColor = `var(--gold)`;
   }
 
@@ -269,12 +275,12 @@ if (profileStats != undefined) {
 }
 
 function addToAllItems(itemObject) {
-  return allItems.push(itemObject); 
+  return allItems.push(itemObject) - 1; 
 }
 
 function updateArmorEquipment() {
-  let armor = getValue(skyblockProfile, ["inventory", "inv_armor"]) || [{}, {}, {}, {}];
-  let equipment = getValue(skyblockProfile, ["inventory", "equipment_contents"]) || [{}, {}, {}, {}];
+  let armor = getValue(skyblockProfile, ["inventory", "inv_armor"]).reverse() || [{}, {}, {}, {}];
+  let equipment = getValue(skyblockProfile, ["inventory", "equipment_contents"]).reverse() || [{}, {}, {}, {}];
   let armorTemplate = `<div class="ae-item"></div>`;
   for (let a in armor) {
     if (Object.keys(a).length == 0) {
@@ -287,9 +293,10 @@ function updateArmorEquipment() {
       formattedArmorSlot.classList.add("ae-item");
       formattedArmorSlot.setAttribute("n-id", nadeshikoId);
 
-      formattedArmorSlot.classList.add("rarity-rare");
+      formattedArmorSlot.classList.add("rarity-epic");
 
       document.getElementById(`equipment-grid`).appendChild(formattedArmorSlot);
+      addSkyBlockItemListener(nadeshikoId);
     }
   }
 
@@ -307,6 +314,7 @@ function updateArmorEquipment() {
       formattedEquipmentSlot.classList.add("rarity-rare");
 
       document.getElementById(`equipment-grid`).appendChild(formattedEquipmentSlot);
+      addSkyBlockItemListener(nadeshikoId);
     }
   }
 }
@@ -332,21 +340,165 @@ function updateWardrobe() {
       for (let b in thisWardrobeSlot) {
         let thisWardrobeItem = und(thisWardrobeSlot[b], {});
 
-        if (Object.keys(und(thisWardrobeSlot[b])).length > 0) {
+        if (Object.keys(und(thisWardrobeSlot[b])).length > 0) { // If the wardrobe slot is not empty
           let nadeshikoId = addToAllItems(thisWardrobeItem);
     
           let formattedWardrobeSlot = document.createElement("div");
           formattedWardrobeSlot.classList.add("ae-item");
           formattedWardrobeSlot.setAttribute("n-id", nadeshikoId);
-          formattedWardrobeSlot.innerText = thisWardrobeItem["name"];
           formattedWardrobeSlot.classList.add("rarity-rare");
-    
+          
           document.getElementById(`wardrobe-grid`).appendChild(formattedWardrobeSlot);
+          addSkyBlockItemListener(nadeshikoId);
         } else {
           document.getElementById(`wardrobe-grid`).insertAdjacentHTML("beforeend", wardrobeItemTemplate);
         }
       }
     }
   }
+}
+
+function addSkyBlockItemListener(nadeshikoId) {
+  let item = document.querySelector(`[n-id="${nadeshikoId}"]`);
+  if (item) {
+    item.addEventListener("mouseenter", function(e) {
+      updateTooltip(nadeshikoId, "enter", item, e);
+    });
+    item.addEventListener("mouseleave", function() {
+      updateTooltip(nadeshikoId, "leave", item);
+    });
+    item.addEventListener("mousemove", function(e) {
+      updateTooltip(nadeshikoId, "move", item, e);
+    });
+    item.addEventListener("click", function() {
+      updateTooltip(nadeshikoId, "click", item);
+    });
+  } else {
+    console.warn(`Item with n-id ${nadeshikoId} not found`);
+  }
+}
+
+function updateTooltip(nadeshikoId, action, item, e) {
+  let tooltip = document.getElementById("item-tooltip");
+  let tooltipLore = document.getElementById("item-tooltip-lore");
+
+  if (action == "enter") {
+    let itemData = allItems[nadeshikoId];
+
+    updateElement("item-tooltip-name", generateMinecraftText(itemData["name"]), true);
+
+    let lore = "";
+
+    for (let a in itemData["lore"]) {
+      lore += generateMinecraftText(itemData["lore"][a]) + "<br>";
+    }
+    updateElement("item-tooltip-lore", generateMinecraftText(lore), true);
+
+    console.warn("new item");
+    // Positioning
+    tooltip.style.height = "unset";
+    tooltip.style.overflow = "auto";
+
+    let itemRect = item.getBoundingClientRect();
+    let tooltipRect = tooltip.getBoundingClientRect();
+    const ITEM_TOOLTIP_MARGIN = 10;
+    
+    let tooltipOffsetWidth = tooltip.offsetWidth;
+    let tooltipOffsetHeight = tooltip.offsetHeight;
+
+    if (itemRect.right + tooltipOffsetWidth + ITEM_TOOLTIP_MARGIN * 2 > window.innerWidth) {
+      tooltipState.position = "left";
+      tooltipState["set_x"] = itemRect.left - ITEM_TOOLTIP_MARGIN * 2 - tooltipRect.width;
+      console.warn(`${itemRect.right} - ${tooltipRect.width}`);
+    } else {
+      tooltipState.position = "right";
+      tooltipState["set_x"] = itemRect.left + itemRect.width;
+    }
+
+    tooltip.classList.remove("unloaded");
+
+  } else if (action == "leave" && !tooltipState["modal_active"]) {
+    tooltip.classList.add("unloaded");
+  }
   
+  if (action == "move" || action == "enter") {
+    const HEADER_HEIGHT = 125;
+    const FOOTER_HEIGHT = 80;
+    const ITEM_TOOLTIP_MARGIN = 10;
+
+    let outOfUpperBounds = false;
+    let outOfLowerBounds = false;
+
+    let tooltipRect = tooltip.getBoundingClientRect();
+
+    if (tooltipRect.height > window.innerHeight - HEADER_HEIGHT - FOOTER_HEIGHT) {
+      tooltip.style.height = window.innerHeight - HEADER_HEIGHT - FOOTER_HEIGHT + "px";
+      tooltip.style.overflow = "scroll";
+
+      outOfLowerBounds = true;
+      outOfUpperBounds = true;
+    }
+
+    tooltip.style.top = e.clientY - tooltipRect.height / 2 + "px";
+
+    tooltipRect = tooltip.getBoundingClientRect();
+
+    //if (tooltipState["styleY"] != "scroll") {
+      // prevents the tooltip from going off the screen
+      if (tooltipRect.top - ITEM_TOOLTIP_MARGIN < HEADER_HEIGHT) {
+        tooltip.style.top = HEADER_HEIGHT + "px";
+        outOfUpperBounds = true;
+        console.warn("out of upper bounds");
+      } else {
+        console.warn("not out of upper bounds because top is " + tooltipRect.top);
+      }
+
+      tooltipRect = tooltip.getBoundingClientRect();
+
+      if (tooltipRect.bottom - ITEM_TOOLTIP_MARGIN > window.innerHeight - FOOTER_HEIGHT) {
+        tooltip.style.top = window.innerHeight - tooltipRect.height - FOOTER_HEIGHT + "px";
+        outOfLowerBounds = true;
+        console.warn("out of lower bounds");
+      }
+
+      if (outOfUpperBounds && outOfLowerBounds) {
+        tooltip.style.top = HEADER_HEIGHT + "px";
+        tooltip.style.height = window.innerHeight - HEADER_HEIGHT - FOOTER_HEIGHT + "px";
+        tooltipLore.style.overflow = "scroll";
+        tooltipState["styleY"] = "scroll";
+      } else if (tooltipState["styleY"] != "scroll") {
+        tooltip.style.height = "unset";
+        tooltip.style.overflow = "auto";
+        tooltipState["styleY"] = "fixed";
+      }
+    //}
+
+
+    if (tooltipState["position"] == "left") {
+      tooltip.style.left = tooltipState["set_x"] +  "px";
+      tooltip.style.right = "unset";
+    } else {
+      tooltip.style.left = tooltipState["set_x"] + "px";
+      tooltip.style.right = "unset";
+    }
+
+    console.log("top is " + tooltipRect.top);
+
+    //console.log(tooltipState);
+  } else if (action == "click") {
+    if (tooltipState["modal_active"]) {
+      tooltipState["modal_active"] = false;
+      document.getElementById("item-tooltip-modal").classList.add("unloaded");
+    } else {
+      tooltipState["modal_active"] = true;
+      document.getElementById("item-tooltip-modal").classList.remove("unloaded");
+      document.getElementById("item-tooltip").classList.remove("unloaded");
+    }
+  }
+}
+
+function hideItemTooltipModal() {
+  document.getElementById("item-tooltip-modal").classList.add("unloaded");
+  document.getElementById("item-tooltip").classList.add("unloaded");
+  tooltipState["modal_active"] = false;
 }
