@@ -167,7 +167,8 @@
       "game_experience": "Experiencia de %%game%%",
       "broken_weapons": "Armas rotas",
       "legendary_broken_weapons": "Armas rotas legendarias",
-      "event_experience": "Experiencia de evento"
+      "event_experience": "Experiencia de evento",
+      "event_cosmetic": "Cosmético de eventos"
     },
     "completions": {
       "completed": "%%num%%/%%total%% completadas",

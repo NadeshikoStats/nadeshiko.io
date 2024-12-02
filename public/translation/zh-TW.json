@@ -167,7 +167,8 @@
       "game_experience": "%%game%%經驗值",
       "broken_weapons": "破損兵器",
       "legendary_broken_weapons": "Legendary Broken Weapons",
-      "event_experience": "活動經驗值"
+      "event_experience": "活動經驗值",
+      "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
       "completed": "%%num%%/%%total%% 已完成",

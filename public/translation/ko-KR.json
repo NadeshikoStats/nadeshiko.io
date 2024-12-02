@@ -167,7 +167,8 @@
       "game_experience": "%%game%% 경험치",
       "broken_weapons": "부서진 무기",
       "legendary_broken_weapons": "Legendary Broken Weapons",
-      "event_experience": "이벤트 경험치"
+      "event_experience": "이벤트 경험치",
+      "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
       "completed": "%%num%%/%%total%% 완료함",

@@ -182,7 +182,7 @@ function getQuestDetails(questId, interval = "daily", thisQuestGlobalStats, game
     let thisQuestReward = thisQuestRewards[a];
 
     let thisQuestRewardType = thisQuestReward["type"];
-    let thisQuestRewardAmount = thisQuestReward["amount"] || 0;
+    let thisQuestRewardAmount = thisQuestReward["amount"] || 1;
 
     let thisQuestRewardFormatted = parseReward(game, thisQuestRewardType, thisQuestRewardAmount);
     thisQuestRewardsFormatted.push(thisQuestRewardFormatted);
@@ -369,6 +369,12 @@ function parseReward(game, reward, amount) {
       formattedReward = {
         icon: "gold_ingot",
         text: getTranslation(["quests", "rewards", "pit_gold"])
+      }
+      break;
+    case "PackageReward": 
+      formattedReward = {
+        icon: "diamond_helmet",
+        text: getTranslation(["quests", "rewards", "event_cosmetic"])
       }
       break;
     default: 

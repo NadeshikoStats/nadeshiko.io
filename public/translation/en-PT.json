@@ -167,7 +167,8 @@
       "game_experience": "Experience fer %%game%%",
       "broken_weapons": "Busted Weapons",
       "legendary_broken_weapons": "Legendary Broken Weapons",
-      "event_experience": "Event Experience"
+      "event_experience": "Event Experience",
+      "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
       "completed": "%%num%%/%%total%% plundered",
