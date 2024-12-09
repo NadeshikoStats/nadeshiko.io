@@ -988,6 +988,23 @@
     transform: scale(0.8);
     filter: brightness(0.2);
   }
+
+  .quest-game-arrow {
+    height: 24px;
+    width: 24px;
+    opacity: 0.5;
+    transition-duration: var(--transition);
+    cursor: pointer;
+  }
+
+  .quest-game-arrow:hover {
+    opacity: 1;
+  }
+
+  .quest-game-arrow.selected {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
   
   #modal-background-blur.unloaded {
     opacity: 0;
@@ -1904,13 +1921,13 @@
   }
   
   .list .row:first-child .row-header, .leaderboard-row:first-child {
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
   }
 
   .list .row:last-child .row-header, .leaderboard-row:last-child {
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
   }
 
   .achievements-container .tier {
@@ -2094,6 +2111,10 @@
     padding-right: 12%;
   }
 
+  .maskless {
+    mask: none;
+  }
+
   .quest-type {
     background-color: #485a6d;
     text-transform: uppercase;
@@ -2126,6 +2147,21 @@
   .quest-reward img {
     margin-inline-end: 5px;
   }
+
+  .quest-list {
+    opacity: 1;
+    transition-duration: var(--transition);
+    transform: translateY(0);
+    margin-top: 15px;
+
+    overflow: hidden;
+  }
+
+  .quest-list.unloaded {
+    opacity: 0;
+    transform: translateY(-25px);
+    margin-top: 0px;
+  }
   
   .chip-sub-container {
     position: relative;
@@ -2136,6 +2172,10 @@
   
   .chip-small:first-child {
     margin-top: 20px;
+  }
+
+  .chip-quest-game {
+    margin-top: 0px !important;
   }
   
   .card-big-stats {

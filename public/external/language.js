@@ -125,8 +125,12 @@ function updateTranslations() {
   * @returns {string} - The string with the placeholders replaced 
   */
 function insertPlaceholders(str, placeholders) {
+  if (!placeholders) {
+    return str;
+  }
+
   return str.replace(/%%(.*?)%%/g, (_, key) => {
-      return placeholders[key] || '';
+    return key in placeholders ? placeholders[key] : '';
   });
 }
 

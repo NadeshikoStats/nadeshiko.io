@@ -28,14 +28,17 @@ function generateQuestsTable(game, timestamp = Date.now()) {
 
   let questGameTemplate = DOMPurify.sanitize(`
   
-    <div class="chip-container quest-game-container">
+    <div class="chip-container quest-game-container maskless">
 
-      <div class="chip-small but-big no-overflow">
+      <div class="chip-small but-big no-overflow chip-quest-game">
         <div class="chip-small-top">
           <p class="chip-small-title">${getTranslation(`games.${modernifyGameName(game)}`)}<span style="margin-inline-start: 5px;" data-i="quest-game-check">${getTranslation("achievements.check")}</span></p>
-          <p class="mright" data-i="quest-game-progress"></p>
+          <div class="flex-two-item-basic">
+            <p class="mright" data-i="quest-game-progress"></p>
+            <img class="quest-game-arrow" src="/img/svg/arrow.svg" alt="Expand">
+          </div>
         </div>
-        <div class="list quest-list" data-i="quest-list">
+        <div class="list quest-list unloaded" data-i="quest-list" style="height: 0px">
         </div>
       </div>
   </div>`);
@@ -76,6 +79,21 @@ function generateQuestsTable(game, timestamp = Date.now()) {
   let questGamesContainer = document.getElementById("quests-games");
   let questGameContainer = document.createElement("div");
   questGameContainer.innerHTML = questGameTemplate;
+
+  questGameContainer.querySelector(".quest-game-arrow").addEventListener("click", function() {
+    let questGame = this.closest(".quest-game-container");
+    let questList = questGame.querySelector(".quest-list");
+
+    if (questList.classList.contains("unloaded")) {
+      questList.classList.remove("unloaded");
+      questList.style.height = questList.scrollHeight + "px";
+      this.classList.add("selected");
+    } else {
+      questList.classList.add("unloaded");
+      questList.style.height = "0px";
+      this.classList.remove("selected");
+    }
+  });
 
   let gameQuestCompletionStatus = {
     completed: 0,
@@ -154,7 +172,7 @@ function generateQuestsTable(game, timestamp = Date.now()) {
       console.log(thisQuestRow.querySelector("[data-i='quest-rewards']"));
     }
 
-    let thisQuestProgress = thisQuestDetails["objectives"];
+    updateTag(questGameContainer, "quest-game-progress", insertPlaceholders(getTranslation(["quests", "completions", "completed"]), { "num": gameQuestCompletionStatus["completed"], "total": gameQuestCompletionStatus["total"] }), false);
 
     questGameContainer.querySelector("[data-i='quest-list']").appendChild(thisQuestRow);
 
@@ -437,6 +455,19 @@ function getLastFridayMidnight(datestamp = Date.now()) {
 
   return Math.floor(lastFridayMidnightTimestamp);
 }
+
+window.addEventListener("resize", function() { // Resizes the quest list when the window is resize, preventing elements from being cut off
+  console.log("Resizing");
+  let questLists = document.querySelectorAll(".quest-list");
+  for (let a = 0; a < questLists.length; a++) {
+    let questList = questLists[a];
+    if (!questList.classList.contains("unloaded")) {
+      questList.style.height = "auto";
+      questList.style.height = questList.scrollHeight + "px";
+    }
+  }
+});
+
 
 function generateNetwork() {
   let playerProfileStats = questsStats["player"]["profile"] || {};
