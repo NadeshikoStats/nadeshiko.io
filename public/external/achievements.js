@@ -85,6 +85,15 @@ let secretAchievements = {
   "arcade_zombies_prison_computers": "In one game, interact with all the computers in the Prison Map",
   "woolgames_shopping_for_wool": "Shoot every Magic Wool that spawns in a single game",
   "buildbattle_perfectceptionception": "Be the first to complete every round with 100% accuracy in a game of Speed Builders",
+
+  "skyblock_tragedy_reversed": "Murder your past self",
+  "skyblock_zoop": "Pop a link of 10 Puffs",
+  "skyblock_watchful_presence": "Secure the final Timecharm in the Rift",
+  "skyblock_not_the_exit": "Help Ikrus",
+  "skyblock_maximum_power": "Defeat Sun Gecko with all 7 modifiers enabled",
+  "skyblock_return_from_breach": "Return back from the breach",
+  "skyblock_defeat_sun_gecko": "Defeat Sun Gecko",
+  "skyblock_wizard_food_chain": "Become Wizardman",
 };
 
 function getSecretAchievement(achievement) {

@@ -997,6 +997,11 @@
     cursor: pointer;
   }
 
+  .quest-game-icon {
+    image-rendering: pixelated;
+    margin-inline-end: 10px;
+  }
+
   .quest-game-arrow:hover {
     opacity: 1;
   }

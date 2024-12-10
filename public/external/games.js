@@ -2213,7 +2213,7 @@ function generateClassic() {
     "classic-tkr",
     getTranslation("games.tkr"),
     "",
-    `/img/games/classic/turbokartracers.${imageFileType}`,
+    `/img/games/classic/tkr.${imageFileType}`,
     getTKRStats("overall"),
     [
       [getTranslation("games.modes.all.overall"), "overall"],

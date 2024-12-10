@@ -26,15 +26,17 @@ function generateQuestsTable(game, timestamp = Date.now()) {
   lastDailyQuestReset = getLastMidnight(timestamp);
   lastWeeklyQuestReset = getLastFridayMidnight(timestamp);
 
+  let modernGameName = modernifyGameName(game);
+
   let questGameTemplate = DOMPurify.sanitize(`
   
     <div class="chip-container quest-game-container maskless">
 
       <div class="chip-small but-big no-overflow chip-quest-game">
         <div class="chip-small-top">
-          <p class="chip-small-title">${getTranslation(`games.${modernifyGameName(game)}`)}<span style="margin-inline-start: 5px;" data-i="quest-game-check">${getTranslation("achievements.check")}</span></p>
+          <p class="chip-small-title flex-two-item-basic"><img class="smallicon quest-game-icon" src="/img/icon/hypixel/${modernGameName}.webp"> ${getTranslation(`games.${modernGameName}`)}<span style="margin-inline-start: 5px;" data-i="quest-game-check">${getTranslation("achievements.check")}</span></p>
           <div class="flex-two-item-basic">
-            <p class="mright" data-i="quest-game-progress"></p>
+            <p class="mright" data-i="quest-game-progress" style="text-align: right"></p>
             <img class="quest-game-arrow" src="/img/svg/arrow.svg" alt="Expand">
           </div>
         </div>
