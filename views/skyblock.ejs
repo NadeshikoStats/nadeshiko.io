@@ -36,6 +36,7 @@
         updateBasicStats();
         updateArmorEquipment();
         updateWardrobe();
+        updateDungeonClasses();
         document.getElementById("header-name").classList.remove("unloaded");
         document.getElementById("skyblock-page").classList.remove("unloaded");
       }
@@ -293,6 +294,101 @@
           </div>
         </div>
       </div>
+
+      <p class="stat-title super-subtitle skyblock-box">Pets</p>
+
+      <p class="stat-title super-subtitle skyblock-box">Dungeons</p>
+
+      <div class="skyblock-box">
+        <p class="stat-title">Classes</p>
+        <div class="dungeons-classes">
+          <div class="dungeon-classes-levels skill-container chip-small-container">
+            <p class="stat-title mbottom">Levels</p>
+            <div class="flex-two-item-basic">
+              <div class="skill tooltip">
+
+                <span>Healer</span> <span class="statistic" id="class-healer"><span class="mc">Unknown</span></span>
+                
+                <div class="progress-bar">
+                    <div class="progress" style="width: 0%;" id="class-healer-progress-bar"></div>
+                </div>
+                <span class="tooltiptext" id="class-healer-tooltip"></span>
+
+              </div>
+              <div class="skill tooltip">
+                <span>Mage</span> <span class="statistic" id="class-mage"><span class="mc">Unknown</span></span>
+                
+                <div class="progress-bar">
+                  <div class="progress" style="width: 0%;" id="class-mage-progress-bar"></div>
+                </div>
+                <span class="tooltiptext" id="class-mage-tooltip"></span>
+              </div>
+            </div>
+
+            <div class="flex-two-item-basic">
+              <div class="skill tooltip">
+
+                <span>Berserk</span> <span class="statistic" id="class-berserk"><span class="mc">Unknown</span></span>
+                
+                <div class="progress-bar">
+                    <div class="progress" style="width: 0%;" id="class-berserk-progress-bar"></div>
+                </div>
+                <span class="tooltiptext" id="class-berserk-tooltip"></span>
+
+              </div>
+              <div class="skill tooltip">
+                <span>Archer</span> <span class="statistic" id="class-archer"><span class="mc">Unknown</span></span>
+                
+                <div class="progress-bar">
+                  <div class="progress" style="width: 0%;" id="class-archer-progress-bar"></div>
+                </div>
+                <span class="tooltiptext" id="class-archer-tooltip"></span>
+              </div>
+            </div>
+
+            <div class="flex-two-item-basic">
+              <div class="skill tooltip">
+
+                <span>Tank</span> <span class="statistic" id="class-tank"><span class="mc">Unknown</span></span>
+                
+                <div class="progress-bar">
+                    <div class="progress" style="width: 0%;" id="class-tank-progress-bar"></div>
+                </div>
+                <span class="tooltiptext" id="class-tank-tooltip"></span>
+
+              </div>
+              <div class="skill tooltip">
+                <span>Class Average</span> <span class="statistic" id="class-average"><span class="mc">Unknown</span></span>
+                
+                <div class="progress-bar">
+                  <div class="progress" style="width: 0%;" id="class-average-progress-bar"></div>
+                </div>
+                <span class="tooltiptext" id="class-average-tooltip"></span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="flex-two-item-basic">
+            <div class="dungeon-classes-calculator chip-small-container">
+              <p class="stat-title mbottom">Calculator</p>
+            </div>
+            <div class="dungeon-classes-calculator-settings chip-small-container">
+              <p class="stat-title mbottom">Calculator Settings</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+      
       <div style="height: 1000px;position: relative;display: block;min-height: 1000px;">More stuff coming soon!</div>
 
       </div>

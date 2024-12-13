@@ -11,6 +11,7 @@ function skillXpToLevel(xp, skillName, skillCap) {
     normal: [0, 50.0,175.0,375.0,675.0,1175.0,1925.0,2925.0,4425.0,6425.0,9925.0,14925.0,22425.0,32425.0,47425.0,67425.0,97425.0,147425.0,222425.0,322425.0,522425.0,822425.0,1222425.0,1722425.0,2322425.0,3022425.0,3822425.0,4722425.0,5722425.0,6822425.0,8022425.0,9322425.0,1.0722425E7,1.2222425E7,1.3822425E7,1.5522425E7,1.7322425E7,1.9222425E7,2.1222425E7,2.3322425E7,2.5522425E7,2.7822425E7,3.0222425E7,3.2722425E7,3.5322425E7,3.8072425E7,4.0972425E7,4.4072425E7,4.7472425E7,5.1172425E7,5.5172425E7,5.9472425E7,6.4072425E7,6.8972425E7,7.4172425E7,7.9672425E7,8.5472425E7,9.1572425E7,9.7972425E7,1.04672425E8,1.11672425E8],
     runecrafting: [0, 50.0,150.0,275.0,435.0,635.0,885.0,1200.0,1600.0,2100.0,2725.0,3510.0,4510.0,5760.0,7325.0,9325.0,11825.0,14950.0,18950.0,23950.0,30200.0,38050.0,47850.0,60100.0,75400.0,94450.0],
     social: [0, 50.0,150.0,300.0,550.0,1050.0,1800.0,2800.0,4050.0,5550.0,7550.0,10050.0,13050.0,16800.0,21300.0,27300.0,35300.0,45300.0,57800.0,72800.0,92800.0,117800.0,147800.0,182800.0,222800.0,272800.0],
+    classes: [0,50,125,235,395,625,955,1425,2095,3045,4385,6275,8940,12700,17960,25340,35640,50040,70040,97640,135640,188140,259640,356640,488640,668640,911640,1239640,1684640,2284640,3084640,4149640,5559640,7459640,9959640,13259640,17559640,23159640,30359640,39559640,51559640,66559640,85559640,109559640,139559640,177559640,225559640,285559640,360559640,453559640,569809640]
   }
 
   let thisSkillLevels;
@@ -21,6 +22,9 @@ function skillXpToLevel(xp, skillName, skillCap) {
       break;
     case "social":
       thisSkillLevels = levelsObject.social;
+      break;
+    case "classes":
+      thisSkillLevels = levelsObject.classes;
       break;
     default:
       thisSkillLevels = levelsObject.normal;
@@ -215,7 +219,6 @@ if (profileStats != undefined) {
     
     updateElement(`skill-${skill}`, checkAndFormat(Math.floor(level)));
   
-
     if (level >= levelCap) {
       document.getElementById(`skill-${skill}`).style.color = `var(--gold)`;
       document.getElementById(`skill-${skill}-progress-bar`).style.width = "100%";
@@ -246,6 +249,7 @@ if (profileStats != undefined) {
   
   updateElement("purse", veryLargeNumber(getValue(skyblockProfile, ["currencies", "coin_purse"])));
   updateElement("bank", veryLargeNumber(getValue(skyblockProfile, ["banking", "balance"])));
+  updateElement("net-worth", veryLargeNumber(getValue(skyblockProfile, ["networth", "total"])));
   updateElement("fairy-souls", und(getValue(skyblockProfile, ["fairy_soul", "total_collected"])) + "/247");
 
   let skyblockLevel = und(getValue(skyblockProfile, ["leveling", "experience"])) / 100;
@@ -357,6 +361,58 @@ function updateWardrobe() {
     }
   }
 }
+
+function updateDungeonClasses() {
+
+  let dungeonsClasses = ["berserk", "archer", "mage", "healer", "tank"];
+  let classAverageSum = 0;
+  const CLASS_MAX_LEVEL = 50;
+
+  for (let a of dungeonsClasses) {
+    let xp = getValue(skyblockProfile, ["dungeons", "player_classes", a, "experience"]) || 0;
+    let classXpToLevelResult = skillXpToLevel(xp, "classes", CLASS_MAX_LEVEL);
+    let level = classXpToLevelResult["level"];
+
+    let levelPercentage = (level % 1) * 100;
+
+    updateElement(`class-${a}`, checkAndFormat(Math.floor(level)));
+
+    if (level >= CLASS_MAX_LEVEL) {
+      document.getElementById(`class-${a}`).style.color = `var(--gold)`;
+      document.getElementById(`class-${a}-progress-bar`).style.width = "100%";
+      document.getElementById(`class-${a}-progress-bar`).style.backgroundColor = `var(--gold)`;
+      updateElement(`class-${a}-tooltip`, `${checkAndFormat(classXpToLevelResult["overflow"])} overflow XP`, true);
+    } else {
+      document.getElementById(`class-${a}-progress-bar`).style.width = levelPercentage + "%";
+      updateElement(`class-${a}-tooltip`, `${checkAndFormat(classXpToLevelResult["thisLevelXpEarned"])} / ${simplifyNumber(classXpToLevelResult["thisLevelXpRequirement"], 4)} XP (${checkAndFormat(levelPercentage, 2)}%)`, true);
+    }
+
+    classAverageSum += level;
+  }
+
+  let classAverage = classAverageSum / dungeonsClasses.length;
+
+  updateElement("class-average", checkAndFormat(Math.floor(classAverage)));
+  document.getElementById("class-average-progress-bar").style.width = (classAverage % 1) * 100 + "%";
+  updateElement("class-average-tooltip", `Class Average: ${checkAndFormat(classAverage, 2)}`, true);
+
+  if (classAverage == CLASS_MAX_LEVEL) {
+    document.getElementById("class-average").style.color = `var(--gold)`;
+    document.getElementById("class-average-progress-bar").style.width = "100%";
+    document.getElementById("class-average-progress-bar").style.backgroundColor = `var(--gold)`;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
 
 function addSkyBlockItemListener(nadeshikoId) {
   let item = document.querySelector(`[n-id="${nadeshikoId}"]`);
