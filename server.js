@@ -5,7 +5,7 @@ const minify = require('express-minify');
 const app = express();
 const port = 8080;
 
-const version = "1.1.7"; // Updating this will force the cache to clear for all users
+const version = "1.1.8"; // Updating this will force the cache to clear for all users
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -289,7 +289,7 @@ function getMetaDescription(game, playerData) {
       let arcadeStats = playerData["stats"]["Arcade"] || {};
       let dropperStats = arcadeStats["dropper"] || {};
       let pixelPartyStats = arcadeStats["pixel_party"] || {};
-      
+
       let arcadeEasyWins = sumStatsBasic(
         [
           "wins_dayone",
@@ -316,7 +316,7 @@ function getMetaDescription(game, playerData) {
         ],
         arcadeStats
       );
-    
+
       let arcadeWins = (arcadeEasyWins + und(dropperStats["wins"]) + und(pixelPartyStats["wins"]));
       return `Arcade Stats
 
@@ -324,7 +324,7 @@ function getMetaDescription(game, playerData) {
 • 🪙 Coins: ${checkAndFormat(arcadeStats["coins"])}`
 
     case 'bedwars':
-      
+
     function getBedWarsLevel(exp) {
       let level = 100 * Math.floor(exp / 487000);
       exp = exp % 487000;
@@ -473,7 +473,7 @@ function getMetaDescription(game, playerData) {
       let copsAndKillsDeaths = (und(copsAndCrimsStats["deaths"]) + und(copsAndCrimsStats["deaths_gungame"]) + und(copsAndCrimsStats["deaths_deathmatch"]));
 
       return `Cops and Crims Stats
-      
+
 • 🏆 Wins: ${locale(copsAndCrimsWins, 0)}
 
 • 💀 Kills: ${locale(copsAndCrimsKills, 0)}
@@ -492,7 +492,7 @@ function getMetaDescription(game, playerData) {
       function getDuelsTitle(wins) {
         // Generates a Duels title based on the number of wins a player has in a certain gamemode
         multiplier = 2; // Multiply required wins by 2 for general Duels titles
-      
+
         const duelsTitles = [
           { minimumWins: 0, increment: 50, title: "No Title", color: "8" },
           { minimumWins: 50, increment: 10, title: "Rookie", color: "8" },
@@ -507,9 +507,9 @@ function getMetaDescription(game, playerData) {
           { minimumWins: 50000, increment: 10000, title: "DIVINE", color: "d", bold: true },
           { minimumWins: 100000, increment: 10000, max: 50, title: "ASCENDED", color: "c", bold: true },
         ];
-      
+
         let chosenTitle = duelsTitles[0];
-      
+
         for (let i = 0; i < duelsTitles.length; i++) {
           if (wins >= duelsTitles[i]["minimumWins"] * multiplier) {
             chosenTitle = duelsTitles[i];
@@ -517,12 +517,12 @@ function getMetaDescription(game, playerData) {
             break;
           }
         }
-      
+
         let level = 0;
         if (chosenTitle["title"] != "No Title") {
           level = Math.floor((wins - chosenTitle["minimumWins"] * multiplier) / (chosenTitle["increment"] * multiplier)) + 1;
           winsToGo = chosenTitle["minimumWins"] * multiplier + chosenTitle["increment"] * level * multiplier - wins;
-      
+
           if ("max" in chosenTitle && level > chosenTitle["max"]) {
             level = chosenTitle["max"];
             winsToGo = -2;
@@ -530,14 +530,14 @@ function getMetaDescription(game, playerData) {
         } else {
           winsToGo = 50 * multiplier - wins;
         }
-      
+
         let romanSuffix = "";
         if (level > 1) {
           romanSuffix = " " + convertToRoman(level);
         }
-      
+
         let rawDuelsTitle = chosenTitle["title"] + romanSuffix;
-      
+
         return rawDuelsTitle;
       }
 
@@ -606,24 +606,24 @@ function getMetaDescription(game, playerData) {
           x_prestige = 0;
           x_level = 120;
           x_120level = 0;
-      
+
           for (; x_prestige < 50; x_prestige++) {
             if (experience <= pitPrestigeXp[x_prestige]) {
               break;
             }
           }
-      
+
           x_120level = pitPrestigeXp[x_prestige];
-      
+
           while (x_120level > experience) {
             x_level = x_level - 1;
             x_120level = x_120level - Math.ceil((pitXpMap[Math.floor(x_level / 10)] * pitPrestiges[x_prestige]) / 100);
           }
-      
+
           if (x_level == 0) {
             x_level = 1;
           }
-      
+
           if (x_prestige == 0) {
               return "[" + x_level + "]";
           } else {
@@ -651,7 +651,7 @@ function getMetaDescription(game, playerData) {
 
       return `Smash Heroes Stats
 
-• ⭐ Level: ${checkAndFormat(smashStats["smashLevel"])} ✶ 
+• ⭐ Level: ${checkAndFormat(smashStats["smashLevel"])} ✶
 
 • 🏆 Wins: ${checkAndFormat(smashStats["wins"])}
 • 💔 Losses: ${checkAndFormat(smashStats["losses"])}
@@ -667,7 +667,7 @@ function getMetaDescription(game, playerData) {
       let skyWarsStats = playerData["stats"]["SkyWars"] || {};
       return `SkyWars Stats
 
-• ⭐ Level: [${stripFormatting(und(skyWarsStats["levelFormatted"], "1⋆"))}]      
+• ⭐ Level: [${stripFormatting(und(skyWarsStats["levelFormatted"], "1⋆"))}]
 
 • 🏆 Wins: ${checkAndFormat(skyWarsStats["wins"])}
 • 💔 Losses: ${checkAndFormat(skyWarsStats["losses"])}
@@ -679,7 +679,7 @@ function getMetaDescription(game, playerData) {
 
 • 🪙 Coins: ${checkAndFormat(skyWarsStats["coins"])}
 • ⏰ Playtime: ${smallDuration(und(skyWarsStats["time_played"]))}`;
-  
+
     case 'tntgames':
       let tntGamesStats = playerData["stats"]["TNTGames"] || {};
       let tntGamesKills = sumStats(["kills"], ["tntrun", "pvprun", "tntag", "capture", "bowspleef"], tntGamesStats, "_", true);
@@ -904,7 +904,7 @@ function getMetaDescription(game, playerData) {
           return total + und(getValue(stats, ["stats", "permanent", env, category]));
         }, 0);
       };
-      
+
       const overallFishCaught = getTotalCaught(fishingStats, "fish");
       const overallJunkCaught = getTotalCaught(fishingStats, "junk");
       const overallTreasureCaught = getTotalCaught(fishingStats, "treasure");
@@ -916,7 +916,7 @@ function getMetaDescription(game, playerData) {
     const value = getValue(fishingStats, path);
     return und(value);
   }
-  
+
   const mythicalFishCounts = orbs.map(getMythicalFishCount);
   const overallMythicalFishCaught = mythicalFishCounts.reduce((sum, count) => sum + count, 0);
 
@@ -949,9 +949,9 @@ function getMetaDescription(game, playerData) {
     }
 
     return `${guildDescription}
-    
+
 Guild Stats
-    
+
 • 🏅 Level: ${checkAndFormat(Math.floor(playerData["level"]))}
 • 👥 Members: ${checkAndFormat(playerData["members"].length)}
 • 📆 Created: ${shortDateFormat(playerData["created"])} ${relativeTime(playerData["created"])}
@@ -963,7 +963,7 @@ Guild Stats
     let globalAchievements = getValue(playerData, ["global", "achievements"]) || {};
 
     let achievementGames = ["arcade", "arena", "bedwars", "blitz", "buildbattle", "christmas2017", "copsandcrims", "duels", "easter", "general", "gingerbread", "halloween2017", "housing", "murdermystery", "paintball", "pit", "quake", "skyblock", /*"skyclash",*/ "skywars", "speeduhc", "summer", "supersmash", "tntgames", /*"truecombat",*/ "uhc", "vampirez", "walls", "walls3", "warlords", "woolgames"];
-    
+
     let achievementNames = {
       "arcade": "🕹️ Arcade",
       "arena": "🏟️ Arena Brawl",
@@ -999,7 +999,7 @@ Guild Stats
     }
 
     let maxedGames = [];
-    
+
     let achievementStatistics = {
       "points": 0,
       "achievements": 0,
@@ -1034,9 +1034,9 @@ Guild Stats
 
       for (let key in gameOneTimeAchievements) {
         let achievement = gameOneTimeAchievements[key];
-        
+
         key = key.toLowerCase();
-        
+
         if (achievement["legacy"]) {
           // TODO
         } else {
@@ -1102,10 +1102,10 @@ Guild Stats
         achievementGamesString += `• ${achievementNames[gameObject["game"]]}: ${gameObject["achievements"]} / ${gameObject["global_achievements"]} (${checkAndFormat(gameObject["progress_achievements"] * 100, 1)}%)\n`;
       }
     }
-      
+
 
     return `Achievements Stats
-    
+
 • 🏆 Achievement Points: ${checkAndFormat(achievementStatistics["points"])} / ${checkAndFormat(achievementStatistics["global_points"])}
 • 🌟 Achievements: ${checkAndFormat(achievementStatistics["achievements"])} / ${checkAndFormat(achievementStatistics["global_achievements"])}
 • 🌠 Maxed Games: ${maxedGames.join(", ") || "None"}
@@ -1127,20 +1127,20 @@ ${achievementGamesString}`;
 
 app.get('/player/:name/:game?', async (req, res) => {
   const name = req.params.name;
-  
+
   computationError = {
     message: ``,
     player: ``,
     category: ``,
     page: ``
   };
-  
+
   try {
 
     let game = req.params.game;
     if (game) {
       game = game.toLowerCase();
-  
+
       // Check if the specified game name is an alias
       for (let key in gameAliases) {
         if (gameAliases[key].includes(game)) {
@@ -1152,7 +1152,7 @@ app.get('/player/:name/:game?', async (req, res) => {
 
        const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
        let playerData = response.data;
-       
+
        let metaImageURL, metaDescription;
        if (playerData && playerData["profile"]) { // If the player data is available
           metaDescription = getMetaDescription(game, playerData);
@@ -1206,19 +1206,19 @@ app.use((req, res, next) => {
 });
 
   const handleSkyBlockRoute = async (name, req, res) => {
-    
+
     computationError = {
       message: ``,
       player: ``,
       category: ``,
       page: ``
     };
-    
+
     try {
 
         const response = await axios.get(`http://localhost:2000/skyblock?name=${name}`);
         let skyblockData = response.data;
-        
+
         let metaDescription;
         if (skyblockData && skyblockData["profile"]) { // If the player data is available
             metaDescription = getMetaDescription("skyblock");
@@ -1264,18 +1264,18 @@ app.use((req, res, next) => {
   app.get('/card/:base64', async (req, res) => {
     try {
       const { base64 } = req.params;
-  
+
       const targetUrl = `http://localhost:2000/card/${encodeURIComponent(base64)}`;
-  
+
       // Use axios to forward the request
       const response = await axios.get(targetUrl, {
         responseType: 'arraybuffer', // Important for images/binary content
       });
-  
+
       // Forward the headers and status code from the response, and then...
       res.set(response.headers);
       res.status(response.status);
-  
+
       // Send back the response data!
       res.send(response.data);
     } catch (error) {
@@ -1298,12 +1298,12 @@ app.use((req, res, next) => {
       category: ``,
       page: ``
     };
-  
+
     try {
-  
+
         const response = await axios.get(`http://localhost:2000/guild?name=${name}`);
         let guildData = response.data;
-        
+
         let metaDescription;
         if (guildData) { // If the guild data is available
           metaDescription = getMetaDescription("guild", guildData);
@@ -1317,7 +1317,7 @@ app.use((req, res, next) => {
       try {
         const response = await axios.get(`http://localhost:2000/guild?player=${name}`);
         let guildData = response.data;
-        
+
         let metaDescription;
         if (guildData) { // If the guild data is available
           metaDescription = getMetaDescription("guild", guildData);
@@ -1350,13 +1350,13 @@ app.use((req, res, next) => {
       category: ``,
       page: ``
     };
-  
+
     try {
 
         let game = req.params.game;
         if (game) {
           game = game.toLowerCase();
-      
+
           // Check if the specified game name is an alias
           for (let key in gameAliasesAchievements) {
             if (gameAliasesAchievements[key].includes(game)) {
@@ -1365,14 +1365,14 @@ app.use((req, res, next) => {
             }
           }
         }
-  
+
         const response = await axios.get(`http://localhost:2000/achievements?name=${name}`);
         let achievementsData = response.data;
 
         if (achievementsData["player"]["profile"] == null) {
           throw new Error("Player has no Hypixel stats");
         }
-        
+
         let metaDescription;
         if (achievementsData) { // If the guild data is available
           metaDescription = getMetaDescription("achievements", achievementsData);
@@ -1405,7 +1405,7 @@ app.use((req, res, next) => {
       category: ``,
       page: ``
     };
-  
+
     try {
         const response = await axios.get(`http://localhost:2000/quests?name=${name}`);
         let questsData = response.data;
@@ -1413,7 +1413,7 @@ app.use((req, res, next) => {
         if (questsData["player"]["profile"] == null) {
           throw new Error("Player has no Hypixel stats");
         }
-        
+
         let metaDescription;
         if (questsData) { // If the guild data is available
           metaDescription = getMetaDescription("quests", questsData);
@@ -1466,13 +1466,13 @@ app.use((req, res, next) => {
         category: "404",
         page: "player"
       };
-      
+
       res.render('index', { computationError, version });
     } else {
       res.redirect(`/player/${name}/${game == undefined ? '' : game}`);
     }
   });
-  
+
   app.listen(port, () => {
     console.log(`Listening at https://localhost:${port}!`);
   });

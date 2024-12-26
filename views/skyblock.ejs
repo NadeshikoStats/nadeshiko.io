@@ -27,18 +27,19 @@
     function beginGeneration(task) {
       if(tasksBeforeLoading.includes(task)) {
         tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
-      }
+        console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
 
-      console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
-
-      if(tasksBeforeLoading.length == 0) {
-        updateTranslations();
-        updateBasicStats();
-        updateArmorEquipment();
-        updateWardrobe();
-        updateDungeonClasses();
-        document.getElementById("header-name").classList.remove("unloaded");
-        document.getElementById("skyblock-page").classList.remove("unloaded");
+        if(tasksBeforeLoading.length == 0) {
+          updateTranslations();
+          updateBasicStats();
+          updateArmorEquipment();
+          updateWardrobe();
+          updateDungeonClasses();
+          document.getElementById("header-name").classList.remove("unloaded");
+          document.getElementById("skyblock-page").classList.remove("unloaded");
+        }
+      } else {
+        console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
       }
     } 
   </script>
@@ -372,6 +373,35 @@
           <div class="flex-two-item-basic">
             <div class="dungeon-classes-calculator chip-small-container">
               <p class="stat-title mbottom">Calculator</p>
+
+                <div class="flex-two-item">
+              <p>Playing on</p>
+                <div class="dropdown">  
+                  <p class="dropdown-button chip-dropdown-button" data-item="MASTER_7"><span>M7</span></p>
+                  <div class="dropdown-content unloaded dropdown-chip" data-game="skyblock-classes">
+                  
+                  <div class="dropdown-item selected" data-item="MASTER_7"><span class="dropdown-item-text">M7</span></div>
+                  <div class="dropdown-item" data-item="MASTER_6"><span class="dropdown-item-text">M6</span></div>
+                  <div class="dropdown-item" data-item="MASTER_5"><span class="dropdown-item-text">M5</span></div>
+                  <div class="dropdown-item" data-item="MASTER_4"><span class="dropdown-item-text">M4</span></div>
+                  <div class="dropdown-item" data-item="MASTER_3"><span class="dropdown-item-text">M3</span></div>
+                  <div class="dropdown-item" data-item="MASTER_2"><span class="dropdown-item-text">M2</span></div>
+                  <div class="dropdown-item" data-item="MASTER_1"><span class="dropdown-item-text">M1</span></div>
+                  <div class="dropdown-item" data-item="CATACOMBS_7"><span class="dropdown-item-text">F7</span></div>
+                  <div class="dropdown-item" data-item="CATACOMBS_6"><span class="dropdown-item-text">F6</span></div>
+                  <div class="dropdown-item" data-item="CATACOMBS_5"><span class="dropdown-item-text">F5</span></div>
+                  <div class="dropdown-item" data-item="CATACOMBS_4"><span class="dropdown-item-text">F4</span></div>
+                  <div class="dropdown-item" data-item="CATACOMBS_3"><span class="dropdown-item-text">F3</span></div>
+                  <div class="dropdown-item" data-item="CATACOMBS_2"><span class="dropdown-item-text">F2</span></div>
+                  <div class="dropdown-item" data-item="CATACOMBS_1"><span class="dropdown-item-text">F1</span></div>
+                  <div class="dropdown-item" data-item="CATACOMBS_0"><span class="dropdown-item-text">Entrance</span></div>
+                </div>
+                </div>
+                <p>, it will take PLAYERNAME...</p>
+              </div>
+              <div id="dungeon-classes-runs">
+              </div>
+
             </div>
             <div class="dungeon-classes-calculator-settings chip-small-container">
               <p class="stat-title mbottom">Calculator Settings</p>
@@ -515,7 +545,7 @@
  } catch (error) {
      console.error("Error loading SkinView3D!: " + error);
  }
-  });
+  }, { once: true });
   </script>
 </body>
 </html>

@@ -798,11 +798,12 @@
         let dropdownItemText = selectedItem.querySelector(".dropdown-item-text");
         if (dropdownItemText) {
           button.innerHTML = DOMPurify.sanitize(dropdownItemText.innerHTML);
-
         } else {
           button.innerHTML = DOMPurify.sanitize(selectedItem.innerHTML);
           console.warn("Dropdown item text not found; using innerHTML instead");
         }
+
+        button.dataset.item = selectedItemText;
 
         if (!button.classList.contains("card-wizard-button")) {
           button.style.width = "auto";

@@ -26,50 +26,52 @@
     function beginGeneration(task) {
       if(tasksBeforeLoading.includes(task)) {
         tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
-      }
+        console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
 
-      console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+        if(tasksBeforeLoading.length == 0) {
+          updateTranslations();
 
-      if(tasksBeforeLoading.length == 0) {
-        updateTranslations();
+          globalAchievements = getValue(achievementsStats, ["global", "achievements"]) || [];
 
-        globalAchievements = getValue(achievementsStats, ["global", "achievements"]) || [];
+          playerOneTimeAchievements = getValue(achievementsStats, ["player", "achievements_one_time"]) || [];
+          playerTieredAchievements = getValue(achievementsStats, ["player", "achievements"]) || [];
 
-        playerOneTimeAchievements = getValue(achievementsStats, ["player", "achievements_one_time"]) || [];
-        playerTieredAchievements = getValue(achievementsStats, ["player", "achievements"]) || [];
+          generateNetwork();
 
-        generateNetwork();
+          for (let a = 4; a < validGames.length; a++) {
+            achievementsDatabase[validGames[a]] = getAllAchievements(validGames[a]);
+            generateAchievementPage(validGames[a]);
+          }
 
-        for (let a = 4; a < validGames.length; a++) {
-          achievementsDatabase[validGames[a]] = getAllAchievements(validGames[a]);
-          generateAchievementPage(validGames[a]);
-        }
+          achievementsDatabase["skyclash"] = getAllAchievements("skyclash");
+          achievementsDatabase["crazywalls"] = getAllAchievements("crazywalls");
 
-        achievementsDatabase["skyclash"] = getAllAchievements("skyclash");
-        achievementsDatabase["crazywalls"] = getAllAchievements("crazywalls");
-
-        generateAchievementPage("legacy");
+          generateAchievementPage("legacy");
 
 
-        updateOverall();
-        updateClosestTiered();
-        updateEasiestOneTime();
-        updateRecentlyCompleted();
+          updateOverall();
+          updateClosestTiered();
+          updateEasiestOneTime();
+          updateRecentlyCompleted();
 
-        const rows = document.querySelectorAll('.achievements-overall-container .row-header');
-        
-        rows.forEach(row => {
-          row.addEventListener('click', function () {
-            const parent = this.parentElement;
-            parent.classList.toggle('active');
+          const rows = document.querySelectorAll('.achievements-overall-container .row-header');
+          
+          rows.forEach(row => {
+            row.addEventListener('click', function () {
+              const parent = this.parentElement;
+              parent.classList.toggle('active');
+            });
           });
-        });
 
-        checkMobileMode(event, true);
-        switchStats(currentGamemode);
-        document.getElementById("header-name").classList.remove("unloaded");
-        updateHeaderGameProgress();
+          checkMobileMode(event, true);
+          switchStats(currentGamemode);
+          document.getElementById("header-name").classList.remove("unloaded");
+          updateHeaderGameProgress();
+        }
+      } else {
+        console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
       }
+      
     } 
   </script>
   <script src="/external/master.js?v=<%= version || 0 %>"></script>

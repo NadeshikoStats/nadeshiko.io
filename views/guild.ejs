@@ -26,36 +26,39 @@
     function beginGeneration(task) {
       if(tasksBeforeLoading.includes(task)) {
         tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
-      }
 
-      console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+        console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
 
-      if(tasksBeforeLoading.length == 0) {
-        updateTranslations();
+        if(tasksBeforeLoading.length == 0) {
+          updateTranslations();
 
-        let guildPlayers = document.getElementById("guild-players");
+          let guildPlayers = document.getElementById("guild-players");
 
-        getRankPriorities();
+          getRankPriorities();
 
-        for (let a = 0; a < guildStats["members"].length; a++) {
-          let guildRow = guildPlayerObjectToRow(guildStats["members"][a]);
-          guildPlayers.appendChild(guildRow);
-        }
+          for (let a = 0; a < guildStats["members"].length; a++) {
+            let guildRow = guildPlayerObjectToRow(guildStats["members"][a]);
+            guildPlayers.appendChild(guildRow);
+          }
 
-        const rows = document.querySelectorAll('.row-header');
-        
-          rows.forEach(row => {
-            row.addEventListener('click', function () {
-              const parent = this.parentElement;
-              parent.classList.toggle('active');
+          const rows = document.querySelectorAll('.row-header');
+          
+            rows.forEach(row => {
+              row.addEventListener('click', function () {
+                const parent = this.parentElement;
+                parent.classList.toggle('active');
+              });
             });
-          });
 
-          sortData("priority");
-          generateCharts();
+            sortData("priority");
+            generateCharts();
 
-          document.getElementById("guild").classList.remove("unloaded");
+            document.getElementById("guild").classList.remove("unloaded");
+        }
+      } else {
+        console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
       }
+      
     } 
   </script>
   <script src="/external/master.js?v=<%= version || 0 %>"></script>

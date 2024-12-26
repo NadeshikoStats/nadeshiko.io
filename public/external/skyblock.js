@@ -405,6 +405,26 @@ function updateDungeonClasses() {
 
 }
 
+function calculateRunsToClassLevel() {
+  const BASE_DUNGEON_EXPERIENCE = {
+    "MASTER_7": 324000, // +8% from base?
+    "MASTER_6": 108000, // +8% from base?
+    "MASTER_5": 75600, // +8% from base?
+    "MASTER_4": 59400, // +8% from base?
+    "MASTER_3": 36800,
+    "MASTER_2": 21600,
+    "MASTER_1": 16200,
+    "FLOOR_7": 30240,
+    "FLOOR_6": 5270.4,
+    "FLOOR_5": 2592,
+    "FLOOR_4": 1533.6,
+    "FLOOR_3": 604.8,
+    "FLOOR_2": 237.6,
+    "FLOOR_1": 118.8,
+    "FLOOR_0": 59.4,
+  };
+}
+
 
 
 

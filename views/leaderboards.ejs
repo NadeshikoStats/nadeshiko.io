@@ -21,14 +21,16 @@
     function beginGeneration(task) {
       if(tasksBeforeLoading.includes(task)) {
         tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+        console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+
+        if(tasksBeforeLoading.length == 0) {
+          updateTranslations();
+          getLeaderboardGames();
+        }
+      } else {
+        console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
       }
 
-      console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
-
-      if(tasksBeforeLoading.length == 0) {
-        updateTranslations();
-        getLeaderboardGames();
-      }
     } 
   </script>
   <script src="/external/master.js?v=<%= version || 0 %>"></script>

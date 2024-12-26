@@ -206,8 +206,8 @@ function generateNetwork() {
     /*
     { id:
     { id: "fishing", name: getTranslation(["games", "fishing"]), minecraftId: "cod" },
-    { id: "guild", name: getTranslation(["games", "modes", "network", "guild"]), minecraftId: "head_guild" },   
-    */   
+    { id: "guild", name: getTranslation(["games", "modes", "network", "guild"]), minecraftId: "head_guild" },
+    */
   ];
 
   const gameSwitchMobileContainer = document.getElementById("game-switch-mobile");
@@ -360,7 +360,7 @@ function getAllAchievements(game) {
   legacyAchievements["one_time"] = {};
 
   allAchievements["tier"] = getGameTier(game);
-  
+
   game = demodernifyGameName(game);
 
   let gameStats = globalAchievements[game] || {};
@@ -394,7 +394,7 @@ function getAllAchievements(game) {
   return allAchievements;
 }
 
-/* 
+/*
  * Counts the number of unlocked achievements in a game
  * @param {string} game - The game to count the unlocked achievements for
  * @returns {number} The number of unlocked achievements
@@ -444,7 +444,7 @@ function gameProgress(game) {
       let achievementUnlockedPoints = und(specificAchievement["unlocked_points"]);
       let achievementTotalPoints = und(specificAchievement["total_points"]);
       let achievementTotalTiers = und(specificAchievement["total_tiers"]);
-    
+
       unlockedAchievements += achievementUnlockedTiers;
 
       totalAchievements += achievementTotalTiers;
@@ -499,7 +499,7 @@ function updateHeaderGameProgress() {
 
     let achievementsDatabaseGame = achievementsDatabase[game];
     if (achievementsDatabaseGame == undefined) continue;
-    
+
     let gameProgress = und(achievementsDatabaseGame["unlocked_achievements"] / achievementsDatabaseGame["total_achievements"]) * 100;
 
     let badge = document.createElement("span");
@@ -515,7 +515,7 @@ function updateHeaderGameProgress() {
       badge.style.background = `linear-gradient(108deg, #cec2a1 33%, #feeebe 66%, #775730 100%)`;
       badge.style.border = `1px solid #cfc09f`;
     }
-    
+
     badge.textContent = Math.floor(gameProgress) + "%";
 
     dropdownItem.appendChild(badge);
@@ -663,7 +663,7 @@ function replaceAchievementPlaceholder(string, value, tiers) {
       break;
     }
   }
-  
+
   if (highestTier == tiers.length) {
     return string.replace("%s", checkAndFormat(value) + " / " + checkAndFormat(tiers[highestTier - 1]["amount"]));
   } else {
@@ -679,11 +679,11 @@ function sortTable(game, type) {
 function generateAchievementPage(game) {
 
   let template = DOMPurify.sanitize(`
-  
+
       <div class="chip-container">
         <div class="chip-small but-big">
           <div class="chip-small-background-filter"></div>
-          <div class="chip-small-title flex-two-item-basic">${getTranslation(`games.${game}`)}<img src="/img/svg/crown.svg" class="crown" data-i="maxed"></div> 
+          <div class="chip-small-title flex-two-item-basic">${getTranslation(`games.${game}`)}<img src="/img/svg/crown.svg" class="crown" data-i="maxed"></div>
           <div class="chip-small-container">
             <p class="margin10">
               <span>${getTranslation("statistics.achievement_points")}</span> <span class="statistic" data-i="achievement-points"><span class="mc">Unknown</span></span> / <span data-i="total-points"><span class="mc">Unknown</span></span>
@@ -705,10 +705,10 @@ function generateAchievementPage(game) {
           <div class="chip-small-top">
             <p class="chip-small-title">${getTranslation(`achievements.tiered`)}</p>
             <span class="flex-two-item">
-              <div class="dropdown">  
+              <div class="dropdown">
                 <p class="dropdown-button chip-dropdown-button"><span>${getTranslation("achievements.all")}</span></p>
                 <div class="dropdown-content unloaded dropdown-chip" data-i="filter-tiered" data-game="achievements">
-                
+
                 <div class="dropdown-item selected" data-item="all"><span class="dropdown-item-text">${getTranslation("achievements.all")}</span></div>
                 <div class="dropdown-item" data-item="locked"><span class="dropdown-item-text">${getTranslation("achievements.locked")}</span></div>
                 <div class="dropdown-item" data-item="unlocked"><span class="dropdown-item-text">${getTranslation("achievements.unlocked")}</span></div>
@@ -732,10 +732,10 @@ function generateAchievementPage(game) {
           <div class="chip-small-top">
             <p class="chip-small-title">${getTranslation(`achievements.one_time`)}</p>
             <span class="flex-two-item">
-              <div class="dropdown">  
+              <div class="dropdown">
                 <p class="dropdown-button chip-dropdown-button"><span>${getTranslation("achievements.all")}</span></p>
                 <div class="dropdown-content unloaded dropdown-chip" data-i="filter-one-time" data-game="achievements">
-                
+
                 <div class="dropdown-item selected" data-item="all"><span class="dropdown-item-text">${getTranslation("achievements.all")}</span></div>
                 <div class="dropdown-item" data-item="locked"><span class="dropdown-item-text">${getTranslation("achievements.locked")}</span></div>
                 <div class="dropdown-item" data-item="unlocked"><span class="dropdown-item-text">${getTranslation("achievements.unlocked")}</span></div>
@@ -744,7 +744,7 @@ function generateAchievementPage(game) {
             </span>
           </div>
           <div class="list achievements-container one-time-container" data-i="one-time-container">
-            
+
             <div class="row header-row">
               <div class="row-header">
                 <div class="achievement column faded transitionable-small pointer" data-i="sort-game_one_time">${getTranslation(`statistics.game`)}</div>
@@ -834,8 +834,8 @@ function generateAchievementPage(game) {
     <div class="column tiers">
     </div>
     `
-  
-  let tierTemplate = 
+
+  let tierTemplate =
   `
     <div class="tier-container">
       <div data-i="tier-quantity" class="tier-quantity"></div>
@@ -853,37 +853,37 @@ if (game == "legacy") {
       for (let achievement in allAchievements["tiered"]) {
 
         let achievementStats = allAchievements["tiered"][achievement];
-    
+
         let row = document.createElement("div");
         row.classList.add("row");
-    
+
         let achievementElement = document.createElement("div");
         achievementElement.classList.add("row-header");
         achievementElement.innerHTML = tieredAchievementTemplate;
-    
+
         for (let a = 0; a < achievementStats["tiers"].length; a++) {
           let tier = document.createElement("div");
           tier.innerHTML = tierTemplate;
           tier.classList.add("tier");
-    
+
           let tierStats = achievementStats["tiers"][a];
-    
+
           if (achievementStats["unlocked_tiers"] > a) {
             tier.classList.add("unlocked");
           } else if (achievementStats["unlocked_tiers"] < a) {
             tier.classList.add("locked");
           }
-    
+
           updateTag(tier, "tier-quantity", simplifyNumber(tierStats["amount"]));
           updateTag(tier, "tier-points", `+${checkAndFormat(tierStats["points"])}`);
 
-    
+
           achievementElement.querySelector(".tiers").appendChild(tier);
         }
 
         if (game == "legacy") {
           updateTag(achievementElement, "achievement-game", getTranslation(`games.${modernifyGameName(achievementStats["game"])}`));
-    
+
           let icon = achievementElement.querySelector("[data-i='achievement-icon']");
           icon.src = `/img/icon/minecraft/${gameIcons[modernifyGameName(achievementStats["game"])]}.${imageFileType}`;
         }
@@ -893,28 +893,28 @@ if (game == "legacy") {
         } else {
           row.classList.add("locked");
         }
-    
+
         let formattedAchievementDescription = (replaceAchievementPlaceholder(achievementStats["description"], achievementStats["amount"], achievementStats["tiers"]));
 
-        
+
         updateTag(achievementElement, "achievement-name", achievementStats["name"]);
         updateTag(achievementElement, "achievement-description", formattedAchievementDescription);
-        
+
         updateAllTags(achievementElement, "achievement-points", checkAndFormat(achievementStats["points"]));
         updateAllTags(achievementElement, "achievement-percentage-unlocked-game", checkAndFormat(achievementStats["gamePercentUnlocked"], 2) + "%");
         updateAllTags(achievementElement, "achievement-percentage-unlocked-global", checkAndFormat(achievementStats["globalPercentUnlocked"], 2) + "%");
 
         row.setAttribute("data-name_tiered", achievementStats["name"]);
         row.setAttribute("data-tiers", achievementStats["unlocked_tiers"]);
-      
+
         row.appendChild(achievementElement);
-    
+
         tieredContainer.appendChild(row);
-        
+
       }
     }
 
-  let oneTimeAchievementTemplate = 
+  let oneTimeAchievementTemplate =
   `
     <div class="achievement column flex-two-item-basic flex-display-text">
       <img data-i="achievement-icon" class="icon smallicon">
@@ -974,7 +974,7 @@ if (game == "legacy") {
 
       let icon = achievementElement.querySelector("[data-i='achievement-icon']");
       icon.src = `/img/icon/minecraft/${gameIcons[modernifyGameName(achievementStats["game"])]}.${imageFileType}`;
-    
+
     }
     updateTag(achievementElement, "achievement-name", achievementStats["name"]);
 
@@ -999,11 +999,11 @@ if (game == "legacy") {
     row.appendChild(achievementElement);
 
     oneTimeContainer.appendChild(row);
-    
+
   }
 }
 
-function compareAttributes(attribute, reverse = false) { 
+function compareAttributes(attribute, reverse = false) {
 
   let reverseMultiplier = reverse ? -1 : 1;
 
@@ -1043,7 +1043,7 @@ function compareAttributes(attribute, reverse = false) {
   };
 
   let attributeClassification = attributeClassifications[attribute];
-  
+
   if (attributeClassification["reverse"] == true) {
     reverseMultiplier *= -1; // This is here because certain attributes should have their sorting reversed, such as name where lower values should be at the top (A-Z)
   }
@@ -1076,7 +1076,7 @@ function compareAttributes(attribute, reverse = false) {
 let currentSort;
 let currentReverse = false;
 
- /* 
+ /*
   * Sorts the achievement table data by a certain attribute
   * @param {string} game - The game to sort the data for
   * @param {string} type - The type of achievement to sort (like "one-time" or "tiered")
@@ -1111,7 +1111,7 @@ function sortData(game, type, attribute = "points", reverse = false) {
     let element = achievementTable.querySelector(`[data-i="${dataI}"]`);
     element.classList.add("faded");
   });
-  
+
   achievementTable.querySelector(`[data-i="sort-${attribute}"]`).classList.remove("faded");
 
   achievementTableRowsArray.sort(compareAttributes(attribute, reverse));
@@ -1126,14 +1126,19 @@ function filterData(id, filterBy = "all") {
   let rows = element.querySelectorAll(".row:not(.header-row)");
 
   rows.forEach((row) => {
-    let displayType = "flex";
     if (filterBy == "locked") {
-      displayType = row.classList.contains("unlocked") ? "none" : "flex";
+      if (row.classList.contains("unlocked")) {
+        row.classList.add("display-none");
+      } else {
+        row.classList.remove("display-none");
+      }
     } else if (filterBy == "unlocked") {
-      displayType = row.classList.contains("unlocked") ? "flex" : "none";
+      if (row.classList.contains("unlocked")) {
+        row.classList.remove("display-none");
+      } else {
+        row.classList.add("display-none");
+      }
     }
-
-    row.style.display = displayType;
   });
 }
 

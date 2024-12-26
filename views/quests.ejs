@@ -26,34 +26,37 @@
     function beginGeneration(task) {
       if(tasksBeforeLoading.includes(task)) {
         tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+        console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+
+        if(tasksBeforeLoading.length == 0) {
+          updateTranslations();
+
+          globalQuests = getValue(questsStats, ["global", "quests"]) || {};
+
+          playerQuests = getValue(questsStats, ["player", "quests"]) || {};
+
+          for (let a = 0; a < validGames.length; a++) {
+            formattedGameNames.push({
+              formatted: getTranslation(`games.${modernifyGameName(validGames[a])}`),
+              raw: validGames[a]
+            });
+          }
+
+          formattedGameNames.sort((a, b) => sortStrings(a["formatted"], b["formatted"]));
+
+          for (let a = 0; a < formattedGameNames.length; a++) {
+            generateQuestsTable(formattedGameNames[a]["raw"]);
+          }
+
+          generateNetwork();
+          document.getElementById("quests-games").classList.remove("unloaded");
+          document.getElementById("header-name").classList.remove("unloaded");
+        }
+      } else {
+        console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
       }
 
-      console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
-
-      if(tasksBeforeLoading.length == 0) {
-        updateTranslations();
-
-        globalQuests = getValue(questsStats, ["global", "quests"]) || {};
-
-        playerQuests = getValue(questsStats, ["player", "quests"]) || {};
-
-        for (let a = 0; a < validGames.length; a++) {
-          formattedGameNames.push({
-            formatted: getTranslation(`games.${modernifyGameName(validGames[a])}`),
-            raw: validGames[a]
-          });
-        }
-
-        formattedGameNames.sort((a, b) => sortStrings(a["formatted"], b["formatted"]));
-
-        for (let a = 0; a < formattedGameNames.length; a++) {
-          generateQuestsTable(formattedGameNames[a]["raw"]);
-        }
-
-        generateNetwork();
-        document.getElementById("quests-games").classList.remove("unloaded");
-        document.getElementById("header-name").classList.remove("unloaded");
-      }
+      
     } 
   </script>
   <script src="/external/master.js?v=<%= version || 0 %>"></script>
