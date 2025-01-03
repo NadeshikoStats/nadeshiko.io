@@ -1,14 +1,10 @@
-![Logo of nadeshiko. A pixelated duo of pink flowers is to the left of a stylized logo saying "nadeshiko.io". A blurred field of cherry blossom trees stand in the background.](https://nadeshiko.io/img/banner.png)
+![Logo of nadeshiko. A pixelated duo of pink flowers is to the left of a stylized logo saying "nadeshiko.io". A blurred field of cherry blossom trees stand in the background. Visit nadeshiko at nadeshiko.io.](https://nadeshiko.io/img/banner.png)
 
 <h1 align="center">nadeshiko – a beautiful Hypixel stats viewer</h1>
 
-![The frontend running, displaying the Hypixel stats of a player named "kittycatchloe". Headers on the top allow users to switch from the "Home", "About", "Cards", and "Settings", with a second header allowing users to pick the currently selected gamemode.](https://github.com/NadeshikoStats/nadeshiko.io/assets/96643991/fba77ec1-f126-4be4-a4f4-b8730e1deda8)
+![The frontend running, displaying the Hypixel stats of a player named "kittycatchloe". Headers on the top allow users to switch from the "Home", "About", "Cards", and "Settings", with a second header allowing users to pick the currently selected gamemode.](https://github.com/user-attachments/assets/ed4067c0-27b1-4ab9-b761-b5ed9d1ab6d8)
 
-![A nadeshiko Bed Wars card generated for the player "brookeafk" by using the card wizard.](https://github.com/NadeshikoStats/nadeshiko.io/assets/96643991/e3cea29a-2c03-4aa0-abab-cfe7a08b1e83)
-
-
-
-
+![A nadeshiko Bed Wars card generated for the player "WarOG" by using the card wizard.](https://github.com/user-attachments/assets/f6986639-d7b2-4b3e-8fe5-ae0efd2ff09f)
 
 ## Running
 
