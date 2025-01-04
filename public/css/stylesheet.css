@@ -1887,8 +1887,9 @@
 
   .achievement-check {
     color: var(--accent);
-    display: none;
-    margin: 0px 5px;
+    visibility: hidden;
+    margin-inline-end: 16px;
+    font-weight: bold;
   }
 
   .achievement-icon-container {

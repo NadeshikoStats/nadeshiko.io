@@ -44,11 +44,9 @@ let secretAchievements = {
   "general_keep_quiet": "Keep your noise down in the Castle Library",
   "general_hypixel_historian": "View all historical records in the Castle Library",
   "general_crash_landed": "Join SkyBlock through the crashed portal",
-  "arcade_zombies_prison_secret_beyond": "",
   "arcade_dropper_well_well_well": "Find the hidden frog on the Floating Islands map",
   "woolgames_magician": "Capture 2 wools in one game",
   "arcade_hypixel_says_movement": "Jump off the Platform instead of standing still",
-  "arcade_zombies_prison_computers": "",
   "arcade_snake": "Earn 50 points in the lobby Snake minigame",
   "arcade_ender_spleef_no_powerhouse": "Win a game of Ender Spleef without using any powerups",
   "arcade_dw_void": "Get out of the map and into the void in a game of Dragon Wars",
@@ -94,6 +92,8 @@ let secretAchievements = {
   "skyblock_return_from_breach": "Return back from the breach",
   "skyblock_defeat_sun_gecko": "Defeat Sun Gecko",
   "skyblock_wizard_food_chain": "Become Wizardman",
+  "skyblock_genius": "Obtain a Free Will from Ubik",
+  "skyblock_hasta_la_vista": "Receive a Postcard from your minion"
 };
 
 function getSecretAchievement(achievement) {
@@ -922,10 +922,10 @@ if (game == "legacy") {
     </div>
     </div>
     <div class="achievement column">
-      <span class="w700" data-i="achievement-name"></span> – <span data-i="achievement-description"></span></p>
+      <span class="achievement-check" data-i="achievement-check">${getTranslation("achievements.check")}</span><span class="w700" data-i="achievement-name"></span> – <span data-i="achievement-description"></span></p>
     </div>
     <p class="column tabular">
-      <span class="achievement-check" data-i="achievement-check">${getTranslation("achievements.check")}</span><span data-i="achievement-points"></span>
+      <span data-i="achievement-points"></span>
     </p>
     <p class="column value-percentage tabular">
       <span data-i="achievement-percentage-unlocked-game"></span>
@@ -964,7 +964,7 @@ if (game == "legacy") {
 
     if (achievementStats["unlocked"]) {
       row.classList.add("unlocked");
-      achievementElement.querySelector("[data-i='achievement-check']").style.display = "inline";
+      achievementElement.querySelector("[data-i='achievement-check']").style.visibility = "visible";
     } else {
       row.classList.add("locked");
     }
