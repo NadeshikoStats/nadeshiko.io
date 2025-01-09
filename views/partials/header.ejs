@@ -710,7 +710,7 @@
       }
     }
 
-    console.log(event.target);
+    //console.log(event.target);
   };
 
   function isInputField(element) {
@@ -794,7 +794,7 @@
 
       const button = dropdownContainer.previousElementSibling; // Selects the button
       if (button.classList.contains("chip-dropdown-button")) {
-        
+
         let dropdownItemText = selectedItem.querySelector(".dropdown-item-text");
         if (dropdownItemText) {
           button.innerHTML = DOMPurify.sanitize(dropdownItemText.innerHTML);
@@ -841,7 +841,7 @@
   window.addEventListener("click", function (event) {
     if (!event.target.closest(".dropdown-button")) {
       // If the doesn't click on a dropdown button, close all dropdowns
-      console.log(event.target);
+      //console.log(event.target);
       var dropdowns = document.getElementsByClassName("dropdown-content");
       for (var i = 0; i < dropdowns.length; i++) {
         var openDropdown = dropdowns[i];

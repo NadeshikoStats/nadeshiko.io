@@ -50,11 +50,11 @@ function skillXpToLevel(xp, skillName, skillCap) {
       console.log(`(${xp} - ${thisLevelXp}) / (${nextLevelXp} - ${thisLevelXp} = ${fractionalPart})`);
 
       fractionalLevel = (a - 1) + fractionalPart;
-      
+
       break;
     }
   }
-  
+
   if (fractionalLevel >= skillCap) {
     return {
       level: skillCap,
@@ -107,7 +107,7 @@ function getSkillCap(skillName) {
       skillCap += farmingLevelsPurchased;
 
       break;
-    case "taming": 
+    case "taming":
       skillCap = 50;
       let georgePetsDonated = getValue(skyblockData, ["skyblock_profile", "pets_data", "pet_care", "pet_types_sacrificed"]) || [];
 
@@ -132,14 +132,14 @@ if (profileStats != undefined) {
 
   document.getElementById("card-rank").classList.add("rank-" + playerRankCute[0]); // Changes the rank to the player's rank colour
   document.getElementById("card-name").style.color = `var(--mc` + playerRankCute[0] + `)`; // Changes the player's name to the player's rank colour
-  
+
   updateElement("card-uuid", skyblockData["uuid"]);
   updateElement("card-ranktext", playerRankCute[1], true); // Adds player's rank
 
   if (playerRankCute[1] == "") {
     document.getElementById("card-rank").style.display = "none";
   }
-  
+
   updateElement("card-name", skyblockData["name"]);
   updateElement("quick-mode-text", insertPlaceholders(getTranslation("player.quick_mode.description"), { player: skyblockData["name"] }), true);
   if (document.getElementById("quick-mode-username") != null) {
@@ -216,9 +216,9 @@ if (profileStats != undefined) {
     let level = und(skillXpToLevelResult["level"]);
     let levelPercentage = (level % 1) * 100;
     let levelCap = skillCaps[skill] || 60;
-    
+
     updateElement(`skill-${skill}`, checkAndFormat(Math.floor(level)));
-  
+
     if (level >= levelCap) {
       document.getElementById(`skill-${skill}`).style.color = `var(--gold)`;
       document.getElementById(`skill-${skill}-progress-bar`).style.width = "100%";
@@ -236,7 +236,7 @@ if (profileStats != undefined) {
   }
 
   skillAverage = skillAverageSum / 9;
-  skillAveragePercentage = (skillAverage % 1) * 100; 
+  skillAveragePercentage = (skillAverage % 1) * 100;
   updateElement("skill-average", checkAndFormat(Math.floor(skillAverage)));
   document.getElementById("skill-average-progress-bar").style.width = skillAveragePercentage + "%";
 
@@ -246,7 +246,7 @@ if (profileStats != undefined) {
   }
 
   updateElement("skill-average-tooltip", `Skill Average: ${checkAndFormat(skillAverage, 2)}`, true);
-  
+
   updateElement("purse", veryLargeNumber(getValue(skyblockProfile, ["currencies", "coin_purse"])));
   updateElement("bank", veryLargeNumber(getValue(skyblockProfile, ["banking", "balance"])));
   updateElement("net-worth", veryLargeNumber(getValue(skyblockProfile, ["networth", "total"])));
@@ -272,14 +272,19 @@ if (profileStats != undefined) {
     { req: 480, color: "§4", bracketColor: "§8" },
   ];
 
-  let formattedSkyBlockLevel = getGenericWinsPrefix(Math.floor(skyblockLevel), skyblockLevelColors, undefined, false, "", true, true, false, true);
+  let formattedSkyBlockLevel = getGenericWinsPrefix({
+    wins: Math.floor(skyblockLevel),
+    winsObject: skyblockLevelColors,
+    useToGo: false,
+    useDifferentBracketColors: true
+  });
 
   updateElement("skyblock-level", formattedSkyBlockLevel["title"], true);
   document.getElementById("skyblock-level-progress-bar").style.width = (skyblockLevel % 1) * 100 + "%";
 }
 
 function addToAllItems(itemObject) {
-  return allItems.push(itemObject) - 1; 
+  return allItems.push(itemObject) - 1;
 }
 
 function updateArmorEquipment() {
@@ -325,7 +330,7 @@ function updateArmorEquipment() {
 
 function updateWardrobe() {
   let wardrobeItemTemplate = `<div class="ae-item"></div>`;
-  
+
   let wardrobe = getValue(skyblockProfile, ["inventory", "wardrobe_contents"]) || [];
 
   function getWardrobeIndex(slot, piece) {
@@ -346,12 +351,12 @@ function updateWardrobe() {
 
         if (Object.keys(und(thisWardrobeSlot[b])).length > 0) { // If the wardrobe slot is not empty
           let nadeshikoId = addToAllItems(thisWardrobeItem);
-    
+
           let formattedWardrobeSlot = document.createElement("div");
           formattedWardrobeSlot.classList.add("ae-item");
           formattedWardrobeSlot.setAttribute("n-id", nadeshikoId);
           formattedWardrobeSlot.classList.add("rarity-rare");
-          
+
           document.getElementById(`wardrobe-grid`).appendChild(formattedWardrobeSlot);
           addSkyBlockItemListener(nadeshikoId);
         } else {
@@ -478,7 +483,7 @@ function updateTooltip(nadeshikoId, action, item, e) {
     let itemRect = item.getBoundingClientRect();
     let tooltipRect = tooltip.getBoundingClientRect();
     const ITEM_TOOLTIP_MARGIN = 10;
-    
+
     let tooltipOffsetWidth = tooltip.offsetWidth;
     let tooltipOffsetHeight = tooltip.offsetHeight;
 
@@ -496,7 +501,7 @@ function updateTooltip(nadeshikoId, action, item, e) {
   } else if (action == "leave" && !tooltipState["modal_active"]) {
     tooltip.classList.add("unloaded");
   }
-  
+
   if (action == "move" || action == "enter") {
     const HEADER_HEIGHT = 125;
     const FOOTER_HEIGHT = 80;

@@ -67,8 +67,8 @@ function updateElement(id, value, useInnerHTML = false) {
   }
 }
 
-function locale(number, digits = 2) {
-  return number.toLocaleString(userLanguage, { minimumFractionDigits: digits, maximumFractionDigits: digits });
+function locale(number, digits = 2, language = userLanguage) {
+  return number.toLocaleString(language, { minimumFractionDigits: digits, maximumFractionDigits: digits });
 }
 
 function rawLocale(number) {
@@ -276,7 +276,7 @@ function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timest
   else return insertPlaceholders(getTranslation("times.time_ago"), { time: timeValue });
 }
 
-/* 
+/*
  * Counts the number of significant digits in a number
   * @param {number} number - The number to count the significant digits for
   * @returns {number} The number of significant digits
@@ -321,7 +321,7 @@ function checkBadgeInList(badge, where) {
   if (badge != "NONE") {
     let badgeElement = document.createElement("img");
     badgeElement.src = `/img/special/${badge}.png`;
-    
+
     badgeElement.classList.add("badge-small");
     badgeElement.classList.add("icon");
     badgeElement.classList.add("special");
@@ -352,7 +352,7 @@ function updateChipStats(name, chipId, gamemode) {
     case "duels":
       updateElement(chipId, generateChipStats(allDuelsStats[newValue][0]), true);
       break;
-    
+
     case "bedwars":
       if (newValue == "overall") {
         updateElement(chipId, generateChipStats(totalDreamModeStats), true);
@@ -361,19 +361,19 @@ function updateChipStats(name, chipId, gamemode) {
         updateElement(chipId, generateChipStats(getBedWarsModeStats(newValue)), true);
       }
       break;
-    
+
     case "skywars":
       updateElement(chipId, generateChipStats(getSkyWarsModeStats(newValue)), true);
       break;
-    
+
     case "tntgames":
       updateElement(chipId, generateChipStats(allTNTWizardStats[newValue]), true);
       break;
-    
+
     case "arcade_zombies":
       updateElement(chipId, generateChipStats(getZombiesStats(newValue)), true);
       break;
-    
+
     case "arcade_seasonal":
       updateElement(chipId, generateChipStats(getArcadeSeasonalStats(newValue)), true);
       break;
@@ -385,11 +385,11 @@ function updateChipStats(name, chipId, gamemode) {
     case "arcade_party_games":
       updateElement(chipId, generateChipStats(getArcadePartyGamesStats(newValue)), true);
       break;
-    
+
     case "arena":
       updateElement(chipId, generateChipStats(getArenaBrawlStats(newValue)), true);
       break;
-    
+
     case "quake":
       updateElement(chipId, generateChipStats(getQuakeStats(newValue)), true);
       break;
@@ -563,18 +563,24 @@ setTimeout(function() {
   * @param {boolean} useBrackets - Whether to even use brackets around the title
   * @param {boolean} alternativeNaming - Whether to use supplied names for the title
   * @param {boolean} returnAsObject - Whether to return the title as an object or a string
-  * 
+  *
   * @returns {string} - The title generated based on the number of wins (if returnAsObject is false)
   * @returns {object} - The title generated based on the number of wins (if returnAsObject is true)
  */
-function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false, returnAsObject = false) {
+function getGenericWinsPrefix({wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false, returnAsObject = true, useThousandsSeparator = false} = {}) {
   let chosenTitle = winsObject[0];
   wins = und(wins);
   let chosenBracketColor;
   let nextTitleWins = ``; // number of wins to next title
   let winsToGoNum;
   let brackets = ["[", "]"];
-  let winsPrefixText = wins.toString();
+  let winsPrefixText;
+
+  if (useThousandsSeparator) {
+    winsPrefixText = locale(wins, 0, "en-CA");
+  } else {
+    winsPrefixText = wins.toString();
+  }
 
   if (!useBrackets) {
     brackets = ["", ""];
@@ -633,7 +639,7 @@ function getGenericWinsPrefix(wins, winsObject, definedColor = undefined, useToG
   }
 
   if (returnAsObject) {
-    return { 
+    return {
       title: winsPrefix,
       winsToGo: winsToGoNum,
       currentTitleRequirement: chosenTitle["req"],

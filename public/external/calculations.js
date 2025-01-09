@@ -207,7 +207,13 @@ function getBuildBattleTitle(score, includeToGo = false) {
     { req: 500000, color: "§6§l", altName: getTranslation("games.modes.buildbattle.titles.ascended") },
   ];
 
-  let titleObject = getGenericWinsPrefix(score, buildBattleTitles, undefined, includeToGo, "", false, false, true, true);
+  let titleObject = getGenericWinsPrefix({
+    wins: score,
+    winsObject: buildBattleTitles,
+    useToGo: includeToGo,
+    useBrackets: false,
+    alternativeNaming: true,
+  });
   return titleObject;
 }
 
@@ -218,7 +224,7 @@ let pitXpMap = [15, 30, 50, 75, 125, 300, 600, 800, 900, 1000, 1200, 1500, 0];
   let pitPrestigeColors = ["§7", "§9", "§e", "§6", "§c", "§5", "§d", "§f", "§b", "§1", "§0", "§4", "§8"];
   let pitLevelColors = ["§7", "§9", "§3", "§2", "§a", "§e", "§6", "§c", "§4", "§5", "§d", "§f", "§b"];
 
-  /* 
+  /*
    * Converts an amount of XP to a level in The Pit
   * @param {number} experience - The amount of XP to convert
   * @param {number} dataType - The type of data to return

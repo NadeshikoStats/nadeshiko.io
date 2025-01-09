@@ -2,23 +2,23 @@
   "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "Search for a player...",
-      "placeholder_guild": "Search for a guild name or player..."
+      "placeholder": "プレイヤーを検索...",
+      "placeholder_guild": "ギルド名またはプレイヤーを検索..."
     },
     "home": {
-      "title": "Home"
+      "title": "ホーム"
     },
     "about": {
-      "title": "About",
-      "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.",
-      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord server</a>!",
-      "disclaimer": "nadeshiko.io is not affiliated with Hypixel Inc., Mojang AB, or Microsoft.",
+      "title": "私たちについて",
+      "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> は、美しく、オープンソースで、使いやすいHypixelのプレイヤーステータスを表示してくれるサイトです",
+      "assistance": "バグを見つけたり、何か手伝うことがありましたか? それらを <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub</a> か <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord サーバー</a>にて報告してください!",
+      "disclaimer": "nadeshiko.ioはHypixel Inc、Mojang AB、Microsoftとは関係ありません。",
       "credits": {
-        "title": "Credits",
+        "title": "クレジット",
         "0_name": "niqumu",
-        "0_desc": "– Backend Developer",
+        "0_desc": "ー バックエンド・デベロッパー",
         "1_name": "BrookeAFK",
-        "1_desc": "– Frontend Developer",
+        "1_desc": "ー フロントエンド・デベロッパー",
         "2_name": "Skinview3D",
         "2_desc": "by Blessing Skin",
         "3_name": "GSAP",
@@ -42,26 +42,26 @@
       }
     },
     "cards": {
-      "title": "Cards",
-      "description_0": "Use this tool to generate cute cards that you can put anywhere – even in your Hypixel Forums signature!",
-      "description_1": "Cards update in real time as your stats change, so you never have to worry about them!",
-      "warning": "UPDATE (2024-10-10): We believe that Hypixel has fixed images not loading in forum signatures. Please let us know if you experience any issues.",
-      "username": "Username",
-      "username_placeholder": "Player",
-      "game": "Game",
-      "game_tooltip": "The game to be used in the card.",
-      "size": "Size",
-      "size_tooltip": "The height of the card.",
-      "format": "Format",
-      "format_tooltip": "Where the card will be displayed.",
-      "button_generate": "Generate Preview",
-      "copy": "Fill out the items above and a link will appear here.",
-      "preview_showcase": "Click \"Generate Preview\" and a preview of the card will appear here.",
-      "loading_preview": "Loading preview...",
-      "preview": "Preview",
+      "title": "カード",
+      "description_0": "このツールを使うことで Hypixelフォーラムなどで使用できる統計のカードを生成できます!",
+      "description_1": "カードはステータスの変化に合わせてリアルタイムで更新されます！",
+      "warning": "更新（2024-10-10）： Hypixelで、フォーラムの画像が読み込まれない問題を修正しました。もし問題が発生した場合はお知らせください。",
+      "username": "MCID",
+      "username_placeholder": "あなたのMCID",
+      "game": "ゲーム",
+      "game_tooltip": "このカードに表示するゲームの種類",
+      "size": "サイズ",
+      "size_tooltip": "カードの高さ",
+      "format": "形式",
+      "format_tooltip": "カードが表示される場所",
+      "button_generate": "プレビューを生成",
+      "copy": "上記の項目を入力すると、ここにリンクが表示されます。",
+      "preview_showcase": "「プレビューを生成」をクリックすると、ここにカードのプレビューが表示されます。",
+      "loading_preview": "プレビューを読み込み中...",
+      "preview": "プレビュー",
       "settings": {
         "size": {
-          "full": "Full"
+          "full": "最大"
         },
         "format": {
           "hypixel_forums": "Hypixel Forums",
