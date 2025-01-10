@@ -551,7 +551,7 @@ function generateSkyWars() {
         useToGo: false,
         suffix: "⋆",
         useBrackets: false,
-      }["title"]), true);
+      })["title"], true);
 
     }
 
