@@ -157,6 +157,8 @@ let leaderboards = {
   ]
 }
 
+const PLAYERS_PER_PAGE = 100
+
 function getGameId(game) {
   let specialGameIds = {
   };
@@ -168,7 +170,6 @@ function getGameId(game) {
   return game.toLowerCase().replaceAll("_", "");
 }
 
-/* <span class="maxed-game leaderboard-selector-button"><img>Housing</span>*/
 function getLeaderboardGames() {
   for (let a in leaderboards) {
     let game = a;
@@ -237,9 +238,12 @@ function selectLeaderboard(leaderboard) {
 
 let leaderboardRowTemplate = `
     <div class="flex-two-item-basic">
-      <span data-i="rank" class="leaderboard-rank"></span>
+      <span data-i="ranking" class="leaderboard-rank"></span>
       <img class="leaderboard-head" data-i="head">
-      <a data-i="name" target="_blank"></a>
+      <a data-i="rank-name" target="_blank">
+        <span data-i="rank"></span>
+        <span data-i="name"></span>
+      </a>
     </div>
     <div data-i="quantity" class="tabular" style="text-align: right"></div>
 `;
@@ -247,13 +251,14 @@ let leaderboardRowTemplate = `
 async function getLeaderboardData(leaderboard, page = 1) {
   // connect to leaderboard at /leaderboard?leaderboard=LEADERBOARD_NAME&page=1
   // fetch json data
-  
+
   let leaderboardPromise = await fetch(`/leaderboard?leaderboard=${leaderboard}&page=${page}`);
   let leaderboardData = await leaderboardPromise.json();
 
   let leaderboardTable = document.getElementById("leaderboard");
   leaderboardTable.innerHTML = "";
   currentLeaderboardInformation["total_players"] = leaderboardData["count"];
+  currentLeaderboardInformation["total_pages"] = Math.ceil(leaderboardData["count"] / PLAYERS_PER_PAGE);
   currentLeaderboardInformation["leaderboard"] = leaderboard;
   currentLeaderboardInformation["page"] = page;
 
@@ -265,21 +270,55 @@ async function getLeaderboardData(leaderboard, page = 1) {
     row.classList.add("leaderboard-row");
     row.classList.add("no-column-header");
 
-    row.querySelector("[data-i='rank']").innerText = checkAndFormat(a["ranking"]);
-    updateTag(row, "name", generateMinecraftText(a["tagged_name"]), true);
-    
+    row.querySelector("[data-i='ranking']").innerText = checkAndFormat(a["ranking"]);
+
+    let playerName = a["tagged_name"];
+    /* rank: (\[.*\] ) */
+    let playerRankColor;
+    if (playerName.substring(0, 1) == "§") {
+      playerRankColor = playerName.substring(0, 2);
+    } else {
+      playerRankColor = "§7";
+    }
+
+    let playerRank = "";
+
+    let playerNameWithoutRank = playerName.replace(/(\[.*\] )/, (substring) => {
+      playerRank = substring.trim();
+      return "";
+    });
+
+    playerRank = playerRankColor + playerRank;
+
+    console.log([playerNameWithoutRank, playerRank]);
+
+    updateTag(row, "rank", generateMinecraftText(playerRank), true);
+    updateTag(row, "name", generateMinecraftText(playerNameWithoutRank), true);
+
     let playerBadge = a["badge"] || "NONE";
     checkBadgeInList(playerBadge, row);
 
     row.querySelector(`[data-i="head"]`).src = `https://minotar.net/helm/${a["uuid"]}/8.png`;
-    row.querySelector("[data-i='name']").href = `/player/${a["uuid"]}`;
+    row.querySelector("[data-i='rank-name']").href = `/player/${a["uuid"]}`;
     updateTag(row, "quantity", formatLeaderboardStatistic(leaderboard, a["value"]), true);
 
     leaderboardTable.appendChild(row);
   }
 
+  if (currentLeaderboardInformation["page"] == 1) {
+    document.getElementById("pagination-previous").classList.add("disabled");
+  } else {
+    document.getElementById("pagination-previous").classList.remove("disabled");
+  }
+
+  if (currentLeaderboardInformation["page"] == currentLeaderboardInformation["total_pages"]) {
+    document.getElementById("pagination-next").classList.add("disabled");
+  } else {
+    document.getElementById("pagination-next").classList.remove("disabled");
+  }
+
   document.getElementById("pagination").style.display = "flex";
-  document.getElementById("page-number").innerText = insertPlaceholders(getTranslation(["leaderboards", "page_number"]), {page: page, total: Math.ceil(leaderboardData["count"] / 100)});
+  document.getElementById("page-number").innerText = insertPlaceholders(getTranslation(["leaderboards", "page_number"]), {page: page, total: Math.ceil(leaderboardData["count"] / PLAYERS_PER_PAGE)});
 }
 
 const icons = {
@@ -331,7 +370,7 @@ function formatLeaderboardStatistic(leaderboard, value) {
       return checkAndFormat(Number(value));
     case "string":
       return value;
-    default: 
+    default:
       if (!isNaN(value)) {
         return checkAndFormat(Number(value));
       } else {
@@ -342,11 +381,11 @@ function formatLeaderboardStatistic(leaderboard, value) {
 
 function showNewPage(jump) {
   let currentPage = currentLeaderboardInformation["page"];
-  let totalPlayers = currentLeaderboardInformation["total_players"];
+  let totalPages = currentLeaderboardInformation["total_pages"];
   let currentLeaderboard = currentLeaderboardInformation["leaderboard"];
 
   if (jump == "next") {
-    if (currentPage * 100 < totalPlayers) {
+    if (currentPage < totalPages) {
       getLeaderboardData(currentLeaderboard, currentPage + 1);
     } else {
       console.log("Can't go to next page");
@@ -393,7 +432,7 @@ function getLeaderboardType(leaderboardName) {
 }
 
 // This is temporary until the backend starts returning translation data
-let englishTranslations = {  
+let englishTranslations = {
   "NETWORK_FIRST_LOGIN": "First Login",
   "NETWORK_NETWORK_LEVEL": "Network Level",
   "NETWORK_ACHIEVEMENT_POINTS": "Achievement Points",

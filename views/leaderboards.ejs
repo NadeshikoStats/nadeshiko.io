@@ -16,7 +16,7 @@
 
     /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
     * This is used to ensure that all tasks are completed before the page is generated.
-    * @param {string} task - The task that was completed 
+    * @param {string} task - The task that was completed
     */
     function beginGeneration(task) {
       if(tasksBeforeLoading.includes(task)) {
@@ -31,7 +31,7 @@
         console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
       }
 
-    } 
+    }
   </script>
   <script src="/external/master.js?v=<%= version || 0 %>"></script>
   <script src="/external/language.js?v=<%= version || 0 %>"></script>
@@ -56,8 +56,8 @@
       <div class="leaderboard-container">
         <div class="chip-small but-big">
           <div>
-           
-            <p>Select a game:</p>
+
+            <p data-t="leaderboards.select_game">Select a game:</p>
             <div class="button-array" id="game-selector">
             </div>
             <div class="button-array" id="leaderboard-selector">
@@ -69,11 +69,11 @@
                 <span data-t="leaderboards.select">Select a leaderboard.</span>
               </div>
             </div>
-            
+
             <div class="flex-two-item-basic" id="pagination" style="display: none; justify-content: center;">
-              <span class="general-button" onclick="showNewPage('previous')" data-t="leaderboards.previous_page">◀ Prev</span>
+              <span class="general-button no-margin" id="pagination-previous" onclick="showNewPage('previous')" data-t="leaderboards.previous_page">◀ Prev</span>
               <span class="w500" id="page-number"></span>
-              <span class="general-button" onclick="showNewPage('next')" data-t="leaderboards.next_page">Next ▶</span>
+              <span class="general-button no-margin" id="pagination-next" onclick="showNewPage('next')" data-t="leaderboards.next_page">Next ▶</span>
             </div>
         </div>
       </div>

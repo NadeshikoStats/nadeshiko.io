@@ -149,7 +149,6 @@ function formatSkyWarsLevel(level) {
     formattedLevel = cycleArrayBeforeChars(skyWarsPrestiges[prestige]["colors"], levelWithIcon, "§");
   }
 
-  console.warn(formattedLevel);
   return formattedLevel;
 }
 

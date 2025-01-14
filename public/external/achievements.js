@@ -638,7 +638,7 @@ function formatTieredAchievement(achievementObject, type) {
 
   updateTag(row, "achievement-game", getTranslation(["games", achievementObject["game"]]));
   updateTag(row, "achievement-name", achievementObject["name"]);
-  updateTag(row, "tier-description", (achievementObject["description"]).replace("%s", checkAndFormat(achievementObject["requirement"])));
+  updateTag(row, "tier-description", (achievementObject["description"]).replace("%%value%%", checkAndFormat(achievementObject["requirement"])));
 
   if (type == "closestTiered") {
     updateTag(row, "tier-current", checkAndFormat(achievementObject["current"]));
@@ -665,9 +665,9 @@ function replaceAchievementPlaceholder(string, value, tiers) {
   }
 
   if (highestTier == tiers.length) {
-    return string.replace("%s", checkAndFormat(value) + " / " + checkAndFormat(tiers[highestTier - 1]["amount"]));
+    return string.replace("%%value%%", checkAndFormat(value) + " / " + checkAndFormat(tiers[highestTier - 1]["amount"]));
   } else {
-    return string.replace("%s", checkAndFormat(value) + " / " + checkAndFormat(tiers[highestTier]["amount"]));
+    return string.replace("%%value%%", checkAndFormat(value) + " / " + checkAndFormat(tiers[highestTier]["amount"]));
   }
 }
 
@@ -1126,19 +1126,10 @@ function filterData(id, filterBy = "all") {
   let rows = element.querySelectorAll(".row:not(.header-row)");
 
   rows.forEach((row) => {
-    if (filterBy == "locked") {
-      if (row.classList.contains("unlocked")) {
-        row.classList.add("display-none");
-      } else {
-        row.classList.remove("display-none");
-      }
-    } else if (filterBy == "unlocked") {
-      if (row.classList.contains("unlocked")) {
-        row.classList.remove("display-none");
-      } else {
-        row.classList.add("display-none");
-      }
-    }
+    let isUnlocked = row.classList.contains("unlocked");
+    let shouldHide = (filterBy == "locked" && isUnlocked) || (filterBy == "unlocked" && !isUnlocked);
+
+    row.classList.toggle("display-none", shouldHide);
   });
 }
 

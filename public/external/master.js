@@ -494,6 +494,11 @@ function updateChipStats(name, chipId, gamemode) {
   }
 }
 
+ /*
+  * Formats a string representing a Hypixel rank into Minecraft text
+  * @param {string} text - The player rank text
+  * @param {number} style - The style of the rank text. 0 for raw HTML, 1 for an array with the colour and the text
+  */
 function cuteRank(text, style = 0) {
   if(style == 0) return generateMinecraftText(text);
   else {

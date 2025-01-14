@@ -549,6 +549,10 @@
     margin-top: 10px;
   }
 
+  .no-margin {
+    margin: 0;
+  }
+
   .linear-gradient {
     background-clip: text !important;
     -webkit-background-clip: text !important;
@@ -1249,7 +1253,12 @@
     text-decoration: none;
   }
 
-  .general-button:hover {
+  .general-button.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .general-button:hover:not(.disabled) {
     background-color: var(--accent);
     color: #222;
     cursor: pointer;
@@ -1695,12 +1704,8 @@
     overflow-y: scroll;
   }
 
-  /*.list .row:nth-child(odd):not(.has-badge) .row-header, .list .row:nth-child(odd):not(.has-badge) .row-content, .leaderboard-row:nth-child(odd) {
-    background-color: #0008;
-  }*/
-
-  :nth-child(odd of .list .row:not(.display-none):not(.has-badge)) .row-header, :nth-child(odd of .list .row:not(.display-none):not(.has-badge)) .row-content {
-    background-color: #0008;
+  :nth-child(even of .list .row:not(.display-none):not(.has-badge)) .row-header, :nth-child(even of .list .row:not(.display-none):not(.has-badge)) .row-content, :nth-child(even of .leaderboard-row) {
+    background-color: #fff1;
   }
 
   .list .row-header {
@@ -2656,6 +2661,8 @@
     }
   }
 
+  /* Mobile and small screen layouts */
+
   @media (max-width: 950px) {
     .chip-dropdown-button {
       min-width: 100px;
@@ -2811,6 +2818,13 @@
     }
     .list .content-joined-header {
       display: block;
+    }
+    #leaderboard [data-i="rank"] {
+      display: none;
+    }
+
+    .no-margin {
+      margin: 0px;
     }
   }
 
