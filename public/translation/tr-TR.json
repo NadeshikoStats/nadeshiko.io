@@ -2,17 +2,17 @@
   "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "Search for a player...",
-      "placeholder_guild": "Search for a guild name or player..."
+      "placeholder": "Bir oyuncu arayın...",
+      "placeholder_guild": "Bir oyuncu veya guild adı arayın..."
     },
     "home": {
-      "title": "Home"
+      "title": "Ana Sayfa"
     },
     "about": {
-      "title": "About",
-      "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.",
-      "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord server</a>!",
-      "disclaimer": "nadeshiko.io is not affiliated with Hypixel Inc., Mojang AB, or Microsoft.",
+      "title": "Hakkında",
+      "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> güzel, açık kaynak ve kullanımı kolay bir Hypixel istatistik görüntüleyicidir.",
+      "assistance": "Bir hata mı buldunuz veya yardıma mı ihtiyacınız var? Lütfen projenin <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub sayfası</a>nda veya <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord sunucusu</a>nda bize bildirin!",
+      "disclaimer": "nadeshiko.io, Hypixel Inc., Mojang AB veya Microsoft ile bağlı değildir.",
       "credits": {
         "title": "Credits",
         "0_name": "niqumu",
@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -266,11 +266,11 @@
           "title_500": "Diamond",
           "title_1000": "Master",
           "title_2000": "Legend",
-          "title_5000": " Grandmaster",
-          "title_10000": " Godlike",
-          "title_25000": " CELESTIAL",
-          "title_50000": " DIVINE",
-          "title_100000": " ASCENDED"
+          "title_5000": "Büyük Usta",
+          "title_10000": "Tanrısal",
+          "title_25000": "SEMAVİ",
+          "title_50000": "İLAHİ",
+          "title_100000": "YÜKSELMİŞ"
         },
         "bridge": {
           "category": "Bridge",
@@ -385,7 +385,7 @@
       "blitz": {
         "kits": {
           "category": "Kitler",
-          "arachnologist": "Arkeolog",
+          "arachnologist": "Araknolog",
           "archer": "Okçu",
           "armorer": "Zırhçı",
           "astronaut": "Astronot",
@@ -393,7 +393,7 @@
           "blaze": "Blaze",
           "creepertamer": "Creeper evcilleştirici",
           "diver": "Dalgıç",
-          "donkeytamer": "Eşşek terbiyecisi",
+          "donkeytamer": "Eşek terbiyecisi",
           "farmer": "Çiftçi",
           "fisherman": "Balıkçı",
           "florist": "Çiçekçi",
@@ -401,7 +401,7 @@
           "guardian": "Muhafız",
           "horsetamer": "At Terbiyecisi",
           "hunter": "Avcı",
-          "hype train": "Aldatıcı Tren",
+          "hype train": "Gaz Treni",
           "jockey": "Binici",
           "knight": "Şövalye",
           "meatmaster": "Etustası",
@@ -421,7 +421,7 @@
           "snowman": "Kardan Adam",
           "speleologist": "Mağara Bilimci",
           "tim": "Tim",
-          "toxicologist": "Toksikoloji uzmanı",
+          "toxicologist": "Toksikolog",
           "troll": "Trol",
           "viking": "Viking",
           "warlock": "Warlock",
@@ -482,7 +482,7 @@
         }
       },
       "copsandcrims": {
-        "defusal": "İmha",
+        "defusal": "Defusal",
         "deathmatch": "Team Deathmatch",
         "gungame": "Gun Game",
         "guns": {
@@ -967,6 +967,7 @@
     "round_wins": "Tur Kazanma",
     "highest_score": "En Yüksek Skor",
     "correct_guesses": "Doğru Tahminler",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Wither Öldürmeleri\n",
     "wither_damage": "Wither Hasarı",
     "stars_earned": "Kazanılan Yıldız",

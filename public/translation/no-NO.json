@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "Rundeseiere",
     "highest_score": "Høyeste poengsum",
     "correct_guesses": "Riktige gjetninger",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Wither-drap",
     "wither_damage": "Wither-skade",
     "stars_earned": "Stjerner tjent",

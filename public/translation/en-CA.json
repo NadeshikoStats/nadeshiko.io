@@ -121,7 +121,7 @@
 
     "recent_searches": "Recent Searches",
     "favorites": "Favourites",
-    
+
     "search": "Enter a Minecraft username or UUID...",
     "search_guild": "Enter a guild name, Minecraft username, or UUID...",
     "show_me": "Show me!",
@@ -152,7 +152,7 @@
       "developer": "Developer",
       "patreon": "Patreon Supporter"
     },
-    
+
     "generate_card": "Generate Card",
     "external_websites": "External Websites",
     "socials": "Socials",
@@ -267,7 +267,7 @@
 
     "network": "Network",
     "fishing": "Fishing",
-    
+
     "modes": {
       "all": {
         "stats": "Stats",
@@ -356,7 +356,7 @@
         },
         "mw": {
           "category": "Mega Walls",
-          
+
           "mw_duel": "1v1",
           "mw_doubles": "2v2"
         },
@@ -487,7 +487,7 @@
       },
       "buildbattle": {
         "titles": {
-          
+
           "rookie": "Rookie",
           "untrained": "Untrained",
           "amateur": "Amateur",
@@ -803,7 +803,7 @@
           },
 
           "no_weapons": "No Weapons"
-        }, 
+        },
 
         "capturetheflag": "Capture the Flag",
         "domination": "Domination",
@@ -1011,7 +1011,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Slumber Tickets",
     "challenges_completed": "Challenges Completed",
-    "unique_challenges_completed": "(%%num%%/%%total%% unique)",
+    "unique_challenges_completed": "(%%num%% / %%total%% unique)",
 
     "clicks": "Clicks",
 
@@ -1064,6 +1064,7 @@
     "round_wins": "Round Wins",
     "highest_score": "Highest Score",
     "correct_guesses": "Correct Guesses",
+    "perfect_builds": "Perfect Builds",
 
     "wither_kills": "Wither Kills",
     "wither_damage": "Wither Damage",
@@ -1071,7 +1072,7 @@
     "stars_earned": "Stars Earned",
 
     "rounds_completed": "Rounds Completed",
-    
+
     "downs": "Downs",
     "revives": "Revives",
     "rounds_survived": "Rounds Survived",
@@ -1101,7 +1102,7 @@
 
     "classic_tokens": "Classic Tokens",
     "lifetime_tokens": "Lifetime Tokens",
-    
+
     "damage_healed": "Damage Healed",
     "magical_keys": "Magical Keys",
     "magical_chests": "Magical Chests",
@@ -1189,7 +1190,7 @@
     "selected_hero": "Selected Hero",
     "smash_level": "Smash Level",
     "total_xp": "Total XP",
-    
+
     "blocks_ran": "Blocks Ran",
     "tags": "Tags",
 
@@ -1214,7 +1215,7 @@
     "forges": "Forges",
     "specialization": "Specialization",
     "selected_weapon": "Selected Weapon",
-    
+
     "flags_captured": "Flags Captured",
     "flags_returned": "Flags Returned",
     "captures": "Captures",

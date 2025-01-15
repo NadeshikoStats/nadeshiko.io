@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "Nyert Körök",
     "highest_score": "Legmagasabb Pontszám",
     "correct_guesses": "Sikeres Tippek",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Megölt Witherek",
     "wither_damage": "Wither Sebzés",
     "stars_earned": "Szerzett Csillagok",

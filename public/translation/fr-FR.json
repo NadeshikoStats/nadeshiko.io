@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "Victoires en Round",
     "highest_score": "Meilleur score",
     "correct_guesses": "Suppositions correctes",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Withers Tués",
     "wither_damage": "Dégâts aux Withers",
     "stars_earned": "Etoiles gagnées",

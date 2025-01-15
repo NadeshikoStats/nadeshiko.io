@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "Vyhraná kola",
     "highest_score": "Nejvyšší skóre",
     "correct_guesses": "Správné tipy",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Zabití witheři",
     "wither_damage": "Zranění witherů",
     "stars_earned": "Získané hvězdy",

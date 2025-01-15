@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "Переможних раундів",
     "highest_score": "Найвищий рахунок",
     "correct_guesses": "Тем відгадано",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Убито візерів",
     "wither_damage": "Завдано шкоди візерам",
     "stars_earned": "Зірок зароблено",

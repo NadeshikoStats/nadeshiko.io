@@ -1279,6 +1279,10 @@ function generateBuildBattle() {
         buildBattleModeStats[0].push([getTranslation("statistics.correct_guesses"), checkAndFormat(buildBattleStats[`correct_guesses`])]);
       }
 
+      if (currentBuildBattleMode[1] == "speed_builders") {
+        buildBattleModeStats[0].push([getTranslation("statistics.perfect_builds"), checkAndFormat(playerAchievements["buildbattle_speed_builders_perfectionist"])]);
+      }
+
       buildBattleChip = [
         "buildbattle-stats-" + buildBattleModes[a][1], // ID
         buildBattleModes[a][0], // Title

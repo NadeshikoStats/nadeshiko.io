@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "ラウンド勝利数",
     "highest_score": "最高スコア",
     "correct_guesses": "推測正解数",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "ウィザーを倒した回数",
     "wither_damage": "ウィザーへの与ダメージ量",
     "stars_earned": "獲得した星",

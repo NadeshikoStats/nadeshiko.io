@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "Runder vundet",
     "highest_score": "Højeste Score",
     "correct_guesses": "Korrekte gæt",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Wither Drab",
     "wither_damage": "Wither Skade",
     "stars_earned": "Stjerner optjent",

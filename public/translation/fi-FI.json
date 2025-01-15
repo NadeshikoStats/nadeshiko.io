@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "Erävoittoja",
     "highest_score": "Korkeimmat pisteet",
     "correct_guesses": "Oikeat arvaukset",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Wither-tapot",
     "wither_damage": "Wither-vahinko",
     "stars_earned": "Ansaitut tähdet",

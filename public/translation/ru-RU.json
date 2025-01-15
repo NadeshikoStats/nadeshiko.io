@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "Раундов выиграно",
     "highest_score": "Наилучший счёт",
     "correct_guesses": "Отгаданных тем",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Убийства Визера",
     "wither_damage": "Урон Визера",
     "stars_earned": "Звёзд заработано",

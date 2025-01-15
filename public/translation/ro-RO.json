@@ -171,7 +171,7 @@
       "event_cosmetic": "Event Cosmetic"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completed",
+      "completed": "%%num%% / %%total%% completed",
       "daily_quests_completed": "Daily Quests Completed",
       "weekly_quests_completed": "Weekly Quests Completed"
     }
@@ -967,6 +967,7 @@
     "round_wins": "Runde Câștigate",
     "highest_score": "Cel Mai Mare Scor",
     "correct_guesses": "Ghiciri Corecte",
+    "perfect_builds": "Perfect Builds",
     "wither_kills": "Ucideri de Wither",
     "wither_damage": "Daune Wither",
     "stars_earned": "Stele Obținute",
