@@ -1261,6 +1261,21 @@ function generateBuildBattle() {
       updateElement("buildbattle-overall-" + easyStats[e], checkAndFormat(buildBattleStats[easyStats[e]]));
     }
 
+    let buildBattleEmblems = {
+      "ALPHA": "α",
+      "OMEGA": "Ω",
+      "REMINISCENCE": "≈",
+      "RICH": "$",
+      "PODIUM": "π",
+      "FLORIN": "ƒ",
+    };
+
+    let buildBattleEmblem = buildBattleStats["emblem"] || {};
+
+    if (Object.keys(buildBattleEmblem).length > 0 && buildBattleEmblem["selected_icon"] && buildBattleEmblem["selected_color"]) {
+      updateElement("buildbattle-overall-emblem", generateMinecraftText(minecraftColorCodes[buildBattleEmblem["selected_color"]] + buildBattleEmblems[buildBattleEmblem["selected_icon"]], true), true);
+    }
+
     let buildBattleModes = [
       [getTranslation("games.modes.buildbattle.solo_normal"), "solo_normal", []],
       [getTranslation("games.modes.buildbattle.teams_normal"), "teams_normal", []],

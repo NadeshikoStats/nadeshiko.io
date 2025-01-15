@@ -13,7 +13,7 @@
 
     /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
     * This is used to ensure that all tasks are completed before the page is generated.
-    * @param {string} task - The task that was completed 
+    * @param {string} task - The task that was completed
     */
     function beginGeneration(task) {
       if(tasksBeforeLoading.includes(task)) {
@@ -62,7 +62,7 @@
 
 <body>
   <div class="background" id="background1"></div>
-  <div class="background" id="background2" style="opacity: 0"></div>  
+  <div class="background" id="background2" style="opacity: 0"></div>
   <div class="background-filter"></div>
 
   <div class="nadeshiko-wrapper">
@@ -91,12 +91,12 @@
                 <span id="other-switch">
                 </span>
               </div>
-            
+
           </div>
         </div>
       </div>
-    </header>   
-    
+    </header>
+
     <div class="games" id="games">
       <div class="flex-container unloaded" id="flex-container-network"> <!-- network stats -->
         <canvas id="skin-container" class="avatar unloaded" style="background-color: transparent"></canvas>
@@ -107,7 +107,7 @@
                 <div class="flex-vertical">
                   <span class="player-name">
                     <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span>
-                    
+
                     <span class="tooltip">
                       <a id="badge-link" target="_blank">
                         <img class="special icon smallicon badge-large" id="badge" alt="User badge">
@@ -127,7 +127,7 @@
                   </span>
                 </span>
               </div>
-  
+
               <div class="extended-card" id="extended-card">
                 <div id="real-stats">
                 <p id="level-container-container"><span id="level-container"><span data-t="statistics.level">Level</span> <span id="level" class="statistic"><span class="mc">Unknown</span></span></span> <span class="tooltip"><span class="m8">(<span id="multiplier">1</span>&times;)</span><span class="tooltiptext" data-t="player.coin_multiplier">Coin Multiplier</span></span></p>
@@ -139,7 +139,7 @@
                   <div class="login-info flex-two-item">
                     <p class="flex-item margin10" id="first-login-container"><span data-t="statistics.first_login">First Login</span> <span class="tooltip"><span class="statistic" id="first-login"><span class="mc">Unknown</span></span><span class="tooltiptext" id="first-login-ago-full"></span></span> <span id="first-login-ago"><span class="mc">Unknown</span></span>
                     <span class="tooltip"><img id="birthday" class="icon tinyicon" src="/img/special/cake.png"><span class="tooltiptext" id="birthday-text"></span></span></p>
-  
+
                     <p id="last-login-container" class="flex-item login-duo"><span data-t="statistics.last_login">Last Login</span> <span class="tooltip"><span class="statistic" id="last-login"><span class="mc">Unknown</span></span><span class="tooltiptext" id="last-login-ago-full"></span></span> <span id="last-login-ago"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="flex-two-item general-guild" style="align-items: start;">
@@ -156,13 +156,13 @@
                       <p><span data-t="statistics.level">Level</span> <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span></p>
                       <p><span data-t="statistics.members">Members</span> <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span></p>
                       <p><span data-t="statistics.joined">Joined</span> <span class="tooltip"><span class="statistic" id="guild-joined"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-joined-ago-full"></span></span>
-                        
+
                       <span id="guild-joined-ago"><span class="mc">Unknown</span></span></p>
                     </div>
                   </div>
                 </div>
               </div>
-  
+
                 <div id="network-error" style="display: none">
                   <p class="title-text" id="error-title" data-t="player.errors.no_stats">No Hypixel Stats</p>
                   <p class="subtitle-text" id="error-subtitle" data-t="player.errors.no_stats_desc">This player has no Hypixel stats.</p>
@@ -171,7 +171,7 @@
               <div class="flex-two-item socials-buttons" id="general-bottom-bar">
                 <div class="buttons">
                   <span class="general-button" onclick="showCardWizard('NETWORK')" data-t="player.generate_card">Generate Card</span>
-                  
+
                   <div class="dropdown">
                     <span class="general-button dropdown-button" data-t="player.external_websites">External Websites</span>
                     <div class="dropdown-content unloaded" id="abvc">
@@ -196,7 +196,7 @@
                     <a target="_blank" id="social-discord-alternative" onclick="copyText('social-discord-username', true)" aria-label="View linked Discord"><span class="logo-container"><img src="/img/logo/discord.svg" alt="" class="social-media-dropdown"></span> <span id="social-discord-username-alternative">Discord</span></a>
                 </div></div>
                 </div>
-                
+
                 <div class="socials flex-two-item flex-separated" id="social-media">
                   <a target="_blank" id="sociallink-hypixel" aria-label="View Hypixel Forums profile"><img src="/img/logo/hypixel.svg" class="social-media-logo mright" id="social-hypixel" alt="Hypixel logo"></a>
                   <a target="_blank" id="sociallink-youtube" aria-label="View linked YouTube"><img src="/img/logo/youtube.svg" class="social-media-logo mleft mright" id="social-youtube" alt="YouTube logo"></a>
@@ -208,12 +208,12 @@
               </div>
             </div>
           </div>
-  
+
         </section>
       </div>
 
 
-      
+
       <div class="flex-container unloaded minigame-flex-container" id="flex-container-bedwars">
         <!-- bed wars stats -->
         <div class="chip-container">
@@ -261,7 +261,7 @@
                       <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="bedwars-tokens"><span class="mc">Unknown</span></span></p>
                   </div>
                   <div class="chip-small-statistic-row">
-                    <p><span data-t="statistics.slumber_tickets">Slumber Tickets</span> <span class="statistic" id="bedwars-slumber-tickets">0</span></p> 
+                    <p><span data-t="statistics.slumber_tickets">Slumber Tickets</span> <span class="statistic" id="bedwars-slumber-tickets">0</span></p>
                   </div>
                   <div class="chip-small-statistic-row">
                     <p><span data-t="statistics.challenges_completed">Challenges Completed</span> <span class="statistic" id="bedwars-challenges-completed"><span class="mc">Unknown</span></span> <span class="m8" id="bedwars-unique-challenges-completed">(0/30 unique)</span></p>
@@ -434,7 +434,7 @@
           <p class="chip-small-title" data-t="games.buildbattle">Build Battle</p>
           <div class="chip-small-container">
             <p class="margin10">
-              <span id="buildbattle-overall-title"><span class="mc">Unknown</span></span>
+              <span id="buildbattle-overall-emblem"></span> <span id="buildbattle-overall-title"><span class="mc">Unknown</span></span>
             </p>
             <div class="progress-bar" id="buildbattle-overall-progress-bar-container" style="display: none">
               <span class="progress-number" id="buildbattle-overall-progress-number"><span class="mc">Unknown</span></span>
@@ -1089,10 +1089,10 @@
       <p class="title-text margin-top-bottom"><span data-t="player.quick_mode.title">Quick Mode</span> <kbd data-t="player.quick_mode.key">SHIFT</kbd></p>
       <p class="subtitle-text" id="quick-mode-text">Click an icon to instantly go to that game's page for <span id="quick-mode-username">%%player%%</span>.</p>
       <p class="flex-quick-mode margin-top-bottom" id="quick-mode-games">
-        
+
       </p>
     </section>
-  </div>  
+  </div>
     <footer>
       <%- include('partials/footer') %>
     </footer>
@@ -1191,7 +1191,7 @@
       }
 
       let capeBase64 = playerData["cape"];
-      
+
       if (capeBase64 && capeBase64 != "") {
         capeBase64 = "data:image/png;base64," + playerData["cape"];
       } else {
@@ -1287,8 +1287,8 @@
 
 function isInputField(element) { // Determines if the user's actively in an input field (so Quick Mode and easter eggs don't get messed up)
   return (
-    element.tagName === 'INPUT' || 
-    element.tagName === 'TEXTAREA' || 
+    element.tagName === 'INPUT' ||
+    element.tagName === 'TEXTAREA' ||
     element.isContentEditable
   );
 }
@@ -1315,7 +1315,7 @@ function generateChip(stats_object, where) { // Converts an array of stats into 
       selectionItems += `<div class="dropdown-item${c == 0 ? " selected" : ""}" data-item="${dropdownItem[1]}">${dropdownItem[2] == undefined || dropdownItem[2] == "" ? "" : `<img src="${dropdownItem[2]}" alt="" class="chip-dropdown-icon icon">`}<span class="dropdown-item-text">${dropdownItem[0]}</span></div>`;
     }
   }
-  
+
   if(stats_object[5].length > 0) {
     selectionItems = `<div class="dropdown"><p class="dropdown-button chip-dropdown-button"><span>${stats_object[5][0][0]}</span></p><div class="dropdown-content unloaded dropdown-chip" data-modify="${stats_object[0]}" data-game="${stats_object[7]}">${selectionItems}</div></div>`;
   } else {
@@ -1363,7 +1363,7 @@ var skinViewer;
 
  function insertLoadedData() {
       redirectToHttps();
-      
+
       generateNetwork();
       checkMobileMode(event, true);
   }
@@ -1373,7 +1373,7 @@ var skinViewer;
    * @param {string} gamemode The gamemode to switch to
    */
   function switchStats(gamemode) {
-    // if not in validGames 
+    // if not in validGames
     if (!validGames.includes(gamemode)) {
       console.error(`Invalid game mode "${gamemode}"!`);
       return;
@@ -1383,7 +1383,7 @@ var skinViewer;
       if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
         document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
       }
-      document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");      
+      document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");
       currentGamemode = gamemode;
 
       if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
@@ -1393,7 +1393,7 @@ var skinViewer;
       document.getElementById("flex-container-" + currentGamemode).style.display = "flex";
       document.body.scrollTop; // Forces a DOM reflow to allow the transition to work
       document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
-      
+
 
         setBackground(currentGamemode);
 
@@ -1521,6 +1521,6 @@ var skinViewer;
       }
     }
   }
-</script> 
+</script>
 </body>
 </html>
