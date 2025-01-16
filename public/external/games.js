@@ -2392,16 +2392,337 @@ function generateCopsAndCrims() {
     updateElement(`copsandcrims-overall-${easyStats[e]}`, checkAndFormat(copsAndCrimsBasicStats[e]));
   }
 
+  let copsAndCrimsEmblems = {
+    "emblem_rookie": {
+      "source": "unicode",
+      "character": "▶",
+    },
+    "emblem_incomplete": {
+      "source": "resourcepack",
+      "positions": [[4, 1]],
+    },
+    "emblem_complete": {
+      "source": "resourcepack",
+      "positions": [[5, 1]],
+    },
+    "emblem_decoy": {
+      "source": "resourcepack",
+      "positions": [[10, 1]],
+    },
+    "emblem_frown": {
+      "source": "unicode",
+      "character": "☹",
+    },
+    "emblem_gem": {
+      "source": "unicode",
+      "character": "♦",
+    },
+    "emblem_spaceship": {
+      "source": "unicode",
+      "character": "⥈",
+    },
+    "emblem_target": {
+      "source": "unicode",
+      "character": "⦾",
+    },
+    "emblem_biohazard": {
+      "source": "unicode",
+      "character": "☣",
+    },
+    "emblem_infinite": {
+      "source": "unicode",
+      "character": "∞",
+    },
+    "emblem_lucky": {
+      "source": "unicode",
+      "character": "☘",
+    },
+    "emblem_warning": {
+      "source": "unicode",
+      "character": "\u26a0\ufe0e",
+    },
+    "emblem_trident": {
+      "source": "unicode",
+      "character": "♆",
+    },
+    "emblem_star": {
+      "source": "unicode",
+      "character": "✰",
+    },
+    "emblem_right_angle": {
+      "source": "unicode",
+      "character": "⧉",
+    },
+    "emblem_balance": {
+      "source": "unicode",
+      "character": "☯",
+    },
+    "emblem_ballista": {
+      "source": "unicode",
+      "character": "\u269c\ufe0e",
+    },
+    "emblem_broken_bones": {
+      "source": "resourcepack",
+      "positions": [[1, 1], [2, 1]],
+    },
+    "emblem_budding": {
+      "source": "unicode",
+      "character": "✿",
+    },
+    "emblem_cheeky": {
+      "source": "unicode",
+      "character": "ツ",
+    },
+    "emblem_ghoul": {
+      "source": "unicode",
+      "character": "ௐ",
+    },
+    "emblem_phone": {
+      "source": "unicode",
+      "character": "✆",
+    },
+    "emblem_surrender": {
+      "source": "unicode",
+      "character": "⚑",
+    },
+    "emblem_serious": {
+      "source": "unicode",
+      "character": "ಠ_ಠ",
+    },
+    "emblem_helmet": {
+      "source": "resourcepack",
+      "positions": [[13, 1]],
+    },
+    "emblem_armor": {
+      "source": "resourcepack",
+      "positions": [[12, 1]],
+    },
+    "emblem_knife": {
+      "source": "resourcepack",
+      "positions": [[15, 0]],
+    },
+    "emblem_smg": {
+      "source": "resourcepack",
+      "positions": [[2, 0]],
+    },
+    "emblem_pistol": {
+      "source": "resourcepack",
+      "positions": [[0, 0]],
+    },
+    "emblem_bullpup": {
+      "source": "resourcepack",
+      "positions": [[2, 3], [3, 3]],
+    },
+    "emblem_scopedRifle": {
+      "source": "resourcepack",
+      "positions": [[6, 3], [7, 3]],
+    },
+    "emblem_augoShotgun": {
+      "source": "resourcepack",
+      "positions": [[10, 3], [11, 3]],
+    },
+    "emblem_handgun": {
+      "source": "resourcepack",
+      "positions": [[14, 3]],
+    },
+    "emblem_sniper": {
+      "source": "resourcepack",
+      "positions": [[10, 0], [11, 0]],
+    },
+    "emblem_magnum": {
+      "source": "resourcepack",
+      "positions": [[1, 0]],
+    },
+    "emblem_carbine": {
+      "source": "resourcepack",
+      "positions": [[6, 0], [7, 0]],
+    },
+    "emblem_rifle": {
+      "source": "resourcepack",
+      "positions": [[8, 0], [9, 0]],
+    },
+    "emblem_shotgun": {
+      "source": "resourcepack",
+      "positions": [[4, 0], [5, 0]],
+    },
+    "emblem_crims": {
+      "source": "resourcepack",
+      "positions": [[1, 3]],
+    },
+    "emblem_cops": {
+      "source": "resourcepack",
+      "positions": [[0, 3]],
+    },
+    "emblem_grenade": {
+      "source": "resourcepack",
+      "positions": [[12, 0]],
+    },
+    "emblem_firebomb": {
+      "source": "resourcepack",
+      "positions": [[9, 1]],
+    },
+    "emblem_hp": {
+      "source": "resourcepack",
+      "positions": [[0, 2]],
+    },
+    "emblem_cargo": {
+      "source": "unicode",
+      "character": "⧈",
+    },
+    "emblem_headshot": {
+      "source": "resourcepack",
+      "positions": [[0, 1]],
+    },
+    "emblem_c4": {
+      "source": "resourcepack",
+      "positions": [[6, 1]],
+    },
+    "emblem_fire": {
+      "source": "resourcepack",
+      "positions": [[3, 1]],
+    },
+    "emblem_landing_pad": {
+      "source": "unicode",
+      "character": "✥",
+    },
+    "emblem_double_star": {
+      "source": "unicode",
+      "character": "⁑",
+    },
+    "emblem_wire_cutters": {
+      "source": "resourcepack",
+      "positions": [[11, 1]],
+    },
+    "emblem_peace": {
+      "source": "unicode",
+      "character": "✌",
+    },
+    "emblem_airstrike": {
+      "source": "unicode",
+      "character": "✈",
+    },
+    "emblem_shield": {
+      "source": "unicode",
+      "character": "❂",
+    },
+    "emblem_bullet": {
+      "source": "unicode",
+      "character": "✏",
+    },
+    "emblem_raining_bullets": {
+      "source": "unicode",
+      "character": "☂",
+    },
+    "emblem_radar": {
+      "source": "resourcepack",
+      "positions": [[13, 0]],
+    },
+    "emblem_triple_star": {
+      "source": "unicode",
+      "character": "⁂",
+    },
+    "emblem_smoke": {
+      "source": "resourcepack",
+      "positions": [[8, 1]],
+    },
+    "emblem_flare": {
+      "source": "unicode",
+      "character": "҉",
+    },
+    "emblem_death": {
+      "source": "unicode",
+      "character": "☠",
+    },
+    "emblem_lightning": {
+      "source": "unicode",
+      "character": "\u26a1\ufe0e",
+    },
+    "emblem_king": {
+      "source": "unicode",
+      "character": "♔",
+    },
+    "emblem_num_one": {
+      "source": "unicode",
+      "character": "❶",
+    },
+    "emblem_rage": {
+      "source": "unicode",
+      "character": "(╯°□°)╯",
+    },
+  };
+
+  let copsAndCrimsEmblemName = copsAndCrimsStats["active_emblem"] || "emblem_rookie";
+  let copsAndCrimsEmblemData = copsAndCrimsEmblems[copsAndCrimsEmblemName] || copsAndCrimsEmblems["emblem_rookie"];
+  let copsAndCrimsEmblemScheme = copsAndCrimsStats["active_scheme"] || "scheme_gray";
+  let copsAndCrimsEmblemColorName;
+
+  if (copsAndCrimsEmblemScheme.indexOf("scheme_") == -1) {
+    copsAndCrimsEmblemColorName = "GRAY";
+  } else {
+    copsAndCrimsEmblemColorName = copsAndCrimsEmblemScheme.replace("scheme_", "").toUpperCase();
+  }
+
+  let copsAndCrimsEmblemColorCode;
+
+  if (copsAndCrimsEmblemColorName != "CHROMA") {
+    copsAndCrimsEmblemColorCode = (minecraftColorCodes[copsAndCrimsEmblemColorName] || "§7").replace("§", "");
+    document.getElementById("copsandcrims-emblem").classList.add(`m${copsAndCrimsEmblemColorCode}`);
+
+    if (copsAndCrimsEmblemColorCode == "0" || copsAndCrimsEmblemColorCode == "1") {
+      document.getElementById("copsandcrims-emblem").classList.add("drop-shadowf");
+    }
+  }
+
+  function getEmblemColorCodeAtPosition(position) {
+    if (copsAndCrimsEmblemColorName == "CHROMA") {
+      let chromaRainbow = ["c", "e", "a", "b", "d"];
+
+      return chromaRainbow[position % chromaRainbow.length];
+    } else {
+      return copsAndCrimsEmblemColorCode;
+    }
+  }
+
+  if (copsAndCrimsEmblemData["source"] == "unicode") {
+    let copsAndCrimsEmblemNameFormatted = "";
+    for (let a = 0; a < copsAndCrimsEmblemData["character"].length; a++) {
+      copsAndCrimsEmblemNameFormatted += `§${getEmblemColorCodeAtPosition(a + 2)}${copsAndCrimsEmblemData["character"][a]}`;
+    }
+    updateElement("copsandcrims-emblem", generateMinecraftText(copsAndCrimsEmblemNameFormatted), true);
+  } else if (copsAndCrimsEmblemData["source"] == "resourcepack") {
+    for (let a = 0; a < copsAndCrimsEmblemData["positions"].length; a++) {
+      let emblemCharacter = document.createElement("span");
+      emblemCharacter.classList.add("copsandcrims-emblem-character");
+
+      emblemCharacter.style.maskPositionX = `-${copsAndCrimsEmblemData["positions"][a][0] * 16}px`;
+      emblemCharacter.style.maskPositionY = `-${copsAndCrimsEmblemData["positions"][a][1] * 16}px`;
+      emblemCharacter.classList.add(`b-m${getEmblemColorCodeAtPosition(a + 2)}`);
+
+      document.getElementById("copsandcrims-emblem").appendChild(emblemCharacter);
+    }
+  }
+
   let copsAndCrimsScore = und(copsAndCrimsStats["score"] || (copsAndCrimsBasicStats[1] / 2 + (und(copsAndCrimsStats["bombs_defused"]) + und(copsAndCrimsStats["bombs_planted"])) / 3 + copsAndCrimsBasicStats[0])); // Calculating the score based on the formula in-game. It's off by like 1%
+
   let copsAndCrimsLevel = getCopsAndCrimsLevel(copsAndCrimsScore);
   let copsAndCrimsLevelProgress = copsAndCrimsLevel % 1;
 
-  updateElement("copsandcrims-level", Math.floor(copsAndCrimsLevel));
+  if (copsAndCrimsEmblemColorName != "CHROMA") {
+    updateElement("copsandcrims-level", Math.floor(copsAndCrimsLevel));
+  } else {
+    let copsAndCrimsLevelString = Math.floor(copsAndCrimsLevel).toString();
+    updateElement("copsandcrims-level", generateMinecraftText(`§${getEmblemColorCodeAtPosition(0)}${copsAndCrimsLevelString[0]}§${getEmblemColorCodeAtPosition(1)}${copsAndCrimsLevelString[1]}`), true); // This will break if Cops and Crims ever introduces a level higher than 99. But that's unlikely, so I will not fix this
+  }
+
+  document.getElementById("copsandcrims-level").classList.add(`m${copsAndCrimsEmblemColorCode}`);
+  if (copsAndCrimsEmblemColorCode == "0" || copsAndCrimsEmblemColorCode == "1") {
+    document.getElementById("copsandcrims-level").classList.add("shadowf");
+  }
 
   if (copsAndCrimsLevel >= 50) {
-    document.getElementById("copsandcrims-level-container").classList.add("gilded");
     document.getElementById("copsandcrims-progress-bar-container").style.display = "none";
   }
+
   updateElement("copsandcrims-progress-number", `${Math.floor(copsAndCrimsLevelProgress * 100)}%`, true);
   document.getElementById("copsandcrims-progress-bar").style.width = `${copsAndCrimsLevelProgress * 100}%`;
 
@@ -3127,7 +3448,7 @@ function generateWarlords() {
   if (warlordsSelectedSpecialization) {
     updateElement("warlords-specialization", getTranslation(`games.modes.warlords.classes.${warlordsSelectedSpecialization}`));
   } else {
-    updateElement("warlords-specialization", getTranslation("statistics.na"));
+    updateElement("warlords-specialization", getTranslation("player.errors.not_applicable"));
   }
 
   let warlordsSelectedWeaponId = warlordsStats["current_weapon"];
