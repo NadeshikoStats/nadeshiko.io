@@ -1475,7 +1475,6 @@ function generateTNTGames() {
   ];
 
   let wizardsList = [
-    [getTranslation("games.modes.all.overall"), "overall", `/img/icon/minecraft/tnt.${imageFileType}`],
     [getTranslation("games.modes.tntgames.wizards.new_ancientwizard"), "new_ancientwizard", `/img/icon/minecraft/magma_cream.${imageFileType}`],
     [getTranslation("games.modes.tntgames.wizards.arcane_wizard"), "arcane_wizard", `/img/icon/minecraft/disc_11.${imageFileType}`],
     [getTranslation("games.modes.tntgames.wizards.new_bloodwizard"), "new_bloodwizard", `/img/icon/minecraft/bone.${imageFileType}`],
@@ -1490,6 +1489,8 @@ function generateTNTGames() {
 
   // Sort the list of wizards by item 0
   wizardsList.sort((a, b) => sortStrings(a[0], b[0]));
+
+  wizardsList.unshift([getTranslation("games.modes.all.overall"), "overall", `/img/icon/minecraft/tnt.${imageFileType}`]); // Adds Overall to the front
 
   let totalWizardStats = sumStats(
     ["kills", "deaths", "healing", "damage_taken", "assists"],
