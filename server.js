@@ -1,33 +1,35 @@
-const express = require('express');
-const axios = require('axios');
-const minify = require('express-minify');
+const express = require("express");
+const axios = require("axios");
+const minify = require("express-minify");
 
 const app = express();
 const port = 8080;
 
-const version = "1.1.15"; // Updating this will force the cache to clear for all users
+const version = "1.1.16"; // Updating this will force the cache to clear for all users
 
-app.set('view engine', 'ejs');
-app.set('views', './views');
-/*
-app.use(minify({
-  cache: false,
-  js_match: /javascript/,
-  css_match: /css/,
-  ejs_match: /ejs/,
-}));
+app.set("view engine", "ejs");
+app.set("views", "./views");
+
+app.use(
+  minify({
+    cache: false,
+    js_match: /javascript/,
+    css_match: /css/,
+    ejs_match: /ejs/,
+  })
+);
 console.log("Minify enabled!");
-*/
-app.use(express.static('public'));
 
-app.get('/', (req, res) => {
+app.use(express.static("public"));
+
+app.get("/", (req, res) => {
   computationError = {
     message: ``,
     player: ``,
     category: ``,
-    page: ``
+    page: ``,
   };
-  res.render('index', { version });
+  res.render("index", { version });
 });
 
 let gameAliases = {
@@ -49,8 +51,8 @@ let gameAliases = {
   warlords: ["w", "war", "wl", "bg", "battleground"],
   woolgames: ["ww", "wool", "woolwars"],
 
-  fishing: ["fish", "lobbyfishing"]
-}
+  fishing: ["fish", "lobbyfishing"],
+};
 
 let gameAliasesAchievements = {
   overall: ["hypixel", "network"],
@@ -85,11 +87,12 @@ let gameAliasesAchievements = {
   summer: [],
   easter: ["spring"],
   legacy: [],
-}
+};
 
 let cardSupportedGames = ["network", "bedwars", "duels", "skywars", "buildbattle"];
 
-function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in the case of a missing value
+function und(text, undefinedValue = 0) {
+  // Returns a set value (typically 0) in the case of a missing value
   if (text === null || text === undefined || Number.isNaN(text)) return undefinedValue;
   else return text;
 }
@@ -167,10 +170,11 @@ function smallDuration(seconds, ms = false) {
 }
 
 function stripFormatting(text) {
-  return text.replace(/§./g, '');
+  return text.replace(/§./g, "");
 }
 
-function veryLargeNumber(number) { // Changes number to compact notation if it's over a million
+function veryLargeNumber(number) {
+  // Changes number to compact notation if it's over a million
   number = und(number);
   if (number >= 1000000) {
     return new Intl.NumberFormat("default", { notation: "compact", compactDisplay: "short", maximumSignificantDigits: 4 }).format(number);
@@ -179,10 +183,11 @@ function veryLargeNumber(number) { // Changes number to compact notation if it's
   }
 }
 
-function addPrefixZero(number, totalLength) { // Adds zeroes to the start of a number to make it a certain length
+function addPrefixZero(number, totalLength) {
+  // Adds zeroes to the start of a number to make it a certain length
   let numberStr = number.toString();
   while (numberStr.length < totalLength) {
-    numberStr = '0' + numberStr;
+    numberStr = "0" + numberStr;
   }
   return numberStr;
 }
@@ -227,11 +232,12 @@ function shortDateFormat(date) {
     year: "numeric",
     month: "numeric",
     day: "numeric",
-    calendar: "gregory"
+    calendar: "gregory",
   }).format(date);
 }
 
-function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past
+function relativeTime(timestamp, currentTime = Date.now()) {
+  // Returns a timestamp showing how long ago a date was in the past
   let dateNew = new Date(currentTime);
   let dateOld = new Date(timestamp);
 
@@ -283,79 +289,53 @@ function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timest
 }
 
 function getMetaDescription(game, playerData) {
-  if(typeof playerData != "undefined") {
-  switch(game) {
-    case 'arcade':
-      let arcadeStats = playerData["stats"]["Arcade"] || {};
-      let dropperStats = arcadeStats["dropper"] || {};
-      let pixelPartyStats = arcadeStats["pixel_party"] || {};
+  if (typeof playerData != "undefined") {
+    switch (game) {
+      case "arcade":
+        let arcadeStats = playerData["stats"]["Arcade"] || {};
+        let dropperStats = arcadeStats["dropper"] || {};
+        let pixelPartyStats = arcadeStats["pixel_party"] || {};
 
-      let arcadeEasyWins = sumStatsBasic(
-        [
-          "wins_dayone",
-          "wins_oneinthequiver",
-          "wins_dragonwars2",
-          "wins_ender",
-          "wins_farm_hunt",
-          "wins_soccer",
-          "sw_game_wins",
-          "hider_wins_hide_and_seek",
-          "seeker_wins_hide_and_seek",
-          "wins_hole_in_the_wall",
-          "wins_mini_walls",
-          "wins_party",
-          "wins_simon_says",
-          "wins_draw_their_thing",
-          "wins_throw_out",
-          "wins_zombies",
-          "wins_easter_simulator",
-          "wins_halloween_simulator",
-          "wins_santa_simulator",
-          "wins_scuba_simulator",
-          "wins_grinch_simulator_v2",
-        ],
-        arcadeStats
-      );
+        let arcadeEasyWins = sumStatsBasic(["wins_dayone", "wins_oneinthequiver", "wins_dragonwars2", "wins_ender", "wins_farm_hunt", "wins_soccer", "sw_game_wins", "hider_wins_hide_and_seek", "seeker_wins_hide_and_seek", "wins_hole_in_the_wall", "wins_mini_walls", "wins_party", "wins_simon_says", "wins_draw_their_thing", "wins_throw_out", "wins_zombies", "wins_easter_simulator", "wins_halloween_simulator", "wins_santa_simulator", "wins_scuba_simulator", "wins_grinch_simulator_v2"], arcadeStats);
 
-      let arcadeWins = (arcadeEasyWins + und(dropperStats["wins"]) + und(pixelPartyStats["wins"]));
-      return `Arcade Stats
+        let arcadeWins = arcadeEasyWins + und(dropperStats["wins"]) + und(pixelPartyStats["wins"]);
+        return `Arcade Stats
 
 • 🏆 Wins: ${arcadeWins}
-• 🪙 Coins: ${checkAndFormat(arcadeStats["coins"])}`
+• 🪙 Coins: ${checkAndFormat(arcadeStats["coins"])}`;
 
-    case 'bedwars':
+      case "bedwars":
+        function getBedWarsLevel(exp) {
+          let level = 100 * Math.floor(exp / 487000);
+          exp = exp % 487000;
+          if (exp < 500) return level + exp / 500;
+          level++;
+          if (exp < 1500) return level + (exp - 500) / 1000;
+          level++;
+          if (exp < 3500) return level + (exp - 1500) / 2000;
+          level++;
+          if (exp < 7000) return level + (exp - 3500) / 3500;
+          level++;
+          exp -= 7000;
+          return level + exp / 5000;
+        }
 
-    function getBedWarsLevel(exp) {
-      let level = 100 * Math.floor(exp / 487000);
-      exp = exp % 487000;
-      if (exp < 500) return level + exp / 500;
-      level++;
-      if (exp < 1500) return level + (exp - 500) / 1000;
-      level++;
-      if (exp < 3500) return level + (exp - 1500) / 2000;
-      level++;
-      if (exp < 7000) return level + (exp - 3500) / 3500;
-      level++;
-      exp -= 7000;
-      return level + exp / 5000;
-    }
+        let bedWarsStats = playerData["stats"]["Bedwars"] || {};
 
-      let bedWarsStats = playerData["stats"]["Bedwars"] || {};
+        let bedWarsLevel = Math.floor(getBedWarsLevel(und(bedWarsStats["Experience"])));
 
-      let bedWarsLevel = Math.floor(getBedWarsLevel(und(bedWarsStats["Experience"])));
+        let prefixIcon;
+        if (bedWarsLevel < 1100) {
+          prefixIcon = "✫";
+        } else if (bedWarsLevel < 2100) {
+          prefixIcon = "✪";
+        } else if (bedWarsLevel < 3100) {
+          prefixIcon = "⚝";
+        } else {
+          prefixIcon = "✥";
+        }
 
-      let prefixIcon;
-      if (bedWarsLevel < 1100) {
-        prefixIcon = '✫';
-      } else if (bedWarsLevel < 2100) {
-        prefixIcon = '✪';
-      } else if (bedWarsLevel < 3100) {
-        prefixIcon = '⚝';
-      } else {
-        prefixIcon = '✥';
-      }
-
-      return `Bed Wars Stats
+        return `Bed Wars Stats
 
 • ⭐ Level: [${bedWarsLevel}${prefixIcon}]
 • 🔥 Winstreak: ${checkAndFormat(bedWarsStats["winstreak"])}
@@ -369,9 +349,9 @@ function getMetaDescription(game, playerData) {
 • ⚔️ FK/D R: ${calculateRatio(bedWarsStats["final_kills_bedwars"], bedWarsStats["final_deaths_bedwars"])}
 
 • 🟢 Tokens: ${checkAndFormat(bedWarsStats["coins"])}`;
-    case 'blitz':
-      let blitzStats = playerData["stats"]["HungerGames"] || {};
-      return `Blitz SG Stats
+      case "blitz":
+        let blitzStats = playerData["stats"]["HungerGames"] || {};
+        return `Blitz SG Stats
 
 • 🏆 Wins: ${checkAndFormat(und(blitzStats["wins_solo_normal"]) + und(blitzStats["wins_teams_normal"]))}
 
@@ -381,39 +361,39 @@ function getMetaDescription(game, playerData) {
 
 • 🪙 Coins: ${checkAndFormat(blitzStats["coins"])}
 • 📦 Chests Opened: ${checkAndFormat(blitzStats["chests_opened"])}`;
-    case 'buildbattle':
-      let buildBattleTitles = [
-        { minimumScore: 0, title: "Rookie" },
-        { minimumScore: 100, title: "Untrained" },
-        { minimumScore: 250, title: "Amateur" },
-        { minimumScore: 500, title: "Prospect" },
-        { minimumScore: 1000, title: "Apprentice" },
-        { minimumScore: 2000, title: "Experienced" },
-        { minimumScore: 3500, title: "Seasoned" },
-        { minimumScore: 5000, title: "Trained" },
-        { minimumScore: 7500, title: "Skilled" },
-        { minimumScore: 10000, title: "Talented" },
-        { minimumScore: 15000, title: "Professional" },
-        { minimumScore: 20000, title: "Artisan" },
-        { minimumScore: 30000, title: "Expert" },
-        { minimumScore: 50000, title: "Master" },
-        { minimumScore: 100000, title: "Legend" },
-        { minimumScore: 200000, title: "Grandmaster" },
-        { minimumScore: 300000, title: "Celestial" },
-        { minimumScore: 400000, title: "Divine" },
-        { minimumScore: 500000, title: "Ascended" },
-      ];
+      case "buildbattle":
+        let buildBattleTitles = [
+          { minimumScore: 0, title: "Rookie" },
+          { minimumScore: 100, title: "Untrained" },
+          { minimumScore: 250, title: "Amateur" },
+          { minimumScore: 500, title: "Prospect" },
+          { minimumScore: 1000, title: "Apprentice" },
+          { minimumScore: 2000, title: "Experienced" },
+          { minimumScore: 3500, title: "Seasoned" },
+          { minimumScore: 5000, title: "Trained" },
+          { minimumScore: 7500, title: "Skilled" },
+          { minimumScore: 10000, title: "Talented" },
+          { minimumScore: 15000, title: "Professional" },
+          { minimumScore: 20000, title: "Artisan" },
+          { minimumScore: 30000, title: "Expert" },
+          { minimumScore: 50000, title: "Master" },
+          { minimumScore: 100000, title: "Legend" },
+          { minimumScore: 200000, title: "Grandmaster" },
+          { minimumScore: 300000, title: "Celestial" },
+          { minimumScore: 400000, title: "Divine" },
+          { minimumScore: 500000, title: "Ascended" },
+        ];
 
-      let buildBattleStats = playerData["stats"]["BuildBattle"] || {};
+        let buildBattleStats = playerData["stats"]["BuildBattle"] || {};
 
-      let buildBattleTitle = "Rookie";
-      for (let a = 0; a < buildBattleTitles.length; a++) {
-        if (und(buildBattleStats["score"]) >= buildBattleTitles[a].minimumScore) {
-          buildBattleTitle = buildBattleTitles[a]["title"];
+        let buildBattleTitle = "Rookie";
+        for (let a = 0; a < buildBattleTitles.length; a++) {
+          if (und(buildBattleStats["score"]) >= buildBattleTitles[a].minimumScore) {
+            buildBattleTitle = buildBattleTitles[a]["title"];
+          }
         }
-      }
 
-      return `Build Battle Stats
+        return `Build Battle Stats
 
 • ⭐ Score: ${checkAndFormat(buildBattleStats["score"])} (${buildBattleTitle})
 
@@ -423,32 +403,22 @@ function getMetaDescription(game, playerData) {
 
 • 🟢 Tokens: ${checkAndFormat(buildBattleStats["coins"])}
 • 🗳️ Votes: ${checkAndFormat(buildBattleStats["total_votes"])}`;
-    case 'classic':
-      let classicStats = playerData["stats"]["Legacy"] || {};
-      let arenaStats = playerData["stats"]["Arena"] || {};
-      let paintballStats = playerData["stats"]["Paintball"] || {};
-      let quakeStats = playerData["stats"]["Quake"] || {};
-      let vampireZStats = playerData["stats"]["VampireZ"] || {};
-      let tkrStats = playerData["stats"]["GingerBread"] || {};
-      let wallsStats = playerData["stats"]["Walls"] || {};
+      case "classic":
+        let classicStats = playerData["stats"]["Legacy"] || {};
+        let arenaStats = playerData["stats"]["Arena"] || {};
+        let paintballStats = playerData["stats"]["Paintball"] || {};
+        let quakeStats = playerData["stats"]["Quake"] || {};
+        let vampireZStats = playerData["stats"]["VampireZ"] || {};
+        let tkrStats = playerData["stats"]["GingerBread"] || {};
+        let wallsStats = playerData["stats"]["Walls"] || {};
 
-      let classicWins = (und(arenaStats["wins"]) + und(paintballStats["wins"]) + und(quakeStats["wins"]) + und(vampireZStats["human_wins"]) + und(vampireZStats["vampire_wins"]) + und(tkrStats["wins"]) + und(wallsStats["wins"]));
+        let classicWins = und(arenaStats["wins"]) + und(paintballStats["wins"]) + und(quakeStats["wins"]) + und(vampireZStats["human_wins"]) + und(vampireZStats["vampire_wins"]) + und(tkrStats["wins"]) + und(wallsStats["wins"]);
 
-      let classicKills = (
-        und(arenaStats["kills_1v1"]) +
-          und(arenaStats["kills_2v2"]) +
-          und(arenaStats["kills_4v4"]) +
-          und(paintballStats["kills"]) +
-          und(quakeStats["kills"]) +
-          und(quakeStats["kills_teams"]) +
-          und(vampireZStats["human_kills"]) +
-          und(vampireZStats["vampire_kills"]) +
-          und(wallsStats["kills"])
-      );
+        let classicKills = und(arenaStats["kills_1v1"]) + und(arenaStats["kills_2v2"]) + und(arenaStats["kills_4v4"]) + und(paintballStats["kills"]) + und(quakeStats["kills"]) + und(quakeStats["kills_teams"]) + und(vampireZStats["human_kills"]) + und(vampireZStats["vampire_kills"]) + und(wallsStats["kills"]);
 
-      let quakeWins = (und(quakeStats["wins"]) + und(quakeStats["wins_teams"]));
+        let quakeWins = und(quakeStats["wins"]) + und(quakeStats["wins_teams"]);
 
-      return `Classic Games Stats
+        return `Classic Games Stats
 
 • 🏆 Wins: ${checkAndFormat(classicWins)}
 
@@ -461,18 +431,18 @@ function getMetaDescription(game, playerData) {
 • 🏎️ TKR Gold Trophies: ${checkAndFormat(tkrStats["gold_trophy"])}
 • 🦇 VampireZ Wins: ${locale(und(vampireZStats["human_wins"]) + und(vampireZStats["vampire_wins"]), 0)}
 • 🧱 Walls Wins: ${checkAndFormat(wallsStats["wins"])}`;
-    case 'copsandcrims':
-      let copsAndCrimsStats = playerData["stats"]["MCGO"] || {};
+      case "copsandcrims":
+        let copsAndCrimsStats = playerData["stats"]["MCGO"] || {};
 
-      let copsAndCrimsWins = (und(copsAndCrimsStats["game_wins"]) + und(copsAndCrimsStats["game_wins_gungame"]) + und(copsAndCrimsStats["game_wins_deathmatch"]));
+        let copsAndCrimsWins = und(copsAndCrimsStats["game_wins"]) + und(copsAndCrimsStats["game_wins_gungame"]) + und(copsAndCrimsStats["game_wins_deathmatch"]);
 
-      let copsAndCrimsKills = (und(copsAndCrimsStats["kills"]) + und(copsAndCrimsStats["kills_gungame"]) + und(copsAndCrimsStats["kills_deathmatch"]));
+        let copsAndCrimsKills = und(copsAndCrimsStats["kills"]) + und(copsAndCrimsStats["kills_gungame"]) + und(copsAndCrimsStats["kills_deathmatch"]);
 
-      let copsAndKillsAssists = (und(copsAndCrimsStats["assists"]) + und(copsAndCrimsStats["assists_gungame"]) + und(copsAndCrimsStats["assists_deathmatch"]));
+        let copsAndKillsAssists = und(copsAndCrimsStats["assists"]) + und(copsAndCrimsStats["assists_gungame"]) + und(copsAndCrimsStats["assists_deathmatch"]);
 
-      let copsAndKillsDeaths = (und(copsAndCrimsStats["deaths"]) + und(copsAndCrimsStats["deaths_gungame"]) + und(copsAndCrimsStats["deaths_deathmatch"]));
+        let copsAndKillsDeaths = und(copsAndCrimsStats["deaths"]) + und(copsAndCrimsStats["deaths_gungame"]) + und(copsAndCrimsStats["deaths_deathmatch"]);
 
-      return `Cops and Crims Stats
+        return `Cops and Crims Stats
 
 • 🏆 Wins: ${locale(copsAndCrimsWins, 0)}
 
@@ -486,62 +456,62 @@ function getMetaDescription(game, playerData) {
 • 🔫 Gun Game Wins: ${checkAndFormat(copsAndCrimsStats["game_wins_gungame"])}
 
 • 🪙 Coins: ${checkAndFormat(copsAndCrimsStats["coins"])}`;
-    case 'duels':
-      let duelsStats = playerData["stats"]["Duels"] || {};
+      case "duels":
+        let duelsStats = playerData["stats"]["Duels"] || {};
 
-      function getDuelsTitle(wins) {
-        // Generates a Duels title based on the number of wins a player has in a certain gamemode
-        multiplier = 2; // Multiply required wins by 2 for general Duels titles
+        function getDuelsTitle(wins) {
+          // Generates a Duels title based on the number of wins a player has in a certain gamemode
+          multiplier = 2; // Multiply required wins by 2 for general Duels titles
 
-        const duelsTitles = [
-          { minimumWins: 0, increment: 50, title: "No Title", color: "8" },
-          { minimumWins: 50, increment: 10, title: "Rookie", color: "8" },
-          { minimumWins: 100, increment: 30, title: "Iron", color: "f" },
-          { minimumWins: 250, increment: 50, title: "Gold", color: "6" },
-          { minimumWins: 500, increment: 100, title: "Diamond", color: "3" },
-          { minimumWins: 1000, increment: 200, title: "Master", color: "2" },
-          { minimumWins: 2000, increment: 600, title: "Legend", color: "4", bold: true },
-          { minimumWins: 5000, increment: 1000, title: "Grandmaster", color: "e", bold: true },
-          { minimumWins: 10000, increment: 3000, title: "Godlike", color: "5", bold: true },
-          { minimumWins: 25000, increment: 5000, title: "CELESTIAL", color: "b", bold: true },
-          { minimumWins: 50000, increment: 10000, title: "DIVINE", color: "d", bold: true },
-          { minimumWins: 100000, increment: 10000, max: 50, title: "ASCENDED", color: "c", bold: true },
-        ];
+          const duelsTitles = [
+            { minimumWins: 0, increment: 50, title: "No Title", color: "8" },
+            { minimumWins: 50, increment: 10, title: "Rookie", color: "8" },
+            { minimumWins: 100, increment: 30, title: "Iron", color: "f" },
+            { minimumWins: 250, increment: 50, title: "Gold", color: "6" },
+            { minimumWins: 500, increment: 100, title: "Diamond", color: "3" },
+            { minimumWins: 1000, increment: 200, title: "Master", color: "2" },
+            { minimumWins: 2000, increment: 600, title: "Legend", color: "4", bold: true },
+            { minimumWins: 5000, increment: 1000, title: "Grandmaster", color: "e", bold: true },
+            { minimumWins: 10000, increment: 3000, title: "Godlike", color: "5", bold: true },
+            { minimumWins: 25000, increment: 5000, title: "CELESTIAL", color: "b", bold: true },
+            { minimumWins: 50000, increment: 10000, title: "DIVINE", color: "d", bold: true },
+            { minimumWins: 100000, increment: 10000, max: 50, title: "ASCENDED", color: "c", bold: true },
+          ];
 
-        let chosenTitle = duelsTitles[0];
+          let chosenTitle = duelsTitles[0];
 
-        for (let i = 0; i < duelsTitles.length; i++) {
-          if (wins >= duelsTitles[i]["minimumWins"] * multiplier) {
-            chosenTitle = duelsTitles[i];
+          for (let i = 0; i < duelsTitles.length; i++) {
+            if (wins >= duelsTitles[i]["minimumWins"] * multiplier) {
+              chosenTitle = duelsTitles[i];
+            } else {
+              break;
+            }
+          }
+
+          let level = 0;
+          if (chosenTitle["title"] != "No Title") {
+            level = Math.floor((wins - chosenTitle["minimumWins"] * multiplier) / (chosenTitle["increment"] * multiplier)) + 1;
+            winsToGo = chosenTitle["minimumWins"] * multiplier + chosenTitle["increment"] * level * multiplier - wins;
+
+            if ("max" in chosenTitle && level > chosenTitle["max"]) {
+              level = chosenTitle["max"];
+              winsToGo = -2;
+            }
           } else {
-            break;
+            winsToGo = 50 * multiplier - wins;
           }
-        }
 
-        let level = 0;
-        if (chosenTitle["title"] != "No Title") {
-          level = Math.floor((wins - chosenTitle["minimumWins"] * multiplier) / (chosenTitle["increment"] * multiplier)) + 1;
-          winsToGo = chosenTitle["minimumWins"] * multiplier + chosenTitle["increment"] * level * multiplier - wins;
-
-          if ("max" in chosenTitle && level > chosenTitle["max"]) {
-            level = chosenTitle["max"];
-            winsToGo = -2;
+          let romanSuffix = "";
+          if (level > 1) {
+            romanSuffix = " " + convertToRoman(level);
           }
-        } else {
-          winsToGo = 50 * multiplier - wins;
+
+          let rawDuelsTitle = chosenTitle["title"] + romanSuffix;
+
+          return rawDuelsTitle;
         }
 
-        let romanSuffix = "";
-        if (level > 1) {
-          romanSuffix = " " + convertToRoman(level);
-        }
-
-        let rawDuelsTitle = chosenTitle["title"] + romanSuffix;
-
-        return rawDuelsTitle;
-      }
-
-      return `Duels Stats
+        return `Duels Stats
 
 • ⭐ Winstreak: ${checkAndFormat(duelsStats["current_winstreak"])}
 • 🌟 Best Winstreak: ${checkAndFormat(duelsStats["best_overall_winstreak"])}
@@ -557,15 +527,14 @@ function getMetaDescription(game, playerData) {
 • 🟢 Tokens: ${checkAndFormat(duelsStats["coins"])}
 • 🖱️ Clicks: ${checkAndFormat(duelsStats["melee_swings"])}`;
 
+      case "megawalls":
+        let megaWallsStats = playerData["stats"]["Walls3"] || {};
 
-    case 'megawalls':
-      let megaWallsStats = playerData["stats"]["Walls3"] || {};
+        let megaWallsFinalKills = sumStatsBasic(["final_kills", "finalKills"], megaWallsStats);
+        let megaWallsFinalDeaths = sumStatsBasic(["final_deaths", "finalDeaths"], megaWallsStats);
 
-      let megaWallsFinalKills = sumStatsBasic(["final_kills", "finalKills"], megaWallsStats);
-      let megaWallsFinalDeaths = sumStatsBasic(["final_deaths", "finalDeaths"], megaWallsStats);
-
-      let megaWallsClassPoints = megaWallsStats["class_points"] || (und(megaWallsStats["wins"]) * 10 + megaWallsFinalKills + und(megaWallsStats["final_assists"]));
-      return `Mega Walls Stats
+        let megaWallsClassPoints = megaWallsStats["class_points"] || und(megaWallsStats["wins"]) * 10 + megaWallsFinalKills + und(megaWallsStats["final_assists"]);
+        return `Mega Walls Stats
 
 • 🏆 Wins: ${checkAndFormat(megaWallsStats["wins"])}
 • 💔 Losses: ${checkAndFormat(megaWallsStats["losses"])}
@@ -578,10 +547,10 @@ function getMetaDescription(game, playerData) {
 • 🪙 Coins: ${checkAndFormat(megaWallsStats["coins"])}
 • ⭐ Points: ${locale(megaWallsClassPoints, 0)}`;
 
-    case 'murdermystery':
-      let murderMysteryStats = playerData["stats"]["MurderMystery"];
+      case "murdermystery":
+        let murderMysteryStats = playerData["stats"]["MurderMystery"];
 
-      return `Murder Mystery Stats
+        return `Murder Mystery Stats
 
 • 🏆 Wins: ${checkAndFormat(murderMysteryStats["wins"])}
 • 💔 Losses: ${checkAndFormat(und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"]))}
@@ -593,14 +562,14 @@ function getMetaDescription(game, playerData) {
 
 • 🟢 Tokens: ${checkAndFormat(murderMysteryStats["coins"])}`;
 
-      case 'pit':
+      case "pit":
         let pitStats = playerData["stats"]["Pit"] || {};
         let pitProfileStats = pitStats["profile"] || {};
         let pitPtlStats = pitStats["pit_stats_ptl"] || {};
 
         let pitXpMap = [15, 30, 50, 75, 125, 300, 600, 800, 900, 1000, 1200, 1500, 0];
-        let pitPrestiges = [100,110,120,130,140,150,175,200,250,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2400,2800,3200,3600,4000,4500,5000,7500,10000,10100,10100,10100,10100,10100,20000,30000,40000,50000,75000,100000,125000,150000,175000,200000,300000,500000,1000000,5000000,10000000];
-        let pitPrestigeXp = [65950,138510,217680,303430,395760,494700,610140,742040,906930,1104780,1368580,1698330,2094030,2555680,3083280,3676830,4336330,5127730,6051030,7106230,8293330,9612330,11195130,13041730,15152130,17526330,20164330,23132080,26429580,31375830,37970830,44631780,51292730,57953680,64614630,71275580,84465580,104250580,130630580,163605580,213068080,279018080,361455580,460380580,575793080,707693080,905543080,1235293080,1894793080,5192293080,11787293080,];
+        let pitPrestiges = [100, 110, 120, 130, 140, 150, 175, 200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1600, 1800, 2000, 2400, 2800, 3200, 3600, 4000, 4500, 5000, 7500, 10000, 10100, 10100, 10100, 10100, 10100, 20000, 30000, 40000, 50000, 75000, 100000, 125000, 150000, 175000, 200000, 300000, 500000, 1000000, 5000000, 10000000];
+        let pitPrestigeXp = [65950, 138510, 217680, 303430, 395760, 494700, 610140, 742040, 906930, 1104780, 1368580, 1698330, 2094030, 2555680, 3083280, 3676830, 4336330, 5127730, 6051030, 7106230, 8293330, 9612330, 11195130, 13041730, 15152130, 17526330, 20164330, 23132080, 26429580, 31375830, 37970830, 44631780, 51292730, 57953680, 64614630, 71275580, 84465580, 104250580, 130630580, 163605580, 213068080, 279018080, 361455580, 460380580, 575793080, 707693080, 905543080, 1235293080, 1894793080, 5192293080, 11787293080];
 
         function pitXpToLevel(experience) {
           x_prestige = 0;
@@ -625,12 +594,11 @@ function getMetaDescription(game, playerData) {
           }
 
           if (x_prestige == 0) {
-              return "[" + x_level + "]";
+            return "[" + x_level + "]";
           } else {
-              return "[" + convertToRoman(x_prestige) + "-" + x_level + "]";
+            return "[" + convertToRoman(x_prestige) + "-" + x_level + "]";
           }
         }
-
 
         return `Pit Stats
 
@@ -646,10 +614,10 @@ function getMetaDescription(game, playerData) {
 • ⏰ Playtime: ${smallDuration(und(pitPtlStats["playtime_minutes"]) * 60)}
 • 🔥 Highest Killstreak: ${checkAndFormat(pitPtlStats["max_streak"])}`;
 
-    case 'smashheroes':
-      let smashStats = playerData["stats"]["SuperSmash"] || {};
+      case "smashheroes":
+        let smashStats = playerData["stats"]["SuperSmash"] || {};
 
-      return `Smash Heroes Stats
+        return `Smash Heroes Stats
 
 • ⭐ Level: ${checkAndFormat(smashStats["smashLevel"])} ✶
 
@@ -663,9 +631,9 @@ function getMetaDescription(game, playerData) {
 
 • 🪙 Coins: ${checkAndFormat(smashStats["coins"])}`;
 
-    case 'skywars':
-      let skyWarsStats = playerData["stats"]["SkyWars"] || {};
-      return `SkyWars Stats
+      case "skywars":
+        let skyWarsStats = playerData["stats"]["SkyWars"] || {};
+        return `SkyWars Stats
 
 • ⭐ Level: [${stripFormatting(und(skyWarsStats["levelFormatted"], "1⋆"))}]
 
@@ -680,12 +648,12 @@ function getMetaDescription(game, playerData) {
 • 🪙 Coins: ${checkAndFormat(skyWarsStats["coins"])}
 • ⏰ Playtime: ${smallDuration(und(skyWarsStats["time_played"]))}`;
 
-    case 'tntgames':
-      let tntGamesStats = playerData["stats"]["TNTGames"] || {};
-      let tntGamesKills = sumStats(["kills"], ["tntrun", "pvprun", "tntag", "capture", "bowspleef"], tntGamesStats, "_", true);
-      let tntGamesDeaths = sumStats(["deaths"], ["tntrun", "pvprun", "tntag", "capture", "bowspleef"], tntGamesStats, "_", true);
+      case "tntgames":
+        let tntGamesStats = playerData["stats"]["TNTGames"] || {};
+        let tntGamesKills = sumStats(["kills"], ["tntrun", "pvprun", "tntag", "capture", "bowspleef"], tntGamesStats, "_", true);
+        let tntGamesDeaths = sumStats(["deaths"], ["tntrun", "pvprun", "tntag", "capture", "bowspleef"], tntGamesStats, "_", true);
 
-      return `TNT Games Stats
+        return `TNT Games Stats
 
 • 🏆 Wins: ${checkAndFormat(tntGamesStats["wins"])}
 
@@ -701,63 +669,36 @@ function getMetaDescription(game, playerData) {
 
 • 🟢 Tokens: ${checkAndFormat(tntGamesStats["coins"])}`;
 
-  case 'uhc':
-    let uhcStats = playerData["stats"]["UHC"] || {};
-    let speedUHCStats = playerData["stats"]["SpeedUHC"] || {};
+      case "uhc":
+        let uhcStats = playerData["stats"]["UHC"] || {};
+        let speedUHCStats = playerData["stats"]["SpeedUHC"] || {};
 
-    let uhcPrefixes = [
-      { req: 0, },
-      { req: 10, },
-      { req: 60, },
-      { req: 210, },
-      { req: 460, },
-      { req: 960, },
-      { req: 1710, },
-      { req: 2710, },
-      { req: 5210, },
-      { req: 10210, },
-      { req: 13210, },
-      { req: 16210, },
-      { req: 19210, },
-      { req: 22210, },
-      { req: 25210, },
-    ]
+        let uhcPrefixes = [{ req: 0 }, { req: 10 }, { req: 60 }, { req: 210 }, { req: 460 }, { req: 960 }, { req: 1710 }, { req: 2710 }, { req: 5210 }, { req: 10210 }, { req: 13210 }, { req: 16210 }, { req: 19210 }, { req: 22210 }, { req: 25210 }];
 
-    let speedUHCPrefixes = [
-      { req: 0 },
-      { req: 50, },
-      { req: 300, },
-      { req: 1050, },
-      { req: 2560, },
-      { req: 5550, },
-      { req: 15550, },
-      { req: 30550, },
-      { req: 55550, },
-      { req: 85550, },
-    ]
+        let speedUHCPrefixes = [{ req: 0 }, { req: 50 }, { req: 300 }, { req: 1050 }, { req: 2560 }, { req: 5550 }, { req: 15550 }, { req: 30550 }, { req: 55550 }, { req: 85550 }];
 
-    let uhcLevel = 0;
-    let speedUHCLevel = 0;
+        let uhcLevel = 0;
+        let speedUHCLevel = 0;
 
-    for (let a = 0; a < uhcPrefixes.length; a++) {
-      if (und(uhcStats["score"]) >= uhcPrefixes[a]["req"]) {
-        uhcLevel = a + 1;
-      } else {
-        break;
-      }
-    }
+        for (let a = 0; a < uhcPrefixes.length; a++) {
+          if (und(uhcStats["score"]) >= uhcPrefixes[a]["req"]) {
+            uhcLevel = a + 1;
+          } else {
+            break;
+          }
+        }
 
-    for (let a = 0; a < speedUHCPrefixes.length; a++) {
-      if (und(speedUHCStats["score"]) >= speedUHCPrefixes[a]["req"]) {
-        speedUHCLevel = a + 1;
-      } else {
-        break;
-      }
-    }
+        for (let a = 0; a < speedUHCPrefixes.length; a++) {
+          if (und(speedUHCStats["score"]) >= speedUHCPrefixes[a]["req"]) {
+            speedUHCLevel = a + 1;
+          } else {
+            break;
+          }
+        }
 
-    uhcUnformattedStats = sumStats(["wins", "kills"], ["_solo", "", "_no_diamonds", "_brawl", "_solo_brawl", "_duo_brawl", "_vanilla_doubles"], uhcStats, "", true); // UHC overall stats (but not Speed UHC overall stats) require summation of multiple keys
+        uhcUnformattedStats = sumStats(["wins", "kills"], ["_solo", "", "_no_diamonds", "_brawl", "_solo_brawl", "_duo_brawl", "_vanilla_doubles"], uhcStats, "", true); // UHC overall stats (but not Speed UHC overall stats) require summation of multiple keys
 
-    return `UHC Stats
+        return `UHC Stats
 
 • 🪙️ Coins: ${checkAndFormat(uhcStats["coins"])}
 
@@ -768,12 +709,12 @@ function getMetaDescription(game, playerData) {
 • 🥕 Speed UHC Level: [${speedUHCLevel}❋]
 • 🏆 Speed UHC Wins: ${checkAndFormat(speedUHCStats["wins"])}
 • 💀 Speed UHC Kills: ${checkAndFormat(speedUHCStats["kills"])}`;
-  case 'warlords':
-    let warlordsStats = playerData["stats"]["Battleground"] || {};
+      case "warlords":
+        let warlordsStats = playerData["stats"]["Battleground"] || {};
 
-    let warlordsGamesPlayed = sumStatsBasic(["mage_plays", "warrior_plays", "paladin_plays", "shaman_plays"], warlordsStats);
+        let warlordsGamesPlayed = sumStatsBasic(["mage_plays", "warrior_plays", "paladin_plays", "shaman_plays"], warlordsStats);
 
-    return `Warlords Stats
+        return `Warlords Stats
 
 • 🏆 Wins: ${checkAndFormat(warlordsStats["wins"])}
 • 💔 Losses: ${checkAndFormat(warlordsGamesPlayed - und(warlordsStats["wins"]))}
@@ -788,78 +729,76 @@ function getMetaDescription(game, playerData) {
 • 🛡️ Team Deathmatch Wins: ${checkAndFormat(warlordsStats["wins_teamdeathmatch"])}
 
 • 🪙 Coins: ${checkAndFormat(warlordsStats["coins"])}`;
-  case 'woolgames':
-
-  function getWoolGamesLevel(exp) {
-    // Calculates a player's Wool Wars level based on their experience stat
-    let level = 100 * Math.floor(exp / 490000) + 1;
-    exp = exp % 490000;
-    if (exp < 1000) return level + exp / 500;
-    level++;
-    if (exp < 3000) return level + (exp - 500) / 1000;
-    level++;
-    if (exp < 6000) return level + (exp - 1500) / 2000;
-    level++;
-    if (exp < 10000) return level + (exp - 3500) / 3500;
-    level++;
-    exp -= 10000;
-    return level + exp / 5000;
-  }
-
-
-  let woolGamesStats = playerData["stats"]["WoolGames"] || {};
-  let woolWarsStats = woolGamesStats["wool_wars"] || {};
-
-  let woolGamesProgression = woolGamesStats["progression"] || {};
-  woolWarsNumericalStats = woolWarsStats["stats"] || {};
-
-  let captureTheWoolStats = woolGamesStats["capture_the_wool"] || {};
-  let captureTheWoolNumericalStats = captureTheWoolStats["stats"] || {};
-
-  let sheepWarsStats = woolGamesStats["sheep_wars"] || {};
-  let sheepWarsNumericalStats = sheepWarsStats["stats"] || {};
-
-  let captureTheWoolStatsObject = {};
-  captureTheWoolStatsObject["wins"] = und(captureTheWoolNumericalStats["participated_wins"] || arcadeStats["woolhunt_participated_wins"]);
-  captureTheWoolStatsObject["losses"] = und(captureTheWoolNumericalStats["participated_losses"] || arcadeStats["woolhunt_participated_losses"]);
-  captureTheWoolStatsObject["kills"] = und(captureTheWoolNumericalStats["kills"] || arcadeStats["woolhunt_kills"]);
-  captureTheWoolStatsObject["deaths"] = und(captureTheWoolNumericalStats["deaths"] || arcadeStats["woolhunt_deaths"]);
-
-  let woolGamesOverallStats = {};
-  woolGamesOverallStats["wins"] = captureTheWoolStatsObject["wins"] + und(woolWarsNumericalStats["wins"]) + und(sheepWarsNumericalStats["wins"]);
-  woolGamesOverallStats["losses"] = captureTheWoolStatsObject["losses"] + und(woolWarsNumericalStats["games_played"]) - und(woolWarsNumericalStats["wins"]) + und(sheepWarsNumericalStats["losses"]);
-  woolGamesOverallStats["kills"] = captureTheWoolStatsObject["kills"] + und(woolWarsNumericalStats["kills"]) + und(sheepWarsNumericalStats["kills"]);
-  woolGamesOverallStats["deaths"] = captureTheWoolStatsObject["deaths"] + und(woolWarsNumericalStats["deaths"]) + und(sheepWarsNumericalStats["deaths"]);
-
-    let woolWarsPrestigeIcons = {
-      HEART: {icon: "❤\uFE0E", minStars: 0 },
-      PLUS: {icon: "✙\uFE0E", minStars: 100 },
-      STAR: {icon: "✫\uFE0E", minStars: 200 },
-      PLANE: {icon: "✈\uFE0E", minStars: 300 },
-      CROSS: {icon: "✠\uFE0E", minStars: 400 },
-      CROWN: {icon: "♕\uFE0E", minStars: 500 },
-      LIGHTNING: {icon: "⚡\uFE0E", minStars: 600 },
-      NUKE: {icon: "☢\uFE0E", minStars: 700 },
-      PENCIL: {icon: "✏\uFE0E", minStars: 900 },
-      YIN_YANG: {icon: "☯\uFE0E", minStars: 1000 },
-    }
-
-    let woolGamesPrestigeIcon;
-    let woolGamesLevel = getWoolGamesLevel(und(woolGamesProgression["experience"]));
-
-    if(woolGamesStats["wool_wars_prestige_icon"] != undefined) {
-      selectedWoolGamesPrestige = woolWarsPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolWarsPrestigeIcons["HEART"];
-      woolGamesPrestigeIcon = selectedWoolGamesPrestige["icon"];
-    } else {
-      // Use the prestige icon based on the user's level (minStars)
-      for (const [key, value] of Object.entries(woolWarsPrestigeIcons)) {
-        if(woolGamesLevel >= value["minStars"]) {
-          woolGamesPrestigeIcon = value["icon"];
+      case "woolgames":
+        function getWoolGamesLevel(exp) {
+          // Calculates a player's Wool Wars level based on their experience stat
+          let level = 100 * Math.floor(exp / 490000) + 1;
+          exp = exp % 490000;
+          if (exp < 1000) return level + exp / 500;
+          level++;
+          if (exp < 3000) return level + (exp - 500) / 1000;
+          level++;
+          if (exp < 6000) return level + (exp - 1500) / 2000;
+          level++;
+          if (exp < 10000) return level + (exp - 3500) / 3500;
+          level++;
+          exp -= 10000;
+          return level + exp / 5000;
         }
-      }
-    }
 
-    return `Wool Games Stats
+        let woolGamesStats = playerData["stats"]["WoolGames"] || {};
+        let woolWarsStats = woolGamesStats["wool_wars"] || {};
+
+        let woolGamesProgression = woolGamesStats["progression"] || {};
+        woolWarsNumericalStats = woolWarsStats["stats"] || {};
+
+        let captureTheWoolStats = woolGamesStats["capture_the_wool"] || {};
+        let captureTheWoolNumericalStats = captureTheWoolStats["stats"] || {};
+
+        let sheepWarsStats = woolGamesStats["sheep_wars"] || {};
+        let sheepWarsNumericalStats = sheepWarsStats["stats"] || {};
+
+        let captureTheWoolStatsObject = {};
+        captureTheWoolStatsObject["wins"] = und(captureTheWoolNumericalStats["participated_wins"] || arcadeStats["woolhunt_participated_wins"]);
+        captureTheWoolStatsObject["losses"] = und(captureTheWoolNumericalStats["participated_losses"] || arcadeStats["woolhunt_participated_losses"]);
+        captureTheWoolStatsObject["kills"] = und(captureTheWoolNumericalStats["kills"] || arcadeStats["woolhunt_kills"]);
+        captureTheWoolStatsObject["deaths"] = und(captureTheWoolNumericalStats["deaths"] || arcadeStats["woolhunt_deaths"]);
+
+        let woolGamesOverallStats = {};
+        woolGamesOverallStats["wins"] = captureTheWoolStatsObject["wins"] + und(woolWarsNumericalStats["wins"]) + und(sheepWarsNumericalStats["wins"]);
+        woolGamesOverallStats["losses"] = captureTheWoolStatsObject["losses"] + und(woolWarsNumericalStats["games_played"]) - und(woolWarsNumericalStats["wins"]) + und(sheepWarsNumericalStats["losses"]);
+        woolGamesOverallStats["kills"] = captureTheWoolStatsObject["kills"] + und(woolWarsNumericalStats["kills"]) + und(sheepWarsNumericalStats["kills"]);
+        woolGamesOverallStats["deaths"] = captureTheWoolStatsObject["deaths"] + und(woolWarsNumericalStats["deaths"]) + und(sheepWarsNumericalStats["deaths"]);
+
+        let woolWarsPrestigeIcons = {
+          HEART: { icon: "❤\uFE0E", minStars: 0 },
+          PLUS: { icon: "✙\uFE0E", minStars: 100 },
+          STAR: { icon: "✫\uFE0E", minStars: 200 },
+          PLANE: { icon: "✈\uFE0E", minStars: 300 },
+          CROSS: { icon: "✠\uFE0E", minStars: 400 },
+          CROWN: { icon: "♕\uFE0E", minStars: 500 },
+          LIGHTNING: { icon: "⚡\uFE0E", minStars: 600 },
+          NUKE: { icon: "☢\uFE0E", minStars: 700 },
+          PENCIL: { icon: "✏\uFE0E", minStars: 900 },
+          YIN_YANG: { icon: "☯\uFE0E", minStars: 1000 },
+        };
+
+        let woolGamesPrestigeIcon;
+        let woolGamesLevel = getWoolGamesLevel(und(woolGamesProgression["experience"]));
+
+        if (woolGamesStats["wool_wars_prestige_icon"] != undefined) {
+          selectedWoolGamesPrestige = woolWarsPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolWarsPrestigeIcons["HEART"];
+          woolGamesPrestigeIcon = selectedWoolGamesPrestige["icon"];
+        } else {
+          // Use the prestige icon based on the user's level (minStars)
+          for (const [key, value] of Object.entries(woolWarsPrestigeIcons)) {
+            if (woolGamesLevel >= value["minStars"]) {
+              woolGamesPrestigeIcon = value["icon"];
+            }
+          }
+        }
+
+        return `Wool Games Stats
 
 • ⭐ Level: [${Math.floor(woolGamesLevel)}${woolGamesPrestigeIcon}]
 
@@ -877,62 +816,63 @@ function getMetaDescription(game, playerData) {
 
 • 🧶 Wool: ${checkAndFormat(woolGamesStats["coins"])}`;
 
-  default:
-    let playerOnline;
-    let playerStatus = playerData["status"] || {};
+      default:
+        let playerOnline;
+        let playerStatus = playerData["status"] || {};
 
-    if(playerStatus["online"]) {
-      playerOnline = "🟢 Online!";
-    } else {
-      playerOnline = "🔴 Offline";
-    }
+        if (playerStatus["online"]) {
+          playerOnline = "🟢 Online!";
+        } else {
+          playerOnline = "🔴 Offline";
+        }
 
-    return `${playerOnline}
+        return `${playerOnline}
 
-• 🌐 Network Level: ${(playerData["profile"]["network_level"]).toFixed(2)}
+• 🌐 Network Level: ${playerData["profile"]["network_level"].toFixed(2)}
 • 📜 Quests Completed: ${checkAndFormat(playerData["profile"]["quests_completed"])}
 • ☮️ Karma: ${checkAndFormat(playerData["profile"]["karma"])}
 • 🏆 Achievement Points: ${checkAndFormat(playerData["profile"]["achievement_points"])}
 • 🎁 Ranks Gifted: ${checkAndFormat(playerData["profile"]["ranks_gifted"])}`;
 
-    case 'fishing':
-      let fishingStats = getValue(playerData, ["stats", "MainLobby", "fishing"]) || {};
+      case "fishing":
+        let fishingStats = getValue(playerData, ["stats", "MainLobby", "fishing"]) || {};
 
-      const getTotalCaught = (stats, category) => {
-        const environments = ["water", "lava", "ice"];
-        return environments.reduce((total, env) => {
-          return total + und(getValue(stats, ["stats", "permanent", env, category]));
-        }, 0);
-      };
+        const getTotalCaught = (stats, category) => {
+          const environments = ["water", "lava", "ice"];
+          return environments.reduce((total, env) => {
+            return total + und(getValue(stats, ["stats", "permanent", env, category]));
+          }, 0);
+        };
 
-      const overallFishCaught = getTotalCaught(fishingStats, "fish");
-      const overallJunkCaught = getTotalCaught(fishingStats, "junk");
-      const overallTreasureCaught = getTotalCaught(fishingStats, "treasure");
+        const overallFishCaught = getTotalCaught(fishingStats, "fish");
+        const overallJunkCaught = getTotalCaught(fishingStats, "junk");
+        const overallTreasureCaught = getTotalCaught(fishingStats, "treasure");
 
-      const orbs = ["helios", "selene", "nyx", "aphrodite", "zeus", "archimedes", "hades"];
+        const orbs = ["helios", "selene", "nyx", "aphrodite", "zeus", "archimedes", "hades"];
 
-  function getMythicalFishCount(orb) {
-    const path = ["orbs", orb];
-    const value = getValue(fishingStats, path);
-    return und(value);
-  }
+        function getMythicalFishCount(orb) {
+          const path = ["orbs", orb];
+          const value = getValue(fishingStats, path);
+          return und(value);
+        }
 
-  const mythicalFishCounts = orbs.map(getMythicalFishCount);
-  const overallMythicalFishCaught = mythicalFishCounts.reduce((sum, count) => sum + count, 0);
+        const mythicalFishCounts = orbs.map(getMythicalFishCount);
+        const overallMythicalFishCaught = mythicalFishCounts.reduce((sum, count) => sum + count, 0);
 
-  let playerSpecialFish = fishingStats["special_fish"] || [];
+        let playerSpecialFish = fishingStats["special_fish"] || [];
 
-  let specialFishCount = 0;
+        let specialFishCount = 0;
 
-  for (let key in playerSpecialFish) {
-    if (playerSpecialFish[key] && key != "mahi-mahi") { // mahi-mahi is in the API two times (once as mahi-mahi and once as mahi_mahi)
-      specialFishCount++;
-    }
-  }
+        for (let key in playerSpecialFish) {
+          if (playerSpecialFish[key] && key != "mahi-mahi") {
+            // mahi-mahi is in the API two times (once as mahi-mahi and once as mahi_mahi)
+            specialFishCount++;
+          }
+        }
 
-  let maxSpecialFish = 44;
+        let maxSpecialFish = 44;
 
-  return `Fishing Stats
+        return `Fishing Stats
 • 📦 Items Caught: ${checkAndFormat(und(overallFishCaught) + und(overallJunkCaught) + und(overallTreasureCaught) + und(overallMythicalFishCaught) + specialFishCount)}
 
 • 🐟 Fish Caught: ${checkAndFormat(overallFishCaught)}
@@ -942,13 +882,13 @@ function getMetaDescription(game, playerData) {
 
 • 🎣 Special Fish Caught: ${checkAndFormat(specialFishCount)}/${maxSpecialFish}`;
 
-  case 'guild': {
-    let guildDescription = playerData["description"] || "No description";
-    if (guildDescription != null) {
-      guildDescription = `“${guildDescription}”`;
-    }
+      case "guild": {
+        let guildDescription = playerData["description"] || "No description";
+        if (guildDescription != null) {
+          guildDescription = `“${guildDescription}”`;
+        }
 
-    return `${guildDescription}
+        return `${guildDescription}
 
 Guild Stats
 
@@ -956,187 +896,182 @@ Guild Stats
 • 👥 Members: ${checkAndFormat(playerData["members"].length)}
 • 📆 Created: ${shortDateFormat(playerData["created"])} ${relativeTime(playerData["created"])}
 `;
-  }
-  case 'achievements': {
-    let playerTieredAchievements = getValue(playerData, ["player", "achievements"]) || {};
-    let playerOneTimeAchievements = getValue(playerData, ["player", "achievements_one_time"]) || [];
-    let globalAchievements = getValue(playerData, ["global", "achievements"]) || {};
-
-    let achievementGames = ["arcade", "arena", "bedwars", "blitz", "buildbattle", "christmas2017", "copsandcrims", "duels", "easter", "general", "gingerbread", "halloween2017", "housing", "murdermystery", "paintball", "pit", "quake", "skyblock", /*"skyclash",*/ "skywars", "speeduhc", "summer", "supersmash", "tntgames", /*"truecombat",*/ "uhc", "vampirez", "walls", "walls3", "warlords", "woolgames"];
-
-    let achievementNames = {
-      "arcade": "🕹️ Arcade",
-      "arena": "🏟️ Arena Brawl",
-      "bedwars": "🛏️ Bed Wars",
-      "blitz": "💫 Blitz",
-      "buildbattle": "🛠️ Build Battle",
-      "copsandcrims": "🚔 Cops and Crims",
-      "truecombat": "🪙 Crazy Walls",
-      "duels": "⚔️ Duels",
-      "easter": "🐰 Easter",
-      "general": "⭐ General",
-      "christmas2017": "🎁 Holiday",
-      "halloween2017": "🎃 Halloween",
-      "housing": "🏠 Housing",
-      "walls3": "💀 Mega Walls",
-      "murdermystery": "🔪 Murder Mystery",
-      "paintball": "🎨 Paintball",
-      "pit": "🕳️ Pit",
-      "quake": "💥 Quakecraft",
-      "skyblock": "🏝️ SkyBlock",
-      "skyclash": "☀️ SkyClash",
-      "skywars": "🌌 SkyWars",
-      "speeduhc": "🥕 Speed UHC",
-      "summer": "☀️ Summer",
-      "supersmash": "🥊 Smash Heroes",
-      "tntgames": "🧨 TNT Games",
-      "gingerbread": "🏎️ Turbo Kart Racers",
-      "uhc": "🍎 UHC",
-      "vampirez": "🧛 VampireZ",
-      "walls": "🏰 Walls",
-      "warlords": "⚔️ Warlords",
-      "woolgames": "🧶 Wool Games"
-    }
-
-    let maxedGames = [];
-
-    let achievementStatistics = {
-      "points": 0,
-      "achievements": 0,
-      "global_points": 0,
-      "global_achievements": 0,
-      "legacy_points": 0,
-      "legacy_achievements": 0,
-
-      "games": {
       }
-    }
+      case "achievements": {
+        let playerTieredAchievements = getValue(playerData, ["player", "achievements"]) || {};
+        let playerOneTimeAchievements = getValue(playerData, ["player", "achievements_one_time"]) || [];
+        let globalAchievements = getValue(playerData, ["global", "achievements"]) || {};
 
-    let achievementGamesArray = [];
+        let achievementGames = ["arcade", "arena", "bedwars", "blitz", "buildbattle", "christmas2017", "copsandcrims", "duels", "easter", "general", "gingerbread", "halloween2017", "housing", "murdermystery", "paintball", "pit", "quake", "skyblock", /*"skyclash",*/ "skywars", "speeduhc", "summer", "supersmash", "tntgames", /*"truecombat",*/ "uhc", "vampirez", "walls", "walls3", "warlords", "woolgames"];
 
-    for (let a = 0; a < achievementGames.length; a++) {
-      let achievementGame = achievementGames[a];
-      let gameObject = {
-        "points": 0,
-        "achievements": 0,
-        "global_points": 0,
-        "global_achievements": 0,
-        "legacy_points": 0,
-        "legacy_achievements": 0,
-        "progress_achievements": 0,
-      };
+        let achievementNames = {
+          arcade: "🕹️ Arcade",
+          arena: "🏟️ Arena Brawl",
+          bedwars: "🛏️ Bed Wars",
+          blitz: "💫 Blitz",
+          buildbattle: "🛠️ Build Battle",
+          copsandcrims: "🚔 Cops and Crims",
+          truecombat: "🪙 Crazy Walls",
+          duels: "⚔️ Duels",
+          easter: "🐰 Easter",
+          general: "⭐ General",
+          christmas2017: "🎁 Holiday",
+          halloween2017: "🎃 Halloween",
+          housing: "🏠 Housing",
+          walls3: "💀 Mega Walls",
+          murdermystery: "🔪 Murder Mystery",
+          paintball: "🎨 Paintball",
+          pit: "🕳️ Pit",
+          quake: "💥 Quakecraft",
+          skyblock: "🏝️ SkyBlock",
+          skyclash: "☀️ SkyClash",
+          skywars: "🌌 SkyWars",
+          speeduhc: "🥕 Speed UHC",
+          summer: "☀️ Summer",
+          supersmash: "🥊 Smash Heroes",
+          tntgames: "🧨 TNT Games",
+          gingerbread: "🏎️ Turbo Kart Racers",
+          uhc: "🍎 UHC",
+          vampirez: "🧛 VampireZ",
+          walls: "🏰 Walls",
+          warlords: "⚔️ Warlords",
+          woolgames: "🧶 Wool Games",
+        };
 
-      achievementStatistics["games"][achievementGame] = {};
+        let maxedGames = [];
 
-      let gameAchievements = getValue(globalAchievements, [achievementGame]);
-      let gameOneTimeAchievements = getValue(gameAchievements, ["one_time"]);
-      let gameTieredAchievements = getValue(gameAchievements, ["tiered"]);
+        let achievementStatistics = {
+          points: 0,
+          achievements: 0,
+          global_points: 0,
+          global_achievements: 0,
+          legacy_points: 0,
+          legacy_achievements: 0,
 
-      for (let key in gameOneTimeAchievements) {
-        let achievement = gameOneTimeAchievements[key];
+          games: {},
+        };
 
-        key = key.toLowerCase();
+        let achievementGamesArray = [];
 
-        if (achievement["legacy"]) {
-          // TODO
-        } else {
-          if (playerOneTimeAchievements.includes(`${achievementGame}_${key}`)) {
-            gameObject["achievements"]++;
-            gameObject["points"] += achievement["points"];
-            achievementStatistics["achievements"]++;
-            achievementStatistics["points"] += achievement["points"];
-          }
-          gameObject["global_achievements"]++;
-          gameObject["global_points"] += achievement["points"];
-          achievementStatistics["global_achievements"]++;
-          achievementStatistics["global_points"] += achievement["points"];
-        }
-      }
+        for (let a = 0; a < achievementGames.length; a++) {
+          let achievementGame = achievementGames[a];
+          let gameObject = {
+            points: 0,
+            achievements: 0,
+            global_points: 0,
+            global_achievements: 0,
+            legacy_points: 0,
+            legacy_achievements: 0,
+            progress_achievements: 0,
+          };
 
-      for (let key in gameTieredAchievements) {
-        let achievement = gameTieredAchievements[key];
+          achievementStatistics["games"][achievementGame] = {};
 
-        if (achievement["legacy"]) {
-          // TODO
-        } else {
+          let gameAchievements = getValue(globalAchievements, [achievementGame]);
+          let gameOneTimeAchievements = getValue(gameAchievements, ["one_time"]);
+          let gameTieredAchievements = getValue(gameAchievements, ["tiered"]);
 
-        let playerAchievement = und(playerTieredAchievements[achievementGame + "_" + key.toLowerCase()]);
+          for (let key in gameOneTimeAchievements) {
+            let achievement = gameOneTimeAchievements[key];
 
+            key = key.toLowerCase();
 
-        for (let a = 0; a < achievement["tiers"].length; a++) {
-          let tier = achievement["tiers"][a];
-          if (playerAchievement >= tier["amount"]) {
-            gameObject["achievements"]++;
-            gameObject["points"] += tier["points"];
-            achievementStatistics["achievements"]++;
-            achievementStatistics["points"] += tier["points"];
+            if (achievement["legacy"]) {
+              // TODO
+            } else {
+              if (playerOneTimeAchievements.includes(`${achievementGame}_${key}`)) {
+                gameObject["achievements"]++;
+                gameObject["points"] += achievement["points"];
+                achievementStatistics["achievements"]++;
+                achievementStatistics["points"] += achievement["points"];
+              }
+              gameObject["global_achievements"]++;
+              gameObject["global_points"] += achievement["points"];
+              achievementStatistics["global_achievements"]++;
+              achievementStatistics["global_points"] += achievement["points"];
+            }
           }
 
-          gameObject["global_achievements"]++;
-          gameObject["global_points"] += tier["points"];
-          achievementStatistics["global_achievements"]++;
-          achievementStatistics["global_points"] += tier["points"];
+          for (let key in gameTieredAchievements) {
+            let achievement = gameTieredAchievements[key];
+
+            if (achievement["legacy"]) {
+              // TODO
+            } else {
+              let playerAchievement = und(playerTieredAchievements[achievementGame + "_" + key.toLowerCase()]);
+
+              for (let a = 0; a < achievement["tiers"].length; a++) {
+                let tier = achievement["tiers"][a];
+                if (playerAchievement >= tier["amount"]) {
+                  gameObject["achievements"]++;
+                  gameObject["points"] += tier["points"];
+                  achievementStatistics["achievements"]++;
+                  achievementStatistics["points"] += tier["points"];
+                }
+
+                gameObject["global_achievements"]++;
+                gameObject["global_points"] += tier["points"];
+                achievementStatistics["global_achievements"]++;
+                achievementStatistics["global_points"] += tier["points"];
+              }
+            }
+          }
+
+          gameObject["progress_achievements"] = und(gameObject["achievements"] / gameObject["global_achievements"]);
+          gameObject["game"] = achievementGame;
+          if (gameObject["progress_achievements"] == 1) {
+            maxedGames.push(achievementNames[achievementGame]);
+          } else {
+            achievementGamesArray.push(gameObject);
+          }
+
+          achievementStatistics["games"][achievementGame] = gameObject;
         }
-      }
-    }
 
-      gameObject["progress_achievements"] = und(gameObject["achievements"] / gameObject["global_achievements"]);
-      gameObject["game"] = achievementGame;
-      if (gameObject["progress_achievements"] == 1) {
-        maxedGames.push(achievementNames[achievementGame]);
-      } else {
-        achievementGamesArray.push(gameObject);
-      }
+        // sort achievementGamesArray by points
+        achievementGamesArray.sort((a, b) => b["progress_achievements"] - a["progress_achievements"]);
 
-      achievementStatistics["games"][achievementGame] = gameObject;
-    }
+        let achievementGamesString = "";
 
-    // sort achievementGamesArray by points
-    achievementGamesArray.sort((a, b) => b["progress_achievements"] - a["progress_achievements"]);
+        for (let a = 0; a < Math.min(achievementGamesArray.length, 5); a++) {
+          let gameObject = achievementGamesArray[a];
+          if (gameObject) {
+            achievementGamesString += `• ${achievementNames[gameObject["game"]]}: ${gameObject["achievements"]} / ${gameObject["global_achievements"]} (${checkAndFormat(gameObject["progress_achievements"] * 100, 1)}%)\n`;
+          }
+        }
 
-    let achievementGamesString = "";
-
-    for (let a = 0; a < Math.min(achievementGamesArray.length, 5); a++) {
-      let gameObject = achievementGamesArray[a];
-      if (gameObject) {
-        achievementGamesString += `• ${achievementNames[gameObject["game"]]}: ${gameObject["achievements"]} / ${gameObject["global_achievements"]} (${checkAndFormat(gameObject["progress_achievements"] * 100, 1)}%)\n`;
-      }
-    }
-
-
-    return `Achievements Stats
+        return `Achievements Stats
 
 • 🏆 Achievement Points: ${checkAndFormat(achievementStatistics["points"])} / ${checkAndFormat(achievementStatistics["global_points"])}
 • 🌟 Achievements: ${checkAndFormat(achievementStatistics["achievements"])} / ${checkAndFormat(achievementStatistics["global_achievements"])}
 • 🌠 Maxed Games: ${maxedGames.join(", ") || "None"}
 
 ${achievementGamesString}`;
+      }
+      case "quests": {
+        return `View your quest stats on nadeshiko!`;
+      }
+      case "leaderboards": {
+        return `🥇 Check out the top players in over one hundred categories using nadeshiko's leaderboards!`;
+      }
+      case "skyblock": {
+        return `View your SkyBlock stats on nadeshiko!`;
+      }
+    }
   }
-  case 'quests': {
-    return `View your quest stats on nadeshiko!`
-  }
-  case 'leaderboards': {
-    return `🥇 Check out the top players in over one hundred categories using nadeshiko's leaderboards!`
-  }
-  case 'skyblock': {
-    return `View your SkyBlock stats on nadeshiko!`
-  }
+}
 
-
-}}}
-
-app.get('/player/:name/:game?', async (req, res) => {
+app.get("/player/:name/:game?", async (req, res) => {
   const name = req.params.name;
 
   computationError = {
     message: ``,
     player: ``,
     category: ``,
-    page: ``
+    page: ``,
   };
 
   try {
-
     let game = req.params.game;
     if (game) {
       game = game.toLowerCase();
@@ -1150,53 +1085,58 @@ app.get('/player/:name/:game?', async (req, res) => {
       }
     }
 
-       const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
-       let playerData = response.data;
+    const response = await axios.get(`http://localhost:2000/stats?name=${name}`);
+    let playerData = response.data;
 
-       let metaImageURL, metaDescription;
-       if (playerData && playerData["profile"]) { // If the player data is available
-          metaDescription = getMetaDescription(game, playerData);
+    let metaImageURL, metaDescription;
+    if (playerData && playerData["profile"]) {
+      // If the player data is available
+      metaDescription = getMetaDescription(game, playerData);
 
-          if (cardSupportedGames.includes(game)) { // Check if the game is supported by the card generator
+      if (cardSupportedGames.includes(game)) {
+        // Check if the game is supported by the card generator
 
-            metaImageURL = `https://nadeshiko.io/card/${Buffer.from(`{"name":"${playerData["name"]}","game":"${game.toUpperCase()}","size":"FULL"}`).toString('base64')}`;
-          } else { // If there's no game is not valid or supported, default to NETWORK
-            metaImageURL = `https://nadeshiko.io/card/${Buffer.from(`{"name":"${playerData["name"]}","game":"NETWORK","size":"FULL"}`).toString('base64')}`;
-          }
-        } else { // If the player data is not available, don't show a card and show a default description
-          metaImageURL = ``;
-          metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
-        }
-
-       res.render('player', { name, playerData, game, metaImageURL, metaDescription, version });
-   } catch(error) {
-      if(error.response && error.response.status == 404) {
-        computationError = {
-          message: `No player by the name of ${name} was found :(`,
-          player: name,
-          category: "404",
-          page: "player"
-        };
+        metaImageURL = `https://nadeshiko.io/card/${Buffer.from(`{"name":"${playerData["name"]}","game":"${game.toUpperCase()}","size":"FULL"}`).toString("base64")}`;
       } else {
-        computationError = {
-          message: `Could not find stats of player ${name} (${error})`,
-          player: name,
-          error: error["message"],
-          category: "computation",
-          "page": "player"
-        };
-        console.error("Fetching player data failed! → ", error);
+        // If there's no game is not valid or supported, default to NETWORK
+        metaImageURL = `https://nadeshiko.io/card/${Buffer.from(`{"name":"${playerData["name"]}","game":"NETWORK","size":"FULL"}`).toString("base64")}`;
       }
-      res.render('index', { computationError, version });
-   }
+    } else {
+      // If the player data is not available, don't show a card and show a default description
+      metaImageURL = ``;
+      metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+    }
+
+    res.render("player", { name, playerData, game, metaImageURL, metaDescription, version });
+  } catch (error) {
+    if (error.response && error.response.status == 404) {
+      computationError = {
+        message: `No player by the name of ${name} was found :(`,
+        player: name,
+        category: "404",
+        page: "player",
+      };
+    } else {
+      computationError = {
+        message: `Could not find stats of player ${name} (${error})`,
+        player: name,
+        error: error["message"],
+        category: "computation",
+        page: "player",
+      };
+      console.error("Fetching player data failed! → ", error);
+    }
+    res.render("index", { computationError, version });
+  }
 });
 
 app.use((req, res, next) => {
   const host = req.headers.host;
-  const subdomain = host.split('.')[0];
+  const subdomain = host.split(".")[0];
 
-  if (subdomain === 'skyblock') { // Middleware handling for /skyblock subdomain. I'm not using express-subdomain because I couldn't get it to work (is she stupid??)
-    let paths = req.path.split('/').filter(pathSegment => pathSegment !== "");
+  if (subdomain === "skyblock") {
+    // Middleware handling for /skyblock subdomain. I'm not using express-subdomain because I couldn't get it to work (is she stupid??)
+    let paths = req.path.split("/").filter((pathSegment) => pathSegment !== "");
     console.log(paths);
     let name = paths[0] || "";
     handleSkyBlockRoute(name, req, res);
@@ -1205,274 +1145,272 @@ app.use((req, res, next) => {
   }
 });
 
-  const handleSkyBlockRoute = async (name, req, res) => {
-
-    computationError = {
-      message: ``,
-      player: ``,
-      category: ``,
-      page: ``
-    };
-
-    try {
-
-        const response = await axios.get(`http://localhost:2000/skyblock?name=${name}`);
-        let skyblockData = response.data;
-
-        let metaDescription;
-        if (skyblockData && skyblockData["profile"]) { // If the player data is available
-            metaDescription = getMetaDescription("skyblock");
-
-          } else { // If the player data is not available, don't show a card and show a default description
-            metaImageURL = ``;
-            metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
-          }
-
-        res.render('skyblock', { name, skyblockData, metaDescription, version });
-    } catch(error) {
-        if(error.response && error.response.status == 404) {
-          computationError = {
-            message: `No player by the name of ${name} was found :(`,
-            player: name,
-            category: "404",
-            page: "skyblock"
-          };
-        } else {
-          computationError = {
-            message: `Could not find SkyBlock stats of player ${name} (${error})`,
-            player: name,
-            error: error["message"],
-            category: "computation",
-            "page": "skyblock"
-          };
-          console.error("Fetching player data failed! → ", error);
-        }
-        res.render('index', { computationError, version });
-    }
+const handleSkyBlockRoute = async (name, req, res) => {
+  computationError = {
+    message: ``,
+    player: ``,
+    category: ``,
+    page: ``,
   };
 
-  app.get('/skyblock/:name?', async (req, res) => {
-    const name = req.params.name;
-    handleSkyBlockRoute(name, req, res);
-  });
+  try {
+    const response = await axios.get(`http://localhost:2000/skyblock?name=${name}`);
+    let skyblockData = response.data;
 
-
-  app.get('/isnadeshikodown', (req, res) => {
-    res.send('No (probably)');
-  });
-
-  app.get('/card/:base64', async (req, res) => {
-    try {
-      const { base64 } = req.params;
-
-      const targetUrl = `http://localhost:2000/card/${encodeURIComponent(base64)}`;
-
-      // Use axios to forward the request
-      const response = await axios.get(targetUrl, {
-        responseType: 'arraybuffer', // Important for images/binary content
-      });
-
-      // Forward the headers and status code from the response, and then...
-      res.set(response.headers);
-      res.status(response.status);
-
-      // Send back the response data!
-      res.send(response.data);
-    } catch (error) {
-      // Error handling
-      if(error.response && error.response.status == 404) {
-        console.error('404: Player not found');
-      } else {
-        console.error('Error forwarding the request:', error);
-      }
-      res.status(500).send('Error forwarding request: '  + error);
+    let metaDescription;
+    if (skyblockData && skyblockData["profile"]) {
+      // If the player data is available
+      metaDescription = getMetaDescription("skyblock");
+    } else {
+      // If the player data is not available, don't show a card and show a default description
+      metaImageURL = ``;
+      metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
     }
-});
 
-  app.get('/guild/:name?', async (req, res) => {
-    const name = req.params.name;
-
-    computationError = {
-      message: ``,
-      player: ``,
-      category: ``,
-      page: ``
-    };
-
-    try {
-
-        const response = await axios.get(`http://localhost:2000/guild?name=${name}`);
-        let guildData = response.data;
-
-        let metaDescription;
-        if (guildData) { // If the guild data is available
-          metaDescription = getMetaDescription("guild", guildData);
-        } else { // If the player data is not available, don't show a card and show a default description
-          metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
-        }
-
-        res.render('guild', { name, guildData, metaDescription, version });
-
-     } catch(error) {
-      try {
-        const response = await axios.get(`http://localhost:2000/guild?player=${name}`);
-        let guildData = response.data;
-
-        let metaDescription;
-        if (guildData) { // If the guild data is available
-          metaDescription = getMetaDescription("guild", guildData);
-        } else { // If the player data is not available, don't show a card and show a default description
-          metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
-        }
-
-        res.render('guild', { name, guildData, metaDescription, version });
-      } catch(error) {
-        computationError = {
-          message: `Could not find guild with name ${name} (${error})`,
-          player: name,
-          error: error["message"],
-          category: "computation",
-          page: "guild"
-        };
-        console.error("Fetching guild data failed! → ", error);
-        res.render('index', { computationError, version });
-     }
-    }
-  });
-
-  app.get('/achievements/:name/:game?', async (req, res) => {
-    const name = req.params.name;
-
-
-    computationError = {
-      message: ``,
-      player: ``,
-      category: ``,
-      page: ``
-    };
-
-    try {
-
-        let game = req.params.game;
-        if (game) {
-          game = game.toLowerCase();
-
-          // Check if the specified game name is an alias
-          for (let key in gameAliasesAchievements) {
-            if (gameAliasesAchievements[key].includes(game)) {
-              game = key;
-              break;
-            }
-          }
-        }
-
-        const response = await axios.get(`http://localhost:2000/achievements?name=${name}`);
-        let achievementsData = response.data;
-
-        if (achievementsData["player"]["profile"] == null) {
-          throw new Error("Player has no Hypixel stats");
-        }
-
-        let metaDescription;
-        if (achievementsData) { // If the guild data is available
-          metaDescription = getMetaDescription("achievements", achievementsData);
-        } else { // If the achievements data is not available, show a default description
-          metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
-        }
-
-        res.render('achievements', { name, achievementsData, game, metaDescription, version });
-
-     } catch(error) {
-        computationError = {
-          message: `Could not find achievement stats of player ${name} (${error})`,
-          player: name,
-          error: error["message"],
-          category: "computation",
-          page: "achievements"
-        };
-        console.error("Fetching achievements data failed! → ", error);
-        res.render('index', { computationError, version });
-     }
-
-  });
-
-  app.get('/quests/:name?', async (req, res) => {
-    const name = req.params.name;
-
-    computationError = {
-      message: ``,
-      player: ``,
-      category: ``,
-      page: ``
-    };
-
-    try {
-        const response = await axios.get(`http://localhost:2000/quests?name=${name}`);
-        let questsData = response.data;
-
-        if (questsData["player"]["profile"] == null) {
-          throw new Error("Player has no Hypixel stats");
-        }
-
-        let metaDescription;
-        if (questsData) { // If the guild data is available
-          metaDescription = getMetaDescription("quests", questsData);
-        } else { // If the quests data is not available, show a default description
-          metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
-        }
-
-        res.render('quests', { name, questsData, metaDescription, version });
-
-     } catch(error) {
-        computationError = {
-          message: `Could not find quests stats of player ${name} (${error})`,
-          player: name,
-          error: error["message"],
-          category: "computation",
-          page: "quests"
-        };
-        console.error("Fetching quests data failed! → ", error);
-        res.render('index', { computationError, version });
-     }
-
-  });
-
-  app.get('/leaderboard', async (req, res) => {
-    const leaderboardType = req.query.leaderboard || 'NETWORK_LEVEL';
-    const page = req.query.page || 1;
-
-    try {
-        const backendUrl = `http://localhost:2000/leaderboard?leaderboard=${leaderboardType}&page=${page}`;
-        const response = await axios.get(backendUrl);
-
-        res.json(response.data);
-    } catch (error) {
-        console.error('Error fetching data from backend:', error);
-        res.status(500).send('Internal server error');
-    }
-  });
-
-  app.get('/leaderboards', async (req, res) => {
-    res.render('leaderboards', { version });
-  });
-
-  app.get('/:name/:game?', (req, res) => {
-    const { name, game } = req.params;
-
-    if (/[^A-Za-z0-9_-]/.test(name)) {
+    res.render("skyblock", { name, skyblockData, metaDescription, version });
+  } catch (error) {
+    if (error.response && error.response.status == 404) {
       computationError = {
         message: `No player by the name of ${name} was found :(`,
         player: name,
         category: "404",
-        page: "player"
+        page: "skyblock",
       };
-
-      res.render('index', { computationError, version });
     } else {
-      res.redirect(`/player/${name}/${game == undefined ? '' : game}`);
+      computationError = {
+        message: `Could not find SkyBlock stats of player ${name} (${error})`,
+        player: name,
+        error: error["message"],
+        category: "computation",
+        page: "skyblock",
+      };
+      console.error("Fetching player data failed! → ", error);
     }
-  });
+    res.render("index", { computationError, version });
+  }
+};
 
-  app.listen(port, () => {
-    console.log(`Listening at https://localhost:${port}!`);
-  });
+app.get("/skyblock/:name?", async (req, res) => {
+  const name = req.params.name;
+  handleSkyBlockRoute(name, req, res);
+});
+
+app.get("/isnadeshikodown", (req, res) => {
+  res.send("No (probably)");
+});
+
+app.get("/card/:base64", async (req, res) => {
+  try {
+    const { base64 } = req.params;
+
+    const targetUrl = `http://localhost:2000/card/${encodeURIComponent(base64)}`;
+
+    // Use axios to forward the request
+    const response = await axios.get(targetUrl, {
+      responseType: "arraybuffer", // Important for images/binary content
+    });
+
+    // Forward the headers and status code from the response, and then...
+    res.set(response.headers);
+    res.status(response.status);
+
+    // Send back the response data!
+    res.send(response.data);
+  } catch (error) {
+    // Error handling
+    if (error.response && error.response.status == 404) {
+      console.error("404: Player not found");
+    } else {
+      console.error("Error forwarding the request:", error);
+    }
+    res.status(500).send("Error forwarding request: " + error);
+  }
+});
+
+app.get("/guild/:name?", async (req, res) => {
+  const name = req.params.name;
+
+  computationError = {
+    message: ``,
+    player: ``,
+    category: ``,
+    page: ``,
+  };
+
+  try {
+    const response = await axios.get(`http://localhost:2000/guild?name=${name}`);
+    let guildData = response.data;
+
+    let metaDescription;
+    if (guildData) {
+      // If the guild data is available
+      metaDescription = getMetaDescription("guild", guildData);
+    } else {
+      // If the player data is not available, don't show a card and show a default description
+      metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+    }
+
+    res.render("guild", { name, guildData, metaDescription, version });
+  } catch (error) {
+    try {
+      const response = await axios.get(`http://localhost:2000/guild?player=${name}`);
+      let guildData = response.data;
+
+      let metaDescription;
+      if (guildData) {
+        // If the guild data is available
+        metaDescription = getMetaDescription("guild", guildData);
+      } else {
+        // If the player data is not available, don't show a card and show a default description
+        metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+      }
+
+      res.render("guild", { name, guildData, metaDescription, version });
+    } catch (error) {
+      computationError = {
+        message: `Could not find guild with name ${name} (${error})`,
+        player: name,
+        error: error["message"],
+        category: "computation",
+        page: "guild",
+      };
+      console.error("Fetching guild data failed! → ", error);
+      res.render("index", { computationError, version });
+    }
+  }
+});
+
+app.get("/achievements/:name/:game?", async (req, res) => {
+  const name = req.params.name;
+
+  computationError = {
+    message: ``,
+    player: ``,
+    category: ``,
+    page: ``,
+  };
+
+  try {
+    let game = req.params.game;
+    if (game) {
+      game = game.toLowerCase();
+
+      // Check if the specified game name is an alias
+      for (let key in gameAliasesAchievements) {
+        if (gameAliasesAchievements[key].includes(game)) {
+          game = key;
+          break;
+        }
+      }
+    }
+
+    const response = await axios.get(`http://localhost:2000/achievements?name=${name}`);
+    let achievementsData = response.data;
+
+    if (achievementsData["player"]["profile"] == null) {
+      throw new Error("Player has no Hypixel stats");
+    }
+
+    let metaDescription;
+    if (achievementsData) {
+      // If the guild data is available
+      metaDescription = getMetaDescription("achievements", achievementsData);
+    } else {
+      // If the achievements data is not available, show a default description
+      metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+    }
+
+    res.render("achievements", { name, achievementsData, game, metaDescription, version });
+  } catch (error) {
+    computationError = {
+      message: `Could not find achievement stats of player ${name} (${error})`,
+      player: name,
+      error: error["message"],
+      category: "computation",
+      page: "achievements",
+    };
+    console.error("Fetching achievements data failed! → ", error);
+    res.render("index", { computationError, version });
+  }
+});
+
+app.get("/quests/:name?", async (req, res) => {
+  const name = req.params.name;
+
+  computationError = {
+    message: ``,
+    player: ``,
+    category: ``,
+    page: ``,
+  };
+
+  try {
+    const response = await axios.get(`http://localhost:2000/quests?name=${name}`);
+    let questsData = response.data;
+
+    if (questsData["player"]["profile"] == null) {
+      throw new Error("Player has no Hypixel stats");
+    }
+
+    let metaDescription;
+    if (questsData) {
+      // If the guild data is available
+      metaDescription = getMetaDescription("quests", questsData);
+    } else {
+      // If the quests data is not available, show a default description
+      metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+    }
+
+    res.render("quests", { name, questsData, metaDescription, version });
+  } catch (error) {
+    computationError = {
+      message: `Could not find quests stats of player ${name} (${error})`,
+      player: name,
+      error: error["message"],
+      category: "computation",
+      page: "quests",
+    };
+    console.error("Fetching quests data failed! → ", error);
+    res.render("index", { computationError, version });
+  }
+});
+
+app.get("/leaderboard", async (req, res) => {
+  const leaderboardType = req.query.leaderboard || "NETWORK_LEVEL";
+  const page = req.query.page || 1;
+
+  try {
+    const backendUrl = `http://localhost:2000/leaderboard?leaderboard=${leaderboardType}&page=${page}`;
+    const response = await axios.get(backendUrl);
+
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching data from backend:", error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/leaderboards", async (req, res) => {
+  res.render("leaderboards", { version });
+});
+
+app.get("/:name/:game?", (req, res) => {
+  const { name, game } = req.params;
+
+  if (/[^A-Za-z0-9_-]/.test(name)) {
+    computationError = {
+      message: `No player by the name of ${name} was found :(`,
+      player: name,
+      category: "404",
+      page: "player",
+    };
+
+    res.render("index", { computationError, version });
+  } else {
+    res.redirect(`/player/${name}/${game == undefined ? "" : game}`);
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Listening at https://localhost:${port}!`);
+});

@@ -487,7 +487,6 @@
       },
       "buildbattle": {
         "titles": {
-
           "rookie": "Rookie",
           "untrained": "Untrained",
           "amateur": "Amateur",
@@ -1004,7 +1003,6 @@
     "assists": "Assists",
     "points": "Points",
     "games_played": "Games Played",
-
 
     "beds_broken": "Beds Broken",
     "beds_lost": "Beds Lost",

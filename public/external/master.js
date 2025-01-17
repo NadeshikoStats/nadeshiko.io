@@ -1,6 +1,7 @@
 var languageJSON, imageFileType;
 
-function und(text, undefinedValue = 0) { // Returns a set value (typically 0) in the case of a missing value
+function und(text, undefinedValue = 0) {
+  // Returns a set value (typically 0) in the case of a missing value
   if (text === null || text === undefined || Number.isNaN(text)) return undefinedValue;
   else return text;
 }
@@ -16,14 +17,14 @@ function checkAndFormat(number, digits = 0) {
 }
 
 function deformatName(text) {
-  if(text == undefined || text == null) {
+  if (text == undefined || text == null) {
     return text;
   }
 
   return text
-      .replace(/§[0-9a-fk-or]\[.*?\]/g, '')
-      .replace(/§[0-9a-fk-or]/g, '')
-      .trim();
+    .replace(/§[0-9a-fk-or]\[.*?\]/g, "")
+    .replace(/§[0-9a-fk-or]/g, "")
+    .trim();
 }
 
 function updateTag(parentElement, dataI, value, useHTML = false) {
@@ -36,7 +37,7 @@ function updateTag(parentElement, dataI, value, useHTML = false) {
 
 function updateAllTags(parentElement, dataI, value, useHTML = false) {
   let elements = parentElement.querySelectorAll(`[data-i=${dataI}]`);
-  elements.forEach(element => {
+  elements.forEach((element) => {
     element.innerText = value;
     if (useHTML) {
       element.innerHTML = value;
@@ -80,7 +81,7 @@ function shortDateFormat(date) {
     year: "numeric",
     month: "numeric",
     day: "numeric",
-    calendar: "gregory"
+    calendar: "gregory",
   }).format(date);
 }
 
@@ -89,8 +90,8 @@ function mediumDateFormat(date) {
     dateStyle: "short",
     timeStyle: "short",
     calendar: "gregory",
-    hour12: false
-  }).format(date)
+    hour12: false,
+  }).format(date);
 }
 
 function longDateFormat(date) {
@@ -123,7 +124,7 @@ function smallDuration(seconds, ms = false) {
     hour: getTranslation("times.hour_short"),
     minute: getTranslation("times.minute_short"),
     second: getTranslation("times.second_short"),
-  }
+  };
 
   const MINUTE = 60;
   const HOUR = 3600;
@@ -162,7 +163,8 @@ function rainbowText(text, colorCodes = ["§c", "§6", "§e", "§a", "§b", "§d
   return coloredText;
 }
 
-function veryLargeNumber(number) { // Changes number to compact notation if it's over a million
+function veryLargeNumber(number) {
+  // Changes number to compact notation if it's over a million
   number = und(number);
   if (number >= 1000000) {
     return new Intl.NumberFormat("default", { notation: "compact", compactDisplay: "short", maximumSignificantDigits: 4 }).format(number);
@@ -171,10 +173,11 @@ function veryLargeNumber(number) { // Changes number to compact notation if it's
   }
 }
 
-function addPrefixZero(number, totalLength) { // Adds zeroes to the start of a number to make it a certain length
+function addPrefixZero(number, totalLength) {
+  // Adds zeroes to the start of a number to make it a certain length
   let numberStr = number.toString();
   while (numberStr.length < totalLength) {
-    numberStr = '0' + numberStr;
+    numberStr = "0" + numberStr;
   }
   return numberStr;
 }
@@ -207,12 +210,15 @@ function convertToRoman(num) {
   return result;
 }
 
-function sortStrings(a, b) { // Sorts strings alphabetically based on locale
+function sortStrings(a, b) {
+  // Sorts strings alphabetically based on locale
   return a.localeCompare(b, userLanguage, { sensitivity: "base" });
 }
 
-function checkSearchBox(event, textBoxValue) { // Check if the user's typing in the search box
-  if (event.key === "Enter") { // Did the user press enter?
+function checkSearchBox(event, textBoxValue) {
+  // Check if the user's typing in the search box
+  if (event.key === "Enter") {
+    // Did the user press enter?
     event.preventDefault();
     let userInput;
     if (currentScope == "guild") {
@@ -220,12 +226,13 @@ function checkSearchBox(event, textBoxValue) { // Check if the user's typing in 
     } else {
       userInput = textBoxValue.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
     }
-    if(userInput.length == 0) return;
+    if (userInput.length == 0) return;
     window.location.href = `/${currentScope || "player"}/${userInput}`; // Redirect to the desired URL
   }
 }
 
-function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timestamp showing how long ago a date was in the past
+function relativeTime(timestamp, currentTime = Date.now()) {
+  // Returns a timestamp showing how long ago a date was in the past
   let dateNew = new Date(currentTime);
   let dateOld = new Date(timestamp);
 
@@ -278,33 +285,34 @@ function relativeTime(timestamp, currentTime = Date.now()) { // Returns a timest
 
 /*
  * Counts the number of significant digits in a number
-  * @param {number} number - The number to count the significant digits for
-  * @returns {number} The number of significant digits
+ * @param {number} number - The number to count the significant digits for
+ * @returns {number} The number of significant digits
  */
 function countSignificantDigits(number) {
   const numberStr = number.toString();
-  const significantStr = numberStr.replace(/0+$/, '');
+  const significantStr = numberStr.replace(/0+$/, "");
   return significantStr.length;
 }
 
- /*
-  * Simplifies a number to a more readable format if it has fewer than or equal to 3 significant digits
-  * @param {number} number - The number to simplify
-  * @returns {string} The simplified number
-  * @example
-  * simplifyNumber(1230) // returns "1.23K" in en-CA
-  * simplifyNumber(1234567) // returns "1,234,567" in en-CA
-  */
+/*
+ * Simplifies a number to a more readable format if it has fewer than or equal to 3 significant digits
+ * @param {number} number - The number to simplify
+ * @returns {string} The simplified number
+ * @example
+ * simplifyNumber(1230) // returns "1.23K" in en-CA
+ * simplifyNumber(1234567) // returns "1,234,567" in en-CA
+ */
 function simplifyNumber(number, maxSigDigits = 3) {
   let languageToUse;
-  if (userLanguage.startsWith("zh")) { // Apparently 万 is falling out of favour
+  if (userLanguage.startsWith("zh")) {
+    // Apparently 万 is falling out of favour
     languageToUse = "en-CA";
   } else {
     languageToUse = userLanguage;
   }
   const numberFormatter = new Intl.NumberFormat(languageToUse, {
-    notation: 'compact',
-    compactDisplay: 'short',
+    notation: "compact",
+    compactDisplay: "short",
     maximumSignificantDigits: maxSigDigits,
   });
 
@@ -415,12 +423,12 @@ function updateChipStats(name, chipId, gamemode) {
       break;
 
     case "megawalls":
-      if (chipId == 'megawalls-classes') {
+      if (chipId == "megawalls-classes") {
         updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue)), true);
-      } else if (chipId == 'megawalls-standard') {
-        updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, 'standard')), true);
-      } else if (chipId == 'megawalls-faceoff') {
-        updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, 'face_off')), true);
+      } else if (chipId == "megawalls-standard") {
+        updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, "standard")), true);
+      } else if (chipId == "megawalls-faceoff") {
+        updateElement(chipId, generateChipStats(getMegaWallsClassStats(newValue, "face_off")), true);
       }
       break;
 
@@ -441,30 +449,30 @@ function updateChipStats(name, chipId, gamemode) {
       break;
 
     case "smashheroes":
-      if (chipId == 'smashheroes-classes') {
-        updateElement(chipId, generateChipStats(getSmashStats('class', newValue)), true);
-      } else if (chipId == 'smashheroes-solo') {
-        updateElement(chipId, generateChipStats(getSmashStats('normal', newValue)), true);
-      } else if (chipId == 'smashheroes-team') {
-        updateElement(chipId, generateChipStats(getSmashStats('teams', newValue)), true);
-      } else if (chipId == 'smashheroes-2v2') {
-        updateElement(chipId, generateChipStats(getSmashStats('2v2', newValue)), true);
-      } else if (chipId == 'smashheroes-1v1') {
-        updateElement(chipId, generateChipStats(getSmashStats('one_v_one', newValue)), true);
-      } else if (chipId == 'smashheroes-friend') {
-        updateElement(chipId, generateChipStats(getSmashStats('friend', newValue)), true);
+      if (chipId == "smashheroes-classes") {
+        updateElement(chipId, generateChipStats(getSmashStats("class", newValue)), true);
+      } else if (chipId == "smashheroes-solo") {
+        updateElement(chipId, generateChipStats(getSmashStats("normal", newValue)), true);
+      } else if (chipId == "smashheroes-team") {
+        updateElement(chipId, generateChipStats(getSmashStats("teams", newValue)), true);
+      } else if (chipId == "smashheroes-2v2") {
+        updateElement(chipId, generateChipStats(getSmashStats("2v2", newValue)), true);
+      } else if (chipId == "smashheroes-1v1") {
+        updateElement(chipId, generateChipStats(getSmashStats("one_v_one", newValue)), true);
+      } else if (chipId == "smashheroes-friend") {
+        updateElement(chipId, generateChipStats(getSmashStats("friend", newValue)), true);
       }
       break;
 
     case "fishing":
-      if (chipId == 'fishing-specialfish') {
+      if (chipId == "fishing-specialfish") {
         updateElement(chipId, generateChipStats(getSpecialFishStats(newValue)), true);
-      } else if (chipId == 'fishing-zones') {
+      } else if (chipId == "fishing-zones") {
         updateElement(chipId, generateChipStats(getFishingZoneStats(newValue)), true);
-      } else if (chipId == 'fishing-catches') {
+      } else if (chipId == "fishing-catches") {
         updateElement(chipId, generateChipStats(getFishingCatches(newValue)), true);
-      } else if (chipId == 'fishing-seasons') {
-        const fishingSeason = fishingParticipatedSeasons.find(item => item.id === newValue);
+      } else if (chipId == "fishing-seasons") {
+        const fishingSeason = fishingParticipatedSeasons.find((item) => item.id === newValue);
         if (fishingSeason) {
           updateElement(chipId, generateChipStats(formatFishingParticipatedSeason(fishingSeason)), true);
         }
@@ -479,8 +487,8 @@ function updateChipStats(name, chipId, gamemode) {
     case "settings":
       settings[chipId] = newValue;
       updateSetting(chipId, newValue);
-      if (chipId == 'language') {
-        document.getElementById('settings-language-reload').style.display = 'block';
+      if (chipId == "language") {
+        document.getElementById("settings-language-reload").style.display = "block";
       }
       break;
 
@@ -494,35 +502,38 @@ function updateChipStats(name, chipId, gamemode) {
   }
 }
 
- /*
-  * Formats a string representing a Hypixel rank into Minecraft text
-  * @param {string} text - The player rank text
-  * @param {number} style - The style of the rank text. 0 for raw HTML, 1 for an array with the colour and the text
-  */
+/*
+ * Formats a string representing a Hypixel rank into Minecraft text
+ * @param {string} text - The player rank text
+ * @param {number} style - The style of the rank text. 0 for raw HTML, 1 for an array with the colour and the text
+ */
 function cuteRank(text, style = 0) {
-  if(style == 0) return generateMinecraftText(text);
+  if (style == 0) return generateMinecraftText(text);
   else {
-    var playerRankColorRegexMatch = (text.match(/§([0-9a-f])/));
-    var playerRankColor = (playerRankColorRegexMatch == null) ? "7" : (playerRankColorRegexMatch)[1];
+    var playerRankColorRegexMatch = text.match(/§([0-9a-f])/);
+    var playerRankColor = playerRankColorRegexMatch == null ? "7" : playerRankColorRegexMatch[1];
 
-    if(playerRankColorRegexMatch != null) { var playerRankRest = (text.substring(2)).replace(/\[|\]/g, "") }
-    else { var playerRankRest = text } // Emergency fallback if no section code is detected
+    if (playerRankColorRegexMatch != null) {
+      var playerRankRest = text.substring(2).replace(/\[|\]/g, "");
+    } else {
+      var playerRankRest = text;
+    } // Emergency fallback if no section code is detected
 
-    return([playerRankColor, generateMinecraftText(playerRankRest)]);
+    return [playerRankColor, generateMinecraftText(playerRankRest)];
   }
 }
 
-let badgeColors = { // Badge colours for the badge system, must be in 6-digit hex format
-  "DEVELOPER": "#85d8f9",
-  "PATREON": "#f6adc6",
+let badgeColors = {
+  // Badge colours for the badge system, must be in 6-digit hex format
+  DEVELOPER: "#85d8f9",
+  PATREON: "#f6adc6",
 };
 
 function checkBadge(badge) {
   if (badge != "NONE") {
-
     let badgeLinks = {
-      "DEVELOPER": "https://github.com/nadeshikoStats",
-      "PATREON": "https://patreon.com/nadeshikoStats",
+      DEVELOPER: "https://github.com/nadeshikoStats",
+      PATREON: "https://patreon.com/nadeshikoStats",
     };
 
     document.getElementById("badge").style.display = "unset";
@@ -536,11 +547,11 @@ function checkBadge(badge) {
   }
 }
 
-setTimeout(function() {
-  let text = "                                               \r\n                 _           _     _ _         \r\n                | |         | |   (_) |        \r\n _ __   __ _  __| | ___  ___| |__  _| | _____  \r\n| \'_ \\ \/ _` |\/ _` |\/ _ \\\/ __| \'_ \\| | |\/ \/ _ \\ \r\n| | | | (_| | (_| |  __\/\\__ \\ | | | |   < (_) |\r\n|_| |_|\\__,_|\\__,_|\\___||___\/_| |_|_|_|\\_\\___\/ \r\n                                               \r\n  the simple, beautiful Hypixel stats tracker  \r\n                                               ";
+setTimeout(function () {
+  let text = "                                               \r\n                 _           _     _ _         \r\n                | |         | |   (_) |        \r\n _ __   __ _  __| | ___  ___| |__  _| | _____  \r\n| '_ \\ / _` |/ _` |/ _ \\/ __| '_ \\| | |/ / _ \\ \r\n| | | | (_| | (_| |  __/\\__ \\ | | | |   < (_) |\r\n|_| |_|\\__,_|\\__,_|\\___||___/_| |_|_|_|\\_\\___/ \r\n                                               \r\n  the simple, beautiful Hypixel stats tracker  \r\n                                               ";
   const colors = ["#2D0614", "#2D0514", "#2D0514", "#2D0515", "#2D0515", "#2D0516", "#2D0516", "#2D0517", "#2D0517", "#2D0518", "#2D0518", "#2D0519", "#2D0519", "#2D0519", "#2D051A", "#2D051A", "#2D051B", "#2D051B", "#2D051C", "#2D051C", "#2D051D", "#2D051D", "#2D051E", "#2D051E", "#2D051E", "#2D051F", "#2D051F", "#2D0520", "#2D0520", "#2D0521", "#2D0521", "#2D0522", "#2D0522", "#2D0523", "#2D0523", "#2D0523", "#2D0524", "#2D0524", "#2D0525", "#2D0525", "#2D0526", "#2D0526", "#2D0527", "#2D0527", "#2D0528", "#2D0528", "#2D0528", "#2D0529", "#2D0529", "#2D052A", "#2D052A", "#2D052B", "#2D052B", "#2D052C", "#2D052C", "#2D052D"];
 
-  let styleText = '';
+  let styleText = "";
   let styleInstructions = [];
 
   for (let i = 0; i < text.length; i++) {
@@ -559,20 +570,20 @@ setTimeout(function() {
 
 /*
  * Generates a title based on the number of wins (or kills, depending on the gamemode) a player has
-  * @param {number} wins - The number of wins (kills) a player has
-  * @param {string} winsObject - The object containing the titles and their requirements
-  * @param {string} definedColor - i forgor
-  * @param {boolean} useToGo - Whether to display the number of wins to the next title in (x to go) format
-  * @param {string} suffix - The suffix to add to the number of wins
-  * @param {boolean} useDifferentBracketColors - Whether to use a provided custom colour for the brackets
-  * @param {boolean} useBrackets - Whether to even use brackets around the title
-  * @param {boolean} alternativeNaming - Whether to use supplied names for the title
-  * @param {boolean} returnAsObject - Whether to return the title as an object or a string
-  *
-  * @returns {string} - The title generated based on the number of wins (if returnAsObject is false)
-  * @returns {object} - The title generated based on the number of wins (if returnAsObject is true)
+ * @param {number} wins - The number of wins (kills) a player has
+ * @param {string} winsObject - The object containing the titles and their requirements
+ * @param {string} definedColor - i forgor
+ * @param {boolean} useToGo - Whether to display the number of wins to the next title in (x to go) format
+ * @param {string} suffix - The suffix to add to the number of wins
+ * @param {boolean} useDifferentBracketColors - Whether to use a provided custom colour for the brackets
+ * @param {boolean} useBrackets - Whether to even use brackets around the title
+ * @param {boolean} alternativeNaming - Whether to use supplied names for the title
+ * @param {boolean} returnAsObject - Whether to return the title as an object or a string
+ *
+ * @returns {string} - The title generated based on the number of wins (if returnAsObject is false)
+ * @returns {object} - The title generated based on the number of wins (if returnAsObject is true)
  */
-function getGenericWinsPrefix({wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false, returnAsObject = true, useThousandsSeparator = false} = {}) {
+function getGenericWinsPrefix({ wins, winsObject, definedColor = undefined, useToGo = true, suffix = "", useDifferentBracketColors = false, useBrackets = true, alternativeNaming = false, returnAsObject = true, useThousandsSeparator = false } = {}) {
   let chosenTitle = winsObject[0];
   wins = und(wins);
   let chosenBracketColor;
@@ -606,7 +617,7 @@ function getGenericWinsPrefix({wins, winsObject, definedColor = undefined, useTo
 
     if (useToGo) {
       if (winsToGoNum >= 0) {
-        nextTitleWins = ` ` + insertPlaceholders(getTranslation(["statistics", "wins_to_go"]), {num: checkAndFormat(winsToGoNum)});
+        nextTitleWins = ` ` + insertPlaceholders(getTranslation(["statistics", "wins_to_go"]), { num: checkAndFormat(winsToGoNum) });
       } else {
         nextTitleWins = ` ` + getTranslation(["statistics", "max_title"]);
       }
@@ -623,7 +634,7 @@ function getGenericWinsPrefix({wins, winsObject, definedColor = undefined, useTo
     chosenTitle = winsObject.find((x) => x.internalId == definedColor) || { color: "§f" };
   }
 
-  if(useDifferentBracketColors) {
+  if (useDifferentBracketColors) {
     chosenBracketColor = chosenTitle["bracketColor"] || chosenTitle["color"];
   } else {
     chosenBracketColor = chosenTitle["color"];

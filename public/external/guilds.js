@@ -10,13 +10,13 @@ function getRankPriorities() {
 }
 
 function shortDate(date) {
-  let [year, month, day] = und(date.split('-'));
+  let [year, month, day] = und(date.split("-"));
 
-  let dateObject = new Date(year, month - 1, day)
+  let dateObject = new Date(year, month - 1, day);
 
-  let formattedDate = new Intl.DateTimeFormat(userLanguage, { day: 'numeric', month: 'short' }).format(dateObject);
+  let formattedDate = new Intl.DateTimeFormat(userLanguage, { day: "numeric", month: "short" }).format(dateObject);
 
-  return(formattedDate);
+  return formattedDate;
 }
 
 function generateGeneralGuildStats() {
@@ -34,8 +34,7 @@ function generateGeneralGuildStats() {
   updateElement("guild-level", checkAndFormat(Math.floor(guildStats["level"])));
 }
 
-function guildPlayerObjectToRow(guildObj) {  
-
+function guildPlayerObjectToRow(guildObj) {
   let guildRowTemplate = `
   <div class="row-header">
 
@@ -59,7 +58,7 @@ function guildPlayerObjectToRow(guildObj) {
   <div class="column" data-i="expandable"><img class="arrow-icon" src="/img/svg/bigarrow.svg" /></div>
 </div>
 <div class="row-content">
-  
+
 <div class="login-info flex-two-item">
   <p class="flex-item margin10">
     <span><span>${getTranslation("statistics.level")}</span> <span data-i="level" class="statistic"></span></span>
@@ -109,7 +108,6 @@ function guildPlayerObjectToRow(guildObj) {
 </div>
 `;
 
-
   let newRow = document.createElement("div");
   newRow.classList.add("row");
   newRow.innerHTML = guildRowTemplate;
@@ -120,20 +118,20 @@ function guildPlayerObjectToRow(guildObj) {
   //console.log(playerProfile);
   guildUUIDs.push(guildObj["uuid"]);
 
-  const myChartCanvas = newRow.querySelector('.chart');
+  const myChartCanvas = newRow.querySelector(".chart");
   myChartCanvas.id = "chart-" + guildObj["uuid"];
 
-  if(playerProfile["tagged_name"] == undefined || playerProfile["tagged_name"] == null) {
+  if (playerProfile["tagged_name"] == undefined || playerProfile["tagged_name"] == null) {
     updateTag(newRow, "name", `<i class="m4">${guildObj["uuid"]}</i>`, true);
   } else {
     updateTag(newRow, "name", generateMinecraftText(playerProfile["tagged_name"]), true);
   }
   newRow.querySelector(`[data-i="name"]`).href = `/player/${guildObj["uuid"]}`;
-  
+
   newRow.querySelector(`[data-i="head"]`).src = `https://minotar.net/helm/${guildObj["uuid"]}/8.png`;
 
   updateTag(newRow, "rank", guildObj["rank"]);
-  
+
   let joined = guildObj["joined"];
   updateTag(newRow, "joined", shortDateFormat(joined));
   updateTag(newRow, "joined-ago", relativeTime(joined));
@@ -143,29 +141,29 @@ function guildPlayerObjectToRow(guildObj) {
   updateTag(newRow, "content-joined-ago", relativeTime(joined));
   updateTag(newRow, "content-joined-ago-full", longDateFormat(joined));
 
-  let firstLoginDate = new Date(und(playerProfile["first_login"]))
+  let firstLoginDate = new Date(und(playerProfile["first_login"]));
   updateTag(newRow, "first-login", shortDateFormat(firstLoginDate));
   updateTag(newRow, "first-login-ago", relativeTime(firstLoginDate));
   updateTag(newRow, "first-login-ago-full", longDateFormat(firstLoginDate));
-  
+
   let dateNow = new Date();
 
   if (firstLoginDate.getMonth() == dateNow.getMonth() && firstLoginDate.getDate() == dateNow.getDate() && firstLoginDate.getYear() != dateNow.getYear()) {
     newRow.querySelector(`[data-i="birthday"]`).style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
-    newRow.querySelector(`[data-i="birthday-text"]`).innerText = insertPlaceholders(getTranslation("player.birthday"), {num: dateNow.getYear() - firstLoginDate.getYear()});
+    newRow.querySelector(`[data-i="birthday-text"]`).innerText = insertPlaceholders(getTranslation("player.birthday"), { num: dateNow.getYear() - firstLoginDate.getYear() });
     console.log("Birthday cake visible");
   }
 
-  newRow.setAttribute('data-joined', joined); 
+  newRow.setAttribute("data-joined", joined);
 
-  newRow.setAttribute('data-name', deformatName(playerProfile["tagged_name"]));
+  newRow.setAttribute("data-name", deformatName(playerProfile["tagged_name"]));
 
   if (guildRanks[guildObj["rank"]] == undefined) {
-    newRow.setAttribute('data-priority', Number.MAX_SAFE_INTEGER);
+    newRow.setAttribute("data-priority", Number.MAX_SAFE_INTEGER);
   } else {
-    newRow.setAttribute('data-priority', guildRanks[guildObj["rank"]]);
+    newRow.setAttribute("data-priority", guildRanks[guildObj["rank"]]);
   }
-  
+
   let weeklyGuildExperience = 0;
   let guildExperienceHistory = guildObj["expHistory"];
 
@@ -173,10 +171,9 @@ function guildPlayerObjectToRow(guildObj) {
     weeklyGuildExperience += guildExperienceHistory[key];
   }
 
-  newRow.setAttribute('data-gexp', weeklyGuildExperience);
+  newRow.setAttribute("data-gexp", weeklyGuildExperience);
   updateTag(newRow, "weekly-gexp", checkAndFormat(weeklyGuildExperience));
   updateTag(newRow, "content-weekly-gexp", checkAndFormat(weeklyGuildExperience));
-
 
   let lastLogin = und(playerProfile["last_login"]);
 
@@ -201,37 +198,35 @@ function guildPlayerObjectToRow(guildObj) {
   return newRow;
 }
 
-function compareAttributes(attribute, reverse = false) { 
-
+function compareAttributes(attribute, reverse = false) {
   let reverseMultiplier = reverse ? -1 : 1;
 
   let attributeClassifications = {
-    "priority": {
+    priority: {
       type: "number",
-      reverse: false
+      reverse: false,
     },
-    "joined": {
+    joined: {
       type: "number",
-      reverse: true
+      reverse: true,
     },
-    "name": {
+    name: {
       type: "string",
-      reverse: false
+      reverse: false,
     },
-    "gexp": {
+    gexp: {
       type: "number",
-      reverse: false
-    }
+      reverse: false,
+    },
   };
 
   let attributeClassification = attributeClassifications[attribute];
-  
+
   if (attributeClassification["reverse"] == true) {
     reverseMultiplier *= -1; // This is here because certain attributes should have their sorting reversed, such as name where lower values should be at the top (A-Z)
   }
 
-  return function(a, b) {
-
+  return function (a, b) {
     let aValue, bValue;
     if (attributeClassification["type"] == "string") {
       aValue = und(a.dataset[attribute]);
@@ -253,16 +248,15 @@ function compareAttributes(attribute, reverse = false) {
   };
 }
 
-
 let currentSort;
 let currentReverse = false;
 let guildUUIDs = [];
 
- /* 
-  * Sorts the guild data by a certain attribute
-  * @param {string} attribute - The attribute to sort by (like "priority" or "joined")
-  * @param {boolean} reverse - Whether to reverse the sorting
-  */
+/*
+ * Sorts the guild data by a certain attribute
+ * @param {string} attribute - The attribute to sort by (like "priority" or "joined")
+ * @param {boolean} reverse - Whether to reverse the sorting
+ */
 function sortData(attribute = "priority", reverse = false) {
   if (currentSort == attribute) {
     reverse = !currentReverse;
@@ -300,11 +294,10 @@ function sortData(attribute = "priority", reverse = false) {
   });
 }
 
-
 Chart.defaults.font.family = "Inter, sans-serif";
 
 function generateChart(uuid) {
-  let memberExpHistory = guildStats["members"].find(member => member["uuid"] == uuid)["expHistory"];
+  let memberExpHistory = guildStats["members"].find((member) => member["uuid"] == uuid)["expHistory"];
 
   let memberExpDates = Object.keys(memberExpHistory);
   let memberExpValues = Object.values(memberExpHistory);
@@ -317,22 +310,24 @@ function generateChart(uuid) {
 
   memberExpValues = memberExpValues.reverse();
 
-  new Chart(("chart-" + uuid), {
+  new Chart("chart-" + uuid, {
     type: "bar",
     data: {
       labels: memberExpDates,
-      datasets: [{
-        backgroundColor: "#f6acd6",
-        data: memberExpValues
-      }]
+      datasets: [
+        {
+          backgroundColor: "#f6acd6",
+          data: memberExpValues,
+        },
+      ],
     },
     options: {
       plugins: {
         legend: {
-          display: false
+          display: false,
         },
-      }
-    }
+      },
+    },
   });
 }
 

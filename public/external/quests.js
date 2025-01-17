@@ -29,7 +29,7 @@ function generateQuestsTable(game, timestamp = Date.now()) {
   let modernGameName = modernifyGameName(game);
 
   let questGameTemplate = DOMPurify.sanitize(`
-  
+
     <div class="chip-container quest-game-container maskless">
 
       <div class="chip-small but-big no-overflow chip-quest-game">
@@ -82,7 +82,7 @@ function generateQuestsTable(game, timestamp = Date.now()) {
   let questGameContainer = document.createElement("div");
   questGameContainer.innerHTML = questGameTemplate;
 
-  questGameContainer.querySelector(".quest-game-arrow").addEventListener("click", function() {
+  questGameContainer.querySelector(".quest-game-arrow").addEventListener("click", function () {
     let questGame = this.closest(".quest-game-container");
     let questList = questGame.querySelector(".quest-list");
 
@@ -100,16 +100,16 @@ function generateQuestsTable(game, timestamp = Date.now()) {
   let gameQuestCompletionStatus = {
     completed: 0,
     total: 0,
-  }
+  };
 
   for (let a = 0; a < gameQuests.length; a++) {
     let thisQuest = gameQuests[a];
     let thisQuestId = thisQuest["id"];
     let questType = "daily";
-  
+
     let thisQuestRequirements = thisQuest["requirements"] || []; // Determining whether the quest is daily or weekly
     let thisFirstQuestRequirement = thisQuestRequirements[0] || {};
-    
+
     if (thisFirstQuestRequirement["type"] === "WeeklyResetQuestRequirement") {
       questType = "weekly";
     }
@@ -174,17 +174,14 @@ function generateQuestsTable(game, timestamp = Date.now()) {
       console.log(thisQuestRow.querySelector("[data-i='quest-rewards']"));
     }
 
-    updateTag(questGameContainer, "quest-game-progress", insertPlaceholders(getTranslation(["quests", "completions", "completed"]), { "num": gameQuestCompletionStatus["completed"], "total": gameQuestCompletionStatus["total"] }), false);
+    updateTag(questGameContainer, "quest-game-progress", insertPlaceholders(getTranslation(["quests", "completions", "completed"]), { num: gameQuestCompletionStatus["completed"], total: gameQuestCompletionStatus["total"] }), false);
 
     questGameContainer.querySelector("[data-i='quest-list']").appendChild(thisQuestRow);
-
 
     gameQuestsFormatted.push(thisQuestDetails);
   }
 
   questGamesContainer.appendChild(questGameContainer);
-
-  
 }
 
 function getQuestDetails(questId, interval = "daily", thisQuestGlobalStats, game) {
@@ -214,7 +211,8 @@ function getQuestDetails(questId, interval = "daily", thisQuestGlobalStats, game
   let thisQuestSeparateDescription = separateDescription(questId, thisQuestGlobalStats["description"]);
   let thisQuestCompleted = true;
 
-  for (let a in thisQuestObjectives) { /* { id: "win", type: "IntegerObjective", integer: 15 } */
+  for (let a in thisQuestObjectives) {
+    /* { id: "win", type: "IntegerObjective", integer: 15 } */
 
     let thisQuestObjective = thisQuestObjectives[a];
 
@@ -240,7 +238,8 @@ function getQuestDetails(questId, interval = "daily", thisQuestGlobalStats, game
       let thisQuestLastCompletion = thisQuestCompletions[thisQuestCompletions.length - 1] || {};
       let thisQuestLastCompletionTime = thisQuestLastCompletion["time"] || 0;
 
-      if (thisQuestLastCompletionTime > (interval === "daily" ? lastDailyQuestReset : lastWeeklyQuestReset)) { // If the player completed the quest since the last reset
+      if (thisQuestLastCompletionTime > (interval === "daily" ? lastDailyQuestReset : lastWeeklyQuestReset)) {
+        // If the player completed the quest since the last reset
         thisQuestObjectiveProgress = thisQuestObjectiveNeeded;
       } else {
         thisQuestObjectiveProgress = 0; // Player has not started quest
@@ -248,13 +247,11 @@ function getQuestDetails(questId, interval = "daily", thisQuestGlobalStats, game
       }
     }
 
-    thisQuestDetailsFormatted["objectives"][thisQuestObjectiveId] = (
-      {
-        description: thisQuestSeparateDescription[a],
-        progress: thisQuestObjectiveProgress,
-        needed: thisQuestObjectiveNeeded,
-      }
-    );
+    thisQuestDetailsFormatted["objectives"][thisQuestObjectiveId] = {
+      description: thisQuestSeparateDescription[a],
+      progress: thisQuestObjectiveProgress,
+      needed: thisQuestObjectiveNeeded,
+    };
   }
 
   thisQuestDetailsFormatted["completed"] = thisQuestCompleted;
@@ -263,29 +260,30 @@ function getQuestDetails(questId, interval = "daily", thisQuestGlobalStats, game
   return thisQuestDetailsFormatted;
 }
 
-/* 
+/*
  * Formats a quest description by separating the description by newline into an array.
  * @param {string} descriptionId - The quest ID of the description. This is used to identify if the description is a special case that doesn't use \n correctly.
  * @param {string} description - The description to format
  * @returns {Array} The formatted description
  */
 function separateDescription(descriptionId, description) {
-  if (descriptionId == "warlords_objectives") { // This one quest has newlines, but the newlines don't indicate objectives, they're just for formatting
+  if (descriptionId == "warlords_objectives") {
+    // This one quest has newlines, but the newlines don't indicate objectives, they're just for formatting
     return [description.replaceAll("\n", ", ")];
   } else {
     return description.split("\n");
   }
 }
 
- /*
-  * Parses a reward from a quest to use human-readable text.
-  * @param {string} game - The game the quest is for
-  * @param {string} reward - The reward to parse
-  * @param {number} amount - The amount of the reward
-  * @returns {string} Object.icon - The icon (Minecraft) of the reward
-  * @returns {string} Object.text - The internationalized name of the reward
-  * @returns {number} Object.amount - How much reward
-  */
+/*
+ * Parses a reward from a quest to use human-readable text.
+ * @param {string} game - The game the quest is for
+ * @param {string} reward - The reward to parse
+ * @param {number} amount - The amount of the reward
+ * @returns {string} Object.icon - The icon (Minecraft) of the reward
+ * @returns {string} Object.text - The internationalized name of the reward
+ * @returns {number} Object.amount - How much reward
+ */
 function parseReward(game, reward, amount) {
   let formattedReward = {};
 
@@ -294,123 +292,122 @@ function parseReward(game, reward, amount) {
       formattedReward = {
         icon: "cyan_dye",
         text: getTranslation(["quests", "rewards", "hypixel_experience"]),
-      }
-     break;
+      };
+      break;
     case "FestivalExperienceReward":
       formattedReward = {
         icon: "experience_bottle",
-        text: getTranslation(["quests", "rewards", "event_experience"])
-      }
+        text: getTranslation(["quests", "rewards", "event_experience"]),
+      };
       break;
     case "WoolWarsWoolReward":
       formattedReward = {
         icon: "white_wool",
-        text: getTranslation("statistics.wool")
-      }
+        text: getTranslation("statistics.wool"),
+      };
       break;
     case "WoolGamesExpReward":
     case "BedwarsExpReward":
       formattedReward = {
         icon: "nether_star",
         text: insertPlaceholders(getTranslation(["quests", "rewards", "game_experience"]), {
-          "game": getTranslation(`games.${modernifyGameName(game)}`)
-        })
-      }
+          game: getTranslation(`games.${modernifyGameName(game)}`),
+        }),
+      };
       break;
     case "MultipliedCoinReward":
     case "CoinReward":
-      if (game == "bedwars" || game == "tnt" || game == "duels" || game == "murdermystery" || game == "buildbattle") { // These games say they use coins, but they actually use tokens.
+      if (game == "bedwars" || game == "tnt" || game == "duels" || game == "murdermystery" || game == "buildbattle") {
+        // These games say they use coins, but they actually use tokens.
         formattedReward = {
           icon: "emerald",
           text: insertPlaceholders(getTranslation(["quests", "rewards", "game_tokens"]), {
-            "game": getTranslation(`games.${modernifyGameName(game)}`)
-          })
-        }
+            game: getTranslation(`games.${modernifyGameName(game)}`),
+          }),
+        };
       } else {
         formattedReward = {
           icon: "gold_ingot",
           text: insertPlaceholders(getTranslation(["quests", "rewards", "game_coins"]), {
-            "game": getTranslation(`games.${modernifyGameName(game)}`)
-          })
-        }
+            game: getTranslation(`games.${modernifyGameName(game)}`),
+          }),
+        };
       }
       break;
     case "SkyWarsTokenReward":
       formattedReward = {
         icon: "emerald",
         text: insertPlaceholders(getTranslation(["quests", "rewards", "game_tokens"]), {
-          "game": getTranslation(`games.${modernifyGameName(game)}`)
-        })
-      }
+          game: getTranslation(`games.${modernifyGameName(game)}`),
+        }),
+      };
       break;
     case "SkyWarsSoulReward":
       formattedReward = {
         icon: "ghast_tear",
-        text: getTranslation(["quests", "rewards", "souls"])
-      }
+        text: getTranslation(["quests", "rewards", "souls"]),
+      };
       break;
     case "ArenaMagicKeyReward":
       formattedReward = {
         icon: "stone_shovel",
-        text: getTranslation(["statistics", "magical_keys"])
-      }
+        text: getTranslation(["statistics", "magical_keys"]),
+      };
       break;
     case "WarlordsBrokenWeaponReward":
       formattedReward = {
         icon: "gunpowder",
-        text: getTranslation(["quests", "rewards", "broken_weapons"])
-      }
+        text: getTranslation(["quests", "rewards", "broken_weapons"]),
+      };
       break;
     case "WarlordsLegendaryBrokenWeaponReward":
       formattedReward = {
         icon: "cookie",
-        text: getTranslation(["quests", "rewards", "legendary_broken_weapons"])
-      }
+        text: getTranslation(["quests", "rewards", "legendary_broken_weapons"]),
+      };
       break;
     case "WarlordsMagicDustReward":
       formattedReward = {
         icon: "light_blue_dye",
-        text: getTranslation(["statistics", "magic_dust"])
-      }
+        text: getTranslation(["statistics", "magic_dust"]),
+      };
       break;
     case "WarlordsVoidShardReward":
       formattedReward = {
         icon: "prismarine_shard",
-        text: getTranslation(["statistics", "void_shards"])
-      }
+        text: getTranslation(["statistics", "void_shards"]),
+      };
       break;
     case "MegawallsMythicFavorReward":
       formattedReward = {
         icon: "glowstone_dust",
-        text: getTranslation(["statistics", "mythic_favor"])
-      }
+        text: getTranslation(["statistics", "mythic_favor"]),
+      };
       break;
     case "PitGold":
       formattedReward = {
         icon: "gold_ingot",
-        text: getTranslation(["quests", "rewards", "pit_gold"])
-      }
+        text: getTranslation(["quests", "rewards", "pit_gold"]),
+      };
       break;
-    case "PackageReward": 
+    case "PackageReward":
       formattedReward = {
         icon: "diamond_helmet",
-        text: getTranslation(["quests", "rewards", "event_cosmetic"])
-      }
+        text: getTranslation(["quests", "rewards", "event_cosmetic"]),
+      };
       break;
-    default: 
+    default:
       formattedReward = {
-          icon: "barrier",
-          text: reward
-      }
+        icon: "barrier",
+        text: reward,
+      };
   }
 
   formattedReward["amount"] = amount || 0;
   return formattedReward;
 }
 
-function isQuestCompleted(quest, type = "daily") {
-
-}
+function isQuestCompleted(quest, type = "daily") {}
 
 /*
  * Gets the datestamp of the most recent midnight. Daily quests reset at 00:00 Eastern Time.
@@ -419,20 +416,20 @@ function isQuestCompleted(quest, type = "daily") {
  */
 function getLastMidnight(datestamp = Date.now()) {
   const now = new Date(datestamp);
-  const options = { timeZone: 'America/New_York', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+  const options = { timeZone: "America/New_York", hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" };
 
   const formatter = new Intl.DateTimeFormat([], options);
   const dateParts = formatter.formatToParts(now);
 
   let hours, minutes, seconds;
   for (const part of dateParts) {
-      if (part.type === 'hour') hours = part.value;
-      if (part.type === 'minute') minutes = part.value;
-      if (part.type === 'second') seconds = part.value;
+    if (part.type === "hour") hours = part.value;
+    if (part.type === "minute") minutes = part.value;
+    if (part.type === "second") seconds = part.value;
   }
 
   // the difference from the current time to last midnight in new york
-  const totalSecondsPassedToday = (parseInt(hours) * 3600) + (parseInt(minutes) * 60) + parseInt(seconds);
+  const totalSecondsPassedToday = parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
   const lastMidnightTimestampET = now.getTime() / 1000 - totalSecondsPassedToday;
 
   return Math.floor(lastMidnightTimestampET) * 1000;
@@ -446,19 +443,20 @@ function getLastMidnight(datestamp = Date.now()) {
 function getLastFridayMidnight(datestamp = Date.now()) {
   const lastMidnightTimestamp = getLastMidnight(datestamp);
   const lastMidnightDate = new Date(lastMidnightTimestamp);
-  
+
   let dayOfWeek = lastMidnightDate.getUTCDay();
   // Please note that this line will start returning the wrong date if New York becomes 24 hours or more behind UTC.
   // However, if that happens, there are bigger problems to worry about.
 
   const daysToSubtract = (dayOfWeek + 2) % 7; // Subtracting days to get to the most recent Friday
 
-  const lastFridayMidnightTimestamp = lastMidnightDate.getTime() - (daysToSubtract * 86400000);
+  const lastFridayMidnightTimestamp = lastMidnightDate.getTime() - daysToSubtract * 86400000;
 
   return Math.floor(lastFridayMidnightTimestamp);
 }
 
-window.addEventListener("resize", function() { // Resizes the quest list when the window is resize, preventing elements from being cut off
+window.addEventListener("resize", function () {
+  // Resizes the quest list when the window is resize, preventing elements from being cut off
   console.log("Resizing");
   let questLists = document.querySelectorAll(".quest-list");
   for (let a = 0; a < questLists.length; a++) {
@@ -469,7 +467,6 @@ window.addEventListener("resize", function() { // Resizes the quest list when th
     }
   }
 });
-
 
 function generateNetwork() {
   let playerProfileStats = questsStats["player"]["profile"] || {};
@@ -501,10 +498,10 @@ function generateNetwork() {
   updateElement("weekly-quests-total", checkAndFormat(questsCompletedByTime["weekly"]["total"]));
 
   let dailyQuestProgress = questsCompletedByTime["daily"]["completed"] / questsCompletedByTime["daily"]["total"] || 0;
-  document.getElementById("daily-quests-completed-progress-bar").style.width = (dailyQuestProgress * 100) + "%";
+  document.getElementById("daily-quests-completed-progress-bar").style.width = dailyQuestProgress * 100 + "%";
   updateElement("daily-quests-completed-progress-number", Math.round(dailyQuestProgress * 100) + "%");
 
   let weeklyQuestProgress = questsCompletedByTime["weekly"]["completed"] / questsCompletedByTime["weekly"]["total"] || 0;
-  document.getElementById("weekly-quests-completed-progress-bar").style.width = (weeklyQuestProgress * 100) + "%";
+  document.getElementById("weekly-quests-completed-progress-bar").style.width = weeklyQuestProgress * 100 + "%";
   updateElement("weekly-quests-completed-progress-number", Math.round(weeklyQuestProgress * 100) + "%");
 }

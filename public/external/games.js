@@ -47,7 +47,7 @@ function generateNetwork() {
 
       if (firstLoginDate.getMonth() == dateNow.getMonth() && firstLoginDate.getDate() == dateNow.getDate() && firstLoginDate.getYear() != dateNow.getYear()) {
         document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
-        updateElement("birthday-text", `Happy ${(dateNow.getYear() - firstLoginDate.getYear())} years of Hypixel!`);
+        updateElement("birthday-text", `Happy ${dateNow.getYear() - firstLoginDate.getYear()} years of Hypixel!`);
         console.log("Happy anniversary!");
       }
     }
@@ -185,13 +185,13 @@ function generateNetwork() {
     const otherSwitchContainer = document.getElementById("other-switch");
 
     let headerObjectTypes = {
-      "games": ["network", "bedwars", "duels", "skywars"],
-      "other": ["fishing", "achievements", "quests", "guild"],
-      "special": ["achievements", "quests", "guild"],
+      games: ["network", "bedwars", "duels", "skywars"],
+      other: ["fishing", "achievements", "quests", "guild"],
+      special: ["achievements", "quests", "guild"],
     };
 
     quickModeGames.forEach((game) => {
-      if(headerObjectTypes["special"].includes(game.id)) {
+      if (headerObjectTypes["special"].includes(game.id)) {
         // TODO
       } else {
         if (game.id != "network") {
@@ -203,7 +203,7 @@ function generateNetwork() {
           img.alt = "";
           img.className = "quick-mode-game";
 
-          img.onclick = function() {
+          img.onclick = function () {
             switchStats(game.id);
           };
 
@@ -225,8 +225,8 @@ function generateNetwork() {
         container = document.createElement("a");
         container.setAttribute("target", "_blank");
 
-        if(game.id == "guild") {
-          if(guildName == null) {
+        if (game.id == "guild") {
+          if (guildName == null) {
             return;
           } else {
             container.setAttribute("href", `/guild/${guildName}`);
@@ -273,31 +273,31 @@ function generateNetwork() {
 
       if (headerObjectTypes["games"].includes(game.id)) {
         gameSwitchMobileContainer.appendChild(container);
-      } else if(headerObjectTypes["other"].includes(game.id)) {
+      } else if (headerObjectTypes["other"].includes(game.id)) {
         otherSwitchContainer.appendChild(container);
       } else {
         gameSwitchContainer.appendChild(container);
       }
     });
 
-      generateBedWars();
-      generateDuels();
-      generateSkyWars();
-      generateBuildBattle();
-      generateMurderMystery();
-      generateTNTGames();
-      generateArcade();
-      generatePit();
-      generateClassic();
-      generateCopsAndCrims();
-      generateBlitz();
-      generateMegaWalls();
-      generateWarlords();
-      generateUHC();
-      generateSmash();
-      generateWoolGames();
+    generateBedWars();
+    generateDuels();
+    generateSkyWars();
+    generateBuildBattle();
+    generateMurderMystery();
+    generateTNTGames();
+    generateArcade();
+    generatePit();
+    generateClassic();
+    generateCopsAndCrims();
+    generateBlitz();
+    generateMegaWalls();
+    generateWarlords();
+    generateUHC();
+    generateSmash();
+    generateWoolGames();
 
-      generateFishing();
+    generateFishing();
 
     addRecentPlayer(playerData["name"], playerRankCute[0]);
   } else {
@@ -348,7 +348,6 @@ function generateBedWars() {
   // Generates stats and chips for Bed Wars
   bedWarsStats = playerData["stats"]["Bedwars"] || {};
   if (bedWarsStats != undefined) {
-
     var modeNames = [
       [getTranslation("games.modes.bedwars.eight_one"), "eight_one"],
       [getTranslation("games.modes.bedwars.eight_two"), "eight_two"],
@@ -376,71 +375,19 @@ function generateBedWars() {
     ];
     var easyStats = ["wins", "losses", "kills", "deaths", "final_kills", "final_deaths", "beds_broken", "beds_lost"];
 
-    var bedWarsPrestigeColors = [
-      ["7"],
-      ["f"],
-      ["6"],
-      ["b"],
-      ["2"],
-      ["3"],
-      ["4"],
-      ["d"],
-      ["9"],
-      ["5"],
-      ["c", "6", "e", "a", "b", "d", "5"],
-      ["7", "f", "f", "f", "f", "7", "7"],
-      ["7", "e", "e", "e", "e", "6", "7"],
-      ["7", "b", "b", "b", "b", "5", "7"],
-      ["7", "a", "a", "a", "a", "2", "7"],
-      ["7", "5", "5", "5", "5", "9", "7"],
-      ["7", "c", "c", "c", "c", "4", "7"],
-      ["7", "d", "d", "d", "d", "5", "7"],
-      ["7", "9", "9", "9", "9", "1", "7"],
-      ["7", "5", "5", "5", "5", "8", "7"],
-      ["8", "7", "f", "f", "7", "7", "8"],
-      ["f", "f", "e", "e", "6", "6", "6"],
-      ["6", "6", "f", "f", "b", "3", "3"],
-      ["5", "5", "d", "d", "6", "f", "f"],
-      ["b", "b", "f", "f", "7", "7", "8"],
-      ["f", "f", "a", "a", "2", "2", "2"],
-      ["4", "4", "c", "c", "d", "d", "5"],
-      ["e", "e", "f", "f", "8", "8", "8"],
-      ["a", "a", "2", "2", "6", "6", "e"],
-      ["b", "b", "5", "5", "9", "9", "1"],
-      ["f", "f", "6", "6", "c", "c", "4"],
-      ["9", "9", "5", "5", "6", "6", "e"],
-      ["c", "4", "7", "7", "4", "c", "c"],
-      ["9", "9", "9", "d", "c", "c", "4"],
-      ["2", "a", "d", "d", "5", "5", "2"],
-      ["c", "c", "4", "4", "2", "a", "a"],
-      ["a", "a", "a", "b", "9", "9", "1"],
-      ["4", "4", "c", "c", "b", "3", "3"],
-      ["1", "1", "b", "5", "5", "d", "1"],
-      ["c", "c", "a", "a", "3", "9", "9"],
-      ["5", "5", "c", "c", "6", "6", "e"],
-      ["e", "e", "6", "c", "d", "d", "5"],
-      ["1", "9", "3", "b", "f", "7", "7"],
-      ["0", "5", "8", "8", "5", "5", "0"],
-      ["2", "2", "a", "e", "6", "5", "d"],
-      ["f", "f", "b", "b", "3", "3", "3"],
-      ["3", "b", "e", "e", "6", "d", "5"],
-      ["f", "4", "c", "c", "9", "1", "9"],
-      ["5", "5", "c", "6", "f", "b", "5"],
-      ["2", "a", "f", "f", "a", "a", "2"],
-      ["c", "c", "5", "9", "9", "1", "0"],
-    ];
+    var bedWarsPrestigeColors = [["7"], ["f"], ["6"], ["b"], ["2"], ["3"], ["4"], ["d"], ["9"], ["5"], ["c", "6", "e", "a", "b", "d", "5"], ["7", "f", "f", "f", "f", "7", "7"], ["7", "e", "e", "e", "e", "6", "7"], ["7", "b", "b", "b", "b", "5", "7"], ["7", "a", "a", "a", "a", "2", "7"], ["7", "5", "5", "5", "5", "9", "7"], ["7", "c", "c", "c", "c", "4", "7"], ["7", "d", "d", "d", "d", "5", "7"], ["7", "9", "9", "9", "9", "1", "7"], ["7", "5", "5", "5", "5", "8", "7"], ["8", "7", "f", "f", "7", "7", "8"], ["f", "f", "e", "e", "6", "6", "6"], ["6", "6", "f", "f", "b", "3", "3"], ["5", "5", "d", "d", "6", "f", "f"], ["b", "b", "f", "f", "7", "7", "8"], ["f", "f", "a", "a", "2", "2", "2"], ["4", "4", "c", "c", "d", "d", "5"], ["e", "e", "f", "f", "8", "8", "8"], ["a", "a", "2", "2", "6", "6", "e"], ["b", "b", "5", "5", "9", "9", "1"], ["f", "f", "6", "6", "c", "c", "4"], ["9", "9", "5", "5", "6", "6", "e"], ["c", "4", "7", "7", "4", "c", "c"], ["9", "9", "9", "d", "c", "c", "4"], ["2", "a", "d", "d", "5", "5", "2"], ["c", "c", "4", "4", "2", "a", "a"], ["a", "a", "a", "b", "9", "9", "1"], ["4", "4", "c", "c", "b", "3", "3"], ["1", "1", "b", "5", "5", "d", "1"], ["c", "c", "a", "a", "3", "9", "9"], ["5", "5", "c", "c", "6", "6", "e"], ["e", "e", "6", "c", "d", "d", "5"], ["1", "9", "3", "b", "f", "7", "7"], ["0", "5", "8", "8", "5", "5", "0"], ["2", "2", "a", "e", "6", "5", "d"], ["f", "f", "b", "b", "3", "3", "3"], ["3", "b", "e", "e", "6", "d", "5"], ["f", "4", "c", "c", "9", "1", "9"], ["5", "5", "c", "6", "f", "b", "5"], ["2", "a", "f", "f", "a", "a", "2"], ["c", "c", "5", "9", "9", "1", "0"]];
 
     let bedWarsLevel = getBedWarsLevel(und(bedWarsStats["Experience"]));
 
     let prefixIcon;
     if (bedWarsLevel < 1100) {
-      prefixIcon = '✫';
+      prefixIcon = "✫";
     } else if (bedWarsLevel < 2100) {
-      prefixIcon = '✪';
+      prefixIcon = "✪";
     } else if (bedWarsLevel < 3100) {
-      prefixIcon = '⚝';
+      prefixIcon = "⚝";
     } else {
-      prefixIcon = '✥';
+      prefixIcon = "✥";
     }
 
     updateElement("bedwars-level", checkAndFormat(Math.floor(bedWarsLevel)) + prefixIcon);
@@ -527,7 +474,8 @@ function generateSkyWars() {
   if (skyWarsStats != undefined) {
     if (skyWarsStats["levelFormatted"] != undefined) {
       updateElement("skywars-level", generateMinecraftText(skyWarsStats["levelFormatted"], true), true);
-    } else { // only runs if the player hasn't logged in since 2021(?)
+    } else {
+      // only runs if the player hasn't logged in since 2021(?)
       let skyWarsLevels = [
         { req: 0, color: "§7" },
         { req: 5, color: "§f" },
@@ -540,19 +488,22 @@ function generateSkyWars() {
         { req: 40, color: "§9" },
         { req: 45, color: "§5" },
         { req: 50, color: "rainbow" },
-      ]
+      ];
 
       let skywarsEstimatedExperience = und(skyWarsStats["wins"]) * 10 + und(skyWarsStats["kills"]);
       let skyWarsEstimatedLevel = Math.floor(getSkyWarsLevel(skywarsEstimatedExperience));
 
-      updateElement("skywars-level", getGenericWinsPrefix({
-        wins: skyWarsEstimatedLevel,
-        winsObject: skyWarsLevels,
-        useToGo: false,
-        suffix: "⋆",
-        useBrackets: false,
-      })["title"], true);
-
+      updateElement(
+        "skywars-level",
+        getGenericWinsPrefix({
+          wins: skyWarsEstimatedLevel,
+          winsObject: skyWarsLevels,
+          useToGo: false,
+          suffix: "⋆",
+          useBrackets: false,
+        })["title"],
+        true
+      );
     }
 
     easyStats = ["kills", "deaths", "wins", "losses", "coins", "cosmetic_tokens", "chests_opened", "heads"];
@@ -568,10 +519,7 @@ function generateSkyWars() {
     updateElement("skywars-overall-wlr", calculateRatio(skyWarsStats["wins"], skyWarsStats["losses"]));
     updateElement("skywars-overall-playtime", smallDuration(und(skyWarsStats["time_played"])));
 
-    updateElement(
-      "skywars-overall-corruption-chance",
-      und(skyWarsStats["angel_of_death_level"]) + und(skyWarsStats["angels_offering"]) + (skyWarsStats["packages"] != undefined ? skyWarsStats["packages"].includes("favor_of_the_angel") : 0) + "%"
-    );
+    updateElement("skywars-overall-corruption-chance", und(skyWarsStats["angel_of_death_level"]) + und(skyWarsStats["angels_offering"]) + (skyWarsStats["packages"] != undefined ? skyWarsStats["packages"].includes("favor_of_the_angel") : 0) + "%");
 
     skyWarsChips = [];
     skyWarsStatsToShow = [
@@ -621,30 +569,10 @@ function generateSkyWars() {
 function getBedWarsModeStats(mode) {
   return [
     [true, [getTranslation("statistics.winstreak"), checkAndFormat(bedWarsStats[mode + "_winstreak"])]],
-    [
-      false,
-      [getTranslation("statistics.wins"), checkAndFormat(bedWarsStats[mode + "_wins_bedwars"])],
-      [getTranslation("statistics.losses"), checkAndFormat(bedWarsStats[mode + "_losses_bedwars"])],
-      [getTranslation("statistics.wlr"), calculateRatio(bedWarsStats[mode + "_wins_bedwars"], bedWarsStats[mode + "_losses_bedwars"])],
-    ],
-    [
-      false,
-      [getTranslation("statistics.kills"), checkAndFormat(bedWarsStats[mode + "_kills_bedwars"])],
-      [getTranslation("statistics.deaths"), checkAndFormat(bedWarsStats[mode + "_deaths_bedwars"])],
-      [getTranslation("statistics.kdr"), calculateRatio(bedWarsStats[mode + "_kills_bedwars"], bedWarsStats[mode + "_deaths_bedwars"])],
-    ],
-    [
-      false,
-      [getTranslation("statistics.final_kills"), checkAndFormat(bedWarsStats[mode + "_final_kills_bedwars"])],
-      [getTranslation("statistics.final_deaths"), checkAndFormat(bedWarsStats[mode + "_final_deaths_bedwars"])],
-      [getTranslation("statistics.fkdr"), calculateRatio(bedWarsStats[mode + "_final_kills_bedwars"], bedWarsStats[mode + "_final_deaths_bedwars"])],
-    ],
-    [
-      false,
-      [getTranslation("statistics.beds_broken"), checkAndFormat(bedWarsStats[mode + "_beds_broken_bedwars"])],
-      [getTranslation("statistics.beds_lost"), checkAndFormat(bedWarsStats[mode + "_beds_lost_bedwars"])],
-      [getTranslation("statistics.bblr"), calculateRatio(bedWarsStats[mode + "_beds_broken_bedwars"], bedWarsStats[mode + "_beds_lost_bedwars"])],
-    ],
+    [false, [getTranslation("statistics.wins"), checkAndFormat(bedWarsStats[mode + "_wins_bedwars"])], [getTranslation("statistics.losses"), checkAndFormat(bedWarsStats[mode + "_losses_bedwars"])], [getTranslation("statistics.wlr"), calculateRatio(bedWarsStats[mode + "_wins_bedwars"], bedWarsStats[mode + "_losses_bedwars"])]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(bedWarsStats[mode + "_kills_bedwars"])], [getTranslation("statistics.deaths"), checkAndFormat(bedWarsStats[mode + "_deaths_bedwars"])], [getTranslation("statistics.kdr"), calculateRatio(bedWarsStats[mode + "_kills_bedwars"], bedWarsStats[mode + "_deaths_bedwars"])]],
+    [false, [getTranslation("statistics.final_kills"), checkAndFormat(bedWarsStats[mode + "_final_kills_bedwars"])], [getTranslation("statistics.final_deaths"), checkAndFormat(bedWarsStats[mode + "_final_deaths_bedwars"])], [getTranslation("statistics.fkdr"), calculateRatio(bedWarsStats[mode + "_final_kills_bedwars"], bedWarsStats[mode + "_final_deaths_bedwars"])]],
+    [false, [getTranslation("statistics.beds_broken"), checkAndFormat(bedWarsStats[mode + "_beds_broken_bedwars"])], [getTranslation("statistics.beds_lost"), checkAndFormat(bedWarsStats[mode + "_beds_lost_bedwars"])], [getTranslation("statistics.bblr"), calculateRatio(bedWarsStats[mode + "_beds_broken_bedwars"], bedWarsStats[mode + "_beds_lost_bedwars"])]],
   ];
 }
 
@@ -664,18 +592,8 @@ function getZombiesStats(map) {
 
   return [
     [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_zombies" + map])]],
-    [
-      false,
-      [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["zombie_kills_zombies" + map])],
-      [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_zombies" + map])],
-      [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["zombie_kills_zombies" + map], arcadeStats["deaths_zombies" + map])],
-    ],
-    [
-      false,
-      [getTranslation("statistics.downs"), checkAndFormat(arcadeStats["times_knocked_down_zombies" + map])],
-      [getTranslation("statistics.revives"), checkAndFormat(arcadeStats["players_revived_zombies" + map])],
-      [getTranslation("statistics.rounds_survived"), checkAndFormat(arcadeStats["total_rounds_survived_zombies" + map])],
-    ],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["zombie_kills_zombies" + map])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_zombies" + map])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["zombie_kills_zombies" + map], arcadeStats["deaths_zombies" + map])]],
+    [false, [getTranslation("statistics.downs"), checkAndFormat(arcadeStats["times_knocked_down_zombies" + map])], [getTranslation("statistics.revives"), checkAndFormat(arcadeStats["players_revived_zombies" + map])], [getTranslation("statistics.rounds_survived"), checkAndFormat(arcadeStats["total_rounds_survived_zombies" + map])]],
     [false, [getTranslation("statistics.doors_opened"), checkAndFormat(arcadeStats["doors_opened_zombies" + map])], [getTranslation("statistics.windows_repaired"), checkAndFormat(arcadeStats["windows_repaired_zombies" + map])]],
   ];
 }
@@ -727,7 +645,7 @@ function getArenaBrawlStats(mode) {
       winsObject: arenaWinPrefixes,
       definedColor: arenaStats["prefix_color"],
       useToGo: false,
-      useThousandsSeparator: true, /* Arena Brawl titles have commas */
+      useThousandsSeparator: true /* Arena Brawl titles have commas */,
     })["title"];
   }
 
@@ -740,8 +658,7 @@ function getArenaBrawlStats(mode) {
   ];
 }
 
-function getArcadePartyGamesStats(mode) {
-}
+function getArcadePartyGamesStats(mode) {}
 
 function getTKRStats(mode) {
   let tkrTitles = [
@@ -767,13 +684,21 @@ function getTKRStats(mode) {
     return [
       [false, [getTranslation("statistics.coins"), checkAndFormat(tkrStats["coins"])]],
       [false, [getTranslation("statistics.trophies"), checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats))], [getTranslation("statistics.laps"), checkAndFormat(tkrStats["laps_completed"])]],
-      [false, [getTranslation("statistics.golds"), getGenericWinsPrefix({
-        wins: tkrStats["gold_trophy"],
-        winsObject: tkrTitles,
-        definedColor: tkrStats["prefix_color"],
-        useToGo: false,
-        suffix: "✪"
-      })["title"]], [getTranslation("statistics.silvers"), checkAndFormat(tkrStats["silver_trophy"])], [getTranslation("statistics.bronzes"), checkAndFormat(tkrStats["bronze_trophy"])]],
+      [
+        false,
+        [
+          getTranslation("statistics.golds"),
+          getGenericWinsPrefix({
+            wins: tkrStats["gold_trophy"],
+            winsObject: tkrTitles,
+            definedColor: tkrStats["prefix_color"],
+            useToGo: false,
+            suffix: "✪",
+          })["title"],
+        ],
+        [getTranslation("statistics.silvers"), checkAndFormat(tkrStats["silver_trophy"])],
+        [getTranslation("statistics.bronzes"), checkAndFormat(tkrStats["bronze_trophy"])],
+      ],
       [false, [getTranslation("statistics.games_played"), locale(tkrGamesPlayed, 0)], [getTranslation("statistics.trophy_rate"), checkAndFormat((sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats) / tkrGamesPlayed) * 100, 1) + "%"]],
       [false, [getTranslation("statistics.box_pickups"), checkAndFormat(tkrStats["box_pickups"])], [getTranslation("statistics.coin_pickups"), checkAndFormat(tkrStats["coins_picked_up"])]],
     ];
@@ -816,11 +741,17 @@ function getVampireZStats(mode) {
 
     return [
       [false, [getTranslation("statistics.coins"), checkAndFormat(vampireZStats["coins"])]],
-      [false, [getTranslation("statistics.wins"), getGenericWinsPrefix({
-        wins: und(vampireZStats["human_wins"]),
-        winsObject: vampireZWinPrefixes,
-        useToGo: false
-      })["title"]]],
+      [
+        false,
+        [
+          getTranslation("statistics.wins"),
+          getGenericWinsPrefix({
+            wins: und(vampireZStats["human_wins"]),
+            winsObject: vampireZWinPrefixes,
+            useToGo: false,
+          })["title"],
+        ],
+      ],
       [false, [getTranslation("statistics.vampire_kills"), checkAndFormat(vampireZStats["vampire_kills"])], [getTranslation("statistics.deaths"), checkAndFormat(vampireZStats["human_deaths"])], [getTranslation("statistics.kdr"), calculateRatio(vampireZStats["vampire_kills"], vampireZStats["human_deaths"])]],
       [false, [getTranslation("statistics.zombie_kills"), checkAndFormat(vampireZStats["zombie_kills"])], [getTranslation("statistics.most_vampire_kills"), checkAndFormat(vampireZStats["most_vampire_kills_new"])]],
     ];
@@ -852,11 +783,14 @@ function getVampireZStats(mode) {
       [false, [getTranslation("statistics.wins"), checkAndFormat(vampireZStats["vampire_wins"])]],
       [
         false,
-        [getTranslation("statistics.human_kills"), getGenericWinsPrefix({
-          wins: und(vampireZStats["human_kills"]),
-          winsObject: vampireZWinPrefixes,
-          useToGo: false
-        })["title"]],
+        [
+          getTranslation("statistics.human_kills"),
+          getGenericWinsPrefix({
+            wins: und(vampireZStats["human_kills"]),
+            winsObject: vampireZWinPrefixes,
+            useToGo: false,
+          })["title"],
+        ],
         [getTranslation("statistics.deaths"), checkAndFormat(vampireZStats["vampire_deaths"])],
         [getTranslation("statistics.kdr"), calculateRatio(vampireZStats["human_kills"], vampireZStats["vampire_deaths"])],
       ],
@@ -887,11 +821,18 @@ function getQuakeStats(mode) {
     return [
       [false, [getTranslation("statistics.coins"), checkAndFormat(quakeStats["coins"])]],
       [false, [getTranslation("statistics.wins"), checkAndFormat(quakeModeStats[2])]],
-      [false, [getTranslation("statistics.kills"), getGenericWinsPrefix({
-        wins: quakeModeStats[0],
-        winsObject: quakeTitles,
-        useToGo: false
-      })["title"]], [getTranslation("statistics.deaths"), checkAndFormat(quakeModeStats[1]), [getTranslation("statistics.kdr"), calculateRatio(quakeModeStats[0], quakeModeStats[1])]]],
+      [
+        false,
+        [
+          getTranslation("statistics.kills"),
+          getGenericWinsPrefix({
+            wins: quakeModeStats[0],
+            winsObject: quakeTitles,
+            useToGo: false,
+          })["title"],
+        ],
+        [getTranslation("statistics.deaths"), checkAndFormat(quakeModeStats[1]), [getTranslation("statistics.kdr"), calculateRatio(quakeModeStats[0], quakeModeStats[1])]],
+      ],
       [false, [getTranslation("statistics.headshots"), checkAndFormat(quakeModeStats[3])], [getTranslation("statistics.killstreaks"), checkAndFormat(quakeModeStats[4])]],
       [false, [getTranslation("statistics.shots"), checkAndFormat(quakeModeStats[5])], [getTranslation("statistics.distance_travelled"), checkAndFormat(quakeModeStats[6]) + "m"]],
       [false, [getTranslation("statistics.godlikes"), checkAndFormat(playerAchievements["quake_godlikes"])]],
@@ -945,13 +886,7 @@ function getArcadeSeasonalStats(game) {
 }
 
 function getDuelsStats(mode, is_bridge = false, cuteName) {
-  importedDuelsStats = [
-    checkAndFormat(duelsStats["current_winstreak_mode_" + mode]),
-    checkAndFormat(duelsStats["best_winstreak_mode_" + mode]),
-    checkAndFormat(duelsStats[mode + "_wins"]),
-    checkAndFormat(duelsStats[mode + "_losses"]),
-    calculateRatio(duelsStats[mode + "_wins"], duelsStats[mode + "_losses"]),
-  ];
+  importedDuelsStats = [checkAndFormat(duelsStats["current_winstreak_mode_" + mode]), checkAndFormat(duelsStats["best_winstreak_mode_" + mode]), checkAndFormat(duelsStats[mode + "_wins"]), checkAndFormat(duelsStats[mode + "_losses"]), calculateRatio(duelsStats[mode + "_wins"], duelsStats[mode + "_losses"])];
 
   if (is_bridge) {
     // Bridge uses a different wins counter
@@ -1241,7 +1176,7 @@ function generateBuildBattle() {
     let buildBattleTitle = getBuildBattleTitle(buildBattleScore, true);
 
     if (buildBattleTitle["winsToGo"] > 0) {
-      let buildBattleProgressToNextTitle = und((buildBattleScore - buildBattleTitle["currentTitleRequirement"]) / (buildBattleScore - buildBattleTitle["currentTitleRequirement"] + buildBattleTitle["winsToGo"]))
+      let buildBattleProgressToNextTitle = und((buildBattleScore - buildBattleTitle["currentTitleRequirement"]) / (buildBattleScore - buildBattleTitle["currentTitleRequirement"] + buildBattleTitle["winsToGo"]));
 
       updateElement("buildbattle-overall-progress-number", Math.floor(buildBattleProgressToNextTitle * 100) + "%");
       document.getElementById("buildbattle-overall-progress-bar").style.width = buildBattleProgressToNextTitle * 100 + "%";
@@ -1262,12 +1197,12 @@ function generateBuildBattle() {
     }
 
     let buildBattleEmblems = {
-      "ALPHA": "α",
-      "OMEGA": "Ω",
-      "REMINISCENCE": "≈",
-      "RICH": "$",
-      "PODIUM": "π",
-      "FLORIN": "ƒ",
+      ALPHA: "α",
+      OMEGA: "Ω",
+      REMINISCENCE: "≈",
+      RICH: "$",
+      PODIUM: "π",
+      FLORIN: "ƒ",
     };
 
     let buildBattleEmblem = buildBattleStats["emblem"] || {};
@@ -1348,36 +1283,16 @@ function generateMurderMystery() {
       let murderMysteryModeStats;
 
       murderMysteryModeStats = [
-        [
-          false,
-          [getTranslation("statistics.wins"), checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
-          [getTranslation("statistics.losses"), checkAndFormat(murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
-          [getTranslation("statistics.wlr"), calculateRatio(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`], murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
-        ],
-        [
-          false,
-          [getTranslation("statistics.kills"), checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])],
-          [getTranslation("statistics.deaths"), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`])],
-          [getTranslation("statistics.kdr"), calculateRatio(checkAndFormat(murderMysteryStats[`kills_${currentMurderMysteryMode[1]}`]), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`]))],
-        ],
+        [false, [getTranslation("statistics.wins"), checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.losses"), checkAndFormat(murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.wlr"), calculateRatio(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`], murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])]],
+        [false, [getTranslation("statistics.kills"), checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.deaths"), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.kdr"), calculateRatio(checkAndFormat(murderMysteryStats[`kills_${currentMurderMysteryMode[1]}`]), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`]))]],
       ];
 
       if (currentMurderMysteryMode[1] == "MURDER_CLASSIC" || currentMurderMysteryMode[1] == "MURDER_DOUBLE_UP") {
-        murderMysteryModeStats.push(
-          [false, [getTranslation("statistics.wins_murderer"), checkAndFormat(murderMysteryStats[`murderer_wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.wins_detective"), checkAndFormat(murderMysteryStats[`detective_wins_${currentMurderMysteryMode[1]}`])]],
-          [false, [getTranslation("statistics.kills_murderer"), checkAndFormat(murderMysteryStats[`kills_as_murderer_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.wins_hero"), checkAndFormat(murderMysteryStats[`was_hero_${currentMurderMysteryMode[1]}`])]]
-        );
+        murderMysteryModeStats.push([false, [getTranslation("statistics.wins_murderer"), checkAndFormat(murderMysteryStats[`murderer_wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.wins_detective"), checkAndFormat(murderMysteryStats[`detective_wins_${currentMurderMysteryMode[1]}`])]], [false, [getTranslation("statistics.kills_murderer"), checkAndFormat(murderMysteryStats[`kills_as_murderer_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.wins_hero"), checkAndFormat(murderMysteryStats[`was_hero_${currentMurderMysteryMode[1]}`])]]);
       } else if (currentMurderMysteryMode[1] == "MURDER_ASSASSINS") {
         // idk
       } else if (currentMurderMysteryMode[1] == "MURDER_INFECTION") {
-        murderMysteryModeStats.push(
-          [
-            false,
-            [getTranslation("statistics.wins_survivor"), checkAndFormat(murderMysteryStats[`survivor_wins_${currentMurderMysteryMode[1]}`])],
-            [getTranslation("statistics.total_time_survived"), smallDuration(und(murderMysteryStats[`total_time_survived_seconds_${currentMurderMysteryMode[1]}`]))],
-          ],
-          [false, [getTranslation("statistics.kills_infected"), checkAndFormat(murderMysteryStats[`kills_as_infected_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.kills_survivor"), checkAndFormat(murderMysteryStats[`kills_as_survivor_${currentMurderMysteryMode[1]}`])]]
-        );
+        murderMysteryModeStats.push([false, [getTranslation("statistics.wins_survivor"), checkAndFormat(murderMysteryStats[`survivor_wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.total_time_survived"), smallDuration(und(murderMysteryStats[`total_time_survived_seconds_${currentMurderMysteryMode[1]}`]))]], [false, [getTranslation("statistics.kills_infected"), checkAndFormat(murderMysteryStats[`kills_as_infected_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.kills_survivor"), checkAndFormat(murderMysteryStats[`kills_as_survivor_${currentMurderMysteryMode[1]}`])]]);
       }
 
       murderMysteryModeStats.push([false, [getTranslation("statistics.gold_picked_up"), checkAndFormat(murderMysteryStats[`coins_pickedup_${currentMurderMysteryMode[1]}`])]]);
@@ -1457,12 +1372,15 @@ function generateTNTGames() {
     [
       [
         false,
-        [getTranslation("statistics.wins"), getGenericWinsPrefix({
-          wins: tntGamesStats["wins_tntrun"],
-          winsObject: tntGamesHighPrefixes,
-          definedColor: tntGamesStats["prefix_tntrun"],
-          useToGo: false,
-        })["title"]],
+        [
+          getTranslation("statistics.wins"),
+          getGenericWinsPrefix({
+            wins: tntGamesStats["wins_tntrun"],
+            winsObject: tntGamesHighPrefixes,
+            definedColor: tntGamesStats["prefix_tntrun"],
+            useToGo: false,
+          })["title"],
+        ],
         [getTranslation("statistics.losses"), checkAndFormat(tntGamesStats["deaths_tntrun"])],
         [getTranslation("statistics.wlr"), calculateRatio(tntGamesStats["wins_tntrun"], tntGamesStats["deaths_tntrun"])],
       ],
@@ -1481,12 +1399,15 @@ function generateTNTGames() {
     [
       [
         false,
-        [getTranslation("statistics.wins"), getGenericWinsPrefix({
-          wins: tntGamesStats["wins_pvprun"],
-          winsObject: tntGamesHighPrefixes,
-          definedColor: tntGamesStats["prefix_pvprun"],
-          useToGo: false,
-        })["title"]],
+        [
+          getTranslation("statistics.wins"),
+          getGenericWinsPrefix({
+            wins: tntGamesStats["wins_pvprun"],
+            winsObject: tntGamesHighPrefixes,
+            definedColor: tntGamesStats["prefix_pvprun"],
+            useToGo: false,
+          })["title"],
+        ],
         [getTranslation("statistics.losses"), checkAndFormat(tntGamesStats["deaths_pvprun"])],
         [getTranslation("statistics.wlr"), calculateRatio(tntGamesStats["wins_pvprun"], tntGamesStats["deaths_pvprun"])],
       ],
@@ -1506,12 +1427,15 @@ function generateTNTGames() {
     [
       [
         false,
-        [getTranslation("statistics.wins"), getGenericWinsPrefix({
-          wins: tntGamesStats["wins_tntag"],
-          winsObject: tntGamesLowPrefixes,
-          definedColor: tntGamesStats["prefix_tntag"],
-          useToGo: false,
-        })["title"]],
+        [
+          getTranslation("statistics.wins"),
+          getGenericWinsPrefix({
+            wins: tntGamesStats["wins_tntag"],
+            winsObject: tntGamesLowPrefixes,
+            definedColor: tntGamesStats["prefix_tntag"],
+            useToGo: false,
+          })["title"],
+        ],
         [getTranslation("statistics.losses"), checkAndFormat(tntGamesStats["deaths_tntag"])],
         [getTranslation("statistics.wlr"), calculateRatio(tntGamesStats["wins_tntag"], tntGamesStats["deaths_tntag"])],
       ],
@@ -1531,12 +1455,15 @@ function generateTNTGames() {
     [
       [
         false,
-        [getTranslation("statistics.wins"), getGenericWinsPrefix({
-          wins: tntGamesStats["wins_bowspleef"],
-          winsObject: tntGamesHighPrefixes,
-          definedColor: tntGamesStats["prefix_bowspleef"],
-          useToGo: false,
-        })["title"]],
+        [
+          getTranslation("statistics.wins"),
+          getGenericWinsPrefix({
+            wins: tntGamesStats["wins_bowspleef"],
+            winsObject: tntGamesHighPrefixes,
+            definedColor: tntGamesStats["prefix_bowspleef"],
+            useToGo: false,
+          })["title"],
+        ],
         [getTranslation("statistics.losses"), checkAndFormat(tntGamesStats["deaths_bowspleef"])],
         [getTranslation("statistics.wlr"), calculateRatio(tntGamesStats["wins_bowspleef"], tntGamesStats["deaths_bowspleef"])],
       ],
@@ -1573,12 +1500,19 @@ function generateTNTGames() {
   );
 
   allTNTWizardStats["overall"] = [
-    [false, [getTranslation("statistics.overall_wins"), getGenericWinsPrefix({
-      wins: tntGamesStats["wins_capture"],
-      winsObject: tntGamesHighPrefixes,
-      definedColor: tntGamesStats["prefix_capture"],
-      useToGo: false,
-    })["title"]], [getTranslation("statistics.overall_captures"), checkAndFormat(tntGamesStats["points_capture"])]],
+    [
+      false,
+      [
+        getTranslation("statistics.overall_wins"),
+        getGenericWinsPrefix({
+          wins: tntGamesStats["wins_capture"],
+          winsObject: tntGamesHighPrefixes,
+          definedColor: tntGamesStats["prefix_capture"],
+          useToGo: false,
+        })["title"],
+      ],
+      [getTranslation("statistics.overall_captures"), checkAndFormat(tntGamesStats["points_capture"])],
+    ],
     [false, [getTranslation("statistics.kills"), checkAndFormat(totalWizardStats[0])], [getTranslation("statistics.deaths"), checkAndFormat(totalWizardStats[1])], [getTranslation("statistics.kdr"), calculateRatio(totalWizardStats[0], totalWizardStats[1])]],
     [false, [getTranslation("statistics.damage_healed"), checkAndFormat(totalWizardStats[2] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.damage_taken"), checkAndFormat(totalWizardStats[3] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.assists"), checkAndFormat(tntGamesStats["assists_capture"])]],
   ];
@@ -1587,24 +1521,21 @@ function generateTNTGames() {
     thisWizard = wizardsList[a][1];
 
     allTNTWizardStats[thisWizard] = [
-      [false, [getTranslation("statistics.overall_wins"), getGenericWinsPrefix({
-        wins: tntGamesStats["wins_capture"],
-        winsObject: tntGamesHighPrefixes,
-        definedColor: tntGamesStats["prefix_capture"],
-        useToGo: false,
-      })["title"]], [getTranslation("statistics.overall_captures"), checkAndFormat(tntGamesStats["points_capture"])]],
       [
         false,
-        [getTranslation("statistics.kills"), checkAndFormat(tntGamesStats[thisWizard + "_kills"])],
-        [getTranslation("statistics.deaths"), checkAndFormat(tntGamesStats[thisWizard + "_deaths"])],
-        [getTranslation("statistics.kdr"), calculateRatio(tntGamesStats[thisWizard + "_kills"], tntGamesStats[thisWizard + "_deaths"])],
+        [
+          getTranslation("statistics.overall_wins"),
+          getGenericWinsPrefix({
+            wins: tntGamesStats["wins_capture"],
+            winsObject: tntGamesHighPrefixes,
+            definedColor: tntGamesStats["prefix_capture"],
+            useToGo: false,
+          })["title"],
+        ],
+        [getTranslation("statistics.overall_captures"), checkAndFormat(tntGamesStats["points_capture"])],
       ],
-      [
-        false,
-        [getTranslation("statistics.damage_healed"), checkAndFormat(tntGamesStats[thisWizard + "_healing"] / 2) + ` ♥&#xFE0E;`],
-        [getTranslation("statistics.damage_taken"), checkAndFormat(tntGamesStats[thisWizard + "_damage_taken"] / 2) + ` ♥&#xFE0E;`],
-        [getTranslation("statistics.assists"), checkAndFormat(tntGamesStats[thisWizard + "_assists"])],
-      ],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(tntGamesStats[thisWizard + "_kills"])], [getTranslation("statistics.deaths"), checkAndFormat(tntGamesStats[thisWizard + "_deaths"])], [getTranslation("statistics.kdr"), calculateRatio(tntGamesStats[thisWizard + "_kills"], tntGamesStats[thisWizard + "_deaths"])]],
+      [false, [getTranslation("statistics.damage_healed"), checkAndFormat(tntGamesStats[thisWizard + "_healing"] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.damage_taken"), checkAndFormat(tntGamesStats[thisWizard + "_damage_taken"] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.assists"), checkAndFormat(tntGamesStats[thisWizard + "_assists"])]],
     ];
   }
 
@@ -1631,32 +1562,7 @@ function generateArcade() {
   let dropperStats = arcadeStats["dropper"] || {};
   let pixelPartyStats = arcadeStats["pixel_party"] || {};
 
-  let easyWins = sumStatsBasic(
-    [
-      "wins_dayone",
-      "wins_oneinthequiver",
-      "wins_dragonwars2",
-      "wins_ender",
-      "wins_farm_hunt",
-      "wins_soccer",
-      "sw_game_wins",
-      "hider_wins_hide_and_seek",
-      "seeker_wins_hide_and_seek",
-      "wins_hole_in_the_wall",
-      "wins_mini_walls",
-      "wins_party",
-      "wins_simon_says",
-      "wins_draw_their_thing",
-      "wins_throw_out",
-      "wins_zombies",
-      "wins_easter_simulator",
-      "wins_halloween_simulator",
-      "wins_santa_simulator",
-      "wins_scuba_simulator",
-      "wins_grinch_simulator_v2",
-    ],
-    arcadeStats
-  );
+  let easyWins = sumStatsBasic(["wins_dayone", "wins_oneinthequiver", "wins_dragonwars2", "wins_ender", "wins_farm_hunt", "wins_soccer", "sw_game_wins", "hider_wins_hide_and_seek", "seeker_wins_hide_and_seek", "wins_hole_in_the_wall", "wins_mini_walls", "wins_party", "wins_simon_says", "wins_draw_their_thing", "wins_throw_out", "wins_zombies", "wins_easter_simulator", "wins_halloween_simulator", "wins_santa_simulator", "wins_scuba_simulator", "wins_grinch_simulator_v2"], arcadeStats);
 
   updateElement("arcade-overall-wins", checkAndFormat(easyWins + und(dropperStats["wins"]) + und(pixelPartyStats["wins"])), arcadeStats);
   updateElement("arcade-overall-coins", checkAndFormat(arcadeStats["coins"]));
@@ -1684,12 +1590,7 @@ function generateArcade() {
     `/img/games/arcade/bountyhunters.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_oneinthequiver"])]],
-      [
-        false,
-        [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_oneinthequiver"])],
-        [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_oneinthequiver"])],
-        [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["kills_oneinthequiver"], arcadeStats["deaths_oneinthequiver"])],
-      ],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_oneinthequiver"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_oneinthequiver"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["kills_oneinthequiver"], arcadeStats["deaths_oneinthequiver"])]],
       [false, [getTranslation("statistics.bounty_kills"), checkAndFormat(arcadeStats["bounty_kills_oneinthequiver"])], [getTranslation("statistics.bow_kills"), checkAndFormat(arcadeStats["bow_kills_oneinthequiver"])], [getTranslation("statistics.sword_kills"), checkAndFormat(arcadeStats["sword_kills_oneinthequiver"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu)
@@ -1728,12 +1629,7 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/arcade/dropper.${imageFileType}`, // Background image
     [
-      [
-        false,
-        [getTranslation("statistics.wins"), checkAndFormat(dropperStats["wins"])],
-        [getTranslation("statistics.losses"), locale(und(dropperStats["games_played"]) - und(dropperStats["wins"]), 0)],
-        [getTranslation("statistics.wlr"), calculateRatio(dropperStats["wins"], und(dropperStats["games_played"]) - und(dropperStats["wins"]))],
-      ],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(dropperStats["wins"])], [getTranslation("statistics.losses"), locale(und(dropperStats["games_played"]) - und(dropperStats["wins"]), 0)], [getTranslation("statistics.wlr"), calculateRatio(dropperStats["wins"], und(dropperStats["games_played"]) - und(dropperStats["wins"]))]],
       [false, [getTranslation("statistics.maps_completed"), checkAndFormat(dropperStats["maps_completed"])], [getTranslation("statistics.fails"), checkAndFormat(dropperStats["fails"])]],
       [false, [getTranslation("statistics.best_time"), smallDuration(dropperStats["fastest_game"] / 1000, true)], [getTranslation("statistics.flawless_games"), checkAndFormat(dropperStats["flawless_games"])]],
     ], // Displayed stats
@@ -1840,12 +1736,7 @@ function generateArcade() {
     `/img/games/arcade/hypixelsays.${imageFileType}`, // Background image
     [
       [false, [getTranslation("statistics.wins"), locale(und(arcadeStats["wins_simon_says"]) + und(arcadeStats["wins_santa_says"]), 0)]],
-      [
-        false,
-        [getTranslation("statistics.points"), locale(und(arcadeStats["rounds_simon_says"]) + und(arcadeStats["rounds_santa_says"]), 0)],
-        [getTranslation("statistics.round_wins"), locale(und(arcadeStats["round_wins_simon_says"]) + und(arcadeStats["round_wins_santa_says"]), 0)],
-        [getTranslation("statistics.highest_score"), locale(Math.max(und(arcadeStats["top_score_simon_says"]), und(arcadeStats["top_score_santa_says"])), 0)],
-      ],
+      [false, [getTranslation("statistics.points"), locale(und(arcadeStats["rounds_simon_says"]) + und(arcadeStats["rounds_santa_says"]), 0)], [getTranslation("statistics.round_wins"), locale(und(arcadeStats["round_wins_simon_says"]) + und(arcadeStats["round_wins_santa_says"]), 0)], [getTranslation("statistics.highest_score"), locale(Math.max(und(arcadeStats["top_score_simon_says"]), und(arcadeStats["top_score_santa_says"])), 0)]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/cookie.${imageFileType}`, // Chip image
@@ -1860,12 +1751,7 @@ function generateArcade() {
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(arcadeStats["wins_mini_walls"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(arcadeStats["kills_mini_walls"])], [getTranslation("statistics.deaths"), checkAndFormat(arcadeStats["deaths_mini_walls"])], [getTranslation("statistics.kdr"), calculateRatio(arcadeStats["kills_mini_walls"], arcadeStats["deaths_mini_walls"])]],
-      [
-        false,
-        [getTranslation("statistics.final_kills"), checkAndFormat(arcadeStats["final_kills_mini_walls"])],
-        [getTranslation("statistics.wither_kills"), checkAndFormat(arcadeStats["wither_kills_mini_walls"])],
-        [getTranslation("statistics.wither_damage"), checkAndFormat(arcadeStats["wither_damage_mini_walls"] / 2) + ` ♥&#xFE0E;`],
-      ],
+      [false, [getTranslation("statistics.final_kills"), checkAndFormat(arcadeStats["final_kills_mini_walls"])], [getTranslation("statistics.wither_kills"), checkAndFormat(arcadeStats["wither_kills_mini_walls"])], [getTranslation("statistics.wither_damage"), checkAndFormat(arcadeStats["wither_damage_mini_walls"] / 2) + ` ♥&#xFE0E;`]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
     `/img/icon/minecraft/head_miniwalls.${imageFileType}`, // Chip image
@@ -1903,12 +1789,7 @@ function generateArcade() {
     "", // Subtitle
     `/img/games/arcade/pixelparty.${imageFileType}`, // Background image
     [
-      [
-        false,
-        [getTranslation("statistics.wins"), checkAndFormat(pixelPartyStats["wins"])],
-        [getTranslation("statistics.losses"), locale(und(pixelPartyStats["games_played"]) - und(pixelPartyStats["wins"]), 0)],
-        [getTranslation("statistics.wlr"), calculateRatio(pixelPartyStats["wins"], und(pixelPartyStats["games_played"]) - und(pixelPartyStats["wins"]))],
-      ],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(pixelPartyStats["wins"])], [getTranslation("statistics.losses"), locale(und(pixelPartyStats["games_played"]) - und(pixelPartyStats["wins"]), 0)], [getTranslation("statistics.wlr"), calculateRatio(pixelPartyStats["wins"], und(pixelPartyStats["games_played"]) - und(pixelPartyStats["wins"]))]],
       [false, [getTranslation("statistics.rounds_completed"), checkAndFormat(pixelPartyStats["rounds_completed"])], [getTranslation("statistics.powerups"), checkAndFormat(pixelPartyStats["power_ups_collected"])]],
     ], // Displayed stats
     [], // Other stats (shown in drop-down menu]
@@ -1965,27 +1846,7 @@ function generateArcade() {
     "arcade_seasonal", // gamemode
   ];
 
-  arcadeCards = [
-    blockingDeadCard,
-    bountyHuntersCard,
-    creeperAttackCard,
-    dragonWarsCard,
-    dropperCard,
-    enderSpleefCard,
-    farmHuntCard,
-    footballCard,
-    galaxyWarsCard,
-    hideAndSeekCard,
-    holeInTheWallCard,
-    hypixelSaysCard,
-    miniWallsCard,
-    partyGamesCard,
-    pixelPaintersCard,
-    pixelPartyCard,
-    throwOutCard,
-    zombiesCard,
-    seasonalCard,
-  ];
+  arcadeCards = [blockingDeadCard, bountyHuntersCard, creeperAttackCard, dragonWarsCard, dropperCard, enderSpleefCard, farmHuntCard, footballCard, galaxyWarsCard, hideAndSeekCard, holeInTheWallCard, hypixelSaysCard, miniWallsCard, partyGamesCard, pixelPaintersCard, pixelPartyCard, throwOutCard, zombiesCard, seasonalCard];
 
   for (d = 0; d < arcadeCards.length; d++) {
     generateChip(arcadeCards[d], d % 2 == 0 ? "arcade-chips-1" : "arcade-chips-2");
@@ -1997,59 +1858,7 @@ function generatePit() {
   pitProfileStats = pitStats["profile"] || {};
   pitPtlStats = pitStats["pit_stats_ptl"] || {};
 
-  let pitPrestigeXp = [
-    65950,
-    138510,
-    217680,
-    303430,
-    395760,
-    494700,
-    610140,
-    742040,
-    906930,
-    1104780,
-    1368580,
-    1698330,
-    2094030,
-    2555680,
-    3083280,
-    3676830,
-    4336330,
-    5127730,
-    6051030,
-    7106230,
-    8293330,
-    9612330,
-    11195130,
-    13041730,
-    15152130,
-    17526330,
-    20164330,
-    23132080,
-    26429580,
-    31375830,
-    37970830,
-    44631780,
-    51292730,
-    57953680,
-    64614630,
-    71275580,
-    84465580,
-    104250580,
-    130630580,
-    163605580,
-    213068080,
-    279018080,
-    361455580,
-    460380580,
-    575793080,
-    707693080,
-    905543080,
-    1235293080,
-    1894793080,
-    5192293080,
-    11787293080,
-  ];
+  let pitPrestigeXp = [65950, 138510, 217680, 303430, 395760, 494700, 610140, 742040, 906930, 1104780, 1368580, 1698330, 2094030, 2555680, 3083280, 3676830, 4336330, 5127730, 6051030, 7106230, 8293330, 9612330, 11195130, 13041730, 15152130, 17526330, 20164330, 23132080, 26429580, 31375830, 37970830, 44631780, 51292730, 57953680, 64614630, 71275580, 84465580, 104250580, 130630580, 163605580, 213068080, 279018080, 361455580, 460380580, 575793080, 707693080, 905543080, 1235293080, 1894793080, 5192293080, 11787293080];
 
   /*
 // Decode NBT function
@@ -2102,13 +1911,14 @@ decodeNBT(decompressedData.buffer)
   updateElement("pit-overall-clicks", checkAndFormat(pitPtlStats["left_clicks"]));
   updateElement("pit-overall-highest-killstreak", checkAndFormat(pitPtlStats["max_streak"]));
 
-  if(pitProfileStats["bounties"]) {
+  if (pitProfileStats["bounties"]) {
     bountySum = 0;
     for (let a = 0; a < pitProfileStats["bounties"].length; a++) {
       bountySum += pitProfileStats["bounties"][a]["amount"];
     }
 
-    if(pitProfileStats["bounties"].length > 0) { // Only show bounty gold amount if the player has it
+    if (pitProfileStats["bounties"].length > 0) {
+      // Only show bounty gold amount if the player has it
       updateElement("pit-overall-bounty", checkAndFormat(bountySum) + "g");
       document.getElementById("pit-overall-bounty-container").style.display = "block";
     }
@@ -2214,24 +2024,8 @@ function generateClassic() {
   tkrStats = playerData["stats"]["GingerBread"] || {};
   wallsStats = playerData["stats"]["Walls"] || {};
 
-  updateElement(
-    "classic-overall-wins",
-    checkAndFormat(und(arenaStats["wins"]) + und(paintballStats["wins"]) + und(quakeStats["wins"]) + und(vampireZStats["wins_human"]) + und(vampireZStats["wins_vampire"]) + und(tkrStats["wins"]) + und(wallsStats["wins"]))
-  );
-  updateElement(
-    "classic-overall-kills",
-    checkAndFormat(
-      und(arenaStats["kills_1v1"]) +
-        und(arenaStats["kills_2v2"]) +
-        und(arenaStats["kills_4v4"]) +
-        und(paintballStats["kills"]) +
-        und(quakeStats["kills"]) +
-        und(quakeStats["kills_teams"]) +
-        und(vampireZStats["human_kills"]) +
-        und(vampireZStats["vampire_kills"]) +
-        und(wallsStats["kills"])
-    )
-  );
+  updateElement("classic-overall-wins", checkAndFormat(und(arenaStats["wins"]) + und(paintballStats["wins"]) + und(quakeStats["wins"]) + und(vampireZStats["wins_human"]) + und(vampireZStats["wins_vampire"]) + und(tkrStats["wins"]) + und(wallsStats["wins"])));
+  updateElement("classic-overall-kills", checkAndFormat(und(arenaStats["kills_1v1"]) + und(arenaStats["kills_2v2"]) + und(arenaStats["kills_4v4"]) + und(paintballStats["kills"]) + und(quakeStats["kills"]) + und(quakeStats["kills_teams"]) + und(vampireZStats["human_kills"]) + und(vampireZStats["vampire_kills"]) + und(wallsStats["kills"])));
   updateElement("classic-overall-tokens", checkAndFormat(classicStats["tokens"]));
   updateElement("classic-overall-total_tokens", checkAndFormat(classicStats["total_tokens"]));
   updateElement("classic-overall-playtime", smallDuration(sumStatsBasic(["arena_tokens", "gingerbread_tokens", "walls_tokens", "quakecraft_tokens", "paintball_tokens", "vampirez_tokens"], classicStats) * 120));
@@ -2277,12 +2071,15 @@ function generateClassic() {
       [false, [getTranslation("statistics.wins"), checkAndFormat(paintballStats["wins"])]],
       [
         false,
-        [getTranslation("statistics.kills"), getGenericWinsPrefix({
-          wins: und(paintballStats["kills"]),
-          winsObject: paintballTitles,
-          definedColor: paintballStats["prefix_color"],
-          useToGo: false
-        })["title"]],
+        [
+          getTranslation("statistics.kills"),
+          getGenericWinsPrefix({
+            wins: und(paintballStats["kills"]),
+            winsObject: paintballTitles,
+            definedColor: paintballStats["prefix_color"],
+            useToGo: false,
+          })["title"],
+        ],
         [getTranslation("statistics.deaths"), checkAndFormat(paintballStats["deaths"])],
         [getTranslation("statistics.kdr"), calculateRatio(paintballStats["kills"], paintballStats["deaths"])],
       ],
@@ -2362,11 +2159,19 @@ function generateClassic() {
     `/img/games/classic/walls.${imageFileType}`,
     [
       [false, [getTranslation("statistics.coins"), checkAndFormat(wallsStats["coins"])]],
-      [false, [getTranslation("statistics.wins"), getGenericWinsPrefix({
-        wins: wallsStats["wins"],
-        winsObject: wallsTitles,
-        useToGo: false
-      })["title"]], [getTranslation("statistics.losses"), checkAndFormat(wallsStats["losses"])], [getTranslation("statistics.wlr"), calculateRatio(wallsStats["wins"], wallsStats["losses"])]],
+      [
+        false,
+        [
+          getTranslation("statistics.wins"),
+          getGenericWinsPrefix({
+            wins: wallsStats["wins"],
+            winsObject: wallsTitles,
+            useToGo: false,
+          })["title"],
+        ],
+        [getTranslation("statistics.losses"), checkAndFormat(wallsStats["losses"])],
+        [getTranslation("statistics.wlr"), calculateRatio(wallsStats["wins"], wallsStats["losses"])],
+      ],
       [false, [getTranslation("statistics.kills"), checkAndFormat(wallsStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(wallsStats["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(wallsStats["kills"], wallsStats["deaths"])]],
       [false, [getTranslation("statistics.assists"), checkAndFormat(wallsStats["assists"])]],
     ],
@@ -2393,261 +2198,285 @@ function generateCopsAndCrims() {
   }
 
   let copsAndCrimsEmblems = {
-    "emblem_rookie": {
-      "source": "unicode",
-      "character": "▶",
+    emblem_rookie: {
+      source: "unicode",
+      character: "▶",
     },
-    "emblem_incomplete": {
-      "source": "resourcepack",
-      "positions": [[4, 1]],
+    emblem_incomplete: {
+      source: "resourcepack",
+      positions: [[4, 1]],
     },
-    "emblem_complete": {
-      "source": "resourcepack",
-      "positions": [[5, 1]],
+    emblem_complete: {
+      source: "resourcepack",
+      positions: [[5, 1]],
     },
-    "emblem_decoy": {
-      "source": "resourcepack",
-      "positions": [[10, 1]],
+    emblem_decoy: {
+      source: "resourcepack",
+      positions: [[10, 1]],
     },
-    "emblem_frown": {
-      "source": "unicode",
-      "character": "☹",
+    emblem_frown: {
+      source: "unicode",
+      character: "☹",
     },
-    "emblem_gem": {
-      "source": "unicode",
-      "character": "♦",
+    emblem_gem: {
+      source: "unicode",
+      character: "♦",
     },
-    "emblem_spaceship": {
-      "source": "unicode",
-      "character": "⥈",
+    emblem_spaceship: {
+      source: "unicode",
+      character: "⥈",
     },
-    "emblem_target": {
-      "source": "unicode",
-      "character": "⦾",
+    emblem_target: {
+      source: "unicode",
+      character: "⦾",
     },
-    "emblem_biohazard": {
-      "source": "unicode",
-      "character": "☣",
+    emblem_biohazard: {
+      source: "unicode",
+      character: "☣",
     },
-    "emblem_infinite": {
-      "source": "unicode",
-      "character": "∞",
+    emblem_infinite: {
+      source: "unicode",
+      character: "∞",
     },
-    "emblem_lucky": {
-      "source": "unicode",
-      "character": "☘",
+    emblem_lucky: {
+      source: "unicode",
+      character: "☘",
     },
-    "emblem_warning": {
-      "source": "unicode",
-      "character": "\u26a0\ufe0e",
+    emblem_warning: {
+      source: "unicode",
+      character: "\u26a0\ufe0e",
     },
-    "emblem_trident": {
-      "source": "unicode",
-      "character": "♆",
+    emblem_trident: {
+      source: "unicode",
+      character: "♆",
     },
-    "emblem_star": {
-      "source": "unicode",
-      "character": "✰",
+    emblem_star: {
+      source: "unicode",
+      character: "✰",
     },
-    "emblem_right_angle": {
-      "source": "unicode",
-      "character": "⧉",
+    emblem_right_angle: {
+      source: "unicode",
+      character: "⧉",
     },
-    "emblem_balance": {
-      "source": "unicode",
-      "character": "☯",
+    emblem_balance: {
+      source: "unicode",
+      character: "☯",
     },
-    "emblem_ballista": {
-      "source": "unicode",
-      "character": "\u269c\ufe0e",
+    emblem_ballista: {
+      source: "unicode",
+      character: "\u269c\ufe0e",
     },
-    "emblem_broken_bones": {
-      "source": "resourcepack",
-      "positions": [[1, 1], [2, 1]],
+    emblem_broken_bones: {
+      source: "resourcepack",
+      positions: [
+        [1, 1],
+        [2, 1],
+      ],
     },
-    "emblem_budding": {
-      "source": "unicode",
-      "character": "✿",
+    emblem_budding: {
+      source: "unicode",
+      character: "✿",
     },
-    "emblem_cheeky": {
-      "source": "unicode",
-      "character": "ツ",
+    emblem_cheeky: {
+      source: "unicode",
+      character: "ツ",
     },
-    "emblem_ghoul": {
-      "source": "unicode",
-      "character": "ௐ",
+    emblem_ghoul: {
+      source: "unicode",
+      character: "ௐ",
     },
-    "emblem_phone": {
-      "source": "unicode",
-      "character": "✆",
+    emblem_phone: {
+      source: "unicode",
+      character: "✆",
     },
-    "emblem_surrender": {
-      "source": "unicode",
-      "character": "⚑",
+    emblem_surrender: {
+      source: "unicode",
+      character: "⚑",
     },
-    "emblem_serious": {
-      "source": "unicode",
-      "character": "ಠ_ಠ",
+    emblem_serious: {
+      source: "unicode",
+      character: "ಠ_ಠ",
     },
-    "emblem_helmet": {
-      "source": "resourcepack",
-      "positions": [[13, 1]],
+    emblem_helmet: {
+      source: "resourcepack",
+      positions: [[13, 1]],
     },
-    "emblem_armor": {
-      "source": "resourcepack",
-      "positions": [[12, 1]],
+    emblem_armor: {
+      source: "resourcepack",
+      positions: [[12, 1]],
     },
-    "emblem_knife": {
-      "source": "resourcepack",
-      "positions": [[15, 0]],
+    emblem_knife: {
+      source: "resourcepack",
+      positions: [[15, 0]],
     },
-    "emblem_smg": {
-      "source": "resourcepack",
-      "positions": [[2, 0]],
+    emblem_smg: {
+      source: "resourcepack",
+      positions: [[2, 0]],
     },
-    "emblem_pistol": {
-      "source": "resourcepack",
-      "positions": [[0, 0]],
+    emblem_pistol: {
+      source: "resourcepack",
+      positions: [[0, 0]],
     },
-    "emblem_bullpup": {
-      "source": "resourcepack",
-      "positions": [[2, 3], [3, 3]],
+    emblem_bullpup: {
+      source: "resourcepack",
+      positions: [
+        [2, 3],
+        [3, 3],
+      ],
     },
-    "emblem_scopedRifle": {
-      "source": "resourcepack",
-      "positions": [[6, 3], [7, 3]],
+    emblem_scopedRifle: {
+      source: "resourcepack",
+      positions: [
+        [6, 3],
+        [7, 3],
+      ],
     },
-    "emblem_augoShotgun": {
-      "source": "resourcepack",
-      "positions": [[10, 3], [11, 3]],
+    emblem_augoShotgun: {
+      source: "resourcepack",
+      positions: [
+        [10, 3],
+        [11, 3],
+      ],
     },
-    "emblem_handgun": {
-      "source": "resourcepack",
-      "positions": [[14, 3]],
+    emblem_handgun: {
+      source: "resourcepack",
+      positions: [[14, 3]],
     },
-    "emblem_sniper": {
-      "source": "resourcepack",
-      "positions": [[10, 0], [11, 0]],
+    emblem_sniper: {
+      source: "resourcepack",
+      positions: [
+        [10, 0],
+        [11, 0],
+      ],
     },
-    "emblem_magnum": {
-      "source": "resourcepack",
-      "positions": [[1, 0]],
+    emblem_magnum: {
+      source: "resourcepack",
+      positions: [[1, 0]],
     },
-    "emblem_carbine": {
-      "source": "resourcepack",
-      "positions": [[6, 0], [7, 0]],
+    emblem_carbine: {
+      source: "resourcepack",
+      positions: [
+        [6, 0],
+        [7, 0],
+      ],
     },
-    "emblem_rifle": {
-      "source": "resourcepack",
-      "positions": [[8, 0], [9, 0]],
+    emblem_rifle: {
+      source: "resourcepack",
+      positions: [
+        [8, 0],
+        [9, 0],
+      ],
     },
-    "emblem_shotgun": {
-      "source": "resourcepack",
-      "positions": [[4, 0], [5, 0]],
+    emblem_shotgun: {
+      source: "resourcepack",
+      positions: [
+        [4, 0],
+        [5, 0],
+      ],
     },
-    "emblem_crims": {
-      "source": "resourcepack",
-      "positions": [[1, 3]],
+    emblem_crims: {
+      source: "resourcepack",
+      positions: [[1, 3]],
     },
-    "emblem_cops": {
-      "source": "resourcepack",
-      "positions": [[0, 3]],
+    emblem_cops: {
+      source: "resourcepack",
+      positions: [[0, 3]],
     },
-    "emblem_grenade": {
-      "source": "resourcepack",
-      "positions": [[12, 0]],
+    emblem_grenade: {
+      source: "resourcepack",
+      positions: [[12, 0]],
     },
-    "emblem_firebomb": {
-      "source": "resourcepack",
-      "positions": [[9, 1]],
+    emblem_firebomb: {
+      source: "resourcepack",
+      positions: [[9, 1]],
     },
-    "emblem_hp": {
-      "source": "resourcepack",
-      "positions": [[0, 2]],
+    emblem_hp: {
+      source: "resourcepack",
+      positions: [[0, 2]],
     },
-    "emblem_cargo": {
-      "source": "unicode",
-      "character": "⧈",
+    emblem_cargo: {
+      source: "unicode",
+      character: "⧈",
     },
-    "emblem_headshot": {
-      "source": "resourcepack",
-      "positions": [[0, 1]],
+    emblem_headshot: {
+      source: "resourcepack",
+      positions: [[0, 1]],
     },
-    "emblem_c4": {
-      "source": "resourcepack",
-      "positions": [[6, 1]],
+    emblem_c4: {
+      source: "resourcepack",
+      positions: [[6, 1]],
     },
-    "emblem_fire": {
-      "source": "resourcepack",
-      "positions": [[3, 1]],
+    emblem_fire: {
+      source: "resourcepack",
+      positions: [[3, 1]],
     },
-    "emblem_landing_pad": {
-      "source": "unicode",
-      "character": "✥",
+    emblem_landing_pad: {
+      source: "unicode",
+      character: "✥",
     },
-    "emblem_double_star": {
-      "source": "unicode",
-      "character": "⁑",
+    emblem_double_star: {
+      source: "unicode",
+      character: "⁑",
     },
-    "emblem_wire_cutters": {
-      "source": "resourcepack",
-      "positions": [[11, 1]],
+    emblem_wire_cutters: {
+      source: "resourcepack",
+      positions: [[11, 1]],
     },
-    "emblem_peace": {
-      "source": "unicode",
-      "character": "✌",
+    emblem_peace: {
+      source: "unicode",
+      character: "✌",
     },
-    "emblem_airstrike": {
-      "source": "unicode",
-      "character": "✈",
+    emblem_airstrike: {
+      source: "unicode",
+      character: "✈",
     },
-    "emblem_shield": {
-      "source": "unicode",
-      "character": "❂",
+    emblem_shield: {
+      source: "unicode",
+      character: "❂",
     },
-    "emblem_bullet": {
-      "source": "unicode",
-      "character": "✏",
+    emblem_bullet: {
+      source: "unicode",
+      character: "✏",
     },
-    "emblem_raining_bullets": {
-      "source": "unicode",
-      "character": "☂",
+    emblem_raining_bullets: {
+      source: "unicode",
+      character: "☂",
     },
-    "emblem_radar": {
-      "source": "resourcepack",
-      "positions": [[13, 0]],
+    emblem_radar: {
+      source: "resourcepack",
+      positions: [[13, 0]],
     },
-    "emblem_triple_star": {
-      "source": "unicode",
-      "character": "⁂",
+    emblem_triple_star: {
+      source: "unicode",
+      character: "⁂",
     },
-    "emblem_smoke": {
-      "source": "resourcepack",
-      "positions": [[8, 1]],
+    emblem_smoke: {
+      source: "resourcepack",
+      positions: [[8, 1]],
     },
-    "emblem_flare": {
-      "source": "unicode",
-      "character": "҉",
+    emblem_flare: {
+      source: "unicode",
+      character: "҉",
     },
-    "emblem_death": {
-      "source": "unicode",
-      "character": "☠",
+    emblem_death: {
+      source: "unicode",
+      character: "☠",
     },
-    "emblem_lightning": {
-      "source": "unicode",
-      "character": "\u26a1\ufe0e",
+    emblem_lightning: {
+      source: "unicode",
+      character: "\u26a1\ufe0e",
     },
-    "emblem_king": {
-      "source": "unicode",
-      "character": "♔",
+    emblem_king: {
+      source: "unicode",
+      character: "♔",
     },
-    "emblem_num_one": {
-      "source": "unicode",
-      "character": "❶",
+    emblem_num_one: {
+      source: "unicode",
+      character: "❶",
     },
-    "emblem_rage": {
-      "source": "unicode",
-      "character": "(╯°□°)╯",
+    emblem_rage: {
+      source: "unicode",
+      character: "(╯°□°)╯",
     },
   };
 
@@ -2702,7 +2531,7 @@ function generateCopsAndCrims() {
     }
   }
 
-  let copsAndCrimsScore = und(copsAndCrimsStats["score"] || (copsAndCrimsBasicStats[1] / 2 + (und(copsAndCrimsStats["bombs_defused"]) + und(copsAndCrimsStats["bombs_planted"])) / 3 + copsAndCrimsBasicStats[0])); // Calculating the score based on the formula in-game. It's off by like 1%
+  let copsAndCrimsScore = und(copsAndCrimsStats["score"] || copsAndCrimsBasicStats[1] / 2 + (und(copsAndCrimsStats["bombs_defused"]) + und(copsAndCrimsStats["bombs_planted"])) / 3 + copsAndCrimsBasicStats[0]); // Calculating the score based on the formula in-game. It's off by like 1%
 
   let copsAndCrimsLevel = getCopsAndCrimsLevel(copsAndCrimsScore);
   let copsAndCrimsLevelProgress = copsAndCrimsLevel % 1;
@@ -2728,7 +2557,6 @@ function generateCopsAndCrims() {
 
   updateElement("copsandcrims-overall-kdr", calculateRatio(copsAndCrimsBasicStats[1], copsAndCrimsBasicStats[2]));
   updateElement("copsandcrims-overall-coins", checkAndFormat(copsAndCrimsStats["coins"]));
-
 
   let defusalChip = [
     "copsandcrims-defusal",
@@ -2759,7 +2587,7 @@ function generateCopsAndCrims() {
     [],
     ``,
     "copsandcrims",
-  ]
+  ];
 
   let gunGameChip = [
     "copsandcrims-gungame",
@@ -2769,7 +2597,7 @@ function generateCopsAndCrims() {
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(copsAndCrimsStats["game_wins_gungame"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(copsAndCrimsStats["kills_gungame"])], [getTranslation("statistics.deaths"), checkAndFormat(copsAndCrimsStats["deaths_gungame"])], [getTranslation("statistics.kdr"), calculateRatio(copsAndCrimsStats["kills_gungame"], copsAndCrimsStats["deaths_gungame"])]],
-      [false, [getTranslation("statistics.assists"), checkAndFormat(copsAndCrimsStats["assists_gungame"])], [getTranslation("statistics.fastest_win"), smallDuration(copsAndCrimsStats["game_wins_gungame"] > 0 ?(copsAndCrimsStats["fastest_win_gungame"] / 1000) : -1, true)]]
+      [false, [getTranslation("statistics.assists"), checkAndFormat(copsAndCrimsStats["assists_gungame"])], [getTranslation("statistics.fastest_win"), smallDuration(copsAndCrimsStats["game_wins_gungame"] > 0 ? copsAndCrimsStats["fastest_win_gungame"] / 1000 : -1, true)]],
     ],
     [],
     ``,
@@ -2806,9 +2634,7 @@ function generateCopsAndCrims() {
 }
 
 function getCopsAndCrimsGunStats(gun) {
-  return [
-    [false, [getTranslation("statistics.kills"), checkAndFormat(copsAndCrimsStats[`${gun}Kills`])], [getTranslation("statistics.headshots"), checkAndFormat(copsAndCrimsStats[`${gun}Headshots`])]],
-  ];
+  return [[false, [getTranslation("statistics.kills"), checkAndFormat(copsAndCrimsStats[`${gun}Kills`])], [getTranslation("statistics.headshots"), checkAndFormat(copsAndCrimsStats[`${gun}Headshots`])]]];
 }
 
 function generateBlitz() {
@@ -2816,7 +2642,7 @@ function generateBlitz() {
 
   let easyStats = ["deaths", "wins_solo_normal", "wins_teams_normal", "kills_teams_normal", "taunt_kills", "coins", "arrows_hit", "potions_thrown", "mobs_spawned", "chests_opened"];
 
-  for(let e = 0; e < easyStats.length; e++) {
+  for (let e = 0; e < easyStats.length; e++) {
     updateElement(`blitz-overall-${easyStats[e]}`, checkAndFormat(blitzStats[easyStats[e]]));
   }
   updateElement("blitz-overall-wins", checkAndFormat(und(blitzStats["wins_solo_normal"]) + und(blitzStats["wins_teams_normal"])));
@@ -2839,13 +2665,17 @@ function generateBlitz() {
     { req: 300000, color: "§2§l", internalId: 10 },
   ];
 
-  updateElement("blitz-overall-kills", getGenericWinsPrefix({
-    wins: blitzStats["kills"],
-    winsObject: blitzPrefixes,
-    definedColor: blitzStats["togglekillcounter"],
-    useToGo: false,
-    useDifferentBracketColors: true
-  })["title"], true);
+  updateElement(
+    "blitz-overall-kills",
+    getGenericWinsPrefix({
+      wins: blitzStats["kills"],
+      winsObject: blitzPrefixes,
+      definedColor: blitzStats["togglekillcounter"],
+      useToGo: false,
+      useDifferentBracketColors: true,
+    })["title"],
+    true
+  );
 
   let blitzKits = [
     [getTranslation("games.modes.blitz.kits.arachnologist"), "arachnologist"],
@@ -2899,22 +2729,13 @@ function generateBlitz() {
   blitzKits.push([getTranslation("games.modes.blitz.kits.random"), "random"]);
 
   // Add kit level to each kit name
-  for(let k = 0; k < blitzKits.length; k++) {
-    if(blitzKits[k][1] != "random" && blitzKits[k][1] != "rambo") {
+  for (let k = 0; k < blitzKits.length; k++) {
+    if (blitzKits[k][1] != "random" && blitzKits[k][1] != "rambo") {
       blitzKits[k][0] = blitzKits[k][0] + ` ${getBlitzKitLevel(blitzKits[k][1])}`;
     }
   }
 
-  let blitzKitsChip = [
-    "blitz-kits",
-    getTranslation("games.modes.blitz.kits.category"),
-    "",
-    `/img/games/blitz/classes.${imageFileType}`,
-    getBlitzKitsStats(blitzKits[0][1]),
-    blitzKits,
-    ``,
-    "blitz",
-  ]
+  let blitzKitsChip = ["blitz-kits", getTranslation("games.modes.blitz.kits.category"), "", `/img/games/blitz/classes.${imageFileType}`, getBlitzKitsStats(blitzKits[0][1]), blitzKits, ``, "blitz"];
 
   generateChip(blitzKitsChip, "blitz-chips");
 }
@@ -2922,7 +2743,7 @@ function generateBlitz() {
 function getBlitzKitLevel(kit) {
   let kitLevel = und(blitzStats[kit]) + 1;
   let kitPrestige = und(blitzStats[`p${kit}`]);
-  if(kitPrestige > 0) {
+  if (kitPrestige > 0) {
     // return 1 ✫ for each prestige
     return generateMinecraftText("§6✫".repeat(kitPrestige));
   } else {
@@ -2932,22 +2753,17 @@ function getBlitzKitLevel(kit) {
 
 function getBlitzKitsStats(kit) {
   let topRowChipStats;
-  if(kit == "random" || kit == "rambo") { // Random and Rambo kits don't have levels
+  if (kit == "random" || kit == "rambo") {
+    // Random and Rambo kits don't have levels
     topRowChipStats = [false, [getTranslation("statistics.exp"), checkAndFormat(blitzStats["exp_" + kit])]];
   } else {
     topRowChipStats = [false, [getTranslation("statistics.level"), getBlitzKitLevel(kit)], [getTranslation("statistics.exp"), checkAndFormat(blitzStats["exp_" + kit])]];
   }
 
-  let blitzKitStats = [
-    topRowChipStats,
-    [false, [getTranslation("statistics.wins"), checkAndFormat(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], [getTranslation("statistics.losses"), checkAndFormat(und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], [getTranslation("statistics.wlr"), calculateRatio(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats), und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))]],
-    [false, [getTranslation("statistics.kills"), checkAndFormat(blitzStats["kills_" + kit])], [getTranslation("statistics.taunt_kills"), checkAndFormat(blitzStats["taunt_kills_" + kit])]],
-    [false, [getTranslation("statistics.arrows_hit"), checkAndFormat(blitzStats["arrows_hit_" + kit])], [getTranslation("statistics.damage_dealt"), checkAndFormat(blitzStats["damage_" + kit] / 2) + " ♥\uFE0E"]],
-    [false, [getTranslation("statistics.potions_thrown"), checkAndFormat(blitzStats["potions_thrown_" + kit])], [getTranslation("statistics.mobs_spawned"), checkAndFormat(blitzStats["mobs_spawned_" + kit])]],
-    [false, [getTranslation("statistics.chests_opened"), checkAndFormat(blitzStats["chests_opened_" + kit])], [getTranslation("statistics.playtime"), smallDuration(und(blitzStats["time_played_" + kit]))]],
-  ];
+  let blitzKitStats = [topRowChipStats, [false, [getTranslation("statistics.wins"), checkAndFormat(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], [getTranslation("statistics.losses"), checkAndFormat(und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))], [getTranslation("statistics.wlr"), calculateRatio(sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats), und(blitzStats["games_played_" + kit]) - sumStatsBasic(["wins_" + kit, "wins_teams_" + kit], blitzStats))]], [false, [getTranslation("statistics.kills"), checkAndFormat(blitzStats["kills_" + kit])], [getTranslation("statistics.taunt_kills"), checkAndFormat(blitzStats["taunt_kills_" + kit])]], [false, [getTranslation("statistics.arrows_hit"), checkAndFormat(blitzStats["arrows_hit_" + kit])], [getTranslation("statistics.damage_dealt"), checkAndFormat(blitzStats["damage_" + kit] / 2) + " ♥\uFE0E"]], [false, [getTranslation("statistics.potions_thrown"), checkAndFormat(blitzStats["potions_thrown_" + kit])], [getTranslation("statistics.mobs_spawned"), checkAndFormat(blitzStats["mobs_spawned_" + kit])]], [false, [getTranslation("statistics.chests_opened"), checkAndFormat(blitzStats["chests_opened_" + kit])], [getTranslation("statistics.playtime"), smallDuration(und(blitzStats["time_played_" + kit]))]]];
 
-  if(kit != "rambo") { // Rambo kit doesn't have a team mode
+  if (kit != "rambo") {
+    // Rambo kit doesn't have a team mode
     blitzKitStats.splice(2, 0, [false, [getTranslation("statistics.wins_solo"), checkAndFormat(blitzStats["wins_" + kit])], [getTranslation("statistics.wins_teams"), checkAndFormat(blitzStats["wins_teams_" + kit])]]);
   }
 
@@ -2959,7 +2775,7 @@ function generateMegaWalls() {
 
   let easyStats = ["kills", "deaths", "wins", "losses", "final_assists", "mythic_favor", "wither_kills", "assists", "coins"];
 
-  for(let e = 0; e < easyStats.length; e++) {
+  for (let e = 0; e < easyStats.length; e++) {
     updateElement(`megawalls-overall-${easyStats[e]}`, checkAndFormat(megaWallsStats[easyStats[e]]));
   }
 
@@ -2974,7 +2790,7 @@ function generateMegaWalls() {
   updateElement("megawalls-overall-fkdr", calculateRatio(megaWallsFinalKills, megaWallsFinalDeaths));
   updateElement("megawalls-overall-kdr", calculateRatio(megaWallsStats["kills"], megaWallsStats["deaths"]));
 
-  let megaWallsClassPoints = megaWallsStats["class_points"] || (und(megaWallsStats["wins"]) * 10 + megaWallsFinalKills + und(megaWallsStats["final_assists"])); // Default to old calculation if the class points stat is not available
+  let megaWallsClassPoints = megaWallsStats["class_points"] || und(megaWallsStats["wins"]) * 10 + megaWallsFinalKills + und(megaWallsStats["final_assists"]); // Default to old calculation if the class points stat is not available
 
   updateElement("megawalls-overall-points", checkAndFormat(megaWallsClassPoints));
   updateElement("megawalls-selected_class", und(megaWallsStats["chosen_class"], "None"));
@@ -2982,40 +2798,39 @@ function generateMegaWalls() {
   updateElement("megawalls-overall-playtime", smallDuration(megaWallsStats["time_played"] * 60));
   updateElement("megawalls-overall-damage_dealt", checkAndFormat(megaWallsStats["damage_dealt"] / 2) + " ♥\uFE0E");
 
-
   let megaWallsClasses = {
-    angel: {name: getTranslation("games.modes.megawalls.classes.angel"), abilities: [] },
-    arcanist: {name: getTranslation("games.modes.megawalls.classes.arcanist"), abilities: [] },
-    assassin: {name: getTranslation("games.modes.megawalls.classes.assassin"), abilities: [] },
-    automaton: {name: getTranslation("games.modes.megawalls.classes.automaton"), abilities: [] },
-    blaze: {name: getTranslation("games.modes.megawalls.classes.blaze"), abilities: [] },
-    cow: {name: getTranslation("games.modes.megawalls.classes.cow"), abilities: [] },
-    creeper: {name: getTranslation("games.modes.megawalls.classes.creeper"), abilities: [] },
-    dreadlord: {name: getTranslation("games.modes.megawalls.classes.dreadlord"), abilities: [] },
-    dragon: {name: getTranslation("games.modes.megawalls.classes.dragon"), abilities: [] },
-    enderman: {name: getTranslation("games.modes.megawalls.classes.enderman"), abilities: [] },
-    golem: {name: getTranslation("games.modes.megawalls.classes.golem"), abilities: [] },
-    herobrine: {name: getTranslation("games.modes.megawalls.classes.herobrine"), abilities: [] },
-    hunter: {name: getTranslation("games.modes.megawalls.classes.hunter"), abilities: [] },
-    moleman: {name: getTranslation("games.modes.megawalls.classes.moleman"), abilities: [] },
-    phoenix: {name: getTranslation("games.modes.megawalls.classes.phoenix"), abilities: [] },
-    pigman: {name: getTranslation("games.modes.megawalls.classes.pigman"), abilities: [] },
-    pirate: {name: getTranslation("games.modes.megawalls.classes.pirate"), abilities: [] },
-    renegade: {name: getTranslation("games.modes.megawalls.classes.renegade"), abilities: [] },
-    shaman: {name: getTranslation("games.modes.megawalls.classes.shaman"), abilities: [] },
-    shark: {name: getTranslation("games.modes.megawalls.classes.shark"), abilities: [] },
-    skeleton: {name: getTranslation("games.modes.megawalls.classes.skeleton"), abilities: [] },
-    snowman: {name: getTranslation("games.modes.megawalls.classes.snowman"), abilities: [] },
-    spider: {name: getTranslation("games.modes.megawalls.classes.spider"), abilities: [] },
-    squid: {name: getTranslation("games.modes.megawalls.classes.squid"), abilities: [] },
-    werewolf: {name: getTranslation("games.modes.megawalls.classes.werewolf"), abilities: [] },
-    zombie: {name: getTranslation("games.modes.megawalls.classes.zombie"), abilities: [] },
-  }
+    angel: { name: getTranslation("games.modes.megawalls.classes.angel"), abilities: [] },
+    arcanist: { name: getTranslation("games.modes.megawalls.classes.arcanist"), abilities: [] },
+    assassin: { name: getTranslation("games.modes.megawalls.classes.assassin"), abilities: [] },
+    automaton: { name: getTranslation("games.modes.megawalls.classes.automaton"), abilities: [] },
+    blaze: { name: getTranslation("games.modes.megawalls.classes.blaze"), abilities: [] },
+    cow: { name: getTranslation("games.modes.megawalls.classes.cow"), abilities: [] },
+    creeper: { name: getTranslation("games.modes.megawalls.classes.creeper"), abilities: [] },
+    dreadlord: { name: getTranslation("games.modes.megawalls.classes.dreadlord"), abilities: [] },
+    dragon: { name: getTranslation("games.modes.megawalls.classes.dragon"), abilities: [] },
+    enderman: { name: getTranslation("games.modes.megawalls.classes.enderman"), abilities: [] },
+    golem: { name: getTranslation("games.modes.megawalls.classes.golem"), abilities: [] },
+    herobrine: { name: getTranslation("games.modes.megawalls.classes.herobrine"), abilities: [] },
+    hunter: { name: getTranslation("games.modes.megawalls.classes.hunter"), abilities: [] },
+    moleman: { name: getTranslation("games.modes.megawalls.classes.moleman"), abilities: [] },
+    phoenix: { name: getTranslation("games.modes.megawalls.classes.phoenix"), abilities: [] },
+    pigman: { name: getTranslation("games.modes.megawalls.classes.pigman"), abilities: [] },
+    pirate: { name: getTranslation("games.modes.megawalls.classes.pirate"), abilities: [] },
+    renegade: { name: getTranslation("games.modes.megawalls.classes.renegade"), abilities: [] },
+    shaman: { name: getTranslation("games.modes.megawalls.classes.shaman"), abilities: [] },
+    shark: { name: getTranslation("games.modes.megawalls.classes.shark"), abilities: [] },
+    skeleton: { name: getTranslation("games.modes.megawalls.classes.skeleton"), abilities: [] },
+    snowman: { name: getTranslation("games.modes.megawalls.classes.snowman"), abilities: [] },
+    spider: { name: getTranslation("games.modes.megawalls.classes.spider"), abilities: [] },
+    squid: { name: getTranslation("games.modes.megawalls.classes.squid"), abilities: [] },
+    werewolf: { name: getTranslation("games.modes.megawalls.classes.werewolf"), abilities: [] },
+    zombie: { name: getTranslation("games.modes.megawalls.classes.zombie"), abilities: [] },
+  };
 
   // Iterate through megaWallsClasses, add prestige stars to name if applicable
   for (let key in megaWallsClasses) {
     let megaWallsPrestige = getMegaWallsPrestige(key);
-    if(megaWallsPrestige[0]) {
+    if (megaWallsPrestige[0]) {
       megaWallsClasses[key]["name"] = megaWallsClasses[key]["name"] + ` ${megaWallsPrestige[1]}`;
     }
   }
@@ -3023,38 +2838,11 @@ function generateMegaWalls() {
   let megaWallsClassesFormatted = Object.entries(megaWallsClasses).map(([key, value]) => [value["name"], key]);
   let megaWallsClassesFormattedWithOverall = [[getTranslation("games.modes.all.overall"), ""]].concat(megaWallsClassesFormatted);
 
-  let megaWallsClassChip = [
-    "megawalls-classes",
-    getTranslation("games.modes.megawalls.classes.category"),
-    "",
-    `/img/games/megawalls/classes.${imageFileType}`,
-    getMegaWallsClassStats("angel"),
-    megaWallsClassesFormatted,
-    ``,
-    "megawalls",
-  ]
+  let megaWallsClassChip = ["megawalls-classes", getTranslation("games.modes.megawalls.classes.category"), "", `/img/games/megawalls/classes.${imageFileType}`, getMegaWallsClassStats("angel"), megaWallsClassesFormatted, ``, "megawalls"];
 
-  let megaWallsStandardChip = [
-    "megawalls-standard",
-    getTranslation("games.modes.megawalls.standard"),
-    "",
-    `/img/games/megawalls/standard.${imageFileType}`,
-    getMegaWallsClassStats("", "standard"),
-    megaWallsClassesFormattedWithOverall,
-    ``,
-    "megawalls",
-  ]
+  let megaWallsStandardChip = ["megawalls-standard", getTranslation("games.modes.megawalls.standard"), "", `/img/games/megawalls/standard.${imageFileType}`, getMegaWallsClassStats("", "standard"), megaWallsClassesFormattedWithOverall, ``, "megawalls"];
 
-  let megaWallsFaceOffChip = [
-    "megawalls-faceoff",
-    getTranslation("games.modes.megawalls.faceoff"),
-    "",
-    `/img/games/megawalls/faceoff.${imageFileType}`,
-    getMegaWallsClassStats("", "face_off"),
-    megaWallsClassesFormattedWithOverall,
-    ``,
-    "megawalls",
-  ]
+  let megaWallsFaceOffChip = ["megawalls-faceoff", getTranslation("games.modes.megawalls.faceoff"), "", `/img/games/megawalls/faceoff.${imageFileType}`, getMegaWallsClassStats("", "face_off"), megaWallsClassesFormattedWithOverall, ``, "megawalls"];
 
   generateChip(megaWallsClassChip, "megawalls-chips");
 
@@ -3064,15 +2852,15 @@ function generateMegaWalls() {
   }
 }
 
- /*
-  * Returns an array with the following format:
-  * [boolean, string, number]
-  * - The boolean is true if the class has a prestige, false otherwise
-  * - The string is the prestige stars if the class has a prestige, otherwise it's the player's kit/skill levels
-  * - The number is the number of ender chest rows the class has
-  *
-  * @param {string} className The class name
-  */
+/*
+ * Returns an array with the following format:
+ * [boolean, string, number]
+ * - The boolean is true if the class has a prestige, false otherwise
+ * - The string is the prestige stars if the class has a prestige, otherwise it's the player's kit/skill levels
+ * - The number is the number of ender chest rows the class has
+ *
+ * @param {string} className The class name
+ */
 function getMegaWallsPrestige(className) {
   let megaWallsClassStats = megaWallsStats["classes"] || {};
   let megaWallsChosenClassStats = megaWallsClassStats[className] || {};
@@ -3081,13 +2869,14 @@ function getMegaWallsPrestige(className) {
     let megaWallsChosenClassPrestigeColor = `§7`;
     let megaWallsChosenClassPrestigeTag = megaWallsChosenClassStats["prestige_tag"] || {};
 
-    if(megaWallsChosenClassStats["prestige"] >= 4) {
+    if (megaWallsChosenClassStats["prestige"] >= 4) {
       megaWallsChosenClassPrestigeColor = `§6`;
     }
 
-    if(megaWallsChosenClassPrestigeTag["type"]) { // If the prestige tag has a color, use it
+    if (megaWallsChosenClassPrestigeTag["type"]) {
+      // If the prestige tag has a color, use it
       let megaWallsChosenClassPrestigeColorCode = megaWallsChosenClassPrestigeTag["type"];
-      if(minecraftColorCodes[megaWallsChosenClassPrestigeColorCode] != undefined) {
+      if (minecraftColorCodes[megaWallsChosenClassPrestigeColorCode] != undefined) {
         megaWallsChosenClassPrestigeColor = `§${minecraftColorCodes[megaWallsChosenClassPrestigeColorCode]}`;
       }
     }
@@ -3102,13 +2891,12 @@ function getMegaWallsPrestige(className) {
 }
 
 function getMegaWallsClassStats(className = "", modeName = "") {
-
   let trueClassName = className;
-  if(className != "") {
+  if (className != "") {
     className = `${className}_`;
   }
 
-  if(modeName != "") {
+  if (modeName != "") {
     modeName = `_${modeName}`;
   }
 
@@ -3119,19 +2907,20 @@ function getMegaWallsClassStats(className = "", modeName = "") {
     [false, [getTranslation("statistics.wither_kills"), checkAndFormat(megaWallsStats[`${className}wither_kills${modeName}`])], [getTranslation("statistics.damage_dealt"), checkAndFormat(megaWallsStats[`${className}damage_dealt${modeName}`] / 2) + " ♥\uFE0E"]],
   ];
 
-  if(className != "" && modeName == "") { // If a class is selected and the mode is overall (show class points)
-    let megaWallsClassPoints = megaWallsStats[`${className}class_points`] || (und(megaWallsStats[`${className}wins`]) * 10 + und(megaWallsStats[`${className}final_kills`]) + und(megaWallsStats[`${className}final_assists`]));
-
+  if (className != "" && modeName == "") {
+    // If a class is selected and the mode is overall (show class points)
+    let megaWallsClassPoints = megaWallsStats[`${className}class_points`] || und(megaWallsStats[`${className}wins`]) * 10 + und(megaWallsStats[`${className}final_kills`]) + und(megaWallsStats[`${className}final_assists`]);
 
     megaWallsClassChipStats.splice(3, 0, [false, [getTranslation("statistics.final_assists"), checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], [getTranslation("statistics.assists"), checkAndFormat(megaWallsStats[`${className}assists${modeName}`])]]);
     megaWallsClassChipStats.splice(4, 0, [false, [getTranslation("statistics.class_points"), checkAndFormat(megaWallsClassPoints)], [getTranslation("statistics.playtime"), smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]]);
-  } else { // Otherwise, show final assists, assists, and playtime on the same line
+  } else {
+    // Otherwise, show final assists, assists, and playtime on the same line
     megaWallsClassChipStats.splice(3, 0, [false, [getTranslation("statistics.final_assists"), checkAndFormat(megaWallsStats[`${className}final_assists${modeName}`])], [getTranslation("statistics.assists"), checkAndFormat(megaWallsStats[`${className}assists${modeName}`])], [getTranslation("statistics.playtime"), smallDuration(megaWallsStats[`${className}time_played${modeName}`] * 60)]]);
   }
 
-  if(modeName == "" && className != "") {
+  if (modeName == "" && className != "") {
     let megaWallsPrestige = getMegaWallsPrestige(trueClassName);
-    if(megaWallsPrestige[0]) {
+    if (megaWallsPrestige[0]) {
       megaWallsClassChipStats.unshift([true, [getTranslation("statistics.prestige"), megaWallsPrestige[1]], [getTranslation("statistics.ender_chest_rows"), megaWallsPrestige[2]]]);
     } else {
       megaWallsClassChipStats.unshift([false, [getTranslation("statistics.upgrades"), megaWallsPrestige[1]], [getTranslation("statistics.ender_chest_rows"), megaWallsPrestige[2]]]);
@@ -3139,7 +2928,6 @@ function getMegaWallsClassStats(className = "", modeName = "") {
   }
 
   return megaWallsClassChipStats;
-
 }
 
 function generateWarlords() {
@@ -3187,123 +2975,123 @@ function generateWarlords() {
   function getWarlordsWeaponName(weaponObject) {
     // Calculate weapon quality
     let weaponGrader = {
-      "COMMON": {
-        "damage": {
-          "min": 90,
-          "max": 100
+      COMMON: {
+        damage: {
+          min: 90,
+          max: 100,
         },
-        "chance": {
-          "min": 10,
-          "max": 18,
-        },
-        "multiplier": {
-          "min": 150,
-          "max": 170,
-        },
-        "health": {
-          "min": 180,
-          "max": 220,
-        },
-        "total_score": {
-          min: 430 + 4, // Discrepancy for skill boosts
-          max: 508 + 6, // Discrepancy for skill boosts
-          divisions: ["crumbly", "flimsy", "rough", "honed", "refined", "balanced"]
-        }
-      },
-      "RARE": {
-        "damage": {
-          "min": 95,
-          "max": 105
-        },
-        "chance": {
-          "min": 12,
-          "max": 20,
-        },
-        "multiplier": {
-          "min": 160,
-          "max": 180,
-        },
-        "health": {
-          "min": 200,
-          "max": 250,
-        },
-        "energy": {
+        chance: {
           min: 10,
           max: 18,
         },
-        "total_score": {
+        multiplier: {
+          min: 150,
+          max: 170,
+        },
+        health: {
+          min: 180,
+          max: 220,
+        },
+        total_score: {
+          min: 430 + 4, // Discrepancy for skill boosts
+          max: 508 + 6, // Discrepancy for skill boosts
+          divisions: ["crumbly", "flimsy", "rough", "honed", "refined", "balanced"],
+        },
+      },
+      RARE: {
+        damage: {
+          min: 95,
+          max: 105,
+        },
+        chance: {
+          min: 12,
+          max: 20,
+        },
+        multiplier: {
+          min: 160,
+          max: 180,
+        },
+        health: {
+          min: 200,
+          max: 250,
+        },
+        energy: {
+          min: 10,
+          max: 18,
+        },
+        total_score: {
           min: 477 + 6, // Discrepancy for skill boosts
           max: 573 + 8, // Discrepancy for skill boosts
-          divisions: ["savage", "vicious", "deadly", "perfect"]
-        }
+          divisions: ["savage", "vicious", "deadly", "perfect"],
+        },
       },
-      "EPIC": {
-        "damage": {
-          "min": 100,
-          "max": 110
+      EPIC: {
+        damage: {
+          min: 100,
+          max: 110,
         },
-        "chance": {
-          "min": 15,
-          "max": 20,
-        },
-        "multiplier": {
-          "min": 160,
-          "max": 190,
-        },
-        "health": {
-          "min": 220,
-          "max": 275,
-        },
-        "energy": {
+        chance: {
           min: 15,
           max: 20,
         },
-        "cooldown": {
+        multiplier: {
+          min: 160,
+          max: 190,
+        },
+        health: {
+          min: 220,
+          max: 275,
+        },
+        energy: {
+          min: 15,
+          max: 20,
+        },
+        cooldown: {
           min: 3,
           max: 5,
         },
-        "total_score": {
+        total_score: {
           min: 513 + 7, // Discrepancy for skill boosts
           max: 620 + 9, // Discrepancy for skill boosts
-          divisions: ["fierce", "mighty", "brutal", "gladiators"]
-        }
+          divisions: ["fierce", "mighty", "brutal", "gladiators"],
+        },
       },
-      "LEGENDARY": {
-        "damage": {
-          "min": 110,
-          "max": 120
+      LEGENDARY: {
+        damage: {
+          min: 110,
+          max: 120,
         },
-        "chance": {
-          "min": 15,
-          "max": 25,
+        chance: {
+          min: 15,
+          max: 25,
         },
-        "multiplier": {
-          "min": 180,
-          "max": 200,
+        multiplier: {
+          min: 180,
+          max: 200,
         },
-        "health": {
-          "min": 250,
-          "max": 400,
+        health: {
+          min: 250,
+          max: 400,
         },
-        "energy": {
+        energy: {
           min: 20,
           max: 25,
         },
-        "cooldown": {
+        cooldown: {
           min: 5,
           max: 10,
         },
-        "movement": {
+        movement: {
           min: 5,
           max: 10,
         },
-        "total_score": {
+        total_score: {
           min: 585 + 10, // Discrepancy for skill boosts
           max: 790 + 15, // Discrepancy for skill boosts
-          divisions: ["vanquishers", "champions", "warlords"]
-        }
-      }
-    }
+          divisions: ["vanquishers", "champions", "warlords"],
+        },
+      },
+    };
 
     let weaponSpecs = [
       ["pyromancer", "cryomancer", "aquamancer"],
@@ -3313,32 +3101,33 @@ function generateWarlords() {
     ];
 
     let weaponRarityColors = {
-      "COMMON": "§a",
-      "RARE": "§9",
-      "EPIC": "§5",
-      "LEGENDARY": "§6",
-    }
-
-    let weaponForgeIncreases = {
-      "damage": 0.075,
-      "health": 0.25,
-      "energy": 0.1,
-      "cooldown": 0.075,
-      "movement": 0.075,
-
-      "chance": 0,
-      "multiplier": 0,
+      COMMON: "§a",
+      RARE: "§9",
+      EPIC: "§5",
+      LEGENDARY: "§6",
     };
 
-    let weaponStats = { // Base default stats
-      "damage": weaponObject["damage"],
-      "chance": weaponObject["chance"],
-      "multiplier": weaponObject["multiplier"],
-      "energy": weaponObject["energy"],
-      "health": weaponObject["health"],
-      "cooldown": weaponObject["cooldown"],
-      "movement": weaponObject["movement"],
-    }
+    let weaponForgeIncreases = {
+      damage: 0.075,
+      health: 0.25,
+      energy: 0.1,
+      cooldown: 0.075,
+      movement: 0.075,
+
+      chance: 0,
+      multiplier: 0,
+    };
+
+    let weaponStats = {
+      // Base default stats
+      damage: weaponObject["damage"],
+      chance: weaponObject["chance"],
+      multiplier: weaponObject["multiplier"],
+      energy: weaponObject["energy"],
+      health: weaponObject["health"],
+      cooldown: weaponObject["cooldown"],
+      movement: weaponObject["movement"],
+    };
 
     let weaponPercentiles = {};
     let totalWeaponScore = 0;
@@ -3351,7 +3140,8 @@ function generateWarlords() {
     let weaponUpgrades = und(weaponObject["upgradeTimes"]); // Number of upgrades the weapon has
     let weaponMaxUpgrades = und(weaponObject["upgradeMax"]); // Maximum number of upgrades (magic / void forging)
 
-    if (weaponRarity == "COMMON" || weaponRarity == "RARE") { // The API says common and rare weapons can be upgraded 2 times, but they can't
+    if (weaponRarity == "COMMON" || weaponRarity == "RARE") {
+      // The API says common and rare weapons can be upgraded 2 times, but they can't
       weaponUpgrades = 0;
       weaponMaxUpgrades = 0;
     }
@@ -3359,7 +3149,7 @@ function generateWarlords() {
     for (let comparator in weaponRarityGrading) {
       if (comparator != "total_score") {
         if (weaponForgeIncreases[comparator]) {
-          weaponStats[comparator] = und(Math.ceil(weaponStats[comparator] * (1 + (weaponForgeIncreases[comparator] * weaponUpgrades)))); // Applies void forge stat increases to base stats
+          weaponStats[comparator] = und(Math.ceil(weaponStats[comparator] * (1 + weaponForgeIncreases[comparator] * weaponUpgrades))); // Applies void forge stat increases to base stats
         }
 
         totalWeaponScore += weaponStats[comparator] || 0; // Weapon score is based on the upgraded stats
@@ -3368,7 +3158,6 @@ function generateWarlords() {
       }
     }
 
-
     let averagePercentile = 0;
     for (let percentile in weaponPercentiles) {
       averagePercentile += weaponPercentiles[percentile];
@@ -3376,7 +3165,7 @@ function generateWarlords() {
     }
 
     //console.log(`Summing up percents and dividing by ${Object.keys(weaponPercentiles).length + 1} (currently bugged)`);
-    averagePercentile /= (Object.keys(weaponPercentiles).length + 1);
+    averagePercentile /= Object.keys(weaponPercentiles).length + 1;
     averagePercentile *= 100;
 
     //console.log(`Average percentile: ${checkAndFormat(averagePercentile*100, 2)}%`);
@@ -3385,7 +3174,7 @@ function generateWarlords() {
     let weaponMinimumScore = weaponRarityGrading["total_score"]["min"];
     let weaponMaximumScore = weaponRarityGrading["total_score"]["max"];
 
-    let weaponTitlePosition = und(Math.floor((totalWeaponScore - weaponMinimumScore)/((weaponMaximumScore - weaponMinimumScore)/weaponPossibleTitles.length)));
+    let weaponTitlePosition = und(Math.floor((totalWeaponScore - weaponMinimumScore) / ((weaponMaximumScore - weaponMinimumScore) / weaponPossibleTitles.length)));
 
     if (weaponTitlePosition < 0) {
       weaponTitlePosition = 0;
@@ -3406,9 +3195,9 @@ function generateWarlords() {
     let weaponRarityColor = weaponRarityColors[weaponRarity] || "§f";
 
     let fullName = insertPlaceholders(getTranslation(`games.modes.warlords.weapons.format`), {
-      "title": translatedWeaponTitle,
-      "item": translatedWeaponItem,
-      "spec": translatedWeaponSpec,
+      title: translatedWeaponTitle,
+      item: translatedWeaponItem,
+      spec: translatedWeaponSpec,
     });
 
     return {
@@ -3429,7 +3218,7 @@ function generateWarlords() {
       weapon_score: averagePercentile,
       upgrades: weaponUpgrades,
       max_upgrades: weaponMaxUpgrades,
-    }
+    };
   }
 
   warlordsFormattedWeapons = [];
@@ -3458,9 +3247,9 @@ function generateWarlords() {
   let warlordsSelectedWeapon, warlordsWeaponToDisplayAsDefaultInWeaponsChip;
 
   if (boundOverrideWeaponId) {
-
     warlordsSelectedWeapon = warlordsFormattedWeapons.find((a) => a["id"] == boundOverrideWeaponId);
-    if (warlordsSelectedWeapon) { // This check is needed because you can salvage your bound weapon, which would make it not exist in the weapon inventory
+    if (warlordsSelectedWeapon) {
+      // This check is needed because you can salvage your bound weapon, which would make it not exist in the weapon inventory
       console.warn("Bound weapon override");
       warlordsSelectedWeaponId = boundOverrideWeaponId;
     }
@@ -3475,7 +3264,8 @@ function generateWarlords() {
   } else {
     updateElement("warlords-selected-weapon", getTranslation("player.errors.not_applicable"));
 
-    if (warlordsFormattedWeapons.length > 0) { // No selected weapon, default to first weapon
+    if (warlordsFormattedWeapons.length > 0) {
+      // No selected weapon, default to first weapon
       warlordsWeaponToDisplayAsDefaultInWeaponsChip = 0;
     } else {
       warlordsWeaponToDisplayAsDefaultInWeaponsChip = -1;
@@ -3493,11 +3283,9 @@ function generateWarlords() {
 
   let warlordsWeaponNames = warlordsFormattedWeapons.map((a, index) => [generateMinecraftText(a["name"]), index]);
 
-
   let easyStats = ["kills", "deaths", "wins", "assists", "coins", "void_shards", "magic_dust", "repaired", "powerups_collected"];
 
-
-  for(let e = 0; e < easyStats.length; e++) {
+  for (let e = 0; e < easyStats.length; e++) {
     updateElement(`warlords-overall-${easyStats[e]}`, checkAndFormat(warlordsStats[easyStats[e]]));
   }
 
@@ -3516,37 +3304,27 @@ function generateWarlords() {
     getWarlordsClassStats("mage"),
     [
       [getTranslation("games.modes.warlords.classes.mage"), "mage"],
-        [getTranslation("games.modes.warlords.classes.pyromancer"), "pyromancer"],
-        [getTranslation("games.modes.warlords.classes.cryomancer"), "cryomancer"],
-        [getTranslation("games.modes.warlords.classes.aquamancer"), "aquamancer"],
+      [getTranslation("games.modes.warlords.classes.pyromancer"), "pyromancer"],
+      [getTranslation("games.modes.warlords.classes.cryomancer"), "cryomancer"],
+      [getTranslation("games.modes.warlords.classes.aquamancer"), "aquamancer"],
       [getTranslation("games.modes.warlords.classes.warrior"), "warrior"],
-        [getTranslation("games.modes.warlords.classes.berserker"), "berserker"],
-        [getTranslation("games.modes.warlords.classes.defender"), "defender"],
-        [getTranslation("games.modes.warlords.classes.revenant"), "revenant"],
+      [getTranslation("games.modes.warlords.classes.berserker"), "berserker"],
+      [getTranslation("games.modes.warlords.classes.defender"), "defender"],
+      [getTranslation("games.modes.warlords.classes.revenant"), "revenant"],
       [getTranslation("games.modes.warlords.classes.paladin"), "paladin"],
-        [getTranslation("games.modes.warlords.classes.avenger"), "avenger"],
-        [getTranslation("games.modes.warlords.classes.crusader"), "crusader"],
-        [getTranslation("games.modes.warlords.classes.protector"), "protector"],
+      [getTranslation("games.modes.warlords.classes.avenger"), "avenger"],
+      [getTranslation("games.modes.warlords.classes.crusader"), "crusader"],
+      [getTranslation("games.modes.warlords.classes.protector"), "protector"],
       [getTranslation("games.modes.warlords.classes.shaman"), "shaman"],
-        [getTranslation("games.modes.warlords.classes.thunderlord"), "thunderlord"],
-        [getTranslation("games.modes.warlords.classes.spiritguard"), "spiritguard"],
-        [getTranslation("games.modes.warlords.classes.earthwarden"), "earthwarden"],
+      [getTranslation("games.modes.warlords.classes.thunderlord"), "thunderlord"],
+      [getTranslation("games.modes.warlords.classes.spiritguard"), "spiritguard"],
+      [getTranslation("games.modes.warlords.classes.earthwarden"), "earthwarden"],
     ],
     ``,
     "warlords",
-  ]
+  ];
 
-
-  let warlordsWeaponsChip = [
-    "warlords-weapons",
-    getTranslation("games.modes.warlords.weapons.category"),
-    "",
-    `/img/games/warlords/weapons.${imageFileType}`,
-    formatWarlordsWeaponStats(warlordsWeaponToDisplayAsDefaultInWeaponsChip),
-    warlordsWeaponNames,
-    ``,
-    "warlords",
-  ]
+  let warlordsWeaponsChip = ["warlords-weapons", getTranslation("games.modes.warlords.weapons.category"), "", `/img/games/warlords/weapons.${imageFileType}`, formatWarlordsWeaponStats(warlordsWeaponToDisplayAsDefaultInWeaponsChip), warlordsWeaponNames, ``, "warlords"];
 
   let warlordsCaptureTheFlagChip = [
     "warlords-capturetheflag",
@@ -3556,7 +3334,7 @@ function generateWarlords() {
     [
       [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats["wins_capturetheflag"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(warlordsStats["kills_capturetheflag"])]],
-      [false, [getTranslation("statistics.flags_captured"), checkAndFormat(warlordsStats["flag_conquer_self"])], [getTranslation("statistics.flags_returned"), checkAndFormat(warlordsStats["flag_returns"])]]
+      [false, [getTranslation("statistics.flags_captured"), checkAndFormat(warlordsStats["flag_conquer_self"])], [getTranslation("statistics.flags_returned"), checkAndFormat(warlordsStats["flag_returns"])]],
     ],
     [],
     ``,
@@ -3596,11 +3374,9 @@ function generateWarlords() {
   for (let d = 0; d < warlordsChips.length; d++) {
     generateChip(warlordsChips[d], d % 2 == 0 ? "warlords-chips-1" : "warlords-chips-2");
   }
-
 }
 
 function formatWarlordsWeaponStats(weaponObjectId) {
-
   if (weaponObjectId == -1) {
     return [[false, [getTranslation("games.modes.warlords.weapons.no_weapons"), ``]]];
   }
@@ -3640,7 +3416,7 @@ function getWarlordsClassStats(specName) {
     paladin: ["protector", "crusader", "avenger"],
     shaman: ["spiritguard", "earthwarden", "thunderlord"],
     warrior: ["berserker", "defender", "revenant"],
-  }
+  };
   let className;
 
   for (let [key, value] of Object.entries(warlordsClasses)) {
@@ -3654,13 +3430,12 @@ function getWarlordsClassStats(specName) {
     }
   }
 
-  let warlordsClassLevel = sumStatsBasic([`${className}_skill1`, `${className}_skill2`, `${className}_skill3`, `${className}_skill4`, `${className}_skill5`, `${className}_health`, `${className}_energy`, `${className}_cooldown`, `${className}_critchance`, `${className}_critmultiplier`, ], warlordsStats);
+  let warlordsClassLevel = sumStatsBasic([`${className}_skill1`, `${className}_skill2`, `${className}_skill3`, `${className}_skill4`, `${className}_skill5`, `${className}_health`, `${className}_energy`, `${className}_cooldown`, `${className}_critchance`, `${className}_critmultiplier`], warlordsStats);
   let formattedWarlordsClassLevel;
-
 
   let warlordsPrestigedClasses = warlordsStats["prestiged"] || [];
   // check if the array contains the class
-  if(warlordsPrestigedClasses.includes(lookupName)) {
+  if (warlordsPrestigedClasses.includes(lookupName)) {
     formattedWarlordsClassLevel = generateMinecraftText(`§8[§6${addPrefixZero(warlordsClassLevel, 2)}§8]`);
   } else {
     formattedWarlordsClassLevel = generateMinecraftText(`§8[§7${addPrefixZero(warlordsClassLevel, 2)}§8]`);
@@ -3669,10 +3444,10 @@ function getWarlordsClassStats(specName) {
   let warlordsClassStats = [
     [false, [getTranslation("statistics.level"), formattedWarlordsClassLevel]],
     [false, [getTranslation("statistics.wins"), checkAndFormat(warlordsStats[`wins_${lookupName}`])], [getTranslation("statistics.losses"), checkAndFormat(warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])], [getTranslation("statistics.wlr"), calculateRatio(warlordsStats[`wins_${lookupName}`], warlordsStats[`${lookupName}_plays`] - warlordsStats[`wins_${lookupName}`])]],
-  [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(warlordsStats[`damage_${lookupName}`]) + " HP"], [getTranslation("statistics.damage_healed"), veryLargeNumber(warlordsStats[`heal_${lookupName}`]) + " HP"]],
-  ]
+    [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(warlordsStats[`damage_${lookupName}`]) + " HP"], [getTranslation("statistics.damage_healed"), veryLargeNumber(warlordsStats[`heal_${lookupName}`]) + " HP"]],
+  ];
 
-  if(className == "mage") {
+  if (className == "mage") {
     warlordsClassStats[2].push([getTranslation("statistics.damage_prevented"), veryLargeNumber(warlordsStats[`damage_prevented_${lookupName}`]) + " HP"]);
   }
 
@@ -3705,7 +3480,7 @@ function generateUHC() {
     { req: 19210, color: "§6", altName: "13" },
     { req: 22210, color: "§6", altName: "14" },
     { req: 25210, color: "§6", altName: "15" },
-  ]
+  ];
 
   let speedUHCPrefixes = [
     { req: 0, color: "§d", altName: "1" },
@@ -3718,7 +3493,7 @@ function generateUHC() {
     { req: 30550, color: "§d", altName: "8" },
     { req: 55550, color: "§d", altName: "9" },
     { req: 85550, color: "§d", altName: "10" },
-  ]
+  ];
 
   let uhcChip = [
     "uhc-uhcchampions",
@@ -3728,7 +3503,7 @@ function generateUHC() {
       winsObject: uhcPrefixes,
       useToGo: true,
       suffix: "✫",
-      alternativeNaming: true
+      alternativeNaming: true,
     })["title"],
     `/img/games/uhc/uhcchampions.${imageFileType}`,
     getUHCModeStats("overall"),
@@ -3746,7 +3521,7 @@ function generateUHC() {
     ],
     `/img/icon/minecraft/golden_apple.png`,
     "uhc",
-  ]
+  ];
 
   let speedUHCChip = [
     "uhc-speeduhc",
@@ -3756,7 +3531,7 @@ function generateUHC() {
       winsObject: speedUHCPrefixes,
       useToGo: true,
       suffix: "❋",
-      alternativeNaming: true
+      alternativeNaming: true,
     })["title"],
     `/img/games/uhc/speeduhc.${imageFileType}`,
     getSpeedUHCModeStats("overall"),
@@ -3777,7 +3552,7 @@ function generateUHC() {
     ],
     `/img/icon/minecraft/golden_carrot.png`,
     "speeduhc",
-  ]
+  ];
 
   let uhcChips = [uhcChip, speedUHCChip];
   for (let d = 0; d < uhcChips.length; d++) {
@@ -3788,39 +3563,39 @@ function generateUHC() {
 function getUHCModeStats(mode) {
   let uhcModeStats;
 
-  if(mode == "overall") {
+  if (mode == "overall") {
     uhcUnformattedModeStats = sumStats(["wins", "kills", "deaths", "heads_eaten", "ultimates_crafted"], ["_solo", "", "_no_diamonds", "_brawl", "_solo_brawl", "_duo_brawl", "_vanilla_doubles"], uhcStats, "", true); // red_vs_blue is not included in UHC's overall stats, so it's not included here.
 
     uhcModeStats = {
-      "wins": uhcUnformattedModeStats[0],
-      "kills": uhcUnformattedModeStats[1],
-      "deaths": uhcUnformattedModeStats[2],
-      "kdr": calculateRatio(uhcUnformattedModeStats[1], uhcUnformattedModeStats[2]),
-      "heads_eaten": uhcUnformattedModeStats[3],
-      "ultimates_crafted": uhcUnformattedModeStats[4],
-    }
+      wins: uhcUnformattedModeStats[0],
+      kills: uhcUnformattedModeStats[1],
+      deaths: uhcUnformattedModeStats[2],
+      kdr: calculateRatio(uhcUnformattedModeStats[1], uhcUnformattedModeStats[2]),
+      heads_eaten: uhcUnformattedModeStats[3],
+      ultimates_crafted: uhcUnformattedModeStats[4],
+    };
   } else {
-    if(mode != "") {
+    if (mode != "") {
       mode = `_${mode}`;
     }
 
     uhcModeStats = {
-      "wins": uhcStats[`wins${mode}`],
-      "kills": uhcStats[`kills${mode}`],
-      "deaths": uhcStats[`deaths${mode}`],
-      "kdr": calculateRatio(uhcStats[`kills${mode}`], uhcStats[`deaths${mode}`]),
-      "heads_eaten": uhcStats[`heads_eaten${mode}`],
-      "ultimates_crafted": uhcStats[`ultimates_crafted${mode}`],
-    }
+      wins: uhcStats[`wins${mode}`],
+      kills: uhcStats[`kills${mode}`],
+      deaths: uhcStats[`deaths${mode}`],
+      kdr: calculateRatio(uhcStats[`kills${mode}`], uhcStats[`deaths${mode}`]),
+      heads_eaten: uhcStats[`heads_eaten${mode}`],
+      ultimates_crafted: uhcStats[`ultimates_crafted${mode}`],
+    };
   }
 
   uhcModeStatsArray = [
     [false, [getTranslation("statistics.wins"), checkAndFormat(uhcModeStats["wins"])]],
     [false, [getTranslation("statistics.kills"), checkAndFormat(uhcModeStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(uhcModeStats["deaths"])], [getTranslation("statistics.kdr"), uhcModeStats["kdr"]]],
     [false, [getTranslation("statistics.heads_eaten"), checkAndFormat(uhcModeStats["heads_eaten"])], [getTranslation("statistics.ultimates_crafted"), checkAndFormat(uhcModeStats["ultimates_crafted"])]],
-  ]
+  ];
 
-  if(mode == "overall") {
+  if (mode == "overall") {
     uhcModeStatsArray.unshift([false, [getTranslation("statistics.score"), checkAndFormat(uhcStats["score"])]]);
   }
 
@@ -3828,7 +3603,7 @@ function getUHCModeStats(mode) {
 }
 
 function getSpeedUHCModeStats(mode) {
-  if(mode == "overall") {
+  if (mode == "overall") {
     mode = "";
   } else {
     mode = `_${mode}`;
@@ -3837,9 +3612,9 @@ function getSpeedUHCModeStats(mode) {
   speedUHCModeStatsArray = [
     [false, [getTranslation("statistics.wins"), checkAndFormat(speedUHCStats[`wins${mode}`])], [getTranslation("statistics.losses"), checkAndFormat(speedUHCStats[`losses${mode}`])], [getTranslation("statistics.wlr"), calculateRatio(speedUHCStats[`wins${mode}`], speedUHCStats[`losses${mode}`])]],
     [false, [getTranslation("statistics.kills"), checkAndFormat(speedUHCStats[`kills${mode}`])], [getTranslation("statistics.deaths"), checkAndFormat(speedUHCStats[`deaths${mode}`])], [getTranslation("statistics.kdr"), calculateRatio(speedUHCStats[`kills${mode}`], speedUHCStats[`deaths${mode}`])]],
-  ]
+  ];
 
-  if(mode == "") {
+  if (mode == "") {
     speedUHCModeStatsArray.unshift([false, [getTranslation("statistics.score"), checkAndFormat(speedUHCStats[`score`])]]);
   }
 
@@ -3851,23 +3626,23 @@ function generateSmash() {
 
   let easyStats = ["kills", "deaths", "wins", "losses", "coins", "damage_dealt"];
   let smashClasses = {
-    BOTMUN: {name: getTranslation("games.modes.smashheroes.classes.BOTMUN")},
-    CAKE_MONSTER: {name: getTranslation("games.modes.smashheroes.classes.CAKE_MONSTER")},
-    DUSK_CRAWLER: {name: getTranslation("games.modes.smashheroes.classes.DUSK_CRAWLER")},
-    FROSTY: {name: getTranslation("games.modes.smashheroes.classes.FROSTY")},
-    GENERAL_CLUCK: {name: getTranslation("games.modes.smashheroes.classes.GENERAL_CLUCK")},
-    GOKU: {name: getTranslation("games.modes.smashheroes.classes.GOKU")},
-    GREEN_HOOD: {name: getTranslation("games.modes.smashheroes.classes.GREEN_HOOD")},
-    MARAUDER: {name: getTranslation("games.modes.smashheroes.classes.MARAUDER")},
-    PUG: {name: getTranslation("games.modes.smashheroes.classes.PUG")},
-    SANIC: {name: getTranslation("games.modes.smashheroes.classes.SANIC")},
-    SERGEANT_SHIELD: {name: getTranslation("games.modes.smashheroes.classes.SERGEANT_SHIELD")},
-    SHOOP_DA_WHOOP: {name: getTranslation("games.modes.smashheroes.classes.SHOOP_DA_WHOOP")},
-    SKULLFIRE: {name: getTranslation("games.modes.smashheroes.classes.SKULLFIRE")},
-    SPODERMAN: {name: getTranslation("games.modes.smashheroes.classes.SPODERMAN")},
-    THE_BULK: {name: getTranslation("games.modes.smashheroes.classes.THE_BULK")},
-    TINMAN: {name: getTranslation("games.modes.smashheroes.classes.TINMAN")},
-  }
+    BOTMUN: { name: getTranslation("games.modes.smashheroes.classes.BOTMUN") },
+    CAKE_MONSTER: { name: getTranslation("games.modes.smashheroes.classes.CAKE_MONSTER") },
+    DUSK_CRAWLER: { name: getTranslation("games.modes.smashheroes.classes.DUSK_CRAWLER") },
+    FROSTY: { name: getTranslation("games.modes.smashheroes.classes.FROSTY") },
+    GENERAL_CLUCK: { name: getTranslation("games.modes.smashheroes.classes.GENERAL_CLUCK") },
+    GOKU: { name: getTranslation("games.modes.smashheroes.classes.GOKU") },
+    GREEN_HOOD: { name: getTranslation("games.modes.smashheroes.classes.GREEN_HOOD") },
+    MARAUDER: { name: getTranslation("games.modes.smashheroes.classes.MARAUDER") },
+    PUG: { name: getTranslation("games.modes.smashheroes.classes.PUG") },
+    SANIC: { name: getTranslation("games.modes.smashheroes.classes.SANIC") },
+    SERGEANT_SHIELD: { name: getTranslation("games.modes.smashheroes.classes.SERGEANT_SHIELD") },
+    SHOOP_DA_WHOOP: { name: getTranslation("games.modes.smashheroes.classes.SHOOP_DA_WHOOP") },
+    SKULLFIRE: { name: getTranslation("games.modes.smashheroes.classes.SKULLFIRE") },
+    SPODERMAN: { name: getTranslation("games.modes.smashheroes.classes.SPODERMAN") },
+    THE_BULK: { name: getTranslation("games.modes.smashheroes.classes.THE_BULK") },
+    TINMAN: { name: getTranslation("games.modes.smashheroes.classes.TINMAN") },
+  };
 
   let smashClassesArray = [];
 
@@ -3879,14 +3654,14 @@ function generateSmash() {
 
   smashClassesArray.unshift([getTranslation("games.modes.all.overall"), ""]);
 
-
   let smashFormattedClassesArray = [];
-  for (let c = 1; c < smashClassesArray.length; c++) { // Adds the prestige to the class name using getSmashPrestige
+  for (let c = 1; c < smashClassesArray.length; c++) {
+    // Adds the prestige to the class name using getSmashPrestige
     let smashPrestige = generateMinecraftText(getSmashPrestige(smashClassesArray[c][1]));
     smashFormattedClassesArray.push([`${smashClassesArray[c][0]}${smashPrestige}`, smashClassesArray[c][1]]);
   }
 
-  for(let e = 0; e < easyStats.length; e++) {
+  for (let e = 0; e < easyStats.length; e++) {
     updateElement(`smashheroes-overall-${easyStats[e]}`, checkAndFormat(smashStats[easyStats[e]]));
   }
 
@@ -3908,71 +3683,17 @@ function generateSmash() {
     updateElement("smashheroes-active_class", "N/A");
   }
 
-  let smashClassesChip = [
-    "smashheroes-classes",
-    "Heroes",
-    "",
-    `/img/games/smashheroes/heroes.${imageFileType}`,
-    getSmashStats("class", "BOTMUN"),
-    smashFormattedClassesArray,
-    ``,
-    "smashheroes",
-  ]
+  let smashClassesChip = ["smashheroes-classes", "Heroes", "", `/img/games/smashheroes/heroes.${imageFileType}`, getSmashStats("class", "BOTMUN"), smashFormattedClassesArray, ``, "smashheroes"];
 
-  let smashSoloChip = [
-    "smashheroes-solo",
-    "Solo",
-    "",
-    `/img/games/smashheroes/solo.${imageFileType}`,
-    getSmashStats("normal", "overall"),
-    smashClassesArray,
-    ``,
-    "smashheroes",
-  ]
+  let smashSoloChip = ["smashheroes-solo", "Solo", "", `/img/games/smashheroes/solo.${imageFileType}`, getSmashStats("normal", "overall"), smashClassesArray, ``, "smashheroes"];
 
-  let smashTeamChip = [
-    "smashheroes-team",
-    "Team",
-    "",
-    `/img/games/smashheroes/team.${imageFileType}`,
-    getSmashStats("teams", "overall"),
-    smashClassesArray,
-    ``,
-    "smashheroes",
-  ]
+  let smashTeamChip = ["smashheroes-team", "Team", "", `/img/games/smashheroes/team.${imageFileType}`, getSmashStats("teams", "overall"), smashClassesArray, ``, "smashheroes"];
 
-  let smash2v2Chip = [
-    "smashheroes-2v2",
-    "2v2",
-    "",
-    `/img/games/smashheroes/2v2.${imageFileType}`,
-    getSmashStats("2v2", "overall"),
-    smashClassesArray,
-    ``,
-    "smashheroes",
-  ]
+  let smash2v2Chip = ["smashheroes-2v2", "2v2", "", `/img/games/smashheroes/2v2.${imageFileType}`, getSmashStats("2v2", "overall"), smashClassesArray, ``, "smashheroes"];
 
-  let smash1v1Chip = [
-    "smashheroes-1v1",
-    "1v1",
-    "",
-    `/img/games/smashheroes/1v1.${imageFileType}`,
-    getSmashStats("one_v_one", "overall"),
-    smashClassesArray,
-    ``,
-    "smashheroes",
-  ]
+  let smash1v1Chip = ["smashheroes-1v1", "1v1", "", `/img/games/smashheroes/1v1.${imageFileType}`, getSmashStats("one_v_one", "overall"), smashClassesArray, ``, "smashheroes"];
 
-  let smashFriendChip = [
-    "smashheroes-friend",
-    "Friends",
-    "",
-    `/img/games/smashheroes/friend.${imageFileType}`,
-    getSmashStats("friend", "overall"),
-    smashClassesArray,
-    ``,
-    "smashheroes",
-  ]
+  let smashFriendChip = ["smashheroes-friend", "Friends", "", `/img/games/smashheroes/friend.${imageFileType}`, getSmashStats("friend", "overall"), smashClassesArray, ``, "smashheroes"];
 
   generateChip(smashClassesChip, "smashheroes-chips");
 
@@ -3995,14 +3716,13 @@ function getSmashPrestige(className) {
     3: " §9③",
     4: " §5④",
     5: " §6⑤",
-  }
+  };
 
   return smashPrestigeIcons[smashStats[`pg_${className}`]] || "";
 }
 
 function getSmashStats(modeName = "", className = "") {
-
-  if(modeName == "class") {
+  if (modeName == "class") {
     let smashAllClassStats = smashStats["class_stats"] || {};
     let smashClassStats = smashAllClassStats[className] || {};
 
@@ -4011,20 +3731,22 @@ function getSmashStats(modeName = "", className = "") {
 
     let formattedSmashClassLevel = generateMinecraftText(`§b${addPrefixZero(smashClassLevel, 2)}${getSmashPrestige(className)}`);
 
-    return  [
+    return [
       [false, [getTranslation("statistics.level"), formattedSmashClassLevel]],
       [false, [getTranslation("statistics.wins"), checkAndFormat(smashClassStats["wins"])], [getTranslation("statistics.losses"), checkAndFormat(smashClassStats["losses"])], [getTranslation("statistics.wlr"), calculateRatio(smashClassStats["wins"], smashClassStats["losses"])]],
       [false, [getTranslation("statistics.kills"), checkAndFormat(smashClassStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(smashClassStats["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(smashClassStats["kills"], smashClassStats["deaths"])]],
-      [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(smashClassStats["damage_dealt"]) + " HP"]]
-    ]
-  } else if (className == "overall") { // Overall stats are stored in a different place than class stats
-    if(modeName != "one_v_one" && modeName != "friend") {
+      [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(smashClassStats["damage_dealt"]) + " HP"]],
+    ];
+  } else if (className == "overall") {
+    // Overall stats are stored in a different place than class stats
+    if (modeName != "one_v_one" && modeName != "friend") {
       return [
         [false, [getTranslation("statistics.wins"), checkAndFormat(smashStats[`wins_${modeName}`])], [getTranslation("statistics.losses"), checkAndFormat(smashStats[`losses_${modeName}`])], [getTranslation("statistics.wlr"), calculateRatio(smashStats[`wins_${modeName}`], smashStats[`losses_${modeName}`])]],
         [false, [getTranslation("statistics.kills"), checkAndFormat(smashStats[`kills_${modeName}`])], [getTranslation("statistics.deaths"), checkAndFormat(smashStats[`deaths_${modeName}`])], [getTranslation("statistics.kdr"), calculateRatio(smashStats[`kills_${modeName}`], smashStats[`deaths_${modeName}`])]],
-        [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(smashStats[`damage_dealt_${modeName}`]) + " HP"]]
-      ]
-    } else { // 1v1 and friend stats aren't correctly put in the API, so you have to sum the stats of all classes to get the overall stats
+        [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(smashStats[`damage_dealt_${modeName}`]) + " HP"]],
+      ];
+    } else {
+      // 1v1 and friend stats aren't correctly put in the API, so you have to sum the stats of all classes to get the overall stats
       let smashAllClassStats = smashStats["class_stats"] || {};
 
       let statWins = 0;
@@ -4035,42 +3757,39 @@ function getSmashStats(modeName = "", className = "") {
         statLosses += und(value[`${modeName}_losses`]);
       }
 
-      return [
-        [false, [getTranslation("statistics.wins"), checkAndFormat(statWins)], [getTranslation("statistics.losses"), checkAndFormat(statLosses)], [getTranslation("statistics.wlr"), calculateRatio(statWins, statLosses)]]
-      ]
+      return [[false, [getTranslation("statistics.wins"), checkAndFormat(statWins)], [getTranslation("statistics.losses"), checkAndFormat(statLosses)], [getTranslation("statistics.wlr"), calculateRatio(statWins, statLosses)]]];
     }
-  } else { // specified class and mode
+  } else {
+    // specified class and mode
     let smashAllClassStats = smashStats["class_stats"] || {};
     let smashClassStats = smashAllClassStats[className] || {};
 
-    if(modeName != "one_v_one" && modeName != "friend") { // These modes are formatted differently :(
+    if (modeName != "one_v_one" && modeName != "friend") {
+      // These modes are formatted differently :(
       return [
         [false, [getTranslation("statistics.wins"), checkAndFormat(smashClassStats[`wins_${modeName}`])], [getTranslation("statistics.losses"), checkAndFormat(smashClassStats[`losses_${modeName}`])], [getTranslation("statistics.wlr"), calculateRatio(smashClassStats[`wins_${modeName}`], smashClassStats[`losses_${modeName}`])]],
         [false, [getTranslation("statistics.kills"), checkAndFormat(smashClassStats[`kills_${modeName}`])], [getTranslation("statistics.deaths"), checkAndFormat(smashClassStats[`deaths_${modeName}`])], [getTranslation("statistics.kdr"), calculateRatio(smashClassStats[`kills_${modeName}`], smashClassStats[`deaths_${modeName}`])]],
-        [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(smashClassStats[`damage_dealt_${modeName}`]) + " HP"]]
+        [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(smashClassStats[`damage_dealt_${modeName}`]) + " HP"]],
       ];
     } else {
-      return [
-        [false, [getTranslation("statistics.wins"), checkAndFormat(smashClassStats[`${modeName}_wins`])], [getTranslation("statistics.losses"), checkAndFormat(smashClassStats[`${modeName}_losses`])], [getTranslation("statistics.wlr"), calculateRatio(smashClassStats[`${modeName}_wins`], smashClassStats[`${modeName}_losses`])]],
-      ];
+      return [[false, [getTranslation("statistics.wins"), checkAndFormat(smashClassStats[`${modeName}_wins`])], [getTranslation("statistics.losses"), checkAndFormat(smashClassStats[`${modeName}_losses`])], [getTranslation("statistics.wlr"), calculateRatio(smashClassStats[`${modeName}_wins`], smashClassStats[`${modeName}_losses`])]]];
     }
   }
 }
 
 function generateWoolGames() {
-
   let woolWarsPrestigeIcons = {
-    HEART: {icon: "❤\uFE0E", minStars: 0 },
-    PLUS: {icon: "✙\uFE0E", minStars: 100 },
-    STAR: {icon: "✫\uFE0E", minStars: 200 },
-    PLANE: {icon: "✈\uFE0E", minStars: 300 },
-    CROSS: {icon: "✠\uFE0E", minStars: 400 },
-    CROWN: {icon: "♕\uFE0E", minStars: 500 },
-    LIGHTNING: {icon: "⚡\uFE0E", minStars: 600 },
-    NUKE: {icon: "☢\uFE0E", minStars: 700 },
-    PENCIL: {icon: "✏\uFE0E", minStars: 900 },
-    YIN_YANG: {icon: "☯\uFE0E", minStars: 1000 },
-  }
+    HEART: { icon: "❤\uFE0E", minStars: 0 },
+    PLUS: { icon: "✙\uFE0E", minStars: 100 },
+    STAR: { icon: "✫\uFE0E", minStars: 200 },
+    PLANE: { icon: "✈\uFE0E", minStars: 300 },
+    CROSS: { icon: "✠\uFE0E", minStars: 400 },
+    CROWN: { icon: "♕\uFE0E", minStars: 500 },
+    LIGHTNING: { icon: "⚡\uFE0E", minStars: 600 },
+    NUKE: { icon: "☢\uFE0E", minStars: 700 },
+    PENCIL: { icon: "✏\uFE0E", minStars: 900 },
+    YIN_YANG: { icon: "☯\uFE0E", minStars: 1000 },
+  };
 
   let woolGamesStats = playerData["stats"]["WoolGames"] || {};
   let woolWarsStats = woolGamesStats["wool_wars"] || {};
@@ -4110,23 +3829,22 @@ function generateWoolGames() {
   updateElement("woolgames-overall-wlr", calculateRatio(woolGamesOverallStats["wins"], woolGamesOverallStats["losses"]));
   updateElement("woolgames-overall-kdr", calculateRatio(woolGamesOverallStats["kills"], woolGamesOverallStats["deaths"]));
 
-
   updateElement("woolgames-overall-coins", checkAndFormat(woolGamesStats["coins"]));
   updateElement("woolgames-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
 
   let woolGamesLevel = getWoolGamesLevel(und(woolGamesProgression["experience"]));
-  updateElement("woolgames-progress-number", `${Math.floor(woolGamesLevel % 1 * 100)}%`, true);
-  document.getElementById("woolgames-progress-bar").style.width = `${woolGamesLevel % 1 * 100}%`;
+  updateElement("woolgames-progress-number", `${Math.floor((woolGamesLevel % 1) * 100)}%`, true);
+  document.getElementById("woolgames-progress-bar").style.width = `${(woolGamesLevel % 1) * 100}%`;
 
   let woolGamesPrestigeIcon;
 
-  if(woolGamesStats["wool_wars_prestige_icon"] != undefined) {
+  if (woolGamesStats["wool_wars_prestige_icon"] != undefined) {
     selectedWoolGamesPrestige = woolWarsPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolWarsPrestigeIcons["HEART"];
     woolGamesPrestigeIcon = selectedWoolGamesPrestige["icon"];
   } else {
     // Use the prestige icon based on the user's level (minStars)
     for (const [key, value] of Object.entries(woolWarsPrestigeIcons)) {
-      if(woolGamesLevel >= value["minStars"]) {
+      if (woolGamesLevel >= value["minStars"]) {
         woolGamesPrestigeIcon = value["icon"];
       }
     }
@@ -4144,14 +3862,14 @@ function generateWoolGames() {
     { req: 800, color: "§d" },
     { req: 900, color: "rainbow" },
     { req: 1000, color: "§f", bracketColor: "§0" },
-  ]
+  ];
 
   let formattedWoolWarsLevel = getGenericWinsPrefix({
-    wins:  Math.floor(woolGamesLevel),
+    wins: Math.floor(woolGamesLevel),
     winsObject: woolWarsLevels,
     useToGo: false,
     suffix: woolGamesPrestigeIcon,
-    useDifferentBracketColors: true
+    useDifferentBracketColors: true,
   })["title"];
 
   updateElement("woolgames-level", formattedWoolWarsLevel, true);
@@ -4175,45 +3893,23 @@ function generateWoolGames() {
     "woolgames",
   ];
 
-    // Capture The Wool
-    let captureTheWoolChip = [
-      "arcade-stats-capturethewool", // ID
-      getTranslation("games.modes.arcade.capturethewool"), // Title
-      "", // Subtitle
-      `/img/games/woolgames/capturethewool.${imageFileType}`, // Background image
-      [
-        [
-          false,
-          [getTranslation("statistics.wins"), checkAndFormat(captureTheWoolStatsObject["wins"])],
-          [getTranslation("statistics.losses"), checkAndFormat(captureTheWoolStatsObject["losses"])],
-          [getTranslation("statistics.wlr"), calculateRatio(checkAndFormat(captureTheWoolStatsObject["wins"]), checkAndFormat(captureTheWoolStatsObject["losses"]))],
-        ],
-        [
-          false,
-          [getTranslation("statistics.kills"), checkAndFormat(captureTheWoolStatsObject["kills"])],
-          [getTranslation("statistics.deaths"), checkAndFormat(captureTheWoolStatsObject["deaths"])],
-          [getTranslation("statistics.kdr"), calculateRatio(checkAndFormat(captureTheWoolStatsObject["kills"]), checkAndFormat(captureTheWoolStatsObject["deaths"]))],
-        ],
-        [
-          false,
-          [getTranslation("statistics.draws"), checkAndFormat(captureTheWoolStatsObject["draws"])],
-          [getTranslation("statistics.assists"), checkAndFormat(captureTheWoolStatsObject["assists"])],
-        ],
-        [
-          false,
-          [getTranslation("statistics.wool_picked_up"), checkAndFormat(captureTheWoolStatsObject["wools_stolen"])],
-          [getTranslation("statistics.wool_captured"), checkAndFormat(captureTheWoolStatsObject["wools_captured"])],
-        ],
-        [
-          false,
-          [getTranslation("statistics.fastest_win"), smallDuration(und(captureTheWoolStatsObject["fastest_win"], -1))],
-          [getTranslation("statistics.fastest_capture"), smallDuration(und(captureTheWoolStatsObject["fastest_capture"], -1))],
-        ],
-      ], // Displayed stats
-      [], // Other stats (shown in drop-down menu)
-      `/img/icon/minecraft/orange_wool.${imageFileType}`, // Chip image
-      "woolgames", // gamemode
-    ];
+  // Capture The Wool
+  let captureTheWoolChip = [
+    "arcade-stats-capturethewool", // ID
+    getTranslation("games.modes.arcade.capturethewool"), // Title
+    "", // Subtitle
+    `/img/games/woolgames/capturethewool.${imageFileType}`, // Background image
+    [
+      [false, [getTranslation("statistics.wins"), checkAndFormat(captureTheWoolStatsObject["wins"])], [getTranslation("statistics.losses"), checkAndFormat(captureTheWoolStatsObject["losses"])], [getTranslation("statistics.wlr"), calculateRatio(checkAndFormat(captureTheWoolStatsObject["wins"]), checkAndFormat(captureTheWoolStatsObject["losses"]))]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(captureTheWoolStatsObject["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(captureTheWoolStatsObject["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(checkAndFormat(captureTheWoolStatsObject["kills"]), checkAndFormat(captureTheWoolStatsObject["deaths"]))]],
+      [false, [getTranslation("statistics.draws"), checkAndFormat(captureTheWoolStatsObject["draws"])], [getTranslation("statistics.assists"), checkAndFormat(captureTheWoolStatsObject["assists"])]],
+      [false, [getTranslation("statistics.wool_picked_up"), checkAndFormat(captureTheWoolStatsObject["wools_stolen"])], [getTranslation("statistics.wool_captured"), checkAndFormat(captureTheWoolStatsObject["wools_captured"])]],
+      [false, [getTranslation("statistics.fastest_win"), smallDuration(und(captureTheWoolStatsObject["fastest_win"], -1))], [getTranslation("statistics.fastest_capture"), smallDuration(und(captureTheWoolStatsObject["fastest_capture"], -1))]],
+    ], // Displayed stats
+    [], // Other stats (shown in drop-down menu)
+    `/img/icon/minecraft/orange_wool.${imageFileType}`, // Chip image
+    "woolgames", // gamemode
+  ];
 
   let sheepWarsChip = [
     "sheepwars",
@@ -4221,28 +3917,10 @@ function generateWoolGames() {
     "",
     `/img/games/woolgames/sheepwars.${imageFileType}`,
     [
-      [
-        false,
-        [getTranslation("statistics.wins"), checkAndFormat(sheepWarsNumericalStats["wins"])],
-        [getTranslation("statistics.losses"), checkAndFormat(sheepWarsNumericalStats["losses"])],
-        [getTranslation("statistics.wlr"), calculateRatio(sheepWarsNumericalStats["wins"], sheepWarsNumericalStats["losses"])],
-      ],
-      [
-        false,
-        [getTranslation("statistics.kills"), checkAndFormat(sheepWarsNumericalStats["kills"])],
-        [getTranslation("statistics.deaths"), checkAndFormat(sheepWarsNumericalStats["deaths"])],
-        [getTranslation("statistics.kdr"), calculateRatio(sheepWarsNumericalStats["kills"], sheepWarsNumericalStats["deaths"])],
-      ],
-      [
-        false,
-        [getTranslation("statistics.damage_dealt"), veryLargeNumber(sheepWarsNumericalStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`],
-        [getTranslation("statistics.magic_wool_hit"), checkAndFormat(sheepWarsNumericalStats["magic_wool_hit"])],
-      ],
-      [
-        false,
-        [getTranslation("statistics.sheep_thrown"), checkAndFormat(sheepWarsNumericalStats["sheep_thrown"])],
-        [getTranslation("statistics.sheep_killed"), checkAndFormat(playerAchievements["woolgames_sheep_wars_sheep_slayer"])],
-      ]
+      [false, [getTranslation("statistics.wins"), checkAndFormat(sheepWarsNumericalStats["wins"])], [getTranslation("statistics.losses"), checkAndFormat(sheepWarsNumericalStats["losses"])], [getTranslation("statistics.wlr"), calculateRatio(sheepWarsNumericalStats["wins"], sheepWarsNumericalStats["losses"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(sheepWarsNumericalStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(sheepWarsNumericalStats["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(sheepWarsNumericalStats["kills"], sheepWarsNumericalStats["deaths"])]],
+      [false, [getTranslation("statistics.damage_dealt"), veryLargeNumber(sheepWarsNumericalStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`], [getTranslation("statistics.magic_wool_hit"), checkAndFormat(sheepWarsNumericalStats["magic_wool_hit"])]],
+      [false, [getTranslation("statistics.sheep_thrown"), checkAndFormat(sheepWarsNumericalStats["sheep_thrown"])], [getTranslation("statistics.sheep_killed"), checkAndFormat(playerAchievements["woolgames_sheep_wars_sheep_slayer"])]],
     ],
     [],
     `/img/icon/minecraft/sheep_spawn_egg.${imageFileType}`,
@@ -4258,7 +3936,7 @@ function generateWoolGames() {
 function getWoolWarsStats(mode) {
   let woolWarsModeStats, woolWarsWinStats;
 
-  if(mode == "overall") {
+  if (mode == "overall") {
     woolWarsModeStats = woolWarsNumericalStats;
     woolWarsWinStats = [false, [getTranslation("statistics.wins"), checkAndFormat(woolWarsModeStats["wins"])], [getTranslation("statistics.losses"), checkAndFormat(und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))], [getTranslation("statistics.wlr"), calculateRatio(woolWarsModeStats["wins"], und(woolWarsModeStats["games_played"]) - und(woolWarsModeStats["wins"]))]];
   } else {
@@ -4267,7 +3945,7 @@ function getWoolWarsStats(mode) {
   }
 
   let woolWarsModeStatsObject = [
-    [false, [getTranslation("statistics.kills"), checkAndFormat(woolWarsModeStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(woolWarsModeStats["deaths"])],  [getTranslation("statistics.kdr"), calculateRatio(woolWarsModeStats["kills"], woolWarsModeStats["deaths"])]],
+    [false, [getTranslation("statistics.kills"), checkAndFormat(woolWarsModeStats["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(woolWarsModeStats["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(woolWarsModeStats["kills"], woolWarsModeStats["deaths"])]],
     [false, [getTranslation("statistics.assists"), checkAndFormat(woolWarsModeStats["assists"])], [getTranslation("statistics.powerups"), checkAndFormat(woolWarsModeStats["powerups_gotten"])]],
     [false, [getTranslation("statistics.wool_placed"), checkAndFormat(woolWarsModeStats["wool_placed"])], [getTranslation("statistics.blocks_broken"), checkAndFormat(woolWarsModeStats["blocks_broken"])]],
   ];
@@ -4310,7 +3988,8 @@ function generateFishing() {
   let specialFishCount = 0;
 
   for (let key in playerSpecialFish) {
-    if (playerSpecialFish[key] && key != "mahi-mahi") { // mahi-mahi is in the API two times (once as mahi-mahi and once as mahi_mahi)
+    if (playerSpecialFish[key] && key != "mahi-mahi") {
+      // mahi-mahi is in the API two times (once as mahi-mahi and once as mahi_mahi)
       specialFishCount++;
     }
   }
@@ -4335,9 +4014,9 @@ function generateFishing() {
     `/img/games/fishing/zones.${imageFileType}`,
     getFishingZoneStats("water"),
     [
-        [getTranslation("games.modes.fishing.zones.water"), "water"],
-        [getTranslation("games.modes.fishing.zones.lava"), "lava"],
-        [getTranslation("games.modes.fishing.zones.ice"), "ice"],
+      [getTranslation("games.modes.fishing.zones.water"), "water"],
+      [getTranslation("games.modes.fishing.zones.lava"), "lava"],
+      [getTranslation("games.modes.fishing.zones.ice"), "ice"],
     ],
     ``,
     "fishing",
@@ -4370,24 +4049,12 @@ function generateFishing() {
       let fish = mythicalFishArray[i];
       let fishWeight = und(mythicalFishWeight[fish]);
 
-      mythicalFishStatsArray.push([false, [getTranslation(`games.modes.fishing.mythicalfish.${fish}`),
-
-      insertPlaceholders(getTranslation("games.modes.fishing.mythicalfish.weight_formatted"), { caught: checkAndFormat(mythicalFishStats[fish]), weight: checkAndFormat(mythicalFishWeight[fish]) })]]);
-
+      mythicalFishStatsArray.push([false, [getTranslation(`games.modes.fishing.mythicalfish.${fish}`), insertPlaceholders(getTranslation("games.modes.fishing.mythicalfish.weight_formatted"), { caught: checkAndFormat(mythicalFishStats[fish]), weight: checkAndFormat(mythicalFishWeight[fish]) })]]);
     }
     return mythicalFishStatsArray;
   }
 
-  let mythicalFishChip = [
-    "fishing-mythicalfish",
-    getTranslation("games.modes.fishing.mythicalfish.category"),
-    "",
-    `/img/games/fishing/mythicalfish.${imageFileType}`,
-    getMythicalFishStats(),
-    [],
-    ``,
-    "fishing",
-  ];
+  let mythicalFishChip = ["fishing-mythicalfish", getTranslation("games.modes.fishing.mythicalfish.category"), "", `/img/games/fishing/mythicalfish.${imageFileType}`, getMythicalFishStats(), [], ``, "fishing"];
 
   let specialFishChip = [
     "fishing-specialfish",
@@ -4400,7 +4067,7 @@ function generateFishing() {
       [getTranslation("games.modes.fishing.seasons.easter"), "easter"],
       [getTranslation("games.modes.fishing.seasons.summer"), "summer"],
       [getTranslation("games.modes.fishing.seasons.halloween"), "halloween"],
-      [getTranslation("games.modes.fishing.seasons.christmas"), "christmas"]
+      [getTranslation("games.modes.fishing.seasons.christmas"), "christmas"],
     ],
     ``,
     "fishing",
@@ -4415,16 +4082,7 @@ function generateFishing() {
     mostReasonFishingSeason = [[false, [getTranslation("games.modes.fishing.seasons.no_seasons"), ""]]];
   }
 
-  let seasonsChip = [
-    "fishing-seasons",
-    getTranslation("games.modes.fishing.seasons.category"),
-    "",
-    `/img/games/fishing/seasons.${imageFileType}`,
-    mostReasonFishingSeason,
-    formatFishingParticipatedSeasonDropdown(fishingParticipatedSeasons),
-    ``,
-    "fishing",
-  ];
+  let seasonsChip = ["fishing-seasons", getTranslation("games.modes.fishing.seasons.category"), "", `/img/games/fishing/seasons.${imageFileType}`, mostReasonFishingSeason, formatFishingParticipatedSeasonDropdown(fishingParticipatedSeasons), ``, "fishing"];
 
   let fishingChips = [zoneChip, catchesChip, mythicalFishChip, specialFishChip, seasonsChip];
   for (d = 0; d < fishingChips.length; d++) {
@@ -4440,12 +4098,12 @@ function getFishingZoneStats(zone) {
     [true, [getTranslation("statistics.items_caught"), checkAndFormat(und(zoneStats["fish"]) + und(zoneStats["junk"]) + und(zoneStats["treasure"]))]],
     [false, [getTranslation("statistics.fish_caught"), checkAndFormat(zoneStats["fish"])], [getTranslation("statistics.junk_caught"), checkAndFormat(zoneStats["junk"])]],
     [false, [getTranslation("statistics.treasure_caught"), checkAndFormat(zoneStats["treasure"])]],
-  ]
+  ];
 }
 
 function getFishingParticipatedSeasons() {
   let fishingNumericalStats = fishingStats["stats"] || {};
-  let years = Object.keys(fishingNumericalStats).filter(key => !isNaN(key));
+  let years = Object.keys(fishingNumericalStats).filter((key) => !isNaN(key));
 
   let participatedSeasons = [];
 
@@ -4478,7 +4136,7 @@ function formatFishingParticipatedSeason(season) {
     [true, [getTranslation("statistics.items_caught"), checkAndFormat(season["fish"] + season["junk"] + season["treasure"] + season["orb"])]],
     [false, [getTranslation("statistics.fish_caught"), checkAndFormat(season["fish"])], [getTranslation("statistics.junk_caught"), checkAndFormat(season["junk"])]],
     [false, [getTranslation("statistics.treasure_caught"), checkAndFormat(season["treasure"])], [getTranslation("statistics.mythical_fish_caught"), checkAndFormat(season["orb"])]],
-  ]
+  ];
 }
 
 function formatFishingParticipatedSeasonDropdown(seasonsObject) {
@@ -4502,7 +4160,7 @@ function getSpecialFishStats(season) {
     halloween: ["spook_the_fish", "chocolate_bar", "pumpkin_spice_latte", "angler", "pumpkin_pie", "eyeball", "wayfinders_compass", "molten_iron", "regular_fish", "lava_shark"],
 
     christmas: ["chill_the_fish_3", "frozen_fish", "festival_pufferfish_hat", "eggnog", "dawning_snowball", "frozen_meal", "festive_lights"],
-  }
+  };
 
   let specialFishArray = specialFish[season] || [];
   let formattedSpecialFishArray = [];
@@ -4511,20 +4169,20 @@ function getSpecialFishStats(season) {
 
   let specialFishStats = [];
 
-  for (let a = 0; a < specialFishArray.length; a++) { // Alphabetize array using sortStrings (item 0)
-    formattedSpecialFishArray.push([getTranslation(`games.modes.fishing.specialfish.${specialFishArray[a]}`), specialFishArray[a]])
+  for (let a = 0; a < specialFishArray.length; a++) {
+    // Alphabetize array using sortStrings (item 0)
+    formattedSpecialFishArray.push([getTranslation(`games.modes.fishing.specialfish.${specialFishArray[a]}`), specialFishArray[a]]);
   }
 
   formattedSpecialFishArray.sort((a, b) => sortStrings(a[0], b[0]));
 
   for (let i = 0; i < specialFishArray.length; i += 2) {
-
     let specialFishRow = [false];
 
     for (let j = 0; j < 2; j++) {
       let fish = formattedSpecialFishArray[i + j];
 
-      if(fish != undefined) {
+      if (fish != undefined) {
         let hasFish = getValue(playerSpecialFish, [fish[1]]) || false;
         specialFishRow.push([fish[0], hasFish ? `<span class="ma">✓</span>` : `<span class="mf">✗</span>`]);
       }
@@ -4541,37 +4199,39 @@ function getFishingCatches(category) {
     junk: ["leather", "leather_boots", "soggy_paper", "water_bottle", "lily_pad", "tripwire_hook", "ink_sac", "rotten_flesh", "bone", "bowl", "broken_fishing_rod", "stick", "rabbit_hide", "string", "nether_brick", "steak", "lava_bucket", "coal", "charcoal", "fermented_spider_eye", "burned_flesh", "clump_of_leaves", "ice_shard", "snowball", "frozen_flesh"],
     fish: ["clownfish", "salmon", "cod", "pufferfish", "cooked_cod", "charred_pufferfish", "cooked_salmon", "perch", "pike", "trout", "kelp", "dried_kelp"],
     treasure: ["enchanted_fishing_rod", "diamond_sword", "compass", "emerald", "gold_pickaxe", "saddle", "enchanted_bow", "diamond", "enchanted_book", "name_tag", "chainmail_chestplate", "blaze_rod", "eye_of_ender", "magma_cream", "blaze_powder", "molten_gold", "gold_sword", "iron_sword"],
-  }
+  };
 
   let fishingItemsArray = fishingItemCategories[category] || [];
   let formattedFishingItemsArray = [];
 
   let playerFishingItems = getValue(fishingStats, ["stats", "permanent", "individual", category]) || {};
 
-  for (let a = 0; a < fishingItemsArray.length; a++) { // Alphabetize array using sortStrings
+  for (let a = 0; a < fishingItemsArray.length; a++) {
+    // Alphabetize array using sortStrings
     formattedFishingItemsArray.push([getTranslation(`games.modes.fishing.catches.${fishingItemsArray[a]}`), fishingItemsArray[a], und(playerFishingItems[fishingItemsArray[a]])]);
   }
 
   // sort by 2nd item in array, numerical value ascending to descending
-  formattedFishingItemsArray.sort(function (a, b) { return b[2] - a[2]; });
+  formattedFishingItemsArray.sort(function (a, b) {
+    return b[2] - a[2];
+  });
 
   let fishingItemsStats = [];
 
   for (let a = 0; a < formattedFishingItemsArray.length; a += 2) {
+    let fishingItemsRow = [false];
 
-      let fishingItemsRow = [false];
+    for (let b = 0; b < 2; b++) {
+      let item = formattedFishingItemsArray[a + b];
 
-      for (let b = 0; b < 2; b++) {
-        let item = formattedFishingItemsArray[a + b];
-
-        if(item != undefined) {
-          let itemCount = und(playerFishingItems[item[1]]);
-          fishingItemsRow.push([item[0], checkAndFormat(itemCount)]);
-        }
+      if (item != undefined) {
+        let itemCount = und(playerFishingItems[item[1]]);
+        fishingItemsRow.push([item[0], checkAndFormat(itemCount)]);
       }
-
-      fishingItemsStats.push(fishingItemsRow);
     }
+
+    fishingItemsStats.push(fishingItemsRow);
+  }
 
   return fishingItemsStats;
 }
