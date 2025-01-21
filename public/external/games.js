@@ -142,6 +142,7 @@ function generateNetwork() {
       if (socialMediaList[socials[a]] == undefined) {
         document.getElementById("social-" + socials[a].toLowerCase()).style.display = "none";
         document.getElementById("social-" + socials[a].toLowerCase() + "-alternative").style.display = "none";
+        document.getElementById("sociallink-" + socials[a].toLowerCase()).style.display = "none";
       } else if (socials[a] != "DISCORD") {
         socialMediaNew = socialMediaList[socials[a]];
         socialMediaNewUrl = !/^https?:\/\//i.test(socialMediaNew) ? `https://${socialMediaNew}` : socialMediaNew; // Adds HTTPS to the URL if it doesn't have it already

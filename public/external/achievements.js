@@ -94,6 +94,7 @@ let secretAchievements = {
   skyblock_wizard_food_chain: "Become Wizardman",
   skyblock_genius: "Obtain a Free Will from Ubik",
   skyblock_hasta_la_vista: "Receive a Postcard from your minion",
+  skyblock_finally_over: "Murder Special Agent Amog",
 };
 
 function getSecretAchievement(achievement) {
