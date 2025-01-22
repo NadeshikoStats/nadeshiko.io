@@ -662,19 +662,23 @@ footer > a:hover {
   display: none;
 }
 
-.social-media-logo,
-#sociallink-discord {
+#social-media > a {
+  width: 24px;
   height: 24px;
-  opacity: 0.5;
-  transition-duration: var(--transition-small);
-  cursor: pointer;
 }
 
-.social-media-discord,
+.social-media-logo {
+  transition-duration: var(--transition-small);
+  cursor: pointer;
+
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 #sociallink-discord {
   height: 24px;
   transition-duration: var(--transition-small);
-  cursor: pointer;
 }
 
 #social-media-dropdown-container {
@@ -703,12 +707,18 @@ footer > a:hover {
   text-decoration: none;
 }
 
-.social-media-logo:hover {
+#social-media > * {
+  opacity: 0.5;
+  transition-duration: var(--transition-small);
+  cursor: pointer;
+}
+
+#social-media > *:hover {
   opacity: 1;
 }
 
-#sociallink-discord:hover {
-  opacity: 1;
+#social-media > *:not(:first-child) {
+  margin-inline-start: 15px;
 }
 
 .searchbar-container:focus-within,

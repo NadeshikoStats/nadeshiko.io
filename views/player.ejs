@@ -11,16 +11,16 @@
   <script>
     let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
 
-    /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
-    * This is used to ensure that all tasks are completed before the page is generated.
-    * @param {string} task - The task that was completed
-    */
+/* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+ * This is used to ensure that all tasks are completed before the page is generated.
+ * @param {string} task - The task that was completed
+ */
     function beginGeneration(task) {
-      if(tasksBeforeLoading.includes(task)) {
+      if (tasksBeforeLoading.includes(task)) {
         tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
         console.log(`Task ${task} completed (${performance.now()}ms); remaining tasks: ${tasksBeforeLoading}`);
 
-          if(tasksBeforeLoading.length == 0) {
+        if (tasksBeforeLoading.length == 0) {
           switchStats(currentGamemode);
           document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
 
@@ -198,12 +198,18 @@
                 </div>
 
                 <div class="socials flex-two-item flex-separated" id="social-media">
-                  <a target="_blank" id="sociallink-hypixel" aria-label="View Hypixel Forums profile"><img src="/img/logo/hypixel.svg" class="social-media-logo mright" id="social-hypixel" alt="Hypixel logo"></a>
-                  <a target="_blank" id="sociallink-youtube" aria-label="View linked YouTube"><img src="/img/logo/youtube.svg" class="social-media-logo mleft mright" id="social-youtube" alt="YouTube logo"></a>
-                  <a target="_blank" id="sociallink-twitter" aria-label="View linked Twitter"><img src="/img/logo/twitter.svg" class="social-media-logo mright mleft" id="social-twitter" alt="Twitter logo"></a>
-                  <a target="_blank" id="sociallink-tiktok" aria-label="View linked TikTok"><img src="/img/logo/tiktok.svg" class="social-media-logo mleft mright" id="social-tiktok" alt="TikTok logo"></a>
-                  <a target="_blank" id="sociallink-twitch" aria-label="View linked Twitch"><img src="/img/logo/twitch.svg" class="social-media-logo mright mleft" id="social-twitch" alt="Twitch logo"></a>
-                  <a target="_blank" id="sociallink-discord" onclick="copyText('social-discord-username', true)" aria-label="View linked Discord" style="display: flex; align-items: center"><img src="/img/logo/discord.svg" class="mleft social-media-discord" id="social-discord" alt="Discord logo"><p class="w500 mleft" id="social-discord-username"></p></a>
+                  <a target="_blank" id="sociallink-hypixel" aria-label="View Hypixel Forums profile"><img src="/img/logo/hypixel.svg" class="social-media-logo" id="social-hypixel" alt="Hypixel logo"></a>
+                  <a target="_blank" id="sociallink-youtube" aria-label="View linked YouTube"><img src="/img/logo/youtube.svg" class="social-media-logo" id="social-youtube" alt="YouTube logo"></a>
+                  <a target="_blank" id="sociallink-twitter" aria-label="View linked Twitter"><img src="/img/logo/twitter.svg" class="social-media-logo" id="social-twitter" alt="Twitter logo"></a>
+                  <a target="_blank" id="sociallink-tiktok" aria-label="View linked TikTok"><img src="/img/logo/tiktok.svg" class="social-media-logo" id="social-tiktok" alt="TikTok logo"></a>
+                  <a target="_blank" id="sociallink-twitch" aria-label="View linked Twitch"><img src="/img/logo/twitch.svg" class="social-media-logo" id="social-twitch" alt="Twitch logo"></a>
+
+                  <div class="flex-two-item" onclick="copyText('social-discord-username', true)">
+                    <a target="_blank" id="sociallink-discord" aria-label="View linked Discord" style="display: flex; align-items: center; width: 32px;">
+                      <img src="/img/logo/discord.svg" class="social-media-logo" id="social-discord" alt="Discord logo">
+                    </a>
+                    <p class="w500 mleft" id="social-discord-username"></p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -211,7 +217,6 @@
 
         </section>
       </div>
-
 
 
       <div class="flex-container unloaded minigame-flex-container" id="flex-container-bedwars">
@@ -1361,6 +1366,80 @@ function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, 
 
 var skinViewer;
 
+const generateFunctions = {
+  network: {
+    called: true
+  },
+  bedwars: {
+    function: generateBedWars,
+    called: false
+  },
+  duels: {
+    function: generateDuels,
+    called: false
+  },
+  skywars: {
+    function: generateSkyWars,
+    called: false
+  },
+  buildbattle: {
+    function: generateBuildBattle,
+    called: false
+  },
+  murdermystery: {
+    function: generateMurderMystery,
+    called: false
+  },
+  tntgames: {
+    function: generateTNTGames,
+    called: false
+  },
+  arcade: {
+    function: generateArcade,
+    called: false
+  },
+  pit: {
+    function: generatePit,
+    called: false
+  },
+  classic: {
+    function: generateClassic,
+    called: false
+  },
+  copsandcrims: {
+    function: generateCopsAndCrims,
+    called: false
+  },
+  blitz: {
+    function: generateBlitz,
+    called: false
+  },
+  megawalls: {
+    function: generateMegaWalls,
+    called: false
+  },
+  warlords: {
+    function: generateWarlords,
+    called: false
+  },
+  uhc: {
+    function: generateUHC,
+    called: false
+  },
+  smashheroes: {
+    function: generateSmash,
+    called: false
+  },
+  woolgames: {
+    function: generateWoolGames,
+    called: false
+  },
+  fishing: {
+    function: generateFishing,
+    called: false
+  }
+};
+
  function insertLoadedData() {
       redirectToHttps();
 
@@ -1378,6 +1457,14 @@ var skinViewer;
       console.error(`Invalid game mode "${gamemode}"!`);
       return;
     }
+
+    console.log(`Switching to ${gamemode} stats`);
+
+    if (!generateFunctions[gamemode]["called"]) {
+      generateFunctions[gamemode]["called"] = true;
+      generateFunctions[gamemode]["function"]();
+    }
+
       gamesWithEasilyClickableButtons = ["network", "bedwars", "skywars", "duels"];
     //if(gamemode != currentGamemode) {
       if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {

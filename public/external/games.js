@@ -281,25 +281,6 @@ function generateNetwork() {
       }
     });
 
-    generateBedWars();
-    generateDuels();
-    generateSkyWars();
-    generateBuildBattle();
-    generateMurderMystery();
-    generateTNTGames();
-    generateArcade();
-    generatePit();
-    generateClassic();
-    generateCopsAndCrims();
-    generateBlitz();
-    generateMegaWalls();
-    generateWarlords();
-    generateUHC();
-    generateSmash();
-    generateWoolGames();
-
-    generateFishing();
-
     addRecentPlayer(playerData["name"], playerRankCute[0]);
   } else {
     // If no Hypixel stats, hide most buttons and show a warning
