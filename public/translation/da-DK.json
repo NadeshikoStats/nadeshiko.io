@@ -2,14 +2,14 @@
   "nadeshiko": "nadeshiko",
   "header": {
     "searchbar": {
-      "placeholder": "Search for a player...",
-      "placeholder_guild": "Search for a guild name or player..."
+      "placeholder": "Søg efter en spiller...",
+      "placeholder_guild": "Søg efter et gilde navn eller en spiller..."
     },
     "home": {
-      "title": "Home"
+      "title": "Hjem"
     },
     "about": {
-      "title": "About",
+      "title": "Om",
       "basic": "<span class=\"nadeshiko-bold\">nadeshiko</span> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.",
       "assistance": "Found a bug or need some assistance? Please let us know on the project's <a href=\"https://github.com/NadeshikoStats/nadeshiko.io/issues\" target=\"_blank\">GitHub page</a> or <a href=\"https://discord.gg/YC5Rz9wKRD\" target=\"_blank\">Discord server</a>!",
       "disclaimer": "nadeshiko.io is not affiliated with Hypixel Inc., Mojang AB, or Microsoft.",

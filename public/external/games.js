@@ -2819,9 +2819,11 @@ function generateMegaWalls() {
   }
 
   let megaWallsClassesFormatted = Object.entries(megaWallsClasses).map(([key, value]) => [value["name"], key]);
+  megaWallsClassesFormatted.sort((a, b) => sortStrings(a[0], b[0]));
+
   let megaWallsClassesFormattedWithOverall = [[getTranslation("games.modes.all.overall"), ""]].concat(megaWallsClassesFormatted);
 
-  let megaWallsClassChip = ["megawalls-classes", getTranslation("games.modes.megawalls.classes.category"), "", `/img/games/megawalls/classes.${imageFileType}`, getMegaWallsClassStats("angel"), megaWallsClassesFormatted, ``, "megawalls"];
+  let megaWallsClassChip = ["megawalls-classes", getTranslation("games.modes.megawalls.classes.category"), "", `/img/games/megawalls/classes.${imageFileType}`, getMegaWallsClassStats(megaWallsClassesFormatted[0][1]), megaWallsClassesFormatted, ``, "megawalls"];
 
   let megaWallsStandardChip = ["megawalls-standard", getTranslation("games.modes.megawalls.standard"), "", `/img/games/megawalls/standard.${imageFileType}`, getMegaWallsClassStats("", "standard"), megaWallsClassesFormattedWithOverall, ``, "megawalls"];
 
@@ -3666,7 +3668,7 @@ function generateSmash() {
     updateElement("smashheroes-active_class", "N/A");
   }
 
-  let smashClassesChip = ["smashheroes-classes", "Heroes", "", `/img/games/smashheroes/heroes.${imageFileType}`, getSmashStats("class", "BOTMUN"), smashFormattedClassesArray, ``, "smashheroes"];
+  let smashClassesChip = ["smashheroes-classes", "Heroes", "", `/img/games/smashheroes/heroes.${imageFileType}`, getSmashStats("class", smashClassesArray[1][1]), smashFormattedClassesArray, ``, "smashheroes"];
 
   let smashSoloChip = ["smashheroes-solo", "Solo", "", `/img/games/smashheroes/solo.${imageFileType}`, getSmashStats("normal", "overall"), smashClassesArray, ``, "smashheroes"];
 

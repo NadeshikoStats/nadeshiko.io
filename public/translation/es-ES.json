@@ -171,7 +171,7 @@
       "event_cosmetic": "Cosmético de eventos"
     },
     "completions": {
-      "completed": "%%num%%/%%total%% completadas",
+      "completed": "%%num%% / %%total%% completadas",
       "daily_quests_completed": "Misiones diarias completadas",
       "weekly_quests_completed": "Misiones semanales completadas"
     }
@@ -832,7 +832,7 @@
           "weight_formatted": "%%caught%% <span class=\"w400\">(%%weight%% kg)</span>"
         },
         "specialfish": {
-          "category": "Pez Especial",
+          "category": "Peces especiales",
           "angler": "Pescador",
           "barnacle": "Percebe",
           "carrot": "Zanahoria",
@@ -928,7 +928,7 @@
     "bblr": "BB/L R",
     "slumber_tickets": "Boletos de sueño",
     "challenges_completed": "Desafios completados",
-    "unique_challenges_completed": "(%%num%%/%%total%% únicos)",
+    "unique_challenges_completed": "(%%num%% / %%total%% únicos)",
     "clicks": "Clics",
     "heads": "Cabezas",
     "chests_opened": "Cofres abiertos",
