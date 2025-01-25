@@ -1266,7 +1266,7 @@ function generateMurderMystery() {
 
       murderMysteryModeStats = [
         [false, [getTranslation("statistics.wins"), checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.losses"), checkAndFormat(murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.wlr"), calculateRatio(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`], murderMysteryStats[`games_${currentMurderMysteryMode[1]}`] - murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])]],
-        [false, [getTranslation("statistics.kills"), checkAndFormat(murderMysteryStats[`wins_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.deaths"), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.kdr"), calculateRatio(checkAndFormat(murderMysteryStats[`kills_${currentMurderMysteryMode[1]}`]), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`]))]],
+        [false, [getTranslation("statistics.kills"), checkAndFormat(murderMysteryStats[`kills_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.deaths"), checkAndFormat(murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`])], [getTranslation("statistics.kdr"), calculateRatio(murderMysteryStats[`kills_${currentMurderMysteryMode[1]}`], murderMysteryStats[`deaths_${currentMurderMysteryMode[1]}`])]],
       ];
 
       if (currentMurderMysteryMode[1] == "MURDER_CLASSIC" || currentMurderMysteryMode[1] == "MURDER_DOUBLE_UP") {
@@ -3887,8 +3887,8 @@ function generateWoolGames() {
     "", // Subtitle
     `/img/games/woolgames/capturethewool.${imageFileType}`, // Background image
     [
-      [false, [getTranslation("statistics.wins"), checkAndFormat(captureTheWoolStatsObject["wins"])], [getTranslation("statistics.losses"), checkAndFormat(captureTheWoolStatsObject["losses"])], [getTranslation("statistics.wlr"), calculateRatio(checkAndFormat(captureTheWoolStatsObject["wins"]), checkAndFormat(captureTheWoolStatsObject["losses"]))]],
-      [false, [getTranslation("statistics.kills"), checkAndFormat(captureTheWoolStatsObject["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(captureTheWoolStatsObject["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(checkAndFormat(captureTheWoolStatsObject["kills"]), checkAndFormat(captureTheWoolStatsObject["deaths"]))]],
+      [false, [getTranslation("statistics.wins"), checkAndFormat(captureTheWoolStatsObject["wins"])], [getTranslation("statistics.losses"), checkAndFormat(captureTheWoolStatsObject["losses"])], [getTranslation("statistics.wlr"), calculateRatio(captureTheWoolStatsObject["wins"], captureTheWoolStatsObject["losses"])]],
+      [false, [getTranslation("statistics.kills"), checkAndFormat(captureTheWoolStatsObject["kills"])], [getTranslation("statistics.deaths"), checkAndFormat(captureTheWoolStatsObject["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(captureTheWoolStatsObject["kills"], captureTheWoolStatsObject["deaths"])]],
       [false, [getTranslation("statistics.draws"), checkAndFormat(captureTheWoolStatsObject["draws"])], [getTranslation("statistics.assists"), checkAndFormat(captureTheWoolStatsObject["assists"])]],
       [false, [getTranslation("statistics.wool_picked_up"), checkAndFormat(captureTheWoolStatsObject["wools_stolen"])], [getTranslation("statistics.wool_captured"), checkAndFormat(captureTheWoolStatsObject["wools_captured"])]],
       [false, [getTranslation("statistics.fastest_win"), smallDuration(und(captureTheWoolStatsObject["fastest_win"], -1))], [getTranslation("statistics.fastest_capture"), smallDuration(und(captureTheWoolStatsObject["fastest_capture"], -1))]],
