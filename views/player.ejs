@@ -38,7 +38,6 @@
   <script src="/external/language.js?v=<%= version || 0 %>"></script>
 
   <script src="/external/webptest.js?v=<%= version || 0 %>" type="module"></script>
-  <script src="/external/skinview3d.bundle.js?v=<%= version || 0 %>" type="module"></script>
   <script src="/external/purify.min.js?v=<%= version || 0 %>"></script>
   <script src="/external/minecrafttext.js?v=<%= version || 0 %>"></script>
   <script src="/external/calculations.js?v=<%= version || 0 %>"></script>
@@ -316,8 +315,10 @@
 
   window.addEventListener("resize", checkMobileMode);
 
-  document.addEventListener("DOMContentLoaded", function() { // Runs on page load
+  document.addEventListener("DOMContentLoaded", async() => { // Runs on page load
     beginGeneration("DOMContentLoaded");
+
+    const { default: Skinview3D } = await import('/external/skinview3d.bundle.js?v=<%= version || 0 %>');
     try {
       var skinViewModel = "classic";
       if (playerData["slim"]) {

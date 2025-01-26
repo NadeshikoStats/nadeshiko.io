@@ -34,7 +34,7 @@ function generateQuestsTable(game, timestamp = Date.now()) {
 
       <div class="chip-small but-big no-overflow chip-quest-game">
         <div class="chip-small-top">
-          <p class="chip-small-title flex-two-item-basic"><img class="smallicon quest-game-icon" src="/img/icon/hypixel/${modernGameName}.webp"> ${getTranslation(`games.${modernGameName}`)}<span style="margin-inline-start: 5px;" data-i="quest-game-check">${getTranslation("achievements.check")}</span></p>
+          <p class="chip-small-title flex-two-item-basic"><img class="smallicon quest-game-icon" alt="" src="/img/icon/hypixel/${modernGameName}.webp"> ${getTranslation(`games.${modernGameName}`)}<span style="margin-inline-start: 5px;" data-i="quest-game-check">${getTranslation("achievements.check")}</span></p>
           <div class="flex-two-item-basic">
             <p class="mright" data-i="quest-game-progress" style="text-align: right"></p>
             <img class="quest-game-arrow" src="/img/svg/arrow.svg" alt="Expand">
@@ -60,7 +60,7 @@ function generateQuestsTable(game, timestamp = Date.now()) {
 
   let questRewardsTemplate = DOMPurify.sanitize(`
     <span class="tooltip">
-      <img data-i="quest-reward-icon" class="smallicon icon">
+      <img data-i="quest-reward-icon" class="smallicon icon" alt="">
       <span class="tooltiptext" data-i="quest-reward-item"></span>
     </span>
     <span data-i="quest-reward-amount"></span>
