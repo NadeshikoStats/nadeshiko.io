@@ -55,8 +55,8 @@ function getValue(object, valueArray) {
   return object;
 }
 
-function updateElement(id, value, useInnerHTML = false) {
-  const element = document.getElementById(id);
+function updateElement(id, value, useInnerHTML = false, scope = document) {
+  const element = scope.getElementById(id);
   if (element) {
     if (useInnerHTML) {
       element.innerHTML = DOMPurify.sanitize(value);

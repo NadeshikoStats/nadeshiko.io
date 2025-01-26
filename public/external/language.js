@@ -98,8 +98,8 @@ function containsHTMLTags(str) {
   return pattern.test(str);
 }
 
-function updateTranslations() {
-  document.querySelectorAll("[data-t]").forEach((element) => {
+function updateTranslations(scope = document) {
+  scope.querySelectorAll("[data-t]").forEach((element) => {
     const key = element.getAttribute("data-t");
     const translation = getTranslation(key);
     if (element.placeholder) {

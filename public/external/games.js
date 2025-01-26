@@ -2,6 +2,26 @@ var bedWarsStats, totalDreamModeStats, duelsStats, arcadeStats, arenaStats, pain
 var allDuelsStats = {};
 var allTNTWizardStats = {};
 
+function updateScopedElement(id, value, useInnerHTML = false) {
+  updateElement(id, value, useInnerHTML, activeScope);
+}
+
+function setupMinigameContainer(id, innerHTML) {
+  let minigameFragment = document.createDocumentFragment();
+  let minigameContainer = document.createElement("div");
+
+  minigameContainer.className = "flex-container unloaded minigame-flex-container";
+  minigameContainer.id = id;
+  minigameContainer.innerHTML = innerHTML;
+
+  minigameFragment.appendChild(minigameContainer);
+  activeScope = minigameFragment;
+
+  updateTranslations(minigameFragment);
+
+  return minigameContainer;
+}
+
 function generateNetwork() {
   // Inserts general/network stats into the DOM
   var profileStats = playerData["profile"];
@@ -327,6 +347,73 @@ function linearGradient(colors) {
 }
 
 function generateBedWars() {
+  let minigameTemplate = `
+        <!-- bed wars stats -->
+        <div class="chip-container">
+          <div class="chip-small but-big">
+            <div class="chip-small-background-filter"></div>
+            <p class="chip-small-title" data-t="games.bedwars">Bed Wars</p>
+            <div class="chip-small-container">
+              <p class="margin10">
+                <span id="bedwars-level-container"><span data-t="statistics.level">Level</span> <span class="statistic linear-gradient" id="bedwars-level"></span></span>
+              </p>
+              <div class="progress-bar">
+                <span class="progress-number" id="bedwars-xp-progress-number"><span class="mc">Unknown</span></span>
+                <div class="progress" style="width: 0%;" id="bedwars-xp-progress-bar"></div>
+              </div>
+              <div class="flex-two-item align-top flippable margin10">
+                <div class="card-big-stats">
+                  <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.winstreak">Winstreak</span> <span class="statistic" id="bedwars-overall-winstreak"></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="bedwars-overall-wins"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="bedwars-overall-losses"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="bedwars-overall-wlr"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="bedwars-overall-kills"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="bedwars-overall-deaths"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="bedwars-overall-kdr"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.final_kills">Final Kills</span> <span class="statistic" id="bedwars-overall-final_kills"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.final_deaths">Final Deaths</span> <span class="statistic" id="bedwars-overall-final_deaths"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.fkdr">FK/D R</span> <span class="statistic" id="bedwars-overall-fkdr"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.beds_broken">Beds Broken</span> <span class="statistic" id="bedwars-overall-beds_broken"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.beds_lost">Beds Lost</span> <span class="statistic" id="bedwars-overall-beds_lost"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.bblr">BB/L R</span> <span class="statistic" id="bedwars-overall-bblr"><span class="mc">Unknown</span></span></p>
+                  </div>
+                </div>
+                <div class="card-big-misc">
+                  <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="bedwars-tokens"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.slumber_tickets">Slumber Tickets</span> <span class="statistic" id="bedwars-slumber-tickets">0</span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.challenges_completed">Challenges Completed</span> <span class="statistic" id="bedwars-challenges-completed"><span class="mc">Unknown</span></span> <span class="m8" id="bedwars-unique-challenges-completed">(0/30 unique)</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="general-button mright mtop" onclick="showCardWizard('BEDWARS')" data-t="player.generate_card">Generate Card</span>
+          </div>
+          <div class="flex-two-item chip-container-duo-parent" id="bedwars-chips">
+            <div id="bedwars-chips-1" class="chip-container-duo">
+            </div>
+            <div id="bedwars-chips-2" class="chip-container-duo">
+            </div>
+          </div>
+        </div>`;
+
+  let minigameFragment = setupMinigameContainer("flex-container-bedwars", minigameTemplate);
+
   // Generates stats and chips for Bed Wars
   bedWarsStats = playerData["stats"]["Bedwars"] || {};
   if (bedWarsStats != undefined) {
@@ -372,32 +459,33 @@ function generateBedWars() {
       prefixIcon = "✥";
     }
 
-    updateElement("bedwars-level", checkAndFormat(Math.floor(bedWarsLevel)) + prefixIcon);
-    document.getElementById("bedwars-level").style.background = linearGradient(bedWarsPrestigeColors[Math.min(Math.floor(bedWarsLevel / 100), 50)]);
-    document.getElementById("bedwars-xp-progress-bar").style.width = ((bedWarsLevel % 1) * 100).toFixed(0) + "%";
-    updateElement("bedwars-xp-progress-number", ((bedWarsLevel % 1) * 100).toFixed(0) + "%");
+    updateScopedElement("bedwars-level", checkAndFormat(Math.floor(bedWarsLevel)) + prefixIcon);
+    activeScope.getElementById("bedwars-level").style.background = linearGradient(bedWarsPrestigeColors[Math.min(Math.floor(bedWarsLevel / 100), 50)]);
+    activeScope.getElementById("bedwars-xp-progress-bar").style.width = ((bedWarsLevel % 1) * 100).toFixed(0) + "%";
+    updateScopedElement("bedwars-xp-progress-number", ((bedWarsLevel % 1) * 100).toFixed(0) + "%");
 
     var bedWarsChips = [];
 
     for (e = 0; e < easyStats.length; e++) {
-      updateElement("bedwars-overall-" + easyStats[e], checkAndFormat(bedWarsStats[easyStats[e] + "_bedwars"]));
+      updateScopedElement("bedwars-overall-" + easyStats[e], checkAndFormat(bedWarsStats[easyStats[e] + "_bedwars"]));
     }
-    updateElement("bedwars-overall-winstreak", checkAndFormat(bedWarsStats["winstreak"]));
-    updateElement("bedwars-overall-wlr", calculateRatio(bedWarsStats["wins_bedwars"], bedWarsStats["losses_bedwars"]));
-    updateElement("bedwars-overall-kdr", calculateRatio(bedWarsStats["kills_bedwars"], bedWarsStats["deaths_bedwars"]));
-    updateElement("bedwars-overall-fkdr", calculateRatio(bedWarsStats["final_kills_bedwars"], bedWarsStats["final_deaths_bedwars"]));
-    updateElement("bedwars-overall-bblr", calculateRatio(bedWarsStats["beds_broken_bedwars"], bedWarsStats["beds_lost_bedwars"]));
-    updateElement("bedwars-tokens", checkAndFormat(bedWarsStats["coins"]));
-    updateElement("bedwars-challenges-completed", checkAndFormat(bedWarsStats["total_challenges_completed"]));
 
-    updateElement("bedwars-unique-challenges-completed", insertPlaceholders(getTranslation("statistics.unique_challenges_completed"), { num: checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]), total: checkAndFormat(30) }));
+    updateScopedElement("bedwars-overall-winstreak", checkAndFormat(bedWarsStats["winstreak"]));
+    updateScopedElement("bedwars-overall-wlr", calculateRatio(bedWarsStats["wins_bedwars"], bedWarsStats["losses_bedwars"]));
+    updateScopedElement("bedwars-overall-kdr", calculateRatio(bedWarsStats["kills_bedwars"], bedWarsStats["deaths_bedwars"]));
+    updateScopedElement("bedwars-overall-fkdr", calculateRatio(bedWarsStats["final_kills_bedwars"], bedWarsStats["final_deaths_bedwars"]));
+    updateScopedElement("bedwars-overall-bblr", calculateRatio(bedWarsStats["beds_broken_bedwars"], bedWarsStats["beds_lost_bedwars"]));
+    updateScopedElement("bedwars-tokens", checkAndFormat(bedWarsStats["coins"]));
+    updateScopedElement("bedwars-challenges-completed", checkAndFormat(bedWarsStats["total_challenges_completed"]));
+
+    updateScopedElement("bedwars-unique-challenges-completed", insertPlaceholders(getTranslation("statistics.unique_challenges_completed"), { num: checkAndFormat(bedWarsStats["bw_unique_challenges_completed"]), total: checkAndFormat(30) }));
 
     if (bedWarsStats["bw_unique_challenges_completed"] == 30) {
-      document.getElementById("bedwars-unique-challenges-completed").style.color = `var(--gold)`;
+      activeScope.getElementById("bedwars-unique-challenges-completed").style.color = `var(--gold)`;
     }
 
     if (bedWarsStats["slumber"] != undefined) {
-      updateElement("bedwars-slumber-tickets", checkAndFormat(bedWarsStats["slumber"]["tickets"]));
+      updateScopedElement("bedwars-slumber-tickets", checkAndFormat(bedWarsStats["slumber"]["tickets"]));
     }
 
     for (a = 0; a < modeNames.length; a++) {
@@ -449,13 +537,73 @@ function generateBedWars() {
 
     generateChips(bedWarsChips, "bedwars-chips");
   }
+
+  minigameFragments["bedwars"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function generateSkyWars() {
+  let minigameTemplate = `
+      <!-- skywars stats -->
+      <div class="chip-container">
+        <div class="chip-small but-big">
+          <div class="chip-small-background-filter"></div>
+          <p class="chip-small-title" data-t="games.skywars">SkyWars</p>
+          <div class="chip-small-container">
+            <p class="margin10">
+              <span data-t="statistics.level">Level</span> <span class="statistic" id="skywars-level"><span class="m7">1⋆</span></span>
+            </p>
+            <div class="progress-bar">
+              <span class="progress-number" id="skywars-xp-progress-number"><span class="mc">Unknown</span></span>
+              <div class="progress" style="width: 0%;" id="skywars-xp-progress-bar"></div>
+            </div>
+            <div class="flex-two-item align-top flippable margin10">
+              <div class="card-big-stats">
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+                <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="skywars-overall-wins"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="skywars-overall-losses"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="skywars-overall-wlr"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="skywars-overall-kills"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="skywars-overall-deaths"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="skywars-overall-kdr"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+              <div class="card-big-misc">
+                <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+                <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="skywars-overall-coins"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="skywars-overall-cosmetic_tokens"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.heads">Heads</span> <span class="statistic" id="skywars-overall-heads"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.corruption">Corruption</span> <span class="statistic" id="skywars-overall-corruption-chance"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.chests_opened">Chests Opened</span> <span class="statistic" id="skywars-overall-chests_opened"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="skywars-overall-playtime"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="general-button mright mtop" onclick="showCardWizard('SKYWARS')" data-t="player.generate_card">Generate Card</span>
+        </div>
+        <div class="flex-two-item chip-container-duo-parent">
+          <div id="skywars-chips-1" class="chip-container-duo">
+          </div>
+          <div id="skywars-chips-2" class="chip-container-duo">
+          </div>
+        </div>
+      </div>`;
+
+  let minigameFragment = setupMinigameContainer("flex-container-skywars", minigameTemplate);
+
   skyWarsStats = playerData["stats"]["SkyWars"] || {};
   if (skyWarsStats != undefined) {
     if (skyWarsStats["levelFormatted"] != undefined) {
-      updateElement("skywars-level", generateMinecraftText(skyWarsStats["levelFormatted"], true), true);
+      updateScopedElement("skywars-level", generateMinecraftText(skyWarsStats["levelFormatted"], true), true);
     } else {
       // only runs if the player hasn't logged in since 2021(?)
       let skyWarsLevels = [
@@ -475,7 +623,7 @@ function generateSkyWars() {
       let skywarsEstimatedExperience = und(skyWarsStats["wins"]) * 10 + und(skyWarsStats["kills"]);
       let skyWarsEstimatedLevel = Math.floor(getSkyWarsLevel(skywarsEstimatedExperience));
 
-      updateElement(
+      updateScopedElement(
         "skywars-level",
         getGenericWinsPrefix({
           wins: skyWarsEstimatedLevel,
@@ -490,18 +638,18 @@ function generateSkyWars() {
 
     easyStats = ["kills", "deaths", "wins", "losses", "coins", "cosmetic_tokens", "chests_opened", "heads"];
     for (e = 0; e < easyStats.length; e++) {
-      updateElement("skywars-overall-" + easyStats[e], checkAndFormat(skyWarsStats[easyStats[e]]));
+      updateScopedElement("skywars-overall-" + easyStats[e], checkAndFormat(skyWarsStats[easyStats[e]]));
     }
 
     skyWarsLevel = getSkyWarsLevel(und(skyWarsStats["skywars_experience"]));
-    document.getElementById("skywars-xp-progress-bar").style.width = (skyWarsLevel % 1) * 100 + "%";
-    updateElement("skywars-xp-progress-number", ((skyWarsLevel % 1) * 100).toFixed(0) + "%");
+    activeScope.getElementById("skywars-xp-progress-bar").style.width = (skyWarsLevel % 1) * 100 + "%";
+    updateScopedElement("skywars-xp-progress-number", ((skyWarsLevel % 1) * 100).toFixed(0) + "%");
 
-    updateElement("skywars-overall-kdr", calculateRatio(skyWarsStats["kills"], skyWarsStats["deaths"]));
-    updateElement("skywars-overall-wlr", calculateRatio(skyWarsStats["wins"], skyWarsStats["losses"]));
-    updateElement("skywars-overall-playtime", smallDuration(und(skyWarsStats["time_played"])));
+    updateScopedElement("skywars-overall-kdr", calculateRatio(skyWarsStats["kills"], skyWarsStats["deaths"]));
+    updateScopedElement("skywars-overall-wlr", calculateRatio(skyWarsStats["wins"], skyWarsStats["losses"]));
+    updateScopedElement("skywars-overall-playtime", smallDuration(und(skyWarsStats["time_played"])));
 
-    updateElement("skywars-overall-corruption-chance", und(skyWarsStats["angel_of_death_level"]) + und(skyWarsStats["angels_offering"]) + (skyWarsStats["packages"] != undefined ? skyWarsStats["packages"].includes("favor_of_the_angel") : 0) + "%");
+    updateScopedElement("skywars-overall-corruption-chance", und(skyWarsStats["angel_of_death_level"]) + und(skyWarsStats["angels_offering"]) + (skyWarsStats["packages"] != undefined ? skyWarsStats["packages"].includes("favor_of_the_angel") : 0) + "%");
 
     skyWarsChips = [];
     skyWarsStatsToShow = [
@@ -542,10 +690,11 @@ function generateSkyWars() {
       skyWarsChips.push(skyWarsChip);
     }
 
-    for (d = 0; d < skyWarsChips.length; d++) {
-      generateChip(skyWarsChips[d], d % 2 == 0 ? "skywars-chips-1" : "skywars-chips-2");
-    }
+    generateChips(skyWarsChips, "skywars-chips");
   }
+
+  minigameFragments["skywars"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function getBedWarsModeStats(mode) {
@@ -956,6 +1105,65 @@ function maxStats(statNames, modeNames, statArray, separator = "_", reverse = fa
 }
 
 function generateDuels() {
+  let minigameTemplate = `
+        <!-- duels stats -->
+        <div class="chip-container">
+          <div class="chip-small but-big">
+            <div class="chip-small-background-filter"></div>
+            <p class="chip-small-title" data-t="games.duels">Duels</p>
+            <div class="chip-small-container">
+              <p class="margin10">
+                <span id="duels-overall-title"></span> <span id="duels-overall-to-go"></span>
+              </p>
+              <div class="progress-bar">
+                <span class="progress-number" id="duels-overall-progress-number"><span class="mc">Unknown</span></span>
+                <div class="progress" style="width: 0%;" id="duels-overall-progress-bar"></div>
+              </div>
+              <div class="flex-two-item align-top flippable margin10">
+                <div class="card-big-stats">
+                  <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.winstreak">Winstreak</span> <span class="statistic" id="duels-overall-current_winstreak"></span></p>
+                      <p><span data-t="statistics.best_winstreak">Best Winstreak</span> <span class="statistic" id="duels-overall-best_overall_winstreak"></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="duels-overall-wins"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="duels-overall-losses"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="duels-overall-wlr"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="duels-overall-kills"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="duels-overall-deaths"><span class="mc">Unknown</span></span></p>
+                      <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="duels-overall-kdr"><span class="mc">Unknown</span></span></p>
+                  </div>
+                </div>
+                <div class="card-big-misc">
+                  <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+                  <div class="chip-small-statistic-row">
+                      <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="duels-overall-coins"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="duels-overall-damage-dealt"><span class="mc">Unknown</span></span></p>
+                  </div>
+                  <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.clicks">Clicks</span> <span class="statistic" id="duels-overall-melee_swings"><span class="mc">Unknown</span></span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="general-button mright mtop" onclick="showCardWizard('DUELS')" data-t="player.generate_card">Generate Card</span>
+          </div>
+          <div class="flex-two-item chip-container-duo-parent" id="duels-chips">
+            <div id="duels-chips-1" class="chip-container-duo">
+            </div>
+            <div id="duels-chips-2" class="chip-container-duo">
+            </div>
+          </div>
+      </div>
+    </div>`;
+
+  let minigameFragment = setupMinigameContainer("flex-container-duels", minigameTemplate);
+
   // Generates stats and chips for Duels
   duelsStats = playerData["stats"]["Duels"] || {};
   if (duelsStats != undefined) {
@@ -963,12 +1171,12 @@ function generateDuels() {
 
     let easyStats = ["wins", "losses", "kills", "deaths", "current_winstreak", "best_overall_winstreak", "coins", "melee_swings"];
     for (e = 0; e < easyStats.length; e++) {
-      updateElement("duels-overall-" + easyStats[e], checkAndFormat(duelsStats[easyStats[e]]));
+      updateScopedElement("duels-overall-" + easyStats[e], checkAndFormat(duelsStats[easyStats[e]]));
     }
 
-    updateElement("duels-overall-kdr", calculateRatio(duelsStats["kills"], duelsStats["deaths"]));
-    updateElement("duels-overall-wlr", calculateRatio(duelsStats["wins"], duelsStats["losses"]));
-    updateElement("duels-overall-damage-dealt", checkAndFormat(duelsStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`, true);
+    updateScopedElement("duels-overall-kdr", calculateRatio(duelsStats["kills"], duelsStats["deaths"]));
+    updateScopedElement("duels-overall-wlr", calculateRatio(duelsStats["wins"], duelsStats["losses"]));
+    updateScopedElement("duels-overall-damage-dealt", checkAndFormat(duelsStats["damage_dealt"] / 2) + ` ♥&#xFE0E;`, true);
 
     overallDuelsTitle = getDuelsTitle(und(duelsStats["wins"]));
 
@@ -987,11 +1195,11 @@ function generateDuels() {
       }
     }
 
-    updateElement("duels-overall-title", overallDuelsTitle[0], true);
-    updateElement("duels-overall-to-go", formattedWinsToGo);
+    updateScopedElement("duels-overall-title", overallDuelsTitle[0], true);
+    updateScopedElement("duels-overall-to-go", formattedWinsToGo);
     duelsProgress = (overallDuelsTitle[2] - overallDuelsTitle[1]) / overallDuelsTitle[2];
-    updateElement("duels-overall-progress-number", Math.floor(duelsProgress * 100) + "%");
-    document.getElementById("duels-overall-progress-bar").style.width = Math.floor(duelsProgress * 100) + "%";
+    updateScopedElement("duels-overall-progress-number", Math.floor(duelsProgress * 100) + "%");
+    activeScope.getElementById("duels-overall-progress-bar").style.width = Math.floor(duelsProgress * 100) + "%";
 
     var duelsModes = [
       ["UHC 1v1", "uhc_duel", "uhc", false],
@@ -1141,41 +1349,89 @@ function generateDuels() {
       duelsChips.push(duelsChip);
     }
 
-    for (d = 0; d < duelsChips.length; d++) {
-      generateChip(duelsChips[d], d % 2 == 0 ? "duels-chips-1" : "duels-chips-2");
-    }
+    generateChips(duelsChips, "duels-chips");
   }
+
+  minigameFragments["duels"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function generateBuildBattle() {
+  let minigameTemplate = `<div class="chip-container" id="buildbattle-chips">
+        <div class="chip-small but-big">
+          <div class="chip-small-background-filter"></div>
+          <p class="chip-small-title" data-t="games.buildbattle">Build Battle</p>
+          <div class="chip-small-container">
+            <p class="margin10">
+              <span id="buildbattle-overall-emblem"></span> <span id="buildbattle-overall-title"><span class="mc">Unknown</span></span>
+            </p>
+            <div class="progress-bar" id="buildbattle-overall-progress-bar-container" style="display: none">
+              <span class="progress-number" id="buildbattle-overall-progress-number"><span class="mc">Unknown</span></span>
+              <div class="progress" style="width: 0%;" id="buildbattle-overall-progress-bar"></div>
+            </div>
+            <div class="flex-two-item align-top flippable margin10">
+              <div class="card-big-stats">
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+                <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.score">Score</span> <span class="statistic" id="buildbattle-overall-score"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="buildbattle-overall-wins"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="buildbattle-overall-losses"><span class="mc">Unknown</span></span></p>
+                    <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="buildbattle-overall-wlr"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+              <div class="card-big-misc">
+                <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+                <div class="chip-small-statistic-row">
+                    <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="buildbattle-overall-tokens"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.votes">Votes</span> <span class="statistic" id="buildbattle-overall-total_votes"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.highest_score">Highest Score</span> <span class="statistic" id="buildbattle-overall-highest-score"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="general-button mright mtop" onclick="showCardWizard('BUILD_BATTLE')" data-t="player.generate_card">Generate Card</span>
+        </div>
+        <div class="flex-two-item chip-container-duo-parent">
+          <div id="buildbattle-chips-1" class="chip-container-duo">
+          </div>
+          <div id="buildbattle-chips-2" class="chip-container-duo">
+          </div>
+        </div>
+    </div>`;
+
+  let minigameFragment = setupMinigameContainer("flex-container-buildbattle", minigameTemplate);
   // Generates stats and chips for Build Battle
 
   let buildBattleStats = playerData["stats"]["BuildBattle"] || {};
   if (buildBattleStats != undefined) {
     let buildBattleScore = und(buildBattleStats["score"]);
-    updateElement("buildbattle-overall-score", checkAndFormat(buildBattleScore));
+    updateScopedElement("buildbattle-overall-score", checkAndFormat(buildBattleScore));
 
     let buildBattleTitle = getBuildBattleTitle(buildBattleScore, true);
 
     if (buildBattleTitle["winsToGo"] > 0) {
       let buildBattleProgressToNextTitle = und((buildBattleScore - buildBattleTitle["currentTitleRequirement"]) / (buildBattleScore - buildBattleTitle["currentTitleRequirement"] + buildBattleTitle["winsToGo"]));
 
-      updateElement("buildbattle-overall-progress-number", Math.floor(buildBattleProgressToNextTitle * 100) + "%");
-      document.getElementById("buildbattle-overall-progress-bar").style.width = buildBattleProgressToNextTitle * 100 + "%";
+      updateScopedElement("buildbattle-overall-progress-number", Math.floor(buildBattleProgressToNextTitle * 100) + "%");
+      activeScope.getElementById("buildbattle-overall-progress-bar").style.width = buildBattleProgressToNextTitle * 100 + "%";
 
-      document.getElementById("buildbattle-overall-progress-bar-container").style.display = "block";
+      activeScope.getElementById("buildbattle-overall-progress-bar-container").style.display = "block";
     }
 
-    updateElement("buildbattle-overall-title", buildBattleTitle["title"], true);
+    updateScopedElement("buildbattle-overall-title", buildBattleTitle["title"], true);
 
-    updateElement("buildbattle-overall-losses", locale(und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"]), 0));
-    updateElement("buildbattle-overall-wlr", calculateRatio(buildBattleStats["wins"], und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"])));
-    updateElement("buildbattle-overall-highest-score", checkAndFormat(playerAchievements["buildbattle_build_battle_points"]));
-    updateElement("buildbattle-overall-tokens", checkAndFormat(buildBattleStats["coins"]));
+    updateScopedElement("buildbattle-overall-losses", locale(und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"]), 0));
+    updateScopedElement("buildbattle-overall-wlr", calculateRatio(buildBattleStats["wins"], und(buildBattleStats["games_played"]) - und(buildBattleStats["wins"])));
+    updateScopedElement("buildbattle-overall-highest-score", checkAndFormat(playerAchievements["buildbattle_build_battle_points"]));
+    updateScopedElement("buildbattle-overall-tokens", checkAndFormat(buildBattleStats["coins"]));
 
     let easyStats = ["wins", "total_votes"];
     for (e = 0; e < easyStats.length; e++) {
-      updateElement("buildbattle-overall-" + easyStats[e], checkAndFormat(buildBattleStats[easyStats[e]]));
+      updateScopedElement("buildbattle-overall-" + easyStats[e], checkAndFormat(buildBattleStats[easyStats[e]]));
     }
 
     let buildBattleEmblems = {
@@ -1190,7 +1446,7 @@ function generateBuildBattle() {
     let buildBattleEmblem = buildBattleStats["emblem"] || {};
 
     if (Object.keys(buildBattleEmblem).length > 0 && buildBattleEmblem["selected_icon"] && buildBattleEmblem["selected_color"]) {
-      updateElement("buildbattle-overall-emblem", generateMinecraftText(minecraftColorCodes[buildBattleEmblem["selected_color"]] + buildBattleEmblems[buildBattleEmblem["selected_icon"]], true), true);
+      updateScopedElement("buildbattle-overall-emblem", generateMinecraftText(minecraftColorCodes[buildBattleEmblem["selected_color"]] + buildBattleEmblems[buildBattleEmblem["selected_icon"]], true), true);
     }
 
     let buildBattleModes = [
@@ -1228,28 +1484,82 @@ function generateBuildBattle() {
       buildBattleChips.push(buildBattleChip);
     }
 
-    for (d = 0; d < buildBattleChips.length; d++) {
-      generateChip(buildBattleChips[d], d % 2 == 0 ? "buildbattle-chips-1" : "buildbattle-chips-2");
-    }
+    generateChips(buildBattleChips, "buildbattle-chips");
   }
+
+  minigameFragments["buildbattle"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function generateMurderMystery() {
+  let minigameTemplate = ` <div class="chip-container">
+      <div class="chip-small but-big">
+        <div class="chip-small-background-filter"></div>
+        <p class="chip-small-title" data-t="games.murdermystery">Murder Mystery</p>
+        <div class="chip-small-container">
+          <div class="flex-two-item align-top flippable margin10">
+            <div class="card-big-stats">
+              <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+              <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="murdermystery-overall-wins"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="murdermystery-overall-losses"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="murdermystery-overall-wlr"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="murdermystery-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="murdermystery-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="murdermystery-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.wins_murderer">Wins (Murderer)</span> <span class="statistic" id="murdermystery-overall-murderer_wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins_detective">Wins (Detective)</span> <span class="statistic" id="murdermystery-overall-detective_wins"><span class="mc">Unknown</span></span></p>
+          </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.fastest_win_murderer">Fastest Win (Murderer)</span> <span class="statistic" id="murdermystery-overall-quickest_murderer_win_time_seconds"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.fastest_win_detective">Fastest Win (Detective)</span> <span class="statistic" id="murdermystery-overall-quickest_detective_win_time_seconds"><span class="mc">Unknown</span></span></p>
+          </div>
+            </div>
+            <div class="card-big-misc">
+              <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="murdermystery-overall-coins"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.gold_picked_up">Gold Picked Up</span> <span class="statistic" id="murdermystery-overall-coins_pickedup"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.kills_murderer">Kills (Murderer)</span> <span class="statistic" id="murdermystery-overall-kills_as_murderer"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.wins_hero">Wins (Hero)</span> <span class="statistic" id="murdermystery-overall-was_hero"><span class="mc">Unknown</span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="general-button mright mtop" onclick="showCardWizard('MURDERMYSTERY')" data-t="player.generate_card">Generate Card</span>
+      </div>
+      <div class="flex-two-item chip-container-duo-parent">
+        <div id="murdermystery-chips-1" class="chip-container-duo">
+        </div>
+        <div id="murdermystery-chips-2" class="chip-container-duo">
+        </div>
+      </div>
+  </div>`;
+  let minigameFragment = setupMinigameContainer("flex-container-murdermystery", minigameTemplate);
+
   // Generates stats and chips for Murder Mystery
   let murderMysteryStats = playerData["stats"]["MurderMystery"] || {};
   if (murderMysteryStats != undefined) {
     let easyStats = ["kills", "deaths", "wins", "coins", "coins_pickedup", "murderer_wins", "detective_wins", "kills_as_murderer", "was_hero"];
 
     for (e = 0; e < easyStats.length; e++) {
-      updateElement("murdermystery-overall-" + easyStats[e], checkAndFormat(murderMysteryStats[easyStats[e]]));
+      updateScopedElement("murdermystery-overall-" + easyStats[e], checkAndFormat(murderMysteryStats[easyStats[e]]));
     }
 
-    updateElement("murdermystery-overall-losses", checkAndFormat(und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"])));
-    updateElement("murdermystery-overall-wlr", calculateRatio(murderMysteryStats["wins"], und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"])));
-    updateElement("murdermystery-overall-kdr", calculateRatio(murderMysteryStats["kills"], murderMysteryStats["deaths"]));
+    updateScopedElement("murdermystery-overall-losses", checkAndFormat(und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"])));
+    updateScopedElement("murdermystery-overall-wlr", calculateRatio(murderMysteryStats["wins"], und(murderMysteryStats["games"]) - und(murderMysteryStats["wins"])));
+    updateScopedElement("murdermystery-overall-kdr", calculateRatio(murderMysteryStats["kills"], murderMysteryStats["deaths"]));
 
-    updateElement("murdermystery-overall-quickest_murderer_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_murderer_win_time_seconds"])));
-    updateElement("murdermystery-overall-quickest_detective_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_detective_win_time_seconds"])));
+    updateScopedElement("murdermystery-overall-quickest_murderer_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_murderer_win_time_seconds"])));
+    updateScopedElement("murdermystery-overall-quickest_detective_win_time_seconds", smallDuration(und(murderMysteryStats["quickest_detective_win_time_seconds"])));
 
     murderMysteryModes = [
       [getTranslation("games.modes.murdermystery.MURDER_CLASSIC"), "MURDER_CLASSIC", []],
@@ -1292,30 +1602,70 @@ function generateMurderMystery() {
       murderMysteryChips.push(murderMysteryChip);
     }
 
-    for (d = 0; d < murderMysteryChips.length; d++) {
-      generateChip(murderMysteryChips[d], d % 2 == 0 ? "murdermystery-chips-1" : "murdermystery-chips-2");
-    }
+    generateChips(murderMysteryChips, "murdermystery-chips");
   }
+
+  minigameFragments["murdermystery"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function generateTNTGames() {
+  let minigameTemplate = ` <div class="chip-container">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title" data-t="games.tntgames">TNT Games</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+            <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="tntgames-overall-wins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="tntgames-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="tntgames-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="tntgames-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.tokens">Tokens</span> <span class="statistic" id="tntgames-overall-coins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="tntgames-overall-playtime"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('TNTGAMES')" data-t="player.generate_card">Generate Card</span>
+    </div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="tntgames-chips-1" class="chip-container-duo">
+      </div>
+      <div id="tntgames-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+  </div>`;
+  let minigameFragment = setupMinigameContainer("flex-container-tntgames", minigameTemplate);
+
   // Generates stats and chips for TNT Games
   let tntGamesStats = playerData["stats"]["TNTGames"] || {};
   if (tntGamesStats != undefined) {
     let easyStats = ["wins", "coins"];
 
     for (e = 0; e < easyStats.length; e++) {
-      updateElement("tntgames-overall-" + easyStats[e], checkAndFormat(tntGamesStats[easyStats[e]]));
+      updateScopedElement("tntgames-overall-" + easyStats[e], checkAndFormat(tntGamesStats[easyStats[e]]));
     }
 
     // Get kills, deaths with sumStats
     let tntGamesKills = sumStats(["kills"], ["tntrun", "pvprun", "tntag", "capture", "bowspleef"], tntGamesStats, "_", true);
     let tntGamesDeaths = sumStats(["deaths"], ["tntrun", "pvprun", "tntag", "capture", "bowspleef"], tntGamesStats, "_", true);
 
-    updateElement("tntgames-overall-kills", checkAndFormat(tntGamesKills));
-    updateElement("tntgames-overall-deaths", checkAndFormat(tntGamesDeaths));
-    updateElement("tntgames-overall-kdr", calculateRatio(tntGamesKills, tntGamesDeaths));
-    updateElement("tntgames-overall-playtime", smallDuration(playerAchievements["tntgames_tnt_triathlon"] * 60));
+    updateScopedElement("tntgames-overall-kills", checkAndFormat(tntGamesKills));
+    updateScopedElement("tntgames-overall-deaths", checkAndFormat(tntGamesDeaths));
+    updateScopedElement("tntgames-overall-kdr", calculateRatio(tntGamesKills, tntGamesDeaths));
+    updateScopedElement("tntgames-overall-playtime", smallDuration(playerAchievements["tntgames_tnt_triathlon"] * 60));
   }
 
   const tntGamesLowPrefixes = [
@@ -1533,22 +1883,58 @@ function generateTNTGames() {
     "tntgames", // gamemode
   ];
 
-  // Generate cards
-  tntGamesCards = [tntRunCard, pvpRunCard, tntTagCard, bowSpleefCard, wizardsCard];
-  for (d = 0; d < tntGamesCards.length; d++) {
-    generateChip(tntGamesCards[d], d % 2 == 0 ? "tntgames-chips-1" : "tntgames-chips-2");
-  }
+  // Generate chips
+
+  tntGamesChips = [tntRunCard, pvpRunCard, tntTagCard, bowSpleefCard, wizardsCard];
+  generateChips(tntGamesChips, "tntgames-chips");
+
+  minigameFragments["tntgames"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function generateArcade() {
+  let minigameTemplate = `
+      <!-- arcade stats -->
+      <div class="chip-container" id="arcade-chips">
+        <div class="chip-small but-big">
+          <div class="chip-small-background-filter"></div>
+          <p class="chip-small-title" data-t="games.arcade">Arcade</p>
+          <div class="chip-small-container">
+            <div class="flex-two-item align-top flippable margin10">
+              <div class="card-big-stats">
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+                <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="arcade-overall-wins"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+              <div class="card-big-misc">
+                <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+                <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="arcade-overall-coins"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="general-button mright mtop" onclick="showCardWizard('ARCADE')" data-t="player.generate_card">Generate Card</span>
+        </div>
+        <div class="flex-two-item chip-container-duo-parent">
+          <div id="arcade-chips-1" class="chip-container-duo">
+          </div>
+          <div id="arcade-chips-2" class="chip-container-duo">
+          </div>
+        </div>
+    </div>`;
+
+  let minigameFragment = setupMinigameContainer("flex-container-arcade", minigameTemplate);
+
   arcadeStats = playerData["stats"]["Arcade"] || {};
   let dropperStats = arcadeStats["dropper"] || {};
   let pixelPartyStats = arcadeStats["pixel_party"] || {};
 
   let easyWins = sumStatsBasic(["wins_dayone", "wins_oneinthequiver", "wins_dragonwars2", "wins_ender", "wins_farm_hunt", "wins_soccer", "sw_game_wins", "hider_wins_hide_and_seek", "seeker_wins_hide_and_seek", "wins_hole_in_the_wall", "wins_mini_walls", "wins_party", "wins_simon_says", "wins_draw_their_thing", "wins_throw_out", "wins_zombies", "wins_easter_simulator", "wins_halloween_simulator", "wins_santa_simulator", "wins_scuba_simulator", "wins_grinch_simulator_v2"], arcadeStats);
 
-  updateElement("arcade-overall-wins", checkAndFormat(easyWins + und(dropperStats["wins"]) + und(pixelPartyStats["wins"])), arcadeStats);
-  updateElement("arcade-overall-coins", checkAndFormat(arcadeStats["coins"]));
+  updateScopedElement("arcade-overall-wins", checkAndFormat(easyWins + und(dropperStats["wins"]) + und(pixelPartyStats["wins"])), arcadeStats);
+  updateScopedElement("arcade-overall-coins", checkAndFormat(arcadeStats["coins"]));
 
   // Blocking Dead
   let blockingDeadCard = [
@@ -1829,14 +2215,74 @@ function generateArcade() {
     "arcade_seasonal", // gamemode
   ];
 
-  arcadeCards = [blockingDeadCard, bountyHuntersCard, creeperAttackCard, dragonWarsCard, dropperCard, enderSpleefCard, farmHuntCard, footballCard, galaxyWarsCard, hideAndSeekCard, holeInTheWallCard, hypixelSaysCard, miniWallsCard, partyGamesCard, pixelPaintersCard, pixelPartyCard, throwOutCard, zombiesCard, seasonalCard];
+  arcadeChips = [blockingDeadCard, bountyHuntersCard, creeperAttackCard, dragonWarsCard, dropperCard, enderSpleefCard, farmHuntCard, footballCard, galaxyWarsCard, hideAndSeekCard, holeInTheWallCard, hypixelSaysCard, miniWallsCard, partyGamesCard, pixelPaintersCard, pixelPartyCard, throwOutCard, zombiesCard, seasonalCard];
 
-  for (d = 0; d < arcadeCards.length; d++) {
-    generateChip(arcadeCards[d], d % 2 == 0 ? "arcade-chips-1" : "arcade-chips-2");
-  }
+  generateChips(arcadeChips, "arcade-chips");
+
+  minigameFragments["arcade"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function generatePit() {
+  let minigameTemplate = `<div class="chip-container" id="pit-chips">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title" data-t="games.pit">Pit</p>
+      <div class="chip-small-container">
+        <p class="margin10">
+          <span data-t="statistics.level">Level</span> <span id="pit-prestige"><span class="mc">Unknown</span></span> <span id="pit-xp-to-go"></span>
+        </p>
+        <div class="progress-bar">
+          <span class="progress-number" id="pit-progress-number"><span class="mc">Unknown</span></span>
+          <div class="progress" style="width: 0%;" id="pit-progress-bar"></div>
+        </div>
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+            <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="pit-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="pit-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="pit-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="pit-overall-assists"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.highest_killstreak">Highest Killstreak</span> <span class="statistic" id="pit-overall-highest-killstreak"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="pit-overall-damage-dealt"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.damage_taken">Damage Taken</span> <span class="statistic" id="pit-overall-damage-taken"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.gold">Gold</span> <span class="statistic" id="pit-overall-gold"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.renown">Renown</span> <span class="statistic" id="pit-overall-renown"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="pit-overall-playtime"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.joins">Joins</span> <span class="statistic" id="pit-overall-joins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.left_clicks">Left Clicks</span> <span class="statistic" id="pit-overall-clicks"><span class="mc">Unknown</span></span></p>
+              <p id="pit-overall-bounty-container" style="display: none">
+                <span><span data-t="statistics.bounty">Bounty</span> <span class="statistic" id="pit-overall-bounty"><span class="mc">Unknown</span></span></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('PIT')" data-t="player.generate_card">Generate Card</span>
+    </div>
+    <div class="flex-two-item chip-container-duo-parent" id="buildbattle-chips">
+      <div id="pit-chips-1" class="chip-container-duo">
+      </div>
+      <div id="pit-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>`;
+  let minigameFragment = setupMinigameContainer("flex-container-pit", minigameTemplate);
+
   pitStats = playerData["stats"]["Pit"] || {};
   pitProfileStats = pitStats["profile"] || {};
   pitPtlStats = pitStats["pit_stats_ptl"] || {};
@@ -1879,20 +2325,20 @@ decodeNBT(decompressedData.buffer)
     pitXpProgress = ((pitXp - pitPrestigeXp[pitPrestige - 1]) / (pitPrestigeXp[pitPrestige] - pitPrestigeXp[pitPrestige - 1])) * 100;
   }
 
-  updateElement("pit-prestige", generateMinecraftText(pitXpToLevel(pitXp, 1)), true);
-  updateElement("pit-progress-number", `${Math.floor(pitXpProgress)}%`, true);
-  document.getElementById("pit-progress-bar").style.width = `${pitXpProgress}%`;
+  updateScopedElement("pit-prestige", generateMinecraftText(pitXpToLevel(pitXp, 1)), true);
+  updateScopedElement("pit-progress-number", `${Math.floor(pitXpProgress)}%`, true);
+  activeScope.getElementById("pit-progress-bar").style.width = `${pitXpProgress}%`;
 
-  updateElement("pit-overall-gold", checkAndFormat(pitProfileStats["cash"]) + "g");
-  updateElement("pit-overall-kills", checkAndFormat(pitPtlStats["kills"]));
-  updateElement("pit-overall-assists", checkAndFormat(pitPtlStats["assists"]));
-  updateElement("pit-overall-deaths", checkAndFormat(pitPtlStats["deaths"]));
-  updateElement("pit-overall-kdr", calculateRatio(und(pitPtlStats["kills"]), und(pitPtlStats["deaths"])));
-  updateElement("pit-overall-playtime", smallDuration(und(pitPtlStats["playtime_minutes"]) * 60));
-  updateElement("pit-overall-joins", checkAndFormat(pitPtlStats["joins"]));
-  updateElement("pit-overall-renown", checkAndFormat(pitProfileStats["renown"]));
-  updateElement("pit-overall-clicks", checkAndFormat(pitPtlStats["left_clicks"]));
-  updateElement("pit-overall-highest-killstreak", checkAndFormat(pitPtlStats["max_streak"]));
+  updateScopedElement("pit-overall-gold", checkAndFormat(pitProfileStats["cash"]) + "g");
+  updateScopedElement("pit-overall-kills", checkAndFormat(pitPtlStats["kills"]));
+  updateScopedElement("pit-overall-assists", checkAndFormat(pitPtlStats["assists"]));
+  updateScopedElement("pit-overall-deaths", checkAndFormat(pitPtlStats["deaths"]));
+  updateScopedElement("pit-overall-kdr", calculateRatio(und(pitPtlStats["kills"]), und(pitPtlStats["deaths"])));
+  updateScopedElement("pit-overall-playtime", smallDuration(und(pitPtlStats["playtime_minutes"]) * 60));
+  updateScopedElement("pit-overall-joins", checkAndFormat(pitPtlStats["joins"]));
+  updateScopedElement("pit-overall-renown", checkAndFormat(pitProfileStats["renown"]));
+  updateScopedElement("pit-overall-clicks", checkAndFormat(pitPtlStats["left_clicks"]));
+  updateScopedElement("pit-overall-highest-killstreak", checkAndFormat(pitPtlStats["max_streak"]));
 
   if (pitProfileStats["bounties"]) {
     bountySum = 0;
@@ -1902,13 +2348,13 @@ decodeNBT(decompressedData.buffer)
 
     if (pitProfileStats["bounties"].length > 0) {
       // Only show bounty gold amount if the player has it
-      updateElement("pit-overall-bounty", checkAndFormat(bountySum) + "g");
-      document.getElementById("pit-overall-bounty-container").style.display = "block";
+      updateScopedElement("pit-overall-bounty", checkAndFormat(bountySum) + "g");
+      activeScope.getElementById("pit-overall-bounty-container").style.display = "block";
     }
   }
 
-  updateElement("pit-overall-damage-dealt", checkAndFormat(pitPtlStats["damage_dealt"] / 2) + " ♥\uFE0E");
-  updateElement("pit-overall-damage-taken", checkAndFormat(pitPtlStats["damage_received"] / 2) + " ♥\uFE0E");
+  updateScopedElement("pit-overall-damage-dealt", checkAndFormat(pitPtlStats["damage_dealt"] / 2) + " ♥\uFE0E");
+  updateScopedElement("pit-overall-damage-taken", checkAndFormat(pitPtlStats["damage_received"] / 2) + " ♥\uFE0E");
 
   let combatChip = [
     "pit-combat",
@@ -1993,12 +2439,52 @@ decodeNBT(decompressedData.buffer)
   ];
 
   let pitChips = [combatChip, performanceChip, perkChip, mysticsChip, farmingChip, miscChip];
-  for (d = 0; d < pitChips.length; d++) {
-    generateChip(pitChips[d], d % 2 == 0 ? "pit-chips-1" : "pit-chips-2");
-  }
+  generateChips(pitChips, "pit-chips");
+
+  minigameFragments["pit"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function generateClassic() {
+  let minigameTemplate = `<div class="chip-container" id="classic-chips">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title" data-t="games.classic">Classic Games</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="classic-overall-wins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="classic-overall-kills"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.classic_tokens">Classic Tokens</span> <span class="statistic" id="classic-overall-tokens"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.lifetime_tokens">Lifetime Tokens</span> <span class="statistic" id="classic-overall-total_tokens"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="classic-overall-playtime"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('CLASSIC')" data-t="player.generate_card">Generate Card</span>
+    </div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="classic-chips-1" class="chip-container-duo">
+      </div>
+      <div id="classic-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>`;
+
+  let minigameFragment = setupMinigameContainer("flex-container-classic", minigameTemplate);
+
   classicStats = playerData["stats"]["Legacy"] || {};
   arenaStats = playerData["stats"]["Arena"] || {};
   paintballStats = playerData["stats"]["Paintball"] || {};
@@ -2007,11 +2493,11 @@ function generateClassic() {
   tkrStats = playerData["stats"]["GingerBread"] || {};
   wallsStats = playerData["stats"]["Walls"] || {};
 
-  updateElement("classic-overall-wins", checkAndFormat(und(arenaStats["wins"]) + und(paintballStats["wins"]) + und(quakeStats["wins"]) + und(vampireZStats["wins_human"]) + und(vampireZStats["wins_vampire"]) + und(tkrStats["wins"]) + und(wallsStats["wins"])));
-  updateElement("classic-overall-kills", checkAndFormat(und(arenaStats["kills_1v1"]) + und(arenaStats["kills_2v2"]) + und(arenaStats["kills_4v4"]) + und(paintballStats["kills"]) + und(quakeStats["kills"]) + und(quakeStats["kills_teams"]) + und(vampireZStats["human_kills"]) + und(vampireZStats["vampire_kills"]) + und(wallsStats["kills"])));
-  updateElement("classic-overall-tokens", checkAndFormat(classicStats["tokens"]));
-  updateElement("classic-overall-total_tokens", checkAndFormat(classicStats["total_tokens"]));
-  updateElement("classic-overall-playtime", smallDuration(sumStatsBasic(["arena_tokens", "gingerbread_tokens", "walls_tokens", "quakecraft_tokens", "paintball_tokens", "vampirez_tokens"], classicStats) * 120));
+  updateScopedElement("classic-overall-wins", checkAndFormat(und(arenaStats["wins"]) + und(paintballStats["wins"]) + und(quakeStats["wins"]) + und(vampireZStats["wins_human"]) + und(vampireZStats["wins_vampire"]) + und(tkrStats["wins"]) + und(wallsStats["wins"])));
+  updateScopedElement("classic-overall-kills", checkAndFormat(und(arenaStats["kills_1v1"]) + und(arenaStats["kills_2v2"]) + und(arenaStats["kills_4v4"]) + und(paintballStats["kills"]) + und(quakeStats["kills"]) + und(quakeStats["kills_teams"]) + und(vampireZStats["human_kills"]) + und(vampireZStats["vampire_kills"]) + und(wallsStats["kills"])));
+  updateScopedElement("classic-overall-tokens", checkAndFormat(classicStats["tokens"]));
+  updateScopedElement("classic-overall-total_tokens", checkAndFormat(classicStats["total_tokens"]));
+  updateScopedElement("classic-overall-playtime", smallDuration(sumStatsBasic(["arena_tokens", "gingerbread_tokens", "walls_tokens", "quakecraft_tokens", "paintball_tokens", "vampirez_tokens"], classicStats) * 120));
 
   let arenaChip = [
     "classic-arena",
@@ -2164,12 +2650,59 @@ function generateClassic() {
   ];
 
   let classicChips = [arenaChip, paintballChip, quakecraftChip, tkrChip, vampireZChip, wallsChip];
-  for (d = 0; d < classicChips.length; d++) {
-    generateChip(classicChips[d], d % 2 == 0 ? "classic-chips-1" : "classic-chips-2");
-  }
+  generateChips(classicChips, "classic-chips");
+
+  minigameFragments["classic"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function generateCopsAndCrims() {
+  let minigameTemplate = `<div class="chip-container" id="copsandcrims-chips">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title" data-t="games.copsandcrims">Cops and Crims</p>
+      <div class="chip-small-container">
+        <p class="margin10" id="copsandcrims-level-container">
+          <span data-t="statistics.level">Level</span> <span class="statistic" id="copsandcrims-level"><span class="mc">Unknown</span></span><span id="copsandcrims-emblem"></span>
+        </p>
+        <div class="progress-bar" id="copsandcrims-progress-bar-container">
+          <span class="progress-number" id="copsandcrims-progress-number"><span class="mc">Unknown</span></span>
+          <div class="progress" style="width: 0%;" id="copsandcrims-progress-bar"></div>
+        </div>
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+            <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="copsandcrims-overall-game_wins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="copsandcrims-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="copsandcrims-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="copsandcrims-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="copsandcrims-overall-coins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="copsandcrims-overall-assists"><span class="mc">Unknown</span></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="general-button mright mtop" onclick="showCardWizard('COPSANDCRIMS')" data-t="player.generate_card">Generate Card</span>
+  </div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="copsandcrims-chips-1" class="chip-container-duo">
+      </div>
+      <div id="copsandcrims-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>`;
+  let minigameFragment = setupMinigameContainer("flex-container-copsandcrims", minigameTemplate);
+
   copsAndCrimsStats = playerData["stats"]["MCGO"] || {};
 
   let easyStats = ["game_wins", "kills", "deaths", "assists"];
@@ -2177,7 +2710,7 @@ function generateCopsAndCrims() {
   let copsAndCrimsBasicStats = sumStats(easyStats, ["", "_gungame", "_deathmatch"], copsAndCrimsStats, "", true);
 
   for (let e = 0; e < easyStats.length; e++) {
-    updateElement(`copsandcrims-overall-${easyStats[e]}`, checkAndFormat(copsAndCrimsBasicStats[e]));
+    updateScopedElement(`copsandcrims-overall-${easyStats[e]}`, checkAndFormat(copsAndCrimsBasicStats[e]));
   }
 
   let copsAndCrimsEmblems = {
@@ -2478,10 +3011,10 @@ function generateCopsAndCrims() {
 
   if (copsAndCrimsEmblemColorName != "CHROMA") {
     copsAndCrimsEmblemColorCode = (minecraftColorCodes[copsAndCrimsEmblemColorName] || "§7").replace("§", "");
-    document.getElementById("copsandcrims-emblem").classList.add(`m${copsAndCrimsEmblemColorCode}`);
+    activeScope.getElementById("copsandcrims-emblem").classList.add(`m${copsAndCrimsEmblemColorCode}`);
 
     if (copsAndCrimsEmblemColorCode == "0" || copsAndCrimsEmblemColorCode == "1") {
-      document.getElementById("copsandcrims-emblem").classList.add("drop-shadowf");
+      activeScope.getElementById("copsandcrims-emblem").classList.add("drop-shadowf");
     }
   }
 
@@ -2500,7 +3033,7 @@ function generateCopsAndCrims() {
     for (let a = 0; a < copsAndCrimsEmblemData["character"].length; a++) {
       copsAndCrimsEmblemNameFormatted += `§${getEmblemColorCodeAtPosition(a + 2)}${copsAndCrimsEmblemData["character"][a]}`;
     }
-    updateElement("copsandcrims-emblem", generateMinecraftText(copsAndCrimsEmblemNameFormatted), true);
+    updateScopedElement("copsandcrims-emblem", generateMinecraftText(copsAndCrimsEmblemNameFormatted), true);
   } else if (copsAndCrimsEmblemData["source"] == "resourcepack") {
     for (let a = 0; a < copsAndCrimsEmblemData["positions"].length; a++) {
       let emblemCharacter = document.createElement("span");
@@ -2510,7 +3043,7 @@ function generateCopsAndCrims() {
       emblemCharacter.style.maskPositionY = `-${copsAndCrimsEmblemData["positions"][a][1] * 16}px`;
       emblemCharacter.classList.add(`b-m${getEmblemColorCodeAtPosition(a + 2)}`);
 
-      document.getElementById("copsandcrims-emblem").appendChild(emblemCharacter);
+      activeScope.getElementById("copsandcrims-emblem").appendChild(emblemCharacter);
     }
   }
 
@@ -2520,26 +3053,26 @@ function generateCopsAndCrims() {
   let copsAndCrimsLevelProgress = copsAndCrimsLevel % 1;
 
   if (copsAndCrimsEmblemColorName != "CHROMA") {
-    updateElement("copsandcrims-level", Math.floor(copsAndCrimsLevel));
+    updateScopedElement("copsandcrims-level", Math.floor(copsAndCrimsLevel));
   } else {
     let copsAndCrimsLevelString = Math.floor(copsAndCrimsLevel).toString();
-    updateElement("copsandcrims-level", generateMinecraftText(`§${getEmblemColorCodeAtPosition(0)}${copsAndCrimsLevelString[0]}§${getEmblemColorCodeAtPosition(1)}${copsAndCrimsLevelString[1]}`), true); // This will break if Cops and Crims ever introduces a level higher than 99. But that's unlikely, so I will not fix this
+    updateScopedElement("copsandcrims-level", generateMinecraftText(`§${getEmblemColorCodeAtPosition(0)}${copsAndCrimsLevelString[0]}§${getEmblemColorCodeAtPosition(1)}${copsAndCrimsLevelString[1]}`), true); // This will break if Cops and Crims ever introduces a level higher than 99. But that's unlikely, so I will not fix this
   }
 
-  document.getElementById("copsandcrims-level").classList.add(`m${copsAndCrimsEmblemColorCode}`);
+  activeScope.getElementById("copsandcrims-level").classList.add(`m${copsAndCrimsEmblemColorCode}`);
   if (copsAndCrimsEmblemColorCode == "0" || copsAndCrimsEmblemColorCode == "1") {
-    document.getElementById("copsandcrims-level").classList.add("shadowf");
+    activeScope.getElementById("copsandcrims-level").classList.add("shadowf");
   }
 
   if (copsAndCrimsLevel >= 50) {
-    document.getElementById("copsandcrims-progress-bar-container").style.display = "none";
+    activeScope.getElementById("copsandcrims-progress-bar-container").style.display = "none";
   }
 
-  updateElement("copsandcrims-progress-number", `${Math.floor(copsAndCrimsLevelProgress * 100)}%`, true);
-  document.getElementById("copsandcrims-progress-bar").style.width = `${copsAndCrimsLevelProgress * 100}%`;
+  updateScopedElement("copsandcrims-progress-number", `${Math.floor(copsAndCrimsLevelProgress * 100)}%`, true);
+  activeScope.getElementById("copsandcrims-progress-bar").style.width = `${copsAndCrimsLevelProgress * 100}%`;
 
-  updateElement("copsandcrims-overall-kdr", calculateRatio(copsAndCrimsBasicStats[1], copsAndCrimsBasicStats[2]));
-  updateElement("copsandcrims-overall-coins", checkAndFormat(copsAndCrimsStats["coins"]));
+  updateScopedElement("copsandcrims-overall-kdr", calculateRatio(copsAndCrimsBasicStats[1], copsAndCrimsBasicStats[2]));
+  updateScopedElement("copsandcrims-overall-coins", checkAndFormat(copsAndCrimsStats["coins"]));
 
   let defusalChip = [
     "copsandcrims-defusal",
@@ -2611,9 +3144,10 @@ function generateCopsAndCrims() {
   ];
 
   let copsAndCrimsChips = [defusalChip, deathmatchChip, gunGameChip, gunsChip];
-  for (d = 0; d < copsAndCrimsChips.length; d++) {
-    generateChip(copsAndCrimsChips[d], d % 2 == 0 ? "copsandcrims-chips-1" : "copsandcrims-chips-2");
-  }
+  generateChips(copsAndCrimsChips, "copsandcrims-chips");
+
+  minigameFragments["copsandcrims"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function getCopsAndCrimsGunStats(gun) {
@@ -2621,19 +3155,72 @@ function getCopsAndCrimsGunStats(gun) {
 }
 
 function generateBlitz() {
+  let minigameTemplate = `<div class="chip-container">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title" data-t="games.blitz">Blitz SG</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="blitz-overall-wins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="blitz-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="blitz-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="blitz-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.wins_solo">Wins (Solo)</span> <span class="statistic" id="blitz-overall-wins_solo_normal"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wins_teams">Wins (Teams)</span> <span class="statistic" id="blitz-overall-wins_teams_normal"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.kills_solo">Kills (Solo)</span> <span class="statistic" id="blitz-overall-kills_solo_normal"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kills_teams">Kills (Teams)</span> <span class="statistic" id="blitz-overall-kills_teams_normal"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.taunt_kills">Taunt Kills</span> <span class="statistic" id="blitz-overall-taunt_kills"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="blitz-overall-coins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.arrows_hit">Arrows Hit</span> <span class="statistic" id="blitz-overall-arrows_hit"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="blitz-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.potions_thrown">Potions Thrown</span> <span class="statistic" id="blitz-overall-potions_thrown"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.mobs_spawned">Mobs Spawned</span> <span class="statistic" id="blitz-overall-mobs_spawned"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.chests_opened">Chests Opened</span> <span class="statistic" id="blitz-overall-chests_opened"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="blitz-overall-playtime"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('BLITZ')" data-t="player.generate_card">Generate Card</span>
+    </div>
+    <div id="blitz-chips" class="width-100"></div>
+</div>`;
+
+  let minigameFragment = setupMinigameContainer("flex-container-blitz", minigameTemplate);
+
   blitzStats = playerData["stats"]["HungerGames"] || {};
 
   let easyStats = ["deaths", "wins_solo_normal", "wins_teams_normal", "kills_teams_normal", "taunt_kills", "coins", "arrows_hit", "potions_thrown", "mobs_spawned", "chests_opened"];
 
   for (let e = 0; e < easyStats.length; e++) {
-    updateElement(`blitz-overall-${easyStats[e]}`, checkAndFormat(blitzStats[easyStats[e]]));
+    updateScopedElement(`blitz-overall-${easyStats[e]}`, checkAndFormat(blitzStats[easyStats[e]]));
   }
-  updateElement("blitz-overall-wins", checkAndFormat(und(blitzStats["wins_solo_normal"]) + und(blitzStats["wins_teams_normal"])));
-  updateElement("blitz-overall-kdr", calculateRatio(blitzStats["kills"], blitzStats["deaths"]));
-  updateElement("blitz-overall-kills_solo_normal", checkAndFormat(blitzStats["kills"] - blitzStats["kills_teams_normal"]));
+  updateScopedElement("blitz-overall-wins", checkAndFormat(und(blitzStats["wins_solo_normal"]) + und(blitzStats["wins_teams_normal"])));
+  updateScopedElement("blitz-overall-kdr", calculateRatio(blitzStats["kills"], blitzStats["deaths"]));
+  updateScopedElement("blitz-overall-kills_solo_normal", checkAndFormat(blitzStats["kills"] - blitzStats["kills_teams_normal"]));
 
-  updateElement("blitz-overall-playtime", smallDuration(blitzStats["time_played"]));
-  updateElement("blitz-overall-damage_dealt", checkAndFormat(blitzStats["damage"] / 2) + " ♥\uFE0E");
+  updateScopedElement("blitz-overall-playtime", smallDuration(blitzStats["time_played"]));
+  updateScopedElement("blitz-overall-damage_dealt", checkAndFormat(blitzStats["damage"] / 2) + " ♥\uFE0E");
 
   let blitzPrefixes = [
     { req: 0, color: "§e", internalId: 1 },
@@ -2648,7 +3235,7 @@ function generateBlitz() {
     { req: 300000, color: "§2§l", internalId: 10 },
   ];
 
-  updateElement(
+  updateScopedElement(
     "blitz-overall-kills",
     getGenericWinsPrefix({
       wins: blitzStats["kills"],
@@ -2721,6 +3308,9 @@ function generateBlitz() {
   let blitzKitsChip = ["blitz-kits", getTranslation("games.modes.blitz.kits.category"), "", `/img/games/blitz/classes.${imageFileType}`, getBlitzKitsStats(blitzKits[0][1]), blitzKits, ``, "blitz"];
 
   generateChip(blitzKitsChip, "blitz-chips");
+
+  minigameFragments["blitz"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function getBlitzKitLevel(kit) {
@@ -2754,32 +3344,93 @@ function getBlitzKitsStats(kit) {
 }
 
 function generateMegaWalls() {
+  let minigameTemplate = `<div class="chip-container">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title" data-t="games.megawalls">Mega Walls</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="megawalls-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="megawalls-overall-losses"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="megawalls-overall-wlr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.final_kills">Final Kills</span> <span class="statistic" id="megawalls-overall-final_kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.final_deaths">Final Deaths</span> <span class="statistic" id="megawalls-overall-final_deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.fkdr">FK/D R</span> <span class="statistic" id="megawalls-overall-fkdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="megawalls-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="megawalls-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="megawalls-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.final_assists">Final Assists</span> <span class="statistic" id="megawalls-overall-final_assists"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="megawalls-overall-assists"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.selected_class">Selected Class</span> <span class="statistic" id="megawalls-selected_class"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="megawalls-overall-coins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.mythic_favor">Mythic Favor</span> <span class="statistic" id="megawalls-overall-mythic_favor"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.points">Points</span> <span class="statistic" id="megawalls-overall-points"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.playtime">Playtime</span> <span class="statistic" id="megawalls-overall-playtime"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p>Wither Kills <span class="statistic" id="megawalls-overall-wither_kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="megawalls-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('MEGAWALLS')" data-t="player.generate_card">Generate Card</span>
+    </div>
+    <div id="megawalls-chips" class="width-100"></div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="megawalls-chips-1" class="chip-container-duo">
+      </div>
+      <div id="megawalls-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>`;
+
+  let minigameFragment = setupMinigameContainer("flex-container-megawalls", minigameTemplate);
+
   megaWallsStats = playerData["stats"]["Walls3"] || {};
 
   let easyStats = ["kills", "deaths", "wins", "losses", "final_assists", "mythic_favor", "wither_kills", "assists", "coins"];
 
   for (let e = 0; e < easyStats.length; e++) {
-    updateElement(`megawalls-overall-${easyStats[e]}`, checkAndFormat(megaWallsStats[easyStats[e]]));
+    updateScopedElement(`megawalls-overall-${easyStats[e]}`, checkAndFormat(megaWallsStats[easyStats[e]]));
   }
 
-  updateElement("megawalls-overall-wlr", calculateRatio(megaWallsStats["wins"], megaWallsStats["losses"]));
+  updateScopedElement("megawalls-overall-wlr", calculateRatio(megaWallsStats["wins"], megaWallsStats["losses"]));
 
   let megaWallsFinalKills = sumStatsBasic(["final_kills", "finalKills"], megaWallsStats);
   let megaWallsFinalDeaths = sumStatsBasic(["final_deaths", "finalDeaths"], megaWallsStats);
 
-  updateElement("megawalls-overall-final_kills", checkAndFormat(megaWallsFinalKills));
-  updateElement("megawalls-overall-final_deaths", checkAndFormat(megaWallsFinalDeaths));
+  updateScopedElement("megawalls-overall-final_kills", checkAndFormat(megaWallsFinalKills));
+  updateScopedElement("megawalls-overall-final_deaths", checkAndFormat(megaWallsFinalDeaths));
 
-  updateElement("megawalls-overall-fkdr", calculateRatio(megaWallsFinalKills, megaWallsFinalDeaths));
-  updateElement("megawalls-overall-kdr", calculateRatio(megaWallsStats["kills"], megaWallsStats["deaths"]));
+  updateScopedElement("megawalls-overall-fkdr", calculateRatio(megaWallsFinalKills, megaWallsFinalDeaths));
+  updateScopedElement("megawalls-overall-kdr", calculateRatio(megaWallsStats["kills"], megaWallsStats["deaths"]));
 
   let megaWallsClassPoints = megaWallsStats["class_points"] || und(megaWallsStats["wins"]) * 10 + megaWallsFinalKills + und(megaWallsStats["final_assists"]); // Default to old calculation if the class points stat is not available
 
-  updateElement("megawalls-overall-points", checkAndFormat(megaWallsClassPoints));
-  updateElement("megawalls-selected_class", und(megaWallsStats["chosen_class"], "None"));
+  updateScopedElement("megawalls-overall-points", checkAndFormat(megaWallsClassPoints));
+  updateScopedElement("megawalls-selected_class", und(megaWallsStats["chosen_class"], "None"));
 
-  updateElement("megawalls-overall-playtime", smallDuration(megaWallsStats["time_played"] * 60));
-  updateElement("megawalls-overall-damage_dealt", checkAndFormat(megaWallsStats["damage_dealt"] / 2) + " ♥\uFE0E");
+  updateScopedElement("megawalls-overall-playtime", smallDuration(megaWallsStats["time_played"] * 60));
+  updateScopedElement("megawalls-overall-damage_dealt", checkAndFormat(megaWallsStats["damage_dealt"] / 2) + " ♥\uFE0E");
 
   let megaWallsClasses = {
     angel: { name: getTranslation("games.modes.megawalls.classes.angel"), abilities: [] },
@@ -2832,9 +3483,10 @@ function generateMegaWalls() {
   generateChip(megaWallsClassChip, "megawalls-chips");
 
   let megaWallsChips = [megaWallsStandardChip, megaWallsFaceOffChip];
-  for (let d = 0; d < megaWallsChips.length; d++) {
-    generateChip(megaWallsChips[d], d % 2 == 0 ? "megawalls-chips-1" : "megawalls-chips-2");
-  }
+  generateChips(megaWallsChips, "megawalls-chips");
+
+  minigameFragments["megawalls"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 /*
@@ -2916,6 +3568,72 @@ function getMegaWallsClassStats(className = "", modeName = "") {
 }
 
 function generateWarlords() {
+  let minigameTemplate = `<div class="chip-container">
+      <div class="chip-small but-big">
+        <div class="chip-small-background-filter"></div>
+        <p class="chip-small-title" data-t="games.warlords">Warlords</p>
+        <div class="chip-small-container">
+          <p class="margin10">
+            <span id="warlords-overall-title"><span class="mc">Unknown</span></span> <span id="warlords-overall-to-go"></span>
+          </p>
+          <div class="progress-bar" id="warlords-progress-bar-container" style="display: none">
+            <span class="progress-number" id="warlords-overall-progress-number"><span class="mc">Unknown</span></span>
+            <div class="progress" style="width: 0%;" id="warlords-overall-progress-bar"></div>
+          </div>
+          <div class="flex-two-item align-top flippable margin10">
+            <div class="card-big-stats">
+              <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="warlords-overall-wins"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="warlords-overall-losses"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="warlords-overall-wlr"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="warlords-overall-kills"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="warlords-overall-deaths"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="warlords-overall-kdr"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.assists">Assists</span> <span class="statistic" id="warlords-overall-assists"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.powerups">Powerups</span> <span class="statistic" id="warlords-overall-powerups_collected"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="warlords-overall-damage"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.damage_healed">Damage Healed</span> <span class="statistic" id="warlords-overall-heal"><span class="mc">Unknown</span></span></p>
+              </div>
+            </div>
+            <div class="card-big-misc">
+              <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.specialization">Specialization</span> <span class="statistic" id="warlords-specialization"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.selected_weapon">Current Weapon</span> <span class="statistic" id="warlords-selected-weapon"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="warlords-overall-coins"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.magic_dust">Magic Dust</span> <span class="statistic" id="warlords-overall-magic_dust"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.void_shards">Void Shards</span> <span class="statistic" id="warlords-overall-void_shards"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.weapons_repaired">Weapons Repaired</span> <span class="statistic" id="warlords-overall-repaired"><span class="mc">Unknown</span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="general-button mright mtop" onclick="showCardWizard('WARLORDS')" data-t="player.generate_card">Generate Card</span>
+      </div>
+      <div class="flex-two-item chip-container-duo-parent">
+        <div id="warlords-chips-1" class="chip-container-duo">
+        </div>
+        <div id="warlords-chips-2" class="chip-container-duo">
+        </div>
+      </div>
+    </div>`;
+  let minigameFragment = setupMinigameContainer("flex-container-warlords", minigameTemplate);
+
   warlordsStats = playerData["stats"]["Battleground"] || {};
 
   let warlordsTitles = [
@@ -2947,15 +3665,15 @@ function generateWarlords() {
     winsPastTitleUnlock = warlordsWins - warlordsTitleObject["currentTitleRequirement"];
     winsToNextTitle = warlordsWins + warlordsTitleObject["winsToGo"] - warlordsTitleObject["currentTitleRequirement"];
 
-    document.getElementById("warlords-progress-bar-container").style.display = "block";
+    activeScope.getElementById("warlords-progress-bar-container").style.display = "block";
 
     warlordsWinProgress = winsPastTitleUnlock / winsToNextTitle;
 
-    updateElement("warlords-overall-progress-number", Math.floor(warlordsWinProgress * 100) + "%");
-    document.getElementById("warlords-overall-progress-bar").style.width = Math.floor(warlordsWinProgress * 100) + "%";
+    updateScopedElement("warlords-overall-progress-number", Math.floor(warlordsWinProgress * 100) + "%");
+    activeScope.getElementById("warlords-overall-progress-bar").style.width = Math.floor(warlordsWinProgress * 100) + "%";
   }
 
-  updateElement("warlords-overall-title", warlordsTitleObject["title"], true);
+  updateScopedElement("warlords-overall-title", warlordsTitleObject["title"], true);
 
   function getWarlordsWeaponName(weaponObject) {
     // Calculate weapon quality
@@ -3220,9 +3938,9 @@ function generateWarlords() {
   }
 
   if (warlordsSelectedSpecialization) {
-    updateElement("warlords-specialization", getTranslation(`games.modes.warlords.classes.${warlordsSelectedSpecialization}`));
+    updateScopedElement("warlords-specialization", getTranslation(`games.modes.warlords.classes.${warlordsSelectedSpecialization}`));
   } else {
-    updateElement("warlords-specialization", getTranslation("player.errors.not_applicable"));
+    updateScopedElement("warlords-specialization", getTranslation("player.errors.not_applicable"));
   }
 
   let warlordsSelectedWeaponId = warlordsStats["current_weapon"];
@@ -3245,9 +3963,9 @@ function generateWarlords() {
   warlordsWeaponToDisplayAsDefaultInWeaponsChip = warlordsFormattedWeapons.findIndex((a) => a["id"] == warlordsSelectedWeaponId);
 
   if (warlordsSelectedWeapon) {
-    updateElement("warlords-selected-weapon", generateMinecraftText(`${warlordsSelectedWeapon["name"]} §7(${checkAndFormat(warlordsSelectedWeapon["weapon_score"], 2)}%)`), true);
+    updateScopedElement("warlords-selected-weapon", generateMinecraftText(`${warlordsSelectedWeapon["name"]} §7(${checkAndFormat(warlordsSelectedWeapon["weapon_score"], 2)}%)`), true);
   } else {
-    updateElement("warlords-selected-weapon", getTranslation("player.errors.not_applicable"));
+    updateScopedElement("warlords-selected-weapon", getTranslation("player.errors.not_applicable"));
 
     if (warlordsFormattedWeapons.length > 0) {
       // No selected weapon, default to first weapon
@@ -3271,15 +3989,15 @@ function generateWarlords() {
   let easyStats = ["kills", "deaths", "wins", "assists", "coins", "void_shards", "magic_dust", "repaired", "powerups_collected"];
 
   for (let e = 0; e < easyStats.length; e++) {
-    updateElement(`warlords-overall-${easyStats[e]}`, checkAndFormat(warlordsStats[easyStats[e]]));
+    updateScopedElement(`warlords-overall-${easyStats[e]}`, checkAndFormat(warlordsStats[easyStats[e]]));
   }
 
   let warlordsGamesPlayed = sumStatsBasic(["mage_plays", "warrior_plays", "paladin_plays", "shaman_plays"], warlordsStats);
-  updateElement("warlords-overall-losses", checkAndFormat(warlordsGamesPlayed - warlordsStats["wins"]));
-  updateElement("warlords-overall-wlr", calculateRatio(warlordsStats["wins"], warlordsGamesPlayed - warlordsStats["wins"]));
-  updateElement("warlords-overall-kdr", calculateRatio(warlordsStats["kills"], warlordsStats["deaths"]));
-  updateElement("warlords-overall-damage", veryLargeNumber(warlordsStats["damage"]) + " HP");
-  updateElement("warlords-overall-heal", veryLargeNumber(warlordsStats["heal"]) + " HP");
+  updateScopedElement("warlords-overall-losses", checkAndFormat(warlordsGamesPlayed - warlordsStats["wins"]));
+  updateScopedElement("warlords-overall-wlr", calculateRatio(warlordsStats["wins"], warlordsGamesPlayed - warlordsStats["wins"]));
+  updateScopedElement("warlords-overall-kdr", calculateRatio(warlordsStats["kills"], warlordsStats["deaths"]));
+  updateScopedElement("warlords-overall-damage", veryLargeNumber(warlordsStats["damage"]) + " HP");
+  updateScopedElement("warlords-overall-heal", veryLargeNumber(warlordsStats["heal"]) + " HP");
 
   let warlordsClassesChip = [
     "warlords-classes",
@@ -3356,9 +4074,10 @@ function generateWarlords() {
   ];
 
   let warlordsChips = [warlordsClassesChip, warlordsWeaponsChip, warlordsCaptureTheFlagChip, warlordsDominationChip, warlordsTeamDeathmatchChip];
-  for (let d = 0; d < warlordsChips.length; d++) {
-    generateChip(warlordsChips[d], d % 2 == 0 ? "warlords-chips-1" : "warlords-chips-2");
-  }
+  generateChips(warlordsChips, "warlords-chips");
+
+  minigameFragments["warlords"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function formatWarlordsWeaponStats(weaponObjectId) {
@@ -3440,14 +4159,46 @@ function getWarlordsClassStats(specName) {
 }
 
 function generateUHC() {
+  let minigameTemplate = `<div class="chip-container">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title" data-t="games.uhc">UHC</p>
+      <div class="chip-small-container">
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="uhc-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.score">Score</span> <span class="statistic" id="uhc-overall-score"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="uhc-overall-coins"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('UHC')" data-t="player.generate_card">Generate Card</span>
+    </div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="uhc-chips-1" class="chip-container-duo">
+      </div>
+      <div id="uhc-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>`;
+  let minigameFragment = setupMinigameContainer("flex-container-uhc", minigameTemplate);
+
   uhcStats = playerData["stats"]["UHC"] || {};
   speedUHCStats = playerData["stats"]["SpeedUHC"] || {};
 
   let uhcTotalWins = und(speedUHCStats["wins"]) + sumStats(["wins"], ["_solo", "", "_no_diamonds", "_brawl", "_solo_brawl", "_duo_brawl", "_vanilla_doubles"], uhcStats, "", true)[0]; // Add all UHC wins together, including Speed UHC
 
-  updateElement("uhc-overall-wins", locale(uhcTotalWins, 0));
-  updateElement("uhc-overall-score", checkAndFormat(und(uhcStats["score"]) + und(speedUHCStats["score"])));
-  updateElement("uhc-overall-coins", checkAndFormat(und(uhcStats["coins"])));
+  updateScopedElement("uhc-overall-wins", locale(uhcTotalWins, 0));
+  updateScopedElement("uhc-overall-score", checkAndFormat(und(uhcStats["score"]) + und(speedUHCStats["score"])));
+  updateScopedElement("uhc-overall-coins", checkAndFormat(und(uhcStats["coins"])));
 
   let uhcPrefixes = [
     { req: 0, color: "§6", altName: "1" },
@@ -3540,9 +4291,10 @@ function generateUHC() {
   ];
 
   let uhcChips = [uhcChip, speedUHCChip];
-  for (let d = 0; d < uhcChips.length; d++) {
-    generateChip(uhcChips[d], d % 2 == 0 ? "uhc-chips-1" : "uhc-chips-2");
-  }
+  generateChips(uhcChips, "uhc-chips");
+
+  minigameFragments["uhc"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function getUHCModeStats(mode) {
@@ -3607,6 +4359,57 @@ function getSpeedUHCModeStats(mode) {
 }
 
 function generateSmash() {
+  let minigameTemplate = `<div class="chip-container">
+    <div class="chip-small but-big">
+      <div class="chip-small-background-filter"></div>
+      <p class="chip-small-title" data-t="games.smashheroes">Smash Heroes</p>
+      <div class="chip-small-container">
+        <div class="margin10" style="margin-bottom: 20px">
+          <p><span data-t="statistics.smash_level">Smash Level</span> <span class="statistic" id="smashheroes-overall-smash_level"><span class="mc">Unknown</span></span> <span class="m6">✶</span></p>
+        </div>
+        <div class="flex-two-item align-top flippable margin10">
+          <div class="card-big-stats">
+            <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="smashheroes-overall-wins"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="smashheroes-overall-losses"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="smashheroes-overall-wlr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="smashheroes-overall-kills"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="smashheroes-overall-deaths"><span class="mc">Unknown</span></span></p>
+              <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="smashheroes-overall-kdr"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.damage_dealt">Damage Dealt</span> <span class="statistic" id="smashheroes-overall-damage_dealt"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+          <div class="card-big-misc">
+            <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.selected_hero">Selected Hero</span> <span class="statistic" id="smashheroes-active_class"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.coins">Coins</span> <span class="statistic" id="smashheroes-overall-coins"><span class="mc">Unknown</span></span></p>
+            </div>
+            <div class="chip-small-statistic-row">
+              <p><span data-t="statistics.total_xp">Total XP</span> <span class="statistic" id="smashheroes-overall-xp"><span class="mc">Unknown</span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="general-button mright mtop" onclick="showCardWizard('SMASHHEROES')" data-t="player.generate_card">Generate Card</span>
+    </div>
+    <div id="smashheroes-chips" class="width-100"></div>
+    <div class="flex-two-item chip-container-duo-parent">
+      <div id="smashheroes-chips-1" class="chip-container-duo">
+      </div>
+      <div id="smashheroes-chips-2" class="chip-container-duo">
+      </div>
+    </div>
+</div>`;
+  let minigameFragment = setupMinigameContainer("flex-container-smashheroes", minigameTemplate);
+
   smashStats = playerData["stats"]["SuperSmash"] || {};
 
   let easyStats = ["kills", "deaths", "wins", "losses", "coins", "damage_dealt"];
@@ -3647,25 +4450,25 @@ function generateSmash() {
   }
 
   for (let e = 0; e < easyStats.length; e++) {
-    updateElement(`smashheroes-overall-${easyStats[e]}`, checkAndFormat(smashStats[easyStats[e]]));
+    updateScopedElement(`smashheroes-overall-${easyStats[e]}`, checkAndFormat(smashStats[easyStats[e]]));
   }
 
-  updateElement("smashheroes-overall-wlr", calculateRatio(smashStats["wins"], smashStats["losses"]));
-  updateElement("smashheroes-overall-kdr", calculateRatio(smashStats["kills"], smashStats["deaths"]));
-  updateElement("smashheroes-overall-smash_level", checkAndFormat(smashStats["smashLevel"]));
-  updateElement("smashheroes-overall-damage_dealt", veryLargeNumber(smashStats["damage_dealt"]) + " HP");
+  updateScopedElement("smashheroes-overall-wlr", calculateRatio(smashStats["wins"], smashStats["losses"]));
+  updateScopedElement("smashheroes-overall-kdr", calculateRatio(smashStats["kills"], smashStats["deaths"]));
+  updateScopedElement("smashheroes-overall-smash_level", checkAndFormat(smashStats["smashLevel"]));
+  updateScopedElement("smashheroes-overall-damage_dealt", veryLargeNumber(smashStats["damage_dealt"]) + " HP");
 
   smashTotalXP = 0;
   for (let key in smashClasses) {
     smashTotalXP += smashStats[`xp_${key}`] || 0;
   }
-  updateElement("smashheroes-overall-xp", checkAndFormat(smashTotalXP));
+  updateScopedElement("smashheroes-overall-xp", checkAndFormat(smashTotalXP));
 
   let smashActiveClass = smashStats["active_class"];
   if (smashActiveClass) {
-    updateElement("smashheroes-active_class", smashClasses[smashActiveClass]["name"]);
+    updateScopedElement("smashheroes-active_class", smashClasses[smashActiveClass]["name"]);
   } else {
-    updateElement("smashheroes-active_class", "N/A");
+    updateScopedElement("smashheroes-active_class", "N/A");
   }
 
   let smashClassesChip = ["smashheroes-classes", "Heroes", "", `/img/games/smashheroes/heroes.${imageFileType}`, getSmashStats("class", smashClassesArray[1][1]), smashFormattedClassesArray, ``, "smashheroes"];
@@ -3683,9 +4486,10 @@ function generateSmash() {
   generateChip(smashClassesChip, "smashheroes-chips");
 
   let smashChips = [smashSoloChip, smashTeamChip, smash2v2Chip, smash1v1Chip, smashFriendChip];
-  for (let d = 0; d < smashChips.length; d++) {
-    generateChip(smashChips[d], d % 2 == 0 ? "smashheroes-chips-1" : "smashheroes-chips-2");
-  }
+  generateChips(smashChips, "smashheroes-chips");
+
+  minigameFragments["smashheroes"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 /**
@@ -3763,6 +4567,52 @@ function getSmashStats(modeName = "", className = "") {
 }
 
 function generateWoolGames() {
+  let minigameTemplate = ` <div class="chip-container" id="woolgames-chips">
+        <div class="chip-small but-big">
+          <div class="chip-small-background-filter"></div>
+          <p class="chip-small-title" data-t="games.woolgames">Wool Games</p>
+          <div class="chip-small-container">
+            <p class="margin10">
+              <span data-t="statistics.level">Level</span> <span id="woolgames-level"><span class="mc">Unknown</span></span>
+            </p>
+            <div class="progress-bar">
+              <span class="progress-number" id="woolgames-progress-number"><span class="mc">Unknown</span></span>
+              <div class="progress" style="width: 0%;" id="woolgames-progress-bar"></div>
+            </div>
+            <div class="flex-two-item align-top flippable margin10">
+              <div class="card-big-stats">
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+                <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.wins">Wins</span> <span class="statistic" id="woolgames-overall-wins"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.losses">Losses</span> <span class="statistic" id="woolgames-overall-losses"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.wlr">W/L R</span> <span class="statistic" id="woolgames-overall-wlr"><span class="mc">Unknown</span></span></p>
+                </div>
+                <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.kills">Kills</span> <span class="statistic" id="woolgames-overall-kills"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.deaths">Deaths</span> <span class="statistic" id="woolgames-overall-deaths"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.kdr">K/D R</span> <span class="statistic" id="woolgames-overall-kdr"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+              <div class="card-big-misc">
+                <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+                <div class="chip-small-statistic-row">
+                  <p><span data-t="statistics.wool">Wool</span> <span class="statistic" id="woolgames-overall-coins"><span class="mc">Unknown</span></span></p>
+                  <p><span data-t="statistics.layers">Layers</span> <span class="statistic" id="woolgames-overall-available_layers"><span class="mc">Unknown</span></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="general-button mright mtop" onclick="showCardWizard('WOOLGAMES')" data-t="player.generate_card">Generate Card</span>
+        </div>
+        <div class="flex-two-item chip-container-duo-parent">
+          <div id="woolgames-chips-1" class="chip-container-duo">
+          </div>
+          <div id="woolgames-chips-2" class="chip-container-duo">
+          </div>
+        </div>
+    </div>`;
+  let minigameFragment = setupMinigameContainer("flex-container-woolgames", minigameTemplate);
+
   let woolWarsPrestigeIcons = {
     HEART: { icon: "❤\uFE0E", minStars: 0 },
     PLUS: { icon: "✙\uFE0E", minStars: 100 },
@@ -3808,20 +4658,20 @@ function generateWoolGames() {
   woolGamesOverallStats["kills"] = captureTheWoolStatsObject["kills"] + und(woolWarsNumericalStats["kills"]) + und(sheepWarsNumericalStats["kills"]);
   woolGamesOverallStats["deaths"] = captureTheWoolStatsObject["deaths"] + und(woolWarsNumericalStats["deaths"]) + und(sheepWarsNumericalStats["deaths"]);
 
-  updateElement("woolgames-overall-wins", checkAndFormat(woolGamesOverallStats["wins"]));
-  updateElement("woolgames-overall-losses", checkAndFormat(woolGamesOverallStats["losses"]));
-  updateElement("woolgames-overall-kills", checkAndFormat(woolGamesOverallStats["kills"]));
-  updateElement("woolgames-overall-deaths", checkAndFormat(woolGamesOverallStats["deaths"]));
+  updateScopedElement("woolgames-overall-wins", checkAndFormat(woolGamesOverallStats["wins"]));
+  updateScopedElement("woolgames-overall-losses", checkAndFormat(woolGamesOverallStats["losses"]));
+  updateScopedElement("woolgames-overall-kills", checkAndFormat(woolGamesOverallStats["kills"]));
+  updateScopedElement("woolgames-overall-deaths", checkAndFormat(woolGamesOverallStats["deaths"]));
 
-  updateElement("woolgames-overall-wlr", calculateRatio(woolGamesOverallStats["wins"], woolGamesOverallStats["losses"]));
-  updateElement("woolgames-overall-kdr", calculateRatio(woolGamesOverallStats["kills"], woolGamesOverallStats["deaths"]));
+  updateScopedElement("woolgames-overall-wlr", calculateRatio(woolGamesOverallStats["wins"], woolGamesOverallStats["losses"]));
+  updateScopedElement("woolgames-overall-kdr", calculateRatio(woolGamesOverallStats["kills"], woolGamesOverallStats["deaths"]));
 
-  updateElement("woolgames-overall-coins", checkAndFormat(woolGamesStats["coins"]));
-  updateElement("woolgames-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
+  updateScopedElement("woolgames-overall-coins", checkAndFormat(woolGamesStats["coins"]));
+  updateScopedElement("woolgames-overall-available_layers", checkAndFormat(woolGamesProgression["available_layers"]));
 
   let woolGamesLevel = getWoolGamesLevel(und(woolGamesProgression["experience"]));
-  updateElement("woolgames-progress-number", `${Math.floor((woolGamesLevel % 1) * 100)}%`, true);
-  document.getElementById("woolgames-progress-bar").style.width = `${(woolGamesLevel % 1) * 100}%`;
+  updateScopedElement("woolgames-progress-number", `${Math.floor((woolGamesLevel % 1) * 100)}%`, true);
+  activeScope.getElementById("woolgames-progress-bar").style.width = `${(woolGamesLevel % 1) * 100}%`;
 
   let woolGamesPrestigeIcon;
 
@@ -3859,7 +4709,7 @@ function generateWoolGames() {
     useDifferentBracketColors: true,
   })["title"];
 
-  updateElement("woolgames-level", formattedWoolWarsLevel, true);
+  updateScopedElement("woolgames-level", formattedWoolWarsLevel, true);
 
   let woolWarsChip = [
     "woolwars",
@@ -3915,9 +4765,10 @@ function generateWoolGames() {
   ];
 
   let woolGamesChips = [captureTheWoolChip, sheepWarsChip, woolWarsChip];
-  for (d = 0; d < woolGamesChips.length; d++) {
-    generateChip(woolGamesChips[d], d % 2 == 0 ? "woolgames-chips-1" : "woolgames-chips-2");
-  }
+  generateChips(woolGamesChips, "woolgames-chips");
+
+  minigameFragments["woolgames"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function getWoolWarsStats(mode) {
@@ -3945,6 +4796,45 @@ function getWoolWarsStats(mode) {
 }
 
 function generateFishing() {
+  let minigameTemplate = ` <div class="chip-container">
+      <div class="chip-small but-big">
+        <div class="chip-small-background-filter"></div>
+        <p class="chip-small-title" data-t="games.fishing">Fishing</p>
+        <div class="chip-small-container">
+          <div class="flex-two-item align-top flippable margin10">
+            <div class="card-big-stats">
+              <p class="super-subtitle" data-t="games.modes.all.stats">Stats</p>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.items_caught">Items Caught</span> <span class="statistic" id="fishing-items_caught"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.fish_caught">Fish Caught</span> <span class="statistic" id="fishing-fish_caught"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.junk_caught">Junk Caught</span> <span class="statistic" id="fishing-junk_caught"><span class="mc">Unknown</span></span></p>
+              </div>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.treasure_caught">Treasure Caught</span> <span class="statistic" id="fishing-treasure_caught"><span class="mc">Unknown</span></span></p>
+                <p><span data-t="statistics.mythical_fish_caught">Mythical Fish Caught</span> <span class="statistic" id="fishing-mythical_fish_caught"><span class="mc">Unknown</span></span></p>
+              </div>
+            </div>
+            <div class="card-big-misc">
+              <p class="super-subtitle" data-t="games.modes.all.misc">Misc</p>
+              <div class="chip-small-statistic-row">
+                <p><span data-t="statistics.special_fish_caught">Special Fish Caught</span> <span class="statistic" id="fishing-special_fish_caught"><span class="mc">Unknown</span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="general-button mright mtop" onclick="showCardWizard('FISHING')" data-t="player.generate_card">Generate Card</span>
+      </div>
+      <div class="flex-two-item chip-container-duo-parent">
+        <div id="fishing-chips-1" class="chip-container-duo">
+        </div>
+        <div id="fishing-chips-2" class="chip-container-duo">
+        </div>
+      </div>
+    </div>`;
+  let minigameFragment = setupMinigameContainer("flex-container-fishing", minigameTemplate);
+
   let mainLobbyStats = playerData["stats"]["MainLobby"] || {};
   fishingStats = mainLobbyStats["fishing"] || {};
 
@@ -3983,15 +4873,15 @@ function generateFishing() {
 
   let maxSpecialFish = 44;
 
-  updateElement("fishing-items_caught", checkAndFormat(und(overallFishCaught) + und(overallJunkCaught) + und(overallTreasureCaught) + und(overallMythicalFishCaught) + specialFishCount));
-  updateElement("fishing-fish_caught", checkAndFormat(overallFishCaught));
-  updateElement("fishing-junk_caught", checkAndFormat(overallJunkCaught));
-  updateElement("fishing-treasure_caught", checkAndFormat(overallTreasureCaught));
-  updateElement("fishing-mythical_fish_caught", checkAndFormat(overallMythicalFishCaught));
-  updateElement("fishing-special_fish_caught", checkAndFormat(specialFishCount) + "/" + checkAndFormat(maxSpecialFish));
+  updateScopedElement("fishing-items_caught", checkAndFormat(und(overallFishCaught) + und(overallJunkCaught) + und(overallTreasureCaught) + und(overallMythicalFishCaught) + specialFishCount));
+  updateScopedElement("fishing-fish_caught", checkAndFormat(overallFishCaught));
+  updateScopedElement("fishing-junk_caught", checkAndFormat(overallJunkCaught));
+  updateScopedElement("fishing-treasure_caught", checkAndFormat(overallTreasureCaught));
+  updateScopedElement("fishing-mythical_fish_caught", checkAndFormat(overallMythicalFishCaught));
+  updateScopedElement("fishing-special_fish_caught", checkAndFormat(specialFishCount) + "/" + checkAndFormat(maxSpecialFish));
 
   if (specialFishCount >= maxSpecialFish) {
-    document.getElementById("fishing-special_fish_caught").style.color = "var(--gold)";
+    activeScope.getElementById("fishing-special_fish_caught").style.color = "var(--gold)";
   }
 
   let zoneChip = [
@@ -4072,9 +4962,10 @@ function generateFishing() {
   let seasonsChip = ["fishing-seasons", getTranslation("games.modes.fishing.seasons.category"), "", `/img/games/fishing/seasons.${imageFileType}`, mostReasonFishingSeason, formatFishingParticipatedSeasonDropdown(fishingParticipatedSeasons), ``, "fishing"];
 
   let fishingChips = [zoneChip, catchesChip, mythicalFishChip, specialFishChip, seasonsChip];
-  for (d = 0; d < fishingChips.length; d++) {
-    generateChip(fishingChips[d], d % 2 == 0 ? "fishing-chips-1" : "fishing-chips-2");
-  }
+  generateChips(fishingChips, "fishing-chips");
+
+  minigameFragments["fishing"] = minigameFragment;
+  document.getElementById("games").appendChild(minigameFragment);
 }
 
 function getFishingZoneStats(zone) {
@@ -4289,7 +5180,15 @@ function getDuelsTitle(wins, name = "") {
 function generateChips(chipArray, prefix) {
   // Generates all chips from an array
   for (d = 0; d < chipArray.length; d++) {
-    generateChip(chipArray[d], d % 2 == 0 ? prefix + "-1" : prefix + "-2");
+    if (!mobileMode) {
+      generateChip(chipArray[d], d % 2 == 0 ? prefix + "-1" : prefix + "-2");
+    } else {
+      generateChip(chipArray[d], prefix + "-1");
+    }
+  }
+
+  if (mobileMode) {
+    activeScope.getElementById(prefix + "-2").style.display = "none";
   }
 }
 

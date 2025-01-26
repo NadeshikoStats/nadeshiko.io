@@ -612,7 +612,7 @@ function formatTieredAchievement(achievementObject, type) {
   let template = `
     <div class="row-header">
       <div class="achievement column achievement-icon-container">
-        <img data-i="achievement-icon" class="icon smallicon">
+        <img data-i="achievement-icon" class="icon smallicon" alt="">
       </div>
       <div class="achievement column">
         <span class="w700" data-i="achievement-game"></span> – <span data-i="achievement-name"></span><p></p>

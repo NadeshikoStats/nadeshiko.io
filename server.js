@@ -5,7 +5,7 @@ const minify = require("express-minify");
 const app = express();
 const port = 8080;
 
-const version = "1.1.22"; // Updating this will force the cache to clear for all users
+const version = "1.2.0"; // Updating this will force the cache to clear for all users
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
@@ -729,7 +729,7 @@ function getMetaDescription(game, playerData) {
 • 🛡️ Team Deathmatch Wins: ${checkAndFormat(warlordsStats["wins_teamdeathmatch"])}
 
 • 🪙 Coins: ${checkAndFormat(warlordsStats["coins"])}`;
-      case "woolgames":
+      case "woolgames": {
         function getWoolGamesLevel(exp) {
           // Calculates a player's Wool Wars level based on their experience stat
           let level = 100 * Math.floor(exp / 490000) + 1;
@@ -759,6 +759,8 @@ function getMetaDescription(game, playerData) {
         let sheepWarsNumericalStats = sheepWarsStats["stats"] || {};
 
         let captureTheWoolStatsObject = {};
+
+        let arcadeStats = playerData["stats"]["Arcade"] || {};
         captureTheWoolStatsObject["wins"] = und(captureTheWoolNumericalStats["participated_wins"] || arcadeStats["woolhunt_participated_wins"]);
         captureTheWoolStatsObject["losses"] = und(captureTheWoolNumericalStats["participated_losses"] || arcadeStats["woolhunt_participated_losses"]);
         captureTheWoolStatsObject["kills"] = und(captureTheWoolNumericalStats["kills"] || arcadeStats["woolhunt_kills"]);
@@ -815,7 +817,7 @@ function getMetaDescription(game, playerData) {
 • 🥊 Wool Wars Wins: ${checkAndFormat(woolWarsNumericalStats["wins"])}
 
 • 🧶 Wool: ${checkAndFormat(woolGamesStats["coins"])}`;
-
+      }
       default:
         let playerOnline;
         let playerStatus = playerData["status"] || {};

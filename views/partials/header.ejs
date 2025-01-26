@@ -1,11 +1,9 @@
 <div class="header header1">
   <!-- site-wide header -->
   <div class="header-left">
-    <a href="/" style="display: flex;">
+    <a href="/" style="display: flex">
       <img class="logo icon" src="/img/nadeshiko_logo.png" alt="nadeshiko logo" />
-      <div class="wordmark" aria-hidden="true">
-        <span style="--delay: 0s;">n</span><span style="--delay: 0.05s;">a</span><span style="--delay: 0.1s;">d</span><span style="--delay: 0.15s;">e</span><span style="--delay: 0.2s;">s</span><span style="--delay: 0.25s;">h</span><span style="--delay: 0.3s;">i</span><span style="--delay: 0.35s;">k</span><span style="--delay: 0.4s;">o</span>
-      </div>
+      <div class="wordmark" aria-hidden="true"><span style="--delay: 0s">n</span><span style="--delay: 0.05s">a</span><span style="--delay: 0.1s">d</span><span style="--delay: 0.15s">e</span><span style="--delay: 0.2s">s</span><span style="--delay: 0.25s">h</span><span style="--delay: 0.3s">i</span><span style="--delay: 0.35s">k</span><span style="--delay: 0.4s">o</span></div>
     </a>
     <a href="/" class="header-button" aria-label="Link to home page"><img src="/img/svg/home.svg" class="header-icon" alt="" /><span class="header-button-text" data-t="header.home.title">Home</span></a>
     <a href="/leaderboards" class="header-button" aria-label="Link to leaderboards page"><img src="/img/svg/leaderboards.svg" class="header-icon" alt="" /><span class="header-button-text" data-t="leaderboards.title">Leaderboards</span></a>
@@ -19,12 +17,12 @@
       <input type="search" class="searchbar" id="searchbar" data-t="header.searchbar.placeholder" placeholder="Search for a player..." spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
       <div class="searchbar-selector">
         <div class="flex-two-item-basic" style="justify-content: end">
-          <p class="header-button selector-button selected scope-player" onmousedown="changeScope('player', 'header')"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span data-t="games.modes.all.stats">Stats</span></p>
-          <p class="header-button selector-button scope-guild" onmousedown="changeScope('guild', 'header')"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span data-t="games.modes.network.guild">Guild</span></p>
+          <p class="header-button selector-button selected scope-player" onmousedown="changeScope('player', 'header')"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt="" /><span data-t="games.modes.all.stats">Stats</span></p>
+          <p class="header-button selector-button scope-guild" onmousedown="changeScope('guild', 'header')"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt="" /><span data-t="games.modes.network.guild">Guild</span></p>
         </div>
         <div class="flex-two-item-basic" style="justify-content: end">
-          <p class="header-button selector-button scope-achievements" onmousedown="changeScope('achievements', 'header')"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span data-t="achievements.achievements">Achievements</span></p>
-          <p class="header-button selector-button scope-quests" onmousedown="changeScope('quests', 'header')"><img src="/img/icon/minecraft/writable_book.webp" class="header-icon selector-icon icon" alt=""><span data-t="quests.quests">Quests</span></p>
+          <p class="header-button selector-button scope-achievements" onmousedown="changeScope('achievements', 'header')"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt="" /><span data-t="achievements.achievements">Achievements</span></p>
+          <p class="header-button selector-button scope-quests" onmousedown="changeScope('quests', 'header')"><img src="/img/icon/minecraft/writable_book.webp" class="header-icon selector-icon icon" alt="" /><span data-t="quests.quests">Quests</span></p>
         </div>
       </div>
     </div>
@@ -32,7 +30,6 @@
 </div>
 
 <div id="modal-background-blur" class="unloaded">
-
   <div class="about unloaded" id="card-wizard-ui">
     <p class="about-title" data-t="header.cards.title">Cards</p>
     <p class="stat-subtitle">
@@ -41,7 +38,7 @@
       <br />
       <span data-t="header.cards.description_1">Cards update in real time as your stats change, so you never have to worry about them!</span>
     </p>
-    <hr style="margin: 20px auto;" />
+    <hr style="margin: 20px auto" />
     <div class="flex-two-item-basic">
       <p class="card-wizard-subtitle" data-t="header.cards.username">Username</p>
       <input type="text" placeholder="Player" id="card-wizard-name" data-t="header.cards.username_placeholder" />
@@ -84,14 +81,12 @@
     </div>
 
     <div class="flex-two-item mtop mbottom">
-      <span class="general-button" id="generate-card" onclick="generateCard()" style="padding: 10px 20px;" data-t="header.cards.button_generate">Generate Card</span>
+      <span class="general-button" id="generate-card" onclick="generateCard()" style="padding: 10px 20px" data-t="header.cards.button_generate">Generate Card</span>
       <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value='Click "Generate Card" and a link will appear here!' / data-t="header.cards.copy">
     </div>
 
     <div id="card-wizard-preview">
-      <div id="card-wizard-preview-watermark">
-        PREVIEW
-      </div>
+      <div id="card-wizard-preview-watermark">PREVIEW</div>
       <svg class="progress-ring" viewBox="0 0 600 200" preserveAspectRatio="xMinYMin meet" id="progress-ring-svg">
         <path
           class="progress-ring-circle"
@@ -102,7 +97,7 @@
            L 589, 189
            L 11, 189
            L 11, 11"
-          style="stroke-dashoffset: 0px;"
+          style="stroke-dashoffset: 0px"
         ></path>
       </svg>
       <p id="card-wizard-preview-message" data-t="header.cards.copy">Click "Generate Card" and a preview will appear here.</p>
@@ -113,7 +108,7 @@
   <div class="about unloaded" id="about-ui">
     <p class="margin10" data-t="header.about.basic"><span class="nadeshiko-bold">nadeshiko</span> is a beautiful, open-source, and easy-to-use Hypixel player stats viewer.</p>
     <p class="margin10" data-t="header.about.assistance">Find a bug or need some assistance? Please let us know on the project's <a href="https://github.com/NadeshikoStats/nadeshiko.io/issues" target="_blank">GitHub page</a>!</p>
-    <hr style="margin: 20px auto;" />
+    <hr style="margin: 20px auto" />
     <p class="about-title">Credits</p>
 
     <p class="flex-two-item-basic about-flex">
@@ -131,7 +126,7 @@
       <strong><a href="https://niqumu.dev" target="_blank" data-t="header.about.credits.0_name">niqumu</a></strong>
       <span data-t="header.about.credits.0_desc">&ndash; Backend Developer</span>
     </p>
-    <hr style="opacity: 0;" />
+    <hr style="opacity: 0" />
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
         <source srcset="/img/credits/skinview3d.webp" type="image/webp" />
@@ -169,7 +164,7 @@
     </p>
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
-        <source srcset="/img/credits/isometricrenders.webp" type="image/webp">
+        <source srcset="/img/credits/isometricrenders.webp" type="image/webp" />
         <img src="/img/credits/isometricrenders.png" class="about-icon" alt="" />
       </picture>
       <strong><a href="https://github.com/glisco03/isometric-renders" target="_blank" data-t="header.about.credits.7_name">Isometric Renders</a></strong> <span data-t="header.about.credits.7_desc">by gliscowo</span>
@@ -192,7 +187,7 @@
       <img src="/img/credits/chartjs.svg" class="about-icon" alt="" />
       <strong><a href="https://www.chartjs.org/" target="_blank" data-t="header.about.credits.11_name">Chart.js</a></strong> <span data-t="header.about.credits.11_desc">by Chart.js</span>
     </p>
-    <hr style="opacity: 0;" />
+    <hr style="opacity: 0" />
     <p class="flex-two-item-basic about-flex">
       <picture class="picture-credits">
         <source srcset="/img/logo/hypixel_logo.webp" type="image/webp" />
@@ -201,27 +196,25 @@
       <strong><a href="https://api.hypixel.net/" target="_blank" data-t="header.about.credits.10_name">Hypixel API</a></strong> <span data-t="header.about.credits.10_desc">by Hypixel</span>
     </p>
 
-
-    <hr style="opacity: 0;" />
-    <p style="opacity: 0.7; font-size: 14px; margin-top: 10px;" data-t="header.about.disclaimer">nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.</p>
+    <hr style="opacity: 0" />
+    <p style="opacity: 0.7; font-size: 14px; margin-top: 10px" data-t="header.about.disclaimer">nadeshiko.io is not affiliated with the Hypixel Network, Mojang AB, or Microsoft.</p>
   </div>
 
   <div class="about unloaded" id="settings-ui">
     <p class="about-title" data-t="header.settings.title">Settings</p>
-    <hr style="margin: 20px auto;" />
+    <hr style="margin: 20px auto" />
 
     <div class="mtop mbottom">
       <div class="flex-two-item">
-      <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/globe.svg" alt="" /><span class="w600" data-t="header.settings.language">Language</span></p>
-      <div class="dropdown">
-        <p class="dropdown-button chip-dropdown-button" id="dropdown-language-button">English</p>
-        <div class="dropdown-content unloaded dropdown-chip settings-dropdown dropdown-header" id="dropdown-language" data-game="settings" data-modify="language">
+        <p class="flex-two-item-basic about-flex"><img class="settings-icon" src="/img/svg/globe.svg" alt="" /><span class="w600" data-t="header.settings.language">Language</span></p>
+        <div class="dropdown">
+          <p class="dropdown-button chip-dropdown-button" id="dropdown-language-button">English</p>
+          <div class="dropdown-content unloaded dropdown-chip settings-dropdown dropdown-header" id="dropdown-language" data-game="settings" data-modify="language"></div>
         </div>
       </div>
-    </div>
       <p class="settings-description" data-t="header.settings.language_description">Help us translate nadeshiko on <a href="https://crowdin.com/project/nadeshiko" target="_blank">Crowdin</a>!</p>
 
-      <p class="notice flex-display-text flex-two-item-basic" id="settings-language-reload" onclick="location.reload();" style="cursor: pointer; display: none"><span data-t="header.settings.language_reload">Please reload the page to change the language.</span><u data-t="header.settings.language_reload_button">Reload</u><img src="/img/svg/refresh.svg" class="verytinyicon"></p>
+      <p class="notice flex-display-text flex-two-item-basic" id="settings-language-reload" onclick="location.reload();" style="cursor: pointer; display: none"><span data-t="header.settings.language_reload">Please reload the page to change the language.</span><u data-t="header.settings.language_reload_button">Reload</u><img src="/img/svg/refresh.svg" class="verytinyicon" /></p>
     </div>
 
     <div class="mtop mbottom">
@@ -272,7 +265,6 @@
       <p class="settings-description" data-t="header.settings.developer_mode_description">Shows UUIDs and version information.</p>
     </div>
   </div>
-
 </div>
 
 <script>
@@ -290,7 +282,7 @@
   };
   let settings;
   var textDirection = "ltr";
-  var mobileMode = (document.documentElement.clientWidth < 800);
+  var mobileMode = document.documentElement.clientWidth < 800;
 
   let hypixelGames = {
     network: "Network",
@@ -310,35 +302,35 @@
     uhc: "UHC",
     woolgames: "Wool Wars",
     warlords: "Warlords",
-  }
+  };
 
   let languageCodes = {
-    'en-CA': { progress: 100, label: 'English', direction: 'ltr' },
-    'ar-SA': { progress: 0, label: 'العربية', direction: 'rtl' },
-    'cs-CZ': { progress: 34, label: 'Čeština', direction: 'ltr' },
-    'da-DK': { progress: 35, label: 'Dansk', direction: 'ltr' },
-    'de-DE': { progress: 58, label: 'Deutsch', direction: 'ltr' },
-    'el-GR': { progress: 32, label: 'Ελληνικά', direction: 'ltr' },
-    'es-ES': { progress: 100, label: 'Español', direction: 'ltr' },
-    'fr-FR': { progress: 76, label: 'Français', direction: 'ltr' },
-    'it-IT': { progress: 40, label: 'Italiano', direction: 'ltr' },
-    'ja-JP': { progress: 37, label: '日本語', direction: 'ltr' },
-    'ko-KR': { progress: 99, label: '한국어', direction: 'ltr' },
-    'hu-HU': { progress: 35, label: 'Magyar', direction: 'ltr' },
-    'nl-NL': { progress: 36, label: 'Nederlands', direction: 'ltr' },
-    'no-NO': { progress: 34, label: 'Norsk', direction: 'ltr' },
-    'pl-PL': { progress: 35, label: 'Polski', direction: 'ltr' },
-    'pt-PT': { progress: 36, label: 'Português (Portugal)', direction: 'ltr' },
-    'pt-BR': { progress: 99, label: 'Português (Brasil)', direction: 'ltr' },
-    'ro-RO': { progress: 32, label: 'Română', direction: 'ltr' },
-    'ru-RU': { progress: 37, label: 'Русский', direction: 'ltr' },
-    'fi-FI': { progress: 37, label: 'Suomi', direction: 'ltr' },
-    'sv-SE': { progress: 35, label: 'Svenska', direction: 'ltr' },
-    'tr-TR': { progress: 35, label: 'Türkçe', direction: 'ltr' },
-    'uk-UA': { progress: 35, label: 'Українська', direction: 'ltr' },
-    'zh-CN': { progress: 86, label: '简体中文', direction: 'ltr' },
-    'zh-TW': { progress: 71, label: '繁體中文', direction: 'ltr' },
-    'en-PT': { progress: 100, label: 'Pirate English', direction: 'ltr' }
+    "en-CA": { progress: 100, label: "English", direction: "ltr" },
+    "ar-SA": { progress: 0, label: "العربية", direction: "rtl" },
+    "cs-CZ": { progress: 34, label: "Čeština", direction: "ltr" },
+    "da-DK": { progress: 35, label: "Dansk", direction: "ltr" },
+    "de-DE": { progress: 58, label: "Deutsch", direction: "ltr" },
+    "el-GR": { progress: 32, label: "Ελληνικά", direction: "ltr" },
+    "es-ES": { progress: 100, label: "Español", direction: "ltr" },
+    "fr-FR": { progress: 76, label: "Français", direction: "ltr" },
+    "it-IT": { progress: 40, label: "Italiano", direction: "ltr" },
+    "ja-JP": { progress: 37, label: "日本語", direction: "ltr" },
+    "ko-KR": { progress: 99, label: "한국어", direction: "ltr" },
+    "hu-HU": { progress: 35, label: "Magyar", direction: "ltr" },
+    "nl-NL": { progress: 36, label: "Nederlands", direction: "ltr" },
+    "no-NO": { progress: 34, label: "Norsk", direction: "ltr" },
+    "pl-PL": { progress: 35, label: "Polski", direction: "ltr" },
+    "pt-PT": { progress: 36, label: "Português (Portugal)", direction: "ltr" },
+    "pt-BR": { progress: 99, label: "Português (Brasil)", direction: "ltr" },
+    "ro-RO": { progress: 32, label: "Română", direction: "ltr" },
+    "ru-RU": { progress: 37, label: "Русский", direction: "ltr" },
+    "fi-FI": { progress: 37, label: "Suomi", direction: "ltr" },
+    "sv-SE": { progress: 35, label: "Svenska", direction: "ltr" },
+    "tr-TR": { progress: 35, label: "Türkçe", direction: "ltr" },
+    "uk-UA": { progress: 35, label: "Українська", direction: "ltr" },
+    "zh-CN": { progress: 86, label: "简体中文", direction: "ltr" },
+    "zh-TW": { progress: 71, label: "繁體中文", direction: "ltr" },
+    "en-PT": { progress: 100, label: "Pirate English", direction: "ltr" },
   };
 
   document.getElementById("header-searchbar-container").addEventListener("mousedown", function () {
@@ -359,16 +351,15 @@
   let dropdownLanguage = document.getElementById("dropdown-language");
 
   for (const [key, value] of Object.entries(languageCodes)) {
-
     let badgeProgress, badgeProgressTitle;
     badgeProgress = value.progress;
-    if(badgeProgress == 100) {
+    if (badgeProgress == 100) {
       badgeProgressTitle = "badge-perfect";
-    } else if(badgeProgress >= 80) {
+    } else if (badgeProgress >= 80) {
       badgeProgressTitle = "badge-high";
-    } else if(badgeProgress >= 50) {
+    } else if (badgeProgress >= 50) {
       badgeProgressTitle = "badge-medium";
-    } else if(badgeProgress > 0) {
+    } else if (badgeProgress > 0) {
       badgeProgressTitle = "badge-low";
     } else {
       badgeProgressTitle = "badge-none";
@@ -386,7 +377,7 @@
       "quick-mode": true,
       "default-game": "network",
       "developer-mode": false,
-      "language": getBestLanguage(),
+      language: getBestLanguage(),
     };
     localStorage.setItem("settings", JSON.stringify(settings));
   } else {
@@ -430,11 +421,11 @@
 
     for (let a of scopes) {
       if (a == currentScope) {
-        document.querySelectorAll(`.scope-${a}`).forEach(element => {
+        document.querySelectorAll(`.scope-${a}`).forEach((element) => {
           element.classList.add("selected");
         });
       } else {
-        document.querySelectorAll(`.scope-${a}`).forEach(element => {
+        document.querySelectorAll(`.scope-${a}`).forEach((element) => {
           element.classList.remove("selected");
         });
       }
@@ -546,7 +537,8 @@
     };
   }
 
-  document.getElementById("searchbar").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
+  document.getElementById("searchbar").addEventListener("keypress", function (event) {
+    // Check if the user's typing in the search box
     checkSearchBox(event, this.value);
   });
 
@@ -570,11 +562,11 @@
 
   function updateSettingFunctionality(setting, settingValue) {
     // Updates the functionality of a changed setting
-    if(document.getElementById(`checkbox-${setting}`)) {
+    if (document.getElementById(`checkbox-${setting}`)) {
       document.getElementById(`checkbox-${setting}`).checked = settingValue;
     }
 
-    if(document.getElementById(`dropdown-${setting}-button`)) {
+    if (document.getElementById(`dropdown-${setting}-button`)) {
       let children = document.getElementById(`dropdown-${setting}`).children;
       for (let i = 0; i < children.length; i++) {
         if (children[i].getAttribute("data-item") == settingValue) {
@@ -717,57 +709,57 @@
 
   function adjustDropdown(dropdownContent) {
     if (dropdownContent.classList.contains("unloaded")) {
-        // If not visible
-        // Reset styles first
-        dropdownContent.style.insetInlineEnd = "0px";
-        dropdownContent.style.insetInlineStart = "auto";
-        dropdownContent.style.bottom = "auto";
-        dropdownContent.style.top = "auto";
+      // If not visible
+      // Reset styles first
+      dropdownContent.style.insetInlineEnd = "0px";
+      dropdownContent.style.insetInlineStart = "auto";
+      dropdownContent.style.bottom = "auto";
+      dropdownContent.style.top = "auto";
 
-        // Get the bounding rectangle of the dropdown
-        var dropdownRect = dropdownContent.getBoundingClientRect();
+      // Get the bounding rectangle of the dropdown
+      var dropdownRect = dropdownContent.getBoundingClientRect();
 
-        if (dropdownContent.classList.contains("dropdown-chip") && !dropdownContent.classList.contains("dropdown-header")) {
-          chipBox = dropdownContent.parentElement.parentElement.parentElement.parentElement;
-          dropdownContent.style.overflowY = "scroll";
+      if (dropdownContent.classList.contains("dropdown-chip") && !dropdownContent.classList.contains("dropdown-header")) {
+        chipBox = dropdownContent.parentElement.parentElement.parentElement.parentElement;
+        dropdownContent.style.overflowY = "scroll";
 
-          if (chipBox) {
-            dropdownContent.style.maxHeight = `calc(${getComputedStyle(chipBox).height} - 65px)`;
-          } else {
-            console.error("Chip box missing!");
-          }
-        }
-
-        dropdownRect = dropdownContent.getBoundingClientRect();
-
-        // Check bottom edge
-        if ((window.innerHeight - dropdownRect.bottom < 30 || mobileMode) && !dropdownContent.classList.contains("dropdown-chip")) {
-          // Adjust it upwards if it goes off bottom or in mobile mode
-          dropdownContent.style.bottom = "100%";
-          dropdownContent.style.top = "auto";
+        if (chipBox) {
+          dropdownContent.style.maxHeight = `calc(${getComputedStyle(chipBox).height} - 65px)`;
         } else {
-          dropdownContent.style.bottom = "auto";
-          dropdownContent.style.top = "100%";
+          console.error("Chip box missing!");
         }
-
-        dropdownRect = dropdownContent.getBoundingClientRect();
-        if (dropdownRect.top < 0 && dropdownContent.classList.contains("dropdown-games")) {
-          // If it still doesn't fit, call for desperate measures
-          dropdownContent.style.top = "100%";
-          dropdownContent.style.bottom = "auto";
-          dropdownContent.style.maxHeight = window.innerHeight * 0.7 + "px";
-          dropdownContent.style.overflowY = "scroll";
-        }
-
-        // if (window.innerWidth - dropdownRect.right < 30 && !dropdownContent.classList.contains("dropdown-games")) {
-        //   // Check left edge
-        //   dropdownContent.style.left = "auto"; // Adjust it rightwards if it goes off right edge
-        //   dropdownContent.style.right = "0";
-        // } else {
-        //   dropdownContent.style.left = "0";
-        //   dropdownContent.style.right = "auto";
-        // }
       }
+
+      dropdownRect = dropdownContent.getBoundingClientRect();
+
+      // Check bottom edge
+      if ((window.innerHeight - dropdownRect.bottom < 30 || mobileMode) && !dropdownContent.classList.contains("dropdown-chip")) {
+        // Adjust it upwards if it goes off bottom or in mobile mode
+        dropdownContent.style.bottom = "100%";
+        dropdownContent.style.top = "auto";
+      } else {
+        dropdownContent.style.bottom = "auto";
+        dropdownContent.style.top = "100%";
+      }
+
+      dropdownRect = dropdownContent.getBoundingClientRect();
+      if (dropdownRect.top < 0 && dropdownContent.classList.contains("dropdown-games")) {
+        // If it still doesn't fit, call for desperate measures
+        dropdownContent.style.top = "100%";
+        dropdownContent.style.bottom = "auto";
+        dropdownContent.style.maxHeight = window.innerHeight * 0.7 + "px";
+        dropdownContent.style.overflowY = "scroll";
+      }
+
+      // if (window.innerWidth - dropdownRect.right < 30 && !dropdownContent.classList.contains("dropdown-games")) {
+      //   // Check left edge
+      //   dropdownContent.style.left = "auto"; // Adjust it rightwards if it goes off right edge
+      //   dropdownContent.style.right = "0";
+      // } else {
+      //   dropdownContent.style.left = "0";
+      //   dropdownContent.style.right = "auto";
+      // }
+    }
   }
 
   document.addEventListener("click", function (event) {
@@ -791,7 +783,6 @@
 
       const button = dropdownContainer.previousElementSibling; // Selects the button
       if (button.classList.contains("chip-dropdown-button")) {
-
         let dropdownItemText = selectedItem.querySelector(".dropdown-item-text");
         if (dropdownItemText) {
           button.innerHTML = DOMPurify.sanitize(dropdownItemText.innerHTML);
