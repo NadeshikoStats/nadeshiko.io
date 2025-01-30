@@ -929,6 +929,7 @@
     "slumber_tickets": "졸음 티켓",
     "challenges_completed": "완료한 챌린지",
     "unique_challenges_completed": "(%%num%%/%%total%% 고유 챌린지)",
+    "health_regenerated": "Health Regenerated",
     "clicks": "클릭",
     "heads": "머리",
     "chests_opened": "상자를 연 횟수",

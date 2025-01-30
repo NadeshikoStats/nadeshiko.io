@@ -52,10 +52,11 @@
       <div class="guild overflow-scroll mask-fade">
         <div class="leaderboard-container">
           <div class="chip-small but-big">
-            <div>
+            <div class="leaderboard-selectors">
               <p data-t="leaderboards.select_game">Select a game:</p>
-              <div class="button-array" id="game-selector"></div>
-              <div class="button-array" id="leaderboard-selector"></div>
+              <div class="button-array" id="selector-layer-0"></div>
+              <div class="button-array" id="selector-layer-1"></div>
+              <div class="button-array" id="selector-layer-2"></div>
             </div>
 
             <div class="list quest-list" id="leaderboard">
@@ -79,10 +80,10 @@
     <script>
       document.documentElement.style.setProperty("--accent", getComputedStyle(document.documentElement).getPropertyValue("--accent-leaderboards"));
       let currentLeaderboardInformation = {
-        selected_game: "",
         leaderboard: "",
         total_players: 0,
         page: 1,
+        total_pages: 1,
       };
     </script>
   </body>

@@ -929,6 +929,7 @@
     "slumber_tickets": "Tickets de sommeil",
     "challenges_completed": "Défis relevés",
     "unique_challenges_completed": "(%%num%%/%%total%% unique)",
+    "health_regenerated": "Health Regenerated",
     "clicks": "Clics",
     "heads": "Têtes",
     "chests_opened": "Coffres Ouverts",

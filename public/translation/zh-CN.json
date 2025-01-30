@@ -929,6 +929,7 @@
     "slumber_tickets": "梦境票券",
     "challenges_completed": "已完成挑战数",
     "unique_challenges_completed": "（%%num%% / %%total%% 种）",
+    "health_regenerated": "Health Regenerated",
     "clicks": "点击次数",
     "heads": "头颅",
     "chests_opened": "打开箱子个数",

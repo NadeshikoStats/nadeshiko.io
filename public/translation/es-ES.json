@@ -929,6 +929,7 @@
     "slumber_tickets": "Boletos de sueño",
     "challenges_completed": "Desafios completados",
     "unique_challenges_completed": "(%%num%% / %%total%% únicos)",
+    "health_regenerated": "Salud regenerada",
     "clicks": "Clics",
     "heads": "Cabezas",
     "chests_opened": "Cofres abiertos",
