@@ -581,7 +581,7 @@ async function getLeaderboardData(leaderboard, page = 1) {
     let playerBadge = a["badge"] || "NONE";
     checkBadgeInList(playerBadge, row);
 
-    row.querySelector(`[data-i="head"]`).src = `https://minotar-.net/helm/${a["uuid"]}/8.png`;
+    row.querySelector(`[data-i="head"]`).src = `https://minotar.net/helm/${a["uuid"]}/8.png`;
     row.querySelector("[data-i='rank-name']").href = `/player/${a["uuid"]}`;
     updateTag(row, "quantity", formatLeaderboardStatistic(currentLeaderboardInformation["format"], a["value"]), true);
 
