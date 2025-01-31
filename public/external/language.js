@@ -7,7 +7,7 @@ if (localStorageSettings === null) {
 
 // Find the best match for the user's language
 function getBestLanguage() {
-  let translatedLanguages = ["en-CA", "ar-SA", "cs-CZ", "da-DK", "de-DE", "el-GR", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "hu-HU", "nl-NL", "no-NO", "pl-PL", "pt-PT", "pt-BR", "ro-RO", "ru-RU", "fi-FI", "sv-SE", "tr-TR", "uk-UA", "zh-CN", "zh-TW", "en-PT"];
+  let translatedLanguages = ["en-CA", "ar-SA", "cs-CZ", "da-DK", "de-DE", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "hu-HU", "nl-NL", "no-NO", "pl-PL", "pt-PT", "pt-BR", "ro-RO", "ru-RU", "fi-FI", "sv-SE", "tr-TR", "uk-UA", "zh-CN", "zh-TW", "en-PT"];
 
   let userLang = navigator.language || navigator.userLanguage;
 
@@ -30,7 +30,7 @@ let userLanguage = settings["language"] || getBestLanguage() || "en-CA";
  */
 
 async function fetchLanguageFile(language) {
-  let validLanguages = ["en-CA", "ar-SA", "cs-CZ", "da-DK", "de-DE", "el-GR", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "hu-HU", "nl-NL", "no-NO", "pl-PL", "pt-PT", "pt-BR", "ro-RO", "ru-RU", "fi-FI", "sv-SE", "tr-TR", "uk-UA", "zh-CN", "zh-TW", "en-PT", "empty"];
+  let validLanguages = ["en-CA", "ar-SA", "cs-CZ", "da-DK", "de-DE", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "hu-HU", "nl-NL", "no-NO", "pl-PL", "pt-PT", "pt-BR", "ro-RO", "ru-RU", "fi-FI", "sv-SE", "tr-TR", "uk-UA", "zh-CN", "zh-TW", "en-PT", "empty"];
   let rtlLanguages = ["ar-SA"]; // Right-to-left languages
 
   try {

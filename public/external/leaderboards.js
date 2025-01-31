@@ -31,7 +31,10 @@ let leaderboards = [
           { translation: "statistics.beds_broken", id: "BEDWARS_BEDS", format: "number" },
           { translation: "statistics.bblr", id: "BEDWARS_BBLR", format: "decimal_2" },
           { translation: "statistics.winstreak", id: "BEDWARS_WINSTREAK", format: "number" },
+          { translation: "statistics.challenges_completed", id: "BEDWARS_COMPLETED_CHALLENGES", format: "number" },
           { translation: "statistics.slumber_tickets_earned", id: "BEDWARS_TICKETS_EARNED", format: "number" },
+          { translation: "statistics.diamonds_collected", id: "BEDWARS_COLLECTED_DIAMONDS", format: "number" },
+          { translation: "statistics.emeralds_collected", id: "BEDWARS_COLLECTED_EMERALDS", format: "number" },
         ],
       },
       {

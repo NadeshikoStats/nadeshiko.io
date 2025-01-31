@@ -1012,6 +1012,11 @@
     "challenges_completed": "Challenges Completed",
     "unique_challenges_completed": "(%%num%% / %%total%% unique)",
 
+    "diamonds_collected": "Diamonds Collected",
+    "emeralds_collected": "Emeralds Collected",
+    "gold_collected": "Gold Collected",
+    "iron_collected": "Iron Collected",
+
     "health_regenerated": "Health Regenerated",
     "clicks": "Clicks",
 
