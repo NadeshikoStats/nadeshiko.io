@@ -4878,7 +4878,7 @@ function generateFishing() {
   updateScopedElement("fishing-junk_caught", checkAndFormat(overallJunkCaught));
   updateScopedElement("fishing-treasure_caught", checkAndFormat(overallTreasureCaught));
   updateScopedElement("fishing-mythical_fish_caught", checkAndFormat(overallMythicalFishCaught));
-  updateScopedElement("fishing-special_fish_caught", checkAndFormat(specialFishCount) + "/" + checkAndFormat(maxSpecialFish));
+  updateScopedElement("fishing-special_fish_caught", checkAndFormat(specialFishCount) + " / " + checkAndFormat(maxSpecialFish));
 
   if (specialFishCount >= maxSpecialFish) {
     activeScope.getElementById("fishing-special_fish_caught").style.color = "var(--gold)";

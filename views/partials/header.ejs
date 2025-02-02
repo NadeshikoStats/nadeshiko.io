@@ -334,6 +334,7 @@
 
   document.getElementById("header-searchbar-container").addEventListener("mousedown", function () {
     document.getElementById("header-searchbar-container").classList.add("selected");
+    document.querySelector(".header1").classList.add("searchbar-selected");
   });
 
   document.getElementById("header-searchbar-container").addEventListener("click", function () {
@@ -344,6 +345,7 @@
 
     headerSearchbarSelected = true;
     document.getElementById("header-searchbar-container").classList.add("selected");
+    document.querySelector(".header1").classList.add("searchbar-selected");
   });
 
   // Iterate through the languageCodes object and create a dropdown item for each language
@@ -659,6 +661,7 @@
   window.onclick = function (event) {
     if (!event.target.closest(".searchbar-container") && headerSearchbarSelected) {
       document.getElementById("header-searchbar-container").classList.remove("selected");
+      document.querySelector(".header1").classList.remove("searchbar-selected");
       headerSearchbarSelected = false;
     }
 

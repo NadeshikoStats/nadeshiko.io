@@ -1,251 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/stylesheet.css?v=<%= version || 0 %>">
-  <link rel="stylesheet" href="/css/stylesheet-skyblock.css?v=<%= version || 0 %>">
-  <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/stylesheet.css?v=<%= version || 0 %>" />
+    <link rel="stylesheet" href="/css/stylesheet-skyblock.css?v=<%= version || 0 %>" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png" />
 
-  <meta name="theme-color" content="#f6adc6">
-  <meta property="og:site_name" content="nadeshiko.io">
+    <meta name="theme-color" content="#f6adc6" />
+    <meta property="og:site_name" content="nadeshiko.io" />
 
-  <% if (skyblockData) { %>
+    <% if (skyblockData) { %>
     <title><%- (skyblockData["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
     <% } else { %>
-    <title>SkyBlock | nadeshiko.io</title> <!-- Fallback in case no stats -->
+    <title>SkyBlock | nadeshiko.io</title>
+    <!-- Fallback in case no stats -->
     <% } %>
-    <meta name="description" content="<%= metaDescription %>">
+    <meta name="description" content="<%= metaDescription %>" />
 
-  <script>
-    let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
+    <script>
+      let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
 
-    /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
-    * This is used to ensure that all tasks are completed before the page is generated.
-    * @param {string} task - The task that was completed 
-    */
-    function beginGeneration(task) {
-      if(tasksBeforeLoading.includes(task)) {
-        tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
-        console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+      /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+       * This is used to ensure that all tasks are completed before the page is generated.
+       * @param {string} task - The task that was completed
+       */
+      function beginGeneration(task) {
+        if (tasksBeforeLoading.includes(task)) {
+          tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+          console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
 
-        if(tasksBeforeLoading.length == 0) {
-          updateTranslations();
-          updateBasicStats();
-          updateArmorEquipment();
-          updateWardrobe();
-          updateDungeonClasses();
-          document.getElementById("header-name").classList.remove("unloaded");
-          document.getElementById("skyblock-page").classList.remove("unloaded");
+          if (tasksBeforeLoading.length == 0) {
+            updateTranslations();
+            updateBasicStats();
+            updateArmorEquipment();
+            updateWardrobe();
+            updateDungeonClasses();
+            document.getElementById("header-name").classList.remove("unloaded");
+            document.getElementById("skyblock-page").classList.remove("unloaded");
+          }
+        } else {
+          console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
         }
-      } else {
-        console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
       }
-    } 
-  </script>
-  <script src="/external/master.js?v=<%= version || 0 %>"></script>
-  <script src="/external/skinview3d.bundle.js?v=<%= version || 0 %>" type="module"></script>
-  <script src="/external/language.js?v=<%= version || 0 %>"></script>
-  <script src="/external/purify.min.js?v=<%= version || 0 %>"></script>
-  <script src="/external/minecrafttext.js?v=<%= version || 0 %>"></script>
-  <script src="/external/webptest.js?v=<%= version || 0 %>"></script>
-  <script src="/external/gamenames.js?v=<%= version || 0 %>"></script>
+    </script>
+    <script src="/external/master.js?v=<%= version || 0 %>"></script>
+    <script src="/external/skinview3d.bundle.js?v=<%= version || 0 %>" type="module"></script>
+    <script src="/external/language.js?v=<%= version || 0 %>"></script>
+    <script src="/external/purify.min.js?v=<%= version || 0 %>"></script>
+    <script src="/external/minecrafttext.js?v=<%= version || 0 %>"></script>
+    <script src="/external/webptest.js?v=<%= version || 0 %>"></script>
+    <script src="/external/gamenames.js?v=<%= version || 0 %>"></script>
 
-  <script src="/external/skyblock.js?v=<%= version || 0 %>"></script>
-</head>
+    <script src="/external/skyblock.js?v=<%= version || 0 %>"></script>
+  </head>
 
-<body>
-  <div class="background" id="background1" style="background-image: url('/img/games/skyblock/main.png')"></div>
-  <div class="background-filter"></div>
+  <body>
+    <div class="background" id="background1" style="background-image: url('/img/games/skyblock/main.png')"></div>
+    <div class="background-filter"></div>
 
-  <div class="nadeshiko-wrapper">
-    <header>
-      <%- include('partials/header') %>
-      <div class="header header2"> <!-- secondary header for game bar -->
-        <div class="header-left">
-          <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
-        </div>
-      </div>
-    </header>
-
-    <div id="item-tooltip-modal" class="unloaded" onclick="hideItemTooltipModal()"></div>
-
-    <div id="item-tooltip" class="unloaded">
-      <div class="scroller">
-        <div id="item-tooltip-name-background">
-          <div id="item-tooltip-name">
+    <div class="nadeshiko-wrapper">
+      <header>
+        <%- include('partials/header') %>
+        <div class="header header2">
+          <!-- secondary header for game bar -->
+          <div class="header-left">
+            <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
           </div>
         </div>
-        <div id="item-tooltip-lore">
+      </header>
+
+      <div id="item-tooltip-modal" class="unloaded" onclick="hideItemTooltipModal()"></div>
+
+      <div id="item-tooltip" class="unloaded">
+        <div class="scroller">
+          <div id="item-tooltip-name-background">
+            <div id="item-tooltip-name"></div>
+          </div>
+          <div id="item-tooltip-lore"></div>
         </div>
       </div>
-    </div>
 
-    <div class="guild overflow-scroll unloaded mask-fade" id="skyblock-page">
-      <div class="flex-two-item skyblock-profile">
-        <canvas id="skin-container" class="avatar" style="background-color: transparent"></canvas>
-        <div class="player-card">
-          <div class="details">
-          <div class="flex-two-item unless-tiny">
-          <div class="flex-vertical">
-            <span class="player-name">
-              <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span>
-              
-              <span class="tooltip">
-                <a id="badge-link" target="_blank">
-                  <img class="special icon smallicon badge-large" id="badge" alt="User badge">
-                </a>
-                <span class="tooltiptext" id="badge-text"></span>
-              </span>
-            </span>
-            <span id="card-uuid"></span>
-          </div>
+      <div class="guild overflow-scroll unloaded mask-fade" id="skyblock-page">
+        <div class="flex-two-item skyblock-profile">
+          <canvas id="skin-container" class="avatar" style="background-color: transparent"></canvas>
+          <div class="player-card">
+            <div class="details">
+              <div class="flex-two-item unless-tiny">
+                <div class="flex-vertical">
+                  <span class="player-name">
+                    <span class="rank" id="card-rank"
+                      ><span id="card-ranktext"><span class="mc">Unknown</span></span></span
+                    >
+                    <span class="m7" id="card-name"><span class="mc">Unknown</span></span> <span id="card-guild"><span class="mc">Unknown</span></span>
 
-          <span id="online-status-wrapper">
-            <div id="online-status">
-              <span class="mc">Unknown</span>
-            </div>
-            <span class="tooltiptext">
-              <span id="online-status-location"></span>
-            </span>
-          </span>
-        </div>
+                    <span class="tooltip">
+                      <a id="badge-link" target="_blank">
+                        <img class="special icon smallicon badge-large" id="badge" alt="User badge" />
+                      </a>
+                      <span class="tooltiptext" id="badge-text"></span>
+                    </span>
+                  </span>
+                  <span id="card-uuid"></span>
+                </div>
+
+                <span id="online-status-wrapper">
+                  <div id="online-status">
+                    <span class="mc">Unknown</span>
+                  </div>
+                  <span class="tooltiptext">
+                    <span id="online-status-location"></span>
+                  </span>
+                </span>
+              </div>
 
               <div class="chip-small-container">
                 <div class="flex-two-item align-top flippable margin10">
                   <div class="skill-container">
-                      <div class="tooltip skyblock-level-container">
-                        <span data-t="statistics.level">Level</span> <span class="statistic" id="skyblock-level"><span class="mc">Unknown</span></span>
-                        <div class="progress-bar">
-                          <div class="progress" style="width: 0%;" id="skyblock-level-progress-bar"></div>
-                        </div>
-                        <span class="tooltiptext" id="skyblock-level-tooltip"></span>
+                    <div class="tooltip skyblock-level-container">
+                      <span data-t="statistics.level">Level</span> <span class="statistic" id="skyblock-level"><span class="mc">Unknown</span></span>
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 0%" id="skyblock-level-progress-bar"></div>
                       </div>
+                      <span class="tooltiptext" id="skyblock-level-tooltip"></span>
+                    </div>
 
-                        <div class="flex-two-item-basic">
-                          <div class="skill tooltip">
+                    <div class="flex-two-item-basic">
+                      <div class="skill tooltip">
+                        <span>Combat</span> <span class="statistic" id="skill-combat"><span class="mc">Unknown</span></span>
 
-                            <span>Combat</span> <span class="statistic" id="skill-combat"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-                                <div class="progress" style="width: 0%;" id="skill-combat-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-combat-tooltip"></span>
-
-                          </div>
-                          <div class="skill tooltip">
-                            <span>Farming</span> <span class="statistic" id="skill-farming"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-                              <div class="progress" style="width: 0%;" id="skill-farming-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-farming-tooltip"></span>
-                          </div>
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-combat-progress-bar"></div>
                         </div>
+                        <span class="tooltiptext" id="skill-combat-tooltip"></span>
+                      </div>
+                      <div class="skill tooltip">
+                        <span>Farming</span> <span class="statistic" id="skill-farming"><span class="mc">Unknown</span></span>
 
-                        <div class="flex-two-item-basic">
-                          <div class="skill tooltip">
-                            <span>Fishing</span> <span class="statistic" id="skill-fishing"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-                              <div class="progress" style="width: 0%;" id="skill-fishing-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-fishing-tooltip"></span>
-                          </div>
-                          <div class="skill tooltip">
-                            <span>Mining</span> <span class="statistic" id="skill-mining"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-
-                              <div class="progress" style="width: 0%;" id="skill-mining-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-mining-tooltip"></span>
-                          </div>
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-farming-progress-bar"></div>
                         </div>
+                        <span class="tooltiptext" id="skill-farming-tooltip"></span>
+                      </div>
+                    </div>
 
-                        <div class="flex-two-item-basic">
-                          <div class="skill tooltip">
-                            <span>Foraging</span> <span class="statistic" id="skill-foraging"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
+                    <div class="flex-two-item-basic">
+                      <div class="skill tooltip">
+                        <span>Fishing</span> <span class="statistic" id="skill-fishing"><span class="mc">Unknown</span></span>
 
-                              <div class="progress" style="width: 0%;" id="skill-foraging-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-foraging-tooltip"></span>
-                          </div>
-                          <div class="skill tooltip">
-                            <span>Enchanting</span> <span class="statistic" id="skill-enchanting"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-
-                              <div class="progress" style="width: 0%;" id="skill-enchanting-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-enchanting-tooltip"></span>
-                          </div>
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-fishing-progress-bar"></div>
                         </div>
+                        <span class="tooltiptext" id="skill-fishing-tooltip"></span>
+                      </div>
+                      <div class="skill tooltip">
+                        <span>Mining</span> <span class="statistic" id="skill-mining"><span class="mc">Unknown</span></span>
 
-                        <div class="flex-two-item-basic">
-                          <div class="skill tooltip">
-                            <span>Alchemy</span> <span class="statistic" id="skill-alchemy"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-
-                              <div class="progress" style="width: 0%;" id="skill-alchemy-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-alchemy-tooltip"></span>
-                          </div>
-                          <div class="skill tooltip">
-                            <span>Carpentry</span> <span class="statistic" id="skill-carpentry"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-
-                              <div class="progress" style="width: 0%;" id="skill-carpentry-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-carpentry-tooltip"></span>
-                          </div>
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-mining-progress-bar"></div>
                         </div>
+                        <span class="tooltiptext" id="skill-mining-tooltip"></span>
+                      </div>
+                    </div>
 
-                        <div class="flex-two-item-basic">
-                          <div class="skill tooltip">
-                            <span>Runecrafting</span> <span class="statistic" id="skill-runecrafting"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
+                    <div class="flex-two-item-basic">
+                      <div class="skill tooltip">
+                        <span>Foraging</span> <span class="statistic" id="skill-foraging"><span class="mc">Unknown</span></span>
 
-                              <div class="progress" style="width: 0%;" id="skill-runecrafting-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-runecrafting-tooltip"></span>
-                          </div>
-                          <div class="skill tooltip">
-                            <span>Social</span> <span class="statistic" id="skill-social"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-
-                              <div class="progress" style="width: 0%;" id="skill-social-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-social-tooltip"></span>
-                          </div>
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-foraging-progress-bar"></div>
                         </div>
+                        <span class="tooltiptext" id="skill-foraging-tooltip"></span>
+                      </div>
+                      <div class="skill tooltip">
+                        <span>Enchanting</span> <span class="statistic" id="skill-enchanting"><span class="mc">Unknown</span></span>
 
-                        <div class="flex-two-item-basic">
-                          <div class="skill tooltip">
-                            <span>Taming</span> <span class="statistic" id="skill-taming"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-
-                              <div class="progress" style="width: 0%;" id="skill-taming-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-taming-tooltip"></span>
-                          </div>
-                          <div class="skill tooltip">
-                            <span>Skill Average</span> <span class="statistic" id="skill-average"><span class="mc">Unknown</span></span>
-                            
-                            <div class="progress-bar">
-
-                              <div class="progress" style="width: 0%;" id="skill-average-progress-bar"></div>
-                            </div>
-                            <span class="tooltiptext" id="skill-average-tooltip"></span>
-                          </div>
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-enchanting-progress-bar"></div>
                         </div>
+                        <span class="tooltiptext" id="skill-enchanting-tooltip"></span>
+                      </div>
+                    </div>
+
+                    <div class="flex-two-item-basic">
+                      <div class="skill tooltip">
+                        <span>Alchemy</span> <span class="statistic" id="skill-alchemy"><span class="mc">Unknown</span></span>
+
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-alchemy-progress-bar"></div>
+                        </div>
+                        <span class="tooltiptext" id="skill-alchemy-tooltip"></span>
+                      </div>
+                      <div class="skill tooltip">
+                        <span>Carpentry</span> <span class="statistic" id="skill-carpentry"><span class="mc">Unknown</span></span>
+
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-carpentry-progress-bar"></div>
+                        </div>
+                        <span class="tooltiptext" id="skill-carpentry-tooltip"></span>
+                      </div>
+                    </div>
+
+                    <div class="flex-two-item-basic">
+                      <div class="skill tooltip">
+                        <span>Runecrafting</span> <span class="statistic" id="skill-runecrafting"><span class="mc">Unknown</span></span>
+
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-runecrafting-progress-bar"></div>
+                        </div>
+                        <span class="tooltiptext" id="skill-runecrafting-tooltip"></span>
+                      </div>
+                      <div class="skill tooltip">
+                        <span>Social</span> <span class="statistic" id="skill-social"><span class="mc">Unknown</span></span>
+
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-social-progress-bar"></div>
+                        </div>
+                        <span class="tooltiptext" id="skill-social-tooltip"></span>
+                      </div>
+                    </div>
+
+                    <div class="flex-two-item-basic">
+                      <div class="skill tooltip">
+                        <span>Taming</span> <span class="statistic" id="skill-taming"><span class="mc">Unknown</span></span>
+
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-taming-progress-bar"></div>
+                        </div>
+                        <span class="tooltiptext" id="skill-taming-tooltip"></span>
+                      </div>
+                      <div class="skill tooltip">
+                        <span>Skill Average</span> <span class="statistic" id="skill-average"><span class="mc">Unknown</span></span>
+
+                        <div class="progress-bar">
+                          <div class="progress" style="width: 0%" id="skill-average-progress-bar"></div>
+                        </div>
+                        <span class="tooltiptext" id="skill-average-tooltip"></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -267,285 +259,264 @@
                 </div>
               </div>
 
-              <div class="buttons"> 
-                  <span class="general-button" onclick="showCardWizard('SKYBLOCK_GENERAL')" data-t="player.generate_card">Generate Card</span>
-                  
-                  <a class="general-button dropdown-button" href="/player/<%= skyblockData.uuid %>" target="_blank">Network Stats</a>
-                </div>
-          </div>
-        </div>
-      </div>
+              <div class="buttons">
+                <span class="general-button" onclick="showCardWizard('SKYBLOCK_GENERAL')" data-t="player.generate_card">Generate Card</span>
 
-      <div class="skyblock-base-container">
-
-        <p class="stat-title super-subtitle skyblock-box">Gear</p>
-
-        <div class="skyblock-box">
-          <p class="stat-title">Armor & Equipment</p>
-          <div class="armor-equipment">
-            <div class="equipment">
-              <p class="stat-subtitle">Active</p>
-              <div class="equipment-grid" id="equipment-grid">
+                <a class="general-button dropdown-button" href="/player/<%= skyblockData.uuid %>" target="_blank">Network Stats</a>
               </div>
-            </div>
-            <div class="wardrobe">
-              <p class="stat-subtitle">Wardrobe</p>
-              <div class="wardrobe-grid" id="wardrobe-grid">
-              </div>
-          </div>
-        </div>
-      </div>
-
-      <p class="stat-title super-subtitle skyblock-box">Pets</p>
-
-      <p class="stat-title super-subtitle skyblock-box">Dungeons</p>
-
-      <div class="skyblock-box">
-        <p class="stat-title">Classes</p>
-        <div class="dungeons-classes">
-          <div class="dungeon-classes-levels skill-container chip-small-container">
-            <p class="stat-title mbottom">Levels</p>
-            <div class="flex-two-item-basic">
-              <div class="skill tooltip">
-
-                <span>Healer</span> <span class="statistic" id="class-healer"><span class="mc">Unknown</span></span>
-                
-                <div class="progress-bar">
-                    <div class="progress" style="width: 0%;" id="class-healer-progress-bar"></div>
-                </div>
-                <span class="tooltiptext" id="class-healer-tooltip"></span>
-
-              </div>
-              <div class="skill tooltip">
-                <span>Mage</span> <span class="statistic" id="class-mage"><span class="mc">Unknown</span></span>
-                
-                <div class="progress-bar">
-                  <div class="progress" style="width: 0%;" id="class-mage-progress-bar"></div>
-                </div>
-                <span class="tooltiptext" id="class-mage-tooltip"></span>
-              </div>
-            </div>
-
-            <div class="flex-two-item-basic">
-              <div class="skill tooltip">
-
-                <span>Berserk</span> <span class="statistic" id="class-berserk"><span class="mc">Unknown</span></span>
-                
-                <div class="progress-bar">
-                    <div class="progress" style="width: 0%;" id="class-berserk-progress-bar"></div>
-                </div>
-                <span class="tooltiptext" id="class-berserk-tooltip"></span>
-
-              </div>
-              <div class="skill tooltip">
-                <span>Archer</span> <span class="statistic" id="class-archer"><span class="mc">Unknown</span></span>
-                
-                <div class="progress-bar">
-                  <div class="progress" style="width: 0%;" id="class-archer-progress-bar"></div>
-                </div>
-                <span class="tooltiptext" id="class-archer-tooltip"></span>
-              </div>
-            </div>
-
-            <div class="flex-two-item-basic">
-              <div class="skill tooltip">
-
-                <span>Tank</span> <span class="statistic" id="class-tank"><span class="mc">Unknown</span></span>
-                
-                <div class="progress-bar">
-                    <div class="progress" style="width: 0%;" id="class-tank-progress-bar"></div>
-                </div>
-                <span class="tooltiptext" id="class-tank-tooltip"></span>
-
-              </div>
-              <div class="skill tooltip">
-                <span>Class Average</span> <span class="statistic" id="class-average"><span class="mc">Unknown</span></span>
-                
-                <div class="progress-bar">
-                  <div class="progress" style="width: 0%;" id="class-average-progress-bar"></div>
-                </div>
-                <span class="tooltiptext" id="class-average-tooltip"></span>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="flex-two-item-basic">
-            <div class="dungeon-classes-calculator chip-small-container">
-              <p class="stat-title mbottom">Calculator</p>
-
-                <div class="flex-two-item">
-              <p>Playing on</p>
-                <div class="dropdown">  
-                  <p class="dropdown-button chip-dropdown-button" data-item="MASTER_7"><span>M7</span></p>
-                  <div class="dropdown-content unloaded dropdown-chip" data-game="skyblock-classes">
-                  
-                  <div class="dropdown-item selected" data-item="MASTER_7"><span class="dropdown-item-text">M7</span></div>
-                  <div class="dropdown-item" data-item="MASTER_6"><span class="dropdown-item-text">M6</span></div>
-                  <div class="dropdown-item" data-item="MASTER_5"><span class="dropdown-item-text">M5</span></div>
-                  <div class="dropdown-item" data-item="MASTER_4"><span class="dropdown-item-text">M4</span></div>
-                  <div class="dropdown-item" data-item="MASTER_3"><span class="dropdown-item-text">M3</span></div>
-                  <div class="dropdown-item" data-item="MASTER_2"><span class="dropdown-item-text">M2</span></div>
-                  <div class="dropdown-item" data-item="MASTER_1"><span class="dropdown-item-text">M1</span></div>
-                  <div class="dropdown-item" data-item="CATACOMBS_7"><span class="dropdown-item-text">F7</span></div>
-                  <div class="dropdown-item" data-item="CATACOMBS_6"><span class="dropdown-item-text">F6</span></div>
-                  <div class="dropdown-item" data-item="CATACOMBS_5"><span class="dropdown-item-text">F5</span></div>
-                  <div class="dropdown-item" data-item="CATACOMBS_4"><span class="dropdown-item-text">F4</span></div>
-                  <div class="dropdown-item" data-item="CATACOMBS_3"><span class="dropdown-item-text">F3</span></div>
-                  <div class="dropdown-item" data-item="CATACOMBS_2"><span class="dropdown-item-text">F2</span></div>
-                  <div class="dropdown-item" data-item="CATACOMBS_1"><span class="dropdown-item-text">F1</span></div>
-                  <div class="dropdown-item" data-item="CATACOMBS_0"><span class="dropdown-item-text">Entrance</span></div>
-                </div>
-                </div>
-                <p>, it will take PLAYERNAME...</p>
-              </div>
-              <div id="dungeon-classes-runs">
-              </div>
-
-            </div>
-            <div class="dungeon-classes-calculator-settings chip-small-container">
-              <p class="stat-title mbottom">Calculator Settings</p>
             </div>
           </div>
         </div>
+
+        <div class="skyblock-base-container">
+          <p class="stat-title super-subtitle skyblock-box">Gear</p>
+
+          <div class="skyblock-box">
+            <p class="stat-title">Armor & Equipment</p>
+            <div class="armor-equipment">
+              <div class="equipment">
+                <p class="stat-subtitle">Active</p>
+                <div class="equipment-grid" id="equipment-grid"></div>
+              </div>
+              <div class="wardrobe">
+                <p class="stat-subtitle">Wardrobe</p>
+                <div class="wardrobe-grid" id="wardrobe-grid"></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="stat-title super-subtitle skyblock-box">Pets</p>
+
+          <p class="stat-title super-subtitle skyblock-box">Dungeons</p>
+
+          <div class="skyblock-box">
+            <p class="stat-title">Classes</p>
+            <div class="dungeons-classes">
+              <div class="dungeon-classes-levels skill-container chip-small-container">
+                <p class="stat-title mbottom">Levels</p>
+                <div class="flex-two-item-basic">
+                  <div class="skill tooltip">
+                    <span>Healer</span> <span class="statistic" id="class-healer"><span class="mc">Unknown</span></span>
+
+                    <div class="progress-bar">
+                      <div class="progress" style="width: 0%" id="class-healer-progress-bar"></div>
+                    </div>
+                    <span class="tooltiptext" id="class-healer-tooltip"></span>
+                  </div>
+                  <div class="skill tooltip">
+                    <span>Mage</span> <span class="statistic" id="class-mage"><span class="mc">Unknown</span></span>
+
+                    <div class="progress-bar">
+                      <div class="progress" style="width: 0%" id="class-mage-progress-bar"></div>
+                    </div>
+                    <span class="tooltiptext" id="class-mage-tooltip"></span>
+                  </div>
+                </div>
+
+                <div class="flex-two-item-basic">
+                  <div class="skill tooltip">
+                    <span>Berserk</span> <span class="statistic" id="class-berserk"><span class="mc">Unknown</span></span>
+
+                    <div class="progress-bar">
+                      <div class="progress" style="width: 0%" id="class-berserk-progress-bar"></div>
+                    </div>
+                    <span class="tooltiptext" id="class-berserk-tooltip"></span>
+                  </div>
+                  <div class="skill tooltip">
+                    <span>Archer</span> <span class="statistic" id="class-archer"><span class="mc">Unknown</span></span>
+
+                    <div class="progress-bar">
+                      <div class="progress" style="width: 0%" id="class-archer-progress-bar"></div>
+                    </div>
+                    <span class="tooltiptext" id="class-archer-tooltip"></span>
+                  </div>
+                </div>
+
+                <div class="flex-two-item-basic">
+                  <div class="skill tooltip">
+                    <span>Tank</span> <span class="statistic" id="class-tank"><span class="mc">Unknown</span></span>
+
+                    <div class="progress-bar">
+                      <div class="progress" style="width: 0%" id="class-tank-progress-bar"></div>
+                    </div>
+                    <span class="tooltiptext" id="class-tank-tooltip"></span>
+                  </div>
+                  <div class="skill tooltip">
+                    <span>Class Average</span> <span class="statistic" id="class-average"><span class="mc">Unknown</span></span>
+
+                    <div class="progress-bar">
+                      <div class="progress" style="width: 0%" id="class-average-progress-bar"></div>
+                    </div>
+                    <span class="tooltiptext" id="class-average-tooltip"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex-two-item-basic">
+                <div class="dungeon-classes-calculator chip-small-container">
+                  <p class="stat-title mbottom">Calculator</p>
+
+                  <div class="flex-two-item">
+                    <p>Playing on</p>
+                    <div class="dropdown">
+                      <p class="dropdown-button chip-dropdown-button" data-item="MASTER_7"><span>M7</span></p>
+                      <div class="dropdown-content unloaded dropdown-chip" data-game="skyblock-classes">
+                        <div class="dropdown-item selected" data-item="MASTER_7"><span class="dropdown-item-text">M7</span></div>
+                        <div class="dropdown-item" data-item="MASTER_6"><span class="dropdown-item-text">M6</span></div>
+                        <div class="dropdown-item" data-item="MASTER_5"><span class="dropdown-item-text">M5</span></div>
+                        <div class="dropdown-item" data-item="MASTER_4"><span class="dropdown-item-text">M4</span></div>
+                        <div class="dropdown-item" data-item="MASTER_3"><span class="dropdown-item-text">M3</span></div>
+                        <div class="dropdown-item" data-item="MASTER_2"><span class="dropdown-item-text">M2</span></div>
+                        <div class="dropdown-item" data-item="MASTER_1"><span class="dropdown-item-text">M1</span></div>
+                        <div class="dropdown-item" data-item="CATACOMBS_7"><span class="dropdown-item-text">F7</span></div>
+                        <div class="dropdown-item" data-item="CATACOMBS_6"><span class="dropdown-item-text">F6</span></div>
+                        <div class="dropdown-item" data-item="CATACOMBS_5"><span class="dropdown-item-text">F5</span></div>
+                        <div class="dropdown-item" data-item="CATACOMBS_4"><span class="dropdown-item-text">F4</span></div>
+                        <div class="dropdown-item" data-item="CATACOMBS_3"><span class="dropdown-item-text">F3</span></div>
+                        <div class="dropdown-item" data-item="CATACOMBS_2"><span class="dropdown-item-text">F2</span></div>
+                        <div class="dropdown-item" data-item="CATACOMBS_1"><span class="dropdown-item-text">F1</span></div>
+                        <div class="dropdown-item" data-item="CATACOMBS_0"><span class="dropdown-item-text">Entrance</span></div>
+                      </div>
+                    </div>
+                    <p>, it will take PLAYERNAME...</p>
+                  </div>
+                  <div id="dungeon-classes-runs"></div>
+                </div>
+                <div class="dungeon-classes-calculator-settings chip-small-container">
+                  <p class="stat-title mbottom">Calculator Settings</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="height: 1000px; position: relative; display: block; min-height: 1000px">More stuff coming soon!</div>
+        </div>
       </div>
 
-
-
-
-
-
-
-
-
-      
-      <div style="height: 1000px;position: relative;display: block;min-height: 1000px;">More stuff coming soon!</div>
-
-      </div>
-
+      <footer><%- include('partials/footer') %></footer>
     </div>
 
-    
-    <footer>
-      <%- include('partials/footer') %>
-    </footer>
-  </div>
+    <script>
+      document.documentElement.style.setProperty("--accent", getComputedStyle(document.documentElement).getPropertyValue("--accent-skyblock-page"));
 
-  <script>
-    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-skyblock-page'));
+      let skyblockData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(skyblockData)) %>"));
+      let skyblockProfile = skyblockData["skyblock_profile"] || {};
 
-    let skyblockData = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(skyblockData)) %>"));
-    let skyblockProfile = skyblockData["skyblock_profile"] || {};
+      let skinViewer;
 
-    let skinViewer;
-    
-    document.addEventListener("DOMContentLoaded", function() { // Runs on page load
-    beginGeneration("DOMContentLoaded");
-    try {
-      var skinViewModel = "classic";
-    if (skyblockData["slim"]) {
-        skinViewModel = "slim";
-      }
+      document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+          // Runs on page load
+          beginGeneration("DOMContentLoaded");
+          try {
+            var skinViewModel = "classic";
+            if (skyblockData["slim"]) {
+              skinViewModel = "slim";
+            }
 
-      var skinUrl = skyblockData["skin"];
-      if (skinUrl && skinUrl.startsWith("http:")) {
-        skinUrl = skinUrl.replace("http:", "https:");
-      }
+            var skinUrl = skyblockData["skin"];
+            if (skinUrl && skinUrl.startsWith("http:")) {
+              skinUrl = skinUrl.replace("http:", "https:");
+            }
 
-      let capeBase64 = skyblockData["cape"];
-      
-      if (capeBase64 && capeBase64 != "") {
-        capeBase64 = "data:image/png;base64," + skyblockData["cape"];
-      } else {
-        capeBase64 = null;
-      }
+            let capeBase64 = skyblockData["cape"];
 
-      skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
-        canvas: document.getElementById("skin-container"),
-        width: 300,
-        height: 400,
-        model: skinViewModel,
-        skin: skinUrl,
-        cape: capeBase64
-      });
+            if (capeBase64 && capeBase64 != "") {
+              capeBase64 = "data:image/png;base64," + skyblockData["cape"];
+            } else {
+              capeBase64 = null;
+            }
 
-     skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
-     skinViewer.animation = new skinview3d.IdleAnimation();
-     skinViewer.playerObject.cape.rotation.x = 1;
+            skinViewer = new skinview3d.SkinViewer({
+              // Imports skinview3d for the 3D skin.
+              canvas: document.getElementById("skin-container"),
+              width: 300,
+              height: 400,
+              model: skinViewModel,
+              skin: skinUrl,
+              cape: capeBase64,
+            });
 
-     skinViewer.controls.enableZoom = false;
+            skinViewer.camera.position.set(-30, 9, 50); // Sets player orientation
+            skinViewer.animation = new skinview3d.IdleAnimation();
+            skinViewer.playerObject.cape.rotation.x = 1;
 
-     document.addEventListener('keydown', function(event) {
-         if (event.keyCode === 16 && !isInputField(document.activeElement)) { // If LSHIFT pressed, adjust skin to sneak based on constants from Mine-imator
-             skinViewer.animation.paused = true; // Cape can't move in the x direction while idle animation is on
-             let skinViewerObject = skinViewer.playerObject;
-             let skinViewerSkin = skinViewerObject.skin;
+            skinViewer.controls.enableZoom = false;
 
-             skinViewerSkin.head.position.y = -2.5;
+            document.addEventListener("keydown", function (event) {
+              if (event.keyCode === 16 && !isInputField(document.activeElement)) {
+                // If LSHIFT pressed, adjust skin to sneak based on constants from Mine-imator
+                skinViewer.animation.paused = true; // Cape can't move in the x direction while idle animation is on
+                let skinViewerObject = skinViewer.playerObject;
+                let skinViewerSkin = skinViewerObject.skin;
 
-             skinViewerSkin.body.rotation.x = 0.4887;
-             skinViewerSkin.body.position.y = -7;
-             skinViewerSkin.body.position.z = -2;
+                skinViewerSkin.head.position.y = -2.5;
 
-             skinViewerSkin.leftArm.rotation.x = 0.3491;
-             skinViewerSkin.leftArm.position.y = -3.5;
+                skinViewerSkin.body.rotation.x = 0.4887;
+                skinViewerSkin.body.position.y = -7;
+                skinViewerSkin.body.position.z = -2;
 
-             skinViewerSkin.rightArm.rotation.x = 0.3491;
-             skinViewerSkin.rightArm.position.y = -3.5;
+                skinViewerSkin.leftArm.rotation.x = 0.3491;
+                skinViewerSkin.leftArm.position.y = -3.5;
 
-             skinViewerSkin.leftLeg.position.x = 2;
-             skinViewerSkin.leftLeg.position.y = -11;
-             skinViewerSkin.leftLeg.position.z = -3.5;
+                skinViewerSkin.rightArm.rotation.x = 0.3491;
+                skinViewerSkin.rightArm.position.y = -3.5;
 
-             skinViewerSkin.rightLeg.position.x = -2;
-             skinViewerSkin.rightLeg.position.y = -11;
-             skinViewerSkin.rightLeg.position.z = -3.5;
+                skinViewerSkin.leftLeg.position.x = 2;
+                skinViewerSkin.leftLeg.position.y = -11;
+                skinViewerSkin.leftLeg.position.z = -3.5;
 
-             skinViewerObject.cape.rotation.x = 0.4365;
-             skinViewerObject.cape.position.y = 7;
-             skinViewerObject.cape.position.z = -2;
-         }
-     });
+                skinViewerSkin.rightLeg.position.x = -2;
+                skinViewerSkin.rightLeg.position.y = -11;
+                skinViewerSkin.rightLeg.position.z = -3.5;
 
+                skinViewerObject.cape.rotation.x = 0.4365;
+                skinViewerObject.cape.position.y = 7;
+                skinViewerObject.cape.position.z = -2;
+              }
+            });
 
-     document.addEventListener('keyup', function(event) {
-         if (event.keyCode === 16) { // Removes sneak; sets values to defaults
-             skinViewer.animation.paused = false;
-             let skinViewerSkin = skinViewer.playerObject.skin;
-             let skinViewerObject = skinViewer.playerObject;
+            document.addEventListener("keyup", function (event) {
+              if (event.keyCode === 16) {
+                // Removes sneak; sets values to defaults
+                skinViewer.animation.paused = false;
+                let skinViewerSkin = skinViewer.playerObject.skin;
+                let skinViewerObject = skinViewer.playerObject;
 
-             skinViewerSkin.head.position.y = 0;
+                skinViewerSkin.head.position.y = 0;
 
-             skinViewerSkin.body.rotation.x = 0;
-             skinViewerSkin.body.position.y = -6;
-             skinViewerSkin.body.position.z = 0;
+                skinViewerSkin.body.rotation.x = 0;
+                skinViewerSkin.body.position.y = -6;
+                skinViewerSkin.body.position.z = 0;
 
-             skinViewerSkin.leftArm.position.y = -2;
-             skinViewerSkin.leftArm.rotation.x = 0;
+                skinViewerSkin.leftArm.position.y = -2;
+                skinViewerSkin.leftArm.rotation.x = 0;
 
-             skinViewerSkin.rightArm.rotation.x = 0;
-             skinViewerSkin.rightArm.position.y = -2;
+                skinViewerSkin.rightArm.rotation.x = 0;
+                skinViewerSkin.rightArm.position.y = -2;
 
-             skinViewerSkin.leftLeg.position.x = 2;
-             skinViewerSkin.leftLeg.position.y = -12;
-             skinViewerSkin.leftLeg.position.z = 0;
+                skinViewerSkin.leftLeg.position.x = 2;
+                skinViewerSkin.leftLeg.position.y = -12;
+                skinViewerSkin.leftLeg.position.z = 0;
 
-             skinViewerSkin.rightLeg.position.x = -2;
-             skinViewerSkin.rightLeg.position.y = -12;
-             skinViewerSkin.rightLeg.position.z = 0;
+                skinViewerSkin.rightLeg.position.x = -2;
+                skinViewerSkin.rightLeg.position.y = -12;
+                skinViewerSkin.rightLeg.position.z = 0;
 
-             skinViewerObject.cape.rotation.x = 1.5714;
-             skinViewerObject.cape.position.y = 8;
-             skinViewerObject.cape.position.z = -2;
-         }
-     });
+                skinViewerObject.cape.rotation.x = 1.5714;
+                skinViewerObject.cape.position.y = 8;
+                skinViewerObject.cape.position.z = -2;
+              }
+            });
 
-     document.getElementById("skin-container").classList.remove("unloaded");
-     
- } catch (error) {
-     console.error("Error loading SkinView3D!: " + error);
- }
-  }, { once: true });
-  </script>
-</body>
+            document.getElementById("skin-container").classList.remove("unloaded");
+          } catch (error) {
+            console.error("Error loading skinview3d!: " + error);
+          }
+        },
+        { once: true }
+      );
+    </script>
+  </body>
 </html>

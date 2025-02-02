@@ -338,7 +338,7 @@
         capeBase64 = null;
       }
 
-      skinViewer = new skinview3d.SkinViewer({ // Imports SkinView3D for the 3D skin.
+      skinViewer = new skinview3d.SkinViewer({ // Imports skinview3d for the 3D skin.
         canvas: document.getElementById("skin-container"),
         width: 300,
         height: 400,
@@ -420,7 +420,7 @@
 
      document.getElementById("skin-container").classList.remove("unloaded");
  } catch (error) {
-     console.error("Error loading SkinView3D!: " + error);
+     console.error("Error loading skinview3d!: " + error);
  }
   });
 

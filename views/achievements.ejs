@@ -1,381 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/stylesheet.css?v=<%= version || 0 %>">
-  <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/stylesheet.css?v=<%= version || 0 %>" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png" />
 
-  <meta name="theme-color" content="#f6adc6">
-  <meta property="og:site_name" content="nadeshiko.io">
+    <meta name="theme-color" content="#f6adc6" />
+    <meta property="og:site_name" content="nadeshiko.io" />
 
-  <% if (achievementsData) { %>
+    <% if (achievementsData) { %>
     <title><%- (achievementsData["player"]["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
     <% } else { %>
-    <title>Achievements | nadeshiko.io</title> <!-- Fallback in case no stats -->
+    <title>Achievements | nadeshiko.io</title>
+    <!-- Fallback in case no stats -->
     <% } %>
-    <meta name="description" content="<%= metaDescription %>">
+    <meta name="description" content="<%= metaDescription %>" />
 
-  <script>
-    let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
+    <script>
+      let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
 
-    /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
-    * This is used to ensure that all tasks are completed before the page is generated.
-    * @param {string} task - The task that was completed 
-    */
-    function beginGeneration(task) {
-      if(tasksBeforeLoading.includes(task)) {
-        tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
-        console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+      /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+       * This is used to ensure that all tasks are completed before the page is generated.
+       * @param {string} task - The task that was completed
+       */
+      function beginGeneration(task) {
+        if (tasksBeforeLoading.includes(task)) {
+          tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+          console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
 
-        if(tasksBeforeLoading.length == 0) {
-          updateTranslations();
+          if (tasksBeforeLoading.length == 0) {
+            updateTranslations();
 
-          globalAchievements = getValue(achievementsStats, ["global", "achievements"]) || [];
+            globalAchievements = getValue(achievementsStats, ["global", "achievements"]) || [];
 
-          playerOneTimeAchievements = getValue(achievementsStats, ["player", "achievements_one_time"]) || [];
-          playerTieredAchievements = getValue(achievementsStats, ["player", "achievements"]) || [];
+            playerOneTimeAchievements = getValue(achievementsStats, ["player", "achievements_one_time"]) || [];
+            playerTieredAchievements = getValue(achievementsStats, ["player", "achievements"]) || [];
 
-          generateNetwork();
+            generateNetwork();
 
-          for (let a = 4; a < validGames.length; a++) {
-            achievementsDatabase[validGames[a]] = getAllAchievements(validGames[a]);
-            generateAchievementPage(validGames[a]);
-          }
+            for (let a = 4; a < validGames.length; a++) {
+              achievementsDatabase[validGames[a]] = getAllAchievements(validGames[a]);
+              generateAchievementPage(validGames[a]);
+            }
 
-          achievementsDatabase["skyclash"] = getAllAchievements("skyclash");
-          achievementsDatabase["crazywalls"] = getAllAchievements("crazywalls");
+            achievementsDatabase["skyclash"] = getAllAchievements("skyclash");
+            achievementsDatabase["crazywalls"] = getAllAchievements("crazywalls");
 
-          generateAchievementPage("legacy");
+            generateAchievementPage("legacy");
 
+            updateOverall();
+            updateClosestTiered();
+            updateEasiestOneTime();
+            updateRecentlyCompleted();
 
-          updateOverall();
-          updateClosestTiered();
-          updateEasiestOneTime();
-          updateRecentlyCompleted();
+            const rows = document.querySelectorAll(".achievements-overall-container .row-header");
 
-          const rows = document.querySelectorAll('.achievements-overall-container .row-header');
-          
-          rows.forEach(row => {
-            row.addEventListener('click', function () {
-              const parent = this.parentElement;
-              parent.classList.toggle('active');
+            rows.forEach((row) => {
+              row.addEventListener("click", function () {
+                const parent = this.parentElement;
+                parent.classList.toggle("active");
+              });
             });
-          });
 
-          checkMobileMode(event, true);
-          switchStats(currentGamemode);
-          document.getElementById("header-name").classList.remove("unloaded");
-          updateHeaderGameProgress();
-        }
-      } else {
-        console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
-      }
-      
-    } 
-  </script>
-  <script src="/external/master.js?v=<%= version || 0 %>"></script>
-  <script src="/external/language.js?v=<%= version || 0 %>"></script>
-  <script src="/external/purify.min.js?v=<%= version || 0 %>"></script>
-  <script src="/external/minecrafttext.js?v=<%= version || 0 %>"></script>
-  <script src="/external/webptest.js?v=<%= version || 0 %>"></script>
-
-  <script src="/external/achievements.js?v=<%= version || 0 %>"></script>
-</head>
-
-<body>
-  <div class="background" id="background1"></div>
-  <div class="background" id="background2"></div>
-  <div class="background-filter"></div>
-
-  <div class="nadeshiko-wrapper">
-    <header>
-      <%- include('partials/header') %>
-      <div class="header header2"> <!-- secondary header for game bar -->
-        <div class="header-left">
-          <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
-        </div>
-        <div class="header-right" id="game-buttons">
-          <p class="header-game" onclick="switchStats('overall')" id="button-overall" data-t="games.overall">Overall</p>
-          <p class="header-game" onclick="switchStats('legacy')" id="button-legacy" data-t="games.legacy">Legacy</p>
-          <p class="header-game" onclick="switchStats('general')" id="button-general" data-t="games.general">General</p>
-          <div class="dropdown">
-            <p class="header-down dropdown-button">
-              <img class="dropdown-arrow" src="/img/svg/arrow.svg" alt="More games">
-            </p>
-              <div class="dropdown-content dropdown-games unloaded">
-                <span class="mobile-exclusive" id="game-switch-mobile">
-                </span>
-                <hr class="game-switch-hr">
-                <span id="game-switch">
-                </span>
-                <hr class="dropdown-hr">
-                <span id="seasonal-switch">
-                </span>
-                <hr class="dropdown-hr">
-                <span id="other-switch">
-                </span>
-              </div>
-            
-          </div>
-        </div>
-      </div>
-    </header>   
-    
-    <div class="games" id="games">
-      <div class="flex-container unloaded minigame-flex-container" id="flex-container-overall">
-        <!-- overall achievements -->
-        <div class="chip-container">
-          <div class="chip-small but-big no-overflow">
-            <div class="flex-vertical">
-              <span class="player-name">
-                <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span>
-
-                <span class="tooltip">
-                  <a id="badge-link" target="_blank">
-                    <img class="special icon smallicon badge-large" id="badge" alt="User badge">
-                  </a>
-                  <span class="tooltiptext" id="badge-text"></span>
-                </span>
-              </span>
-              <span id="card-uuid"></span>
-              <div id="maxed-games"></div>
-            </div>
-            <div class="chip-small-container">
-              <div class="flex-two-item align-top flippable margin10">
-                <div class="card-big-stats">
-
-                      <span data-t="statistics.achievement_points">Achievement Points</span> <span class="statistic" id="achievement-points"><span class="mc">Unknown</span></span> / <span id="total-achievement-points"><span class="mc">Unknown</span></span>
-                      <div class="progress-bar">
-                        <span class="progress-number" id="achievement-points-progress-number"><span class="mc">Unknown</span></span>
-                        <div class="progress" style="width: 0%;" id="achievement-points-progress-bar"></div>
-                      </div>
-
-                      <span data-t="achievements.achievements">Achievements</span> <span class="statistic" id="achievements"><span class="mc">Unknown</span></span> / <span id="total-achievements"><span class="mc">Unknown</span></span>
-
-                      <div class="progress-bar">
-                        <span class="progress-number" id="achievements-progress-number"><span class="mc">Unknown</span></span>
-                        <div class="progress" style="width: 0%;" id="achievements-progress-bar"></div>
-                      </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-two-item chip-container-duo-parent">
-            <div id="overall-chips-1" class="chip-container-duo">
-
-              <div class="chip-small achievement-chip">
-                <div class="chip-small-top">
-                  <p class="chip-small-title" data-t="achievements.easiest_uncompleted">Easiest Uncompleted</p>
-                  <span class="flex-two-item"></span>
-                </div>
-                <div class="list achievements-overall-container" id="achievements-easiest-uncompleted">
-                </div>
-              </div>
-
-              <div class="chip-small achievement-chip">
-                <div class="chip-small-top">
-                  <p class="chip-small-title" data-t="achievements.recently_completed">Recently Completed</p>
-                  <span class="flex-two-item"></span>
-                </div>
-                <div class="list achievements-overall-container" id="achievements-recently-completed">
-                </div>
-              </div>
-
-            </div>
-            <div id="overall-chips-2" class="chip-container-duo">
-
-              <div class="chip-small achievement-chip">
-                <div class="chip-small-top">
-                  <p class="chip-small-title" data-t="achievements.closest_tiers">Closest Tiered</p>
-                  <span class="flex-two-item"></span>
-                </div>
-                <div class="list achievements-overall-container" id="achievements-closest-tiers">
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <footer>
-      <%- include('partials/footer') %>
-    </footer>
-  </div>
-
-  <script>
-    let achievementsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(achievementsData)) %>"));
-    let validGames = ["overall", "legacy", "skyclash", "truecombat", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "tkr", "arena", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holiday", "easter", "halloween", "summer",];
-    let generalGames = ["general", "holiday", "easter", "halloween", "summer"];
-    let currentGamemode = "<%= game %>";
-
-    if (!validGames.includes(currentGamemode)) {
-      console.warn(`Invalid game mode; defaulting to the default game (overall)`);
-      currentGamemode = "overall";
-    } else {
-      console.log(`Valid game mode: ${currentGamemode}`);
-    }
-
-    let globalAchievementStats = {
-      "total": {
-        "achievements": 0,
-        "points": 0
-      },
-      "player": {
-        "achievements": 0,
-        "points": 0
-      },
-      "legacy": {
-        "achievements": 0,
-        "points": 0
-      },
-    };
-
-    let globalAchievements, playerOneTimeAchievements, playerTieredAchievements;
-    let playerFormattedTierAchievements = [];
-    let playerFormattedOneTimeAchievements = [];
-    let achievementsDatabase = {
-      "legacy": {
-        "tiered": {},
-        "one_time": {}
-      }
-    };
-    let maxedGames = [];
-
-    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-achievements-overall'));
-
-    window.addEventListener("resize", checkMobileMode);
-
-    function checkMobileMode(event, override = false) {
-    if (window.innerWidth < 800) {
-      if (!mobileMode || override) {
-        console.log("Mobile mode activated!" + override);
-        mobileMode = true;
-        const duoParents = document.querySelectorAll('.chip-container-duo-parent');
-
-        duoParents.forEach(duoParent => {
-          const parent1 = duoParent.children[0];
-          const parent2 = duoParent.children[1];
-          const children1 = Array.from(parent1.children);
-          const children2 = Array.from(parent2.children);
-
-          let maxLength = Math.max(children1.length, children2.length);
-          for (let i = 0; i < maxLength; i++) {
-            if (children1[i]) {
-              parent1.appendChild(children1[i]);
-            }
-            if (children2[i]) {
-              parent1.appendChild(children2[i]);
-            }
+            checkMobileMode(event, true);
+            switchStats(currentGamemode);
+            document.getElementById("header-name").classList.remove("unloaded");
+            updateHeaderGameProgress();
           }
-
-          parent2.style.display = 'none';
-        });
+        } else {
+          console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
+        }
       }
-    } else {
-      if (mobileMode) {
-        mobileMode = false;
-        const duoParents = document.querySelectorAll('.chip-container-duo-parent');
+    </script>
+    <script src="/external/master.js?v=<%= version || 0 %>"></script>
+    <script src="/external/language.js?v=<%= version || 0 %>"></script>
+    <script src="/external/purify.min.js?v=<%= version || 0 %>"></script>
+    <script src="/external/minecrafttext.js?v=<%= version || 0 %>"></script>
+    <script src="/external/webptest.js?v=<%= version || 0 %>"></script>
 
-        duoParents.forEach(duoParent => {
-          const parent1 = duoParent.children[0];
-          const parent2 = duoParent.children[1];
-          const children1 = Array.from(parent1.children);
+    <script src="/external/achievements.js?v=<%= version || 0 %>"></script>
+  </head>
 
-          parent1.innerHTML = ''
-          parent2.innerHTML = '';
+  <body>
+    <div class="background" id="background1"></div>
+    <div class="background" id="background2"></div>
+    <div class="background-filter"></div>
 
-          children1.forEach((child, index) => {
-            if (index % 2 === 0) {
-              parent1.appendChild(child);
-            } else {
-              parent2.appendChild(child);
-            }
-          });
+    <div class="nadeshiko-wrapper">
+      <header>
+        <%- include('partials/header') %>
+        <div class="header header2">
+          <!-- secondary header for game bar -->
+          <div class="header-left">
+            <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
+          </div>
+          <div class="header-right" id="game-buttons">
+            <p class="header-game" onclick="switchStats('overall')" id="button-overall" data-t="games.overall">Overall</p>
+            <p class="header-game" onclick="switchStats('legacy')" id="button-legacy" data-t="games.legacy">Legacy</p>
+            <p class="header-game" onclick="switchStats('general')" id="button-general" data-t="games.general">General</p>
+            <div class="dropdown">
+              <p class="header-down dropdown-button">
+                <img class="dropdown-arrow" src="/img/svg/arrow.svg" alt="More games" />
+              </p>
+              <div class="dropdown-content dropdown-games unloaded">
+                <span class="mobile-exclusive" id="game-switch-mobile"> </span>
+                <hr class="game-switch-hr" />
+                <span id="game-switch"> </span>
+                <hr class="dropdown-hr" />
+                <span id="seasonal-switch"> </span>
+                <hr class="dropdown-hr" />
+                <span id="other-switch"> </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
 
-          parent2.style.display = '';
-        });
+      <div class="games" id="games">
+        <div class="flex-container unloaded minigame-flex-container" id="flex-container-overall">
+          <!-- overall achievements -->
+          <div class="chip-container">
+            <div class="chip-small but-big no-overflow">
+              <div class="flex-vertical">
+                <span class="player-name">
+                  <span class="rank" id="card-rank"
+                    ><span id="card-ranktext"><span class="mc">Unknown</span></span></span
+                  >
+                  <span class="m7" id="card-name"><span class="mc">Unknown</span></span>
+
+                  <span class="tooltip">
+                    <a id="badge-link" target="_blank">
+                      <img class="special icon smallicon badge-large" id="badge" alt="User badge" />
+                    </a>
+                    <span class="tooltiptext" id="badge-text"></span>
+                  </span>
+                </span>
+                <span id="card-uuid"></span>
+                <div id="maxed-games"></div>
+              </div>
+              <div class="chip-small-container">
+                <div class="flex-two-item align-top flippable margin10">
+                  <div class="card-big-stats">
+                    <span data-t="statistics.achievement_points">Achievement Points</span> <span class="statistic" id="achievement-points"><span class="mc">Unknown</span></span> / <span id="total-achievement-points"><span class="mc">Unknown</span></span>
+                    <div class="progress-bar">
+                      <span class="progress-number" id="achievement-points-progress-number"><span class="mc">Unknown</span></span>
+                      <div class="progress" style="width: 0%" id="achievement-points-progress-bar"></div>
+                    </div>
+
+                    <span data-t="achievements.achievements">Achievements</span> <span class="statistic" id="achievements"><span class="mc">Unknown</span></span> / <span id="total-achievements"><span class="mc">Unknown</span></span>
+
+                    <div class="progress-bar">
+                      <span class="progress-number" id="achievements-progress-number"><span class="mc">Unknown</span></span>
+                      <div class="progress" style="width: 0%" id="achievements-progress-bar"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-two-item chip-container-duo-parent">
+              <div id="overall-chips-1" class="chip-container-duo">
+                <div class="chip-small achievement-chip">
+                  <div class="chip-small-top">
+                    <p class="chip-small-title" data-t="achievements.easiest_uncompleted">Easiest Uncompleted</p>
+                    <span class="flex-two-item"></span>
+                  </div>
+                  <div class="list achievements-overall-container" id="achievements-easiest-uncompleted"></div>
+                </div>
+
+                <div class="chip-small achievement-chip">
+                  <div class="chip-small-top">
+                    <p class="chip-small-title" data-t="achievements.recently_completed">Recently Completed</p>
+                    <span class="flex-two-item"></span>
+                  </div>
+                  <div class="list achievements-overall-container" id="achievements-recently-completed"></div>
+                </div>
+              </div>
+              <div id="overall-chips-2" class="chip-container-duo">
+                <div class="chip-small achievement-chip">
+                  <div class="chip-small-top">
+                    <p class="chip-small-title" data-t="achievements.closest_tiers">Closest Tiered</p>
+                    <span class="flex-two-item"></span>
+                  </div>
+                  <div class="list achievements-overall-container" id="achievements-closest-tiers"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer><%- include('partials/footer') %></footer>
+    </div>
+
+    <script>
+      let achievementsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(achievementsData)) %>"));
+      let validGames = ["overall", "legacy", "skyclash", "truecombat", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "tkr", "arena", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holiday", "easter", "halloween", "summer"];
+      let generalGames = ["general", "holiday", "easter", "halloween", "summer"];
+      let currentGamemode = "<%= game %>";
+
+      if (!validGames.includes(currentGamemode)) {
+        console.warn(`Invalid game mode; defaulting to the default game (overall)`);
+        currentGamemode = "overall";
+      } else {
+        console.log(`Valid game mode: ${currentGamemode}`);
       }
-    }
-  }
 
-
-  /*
-   * Changes the current gamemode (background, highlighted button, etc.) to the specified gamemode
-   * @param {string} gamemode The gamemode to switch to
-   */
-  function switchStats(gamemode) {
-    // if not in validGames 
-    if (!validGames.includes(gamemode)) {
-      console.error(`Invalid game mode "${gamemode}"!`);
-      return;
-    }
-      gamesWithEasilyClickableButtons = ["overall", "legacy", "general"];
-    //if(gamemode != currentGamemode) {
-      if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
-        document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
-      }
-      document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");      
-      currentGamemode = gamemode;
-
-      if(gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
-        document.getElementById("button-" + currentGamemode).classList.add("highlighted");
-      }
-
-      let customAccents = {
-        "general": "network",
-        "overall": "achievements-overall",
-        "legacy": "achievements-legacy"
+      let globalAchievementStats = {
+        total: {
+          achievements: 0,
+          points: 0,
+        },
+        player: {
+          achievements: 0,
+          points: 0,
+        },
+        legacy: {
+          achievements: 0,
+          points: 0,
+        },
       };
 
-      if (customAccents[currentGamemode] != undefined) {
-        document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + customAccents[currentGamemode]));
-      } else {
-        document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-' + currentGamemode));
+      let globalAchievements, playerOneTimeAchievements, playerTieredAchievements;
+      let playerFormattedTierAchievements = [];
+      let playerFormattedOneTimeAchievements = [];
+      let achievementsDatabase = {
+        legacy: {
+          tiered: {},
+          one_time: {},
+        },
+      };
+      let maxedGames = [];
+
+      document.documentElement.style.setProperty("--accent", getComputedStyle(document.documentElement).getPropertyValue("--accent-achievements-overall"));
+
+      window.addEventListener("resize", checkMobileMode);
+
+      function checkMobileMode(event, override = false) {
+        if (window.innerWidth < 800) {
+          if (!mobileMode || override) {
+            console.log("Mobile mode activated!" + override);
+            mobileMode = true;
+            const duoParents = document.querySelectorAll(".chip-container-duo-parent");
+
+            duoParents.forEach((duoParent) => {
+              const parent1 = duoParent.children[0];
+              const parent2 = duoParent.children[1];
+              const children1 = Array.from(parent1.children);
+              const children2 = Array.from(parent2.children);
+
+              let maxLength = Math.max(children1.length, children2.length);
+              for (let i = 0; i < maxLength; i++) {
+                if (children1[i]) {
+                  parent1.appendChild(children1[i]);
+                }
+                if (children2[i]) {
+                  parent1.appendChild(children2[i]);
+                }
+              }
+
+              parent2.style.display = "none";
+            });
+          }
+        } else {
+          if (mobileMode) {
+            mobileMode = false;
+            const duoParents = document.querySelectorAll(".chip-container-duo-parent");
+
+            duoParents.forEach((duoParent) => {
+              const parent1 = duoParent.children[0];
+              const parent2 = duoParent.children[1];
+              const children1 = Array.from(parent1.children);
+
+              parent1.innerHTML = "";
+              parent2.innerHTML = "";
+
+              children1.forEach((child, index) => {
+                if (index % 2 === 0) {
+                  parent1.appendChild(child);
+                } else {
+                  parent2.appendChild(child);
+                }
+              });
+
+              parent2.style.display = "";
+            });
+          }
+        }
       }
-      document.getElementById("flex-container-" + currentGamemode).style.display = "flex";
-      document.body.scrollTop; // Forces a DOM reflow to allow the transition to work
-      document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
-      
-      setBackground(currentGamemode);
 
-      // Change the URL to reflect the current gamemode
-      if (history.replaceState && achievementsStats != undefined) {
-       window.history.replaceState({}, null, `/achievements/${deformatName(achievementsStats["player"]["profile"]["tagged_name"])}/${currentGamemode}`);
+      /*
+       * Changes the current gamemode (background, highlighted button, etc.) to the specified gamemode
+       * @param {string} gamemode The gamemode to switch to
+       */
+      function switchStats(gamemode) {
+        // if not in validGames
+        if (!validGames.includes(gamemode)) {
+          console.error(`Invalid game mode "${gamemode}"!`);
+          return;
+        }
+        gamesWithEasilyClickableButtons = ["overall", "legacy", "general"];
+        //if(gamemode != currentGamemode) {
+        if (gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
+          document.getElementById("button-" + currentGamemode).classList.remove("highlighted");
+        }
+        document.getElementById("flex-container-" + currentGamemode).classList.add("unloaded");
+        currentGamemode = gamemode;
+
+        if (gamesWithEasilyClickableButtons.indexOf(currentGamemode) != -1) {
+          document.getElementById("button-" + currentGamemode).classList.add("highlighted");
+        }
+
+        let customAccents = {
+          general: "network",
+          overall: "achievements-overall",
+          legacy: "achievements-legacy",
+        };
+
+        if (customAccents[currentGamemode] != undefined) {
+          document.documentElement.style.setProperty("--accent", getComputedStyle(document.documentElement).getPropertyValue("--accent-" + customAccents[currentGamemode]));
+        } else {
+          document.documentElement.style.setProperty("--accent", getComputedStyle(document.documentElement).getPropertyValue("--accent-" + currentGamemode));
+        }
+        document.getElementById("flex-container-" + currentGamemode).style.display = "flex";
+        document.body.scrollTop; // Forces a DOM reflow to allow the transition to work
+        document.getElementById("flex-container-" + currentGamemode).classList.remove("unloaded");
+
+        setBackground(currentGamemode);
+
+        // Change the URL to reflect the current gamemode
+        if (history.replaceState && achievementsStats != undefined) {
+          window.history.replaceState({}, null, `/achievements/${deformatName(achievementsStats["player"]["profile"]["tagged_name"])}/${currentGamemode}`);
+        }
+        //}
       }
-    //}
-  }
 
-  function setBackground(gamemode) { // Allows a fade between two backgrounds. Is this totally inefficient? Probably
-    console.log(`Changing background to ${gamemode}`);
-    let backgroundUrl;
-    let irregularBackgrounds = {
-      overall: `/img/games/achievements/overall.${imageFileType || 'webp'}`,
-      general: `/img/games/network/lobby.${imageFileType || 'webp'}`,
-      legacy: `/img/games/achievements/legacy.${imageFileType || 'webp'}`
-    };
+      function setBackground(gamemode) {
+        // Allows a fade between two backgrounds. Is this totally inefficient? Probably
+        console.log(`Changing background to ${gamemode}`);
+        let backgroundUrl;
+        let irregularBackgrounds = {
+          overall: `/img/games/achievements/overall.${imageFileType || "webp"}`,
+          general: `/img/games/network/lobby.${imageFileType || "webp"}`,
+          legacy: `/img/games/achievements/legacy.${imageFileType || "webp"}`,
+        };
 
-    if (irregularBackgrounds[gamemode] != undefined) {
-      backgroundUrl = irregularBackgrounds[gamemode];
-    } else {
-      backgroundUrl = `/img/games/${gamemode}/lobby.${imageFileType}`;
-    }
-    
-     const bg1 = document.getElementById("background1");
-     const bg2 = document.getElementById("background2");
-     if (bg1.style.opacity == '1' || bg1.style.opacity === '') {
-       bg2.style.backgroundImage = `url('${backgroundUrl}')`;
-       bg1.style.opacity = '0';
-       bg2.style.opacity = '1';
-     } else {
-       bg1.style.backgroundImage = `url('${backgroundUrl}')`;
-       bg2.style.opacity = '0';
-       bg1.style.opacity = '1';
-     }
-   }
+        if (irregularBackgrounds[gamemode] != undefined) {
+          backgroundUrl = irregularBackgrounds[gamemode];
+        } else {
+          backgroundUrl = `/img/games/${gamemode}/lobby.${imageFileType}`;
+        }
 
-  </script>
-</body>
+        const bg1 = document.getElementById("background1");
+        const bg2 = document.getElementById("background2");
+        if (bg1.style.opacity == "1" || bg1.style.opacity === "") {
+          bg2.style.backgroundImage = `url('${backgroundUrl}')`;
+          bg1.style.opacity = "0";
+          bg2.style.opacity = "1";
+        } else {
+          bg1.style.backgroundImage = `url('${backgroundUrl}')`;
+          bg2.style.opacity = "0";
+          bg1.style.opacity = "1";
+        }
+      }
+    </script>
+  </body>
 </html>

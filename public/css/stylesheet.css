@@ -146,6 +146,7 @@ header {
 .header-right {
   display: flex;
   align-items: center;
+  transition-duration: var(--transition);
 }
 
 .header-left a,
@@ -2821,13 +2822,13 @@ html {
     margin-inline-end: 5px;
   }
 
-  .searchbar-container,
-  .searchbar-container:focus-within,
-  .searchbar:focus,
-  .searchbar,
   .card-big-misc,
   .card-big-stats {
     width: 100%;
+  }
+
+  .searchbar-container {
+    width: 100% !important;
   }
 
   .card-big-stats {
@@ -2979,6 +2980,25 @@ html {
 
   .no-margin {
     margin: 0px;
+  }
+
+  .header1 .header-button {
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+  }
+
+  .header1.searchbar-selected .header-right {
+    flex-grow: 1;
+  }
+
+  .header1.searchbar-selected > * > .header-button {
+    padding: 0;
+    opacity: 0;
+    margin: 0;
+  }
+
+  .header1.searchbar-selected > * > .header-button > img {
+    width: 0;
   }
 }
 
