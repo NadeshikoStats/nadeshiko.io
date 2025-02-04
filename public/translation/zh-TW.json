@@ -341,7 +341,8 @@
         "mega": "百人",
         "lab": "實驗室",
         "normal": "Normal",
-        "insane": "Insane"
+        "insane": "Insane",
+        "lucky_blocks": "Lucky Blocks"
       },
       "arcade": {
         "blockingdead": "陰屍潮",
@@ -359,7 +360,11 @@
         "miniwalls": "迷你戰牆",
         "partygames": "派對遊戲",
         "pixelpainters": "像素畫家",
-        "pixelparty": "像素派對",
+        "pixelparty": {
+          "category": "Pixel Party",
+          "normal": "Normal",
+          "hyper": "Hyper"
+        },
         "throwout": "混棍亂鬥",
         "hideandseek": {
           "category": "躲貓貓",

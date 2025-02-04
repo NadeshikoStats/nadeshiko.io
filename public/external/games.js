@@ -2154,7 +2154,7 @@ function generateArcade() {
 
   let pixelPartyCard = [
     "arcade-stats-pixelparty", // ID
-    getTranslation("games.modes.arcade.pixelparty"), // Title
+    getTranslation("games.modes.arcade.pixelparty.category"), // Title
     "", // Subtitle
     `/img/games/arcade/pixelparty.${imageFileType}`, // Background image
     [
@@ -4613,7 +4613,7 @@ function generateWoolGames() {
     </div>`;
   let minigameFragment = setupMinigameContainer("flex-container-woolgames", minigameTemplate);
 
-  let woolWarsPrestigeIcons = {
+  let woolGamesPrestigeIcons = {
     HEART: { icon: "❤\uFE0E", minStars: 0 },
     PLUS: { icon: "✙\uFE0E", minStars: 100 },
     STAR: { icon: "✫\uFE0E", minStars: 200 },
@@ -4676,11 +4676,11 @@ function generateWoolGames() {
   let woolGamesPrestigeIcon;
 
   if (woolGamesStats["wool_wars_prestige_icon"] != undefined) {
-    selectedWoolGamesPrestige = woolWarsPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolWarsPrestigeIcons["HEART"];
+    selectedWoolGamesPrestige = woolGamesPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolGamesPrestigeIcons["HEART"];
     woolGamesPrestigeIcon = selectedWoolGamesPrestige["icon"];
   } else {
     // Use the prestige icon based on the user's level (minStars)
-    for (const [key, value] of Object.entries(woolWarsPrestigeIcons)) {
+    for (const [key, value] of Object.entries(woolGamesPrestigeIcons)) {
       if (woolGamesLevel >= value["minStars"]) {
         woolGamesPrestigeIcon = value["icon"];
       }

@@ -159,6 +159,53 @@ function getWoolGamesLevel(exp) {
   return level + exp / 5000;
 }
 
+function formatWoolGamesLevel(level) {
+  let woolGamesPrestigeIcon;
+
+  let woolGamesPrestigeIcons = {
+    HEART: { icon: "❤\uFE0E", minStars: 0 },
+    PLUS: { icon: "✙\uFE0E", minStars: 100 },
+    STAR: { icon: "✫\uFE0E", minStars: 200 },
+    PLANE: { icon: "✈\uFE0E", minStars: 300 },
+    CROSS: { icon: "✠\uFE0E", minStars: 400 },
+    CROWN: { icon: "♕\uFE0E", minStars: 500 },
+    LIGHTNING: { icon: "⚡\uFE0E", minStars: 600 },
+    NUKE: { icon: "☢\uFE0E", minStars: 700 },
+    PENCIL: { icon: "✏\uFE0E", minStars: 900 },
+    YIN_YANG: { icon: "☯\uFE0E", minStars: 1000 },
+  };
+
+  let woolWarsLevels = [
+    { req: 0, color: "§7" },
+    { req: 100, color: "§f" },
+    { req: 200, color: "§c" },
+    { req: 300, color: "§6" },
+    { req: 400, color: "§e" },
+    { req: 500, color: "§a" },
+    { req: 600, color: "§3" },
+    { req: 700, color: "§5" },
+    { req: 800, color: "§d" },
+    { req: 900, color: "rainbow" },
+    { req: 1000, color: "§f", bracketColor: "§0" },
+  ];
+
+  for (const [key, value] of Object.entries(woolGamesPrestigeIcons)) {
+    if (level >= value["minStars"]) {
+      woolGamesPrestigeIcon = value["icon"];
+    }
+  }
+
+  let formattedWoolWarsLevel = getGenericWinsPrefix({
+    wins: Math.floor(level),
+    winsObject: woolWarsLevels,
+    suffix: woolGamesPrestigeIcon,
+    useToGo: false,
+    useDifferentBracketColors: true,
+  })["title"];
+
+  return formattedWoolWarsLevel;
+}
+
 function getBuildBattleTitle(score, includeToGo = false) {
   // Gets player's Build Battle title based on an amount of score
 

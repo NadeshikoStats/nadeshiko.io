@@ -341,7 +341,8 @@
         "mega": "超级",
         "lab": "实验室",
         "normal": "普通",
-        "insane": "疯狂"
+        "insane": "疯狂",
+        "lucky_blocks": "Lucky Blocks"
       },
       "arcade": {
         "blockingdead": "行尸走肉",
@@ -359,7 +360,11 @@
         "miniwalls": "迷你战墙",
         "partygames": "派对游戏",
         "pixelpainters": "像素画家",
-        "pixelparty": "像素派对",
+        "pixelparty": {
+          "category": "Pixel Party",
+          "normal": "Normal",
+          "hyper": "Hyper"
+        },
         "throwout": "乱棍之战",
         "hideandseek": {
           "category": "躲猫猫",

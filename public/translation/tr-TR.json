@@ -341,7 +341,8 @@
         "mega": "Mega",
         "lab": "Laboratory",
         "normal": "Normal",
-        "insane": "Insane"
+        "insane": "Insane",
+        "lucky_blocks": "Lucky Blocks"
       },
       "arcade": {
         "blockingdead": "Blocking Dead",
@@ -359,7 +360,11 @@
         "miniwalls": "Mini Walls",
         "partygames": "Parti Oyunları",
         "pixelpainters": "Pixel Painters",
-        "pixelparty": "Pixel Party",
+        "pixelparty": {
+          "category": "Pixel Party",
+          "normal": "Normal",
+          "hyper": "Hyper"
+        },
         "throwout": "Throw Out",
         "hideandseek": {
           "category": "Hide and Seek",

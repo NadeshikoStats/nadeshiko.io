@@ -5,7 +5,7 @@ const minify = require("express-minify");
 const app = express();
 const port = 8080;
 
-const version = "1.2.4-a"; // Updating this will force the cache to clear for all users
+const version = "1.3.0"; // Updating this will force the cache to clear for all users
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
@@ -772,7 +772,7 @@ function getMetaDescription(game, playerData) {
         woolGamesOverallStats["kills"] = captureTheWoolStatsObject["kills"] + und(woolWarsNumericalStats["kills"]) + und(sheepWarsNumericalStats["kills"]);
         woolGamesOverallStats["deaths"] = captureTheWoolStatsObject["deaths"] + und(woolWarsNumericalStats["deaths"]) + und(sheepWarsNumericalStats["deaths"]);
 
-        let woolWarsPrestigeIcons = {
+        let woolGamesPrestigeIcons = {
           HEART: { icon: "❤\uFE0E", minStars: 0 },
           PLUS: { icon: "✙\uFE0E", minStars: 100 },
           STAR: { icon: "✫\uFE0E", minStars: 200 },
@@ -789,11 +789,11 @@ function getMetaDescription(game, playerData) {
         let woolGamesLevel = getWoolGamesLevel(und(woolGamesProgression["experience"]));
 
         if (woolGamesStats["wool_wars_prestige_icon"] != undefined) {
-          selectedWoolGamesPrestige = woolWarsPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolWarsPrestigeIcons["HEART"];
+          selectedWoolGamesPrestige = woolGamesPrestigeIcons[woolGamesStats["wool_wars_prestige_icon"]] || woolGamesPrestigeIcons["HEART"];
           woolGamesPrestigeIcon = selectedWoolGamesPrestige["icon"];
         } else {
           // Use the prestige icon based on the user's level (minStars)
-          for (const [key, value] of Object.entries(woolWarsPrestigeIcons)) {
+          for (const [key, value] of Object.entries(woolGamesPrestigeIcons)) {
             if (woolGamesLevel >= value["minStars"]) {
               woolGamesPrestigeIcon = value["icon"];
             }
@@ -1154,6 +1154,7 @@ const handleSkyBlockRoute = async (name, req, res) => {
     category: ``,
     page: ``,
   };
+  res.render("index", { computationError, version }); // no more skyblock
 
   try {
     const response = await axios.get(`http://localhost:2000/skyblock?name=${name}`);

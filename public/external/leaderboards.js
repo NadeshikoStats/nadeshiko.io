@@ -12,6 +12,188 @@ let leaderboards = [
       { translation: "statistics.first_login", id: "NETWORK_FIRST_LOGIN", format: "date_and_time" },
     ],
   },
+
+  {
+    translation: "games.arcade",
+    type: "a",
+    icon: "icon/minecraft/slime_ball",
+    modes: [
+      {
+        translation: "games.overall",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_WINS", format: "number" },
+          { translation: "statistics.coins", id: "ARCADE_COINS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.blockingdead",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_BLOCKING_DEAD_WINS", format: "number" },
+          { translation: "statistics.kills", id: "ARCADE_BLOCKING_DEAD_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.bountyhunters",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_BOUNTY_HUNTERS_WINS", format: "number" },
+          { translation: "statistics.kills", id: "ARCADE_BOUNTY_HUNTERS_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.creeperattack",
+        type: "b",
+        leaderboards: [{ translation: "statistics.max_wave", id: "ARCADE_CREEPER_ATTACK_MAX_WAVE", format: "number" }],
+      },
+      {
+        translation: "games.modes.arcade.dragonwars",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_DRAGON_WARS_WINS", format: "number" },
+          { translation: "statistics.kills", id: "ARCADE_DRAGON_WARS_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.dropper",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_DROPPER_WINS", format: "number" },
+          { translation: "statistics.best_time", id: "ARCADE_DROPPER_BEST_TIME", format: "duration_milliseconds" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.enderspleef",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_ENDER_SPLEEF_WINS", format: "number" },
+          { translation: "statistics.blocks_destroyed", id: "ARCADE_ENDER_SPLEEF_BLOCKS_DESTROYED", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.farmhunt",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_FARM_HUNT_WINS", format: "number" },
+          { translation: "statistics.wins_hunter", id: "FARM_HUNT_HUNTER_WINS", format: "number" },
+          { translation: "statistics.wins_animal", id: "FARM_HUNT_ANIMAL_WINS", format: "number" },
+          { translation: "statistics.kills", id: "ARCADE_FARM_HUNT_KILLS", format: "number" },
+          { translation: "statistics.taunts", id: "FARM_HUNT_TAUNTS_USED", format: "number" },
+          { translation: "statistics.poop_collected", id: "FARM_HUNT_POOP_COLLECTED", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.football",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_FOOTBALL_WINS", format: "number" },
+          { translation: "statistics.goals", id: "ARCADE_FOOTBALL_GOALS", format: "number" },
+          { translation: "statistics.kicks", id: "ARCADE_FOOTBALL_KICKS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.galaxywars",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_GALAXY_WARS_WINS", format: "number" },
+          { translation: "statistics.kills", id: "ARCADE_GALAXY_WARS_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "ARCADE_GALAXY_WARS_KDR", format: "decimal_2" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.hideandseek.category",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_HIDE_AND_SEEK_WINS", format: "number" },
+          { translation: "multi", translations: ["statistics.wins", "games.modes.arcade.hideandseek.party_pooper"], id: "ARCADE_HIDE_AND_SEEK_PARTY_POOPER_WINS", format: "number" },
+          { translation: "multi", translations: ["statistics.wins", "games.modes.arcade.hideandseek.prop_hunt"], id: "ARCADE_HIDE_AND_SEEK_PROP_HUNT_WINS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.holeinthewall",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_HOLE_IN_THE_WALL_WINS", format: "number" },
+          { translation: "statistics.record_qualifications", id: "ARCADE_HOLE_IN_THE_WALL_QUALIFICATIONS_RECORD", format: "number" },
+          { translation: "statistics.record_finals", id: "ARCADE_HOLE_IN_THE_WALL_FINALS_RECORD", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.hypixelsays",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "ARCADE_HYPIXEL_SAYS_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.arcade.miniwalls",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_MINI_WALLS_WINS", format: "number" },
+          { translation: "statistics.final_kills", id: "ARCADE_MINI_WALLS_FINAL_KILLS", format: "number" },
+          { translation: "statistics.kills", id: "ARCADE_MINI_WALLS_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.partygames",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "ARCADE_PARTY_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.arcade.pixelparty.category",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_PIXEL_PARTY_WINS", format: "number" },
+          { translation: "multi", translations: ["statistics.wins", "games.modes.arcade.pixelparty.normal"], id: "ARCADE_PIXEL_PARTY_NORMAL_WINS", format: "number" },
+          { translation: "multi", translations: ["statistics.wins", "games.modes.arcade.pixelparty.hyper"], id: "ARCADE_PIXEL_PARTY_HYPER_WINS", format: "number" },
+          { translation: "statistics.powerups", id: "ARCADE_PIXEL_PARTY_POWERUPS_COLLECTED", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.throwout",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_THROW_OUT_WINS", format: "number" },
+          { translation: "statistics.kills", id: "ARCADE_THROW_OUT_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.zombies.category",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_ZOMBIES_WINS", format: "number" },
+          { translation: "statistics.kills", id: "ARCADE_ZOMBIES_KILLS", format: "number" },
+          { translation: "statistics.windows_repaired", id: "ARCADE_ZOMBIES_WINDOWS_REPAIRED", format: "number" },
+          { translation: "statistics.revives", id: "ARCADE_ZOMBIES_PLAYERS_REVIVED", format: "number" },
+          { translation: "statistics.doors_opened", id: "ARCADE_ZOMBIES_DOORS_OPENED", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.seasonal.category",
+        type: "b",
+        leaderboards: [
+          { translation: "multi", translations: ["statistics.wins", "games.modes.arcade.seasonal.grinch_simulator_v2"], id: "ARCADE_GRINCH_SIMULATOR_WINS", format: "number" },
+          { translation: "multi", translations: ["statistics.gifts_stolen", "games.modes.arcade.seasonal.grinch_simulator_v2"], id: "ARCADE_GRINCH_SIMULATOR_GIFTS_STOLEN", format: "number" },
+          { translation: "multi", translations: ["statistics.wins", "games.modes.arcade.seasonal.halloween_simulator"], id: "ARCADE_HALLOWEEN_SIMULATOR_WINS", format: "number" },
+          { translation: "multi", translations: ["statistics.wins", "games.modes.arcade.seasonal.easter_simulator"], id: "ARCADE_EASTER_SIMULATOR_WINS", format: "number" },
+          { translation: "multi", translations: ["statistics.wins", "games.modes.arcade.seasonal.santa_simulator"], id: "ARCADE_SANTA_SIMULATOR_WINS", format: "number" },
+
+          { translation: "multi", translations: ["statistics.wins", "games.modes.arcade.seasonal.scuba_simulator"], id: "ARCADE_SCUBA_SIMULATOR_WINS", format: "number" },
+        ],
+      },
+    ],
+  },
+  {
+    translation: "games.arena",
+    type: "b",
+    icon: "icon/minecraft/blaze_powder",
+    leaderboards: [
+      { translation: "statistics.wins", id: "ARENA_BRAWL_WINS", format: "number" },
+      { translation: "statistics.kills", id: "ARENA_BRAWL_KILLS", format: "number" },
+      { translation: "statistics.kdr", id: "ARENA_BRAWL_KDR", format: "decimal_2" },
+      { translation: "statistics.coins", id: "ARENA_BRAWL_COINS", format: "number" },
+      { translation: "statistics.magical_chests", id: "ARENA_BRAWL_MAGICAL_CHESTS", format: "number" },
+    ],
+  },
   {
     translation: "games.bedwars",
     type: "a",
@@ -32,7 +214,10 @@ let leaderboards = [
           { translation: "statistics.bblr", id: "BEDWARS_BBLR", format: "decimal_2" },
           { translation: "statistics.winstreak", id: "BEDWARS_WINSTREAK", format: "number" },
           { translation: "statistics.challenges_completed", id: "BEDWARS_COMPLETED_CHALLENGES", format: "number" },
+          { translation: "statistics.tokens", id: "BEDWARS_TOKENS", format: "number" },
           { translation: "statistics.slumber_tickets_earned", id: "BEDWARS_TICKETS_EARNED", format: "number" },
+          { translation: "statistics.iron_collected", id: "BEDWARS_COLLECTED_IRON", format: "number" },
+          { translation: "statistics.gold_collected", id: "BEDWARS_COLLECTED_GOLD", format: "number" },
           { translation: "statistics.diamonds_collected", id: "BEDWARS_COLLECTED_DIAMONDS", format: "number" },
           { translation: "statistics.emeralds_collected", id: "BEDWARS_COLLECTED_EMERALDS", format: "number" },
         ],
@@ -95,58 +280,35 @@ let leaderboards = [
     ],
   },
   {
-    translation: "games.arcade",
+    translation: "games.blitz",
     type: "a",
-    icon: "icon/minecraft/slime_ball",
+    icon: "icon/minecraft/diamond_sword",
     modes: [
       {
-        translation: "games.modes.arcade.dropper",
+        translation: "games.overall",
         type: "b",
         leaderboards: [
-          { translation: "statistics.wins", id: "ARCADE_DROPPER_WINS", format: "number" },
-          { translation: "statistics.best_time", id: "ARCADE_DROPPER_BEST_TIME", format: "duration_milliseconds" },
+          { translation: "statistics.wins", id: "BLITZ_WINS", format: "number" },
+          { translation: "statistics.kills", id: "BLITZ_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "BLITZ_KDR", format: "decimal_2" },
+          { translation: "statistics.coins", id: "BLITZ_COINS", format: "number" },
+          { translation: "statistics.damage_dealt", id: "BLITZ_DAMAGE_DEALT", format: "large_number" },
         ],
       },
       {
-        translation: "games.modes.arcade.hypixelsays",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "ARCADE_HYPIXEL_SAYS_WINS", format: "number" }],
-      },
-      {
-        translation: "games.modes.arcade.miniwalls",
+        translation: "games.modes.classic.quakecraft.solo",
         type: "b",
         leaderboards: [
-          { translation: "statistics.wins", id: "ARCADE_MINI_WALLS_WINS", format: "number" },
-          { translation: "statistics.kills", id: "ARCADE_MINI_WALLS_KILLS", format: "number" },
+          { translation: "statistics.wins", id: "BLITZ_SOLO_WINS", format: "number" },
+          { translation: "statistics.kills", id: "BLITZ_SOLO_KILLS", format: "number" },
         ],
       },
       {
-        translation: "games.modes.arcade.partygames",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "ARCADE_PARTY_WINS", format: "number" }],
-      },
-      {
-        translation: "games.modes.arcade.pixelparty",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "ARCADE_PIXEL_PARTY_WINS", format: "number" }],
-      },
-      {
-        translation: "games.modes.arcade.throwout",
+        translation: "games.modes.classic.quakecraft.teams",
         type: "b",
         leaderboards: [
-          { translation: "statistics.wins", id: "ARCADE_THROW_OUT_WINS", format: "number" },
-          { translation: "statistics.kills", id: "ARCADE_THROW_OUT_KILLS", format: "number" },
-        ],
-      },
-      {
-        translation: "games.modes.arcade.zombies.category",
-        type: "b",
-        leaderboards: [
-          { translation: "statistics.wins", id: "ARCADE_ZOMBIES_WINS", format: "number" },
-          { translation: "statistics.kills", id: "ARCADE_ZOMBIES_KILLS", format: "number" },
-          { translation: "statistics.windows_repaired", id: "ARCADE_ZOMBIES_WINDOWS_REPAIRED", format: "number" },
-          { translation: "statistics.revives", id: "ARCADE_ZOMBIES_PLAYERS_REVIVED", format: "number" },
-          { translation: "statistics.doors_opened", id: "ARCADE_ZOMBIES_DOORS_OPENED", format: "number" },
+          { translation: "statistics.wins", id: "BLITZ_TEAM_WINS", format: "number" },
+          { translation: "statistics.kills", id: "BLITZ_TEAM_KILLS", format: "number" },
         ],
       },
     ],
@@ -162,17 +324,92 @@ let leaderboards = [
         leaderboards: [
           { translation: "statistics.score", id: "BUILD_BATTLE_SCORE", format: "buildbattle_experience" },
           { translation: "statistics.wins", id: "BUILD_BATTLE_WINS", format: "number" },
-          { translation: "statistics.correct_guesses", id: "BUILD_BATTLE_GTB_CORRECT_GUESSES", format: "number" },
           { translation: "statistics.votes", id: "BUILD_BATTLE_VOTES", format: "number" },
+          { translation: "statistics.tokens", id: "BUILD_BATTLE_TOKENS", format: "number" },
         ],
+      },
+      {
+        translation: "games.modes.buildbattle.solo_normal",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "BUILD_BATTLE_SOLO_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.buildbattle.teams_normal",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "BUILD_BATTLE_SOLO_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.buildbattle.solo_pro",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "BUILD_BATTLE_PRO_WINS", format: "number" }],
       },
       {
         translation: "games.modes.buildbattle.guess_the_build",
         type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "BUILD_BATTLE_GTB_WINS", format: "number" }],
+        leaderboards: [
+          { translation: "statistics.wins", id: "BUILD_BATTLE_GTB_WINS", format: "number" },
+          { translation: "statistics.correct_guesses", id: "BUILD_BATTLE_GTB_CORRECT_GUESSES", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.buildbattle.speed_builders",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "BUILD_BATTLE_SPEED_BUILDERS_WINS", format: "number" }],
       },
     ],
   },
+
+  {
+    translation: "games.copsandcrims",
+    type: "a",
+    icon: "icon/minecraft/iron_bars",
+
+    modes: [
+      {
+        translation: "games.overall",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.score", id: "COPS_AND_CRIMS_SCORE", format: "copsandcrims_score" },
+          { translation: "statistics.coins", id: "COPS_AND_CRIMS_COINS", format: "number" },
+          { translation: "statistics.wins", id: "COPS_AND_CRIMS_WINS", format: "number" },
+          { translation: "statistics.kills", id: "COPS_AND_CRIMS_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "COPS_AND_CRIMS_KDR", format: "decimal_2" },
+        ],
+      },
+      {
+        translation: "games.modes.copsandcrims.defusal",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "COPS_AND_CRIMS_DEFUSAL_WINS", format: "number" },
+          { translation: "statistics.kills", id: "COPS_AND_CRIMS_DEFUSAL_KILLS", format: "number" },
+          { translation: "statistics.bombs_planted", id: "COPS_AND_CRIMS_DEFUSAL_BOMBS_PLANTED", format: "number" },
+          { translation: "statistics.bombs_defused", id: "COPS_AND_CRIMS_DEFUSAL_BOMBS_DEFUSED", format: "number" },
+          { translation: "statistics.round_wins", id: "COPS_AND_CRIMS_DEFUSAL_ROUND_WINS", format: "number" },
+          { translation: "statistics.kdr", id: "COPS_AND_CRIMS_DEFUSAL_KDR", format: "decimal_2" },
+        ],
+      },
+      {
+        translation: "games.modes.copsandcrims.deathmatch",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "COPS_AND_CRIMS_TEAM_DEATHMATCH_WINS", format: "number" },
+          { translation: "statistics.kills", id: "COPS_AND_CRIMS_TEAM_DEATHMATCH_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "COPS_AND_CRIMS_TEAM_DEATHMATCH_KDR", format: "decimal_2" },
+        ],
+      },
+      {
+        translation: "games.modes.copsandcrims.gungame",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "COPS_AND_CRIMS_GUN_GAME_WINS", format: "number" },
+          { translation: "statistics.kills", id: "COPS_AND_CRIMS_GUN_GAME_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "COPS_AND_CRIMS_GUN_GAME_KDR", format: "decimal_2" },
+          { translation: "statistics.fastest_win", id: "COPS_AND_CRIMS_GUN_GAME_FASTEST_WIN", format: "duration_milliseconds" },
+        ],
+      },
+    ],
+  },
+
   {
     translation: "games.duels",
     type: "a",
@@ -190,6 +427,7 @@ let leaderboards = [
           { translation: "statistics.winstreak", id: "DUELS_WINSTREAK", format: "number" },
           { translation: "statistics.best_winstreak", id: "DUELS_BEST_WINSTREAK", format: "number" },
           { translation: "statistics.clicks", id: "DUELS_CLICKS", format: "number" },
+          { translation: "statistics.tokens", id: "DUELS_TOKENS", format: "number" },
         ],
       },
       {
@@ -273,6 +511,56 @@ let leaderboards = [
     ],
   },
   {
+    translation: "games.megawalls",
+    type: "a",
+    icon: "icon/minecraft/soul_sand",
+    modes: [
+      {
+        translation: "games.overall",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.class_points", id: "MEGA_WALLS_CLASS_POINTS", format: "number" },
+          { translation: "statistics.wins", id: "MEGA_WALLS_WINS", format: "number" },
+          { translation: "statistics.wlr", id: "MEGA_WALLS_WLR", format: "decimal_2" },
+          { translation: "statistics.final_kills", id: "MEGA_WALLS_FINAL_KILLS", format: "number" },
+          { translation: "statistics.fkdr", id: "MEGA_WALLS_FKDR", format: "decimal_2" },
+          { translation: "statistics.kills", id: "MEGA_WALLS_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "MEGA_WALLS_KDR", format: "decimal_2" },
+          { translation: "statistics.wither_kills", id: "MEGA_WALLS_WITHER_KILLS", format: "number" },
+          { translation: "statistics.coins", id: "MEGA_WALLS_COINS", format: "number" },
+          { translation: "statistics.mythic_favor", id: "MEGA_WALLS_MYTHIC_FAVOR", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.megawalls.standard",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "MEGA_WALLS_STANDARD_WINS", format: "number" },
+          { translation: "statistics.wlr", id: "MEGA_WALLS_STANDARD_WLR", format: "decimal_2" },
+          { translation: "statistics.final_kills", id: "MEGA_WALLS_STANDARD_FINAL_KILLS", format: "number" },
+          { translation: "statistics.fkdr", id: "MEGA_WALLS_STANDARD_FKDR", format: "decimal_2" },
+          { translation: "statistics.kills", id: "MEGA_WALLS_STANDARD_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "MEGA_WALLS_STANDARD_KDR", format: "decimal_2" },
+          { translation: "statistics.wither_kills", id: "MEGA_WALLS_STANDARD_WITHER_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.megawalls.faceoff",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "MEGA_WALLS_FACEOFF_WINS", format: "number" },
+          { translation: "statistics.wlr", id: "MEGA_WALLS_FACEOFF_WLR", format: "decimal_2" },
+          { translation: "statistics.final_kills", id: "MEGA_WALLS_FACEOFF_FINAL_KILLS", format: "number" },
+          { translation: "statistics.fkdr", id: "MEGA_WALLS_FACEOFF_FKDR", format: "decimal_2" },
+          { translation: "statistics.kills", id: "MEGA_WALLS_FACEOFF_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "MEGA_WALLS_FACEOFF_KDR", format: "decimal_2" },
+          { translation: "statistics.wither_kills", id: "MEGA_WALLS_FACEOFF_WITHER_KILLS", format: "number" },
+        ],
+      },
+    ],
+  },
+
+  {
     translation: "games.murdermystery",
     type: "a",
     icon: "icon/minecraft/bow",
@@ -323,6 +611,8 @@ let leaderboards = [
           { translation: "statistics.wlr", id: "SKYWARS_WLR", format: "decimal_2" },
           { translation: "statistics.kills", id: "SKYWARS_KILLS", format: "number" },
           { translation: "statistics.kdr", id: "SKYWARS_KDR", format: "decimal_2" },
+          { translation: "statistics.coins", id: "SKYWARS_COINS", format: "number" },
+          { translation: "statistics.tokens", id: "SKYWARS_TOKENS", format: "number" },
         ],
       },
       {
@@ -369,8 +659,32 @@ let leaderboards = [
           { translation: "statistics.kdr", id: "SKYWARS_TEAM_INSANE_KDR", format: "decimal_2" },
         ],
       },
+      {
+        translation: "games.modes.skywars.lab",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "SKYWARS_LAB_WINS", format: "number" },
+          { translation: "statistics.wlr", id: "SKYWARS_LAB_WLR", format: "decimal_2" },
+          { translation: "statistics.kills", id: "SKYWARS_LAB_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "SKYWARS_LAB_KDR", format: "decimal_2" },
+          { translation: "multi", translations: ["statistics.wins", "games.modes.skywars.lucky_blocks"], id: "SKYWARS_LUCKY_BLOCK_WINS", format: "number" },
+        ],
+      },
     ],
   },
+  {
+    translation: "games.paintball",
+    type: "b",
+    icon: "icon/minecraft/snowball",
+    leaderboards: [
+      { translation: "statistics.wins", id: "PAINTBALL_WINS", format: "number" },
+      { translation: "statistics.kills", id: "PAINTBALL_KILLS", format: "number" },
+      { translation: "statistics.killstreaks", id: "PAINTBALL_KILLSTREAKS", format: "number" },
+      { translation: "statistics.shots", id: "PAINTBALL_SHOTS_FIRED", format: "number" },
+      { translation: "statistics.coins", id: "PAINTBALL_COINS", format: "number" },
+    ],
+  },
+
   {
     translation: "games.pit",
     type: "b",
@@ -378,14 +692,77 @@ let leaderboards = [
     leaderboards: [
       { translation: "statistics.level", id: "PIT_EXP", format: "pit_experience" },
       { translation: "statistics.kills", id: "PIT_KILLS", format: "number" },
-      { translation: "statistics.gold", id: "PIT_GOLD", format: "large_number" },
       { translation: "statistics.kdr", id: "PIT_KDR", format: "decimal_2" },
+      { translation: "statistics.gold", id: "PIT_GOLD", format: "large_number" },
       { translation: "statistics.damage_dealt", id: "PIT_DAMAGE_DEALT", format: "large_number" },
       { translation: "statistics.joins", id: "PIT_JOINS", format: "number" },
       { translation: "statistics.playtime", id: "PIT_PLAYTIME", format: "duration_minutes" },
       { translation: "statistics.chat_messages", id: "PIT_CHAT_MESSAGES", format: "number" },
       { translation: "statistics.clicks", id: "PIT_CLICKS", format: "number" },
       { translation: "statistics.wheat_farmed", id: "PIT_WHEAT_FARMED", format: "large_number" },
+      { translation: "statistics.renown", id: "PIT_RENOWN", format: "number" },
+      { translation: "statistics.mystics_enchanted", id: "PIT_ITEMS_ENCHANTED", format: "number" },
+      { translation: "statistics.contracts_completed", id: "PIT_CONTRACTS_COMPLETED", format: "number" },
+      { translation: "statistics.items_fished", id: "PIT_ITEMS_FISHED", format: "number" },
+      { translation: "statistics.ingots_picked_up", id: "PIT_INGOTS_PICKED_UP", format: "number" },
+      { translation: "statistics.highest_killstreak", id: "PIT_HIGHEST_KILLSTREAK", format: "number" },
+    ],
+  },
+
+  {
+    translation: "games.quakecraft",
+    type: "b",
+    icon: "icon/minecraft/firework_rocket",
+
+    leaderboards: [
+      { translation: "statistics.wins", id: "QUAKECRAFT_WINS", format: "number" },
+      { translation: "statistics.kills", id: "QUAKECRAFT_KILLS", format: "number" },
+      { translation: "statistics.kdr", id: "QUAKECRAFT_KDR", format: "decimal_2" },
+      { translation: "statistics.distance_travelled", id: "QUAKECRAFT_DISTANCE_TRAVELLED", format: "large_number" },
+      { translation: "statistics.coins", id: "QUAKECRAFT_COINS", format: "number" },
+    ],
+  },
+
+  {
+    translation: "games.tkr",
+    type: "b",
+    icon: "icon/minecraft/minecart",
+
+    leaderboards: [
+      { translation: "statistics.golds", id: "TURBO_KART_RACERS_GOLD_TROPHIES", format: "number" },
+      { translation: "statistics.trophies", id: "TURBO_KART_RACERS_TROPHIES", format: "number" },
+      { translation: "statistics.laps", id: "TURBO_KART_RACERS_LAPS", format: "number" },
+      { translation: "statistics.coins", id: "TURBO_KART_RACERS_COINS", format: "number" },
+      { translation: "statistics.box_pickups", id: "TURBO_KART_RACERS_ITEM_BOX_PICKUPS", format: "number" },
+    ],
+  },
+
+  {
+    translation: "games.smashheroes",
+    type: "b",
+    icon: "icon/minecraft/head_smashheroes",
+
+    leaderboards: [
+      { translation: "statistics.smash_level", id: "SMASH_HEROES_SMASH_LEVEL", format: "number" },
+      { translation: "statistics.coins", id: "SMASH_HEROES_COINS", format: "number" },
+      { translation: "statistics.wins", id: "SMASH_HEROES_WINS", format: "number" },
+      { translation: "statistics.wlr", id: "SMASH_HEROES_WLR", format: "decimal_2" },
+      { translation: "statistics.kills", id: "SMASH_HEROES_KILLS", format: "number" },
+      { translation: "statistics.kdr", id: "SMASH_HEROES_KDR", format: "decimal_2" },
+    ],
+  },
+
+  {
+    translation: "games.speeduhc",
+    type: "b",
+    icon: "icon/minecraft/golden_carrot",
+
+    leaderboards: [
+      { translation: "statistics.score", id: "SPEED_UHC_SCORE", format: "number" },
+      { translation: "statistics.wins", id: "SPEED_UHC_WINS", format: "number" },
+      { translation: "statistics.wlr", id: "SPEED_UHC_WLR", format: "decimal_2" },
+      { translation: "statistics.kills", id: "SPEED_UHC_KILLS", format: "number" },
+      { translation: "statistics.kdr", id: "SPEED_UHC_KDR", format: "decimal_2" },
     ],
   },
 
@@ -397,7 +774,10 @@ let leaderboards = [
       {
         translation: "games.overall",
         type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "TNT_GAMES_WINS", format: "number" }],
+        leaderboards: [
+          { translation: "statistics.wins", id: "TNT_GAMES_WINS", format: "number" },
+          { translation: "statistics.tokens", id: "TNT_GAMES_TOKENS", format: "number" },
+        ],
       },
       {
         translation: "games.modes.tntgames.tntrun.category",
@@ -435,8 +815,201 @@ let leaderboards = [
         leaderboards: [
           { translation: "statistics.wins", id: "TNT_GAMES_WIZARDS_WINS", format: "number" },
           { translation: "statistics.kills", id: "TNT_GAMES_WIZARDS_KILLS", format: "number" },
+          { translation: "statistics.overall_captures", id: "TNT_GAMES_WIZARDS_POINTS_CAPTURED", format: "number" },
         ],
       },
+    ],
+  },
+
+  {
+    translation: "games.uhc",
+    type: "a",
+    icon: "icon/minecraft/golden_apple",
+
+    modes: [
+      {
+        translation: "games.overall",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.score", id: "UHC_SCORE", format: "number" },
+          { translation: "statistics.coins", id: "UHC_COINS", format: "number" },
+          { translation: "statistics.wins", id: "UHC_WINS", format: "number" },
+          { translation: "statistics.kills", id: "UHC_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "UHC_KDR", format: "decimal_2" },
+        ],
+      },
+      {
+        translation: "games.modes.uhc.uhcchampions.solo",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "UHC_SOLO_WINS", format: "number" },
+          { translation: "statistics.kills", id: "UHC_SOLO_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.uhc.uhcchampions.teams",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "UHC_TEAMS_WINS", format: "number" },
+          { translation: "statistics.kills", id: "UHC_TEAMS_KILLS", format: "number" },
+        ],
+      },
+    ],
+  },
+
+  {
+    translation: "games.vampirez",
+    type: "a",
+    icon: "icon/minecraft/wither_skeleton_skull",
+
+    modes: [
+      { translation: "games.overall", type: "b", leaderboards: [{ translation: "statistics.coins", id: "VAMPIREZ_COINS", format: "number" }] },
+      {
+        translation: "games.modes.classic.vampirez.human",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "VAMPIREZ_HUMAN_WINS", format: "number" },
+          { translation: "statistics.vampire_kills", id: "VAMPIREZ_VAMPIRE_KILLS", format: "number" },
+          { translation: "statistics.kills", id: "VAMPIREZ_ZOMBIE_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.classic.vampirez.vampire",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "VAMPIREZ_VAMPIRE_WINS", format: "number" },
+          { translation: "statistics.human_kills", id: "VAMPIREZ_HUMAN_KILLS", format: "number" },
+        ],
+      },
+    ],
+  },
+
+  {
+    translation: "games.walls",
+    type: "b",
+    icon: "icon/minecraft/sand",
+    leaderboards: [
+      { translation: "statistics.wins", id: "WALLS_WINS", format: "number" },
+      { translation: "statistics.kills", id: "WALLS_KILLS", format: "number" },
+      { translation: "statistics.kdr", id: "WALLS_KDR", format: "decimal_2" },
+      { translation: "statistics.assists", id: "WALLS_ASSISTS", format: "number" },
+      { translation: "statistics.coins", id: "WALLS_COINS", format: "number" },
+    ],
+  },
+
+  {
+    translation: "games.warlords",
+    type: "a",
+    icon: "icon/minecraft/stone_axe",
+
+    modes: [
+      /*WARLORDS_KILLS
+WARLORDS_WINS
+WARLORDS_WLR
+WARLORDS_KDR*/
+      {
+        translation: "games.overall",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "WARLORDS_WINS", format: "number" },
+          { translation: "statistics.kills", id: "WARLORDS_KILLS", format: "number" },
+          { translation: "statistics.wlr", id: "WARLORDS_WLR", format: "decimal_2" },
+          { translation: "statistics.kdr", id: "WARLORDS_KDR", format: "decimal_2" },
+          { translation: "statistics.coins", id: "WARLORDS_COINS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.warlords.capturetheflag",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "WARLORDS_CAPTURE_THE_FLAG_WINS", format: "number" },
+          { translation: "statistics.kills", id: "WARLORDS_CAPTURE_THE_FLAG_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.warlords.domination",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "WARLORDS_DOMINATION_WINS", format: "number" },
+          { translation: "statistics.kills", id: "WARLORDS_DOMINATION_KILLS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.warlords.teamdeathmatch",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "WARLORDS_TEAM_DEATHMATCH_WINS", format: "number" },
+          { translation: "statistics.kills", id: "WARLORDS_TEAM_DEATHMATCH_KILLS", format: "number" },
+        ],
+      },
+    ],
+  },
+
+  {
+    translation: "games.woolgames",
+    type: "a",
+    icon: "icon/minecraft/white_wool",
+
+    modes: [
+      {
+        translation: "games.overall",
+        type: "b",
+
+        leaderboards: [
+          { translation: "statistics.level", id: "WOOL_GAMES_LEVEL", format: "woolgames_experience" },
+          { translation: "statistics.wins", id: "WOOL_GAMES_WINS", format: "number" },
+          { translation: "statistics.kills", id: "WOOL_GAMES_KILLS", format: "number" },
+          { translation: "statistics.wlr", id: "WOOL_GAMES_WLR", format: "decimal_2" },
+          { translation: "statistics.kdr", id: "WOOL_GAMES_KDR", format: "decimal_2" },
+        ],
+      },
+      {
+        translation: "games.modes.woolgames.sheepwars.category",
+        type: "b",
+
+        leaderboards: [
+          { translation: "statistics.wins", id: "WOOL_GAMES_SHEEP_WARS_WINS", format: "number" },
+          { translation: "statistics.kills", id: "WOOL_GAMES_SHEEP_WARS_KILLS", format: "number" },
+          { translation: "statistics.wlr", id: "WOOL_GAMES_SHEEP_WARS_WLR", format: "decimal_2" },
+          { translation: "statistics.kdr", id: "WOOL_GAMES_SHEEP_WARS_KDR", format: "decimal_2" },
+        ],
+      },
+      {
+        translation: "games.modes.woolgames.woolwars.category",
+        type: "b",
+
+        leaderboards: [
+          { translation: "statistics.wins", id: "WOOL_GAMES_WOOL_WARS_WINS", format: "number" },
+          { translation: "statistics.kills", id: "WOOL_GAMES_WOOL_WARS_KILLS", format: "number" },
+          { translation: "statistics.wlr", id: "WOOL_GAMES_WOOL_WARS_WLR", format: "decimal_2" },
+          { translation: "statistics.kdr", id: "WOOL_GAMES_WOOL_WARS_KDR", format: "decimal_2" },
+        ],
+      },
+      {
+        translation: "games.modes.arcade.capturethewool",
+        type: "b",
+
+        leaderboards: [
+          { translation: "statistics.wins", id: "WOOL_GAMES_CAPTURE_THE_WOOL_WINS", format: "number" },
+          { translation: "statistics.kills", id: "WOOL_GAMES_CAPTURE_THE_WOOL_KILLS", format: "number" },
+          { translation: "statistics.wlr", id: "WOOL_GAMES_CAPTURE_THE_WOOL_WLR", format: "decimal_2" },
+          { translation: "statistics.kdr", id: "WOOL_GAMES_CAPTURE_THE_WOOL_KDR", format: "decimal_2" },
+        ],
+      },
+    ],
+  },
+
+  {
+    translation: "games.fishing",
+    type: "b",
+    icon: "icon/minecraft/cod",
+
+    leaderboards: [
+      { translation: "statistics.items_caught", id: "FISHING_TOTAL_CAUGHT", format: "number" },
+      { translation: "statistics.fish_caught", id: "FISHING_FISH_CAUGHT", format: "number" },
+      { translation: "statistics.junk_caught", id: "FISHING_JUNK_CAUGHT", format: "number" },
+      { translation: "statistics.treasure_caught", id: "FISHING_TREASURE_CAUGHT", format: "number" },
+      { translation: "statistics.mythical_fish_caught", id: "FISHING_MYTHICAL_FISH_CAUGHT", format: "number" },
     ],
   },
 ];
@@ -584,7 +1157,7 @@ async function getLeaderboardData(leaderboard, page = 1) {
     let playerBadge = a["badge"] || "NONE";
     checkBadgeInList(playerBadge, row);
 
-    row.querySelector(`[data-i="head"]`).src = `https://minotar.net/helm/${a["uuid"]}/8.png`;
+    row.querySelector(`[data-i="head"]`).src = `https://h.matdoes.dev/2d/${a["uuid"].replaceAll("-", "")}`;
     row.querySelector("[data-i='rank-name']").href = `/player/${a["uuid"]}`;
     updateTag(row, "quantity", formatLeaderboardStatistic(currentLeaderboardInformation["format"], a["value"]), true);
 
@@ -646,6 +1219,8 @@ function formatLeaderboardStatistic(leaderboard, value) {
       return generateMinecraftText(getBuildBattleTitle(value)["title"], true) + " / " + checkAndFormat(Number(value));
     case "skywars_experience":
       return generateMinecraftText(formatSkyWarsLevel(getSkyWarsLevel(value)), true);
+    case "woolgames_experience":
+      return generateMinecraftText(formatWoolGamesLevel(getWoolGamesLevel(value)), true);
     case "large_number":
       return veryLargeNumber(Number(value));
     case "duration_minutes":
