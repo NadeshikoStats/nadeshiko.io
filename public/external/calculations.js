@@ -314,3 +314,102 @@ function pitXpToLevel(experience, dataType = 1) {
     }
   }
 }
+
+function getPaintballTitle(kills, prefixColor) {
+  let paintballTitles = [
+    { req: 0, internalId: "DARK_GRAY", color: "§8" },
+    { req: 1000, internalId: "GRAY", color: "§7" },
+    { req: 2500, internalId: "WHITE", color: "§f" },
+    { req: 5000, internalId: "DARK_GREEN", color: "§2" },
+    { req: 10000, internalId: "YELLOW", color: "§e" },
+    { req: 20000, internalId: "GREEN", color: "§a" },
+    { req: 50000, internalId: "BLUE", color: "§9" },
+    { req: 75000, internalId: "AQUA", color: "§b" },
+    { req: 100000, internalId: "PINK", color: "§d" },
+    { req: 200000, internalId: "PURPLE", color: "§5" },
+    { req: 500000, internalId: "RED", color: "§c" },
+    { req: 1000000, internalId: "GOLD", color: "§6" },
+  ];
+
+  return getGenericWinsPrefix({
+    wins: und(kills),
+    winsObject: paintballTitles,
+    definedColor: prefixColor,
+    useToGo: false,
+  })["title"];
+}
+
+function getTKRTitle(golds, prefixColor) {
+  let tkrTitles = [
+    { req: 0, color: "§8", internalId: "dark_gray" },
+    { req: 5, color: "§7", internalId: "gray" },
+    { req: 25, color: "§f", internalId: "white" },
+    { req: 50, color: "§b", internalId: "aqua" },
+    { req: 100, color: "§a", internalId: "green" },
+    { req: 200, color: "§e", internalId: "yellow" },
+    { req: 300, color: "§9", internalId: "blue" },
+    { req: 400, color: "§d", internalId: "purple" },
+    { req: 500, color: "§6", internalId: "gold" },
+    { req: 750, color: "§2", internalId: "dark_green" },
+    { req: 1000, color: "§1", internalId: "dark_blue" },
+    { req: 2500, color: "§5", internalId: "dark_purple" },
+    { req: 5000, color: "§4", internalId: "dark_red" },
+    { req: 10000, color: "§0", internalId: "black" },
+  ];
+
+  return getGenericWinsPrefix({
+    wins: golds,
+    winsObject: tkrTitles,
+    definedColor: prefixColor,
+    useToGo: false,
+    suffix: "✪",
+  })["title"];
+}
+
+function getArenaBrawlTitle(wins, prefixColor) {
+  let arenaWinPrefixes = [
+    { req: 0, internalId: "dark_gray", color: "§8" },
+    { req: 500, internalId: "gray", color: "§7" },
+    { req: 1000, internalId: "green", color: "§a" },
+    { req: 2000, internalId: "dark_green", color: "§2" },
+    { req: 3000, internalId: "purple", color: "§d" },
+    { req: 4000, internalId: "dark_purple", color: "§5" },
+    { req: 5000, internalId: "red", color: "§c" },
+    { req: 7500, internalId: "dark_red", color: "§4" },
+    { req: 10000, internalId: "gold", color: "§6" },
+    { req: 15000, internalId: "rainbow", color: "rainbow", colorArray: ["§c", "§6", "§e", "§a", "§b", "§d", "§9", "§c"] },
+  ];
+
+  return getGenericWinsPrefix({
+    wins: wins,
+    winsObject: arenaWinPrefixes,
+    definedColor: prefixColor,
+    useToGo: false,
+    useThousandsSeparator: true /* Arena Brawl titles have commas */,
+  })["title"];
+}
+
+function getQuakecraftTitle(wins, prefixColor) {
+  let quakecraftTitles = [
+    { req: 0, color: "§8", internalId: "DARK_GRAY" },
+    { req: 25000, color: "§7", internalId: "GRAY" },
+    { req: 50000, color: "§f", internalId: "WHITE" },
+    { req: 75000, color: "§2", internalId: "DARK_GREEN" },
+    { req: 100000, color: "§e", internalId: "YELLOW" },
+    { req: 200000, color: "§a", internalId: "GREEN" },
+    { req: 300000, color: "§9", internalId: "BLUE" },
+    { req: 400000, color: "§3", internalId: "AQUA" },
+    { req: 500000, color: "§d", internalId: "PURPLE" },
+    { req: 600000, color: "§5", internalId: "DARK_PURPLE" },
+    { req: 750000, color: "§c", internalId: "RED" },
+    { req: 1000000, color: "§6", internalId: "GOLD" },
+    { req: 2000000, color: "§0", internalId: "BLACK" },
+  ];
+
+  return getGenericWinsPrefix({
+    wins: wins,
+    winsObject: quakecraftTitles,
+    definedColor: prefixColor,
+    useToGo: false,
+  })["title"];
+}

@@ -187,7 +187,7 @@ let leaderboards = [
     type: "b",
     icon: "icon/minecraft/blaze_powder",
     leaderboards: [
-      { translation: "statistics.wins", id: "ARENA_BRAWL_WINS", format: "number" },
+      { translation: "statistics.wins", id: "ARENA_BRAWL_WINS", format: "arena_wins" },
       { translation: "statistics.kills", id: "ARENA_BRAWL_KILLS", format: "number" },
       { translation: "statistics.kdr", id: "ARENA_BRAWL_KDR", format: "decimal_2" },
       { translation: "statistics.coins", id: "ARENA_BRAWL_COINS", format: "number" },
@@ -678,7 +678,7 @@ let leaderboards = [
     icon: "icon/minecraft/snowball",
     leaderboards: [
       { translation: "statistics.wins", id: "PAINTBALL_WINS", format: "number" },
-      { translation: "statistics.kills", id: "PAINTBALL_KILLS", format: "number" },
+      { translation: "statistics.kills", id: "PAINTBALL_KILLS", format: "paintball_kills" },
       { translation: "statistics.killstreaks", id: "PAINTBALL_KILLSTREAKS", format: "number" },
       { translation: "statistics.shots", id: "PAINTBALL_SHOTS_FIRED", format: "number" },
       { translation: "statistics.coins", id: "PAINTBALL_COINS", format: "number" },
@@ -716,7 +716,7 @@ let leaderboards = [
 
     leaderboards: [
       { translation: "statistics.wins", id: "QUAKECRAFT_WINS", format: "number" },
-      { translation: "statistics.kills", id: "QUAKECRAFT_KILLS", format: "number" },
+      { translation: "statistics.kills", id: "QUAKECRAFT_KILLS", format: "quakecraft_kills" },
       { translation: "statistics.kdr", id: "QUAKECRAFT_KDR", format: "decimal_2" },
       { translation: "statistics.distance_travelled", id: "QUAKECRAFT_DISTANCE_TRAVELLED", format: "large_number" },
       { translation: "statistics.coins", id: "QUAKECRAFT_COINS", format: "number" },
@@ -729,7 +729,7 @@ let leaderboards = [
     icon: "icon/minecraft/minecart",
 
     leaderboards: [
-      { translation: "statistics.golds", id: "TURBO_KART_RACERS_GOLD_TROPHIES", format: "number" },
+      { translation: "statistics.golds", id: "TURBO_KART_RACERS_GOLD_TROPHIES", format: "tkr_trophies" },
       { translation: "statistics.trophies", id: "TURBO_KART_RACERS_TROPHIES", format: "number" },
       { translation: "statistics.laps", id: "TURBO_KART_RACERS_LAPS", format: "number" },
       { translation: "statistics.coins", id: "TURBO_KART_RACERS_COINS", format: "number" },
@@ -903,15 +903,11 @@ let leaderboards = [
     icon: "icon/minecraft/stone_axe",
 
     modes: [
-      /*WARLORDS_KILLS
-WARLORDS_WINS
-WARLORDS_WLR
-WARLORDS_KDR*/
       {
         translation: "games.overall",
         type: "b",
         leaderboards: [
-          { translation: "statistics.wins", id: "WARLORDS_WINS", format: "number" },
+          { translation: "statistics.wins", id: "WARLORDS_WINS", format: "warlords_wins" },
           { translation: "statistics.kills", id: "WARLORDS_KILLS", format: "number" },
           { translation: "statistics.wlr", id: "WARLORDS_WLR", format: "decimal_2" },
           { translation: "statistics.kdr", id: "WARLORDS_KDR", format: "decimal_2" },
@@ -1221,6 +1217,41 @@ function formatLeaderboardStatistic(leaderboard, value) {
       return generateMinecraftText(formatSkyWarsLevel(getSkyWarsLevel(value)), true);
     case "woolgames_experience":
       return generateMinecraftText(formatWoolGamesLevel(getWoolGamesLevel(value)), true);
+    case "warlords_wins":
+      let warlordsTitles = [
+        { req: 0, color: "§8", altName: getTranslation("games.modes.warlords.titles.rookie") },
+        { req: 5, color: "§7", altName: getTranslation("games.modes.warlords.titles.recruit") },
+        { req: 25, color: "§e", altName: getTranslation("games.modes.warlords.titles.novice") },
+        { req: 50, color: "§a", altName: getTranslation("games.modes.warlords.titles.apprentice") },
+        { req: 125, color: "§2", altName: getTranslation("games.modes.warlords.titles.soldier") },
+        { req: 250, color: "§b", altName: getTranslation("games.modes.warlords.titles.captain") },
+        { req: 500, color: "§9", altName: getTranslation("games.modes.warlords.titles.general") },
+        { req: 1000, color: "§d", altName: getTranslation("games.modes.warlords.titles.vanquisher") },
+        { req: 2500, color: "§5", altName: getTranslation("games.modes.warlords.titles.gladiator") },
+        { req: 5000, color: "§c", altName: getTranslation("games.modes.warlords.titles.champion") },
+        { req: 7500, color: "§6", altName: getTranslation("games.modes.warlords.titles.warlord") },
+        { req: 10000, color: "rainbow", colorArray: ["§c§l", "§6§l", "§e§l", "§a§l", "§2§l", "§9§l", "§d§l", "§5§l"], altName: getTranslation("games.modes.warlords.titles.overlord") },
+      ];
+
+      let warlordsTitleObject = getGenericWinsPrefix({
+        wins: value,
+        winsObject: warlordsTitles,
+        useToGo: false,
+        useBrackets: false,
+        alternativeNaming: true,
+      });
+
+      return `${warlordsTitleObject["title"]} / ${checkAndFormat(Number(value))}`;
+    case "copsandcrims_score":
+      return `<span class="mf">Lv. ${Math.floor(getCopsAndCrimsLevel(value))}</span> / ${checkAndFormat(Number(value))}`;
+    case "paintball_kills":
+      return generateMinecraftText(getPaintballTitle(value), true);
+    case "tkr_trophies":
+      return generateMinecraftText(getTKRTitle(value), true);
+    case "arena_wins":
+      return generateMinecraftText(getArenaBrawlTitle(value), true);
+    case "quakecraft_kills":
+      return generateMinecraftText(getQuakecraftTitle(value), true);
     case "large_number":
       return veryLargeNumber(Number(value));
     case "duration_minutes":

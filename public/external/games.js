@@ -744,19 +744,6 @@ function getArcadeHideAndSeekStats(mode) {
 }
 
 function getArenaBrawlStats(mode) {
-  let arenaWinPrefixes = [
-    { req: 0, internalId: "dark_gray", color: "§8" },
-    { req: 500, internalId: "gray", color: "§7" },
-    { req: 1000, internalId: "green", color: "§a" },
-    { req: 2000, internalId: "dark_green", color: "§2" },
-    { req: 3000, internalId: "pink", color: "§d" },
-    { req: 4000, internalId: "purple", color: "§5" },
-    { req: 5000, internalId: "red", color: "§c" },
-    { req: 7500, internalId: "dark_red", color: "§4" },
-    { req: 10000, internalId: "gold", color: "§6" },
-    { req: 15000, internalId: "rainbow", color: "rainbow", colorArray: ["§c", "§6", "§e", "§a", "§b", "§d", "§9", "§c"] },
-  ];
-
   let arenaModeStats = [];
   let formattedArenaModeStats = [];
   if (mode == "overall") {
@@ -771,13 +758,7 @@ function getArenaBrawlStats(mode) {
   }
 
   if (mode == "overall") {
-    formattedArenaModeStats[0] = getGenericWinsPrefix({
-      wins: arenaModeStats[0],
-      winsObject: arenaWinPrefixes,
-      definedColor: arenaStats["prefix_color"],
-      useToGo: false,
-      useThousandsSeparator: true /* Arena Brawl titles have commas */,
-    })["title"];
+    formattedArenaModeStats[0] = getArenaBrawlTitle(arenaModeStats[0], arenaStats["prefix_color"]);
   }
 
   return [
@@ -792,44 +773,13 @@ function getArenaBrawlStats(mode) {
 function getArcadePartyGamesStats(mode) {}
 
 function getTKRStats(mode) {
-  let tkrTitles = [
-    { req: 0, color: "§8", internalId: "dark_gray" },
-    { req: 5, color: "§7", internalId: "gray" },
-    { req: 25, color: "§f", internalId: "white" },
-    { req: 50, color: "§b", internalId: "aqua" },
-    { req: 100, color: "§a", internalId: "green" },
-    { req: 200, color: "§e", internalId: "yellow" },
-    { req: 300, color: "§9", internalId: "blue" },
-    { req: 400, color: "§d", internalId: "pink" },
-    { req: 500, color: "§6", internalId: "gold" },
-    { req: 750, color: "§2", internalId: "dark_green" },
-    { req: 1000, color: "§1", internalId: "dark_blue" },
-    { req: 2500, color: "§5", internalId: "purple" },
-    { req: 5000, color: "§4", internalId: "dark_red" },
-    { req: 10000, color: "§0", internalId: "black" },
-  ];
-
   if (mode == "overall") {
     let tkrGamesPlayed = sumStatsBasic(["retro_plays", "canyon_plays", "junglerush_plays", "hypixelgp_plays", "olympus_plays"], tkrStats);
 
     return [
       [false, [getTranslation("statistics.coins"), checkAndFormat(tkrStats["coins"])]],
       [false, [getTranslation("statistics.trophies"), checkAndFormat(sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats))], [getTranslation("statistics.laps"), checkAndFormat(tkrStats["laps_completed"])]],
-      [
-        false,
-        [
-          getTranslation("statistics.golds"),
-          getGenericWinsPrefix({
-            wins: tkrStats["gold_trophy"],
-            winsObject: tkrTitles,
-            definedColor: tkrStats["prefix_color"],
-            useToGo: false,
-            suffix: "✪",
-          })["title"],
-        ],
-        [getTranslation("statistics.silvers"), checkAndFormat(tkrStats["silver_trophy"])],
-        [getTranslation("statistics.bronzes"), checkAndFormat(tkrStats["bronze_trophy"])],
-      ],
+      [false, [getTranslation("statistics.golds"), getTKRTitle(tkrStats["gold_trophy"], tkrStats["prefix_color"])], [getTranslation("statistics.silvers"), checkAndFormat(tkrStats["silver_trophy"])], [getTranslation("statistics.bronzes"), checkAndFormat(tkrStats["bronze_trophy"])]],
       [false, [getTranslation("statistics.games_played"), locale(tkrGamesPlayed, 0)], [getTranslation("statistics.trophy_rate"), checkAndFormat((sumStatsBasic(["gold_trophy", "silver_trophy", "bronze_trophy"], tkrStats) / tkrGamesPlayed) * 100, 1) + "%"]],
       [false, [getTranslation("statistics.box_pickups"), checkAndFormat(tkrStats["box_pickups"])], [getTranslation("statistics.coin_pickups"), checkAndFormat(tkrStats["coins_picked_up"])]],
     ];
@@ -930,40 +880,13 @@ function getVampireZStats(mode) {
 }
 
 function getQuakeStats(mode) {
-  let quakeTitles = [
-    { req: 0, color: "§8" },
-    { req: 25000, color: "§7" },
-    { req: 50000, color: "§f" },
-    { req: 75000, color: "§2" },
-    { req: 100000, color: "§e" },
-    { req: 200000, color: "§a" },
-    { req: 300000, color: "§9" },
-    { req: 400000, color: "§3" },
-    { req: 500000, color: "§d" },
-    { req: 600000, color: "§5" },
-    { req: 750000, color: "§c" },
-    { req: 1000000, color: "§6" },
-    { req: 2000000, color: "§0" },
-  ];
-
   let quakeModeStats = [];
   if (mode == "overall") {
     quakeModeStats = sumStats(["kills", "deaths", "wins", "headshots", "killstreaks", "shots_fired", "distance_travelled"], ["", "_teams"], quakeStats, "", true);
     return [
       [false, [getTranslation("statistics.coins"), checkAndFormat(quakeStats["coins"])]],
       [false, [getTranslation("statistics.wins"), checkAndFormat(quakeModeStats[2])]],
-      [
-        false,
-        [
-          getTranslation("statistics.kills"),
-          getGenericWinsPrefix({
-            wins: quakeModeStats[0],
-            winsObject: quakeTitles,
-            useToGo: false,
-          })["title"],
-        ],
-        [getTranslation("statistics.deaths"), checkAndFormat(quakeModeStats[1]), [getTranslation("statistics.kdr"), calculateRatio(quakeModeStats[0], quakeModeStats[1])]],
-      ],
+      [false, [getTranslation("statistics.kills"), getQuakecraftTitle(quakeModeStats[0], quakeStats["selectedKillPrefix"])], [getTranslation("statistics.deaths"), checkAndFormat(quakeModeStats[1]), [getTranslation("statistics.kdr"), calculateRatio(quakeModeStats[0], quakeModeStats[1])]]],
       [false, [getTranslation("statistics.headshots"), checkAndFormat(quakeModeStats[3])], [getTranslation("statistics.killstreaks"), checkAndFormat(quakeModeStats[4])]],
       [false, [getTranslation("statistics.shots"), checkAndFormat(quakeModeStats[5])], [getTranslation("statistics.distance_travelled"), checkAndFormat(quakeModeStats[6]) + "m"]],
       [false, [getTranslation("statistics.godlikes"), checkAndFormat(playerAchievements["quake_godlikes"])]],
@@ -2538,20 +2461,7 @@ function generateClassic() {
     [
       [false, [getTranslation("statistics.coins"), checkAndFormat(paintballStats["coins"])]],
       [false, [getTranslation("statistics.wins"), checkAndFormat(paintballStats["wins"])]],
-      [
-        false,
-        [
-          getTranslation("statistics.kills"),
-          getGenericWinsPrefix({
-            wins: und(paintballStats["kills"]),
-            winsObject: paintballTitles,
-            definedColor: paintballStats["prefix_color"],
-            useToGo: false,
-          })["title"],
-        ],
-        [getTranslation("statistics.deaths"), checkAndFormat(paintballStats["deaths"])],
-        [getTranslation("statistics.kdr"), calculateRatio(paintballStats["kills"], paintballStats["deaths"])],
-      ],
+      [false, [getTranslation("statistics.kills"), getPaintballTitle(paintballStats["kills"], paintballStats["prefix_color"])], [getTranslation("statistics.deaths"), checkAndFormat(paintballStats["deaths"])], [getTranslation("statistics.kdr"), calculateRatio(paintballStats["kills"], paintballStats["deaths"])]],
       [false, [getTranslation("statistics.shots"), checkAndFormat(paintballStats["shots_fired"])], [getTranslation("statistics.killstreaks"), checkAndFormat(paintballStats["killstreaks"])]],
     ],
     [],
