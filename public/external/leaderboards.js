@@ -597,6 +597,58 @@ let leaderboards = [
       },
     ],
   },
+
+  {
+    translation: "games.paintball",
+    type: "b",
+    icon: "icon/minecraft/snowball",
+    leaderboards: [
+      { translation: "statistics.wins", id: "PAINTBALL_WINS", format: "number" },
+      { translation: "statistics.kills", id: "PAINTBALL_KILLS", format: "paintball_kills" },
+      { translation: "statistics.killstreaks", id: "PAINTBALL_KILLSTREAKS", format: "number" },
+      { translation: "statistics.shots", id: "PAINTBALL_SHOTS_FIRED", format: "number" },
+      { translation: "statistics.coins", id: "PAINTBALL_COINS", format: "number" },
+    ],
+  },
+
+  {
+    translation: "games.pit",
+    type: "b",
+    icon: "icon/minecraft/dirt",
+    leaderboards: [
+      { translation: "statistics.level", id: "PIT_EXP", format: "pit_experience" },
+      { translation: "statistics.kills", id: "PIT_KILLS", format: "number" },
+      { translation: "statistics.kdr", id: "PIT_KDR", format: "decimal_2" },
+      { translation: "statistics.gold", id: "PIT_GOLD", format: "large_number" },
+      { translation: "statistics.damage_dealt", id: "PIT_DAMAGE_DEALT", format: "large_number" },
+      { translation: "statistics.joins", id: "PIT_JOINS", format: "number" },
+      { translation: "statistics.playtime", id: "PIT_PLAYTIME", format: "duration_minutes" },
+      { translation: "statistics.chat_messages", id: "PIT_CHAT_MESSAGES", format: "number" },
+      { translation: "statistics.clicks", id: "PIT_CLICKS", format: "number" },
+      { translation: "statistics.wheat_farmed", id: "PIT_WHEAT_FARMED", format: "large_number" },
+      { translation: "statistics.renown", id: "PIT_RENOWN", format: "number" },
+      { translation: "statistics.mystics_enchanted", id: "PIT_ITEMS_ENCHANTED", format: "number" },
+      { translation: "statistics.contracts_completed", id: "PIT_CONTRACTS_COMPLETED", format: "number" },
+      { translation: "statistics.items_fished", id: "PIT_ITEMS_FISHED", format: "number" },
+      { translation: "statistics.ingots_picked_up", id: "PIT_INGOTS_PICKED_UP", format: "number" },
+      { translation: "statistics.highest_killstreak", id: "PIT_HIGHEST_KILLSTREAK", format: "number" },
+    ],
+  },
+
+  {
+    translation: "games.quakecraft",
+    type: "b",
+    icon: "icon/minecraft/firework_rocket",
+
+    leaderboards: [
+      { translation: "statistics.wins", id: "QUAKECRAFT_WINS", format: "number" },
+      { translation: "statistics.kills", id: "QUAKECRAFT_KILLS", format: "quakecraft_kills" },
+      { translation: "statistics.kdr", id: "QUAKECRAFT_KDR", format: "decimal_2" },
+      { translation: "statistics.distance_travelled", id: "QUAKECRAFT_DISTANCE_TRAVELLED", format: "large_number" },
+      { translation: "statistics.coins", id: "QUAKECRAFT_COINS", format: "number" },
+    ],
+  },
+
   {
     translation: "games.skywars",
     type: "a",
@@ -670,70 +722,6 @@ let leaderboards = [
           { translation: "multi", translations: ["statistics.wins", "games.modes.skywars.lucky_blocks"], id: "SKYWARS_LUCKY_BLOCK_WINS", format: "number" },
         ],
       },
-    ],
-  },
-  {
-    translation: "games.paintball",
-    type: "b",
-    icon: "icon/minecraft/snowball",
-    leaderboards: [
-      { translation: "statistics.wins", id: "PAINTBALL_WINS", format: "number" },
-      { translation: "statistics.kills", id: "PAINTBALL_KILLS", format: "paintball_kills" },
-      { translation: "statistics.killstreaks", id: "PAINTBALL_KILLSTREAKS", format: "number" },
-      { translation: "statistics.shots", id: "PAINTBALL_SHOTS_FIRED", format: "number" },
-      { translation: "statistics.coins", id: "PAINTBALL_COINS", format: "number" },
-    ],
-  },
-
-  {
-    translation: "games.pit",
-    type: "b",
-    icon: "icon/minecraft/dirt",
-    leaderboards: [
-      { translation: "statistics.level", id: "PIT_EXP", format: "pit_experience" },
-      { translation: "statistics.kills", id: "PIT_KILLS", format: "number" },
-      { translation: "statistics.kdr", id: "PIT_KDR", format: "decimal_2" },
-      { translation: "statistics.gold", id: "PIT_GOLD", format: "large_number" },
-      { translation: "statistics.damage_dealt", id: "PIT_DAMAGE_DEALT", format: "large_number" },
-      { translation: "statistics.joins", id: "PIT_JOINS", format: "number" },
-      { translation: "statistics.playtime", id: "PIT_PLAYTIME", format: "duration_minutes" },
-      { translation: "statistics.chat_messages", id: "PIT_CHAT_MESSAGES", format: "number" },
-      { translation: "statistics.clicks", id: "PIT_CLICKS", format: "number" },
-      { translation: "statistics.wheat_farmed", id: "PIT_WHEAT_FARMED", format: "large_number" },
-      { translation: "statistics.renown", id: "PIT_RENOWN", format: "number" },
-      { translation: "statistics.mystics_enchanted", id: "PIT_ITEMS_ENCHANTED", format: "number" },
-      { translation: "statistics.contracts_completed", id: "PIT_CONTRACTS_COMPLETED", format: "number" },
-      { translation: "statistics.items_fished", id: "PIT_ITEMS_FISHED", format: "number" },
-      { translation: "statistics.ingots_picked_up", id: "PIT_INGOTS_PICKED_UP", format: "number" },
-      { translation: "statistics.highest_killstreak", id: "PIT_HIGHEST_KILLSTREAK", format: "number" },
-    ],
-  },
-
-  {
-    translation: "games.quakecraft",
-    type: "b",
-    icon: "icon/minecraft/firework_rocket",
-
-    leaderboards: [
-      { translation: "statistics.wins", id: "QUAKECRAFT_WINS", format: "number" },
-      { translation: "statistics.kills", id: "QUAKECRAFT_KILLS", format: "quakecraft_kills" },
-      { translation: "statistics.kdr", id: "QUAKECRAFT_KDR", format: "decimal_2" },
-      { translation: "statistics.distance_travelled", id: "QUAKECRAFT_DISTANCE_TRAVELLED", format: "large_number" },
-      { translation: "statistics.coins", id: "QUAKECRAFT_COINS", format: "number" },
-    ],
-  },
-
-  {
-    translation: "games.tkr",
-    type: "b",
-    icon: "icon/minecraft/minecart",
-
-    leaderboards: [
-      { translation: "statistics.golds", id: "TURBO_KART_RACERS_GOLD_TROPHIES", format: "tkr_trophies" },
-      { translation: "statistics.trophies", id: "TURBO_KART_RACERS_TROPHIES", format: "number" },
-      { translation: "statistics.laps", id: "TURBO_KART_RACERS_LAPS", format: "number" },
-      { translation: "statistics.coins", id: "TURBO_KART_RACERS_COINS", format: "number" },
-      { translation: "statistics.box_pickups", id: "TURBO_KART_RACERS_ITEM_BOX_PICKUPS", format: "number" },
     ],
   },
 
@@ -818,6 +806,20 @@ let leaderboards = [
           { translation: "statistics.overall_captures", id: "TNT_GAMES_WIZARDS_POINTS_CAPTURED", format: "number" },
         ],
       },
+    ],
+  },
+
+  {
+    translation: "games.tkr",
+    type: "b",
+    icon: "icon/minecraft/minecart",
+
+    leaderboards: [
+      { translation: "statistics.golds", id: "TURBO_KART_RACERS_GOLD_TROPHIES", format: "tkr_trophies" },
+      { translation: "statistics.trophies", id: "TURBO_KART_RACERS_TROPHIES", format: "number" },
+      { translation: "statistics.laps", id: "TURBO_KART_RACERS_LAPS", format: "number" },
+      { translation: "statistics.coins", id: "TURBO_KART_RACERS_COINS", format: "number" },
+      { translation: "statistics.box_pickups", id: "TURBO_KART_RACERS_ITEM_BOX_PICKUPS", format: "number" },
     ],
   },
 
