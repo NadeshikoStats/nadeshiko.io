@@ -989,6 +989,7 @@ footer > a:hover {
   height: 15px;
   margin-inline-end: 5px;
   object-fit: contain;
+  pointer-events: none;
 }
 
 .badge-large {

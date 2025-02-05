@@ -641,6 +641,11 @@
     if (event.key === "/" && !isInputField(event.target)) {
       event.preventDefault();
       document.getElementById("searchbar").focus();
+      document.getElementById("searchbar").select();
+
+      headerSearchbarSelected = true;
+      document.getElementById("header-searchbar-container").classList.add("selected");
+      document.querySelector(".header1").classList.add("searchbar-selected");
     }
   });
 

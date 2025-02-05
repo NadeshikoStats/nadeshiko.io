@@ -1070,6 +1070,7 @@ function generateGameSelectorChildren(leaderboardObject = {}, layer, event) {
       gameImage.src = `img/${game["icon"]}.png`;
       gameImage.classList.add("leaderboard-icon");
       gameImage.classList.add("icon");
+      gameImage.alt = "";
 
       gameButton.prepend(gameImage);
     }
