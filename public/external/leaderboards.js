@@ -746,7 +746,7 @@ let leaderboards = [
     icon: "icon/minecraft/golden_carrot",
 
     leaderboards: [
-      { translation: "statistics.score", id: "SPEED_UHC_SCORE", format: "number" },
+      { translation: "statistics.score", id: "SPEED_UHC_SCORE", format: "speed_uhc_score" },
       { translation: "statistics.wins", id: "SPEED_UHC_WINS", format: "number" },
       { translation: "statistics.wlr", id: "SPEED_UHC_WLR", format: "decimal_2" },
       { translation: "statistics.kills", id: "SPEED_UHC_KILLS", format: "number" },
@@ -833,7 +833,7 @@ let leaderboards = [
         translation: "games.overall",
         type: "b",
         leaderboards: [
-          { translation: "statistics.score", id: "UHC_SCORE", format: "number" },
+          { translation: "statistics.score", id: "UHC_SCORE", format: "uhc_score" },
           { translation: "statistics.coins", id: "UHC_COINS", format: "number" },
           { translation: "statistics.wins", id: "UHC_WINS", format: "number" },
           { translation: "statistics.kills", id: "UHC_KILLS", format: "number" },
@@ -1270,6 +1270,10 @@ function formatLeaderboardStatistic(leaderboard, value) {
       return generateMinecraftText(getArenaBrawlTitle(value), true);
     case "quakecraft_kills":
       return generateMinecraftText(getQuakecraftTitle(value), true);
+    case "uhc_score":
+      return `${generateMinecraftText(getUHCTitle(value, false), true)} / ${checkAndFormat(Number(value))}`;
+    case "speed_uhc_score":
+      return `${generateMinecraftText(getSpeedUHCTitle(value, false), true)} / ${checkAndFormat(Number(value))}`;
     case "large_number":
       return veryLargeNumber(Number(value));
     case "duration_minutes":
@@ -1327,8 +1331,6 @@ function getLeaderboardFromQuery(query, page = 1) {
   let path = findPathById(leaderboards, query);
   let filteredLeaderboard = leaderboards;
   if (path) {
-    currentLeaderboardInformation["leaderboard"] = query;
-    getLeaderboardData(query, page);
     for (let a = 0; a < path.length; a++) {
       let layer = a;
       let button = document.querySelector(`#selector-layer-${layer} span:nth-child(${path[a] + 1})`);
@@ -1350,6 +1352,10 @@ function getLeaderboardFromQuery(query, page = 1) {
         break;
       }
     }
+
+    currentLeaderboardInformation["leaderboard"] = query;
+    currentLeaderboardInformation["format"] = filteredLeaderboard["format"];
+    getLeaderboardData(query, page);
   } else {
     console.warn(`Leaderboard ${query} not found!`);
   }

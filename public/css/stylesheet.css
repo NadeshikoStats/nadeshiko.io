@@ -2171,6 +2171,10 @@ a.general-button {
   image-rendering: pixelated;
 }
 
+#leaderboard [data-i="quantity"] {
+  color: #fffa;
+}
+
 #pagination {
   margin: 10px 0px;
 }

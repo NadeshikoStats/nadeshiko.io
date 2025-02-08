@@ -4110,47 +4110,10 @@ function generateUHC() {
   updateScopedElement("uhc-overall-score", checkAndFormat(und(uhcStats["score"]) + und(speedUHCStats["score"])));
   updateScopedElement("uhc-overall-coins", checkAndFormat(und(uhcStats["coins"])));
 
-  let uhcPrefixes = [
-    { req: 0, color: "§6", altName: "1" },
-    { req: 10, color: "§6", altName: "2" },
-    { req: 60, color: "§6", altName: "3" },
-    { req: 210, color: "§6", altName: "4" },
-    { req: 460, color: "§6", altName: "5" },
-    { req: 960, color: "§6", altName: "6" },
-    { req: 1710, color: "§6", altName: "7" },
-    { req: 2710, color: "§6", altName: "8" },
-    { req: 5210, color: "§6", altName: "9" },
-    { req: 10210, color: "§6", altName: "10" },
-    { req: 13210, color: "§6", altName: "11" },
-    { req: 16210, color: "§6", altName: "12" },
-    { req: 19210, color: "§6", altName: "13" },
-    { req: 22210, color: "§6", altName: "14" },
-    { req: 25210, color: "§6", altName: "15" },
-  ];
-
-  let speedUHCPrefixes = [
-    { req: 0, color: "§d", altName: "1" },
-    { req: 50, color: "§d", altName: "2" },
-    { req: 300, color: "§d", altName: "3" },
-    { req: 1050, color: "§d", altName: "4" },
-    { req: 2560, color: "§d", altName: "5" },
-    { req: 5550, color: "§d", altName: "6" },
-    { req: 15550, color: "§d", altName: "7" },
-    { req: 30550, color: "§d", altName: "8" },
-    { req: 55550, color: "§d", altName: "9" },
-    { req: 85550, color: "§d", altName: "10" },
-  ];
-
   let uhcChip = [
     "uhc-uhcchampions",
     getTranslation("games.modes.uhc.uhcchampions.category"),
-    getGenericWinsPrefix({
-      wins: uhcStats["score"],
-      winsObject: uhcPrefixes,
-      useToGo: true,
-      suffix: "✫",
-      alternativeNaming: true,
-    })["title"],
+    getUHCTitle(uhcStats["score"]),
     `/img/games/uhc/uhcchampions.${imageFileType}`,
     getUHCModeStats("overall"),
     [
@@ -4172,13 +4135,7 @@ function generateUHC() {
   let speedUHCChip = [
     "uhc-speeduhc",
     getTranslation("games.modes.uhc.speeduhc.category"),
-    getGenericWinsPrefix({
-      wins: speedUHCStats["score"],
-      winsObject: speedUHCPrefixes,
-      useToGo: true,
-      suffix: "❋",
-      alternativeNaming: true,
-    })["title"],
+    getSpeedUHCTitle(speedUHCStats["score"]),
     `/img/games/uhc/speeduhc.${imageFileType}`,
     getSpeedUHCModeStats("overall"),
     [
