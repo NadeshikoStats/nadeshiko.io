@@ -46,7 +46,7 @@ function guildPlayerObjectToRow(guildObj) {
 
   <div class="column date">
     <span class="tooltip">
-      <span data-i="joined"></span>
+      <span data-i="joined" class="tabular"></span>
       <span class="tooltiptext" data-i="joined-ago-full"></span>
     </span>
 

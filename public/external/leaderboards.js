@@ -17,7 +17,7 @@ let leaderboards = [
     translation: "games.arcade",
     type: "a",
     icon: "icon/minecraft/slime_ball",
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -198,7 +198,7 @@ let leaderboards = [
     translation: "games.bedwars",
     type: "a",
     icon: "icon/minecraft/red_bed",
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -283,7 +283,7 @@ let leaderboards = [
     translation: "games.blitz",
     type: "a",
     icon: "icon/minecraft/diamond_sword",
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -317,7 +317,7 @@ let leaderboards = [
     translation: "games.buildbattle",
     type: "a",
     icon: "icon/minecraft/crafting_table",
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -364,7 +364,7 @@ let leaderboards = [
     type: "a",
     icon: "icon/minecraft/iron_bars",
 
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -414,7 +414,7 @@ let leaderboards = [
     translation: "games.duels",
     type: "a",
     icon: "icon/minecraft/fishing_rod",
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -514,7 +514,7 @@ let leaderboards = [
     translation: "games.megawalls",
     type: "a",
     icon: "icon/minecraft/soul_sand",
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -564,7 +564,7 @@ let leaderboards = [
     translation: "games.murdermystery",
     type: "a",
     icon: "icon/minecraft/bow",
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -653,7 +653,7 @@ let leaderboards = [
     translation: "games.skywars",
     type: "a",
     icon: "icon/minecraft/ender_eye",
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -758,7 +758,7 @@ let leaderboards = [
     translation: "games.tntgames",
     type: "a",
     icon: "icon/minecraft/tnt",
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -828,7 +828,7 @@ let leaderboards = [
     type: "a",
     icon: "icon/minecraft/golden_apple",
 
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -864,7 +864,7 @@ let leaderboards = [
     type: "a",
     icon: "icon/minecraft/wither_skeleton_skull",
 
-    modes: [
+    leaderboards: [
       { translation: "games.overall", type: "b", leaderboards: [{ translation: "statistics.coins", id: "VAMPIREZ_COINS", format: "number" }] },
       {
         translation: "games.modes.classic.vampirez.human",
@@ -904,7 +904,7 @@ let leaderboards = [
     type: "a",
     icon: "icon/minecraft/stone_axe",
 
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -948,7 +948,7 @@ let leaderboards = [
     type: "a",
     icon: "icon/minecraft/white_wool",
 
-    modes: [
+    leaderboards: [
       {
         translation: "games.overall",
         type: "b",
@@ -1016,6 +1016,21 @@ const PLAYERS_PER_PAGE = 100;
 
 function getLeaderboardGames() {
   generateGameSelectorChildren(leaderboards, 0, false);
+
+  // Determine if there's a leaderboard/page num in the URL
+  let queryParams = new URLSearchParams(window.location.search);
+  let leaderboard = queryParams.get("leaderboard");
+  let page = queryParams.get("page") || 1;
+
+  page = parseInt(page);
+
+  if (page < 1) {
+    page = 1;
+  }
+
+  if (leaderboard) {
+    getLeaderboardFromQuery(leaderboard, page);
+  }
 }
 
 function generateGameSelectorChildren(leaderboardObject = {}, layer, event) {
@@ -1051,11 +1066,7 @@ function generateGameSelectorChildren(leaderboardObject = {}, layer, event) {
     gameButton.innerText = gameTranslation;
     gameButton.setAttribute("data-i", game["id"]);
 
-    if (game["type"] == "a") {
-      gameButton.addEventListener("click", function (event) {
-        generateGameSelectorChildren(game["modes"], layer + 1, event);
-      });
-    } else if (game["type"] == "b") {
+    if (game["type"] == "a" || game["type"] == "b") {
       gameButton.addEventListener("click", function (event) {
         generateGameSelectorChildren(game["leaderboards"], layer + 1, event);
       });
@@ -1111,6 +1122,12 @@ async function getLeaderboardData(leaderboard, page = 1) {
   // connect to leaderboard at /leaderboard?leaderboard=LEADERBOARD_NAME&page=1
   // fetch json data
 
+  // Update query params with leaderboard name and page number
+  let queryParams = new URLSearchParams(window.location.search);
+  queryParams.set("leaderboard", leaderboard);
+  queryParams.set("page", page);
+  window.history.replaceState({}, "", `${window.location.pathname}?${queryParams.toString()}`);
+
   let leaderboardPromise = await fetch(`/leaderboard?leaderboard=${leaderboard}&page=${page}`);
   let leaderboardData = await leaderboardPromise.json();
 
@@ -1147,8 +1164,6 @@ async function getLeaderboardData(leaderboard, page = 1) {
     });
 
     playerRank = playerRankColor + playerRank;
-
-    console.log([playerNameWithoutRank, playerRank]);
 
     updateTag(row, "rank", generateMinecraftText(playerRank), true);
     updateTag(row, "name", generateMinecraftText(playerNameWithoutRank), true);
@@ -1287,15 +1302,86 @@ function showNewPage(jump) {
 
   if (jump == "next") {
     if (currentPage < totalPages) {
-      getLeaderboardData(currentLeaderboard, currentPage + 1);
+      currentPage += 1;
+      getLeaderboardData(currentLeaderboard, currentPage);
     } else {
       console.log("Can't go to next page");
     }
   } else if (jump == "previous") {
     if (currentPage > 1) {
-      getLeaderboardData(currentLeaderboard, currentPage - 1);
+      currentPage -= 1;
+
+      if (currentPage > totalPages) {
+        currentPage = totalPages;
+      }
+
+      getLeaderboardData(currentLeaderboard, currentPage);
     } else {
       console.log("Can't go to previous page");
     }
   }
+}
+
+function getLeaderboardFromQuery(query, page = 1) {
+  // Determine if leaderboard exists, i.e. it has an ID in the leaderboards variable
+  let path = findPathById(leaderboards, query);
+  let filteredLeaderboard = leaderboards;
+  if (path) {
+    currentLeaderboardInformation["leaderboard"] = query;
+    getLeaderboardData(query, page);
+    for (let a = 0; a < path.length; a++) {
+      let layer = a;
+      let button = document.querySelector(`#selector-layer-${layer} span:nth-child(${path[a] + 1})`);
+      if (button) {
+        highlightButton(button);
+      }
+
+      filteredLeaderboard = filteredLeaderboard[path[a]];
+
+      if (filteredLeaderboard["id"]) {
+        break; // We've reached a leaderboard
+      }
+
+      if (filteredLeaderboard["leaderboards"]) {
+        filteredLeaderboard = filteredLeaderboard["leaderboards"];
+        generateGameSelectorChildren(filteredLeaderboard, layer + 1, false);
+      } else {
+        console.warn("No leaderboards found (how?)");
+        break;
+      }
+    }
+  } else {
+    console.warn(`Leaderboard ${query} not found!`);
+  }
+}
+
+/*
+ * Simple recursive function to find the path to an object in the leaderboards object. Only shows the indexes of objects in arrays, so will return something like [5, 1, 0]. Returns null if not found
+ * @param {Object} leaderboards The leaderboards object
+ * @param {string} id The ID of the object to find
+ * @returns {Array} The path to the object in the leaderboards object
+ */
+function findPathById(leaderboards, id) {
+  function recursiveSearch(obj, id, path) {
+    if (Array.isArray(obj)) {
+      for (let a = 0; a < obj.length; a++) {
+        let result = recursiveSearch(obj[a], id, path.concat(a));
+        if (result) return result;
+      }
+    } else if (typeof obj === "object" && obj !== null) {
+      if (obj["id"] === id) {
+        return path;
+      }
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          let result = recursiveSearch(obj[key], id, path);
+          if (result) return result;
+        }
+      }
+    }
+    return null;
+  }
+
+  let result = recursiveSearch(leaderboards, id, []);
+  return result;
 }
