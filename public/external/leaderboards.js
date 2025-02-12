@@ -959,6 +959,7 @@ let leaderboards = [
           { translation: "statistics.kills", id: "WOOL_GAMES_KILLS", format: "number" },
           { translation: "statistics.wlr", id: "WOOL_GAMES_WLR", format: "decimal_2" },
           { translation: "statistics.kdr", id: "WOOL_GAMES_KDR", format: "decimal_2" },
+          { translation: "statistics.wool", id: "WOOL_GAMES_WOOL", format: "number" },
         ],
       },
       {
@@ -999,15 +1000,59 @@ let leaderboards = [
 
   {
     translation: "games.fishing",
-    type: "b",
+    type: "a",
     icon: "icon/minecraft/cod",
 
     leaderboards: [
-      { translation: "statistics.items_caught", id: "FISHING_TOTAL_CAUGHT", format: "number" },
-      { translation: "statistics.fish_caught", id: "FISHING_FISH_CAUGHT", format: "number" },
-      { translation: "statistics.junk_caught", id: "FISHING_JUNK_CAUGHT", format: "number" },
-      { translation: "statistics.treasure_caught", id: "FISHING_TREASURE_CAUGHT", format: "number" },
-      { translation: "statistics.mythical_fish_caught", id: "FISHING_MYTHICAL_FISH_CAUGHT", format: "number" },
+      {
+        translation: "games.overall",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.items_caught", id: "FISHING_TOTAL_CAUGHT", format: "number" },
+          { translation: "statistics.fish_caught", id: "FISHING_FISH_CAUGHT", format: "number" },
+          { translation: "statistics.junk_caught", id: "FISHING_JUNK_CAUGHT", format: "number" },
+          { translation: "statistics.treasure_caught", id: "FISHING_TREASURE_CAUGHT", format: "number" },
+          { translation: "statistics.mythical_fish_caught", id: "FISHING_MYTHICAL_FISH_CAUGHT", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.fishing.zones.water",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.items_caught", id: "FISHING_WATER_TOTAL_CAUGHT", format: "number" },
+          { translation: "statistics.fish_caught", id: "FISHING_WATER_FISH_CAUGHT", format: "number" },
+          { translation: "statistics.junk_caught", id: "FISHING_WATER_JUNK_CAUGHT", format: "number" },
+          { translation: "statistics.treasure_caught", id: "FISHING_WATER_TREASURE_CAUGHT", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.fishing.zones.lava",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.items_caught", id: "FISHING_LAVA_TOTAL_CAUGHT", format: "number" },
+          { translation: "statistics.fish_caught", id: "FISHING_LAVA_FISH_CAUGHT", format: "number" },
+          { translation: "statistics.junk_caught", id: "FISHING_LAVA_JUNK_CAUGHT", format: "number" },
+          { translation: "statistics.treasure_caught", id: "FISHING_LAVA_TREASURE_CAUGHT", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.fishing.zones.ice",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.items_caught", id: "FISHING_ICE_TOTAL_CAUGHT", format: "number" },
+          { translation: "statistics.fish_caught", id: "FISHING_ICE_FISH_CAUGHT", format: "number" },
+          { translation: "statistics.junk_caught", id: "FISHING_ICE_JUNK_CAUGHT", format: "number" },
+          { translation: "statistics.treasure_caught", id: "FISHING_ICE_TREASURE_CAUGHT", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.fishing.catches.big_fish",
+        type: "b",
+        leaderboards: [
+          { translation: "multi", translations: ["games.modes.fishing.mythicalfish.hades", "games.modes.fishing.catches.biggest_fish"], id: "FISHING_BIGGEST_HADES", format: "kilograms" },
+          { translation: "multi", translations: ["games.modes.fishing.mythicalfish.archimedes", "games.modes.fishing.catches.biggest_fish"], id: "FISHING_BIGGEST_DAEDALUS", format: "kilograms" },
+        ],
+      },
     ],
   },
 ];
@@ -1286,6 +1331,8 @@ function formatLeaderboardStatistic(leaderboard, value) {
       return smallDuration(Number(value / 1000), true);
     case "date_and_time":
       return mediumDateFormat(Number(value));
+    case "kilograms":
+      return `${checkAndFormat(Number(value))} kg`;
     case "number":
       return checkAndFormat(Number(value));
     case "string":
