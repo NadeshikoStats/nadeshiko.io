@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
-    <link rel="stylesheet" href="/css/stylesheet.css?v=<%= version || 0 %>">
-    <script src="/external/master.js?v=<%= version || 0 %>"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png" />
+    <link rel="stylesheet" href="/css/min/stylesheet.css?v=<%= version || 0 %>" />
+    <script src="/external/min/master.js?v=<%= version || 0 %>"></script>
 
     <script>
       let tasksBeforeLoadingHeader = ["fetchLanguageFile", "DOMContentLoaded"];
@@ -80,192 +80,186 @@
         }
       }
     </script>
-    <script src="/external/language.js?v=<%= version || 0 %>"></script>
-    
-    <script src="/external/gsap.min.js?v=<%= version || 0 %>"></script>
-    <script src="/external/petals.js?v=<%= version || 0 %>"></script>
-    <script src="/external/purify.min.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/language.js?v=<%= version || 0 %>"></script>
 
-    <meta name="theme-color" content="#f6adc6">
-    <meta property="og:site_name" content="nadeshiko.io">
-    <meta name='twitter:card' content='summary_large_image' />
-    <meta property='og:image' content='https://nadeshiko.io/img/banner.png' />
-    <meta name="twitter:image" content="https://nadeshiko.io/img/banner.png">
+    <script src="/external/min/gsap.min.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/petals.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/purify.min.js?v=<%= version || 0 %>"></script>
+
+    <meta name="theme-color" content="#f6adc6" />
+    <meta property="og:site_name" content="nadeshiko.io" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content="https://nadeshiko.io/img/banner.png" />
+    <meta name="twitter:image" content="https://nadeshiko.io/img/banner.png" />
     <title>The simple, beautiful Hypixel stats website. | nadeshiko.io</title>
-    <meta name="description" content="🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!">
-</head>
+    <meta name="description" content="🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!" />
+  </head>
 
-<body>
+  <body>
     <div class="background" id="background1" style="background-image: url('/img/games/home.png')"></div>
     <div class="background-filter">
-    <header>
-      <%- include('partials/header') %>
-    </header>
-    <div class="everythingcenter">
+      <header><%- include('partials/header') %></header>
+      <div class="everythingcenter">
         <div class="home-page-container">
-            <span class="flex-two-item-vertical" style="margin: 30px;">
-                <span class="subtitle-home" data-t="home.pre_title">Check out stats for</span>
-                <span class="title-home typing" id="typing">Hypixel</span>
-                <span class="subtitle-home" data-t="home.post_title" style="margin:0"></span>
-            </span>
-            <section class="player-card-home">
-                <div class="flex-two-item">
-                  <div class="searchbar-container searchbar-home selected" id="index-searchbar-container">
-                    <img src="/img/svg/search.svg" class="search-icon bigicon" id="search-icon2">
-                    <input type="search" class="searchbar" id="searchbar2" data-t="home.search" placeholder=" Enter a Minecraft username or UUID..." style="font-size: 16px; flex: 1; padding: 7px 0px;" spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off">
-                    <div class="searchbar-selector">   
-                      <div class="flex-two-item-basic" style="justify-content: end">
-                        <p class="header-button selector-button selected scope-player" onmousedown="changeScope('player', 'header')"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt=""><span data-t="games.modes.all.stats">Stats</span></p>
-                        <p class="header-button selector-button scope-guild" onmousedown="changeScope('guild', 'header')"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt=""><span data-t="games.modes.network.guild">Guild</span></p>
-                      </div>
-                      <div class="flex-two-item-basic" style="justify-content: end">
-                        <p class="header-button selector-button scope-achievements" onmousedown="changeScope('achievements', 'header')"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt=""><span data-t="achievements.achievements">Achievements</span></p>
-                        <p class="header-button selector-button scope-quests" onmousedown="changeScope('quests', 'header')"><img src="/img/icon/minecraft/writable_book.webp" class="header-icon selector-icon icon" alt=""><span data-t="quests.quests">Quests</span></p>
-                      </div>
-                    </div>
+          <span class="flex-two-item-vertical" style="margin: 30px">
+            <span class="subtitle-home" data-t="home.pre_title">Check out stats for</span>
+            <span class="title-home typing" id="typing">Hypixel</span>
+            <span class="subtitle-home" data-t="home.post_title" style="margin: 0"></span>
+          </span>
+          <section class="player-card-home">
+            <div class="flex-two-item">
+              <div class="searchbar-container searchbar-home selected" id="index-searchbar-container">
+                <img src="/img/svg/search.svg" class="search-icon bigicon" id="search-icon2" />
+                <input type="search" class="searchbar" id="searchbar2" data-t="home.search" placeholder=" Enter a Minecraft username or UUID..." style="font-size: 16px; flex: 1; padding: 7px 0px" spellcheck="false" autocomplete="off" autocapitalize="none" autocorrect="off" />
+                <div class="searchbar-selector">
+                  <div class="flex-two-item-basic" style="justify-content: end">
+                    <p class="header-button selector-button selected scope-player" onmousedown="changeScope('player', 'header')"><img src="/img/logo/hypixel_logo.webp" class="header-icon selector-icon icon" alt="" /><span data-t="games.modes.all.stats">Stats</span></p>
+                    <p class="header-button selector-button scope-guild" onmousedown="changeScope('guild', 'header')"><img src="/img/icon/minecraft/head_guild.webp" class="header-icon selector-icon icon" alt="" /><span data-t="games.modes.network.guild">Guild</span></p>
                   </div>
-                    <span class="general-button noresize-button" onclick="showMe()" data-t="home.show_me">Show me</span>
+                  <div class="flex-two-item-basic" style="justify-content: end">
+                    <p class="header-button selector-button scope-achievements" onmousedown="changeScope('achievements', 'header')"><img src="/img/icon/minecraft/diamond.webp" class="header-icon selector-icon icon" alt="" /><span data-t="achievements.achievements">Achievements</span></p>
+                    <p class="header-button selector-button scope-quests" onmousedown="changeScope('quests', 'header')"><img src="/img/icon/minecraft/writable_book.webp" class="header-icon selector-icon icon" alt="" /><span data-t="quests.quests">Quests</span></p>
+                  </div>
                 </div>
-            </section>
+              </div>
+              <span class="general-button noresize-button" onclick="showMe()" data-t="home.show_me">Show me</span>
+            </div>
+          </section>
         </div>
         <div id="recent-searches">
           <span id="recent-search-label" data-t="home.recent_searches">Recent Searches</span>
         </div>
         <% if(typeof computationError !== 'undefined' && computationError["message"] != "") { %>
-          <div class="home-error-container">
-            <p class="home-error-message" data-t="home.errors.error">ERROR</p>
-            <script>
+        <div class="home-error-container">
+          <p class="home-error-message" data-t="home.errors.error">ERROR</p>
+          <script>
             console.warn("<%= computationError["message"] %>");
             console.warn(`<%= JSON.stringify(computationError) %>`);
-            </script>
-          <p class="home-error" id="home-error-message-description">
-          </p>
+          </script>
+          <p class="home-error" id="home-error-message-description"></p>
         </div>
         <% } %>
         <noscript>
           <div class="home-error-container">
             <p class="home-error-message">ERROR</p>
-          <p class="home-error">
-            Please enable JavaScript to use this site.
-          </p>
-        </div>
-      </noscript>
+            <p class="home-error">Please enable JavaScript to use this site.</p>
+          </div>
+        </noscript>
+      </div>
+      <div id="petals"></div>
+      <div id="petals2"></div>
+      <footer><%- include('partials/footer') %></footer>
     </div>
-    <div id="petals"></div>
-    <div id="petals2"></div>
-<footer>
-  <%- include('partials/footer') %>
-</footer>
-</div>
 
+    <script>
+      let indexSearchbarSelected = true;
 
+      document.getElementById("searchbar2").addEventListener("keypress", function (event) {
+        // Check if the user's typing in the search box
+        checkSearchBox(event, this.value);
+      });
 
-<script>
-let indexSearchbarSelected = true;
+      window.onmousedown = function (event) {
+        if (!event.target.closest(".searchbar-container") && indexSearchbarSelected) {
+          document.getElementById("index-searchbar-container").classList.remove("selected");
+          indexSearchbarSelected = false;
+        }
+      };
 
-document.getElementById("searchbar2").addEventListener("keypress", function(event) { // Check if the user's typing in the search box
-  checkSearchBox(event, this.value);
-});
+      document.getElementById("search-icon2").addEventListener("click", function () {
+        document.getElementById("searchbar2").focus();
+      });
 
-window.onmousedown = function (event) {
-    if (!event.target.closest(".searchbar-container") && indexSearchbarSelected) {
-      document.getElementById("index-searchbar-container").classList.remove("selected");
-      indexSearchbarSelected = false;
-    }
-  };
+      document.getElementById("index-searchbar-container").addEventListener("mousedown", function () {
+        document.getElementById("index-searchbar-container").classList.add("selected");
+      });
 
-document.getElementById('search-icon2').addEventListener('click', function() {
-  document.getElementById('searchbar2').focus();
-});
+      document.getElementById("index-searchbar-container").addEventListener("click", function () {
+        if (document.activeElement != document.getElementById("searchbar2")) {
+          document.getElementById("searchbar2").focus();
+          document.getElementById("searchbar2").select();
+        }
 
-document.getElementById("index-searchbar-container").addEventListener("mousedown", function () {
-    document.getElementById("index-searchbar-container").classList.add("selected");
-  });
+        indexSearchbarSelected = true;
+        document.getElementById("index-searchbar-container").classList.add("selected");
+      });
 
-  
-  document.getElementById("index-searchbar-container").addEventListener("click", function () {
-    if (document.activeElement != document.getElementById("searchbar2")) {
-      document.getElementById("searchbar2").focus();
-      document.getElementById("searchbar2").select();
-    }
+      function showMe() {
+        var userInput = document.getElementById("searchbar2").value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
+        if (userInput != "") window.location.href = `/player/${userInput}`; // Redirect to the desired URL
+        else console.log(userInput);
+      }
 
-    indexSearchbarSelected = true;
-    document.getElementById("index-searchbar-container").classList.add("selected");
-  });
+      function redirectToHttps() {
+        // If the user's on the HTTP version of nadeshiko, switch to HTTPS
+        windowLocation = window.location;
 
+        if (windowLocation.protocol == "http:" && windowLocation.host != "localhost:8080") {
+          // If the user's using HTTP (and it's not localhost)
+          window.location = "https://nadeshiko.io" + windowLocation.pathname + windowLocation.search;
+        }
+      }
 
+      redirectToHttps();
 
-function showMe() {
-    var userInput = document.getElementById("searchbar2").value.replaceAll(/[^A-Za-z0-9_]/g, ""); // Removes all characters that can't be in a username or UUID
-    if(userInput != "") window.location.href = `/player/${userInput}`; // Redirect to the desired URL
-    else console.log(userInput)
-}
+      let index = 0;
+      let charIndex = 0;
+      let direction = 1;
 
-function redirectToHttps() { // If the user's on the HTTP version of nadeshiko, switch to HTTPS
-  windowLocation = window.location;
+      var texts = ["Arcade", "Arena Brawl", "Bed Wars", "Blitz", "Build Battle", "Cops and Crims", "Duels", "Mega Walls", "Murder Mystery", "Paintball", "Pit", "Quakecraft", "SkyWars", "Smash Heroes", "Speed UHC", "TNT Games", "The Walls", "Turbo Kart Racers", "UHC", "VampireZ", "Warlords", "Wool Wars"];
 
-  if(windowLocation.protocol == "http:" && windowLocation.host != "localhost:8080") { // If the user's using HTTP (and it's not localhost)
-      window.location = "https://nadeshiko.io" + windowLocation.pathname + windowLocation.search;
-  }
-}
-
-redirectToHttps();
-
-let index = 0;
-let charIndex = 0;
-let direction = 1;
-
-var texts = ["Arcade", "Arena Brawl", "Bed Wars", "Blitz", "Build Battle", "Cops and Crims", "Duels", "Mega Walls", "Murder Mystery", "Paintball", "Pit", "Quakecraft", "SkyWars", "Smash Heroes", "Speed UHC", "TNT Games", "The Walls", "Turbo Kart Racers", "UHC", "VampireZ", "Warlords", "Wool Wars"];
-
-for (let i = texts.length - 1; i > 0; i--) { // Shuffles array
+      for (let i = texts.length - 1; i > 0; i--) {
+        // Shuffles array
         let j = Math.floor(Math.random() * (i + 1));
         [texts[i], texts[j]] = [texts[j], texts[i]];
-}
+      }
 
-texts.unshift("Hypixel");
+      texts.unshift("Hypixel");
 
-function type() { // Writes typing
+      function type() {
+        // Writes typing
 
-  let currentText = texts[index];
-  
-  if (direction) { // Forward
-    charIndex++;
-    if (charIndex > currentText.length) {
-      direction = false;
-      setTimeout(type, 1500);
-      return;
-    }
-  } else { // Deleting backward
-    charIndex--;
-    if (charIndex === -1) {
-      direction = true;
-      index = (index + 1) % texts.length; // Loop through texts
-      setTimeout(type, 500);
-      return;
-    }
-  }
+        let currentText = texts[index];
 
-  document.getElementById('typing').textContent = currentText.substring(0, charIndex); // Update text in HTML
+        if (direction) {
+          // Forward
+          charIndex++;
+          if (charIndex > currentText.length) {
+            direction = false;
+            setTimeout(type, 1500);
+            return;
+          }
+        } else {
+          // Deleting backward
+          charIndex--;
+          if (charIndex === -1) {
+            direction = true;
+            index = (index + 1) % texts.length; // Loop through texts
+            setTimeout(type, 500);
+            return;
+          }
+        }
 
-  let speed = direction ? 150 : 70;
-  setTimeout(type, speed);
-}
+        document.getElementById("typing").textContent = currentText.substring(0, charIndex); // Update text in HTML
 
-type(); // Start typing effect
-if(document.documentElement.clientWidth >= 800) {
-  document.getElementById('searchbar2').focus();
-  document.getElementById('searchbar2').select();
-}
+        let speed = direction ? 150 : 70;
+        setTimeout(type, speed);
+      }
 
-  recentSearches = JSON.parse(localStorage.getItem("recent-searches"));
-if(recentSearches != null) {
-  document.getElementById("recent-search-label").style.display = "initial";
-  for(let a = 0; a < recentSearches.length; a++) {
-    recentSearchItem = `<a href="/player/${recentSearches[a][0]}" class="m${recentSearches[a][1]}">${recentSearches[a][0]}</a>`
-    document.getElementById("recent-searches").insertAdjacentHTML("beforeend", recentSearchItem);
-  }
-}
-</script>
+      type(); // Start typing effect
+      if (document.documentElement.clientWidth >= 800) {
+        document.getElementById("searchbar2").focus();
+        document.getElementById("searchbar2").select();
+      }
 
-</body>
+      recentSearches = JSON.parse(localStorage.getItem("recent-searches"));
+      if (recentSearches != null) {
+        document.getElementById("recent-search-label").style.display = "initial";
+        for (let a = 0; a < recentSearches.length; a++) {
+          recentSearchItem = `<a href="/player/${recentSearches[a][0]}" class="m${recentSearches[a][1]}">${recentSearches[a][0]}</a>`;
+          document.getElementById("recent-searches").insertAdjacentHTML("beforeend", recentSearchItem);
+        }
+      }
+    </script>
+  </body>
 </html>

@@ -2735,7 +2735,7 @@ function generateCopsAndCrims() {
       source: "resourcepack",
       positions: [[15, 0]],
     },
-    emblem_smg: {
+    emblem_msg: {
       source: "resourcepack",
       positions: [[2, 0]],
     },

@@ -1,155 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/stylesheet.css?v=<%= version || 0 %>">
-  <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/min/stylesheet.css?v=<%= version || 0 %>" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png" />
 
-  <meta name="theme-color" content="#f6adc6">
-  <meta property="og:site_name" content="nadeshiko.io">
+    <meta name="theme-color" content="#f6adc6" />
+    <meta property="og:site_name" content="nadeshiko.io" />
 
-  <% if (questsData) { %>
+    <% if (questsData) { %>
     <title><%- (questsData["player"]["profile"]["tagged_name"]).replace(/§[A-Fa-f0-9]/g, "") %> | nadeshiko.io</title>
     <% } else { %>
-    <title>Quests | nadeshiko.io</title> <!-- Fallback in case no stats -->
+    <title>Quests | nadeshiko.io</title>
+    <!-- Fallback in case no stats -->
     <% } %>
-    <meta name="description" content="<%= metaDescription %>">
+    <meta name="description" content="<%= metaDescription %>" />
 
-  <script>
-    let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
+    <script>
+      let tasksBeforeLoading = ["checkWebPSupport", "fetchLanguageFile", "DOMContentLoaded"];
 
-    /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
-    * This is used to ensure that all tasks are completed before the page is generated.
-    * @param {string} task - The task that was completed 
-    */
-    function beginGeneration(task) {
-      if(tasksBeforeLoading.includes(task)) {
-        tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
-        console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+      /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+       * This is used to ensure that all tasks are completed before the page is generated.
+       * @param {string} task - The task that was completed
+       */
+      function beginGeneration(task) {
+        if (tasksBeforeLoading.includes(task)) {
+          tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+          console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
 
-        if(tasksBeforeLoading.length == 0) {
-          updateTranslations();
+          if (tasksBeforeLoading.length == 0) {
+            updateTranslations();
 
-          globalQuests = getValue(questsStats, ["global", "quests"]) || {};
+            globalQuests = getValue(questsStats, ["global", "quests"]) || {};
 
-          playerQuests = getValue(questsStats, ["player", "quests"]) || {};
+            playerQuests = getValue(questsStats, ["player", "quests"]) || {};
 
-          for (let a = 0; a < validGames.length; a++) {
-            formattedGameNames.push({
-              formatted: getTranslation(`games.${modernifyGameName(validGames[a])}`),
-              raw: validGames[a]
-            });
+            for (let a = 0; a < validGames.length; a++) {
+              formattedGameNames.push({
+                formatted: getTranslation(`games.${modernifyGameName(validGames[a])}`),
+                raw: validGames[a],
+              });
+            }
+
+            formattedGameNames.sort((a, b) => sortStrings(a["formatted"], b["formatted"]));
+
+            for (let a = 0; a < formattedGameNames.length; a++) {
+              generateQuestsTable(formattedGameNames[a]["raw"]);
+            }
+
+            generateNetwork();
+            document.getElementById("quests-games").classList.remove("unloaded");
+            document.getElementById("header-name").classList.remove("unloaded");
           }
-
-          formattedGameNames.sort((a, b) => sortStrings(a["formatted"], b["formatted"]));
-
-          for (let a = 0; a < formattedGameNames.length; a++) {
-            generateQuestsTable(formattedGameNames[a]["raw"]);
-          }
-
-          generateNetwork();
-          document.getElementById("quests-games").classList.remove("unloaded");
-          document.getElementById("header-name").classList.remove("unloaded");
+        } else {
+          console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
         }
-      } else {
-        console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
       }
+    </script>
+    <script src="/external/min/master.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/language.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/purify.min.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/minecrafttext.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/webptest.js?v=<%= version || 0 %>"></script>
 
-      
-    } 
-  </script>
-  <script src="/external/master.js?v=<%= version || 0 %>"></script>
-  <script src="/external/language.js?v=<%= version || 0 %>"></script>
-  <script src="/external/purify.min.js?v=<%= version || 0 %>"></script>
-  <script src="/external/minecrafttext.js?v=<%= version || 0 %>"></script>
-  <script src="/external/webptest.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/quests.js?v=<%= version || 0 %>"></script>
+  </head>
 
-  <script src="/external/quests.js?v=<%= version || 0 %>"></script>
-</head>
+  <body>
+    <div class="background" id="background1" style="background-image: url('/img/games/quests/lobby.webp')"></div>
+    <div class="background-filter"></div>
 
-<body>
-  <div class="background" id="background1" style="background-image: url('/img/games/quests/lobby.webp')"></div>
-  <div class="background-filter"></div>
-
-  <div class="nadeshiko-wrapper">
-    <header>
-      <%- include('partials/header') %>
-      <div class="header header2"> <!-- secondary header for game bar -->
-        <div class="header-left">
-          <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
-        </div>
-      </div>
-    </header>
-
-    <div class="guild overflow-scroll unloaded mask-fade" id="quests-games">
-      <div>
-      <div class="chip-container quest-game-container">
-        <div class="chip-small but-big no-overflow">
-          <div class="flex-vertical">
-            <span class="player-name">
-              <span class="rank" id="card-rank"><span id="card-ranktext"><span class="mc">Unknown</span></span></span> <span class="m7" id="card-name"><span class="mc">Unknown</span></span>
-
-              <span class="tooltip">
-                <a id="badge-link" target="_blank">
-                  <img class="special icon smallicon badge-large" id="badge" alt="User badge">
-                </a>
-                <span class="tooltiptext" id="badge-text"></span>
-              </span>
-            </span>
-            <span id="card-uuid"></span>
+    <div class="nadeshiko-wrapper">
+      <header>
+        <%- include('partials/header') %>
+        <div class="header header2">
+          <!-- secondary header for game bar -->
+          <div class="header-left">
+            <p class="header-name unloaded" id="header-name"><span class="mc">Unknown</span></p>
           </div>
+        </div>
+      </header>
 
-            <div class="chip-small-container">
-              <div class="flex-two-item align-top flippable margin10">
-                <div class="card-big-stats">
+      <div class="guild overflow-scroll unloaded mask-fade" id="quests-games">
+        <div>
+          <div class="chip-container quest-game-container">
+            <div class="chip-small but-big no-overflow">
+              <div class="flex-vertical">
+                <span class="player-name">
+                  <span class="rank" id="card-rank"
+                    ><span id="card-ranktext"><span class="mc">Unknown</span></span></span
+                  >
+                  <span class="m7" id="card-name"><span class="mc">Unknown</span></span>
+
+                  <span class="tooltip">
+                    <a id="badge-link" target="_blank">
+                      <img class="special icon smallicon badge-large" id="badge" alt="User badge" />
+                    </a>
+                    <span class="tooltiptext" id="badge-text"></span>
+                  </span>
+                </span>
+                <span id="card-uuid"></span>
+              </div>
+
+              <div class="chip-small-container">
+                <div class="flex-two-item align-top flippable margin10">
+                  <div class="card-big-stats">
                     <div class="mbottom-20">
-                      <p><span data-t="statistics.quests_completed">Quests Completed</span> <span class="statistic" id="quests-completed"><span class="mc">Unknown</span></span></p>
+                      <p>
+                        <span data-t="statistics.quests_completed">Quests Completed</span> <span class="statistic" id="quests-completed"><span class="mc">Unknown</span></span>
+                      </p>
                     </div>
 
-                      <span data-t="quests.completions.daily_quests_completed">Daily Quests Completed</span> <span class="statistic" id="daily-quests-completed"><span class="mc">Unknown</span></span> / <span id="daily-quests-total"><span class="mc">Unknown</span></span>
-                      <div class="progress-bar">
-                        <span class="progress-number" id="daily-quests-completed-progress-number"><span class="mc">Unknown</span></span>
-                        <div class="progress" style="width: 0%;" id="daily-quests-completed-progress-bar"></div>
-                      </div>
+                    <span data-t="quests.completions.daily_quests_completed">Daily Quests Completed</span> <span class="statistic" id="daily-quests-completed"><span class="mc">Unknown</span></span> / <span id="daily-quests-total"><span class="mc">Unknown</span></span>
+                    <div class="progress-bar">
+                      <span class="progress-number" id="daily-quests-completed-progress-number"><span class="mc">Unknown</span></span>
+                      <div class="progress" style="width: 0%" id="daily-quests-completed-progress-bar"></div>
+                    </div>
 
-                      <span data-t="quests.completions.weekly_quests_completed">Weekly Quests Completed</span> <span class="statistic" id="weekly-quests-completed"><span class="mc">Unknown</span></span> / <span id="weekly-quests-total"><span class="mc">Unknown</span></span>
+                    <span data-t="quests.completions.weekly_quests_completed">Weekly Quests Completed</span> <span class="statistic" id="weekly-quests-completed"><span class="mc">Unknown</span></span> / <span id="weekly-quests-total"><span class="mc">Unknown</span></span>
 
-                      <div class="progress-bar">
-                        <span class="progress-number" id="weekly-quests-completed-progress-number"><span class="mc">Unknown</span></span>
-                        <div class="progress" style="width: 0%;" id="weekly-quests-completed-progress-bar"></div>
-                      </div>
+                    <div class="progress-bar">
+                      <span class="progress-number" id="weekly-quests-completed-progress-number"><span class="mc">Unknown</span></span>
+                      <div class="progress" style="width: 0%" id="weekly-quests-completed-progress-bar"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <footer><%- include('partials/footer') %></footer>
     </div>
-    
-    <footer>
-      <%- include('partials/footer') %>
-    </footer>
-  </div>
 
-  <script>
-    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-quests'));
+    <script>
+      document.documentElement.style.setProperty("--accent", getComputedStyle(document.documentElement).getPropertyValue("--accent-quests"));
 
-    let globalQuests = {};
-    let questsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(questsData)) %>"));
-    let validGames = ["arcade", "arena", "battleground", "bedwars", "buildbattle", "duels", "gingerbread", "hungergames", "mcgo", "murdermystery", "paintball", "pit", "quake", /*"skyclash",*/ "skywars", "supersmash", "tntgames", /*"truecombat",*/ "uhc", "vampirez", "walls", "walls3", "woolgames"];
-    let formattedGameNames = [];
+      let globalQuests = {};
+      let questsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(questsData)) %>"));
+      let validGames = ["arcade", "arena", "battleground", "bedwars", "buildbattle", "duels", "gingerbread", "hungergames", "mcgo", "murdermystery", "paintball", "pit", "quake", /*"skyclash",*/ "skywars", "supersmash", "tntgames", /*"truecombat",*/ "uhc", "vampirez", "walls", "walls3", "woolgames"];
+      let formattedGameNames = [];
 
-    let questsCompletedByTime = {
-      "daily": {
-        "completed": 0,
-        "total": 0
-      },
-      "weekly": {
-        "completed": 0,
-        "total": 0
-      }
-    };
-  </script>
-</body>
+      let questsCompletedByTime = {
+        daily: {
+          completed: 0,
+          total: 0,
+        },
+        weekly: {
+          completed: 0,
+          total: 0,
+        },
+      };
+    </script>
+  </body>
 </html>

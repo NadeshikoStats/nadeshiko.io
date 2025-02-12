@@ -1810,7 +1810,7 @@ a.general-button {
 
 :nth-child(even of .list .row:not(.display-none):not(.has-badge)) .row-header,
 :nth-child(even of .list .row:not(.display-none):not(.has-badge)) .row-content,
-:nth-child(even of .leaderboard-row) {
+.leaderboard-row:nth-child(even) {
   background-color: #fff1;
 }
 

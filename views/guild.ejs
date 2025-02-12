@@ -1,52 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/stylesheet.css?v=<%= version || 0 %>">
-  <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/min/stylesheet.css?v=<%= version || 0 %>" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/logo.png" />
 
-  <meta name="theme-color" content="#f6adc6">
-  <meta property="og:site_name" content="nadeshiko.io">
+    <meta name="theme-color" content="#f6adc6" />
+    <meta property="og:site_name" content="nadeshiko.io" />
 
-  <% if (guildData) { %>
+    <% if (guildData) { %>
     <title><%- guildData["name"] %> | nadeshiko.io</title>
     <% } else { %>
-    <title>Guild | nadeshiko.io</title> <!-- Fallback in case no stats -->
+    <title>Guild | nadeshiko.io</title>
+    <!-- Fallback in case no stats -->
     <% } %>
-    <meta name="description" content="<%= metaDescription %>">
+    <meta name="description" content="<%= metaDescription %>" />
 
-  <script>
-    let tasksBeforeLoading = ["fetchLanguageFile", "DOMContentLoaded"];
+    <script>
+      let tasksBeforeLoading = ["fetchLanguageFile", "DOMContentLoaded"];
 
-    /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
-    * This is used to ensure that all tasks are completed before the page is generated.
-    * @param {string} task - The task that was completed 
-    */
-    function beginGeneration(task) {
-      if(tasksBeforeLoading.includes(task)) {
-        tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
+      /* Begin generation of the page if all tasks are completed. If not, remove the task from the list of tasks to complete.
+       * This is used to ensure that all tasks are completed before the page is generated.
+       * @param {string} task - The task that was completed
+       */
+      function beginGeneration(task) {
+        if (tasksBeforeLoading.includes(task)) {
+          tasksBeforeLoading.splice(tasksBeforeLoading.indexOf(task), 1);
 
-        console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
+          console.log(`Task ${task} completed; remaining tasks: ${tasksBeforeLoading}`);
 
-        if(tasksBeforeLoading.length == 0) {
-          updateTranslations();
+          if (tasksBeforeLoading.length == 0) {
+            updateTranslations();
 
-          let guildPlayers = document.getElementById("guild-players");
+            let guildPlayers = document.getElementById("guild-players");
 
-          getRankPriorities();
+            getRankPriorities();
 
-          for (let a = 0; a < guildStats["members"].length; a++) {
-            let guildRow = guildPlayerObjectToRow(guildStats["members"][a]);
-            guildPlayers.appendChild(guildRow);
-          }
+            for (let a = 0; a < guildStats["members"].length; a++) {
+              let guildRow = guildPlayerObjectToRow(guildStats["members"][a]);
+              guildPlayers.appendChild(guildRow);
+            }
 
-          const rows = document.querySelectorAll('.row-header');
-          
-            rows.forEach(row => {
-              row.addEventListener('click', function () {
+            const rows = document.querySelectorAll(".row-header");
+
+            rows.forEach((row) => {
+              row.addEventListener("click", function () {
                 const parent = this.parentElement;
-                parent.classList.toggle('active');
+                parent.classList.toggle("active");
               });
             });
 
@@ -54,71 +55,76 @@
             generateCharts();
 
             document.getElementById("guild").classList.remove("unloaded");
+          }
+        } else {
+          console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
         }
-      } else {
-        console.log(`Task ${task} was already completed or is not a task; remaining tasks: ${tasksBeforeLoading}`);
       }
-      
-    } 
-  </script>
-  <script src="/external/master.js?v=<%= version || 0 %>"></script>
-  <script src="/external/language.js?v=<%= version || 0 %>"></script>
-  <script src="/external/purify.min.js?v=<%= version || 0 %>"></script>
-  <script src="/external/minecrafttext.js?v=<%= version || 0 %>"></script>
-  <script src="/external/chart.min.js?v=<%= version || 0 %>"></script>
+    </script>
+    <script src="/external/min/master.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/language.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/purify.min.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/minecrafttext.js?v=<%= version || 0 %>"></script>
+    <script src="/external/min/chart.min.js?v=<%= version || 0 %>"></script>
 
-  <script src="/external/guilds.js?v=<%= version || 0 %>"></script>
-</head>
+    <script src="/external/min/guilds.js?v=<%= version || 0 %>"></script>
+  </head>
 
-<body>
-  <div class="background" id="background" style="background-image: url('/img/games/guild/lobby.webp')"></div>
-  <div class="background-filter"></div>
+  <body>
+    <div class="background" id="background" style="background-image: url('/img/games/guild/lobby.webp')"></div>
+    <div class="background-filter"></div>
 
-  <div class="nadeshiko-wrapper">
-    <header>
-      <%- include('partials/header') %>
-    </header>
+    <div class="nadeshiko-wrapper">
+      <header><%- include('partials/header') %></header>
 
-    <div class="guild unloaded" id="guild">
-      <div class="flex-guild">
-        <div class="flex-guild-list">
-          <div class="guild-header">
-            <div class="name"><span id="guild-name"></span> <span id="guild-tag"></span></div>
-            
-            <div class="description" id="guild-description"></div>
+      <div class="guild unloaded" id="guild">
+        <div class="flex-guild">
+          <div class="flex-guild-list">
+            <div class="guild-header">
+              <div class="name"><span id="guild-name"></span> <span id="guild-tag"></span></div>
 
-            <p><span data-t="statistics.created">Created</span> <span class="tooltip"><span class="statistic" id="guild-created-ago"><span class="mc">Unknown</span></span><span class="tooltiptext" id="guild-created-ago-full"></span></span></p>
-            <p><span data-t="statistics.members">Members</span> <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span></p>
-            <p><span data-t="statistics.level">Level</span> <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span></p>
-          </div>
+              <div class="description" id="guild-description"></div>
+
+              <p>
+                <span data-t="statistics.created">Created</span>
+                <span class="tooltip"
+                  ><span class="statistic" id="guild-created-ago"><span class="mc">Unknown</span></span
+                  ><span class="tooltiptext" id="guild-created-ago-full"></span
+                ></span>
+              </p>
+              <p>
+                <span data-t="statistics.members">Members</span> <span class="statistic" id="guild-members"><span class="mc">Unknown</span></span>
+              </p>
+              <p>
+                <span data-t="statistics.level">Level</span> <span class="statistic" id="guild-level"><span class="mc">Unknown</span></span>
+              </p>
+            </div>
 
             <div class="list guild-players" id="guild-players">
               <div class="row header-row">
                 <div class="row-header">
                   <div class="column"></div>
-                  <div class="column headercolumn" onclick="sortData('name')"><span data-t="statistics.player" id="header-name" class="deactivated">Player</span> <img class="verytinyicon deactivated" id="header-name-icon" src="/img/svg/sort.svg"></div>
-                  <div class="column headercolumn" onclick="sortData('priority')"><span data-t="statistics.rank" id="header-priority" class="deactivated">Rank</span> <img class="verytinyicon deactivated" id="header-priority-icon" src="/img/svg/sort.svg"></div>       
-                  <div class="column headercolumn" onclick="sortData('joined')"><span data-t="statistics.joined" id="header-joined" class="deactivated">Joined</span> <img class="verytinyicon deactivated" id="header-joined-icon" src="/img/svg/sort.svg"></div>
-                  <div class="column headercolumn" onclick="sortData('gexp')"><span data-t="statistics.weekly_gexp" id="header-gexp" class="deactivated">Weekly GEXP</span> <img class="verytinyicon deactivated" id="header-gexp-icon" src="/img/svg/sort.svg"></div>
-                
+                  <div class="column headercolumn" onclick="sortData('name')"><span data-t="statistics.player" id="header-name" class="deactivated">Player</span> <img class="verytinyicon deactivated" id="header-name-icon" src="/img/svg/sort.svg" /></div>
+                  <div class="column headercolumn" onclick="sortData('priority')"><span data-t="statistics.rank" id="header-priority" class="deactivated">Rank</span> <img class="verytinyicon deactivated" id="header-priority-icon" src="/img/svg/sort.svg" /></div>
+                  <div class="column headercolumn" onclick="sortData('joined')"><span data-t="statistics.joined" id="header-joined" class="deactivated">Joined</span> <img class="verytinyicon deactivated" id="header-joined-icon" src="/img/svg/sort.svg" /></div>
+                  <div class="column headercolumn" onclick="sortData('gexp')"><span data-t="statistics.weekly_gexp" id="header-gexp" class="deactivated">Weekly GEXP</span> <img class="verytinyicon deactivated" id="header-gexp-icon" src="/img/svg/sort.svg" /></div>
+
                   <div class="column" data-i="expandable"></div>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
+
+      <footer><%- include('partials/footer') %></footer>
     </div>
 
-    <footer>
-      <%- include('partials/footer') %>
-    </footer>
-  </div>
+    <script>
+      let guildStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(guildData)) %>"));
 
-  <script>
-    let guildStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(guildData)) %>"));
-
-    document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--accent-guild'));
-    generateGeneralGuildStats();
-  </script>
-</body>
+      document.documentElement.style.setProperty("--accent", getComputedStyle(document.documentElement).getPropertyValue("--accent-guild"));
+      generateGeneralGuildStats();
+    </script>
+  </body>
 </html>
