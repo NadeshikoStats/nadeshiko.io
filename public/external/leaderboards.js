@@ -1082,7 +1082,6 @@ function generateGameSelectorChildren(leaderboardObject = {}, layer, event) {
   const MAX_LAYER = 2;
 
   for (let b = layer; b <= MAX_LAYER; b++) {
-    console.log("Clearing layer " + b);
     document.getElementById(`selector-layer-${b}`).innerHTML = "";
   }
 

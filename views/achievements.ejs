@@ -39,7 +39,7 @@
 
             generateNetwork();
 
-            for (let a = 4; a < validGames.length; a++) {
+            for (let a = 5; a < validGames.length; a++) {
               achievementsDatabase[validGames[a]] = getAllAchievements(validGames[a]);
               generateAchievementPage(validGames[a]);
             }
@@ -48,6 +48,7 @@
             achievementsDatabase["crazywalls"] = getAllAchievements("crazywalls");
 
             generateAchievementPage("legacy");
+            generateAchievementPage("secret");
 
             updateOverall();
             updateClosestTiered();
@@ -195,15 +196,13 @@
 
     <script>
       let achievementsStats = JSON.parse(decodeURIComponent("<%- encodeURIComponent(JSON.stringify(achievementsData)) %>"));
-      let validGames = ["overall", "legacy", "skyclash", "truecombat", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "tkr", "arena", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holiday", "easter", "halloween", "summer"];
+      let validGames = ["overall", "legacy", "skyclash", "truecombat", "secret", "general", "bedwars", "duels", "skywars", "arcade", "buildbattle", "murdermystery", "tntgames", "pit", "tkr", "arena", "quakecraft", "walls", "vampirez", "paintball", "megawalls", "copsandcrims", "uhc", "speeduhc", "blitz", "woolgames", "warlords", "smashheroes", "skyblock", "housing", "holiday", "easter", "halloween", "summer"];
       let generalGames = ["general", "holiday", "easter", "halloween", "summer"];
       let currentGamemode = "<%= game %>";
 
       if (!validGames.includes(currentGamemode)) {
         console.warn(`Invalid game mode; defaulting to the default game (overall)`);
         currentGamemode = "overall";
-      } else {
-        console.log(`Valid game mode: ${currentGamemode}`);
       }
 
       let globalAchievementStats = {
@@ -228,6 +227,10 @@
         legacy: {
           tiered: {},
           one_time: {},
+        },
+        secret: {
+          tiered: {},
+          one_time: {}, // There are no tiered secret AP
         },
       };
       let maxedGames = [];
@@ -315,6 +318,7 @@
           general: "network",
           overall: "achievements-overall",
           legacy: "achievements-legacy",
+          secret: "achievements-secret",
         };
 
         if (customAccents[currentGamemode] != undefined) {
@@ -337,12 +341,12 @@
 
       function setBackground(gamemode) {
         // Allows a fade between two backgrounds. Is this totally inefficient? Probably
-        console.log(`Changing background to ${gamemode}`);
         let backgroundUrl;
         let irregularBackgrounds = {
           overall: `/img/games/achievements/overall.${imageFileType || "webp"}`,
           general: `/img/games/network/lobby.${imageFileType || "webp"}`,
           legacy: `/img/games/achievements/legacy.${imageFileType || "webp"}`,
+          secret: `/img/games/achievements/secret.${imageFileType || "webp"}`,
         };
 
         if (irregularBackgrounds[gamemode] != undefined) {

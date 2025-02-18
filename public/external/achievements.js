@@ -1,5 +1,3 @@
-console.log("nadeshiko wooooo!");
-
 function modernifyGameName(game) {
   let modernGameNames = {
     christmas2017: "holiday",
@@ -78,7 +76,7 @@ let secretAchievements = {
   skyblock_end_credits: "Face your demise with the Temporal Pillar in the Rift",
   christmas2017_new_years_celebrations: "Watch the fireworks go off in the SkyBlock Hub or Main lobby",
   halloween2017_that_time_of_year: "Find the dancing Spooky Scary Skeleton in the Main Lobby",
-  summer_collectors_edition: "Collect all Special Fish while fishing in the Main Lobby",
+  legacy_collectors_edition: "Collect all Special Fish while fishing in the Main Lobby",
   arcade_zombies_prison_secret_beyond: "Find the Black Hole Gun",
   arcade_zombies_prison_computers: "In one game, interact with all the computers in the Prison Map",
   woolgames_shopping_for_wool: "Shoot every Magic Wool that spawns in a single game",
@@ -106,7 +104,7 @@ function getSecretAchievement(achievement) {
   }
 }
 
-function getGameTier(gameName) {
+function getGameTier(gameName) { // The tier represents how hard a game is to "max" (get 100% of the achievements in it)
   let gameDifficulties = {
     general: 1,
     bedwars: 3,
@@ -168,7 +166,7 @@ function generateNetwork() {
   checkBadge(playerBadge);
 
   const quickModeGames = [
-    { id: "overall", name: getTranslation(["games", "overall"]), minecraftId: "hypixel_logo" },
+    { id: "overall", name: getTranslation(["games", "overall"]), minecraftId: "diamond" },
     { id: "legacy", name: getTranslation(["games", "legacy"]), minecraftId: "diamond_block" },
     { id: "general", name: getTranslation(["games", "general"]), minecraftId: "book" },
 
@@ -202,11 +200,9 @@ function generateNetwork() {
     { id: "holiday", name: getTranslation(["games", "holiday"]), minecraftId: "head_seasonal" },
     { id: "summer", name: getTranslation(["games", "summer"]), minecraftId: "head_summer" },
 
-    /*
-    { id:
-    { id: "fishing", name: getTranslation(["games", "fishing"]), minecraftId: "cod" },
-    { id: "guild", name: getTranslation(["games", "modes", "network", "guild"]), minecraftId: "head_guild" },
-    */
+    { id: "secret", name: getTranslation(["games", "secret"]), minecraftId: "barrier" },
+    //{ id: "stats", name: getTranslation(["games", "modes", "all", "stats"]) },
+    //{ id: "quests", name: getTranslation(["quests", "quests"]), minecraftId: "writable_book" },
   ];
 
   const gameSwitchMobileContainer = document.getElementById("game-switch-mobile");
@@ -216,9 +212,9 @@ function generateNetwork() {
 
   let headerObjectTypes = {
     games: ["overall", "legacy", "general"],
-    other: ["fishing", "guild"],
+    other: ["secret", "stats", "quests", "guild"],
     seasonal: ["easter", "halloween", "holiday", "summer"],
-    special: ["guild"],
+    special: ["stats", "quests", "guild"],
   };
 
   quickModeGames.forEach((game, index) => {
@@ -227,6 +223,12 @@ function generateNetwork() {
     if (headerObjectTypes["special"].includes(game.id)) {
       container = document.createElement("a");
       container.setAttribute("target", "_blank");
+
+      /*if (game.id == "stats") { // not in backend api
+        container.setAttribute("href", `/achievements/${achievementsStats["profile"]["uuid"]}`);
+      } else if (game.id == "quests") {
+        container.setAttribute("href", `/quests/${achievementsStats["profile"]["uuid"]}`);
+      }*/
     } else {
       container = document.createElement("div");
       container.setAttribute("onclick", `switchStats('${game.id}')`);
@@ -239,11 +241,7 @@ function generateNetwork() {
     span.className = "logo-container";
 
     let img = document.createElement("img");
-    if (game.id == "overall") {
-      img.src = `/img/logo/hypixel_logo.${imageFileType}`;
-    } else {
-      img.src = `/img/icon/minecraft/${game.minecraftId}.${imageFileType}`;
-    }
+    img.src = `/img/icon/minecraft/${game.minecraftId}.${imageFileType}`;
 
     img.alt = "";
     img.classList.add("social-media-dropdown", "icon");
@@ -293,6 +291,7 @@ function getOneTimeStats(fullName) {
     gamePercentUnlocked: achievementStats["gamePercentUnlocked"] || 0,
     globalPercentUnlocked: achievementStats["globalPercentUnlocked"] || 0,
     legacy: achievementStats["legacy"] || false,
+    secret: achievementStats["secret"] || false,
   };
 
   oneTimeAchievementObject["unlocked"] = playerOneTimeAchievements.includes(fullName) || false;
@@ -349,12 +348,12 @@ function getTieredStats(fullName) {
 
 function getAllAchievements(game) {
   let allAchievements = {};
-  let legacyAchievements = {};
+  //let legacyAchievements = {};
   allAchievements["tiered"] = {};
   allAchievements["one_time"] = {};
 
-  legacyAchievements["tiered"] = {};
-  legacyAchievements["one_time"] = {};
+  //legacyAchievements["tiered"] = {};
+  //legacyAchievements["one_time"] = {};
 
   allAchievements["tier"] = getGameTier(game);
 
@@ -368,19 +367,26 @@ function getAllAchievements(game) {
     let selectedAchievement = getOneTimeStats(game + "_" + achievement.toLowerCase());
 
     if (selectedAchievement["legacy"] == true) {
-      legacyAchievements["one_time"][achievement.toLowerCase()] = selectedAchievement;
+      //legacyAchievements["one_time"][achievement.toLowerCase()] = selectedAchievement;
       achievementsDatabase["legacy"]["one_time"][achievement.toLowerCase()] = selectedAchievement;
       //console.log(JSON.stringify(achievementsDatabase["legacy"]));
     } else {
       allAchievements["one_time"][achievement.toLowerCase()] = selectedAchievement;
+
+      if (selectedAchievement["secret"] == true) {
+
+        achievementsDatabase["secret"]["one_time"][game + "_" + achievement.toLowerCase()] = selectedAchievement;
+      }
     }
+
+
   }
 
   for (let achievement in tieredAchievementStats) {
     let selectedAchievement = getTieredStats(game + "_" + achievement.toLowerCase());
 
     if (selectedAchievement["legacy"] == true) {
-      legacyAchievements["tiered"][achievement.toLowerCase()] = selectedAchievement;
+      //legacyAchievements["tiered"][achievement.toLowerCase()] = selectedAchievement;
       achievementsDatabase["legacy"]["tiered"][achievement.toLowerCase()] = selectedAchievement;
     } else {
       allAchievements["tiered"][achievement.toLowerCase()] = selectedAchievement;
@@ -414,7 +420,7 @@ function gameProgress(game) {
         globalAchievementStats["player"]["points"] += specificAchievementPoints;
       }
     } else {
-      if (game != "legacy") {
+      if (game != "legacy" && game != "secret") {
         playerFormattedOneTimeAchievements.push([
           `${game}_${achievement}`,
           {
@@ -475,7 +481,7 @@ function gameProgress(game) {
     }
   }
 
-  if (unlockedAchievements == totalAchievements) {
+  if (unlockedAchievements == totalAchievements && game != "secret") {
     maxedGames.push(game);
   }
 
@@ -591,6 +597,8 @@ let gameIcons = {
   halloween: "head_halloween",
   holiday: "head_seasonal",
   summer: "head_summer",
+
+  secret: "barrier",
 
   crazywalls: "head_crazywalls",
   skyclash: "fire_charge",
@@ -944,6 +952,10 @@ function generateAchievementPage(game) {
     oneTimeContainer.classList.add("game-legacy");
   }
 
+  if (game == "secret") {
+    oneTimeContainer.classList.add("game-secret");
+  }
+
   for (let achievement in allAchievements["one_time"]) {
     let achievementStats = allAchievements["one_time"][achievement];
 
@@ -961,7 +973,7 @@ function generateAchievementPage(game) {
       row.classList.add("locked");
     }
 
-    if (game == "legacy") {
+    if (game == "legacy" || game == "secret") {
       updateTag(achievementElement, "achievement-game", getTranslation(`games.${modernifyGameName(achievementStats["game"])}`));
 
       let icon = achievementElement.querySelector("[data-i='achievement-icon']");
@@ -970,10 +982,14 @@ function generateAchievementPage(game) {
     updateTag(achievementElement, "achievement-name", achievementStats["name"]);
 
     if (achievementStats["description"] == "???") {
-      let secretAchievementTemplate = `<span class="tooltip"><span>???</span><span class="tooltiptext" data-i="secret-achievement-text"></span></span>`;
+      if (game == "secret") {
+        achievementElement.querySelector("[data-i='achievement-description']").textContent = getSecretAchievement(`${achievement}`);
+      } else {
+        let secretAchievementTemplate = `<span class="tooltip"><span>???</span><span class="tooltiptext" data-i="secret-achievement-text"></span></span>`;
 
-      achievementElement.querySelector("[data-i='achievement-description']").innerHTML = secretAchievementTemplate;
-      achievementElement.querySelector("[data-i='secret-achievement-text']").textContent = getSecretAchievement(`${demodernifyGameName(game)}_${achievement}`);
+        achievementElement.querySelector("[data-i='achievement-description']").innerHTML = secretAchievementTemplate;
+        achievementElement.querySelector("[data-i='secret-achievement-text']").textContent = getSecretAchievement(`${demodernifyGameName(game)}_${achievement}`);
+      }
     } else {
       updateTag(achievementElement, "achievement-description", achievementStats["description"]);
     }

@@ -11,6 +11,7 @@
   --accent-guild: #4fd334;
   --accent-achievements-overall: #6b68bb;
   --accent-achievements-legacy: #309c45;
+  --accent-achievements-secret: #9c5ddb;
   --accent-skyblock-page: #ff90e0;
 
   --accent-vampirez: #b73131;
@@ -1943,8 +1944,12 @@ a.general-button {
   display: none;
 }
 
-.list.achievements-container:not(.game-legacy) .column:nth-child(1) {
+.list.achievements-container:not(.game-legacy):not(.game-secret) .column:nth-child(1) {
   display: none;
+}
+
+.achievement.column {
+  margin: auto 5px;
 }
 
 .achievements-container .row-header {
@@ -1954,6 +1959,11 @@ a.general-button {
 .achievements-container.game-legacy.one-time-container .row-header {
   grid-template-columns: 1.5fr 6fr 0.8fr 0fr 0fr;
 }
+
+.achievements-container.game-secret.one-time-container .row-header {
+  grid-template-columns: 1.5fr 6fr 0.8fr 0fr 0fr;
+}
+
 
 .tiered-container .row-header {
   grid-template-columns: 2fr 3fr;
@@ -2009,12 +2019,13 @@ a.general-button {
 }
 
 .achievements-container .column:nth-child(6) {
-  width: 120px;
+  width: 100px;
   display: none;
 }
 
 .one-time-container.game-general .column:nth-child(4),
-.one-time-container.game-legacy .column:nth-child(4) {
+.one-time-container.game-legacy .column:nth-child(4),
+.one-time-container.game-secret .column:nth-child(4) {
   display: none;
 }
 
