@@ -415,7 +415,7 @@ function gameProgress(game) {
     if (allAchievementsGame["one_time"][achievement]["unlocked"]) {
       unlockedAchievements += 1;
       unlockedPoints += specificAchievementPoints;
-      if (game != "legacy") {
+      if (game != "legacy" && game != "secret") {
         globalAchievementStats["player"]["achievements"] += 1;
         globalAchievementStats["player"]["points"] += specificAchievementPoints;
       }
@@ -436,7 +436,7 @@ function gameProgress(game) {
 
     totalAchievements += 1;
     totalPoints += specificAchievementPoints;
-    if (game != "legacy") {
+    if (game != "legacy" && game != "secret") {
       globalAchievementStats["total"]["achievements"] += 1;
       globalAchievementStats["total"]["points"] += specificAchievementPoints;
     }
@@ -458,7 +458,7 @@ function gameProgress(game) {
 
     totalPoints += achievementTotalPoints;
 
-    if (game != "legacy") {
+    if (game != "legacy" && game != "secret") {
       globalAchievementStats["player"]["achievements"] += achievementUnlockedTiers;
       globalAchievementStats["total"]["achievements"] += achievementTotalTiers;
       globalAchievementStats["player"]["points"] += achievementUnlockedPoints;
@@ -795,13 +795,14 @@ function generateAchievementPage(game) {
   gameElement.querySelector("[data-i='filter-tiered']").setAttribute("data-modify", `${game}-tiered`);
   gameElement.querySelector("[data-i='filter-one-time']").setAttribute("data-modify", `${game}-one-time`);
 
-  gameElement.querySelector("[data-i='sort-game_one_time']").setAttribute("onclick", `sortData("${game}", "one-time", "game")`);
+  gameElement.querySelector("[data-i='sort-game_one_time']").setAttribute("onclick", `sortData("${game}", "one-time", "game_one_time")`);
 
   gameElement.querySelector("[data-i='sort-name_one_time']").setAttribute("onclick", `sortData("${game}", "one-time", "name_one_time")`);
   gameElement.querySelector("[data-i='sort-points']").setAttribute("onclick", `sortData("${game}", "one-time", "points")`);
   gameElement.querySelector("[data-i='sort-game']").setAttribute("onclick", `sortData("${game}", "one-time", "game")`);
   gameElement.querySelector("[data-i='sort-global']").setAttribute("onclick", `sortData("${game}", "one-time", "global")`);
 
+  gameElement.querySelector("[data-i='sort-game_tiered']").setAttribute("onclick", `sortData("${game}", "tiered", "game_tiered")`);
   gameElement.querySelector("[data-i='sort-name_tiered']").setAttribute("onclick", `sortData("${game}", "tiered", "name_tiered")`);
   gameElement.querySelector("[data-i='sort-tiers']").setAttribute("onclick", `sortData("${game}", "tiered", "tiers")`);
 
@@ -890,6 +891,8 @@ function generateAchievementPage(game) {
 
         let icon = achievementElement.querySelector("[data-i='achievement-icon']");
         icon.src = `/img/icon/minecraft/${gameIcons[modernifyGameName(achievementStats["game"])]}.${imageFileType}`;
+
+        row.setAttribute("data-game_tiered", getTranslation(`games.${modernifyGameName(achievementStats["game"])}`));
       }
 
       if (achievementStats["unlocked"]) {
@@ -978,6 +981,8 @@ function generateAchievementPage(game) {
 
       let icon = achievementElement.querySelector("[data-i='achievement-icon']");
       icon.src = `/img/icon/minecraft/${gameIcons[modernifyGameName(achievementStats["game"])]}.${imageFileType}`;
+
+      row.setAttribute("data-game_one_time", getTranslation(`games.${modernifyGameName(achievementStats["game"])}`));
     }
     updateTag(achievementElement, "achievement-name", achievementStats["name"]);
 
@@ -1077,7 +1082,7 @@ function compareAttributes(attribute, reverse = false) {
   };
 }
 
-let currentSort;
+let currentSort = {};
 let currentReverse = false;
 
 /*
@@ -1088,7 +1093,7 @@ let currentReverse = false;
  * @param {boolean} reverse - Whether to reverse the sorting
  */
 function sortData(game, type, attribute = "points", reverse = false) {
-  if (currentSort == attribute) {
+  if (currentSort["game"] == game && currentSort["type"] == type && currentSort["attribute"] == attribute) {
     reverse = !currentReverse;
     currentReverse = reverse;
   } else {
@@ -1096,7 +1101,11 @@ function sortData(game, type, attribute = "points", reverse = false) {
     currentReverse = false;
   }
 
-  currentSort = attribute;
+  currentSort = {
+    game: game,
+    type: type,
+    attribute: attribute,
+  };
 
   let achievementTable = document.getElementById(`${game}-${type}`);
   let achievementTableRows = achievementTable.querySelectorAll(".row:not(.header-row)");
