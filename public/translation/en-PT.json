@@ -1007,6 +1007,7 @@
     "potions_thrown": "Grogs Thrown",
     "mobs_spawned": "Mobs Spawned",
     "exp": "EXP",
+    "blitz_stars_found": "Blitz Stars Found",
     "votes": "Votes",
     "score": "Score",
     "classic_tokens": "Classic Tokens",
@@ -1033,6 +1034,7 @@
     "headshot_kills": "Headshot Scuttles",
     "bombs_defused": "Bombs Defused",
     "bombs_planted": "Bombs Planted",
+    "grenade_kills": "Grenade Kills",
     "final_assists": "Final Assists",
     "selected_class": "Chosen Class",
     "mythic_favor": "Mythic Favor",
@@ -1040,6 +1042,7 @@
     "prestige": "Prestige",
     "ender_chest_rows": "Ender Coffer Rows",
     "class_points": "Class Points",
+    "defender_kills": "Defender Kills",
     "total_time_survived": "Total Time Survived",
     "wins_murderer": "Victories (Murderer)",
     "wins_detective": "Victories (Detective)",
@@ -1131,7 +1134,12 @@
     "rank": "Rank",
     "guild_experience": "Guild Experience",
     "game": "Game",
-    "weekly_gexp": "Th' Week's GEXP"
+    "weekly_gexp": "Th' Week's GEXP",
+    "current_reward_streak": "Current Reward Streak",
+    "highest_reward_streak": "Highest Reward Streak",
+    "prestige_twos": "Prestige IIs",
+    "prestige_fours": "Prestige IVs",
+    "prestige_fives": "Prestige Vs"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

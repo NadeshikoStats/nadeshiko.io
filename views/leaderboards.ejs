@@ -25,6 +25,7 @@
 
           if (tasksBeforeLoading.length == 0) {
             updateTranslations();
+            generateLeaderboardsViaLoop();
             getLeaderboardGames();
           }
         } else {
@@ -52,11 +53,14 @@
       <div class="guild overflow-scroll mask-fade">
         <div class="leaderboard-container">
           <div class="chip-small but-big">
+            <div style="padding: 10px; background-color: #9f2f2f; color: white; font-weight: 500; border-radius: 15px;">[2025-02-21] nadeshiko is transferring its leaderboards between databases. You may experience issues or outages with leaderboards until this process is complete.</div>
+
             <div class="leaderboard-selectors">
               <p data-t="leaderboards.select_game">Select a game:</p>
               <div class="button-array" id="selector-layer-0"></div>
               <div class="button-array" id="selector-layer-1"></div>
               <div class="button-array" id="selector-layer-2"></div>
+              <div class="button-array" id="selector-layer-3"></div>
             </div>
 
             <div class="list quest-list" id="leaderboard">

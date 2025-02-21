@@ -1007,6 +1007,7 @@
     "potions_thrown": "扔出药水数",
     "mobs_spawned": "生成生物数",
     "exp": "经验",
+    "blitz_stars_found": "Blitz Stars Found",
     "votes": "投票数",
     "score": "分数",
     "classic_tokens": "经典游戏代币",
@@ -1033,6 +1034,7 @@
     "headshot_kills": "爆头击杀数",
     "bombs_defused": "炸弹拆除数",
     "bombs_planted": "炸弹安放数",
+    "grenade_kills": "Grenade Kills",
     "final_assists": "最终助攻数",
     "selected_class": "已选择职业",
     "mythic_favor": "神话之尘",
@@ -1040,6 +1042,7 @@
     "prestige": "精通",
     "ender_chest_rows": "末影箱行数",
     "class_points": "职业积分",
+    "defender_kills": "Defender Kills",
     "total_time_survived": "总生存时间",
     "wins_murderer": "杀手胜场",
     "wins_detective": "侦探胜场",
@@ -1131,7 +1134,12 @@
     "rank": "等级",
     "guild_experience": "公会经验",
     "game": "游戏",
-    "weekly_gexp": "每周公会经验"
+    "weekly_gexp": "每周公会经验",
+    "current_reward_streak": "Current Reward Streak",
+    "highest_reward_streak": "Highest Reward Streak",
+    "prestige_twos": "Prestige IIs",
+    "prestige_fours": "Prestige IVs",
+    "prestige_fives": "Prestige Vs"
   },
   "times": {
     "time_ago": "（%%time%%前）",

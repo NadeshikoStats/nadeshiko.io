@@ -1007,6 +1007,7 @@
     "potions_thrown": "扔出藥水數",
     "mobs_spawned": "怪物召喚數",
     "exp": "經驗值",
+    "blitz_stars_found": "Blitz Stars Found",
     "votes": "票數",
     "score": "分數",
     "classic_tokens": "Classic Tokens",
@@ -1033,6 +1034,7 @@
     "headshot_kills": "Headshot Kills",
     "bombs_defused": "炸彈拆除數",
     "bombs_planted": "炸彈放置數",
+    "grenade_kills": "Grenade Kills",
     "final_assists": "最終助攻",
     "selected_class": "Selected Class",
     "mythic_favor": "Mythic Favor",
@@ -1040,6 +1042,7 @@
     "prestige": "精通",
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "職業積分",
+    "defender_kills": "Defender Kills",
     "total_time_survived": "總倖存時間",
     "wins_murderer": "Wins (Murderer)",
     "wins_detective": "Wins (Detective)",
@@ -1131,7 +1134,12 @@
     "rank": "職位",
     "guild_experience": "公會經驗值",
     "game": "遊戲",
-    "weekly_gexp": "每週公會經驗值"
+    "weekly_gexp": "每週公會經驗值",
+    "current_reward_streak": "Current Reward Streak",
+    "highest_reward_streak": "Highest Reward Streak",
+    "prestige_twos": "Prestige IIs",
+    "prestige_fours": "Prestige IVs",
+    "prestige_fives": "Prestige Vs"
   },
   "times": {
     "time_ago": "（%%time%%前）",

@@ -1007,6 +1007,7 @@
     "potions_thrown": "Eldobott Bájitalok",
     "mobs_spawned": "Megidézett Szörnyek",
     "exp": "XP",
+    "blitz_stars_found": "Blitz Stars Found",
     "votes": "Szavazatok",
     "score": "Pontszám",
     "classic_tokens": "Classic Tokens",
@@ -1033,6 +1034,7 @@
     "headshot_kills": "Headshot Kills",
     "bombs_defused": "Hatástalanított Bombák",
     "bombs_planted": "Lerakott Bombák",
+    "grenade_kills": "Grenade Kills",
     "final_assists": "Végső asszisztok",
     "selected_class": "Selected Class",
     "mythic_favor": "Mythic Favor",
@@ -1040,6 +1042,7 @@
     "prestige": "Prestige",
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "Kaszt pontok",
+    "defender_kills": "Defender Kills",
     "total_time_survived": "Összes Túlélt Idő",
     "wins_murderer": "Wins (Murderer)",
     "wins_detective": "Wins (Detective)",
@@ -1131,7 +1134,12 @@
     "rank": "Rank",
     "guild_experience": "Guild Experience",
     "game": "Game",
-    "weekly_gexp": "Weekly GEXP"
+    "weekly_gexp": "Weekly GEXP",
+    "current_reward_streak": "Current Reward Streak",
+    "highest_reward_streak": "Highest Reward Streak",
+    "prestige_twos": "Prestige IIs",
+    "prestige_fours": "Prestige IVs",
+    "prestige_fives": "Prestige Vs"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

@@ -1007,6 +1007,7 @@
     "potions_thrown": "Vyhozených lektvarů",
     "mobs_spawned": "Vyvolaných mobů",
     "exp": "EXP",
+    "blitz_stars_found": "Blitz Stars Found",
     "votes": "Hlasy",
     "score": "Skóre",
     "classic_tokens": "Classic Tokens",
@@ -1033,6 +1034,7 @@
     "headshot_kills": "Headshot Kills",
     "bombs_defused": "Zneškodněné bomby",
     "bombs_planted": "Položené bomby",
+    "grenade_kills": "Grenade Kills",
     "final_assists": "Finální asistence",
     "selected_class": "Selected Class",
     "mythic_favor": "Mythic Favor",
@@ -1040,6 +1042,7 @@
     "prestige": "Prestiž",
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "Class Points",
+    "defender_kills": "Defender Kills",
     "total_time_survived": "Celkový čas přežití",
     "wins_murderer": "Wins (Murderer)",
     "wins_detective": "Wins (Detective)",
@@ -1131,7 +1134,12 @@
     "rank": "Rank",
     "guild_experience": "Guild Experience",
     "game": "Game",
-    "weekly_gexp": "Weekly GEXP"
+    "weekly_gexp": "Weekly GEXP",
+    "current_reward_streak": "Current Reward Streak",
+    "highest_reward_streak": "Highest Reward Streak",
+    "prestige_twos": "Prestige IIs",
+    "prestige_fours": "Prestige IVs",
+    "prestige_fives": "Prestige Vs"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

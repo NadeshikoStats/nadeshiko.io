@@ -1007,6 +1007,7 @@
     "potions_thrown": "Taikajuomia heitetty",
     "mobs_spawned": "Olentoja luotu",
     "exp": "EXP",
+    "blitz_stars_found": "Blitz Stars Found",
     "votes": "Äänet",
     "score": "Pisteet",
     "classic_tokens": "Classic Tokens",
@@ -1033,6 +1034,7 @@
     "headshot_kills": "Headshot Kills",
     "bombs_defused": "Pommeja purettu",
     "bombs_planted": "Pommeja viritetty",
+    "grenade_kills": "Grenade Kills",
     "final_assists": "Viimeistelyavustukset",
     "selected_class": "Selected Class",
     "mythic_favor": "Mythic Favor",
@@ -1040,6 +1042,7 @@
     "prestige": "Kunniataso",
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "Luokkapisteet",
+    "defender_kills": "Defender Kills",
     "total_time_survived": "Selvitty aika yhteensä",
     "wins_murderer": "Wins (Murderer)",
     "wins_detective": "Wins (Detective)",
@@ -1131,7 +1134,12 @@
     "rank": "Rank",
     "guild_experience": "Guild Experience",
     "game": "Game",
-    "weekly_gexp": "Weekly GEXP"
+    "weekly_gexp": "Weekly GEXP",
+    "current_reward_streak": "Current Reward Streak",
+    "highest_reward_streak": "Highest Reward Streak",
+    "prestige_twos": "Prestige IIs",
+    "prestige_fours": "Prestige IVs",
+    "prestige_fives": "Prestige Vs"
   },
   "times": {
     "time_ago": "(%%time%% ago)",

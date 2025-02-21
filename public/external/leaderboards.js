@@ -10,6 +10,8 @@ let leaderboards = [
       { translation: "statistics.quests_completed", id: "NETWORK_QUESTS_COMPLETED", format: "number" },
       { translation: "statistics.ranks_gifted", id: "NETWORK_RANKS_GIFTED", format: "number" },
       { translation: "statistics.first_login", id: "NETWORK_FIRST_LOGIN", format: "date_and_time" },
+      { translation: "statistics.current_reward_streak", id: "NETWORK_REWARDS_CURRENT_STREAK", format: "number" },
+      { translation: "statistics.highest_reward_streak", id: "NETWORK_REWARDS_HIGHEST_STREAK", format: "number" },
     ],
   },
 
@@ -76,11 +78,11 @@ let leaderboards = [
         type: "b",
         leaderboards: [
           { translation: "statistics.wins", id: "ARCADE_FARM_HUNT_WINS", format: "number" },
-          { translation: "statistics.wins_hunter", id: "FARM_HUNT_HUNTER_WINS", format: "number" },
-          { translation: "statistics.wins_animal", id: "FARM_HUNT_ANIMAL_WINS", format: "number" },
+          { translation: "statistics.wins_hunter", id: "ARCADE_FARM_HUNT_HUNTER_WINS", format: "number" },
+          { translation: "statistics.wins_animal", id: "ARCADE_FARM_HUNT_ANIMAL_WINS", format: "number" },
           { translation: "statistics.kills", id: "ARCADE_FARM_HUNT_KILLS", format: "number" },
-          { translation: "statistics.taunts", id: "FARM_HUNT_TAUNTS_USED", format: "number" },
-          { translation: "statistics.poop_collected", id: "FARM_HUNT_POOP_COLLECTED", format: "number" },
+          { translation: "statistics.taunts", id: "ARCADE_FARM_HUNT_TAUNTS_USED", format: "number" },
+          { translation: "statistics.poop_collected", id: "ARCADE_FARM_HUNT_POOP_COLLECTED", format: "number" },
         ],
       },
       {
@@ -90,6 +92,7 @@ let leaderboards = [
           { translation: "statistics.wins", id: "ARCADE_FOOTBALL_WINS", format: "number" },
           { translation: "statistics.goals", id: "ARCADE_FOOTBALL_GOALS", format: "number" },
           { translation: "statistics.kicks", id: "ARCADE_FOOTBALL_KICKS", format: "number" },
+          { translation: "statistics.power_kicks", id: "ARCADE_FOOTBALL_POWER_KICKS", format: "number" },
         ],
       },
       {
@@ -137,6 +140,13 @@ let leaderboards = [
         translation: "games.modes.arcade.partygames",
         type: "b",
         leaderboards: [{ translation: "statistics.wins", id: "ARCADE_PARTY_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.arcade.pixelpainters",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "ARCADE_PIXEL_PAINTERS_WINS", format: "number" },
+        ],
       },
       {
         translation: "games.modes.arcade.pixelparty.category",
@@ -188,6 +198,7 @@ let leaderboards = [
     icon: "icon/minecraft/blaze_powder",
     leaderboards: [
       { translation: "statistics.wins", id: "ARENA_BRAWL_WINS", format: "arena_wins" },
+      { translation: "statistics.wlr", id: "ARENA_BRAWL_WLR", format: "decimal_2" },
       { translation: "statistics.kills", id: "ARENA_BRAWL_KILLS", format: "number" },
       { translation: "statistics.kdr", id: "ARENA_BRAWL_KDR", format: "decimal_2" },
       { translation: "statistics.coins", id: "ARENA_BRAWL_COINS", format: "number" },
@@ -293,6 +304,9 @@ let leaderboards = [
           { translation: "statistics.kdr", id: "BLITZ_KDR", format: "decimal_2" },
           { translation: "statistics.coins", id: "BLITZ_COINS", format: "number" },
           { translation: "statistics.damage_dealt", id: "BLITZ_DAMAGE_DEALT", format: "large_number" },
+          { translation: "statistics.chests_opened", id: "BLITZ_CHESTS_OPENED", format: "number" },
+          { translation: "statistics.blitz_stars_found", id: "BLITZ_STARS_FOUND", format: "number" },
+          { translation: "statistics.prestige_twos", id: "BLITZ_PRESTIGE_TWOS", format: "number" },
         ],
       },
       {
@@ -336,7 +350,7 @@ let leaderboards = [
       {
         translation: "games.modes.buildbattle.teams_normal",
         type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "BUILD_BATTLE_SOLO_WINS", format: "number" }],
+        leaderboards: [{ translation: "statistics.wins", id: "BUILD_BATTLE_TEAM_WINS", format: "number" }],
       },
       {
         translation: "games.modes.buildbattle.solo_pro",
@@ -370,10 +384,12 @@ let leaderboards = [
         type: "b",
         leaderboards: [
           { translation: "statistics.score", id: "COPS_AND_CRIMS_SCORE", format: "copsandcrims_score" },
-          { translation: "statistics.coins", id: "COPS_AND_CRIMS_COINS", format: "number" },
           { translation: "statistics.wins", id: "COPS_AND_CRIMS_WINS", format: "number" },
           { translation: "statistics.kills", id: "COPS_AND_CRIMS_KILLS", format: "number" },
           { translation: "statistics.kdr", id: "COPS_AND_CRIMS_KDR", format: "decimal_2" },
+          { translation: "statistics.grenade_kills", id: "COPS_AND_CRIMS_GRENADE_KILLS", format: "number" },
+          { translation: "statistics.assists", id: "COPS_AND_CRIMS_ASSISTS", format: "number" },
+          { translation: "statistics.coins", id: "COPS_AND_CRIMS_COINS", format: "number" },
         ],
       },
       {
@@ -382,10 +398,11 @@ let leaderboards = [
         leaderboards: [
           { translation: "statistics.wins", id: "COPS_AND_CRIMS_DEFUSAL_WINS", format: "number" },
           { translation: "statistics.kills", id: "COPS_AND_CRIMS_DEFUSAL_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "COPS_AND_CRIMS_DEFUSAL_KDR", format: "decimal_2" },
+          { translation: "statistics.assists", id: "COPS_AND_CRIMS_DEFUSAL_ASSISTS", format: "number" },
           { translation: "statistics.bombs_planted", id: "COPS_AND_CRIMS_DEFUSAL_BOMBS_PLANTED", format: "number" },
           { translation: "statistics.bombs_defused", id: "COPS_AND_CRIMS_DEFUSAL_BOMBS_DEFUSED", format: "number" },
           { translation: "statistics.round_wins", id: "COPS_AND_CRIMS_DEFUSAL_ROUND_WINS", format: "number" },
-          { translation: "statistics.kdr", id: "COPS_AND_CRIMS_DEFUSAL_KDR", format: "decimal_2" },
         ],
       },
       {
@@ -395,6 +412,7 @@ let leaderboards = [
           { translation: "statistics.wins", id: "COPS_AND_CRIMS_TEAM_DEATHMATCH_WINS", format: "number" },
           { translation: "statistics.kills", id: "COPS_AND_CRIMS_TEAM_DEATHMATCH_KILLS", format: "number" },
           { translation: "statistics.kdr", id: "COPS_AND_CRIMS_TEAM_DEATHMATCH_KDR", format: "decimal_2" },
+          { translation: "statistics.assists", id: "COPS_AND_CRIMS_TEAM_DEATHMATCH_ASSISTS", format: "number" },
         ],
       },
       {
@@ -404,6 +422,7 @@ let leaderboards = [
           { translation: "statistics.wins", id: "COPS_AND_CRIMS_GUN_GAME_WINS", format: "number" },
           { translation: "statistics.kills", id: "COPS_AND_CRIMS_GUN_GAME_KILLS", format: "number" },
           { translation: "statistics.kdr", id: "COPS_AND_CRIMS_GUN_GAME_KDR", format: "decimal_2" },
+          { translation: "statistics.assists", id: "COPS_AND_CRIMS_GUN_GAME_ASSISTS", format: "number" },
           { translation: "statistics.fastest_win", id: "COPS_AND_CRIMS_GUN_GAME_FASTEST_WIN", format: "duration_milliseconds" },
         ],
       },
@@ -529,6 +548,8 @@ let leaderboards = [
           { translation: "statistics.wither_kills", id: "MEGA_WALLS_WITHER_KILLS", format: "number" },
           { translation: "statistics.coins", id: "MEGA_WALLS_COINS", format: "number" },
           { translation: "statistics.mythic_favor", id: "MEGA_WALLS_MYTHIC_FAVOR", format: "number" },
+          { translation: "statistics.prestige_fours", id: "MEGA_WALLS_PRESTIGE_FOURS", format: "number" },
+          { translation: "statistics.prestige_fives", id: "MEGA_WALLS_PRESTIGE_FIVES", format: "number" },
         ],
       },
       {
@@ -620,18 +641,19 @@ let leaderboards = [
       { translation: "statistics.kills", id: "PIT_KILLS", format: "number" },
       { translation: "statistics.kdr", id: "PIT_KDR", format: "decimal_2" },
       { translation: "statistics.gold", id: "PIT_GOLD", format: "large_number" },
+      { translation: "statistics.renown", id: "PIT_RENOWN", format: "number" },
       { translation: "statistics.damage_dealt", id: "PIT_DAMAGE_DEALT", format: "large_number" },
       { translation: "statistics.joins", id: "PIT_JOINS", format: "number" },
       { translation: "statistics.playtime", id: "PIT_PLAYTIME", format: "duration_minutes" },
       { translation: "statistics.chat_messages", id: "PIT_CHAT_MESSAGES", format: "number" },
       { translation: "statistics.clicks", id: "PIT_CLICKS", format: "number" },
-      { translation: "statistics.wheat_farmed", id: "PIT_WHEAT_FARMED", format: "large_number" },
-      { translation: "statistics.renown", id: "PIT_RENOWN", format: "number" },
       { translation: "statistics.mystics_enchanted", id: "PIT_ITEMS_ENCHANTED", format: "number" },
       { translation: "statistics.contracts_completed", id: "PIT_CONTRACTS_COMPLETED", format: "number" },
       { translation: "statistics.items_fished", id: "PIT_ITEMS_FISHED", format: "number" },
       { translation: "statistics.ingots_picked_up", id: "PIT_INGOTS_PICKED_UP", format: "number" },
       { translation: "statistics.highest_killstreak", id: "PIT_HIGHEST_KILLSTREAK", format: "number" },
+      { translation: "statistics.night_quests_completed", id: "PIT_NIGHT_QUESTS_COMPLETED", format: "number" },
+      { translation: "statistics.wheat_farmed", id: "PIT_WHEAT_FARMED", format: "large_number" },
     ],
   },
 
@@ -846,6 +868,7 @@ let leaderboards = [
         leaderboards: [
           { translation: "statistics.wins", id: "UHC_SOLO_WINS", format: "number" },
           { translation: "statistics.kills", id: "UHC_SOLO_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "UHC_SOLO_KDR", format: "decimal_2" },
         ],
       },
       {
@@ -854,6 +877,7 @@ let leaderboards = [
         leaderboards: [
           { translation: "statistics.wins", id: "UHC_TEAMS_WINS", format: "number" },
           { translation: "statistics.kills", id: "UHC_TEAMS_KILLS", format: "number" },
+          { translation: "statistics.kdr", id: "UHC_TEAMS_KDR", format: "decimal_2" },
         ],
       },
     ],
@@ -922,6 +946,8 @@ let leaderboards = [
         leaderboards: [
           { translation: "statistics.wins", id: "WARLORDS_CAPTURE_THE_FLAG_WINS", format: "number" },
           { translation: "statistics.kills", id: "WARLORDS_CAPTURE_THE_FLAG_KILLS", format: "number" },
+          { translation: "statistics.flags_captured", id: "WARLORDS_CAPTURE_THE_FLAG_CAPTURES", format: "number" },
+          { translation: "statistics.flags_returned", id: "WARLORDS_CAPTURE_THE_FLAG_RETURNS", format: "number" },
         ],
       },
       {
@@ -930,6 +956,7 @@ let leaderboards = [
         leaderboards: [
           { translation: "statistics.wins", id: "WARLORDS_DOMINATION_WINS", format: "number" },
           { translation: "statistics.kills", id: "WARLORDS_DOMINATION_KILLS", format: "number" },
+          { translation: "statistics.captures", id: "WARLORDS_DOMINATION_CAPTURES", format: "number" },
         ],
       },
       {
@@ -1057,6 +1084,173 @@ let leaderboards = [
   },
 ];
 
+
+function generateLeaderboardsViaLoop() {
+
+  let megaWallsClasses = ["angel","arcanist","assassin","automaton","blaze","cow","creeper","dreadlord","dragon","enderman","golem","herobrine","hunter","moleman","phoenix","pigman","pirate","renegade","shaman","shark","skeleton","snowman","spider","squid","werewolf","zombie"];
+
+  let megaWallsLeaderboardStats = [
+    { id: "CLASS_POINTS", translation: "statistics.class_points", format: "number" },
+    { id: "WINS", translation: "statistics.wins", format: "number" },
+    { id: "FINAL_KILLS", translation: "statistics.final_kills", format: "number" },
+    { id: "FINAL_ASSISTS", translation: "statistics.final_assists", format: "number" },
+    { id: "DEFENDER_KILLS", translation: "statistics.defender_kills", format: "number" },
+    { id: "PLAYTIME", translation: "statistics.playtime", format: "duration_minutes" },
+    { id: "WITHER_DAMAGE", translation: "statistics.wither_damage", format: "large_number" },
+    { id: "DAMAGE_DEALT", translation: "statistics.damage_dealt", format: "large_number" },
+  ];
+
+  let megaWallsClassesLeaderboards = {
+    translation: "games.modes.megawalls.classes.category",
+    type: "b",
+    leaderboards: [
+    ],
+  };
+
+  for (let a in megaWallsClasses) {
+    let megaWallsClass = megaWallsClasses[a];
+
+    let megaWallsClassLeaderboards = {
+      translation: `games.modes.megawalls.classes.${megaWallsClass}`,
+      type: "b",
+      leaderboards: []
+    };
+
+    for (let b in megaWallsLeaderboardStats) {
+      let megaWallsStat = megaWallsLeaderboardStats[b];
+
+      let megaWallsStatLeaderboard = {
+        translation: megaWallsStat["translation"],
+        id: `MEGA_WALLS_${megaWallsClass.toUpperCase()}_${megaWallsStat["id"]}`,
+        format: megaWallsStat["format"]
+      };
+
+      megaWallsClassLeaderboards["leaderboards"].push(megaWallsStatLeaderboard);
+    }
+
+    megaWallsClassesLeaderboards["leaderboards"].push(megaWallsClassLeaderboards);
+  }
+
+  megaWallsClassesLeaderboards["leaderboards"].sort((a, b) => getTranslation(a["translation"]).localeCompare(getTranslation(b["translation"]))); // probably a more efficient way to do this
+
+  for (let c in leaderboards) {
+    let game = leaderboards[c];
+
+    if (game["translation"] == "games.megawalls") {
+      game["leaderboards"].push(megaWallsClassesLeaderboards);
+      break;
+    }
+  }
+
+  let blitzKits = ["arachnologist","archer","armorer","astronaut","baker","blaze","creepertamer","diver","donkeytamer","farmer","fisherman","florist","golem","guardian","horsetamer","hunter","hype train","jockey","knight","meatmaster","milkman","necromancer","paladin","phoenix","pigman","ranger","reaper","reddragon","rogue","scout","shadow knight","shark","slimeyslime","snowman","speleologist","tim","toxicologist","troll","viking","warlock","warrior","wolftamer","rambo"];
+  let blitzLeaderboardStats = [
+    { id: "EXP", translation: "statistics.exp", format: "number" },
+    { id: "WINS", translation: "statistics.wins", format: "number" },
+    { id: "KILLS", translation: "statistics.kills", format: "number" },
+    { id: "PLAYTIME", translation: "statistics.playtime", format: "duration_minutes" },
+    { id: "DAMAGE_DEALT", translation: "statistics.damage_dealt", format: "large_number" },
+    { id: "DAMAGE_TAKEN", translation: "statistics.damage_taken", format: "large_number" },
+  ];
+
+  let blitzKitsLeaderboards = {
+    translation: "games.modes.blitz.kits.category",
+    type: "b",
+    leaderboards: [],
+  };
+
+  for (let a in blitzKits) {
+    let blitzKit = blitzKits[a];
+
+    let blitzKitLeaderboards = {
+      translation: `games.modes.blitz.kits.${blitzKit}`,
+      type: "b",
+      leaderboards: [],
+    };
+
+    for (let b in blitzLeaderboardStats) {
+      let blitzStat = blitzLeaderboardStats[b];
+
+      let blitzStatLeaderboard = {
+        translation: blitzStat["translation"],
+        id: `BLITZ_${blitzKit.toUpperCase().replace(" ", "_")}_${blitzStat["id"]}`,
+        format: blitzStat["format"],
+      };
+
+      blitzKitLeaderboards["leaderboards"].push(blitzStatLeaderboard);
+    }
+
+    blitzKitsLeaderboards["leaderboards"].push(blitzKitLeaderboards);
+  }
+
+  blitzKitsLeaderboards["leaderboards"].push({ // random kit has fewer stats and thus must be treated separately!
+    translation: "games.modes.blitz.kits.random",
+    type: "b",
+    leaderboards: [
+      { translation: "statistics.wins", id: "BLITZ_RANDOM_WINS", format: "number" },
+      { translation: "statistics.kills", id: "BLITZ_RANDOM_KILLS", format: "number" },
+    ],
+  });
+
+  blitzKitsLeaderboards["leaderboards"].sort((a, b) => getTranslation(a["translation"]).localeCompare(getTranslation(b["translation"])));
+
+  for (let c in leaderboards) {
+    let game = leaderboards[c];
+
+    if (game["translation"] == "games.blitz") {
+      game["leaderboards"].push(blitzKitsLeaderboards);
+      break;
+    }
+  }
+
+  let copsAndCrimsGuns = ["autoShotgun","bullpup","carbine","handgun","magnum","pistol","rifle","scopedRifle","shotgun","smg","sniper"];
+  let copsAndCrimsLeaderboardStats = [
+    { id: "KILLS", translation: "statistics.kills", format: "number" },
+  ];
+
+  let copsAndCrimsGunsLeaderboards = {
+    translation: "games.modes.copsandcrims.guns.category",
+    type: "b",
+    leaderboards: [],
+  };
+
+  for (let a in copsAndCrimsGuns) {
+    let copsAndCrimsGun = copsAndCrimsGuns[a];
+
+    let copsAndCrimsGunLeaderboards = {
+      translation: `games.modes.copsandcrims.guns.${copsAndCrimsGun}`,
+      type: "b",
+      leaderboards: [],
+    };
+
+    for (let b in copsAndCrimsLeaderboardStats) {
+      let copsAndCrimsStat = copsAndCrimsLeaderboardStats[b];
+
+      let copsAndCrimsStatLeaderboard = {
+        translation: copsAndCrimsStat["translation"],
+        id: `COPS_AND_CRIMS_GUN_${copsAndCrimsGun.toUpperCase()}_${copsAndCrimsStat["id"]}`,
+        format: copsAndCrimsStat["format"],
+      };
+
+      copsAndCrimsGunLeaderboards["leaderboards"].push(copsAndCrimsStatLeaderboard);
+    }
+
+    copsAndCrimsGunsLeaderboards["leaderboards"].push(copsAndCrimsGunLeaderboards);
+  }
+
+  copsAndCrimsGunsLeaderboards["leaderboards"].sort((a, b) => getTranslation(a["translation"]).localeCompare(getTranslation(b["translation"])));
+
+  for (let c in leaderboards) {
+    let game = leaderboards[c];
+
+    if (game["translation"] == "games.copsandcrims") {
+      game["leaderboards"].push(copsAndCrimsGunsLeaderboards);
+      break;
+    }
+  }
+
+}
+
+
 const PLAYERS_PER_PAGE = 100;
 
 function getLeaderboardGames() {
@@ -1079,7 +1273,7 @@ function getLeaderboardGames() {
 }
 
 function generateGameSelectorChildren(leaderboardObject = {}, layer, event) {
-  const MAX_LAYER = 2;
+  const MAX_LAYER = 3;
 
   for (let b = layer; b <= MAX_LAYER; b++) {
     document.getElementById(`selector-layer-${b}`).innerHTML = "";

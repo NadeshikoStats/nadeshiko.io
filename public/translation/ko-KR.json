@@ -1007,6 +1007,7 @@
     "potions_thrown": "던진 포션 수",
     "mobs_spawned": "소환한 몹 수",
     "exp": "EXP",
+    "blitz_stars_found": "Blitz Stars Found",
     "votes": "투표",
     "score": "점수",
     "classic_tokens": "Classic 토큰",
@@ -1033,6 +1034,7 @@
     "headshot_kills": "헤드샷 처치",
     "bombs_defused": "해체한 폭탄",
     "bombs_planted": "설치한 폭탄",
+    "grenade_kills": "Grenade Kills",
     "final_assists": "파이널 어시스트",
     "selected_class": "선택한 클래스",
     "mythic_favor": "Mythic Favor",
@@ -1040,6 +1042,7 @@
     "prestige": "프레스티지",
     "ender_chest_rows": "Ender Chest Rows",
     "class_points": "클래스 포인트",
+    "defender_kills": "Defender Kills",
     "total_time_survived": "총 생존한 시간",
     "wins_murderer": "승리 (살인자)",
     "wins_detective": "승리 (탐정)",
@@ -1131,7 +1134,12 @@
     "rank": "계급",
     "guild_experience": "Guild 경험치",
     "game": "게임",
-    "weekly_gexp": "주간 GEXP"
+    "weekly_gexp": "주간 GEXP",
+    "current_reward_streak": "Current Reward Streak",
+    "highest_reward_streak": "Highest Reward Streak",
+    "prestige_twos": "Prestige IIs",
+    "prestige_fours": "Prestige IVs",
+    "prestige_fives": "Prestige Vs"
   },
   "times": {
     "time_ago": "(%%time%% 전)",
