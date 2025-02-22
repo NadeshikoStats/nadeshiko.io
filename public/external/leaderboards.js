@@ -1460,6 +1460,11 @@ const icons = {
 
 function formatLeaderboardStatistic(leaderboard, value) {
   let leaderboardType = currentLeaderboardInformation["format"];
+
+  if (!isNaN(value)) { // if value can be turned into a number, turn it into a number
+    value = Number(value);
+  }
+
   switch (leaderboardType) {
     case "decimal_2":
       return checkAndFormat(Number(value), 2);
@@ -1503,7 +1508,7 @@ function formatLeaderboardStatistic(leaderboard, value) {
     case "paintball_kills":
       return generateMinecraftText(getPaintballTitle(value), true);
     case "tkr_trophies":
-      return generateMinecraftText(getTKRTitle(value), true);
+      return generateMinecraftText(getTKRTitle(Number(value)), true);
     case "arena_wins":
       return generateMinecraftText(getArenaBrawlTitle(value), true);
     case "quakecraft_kills":
