@@ -652,7 +652,7 @@ let leaderboards = [
       { translation: "statistics.items_fished", id: "PIT_ITEMS_FISHED", format: "number" },
       { translation: "statistics.ingots_picked_up", id: "PIT_INGOTS_PICKED_UP", format: "number" },
       { translation: "statistics.highest_killstreak", id: "PIT_HIGHEST_KILLSTREAK", format: "number" },
-      { translation: "statistics.night_quests_completed", id: "PIT_NIGHT_QUESTS_COMPLETED", format: "number" },
+      { translation: "statistics.night_quests", id: "PIT_NIGHT_QUESTS_COMPLETED", format: "number" },
       { translation: "statistics.wheat_farmed", id: "PIT_WHEAT_FARMED", format: "large_number" },
     ],
   },
@@ -1147,7 +1147,7 @@ function generateLeaderboardsViaLoop() {
     { id: "EXP", translation: "statistics.exp", format: "number" },
     { id: "WINS", translation: "statistics.wins", format: "number" },
     { id: "KILLS", translation: "statistics.kills", format: "number" },
-    { id: "PLAYTIME", translation: "statistics.playtime", format: "duration_minutes" },
+    { id: "PLAYTIME", translation: "statistics.playtime", format: "duration_seconds" },
     { id: "DAMAGE_DEALT", translation: "statistics.damage_dealt", format: "large_number" },
     { id: "DAMAGE_TAKEN", translation: "statistics.damage_taken", format: "large_number" },
   ];
