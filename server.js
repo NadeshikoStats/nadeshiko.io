@@ -1165,7 +1165,7 @@ ${achievementGamesString}`;
     });
 
     app.use((req, res, next) => {
-      const host = req.headers.host;
+      const host = req.headers.host || '';
       const subdomain = host.split(".")[0];
 
       if (subdomain === "skyblock") {
@@ -1421,7 +1421,45 @@ ${achievementGamesString}`;
         res.json(response.data);
       } catch (error) {
         console.error("Error fetching data from backend:", error);
-        res.status(500).send("Internal server error");
+
+        if (error.response) {
+          const status = error.response.status;
+          if (status === 400) {
+            res.status(400).json(error.response.data);
+          } else if (status === 404) {
+            res.status(404).json({ success: false, cause: "Leaderboard not found" });
+          } else {
+            res.status(status).json({ success: false, cause: "Backend error occurred" });
+          }
+        } else {
+          res.status(500).json({ success: false, cause: "Internal server error" });
+        }
+      }
+    });
+
+    app.get("/rankings", async (req, res) => {
+      const uuid = req.query.uuid;
+
+      try {
+        const backendUrl = `http://localhost:2000/rankings?uuid=${uuid}`;
+        const response = await axios.get(backendUrl);
+
+        res.json(response.data);
+      } catch (error) {
+        console.error("Error fetching data from backend:", error);
+
+        if (error.response) {
+          const status = error.response.status;
+          if (status === 400) {
+            res.status(400).json(error.response.data);
+          } else if (status === 404) {
+            res.status(404).json({ success: false, cause: "Rankings not found" });
+          } else {
+            res.status(status).json({ success: false, cause: "Backend error occurred" });
+          }
+        } else {
+          res.status(500).json({ success: false, cause: "Internal server error" });
+        }
       }
     });
 

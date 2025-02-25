@@ -80,6 +80,7 @@ let gameNames = {
   },
   MCGO: {
     modeNames: {
+      normal: "Defusal",
       gungame: "Gun Game",
     },
     databaseName: "MCGO",
@@ -100,6 +101,7 @@ let gameNames = {
   SURVIVAL_GAMES: {
     modeNames: {
       solo_normal: "Solo",
+      teams_normal: "Teams",
     },
     databaseName: "HungerGames",
     name: "Blitz Survival Games",

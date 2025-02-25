@@ -1457,7 +1457,6 @@ function generateMurderMystery() {
             </div>
           </div>
         </div>
-        <span class="general-button mright mtop" onclick="showCardWizard('MURDERMYSTERY')" data-t="player.generate_card">Generate Card</span>
       </div>
       <div class="flex-two-item chip-container-duo-parent">
         <div id="murdermystery-chips-1" class="chip-container-duo">
@@ -1561,7 +1560,6 @@ function generateTNTGames() {
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('TNTGAMES')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="tntgames-chips-1" class="chip-container-duo">
@@ -1838,7 +1836,6 @@ function generateArcade() {
               </div>
             </div>
           </div>
-          <span class="general-button mright mtop" onclick="showCardWizard('ARCADE')" data-t="player.generate_card">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="arcade-chips-1" class="chip-container-duo">
@@ -2195,7 +2192,6 @@ function generatePit() {
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('PIT')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent" id="buildbattle-chips">
       <div id="pit-chips-1" class="chip-container-duo">
@@ -2396,7 +2392,6 @@ function generateClassic() {
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('CLASSIC')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="classic-chips-1" class="chip-container-duo">
@@ -2602,7 +2597,6 @@ function generateCopsAndCrims() {
         </div>
       </div>
     </div>
-    <span class="general-button mright mtop" onclick="showCardWizard('COPSANDCRIMS')" data-t="player.generate_card">Generate Card</span>
   </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="copsandcrims-chips-1" class="chip-container-duo">
@@ -3111,7 +3105,6 @@ function generateBlitz() {
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('BLITZ')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div id="blitz-chips" class="width-100"></div>
 </div>`;
@@ -3302,7 +3295,6 @@ function generateMegaWalls() {
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('MEGAWALLS')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div id="megawalls-chips" class="width-100"></div>
     <div class="flex-two-item chip-container-duo-parent">
@@ -3533,7 +3525,6 @@ function generateWarlords() {
             </div>
           </div>
         </div>
-        <span class="general-button mright mtop" onclick="showCardWizard('WARLORDS')" data-t="player.generate_card">Generate Card</span>
       </div>
       <div class="flex-two-item chip-container-duo-parent">
         <div id="warlords-chips-1" class="chip-container-duo">
@@ -4090,7 +4081,6 @@ function generateUHC() {
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('UHC')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div class="flex-two-item chip-container-duo-parent">
       <div id="uhc-chips-1" class="chip-container-duo">
@@ -4265,7 +4255,6 @@ function generateSmash() {
           </div>
         </div>
       </div>
-      <span class="general-button mright mtop" onclick="showCardWizard('SMASHHEROES')" data-t="player.generate_card">Generate Card</span>
     </div>
     <div id="smashheroes-chips" class="width-100"></div>
     <div class="flex-two-item chip-container-duo-parent">
@@ -4469,7 +4458,6 @@ function generateWoolGames() {
               </div>
             </div>
           </div>
-          <span class="general-button mright mtop" onclick="showCardWizard('WOOLGAMES')" data-t="player.generate_card">Generate Card</span>
         </div>
         <div class="flex-two-item chip-container-duo-parent">
           <div id="woolgames-chips-1" class="chip-container-duo">
@@ -4691,7 +4679,6 @@ function generateFishing() {
             </div>
           </div>
         </div>
-        <span class="general-button mright mtop" onclick="showCardWizard('FISHING')" data-t="player.generate_card">Generate Card</span>
       </div>
       <div class="flex-two-item chip-container-duo-parent">
         <div id="fishing-chips-1" class="chip-container-duo">

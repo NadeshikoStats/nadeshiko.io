@@ -1369,6 +1369,10 @@ async function getLeaderboardData(leaderboard, page = 1) {
   let leaderboardPromise = await fetch(`/leaderboard?leaderboard=${leaderboard}&page=${page}`);
   let leaderboardData = await leaderboardPromise.json();
 
+  if (leaderboardData["success"] == false) {
+    return;
+  }
+
   let leaderboardTable = document.getElementById("leaderboard");
   leaderboardTable.innerHTML = "";
   currentLeaderboardInformation["total_players"] = leaderboardData["count"];
