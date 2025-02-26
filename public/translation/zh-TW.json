@@ -23,7 +23,7 @@
         "2_desc": "（Blessing Skin 製作）",
         "3_name": "GSAP",
         "3_desc": "（GreenSock 製作）",
-        "4_name": "Visage",
+        "4_name": "VZGE",
         "4_desc": "（Una 製作）",
         "5_name": "Minotar",
         "5_desc": "（The Minotar Team 製作）",
@@ -59,6 +59,13 @@
       "preview_showcase": "點選「產生預覽」後，此處便會出現名牌預覽。",
       "loading_preview": "正在載入預覽……",
       "preview": "預覽",
+      "tutorial": {
+        "prompt": "How do I add the card to my Hypixel Forums signature?",
+        "step_0": "<b>①</b> Log into the Hypixel Forums and visit <a href=\"https://hypixel.net/account/signature\" target=\"_blank\">https://hypixel.net/account/signature</a>.",
+        "step_1": "<b>②</b> Click the three dots (<img src=\"/img/svg/hypixel_forums/three_dots.svg\" class=\"tinyicon\"> More options) and then \"<img src=\"/img/svg/hypixel_forums/brackets.svg\" class=\"tinyicon\"> Toggle BB code\".",
+        "step_2": "<b>③</b> Paste the BBCode below into the text box and click \"Save\".",
+        "additional": "You can include other text or images in your signature too!"
+      },
       "settings": {
         "size": {
           "full": "大"

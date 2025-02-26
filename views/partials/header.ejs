@@ -80,6 +80,22 @@
       </div>
     </div>
 
+    <div class="click-to-expand" style="margin: 8px 10px">
+      <div class="flex-two-item-basic expandable-header">
+        <p class="mright" data-i="quest-game-progress" style="color: rgb(121, 201, 208); font-size: 14px;" data-t="header.cards.tutorial.prompt">How do I add the card to my Hypixel Forums signature?</p>
+        <img class="dropdown-arrow" src="/img/svg/arrow.svg" alt="Expand">
+      </div>
+      <div class="instructions">
+        <div class="instructions-content">
+          <div data-t="header.cards.tutorial.step_0"><b>①</b> Log into the Hypixel Forums and visit <a href="https://hypixel.net/account/signature" target="_blank">https://hypixel.net/account/signature</a>.</div>
+          <div data-t="header.cards.tutorial.step_1"><b>②</b> Click the three dots (<img src="/img/svg/hypixel_forums/three_dots.svg" class="tinyicon"> More options) and then "<img src="/img/svg/hypixel_forums/brackets.svg" class="tinyicon"> Toggle BB code".</div>
+          <div data-t="header.cards.tutorial.step_2"><b>③</b> Paste the BBCode below into the text box and click "<img src="/img/svg/hypixel_forums/save.svg" class="tinyicon"> Save".</div>
+          <img src="/img/cards/card_tutorial.gif" style="width: 100%; border-radius: 10px;">
+          <i data-t="header.cards.tutorial.additional">You can include other text or images in your signature too!</i>
+        </div>
+      </div>
+    </div>
+
     <div class="flex-two-item mtop mbottom">
       <span class="general-button" id="generate-card" onclick="generateCard()" style="padding: 10px 20px" data-t="header.cards.button_generate">Generate Card</span>
       <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value='Click "Generate Card" and a link will appear here!' / data-t="header.cards.copy">
@@ -616,6 +632,37 @@
     for (const [key, value] of Object.entries(settings)) {
       updateSettingFunctionality(key, value);
     }
+
+    const expandables = document.querySelectorAll('.click-to-expand');
+
+    expandables.forEach(expandable => {
+      const header = expandable.querySelector('.expandable-header');
+      const content = expandable.querySelector('.instructions');
+      const contentInner = expandable.querySelector('.instructions-content');
+
+      header.addEventListener('click', () => {
+        const isExpanded = expandable.classList.contains('expanded');
+
+        if (!isExpanded) {
+          content.style.height = (contentInner.offsetHeight + 10) + 'px';
+        } else {
+          content.style.height = '0';
+        }
+
+        expandable.classList.toggle('expanded');
+      });
+    });
+
+    // ウィンドウリサイズ時に展開されたコンテンツの高さを再計算する
+    window.addEventListener('resize', () => {
+      expandables.forEach(expandable => {
+        if (expandable.classList.contains('expanded')) {
+          const content = expandable.querySelector('.instructions');
+          const contentInner = expandable.querySelector('.instructions-content');
+          content.style.height = (contentInner.offsetHeight + 10) + 'px';
+        }
+      });
+    });
   });
 
   document.addEventListener("keydown", function (event) {

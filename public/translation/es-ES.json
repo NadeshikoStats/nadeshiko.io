@@ -23,7 +23,7 @@
         "2_desc": "por Blessing Skin",
         "3_name": "GSAP",
         "3_desc": "por GreenSock",
-        "4_name": "Visage",
+        "4_name": "VZGE",
         "4_desc": "por Una",
         "5_name": "Minotar",
         "5_desc": "por The Minotar Team",
@@ -59,6 +59,13 @@
       "preview_showcase": "Haz clic en \"Generar vista previa\" y aparecerá una vista previa de la tarjeta.",
       "loading_preview": "Cargando vista previa...",
       "preview": "Vista previa",
+      "tutorial": {
+        "prompt": "¿Cómo puedo agregar la tarjeta a mi firma de los foros de Hypixel?",
+        "step_0": "<b>①</b> Accede a los foros de Hypixel y visita <a href=\"https://hypixel.net/account/signature\" target=\"_blank\">https://hypixel.net/account/signature</a>.",
+        "step_1": "<b>②</b> Haz clic en los tres puntos (<img src=\"/img/svg/hypixel_forums/three_dots.svg\" class=\"tinyicon\"> More options) y luego en \"<img src=\"/img/svg/hypixel_forums/brackets.svg\" class=\"tinyicon\"> Toggle BB code\".",
+        "step_2": "<b>③</b> Pega el BBCode (que está debajo) en el cuadro de texto y haz clic en \"<img src=\"/img/svg/hypixel_forums/save.svg\" class=\"tinyicon\"> Save\".",
+        "additional": "¡También puedes incluir otro texto o imágenes en tu firma!"
+      },
       "settings": {
         "size": {
           "full": "Completo"

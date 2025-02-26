@@ -2597,6 +2597,40 @@ a.general-button {
   display: none;
 }
 
+.click-to-expand {
+  cursor: pointer;
+}
+
+.expandable-header {
+  cursor: pointer;
+}
+
+.quest-game-arrow {
+  transition: transform 0.3s ease;
+}
+
+.instructions {
+  overflow: hidden;
+  transition: height 0.3s ease;
+  height: 0;
+  display: flex;
+  align-items: center;
+}
+
+.instructions-content {
+  cursor: auto;
+}
+
+.instructions-content > div {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.expanded .dropdown-arrow {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
 #generate-card {
   margin-top: 0px !important;
 }

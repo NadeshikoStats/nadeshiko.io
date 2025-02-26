@@ -456,7 +456,7 @@ function getLastFridayMidnight(datestamp = Date.now()) {
 }
 
 window.addEventListener("resize", function () {
-  // Resizes the quest list when the window is resize, preventing elements from being cut off
+  // Resizes the quest list when the window is resized, preventing elements from being cut off
   console.log("Resizing");
   let questLists = document.querySelectorAll(".quest-list");
   for (let a = 0; a < questLists.length; a++) {
