@@ -90,15 +90,15 @@
           <div data-t="header.cards.tutorial.step_0"><b>①</b> Log into the Hypixel Forums and visit <a href="https://hypixel.net/account/signature" target="_blank">https://hypixel.net/account/signature</a>.</div>
           <div data-t="header.cards.tutorial.step_1"><b>②</b> Click the three dots (<img src="/img/svg/hypixel_forums/three_dots.svg" class="tinyicon"> More options) and then "<img src="/img/svg/hypixel_forums/brackets.svg" class="tinyicon"> Toggle BB code".</div>
           <div data-t="header.cards.tutorial.step_2"><b>③</b> Paste the BBCode below into the text box and click "<img src="/img/svg/hypixel_forums/save.svg" class="tinyicon"> Save".</div>
-          <img src="/img/cards/card_tutorial.gif" style="width: 100%; border-radius: 10px;">
+          <img src="/img/cards/card_tutorial.gif" style="width: 100%; border-radius: 10px;" alt="Visiting the Hypixel Forums and following the listed instructions above">
           <i data-t="header.cards.tutorial.additional">You can include other text or images in your signature too!</i>
         </div>
       </div>
     </div>
 
     <div class="flex-two-item mtop mbottom">
-      <span class="general-button" id="generate-card" onclick="generateCard()" style="padding: 10px 20px" data-t="header.cards.button_generate">Generate Card</span>
-      <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value='Click "Generate Card" and a link will appear here!' / data-t="header.cards.copy">
+      <span class="general-button disabled" id="generate-card" onclick="generateCard()" style="padding: 10px 20px" data-t="header.cards.button_generate">Generate Card</span>
+      <input type="text" aria-label="Card Wizard Output" id="card-wizard-output" class="card-wizard-output" onclick="this.select()" value='Click "Generate Card" and a link will appear here!' data-t="header.cards.copy">
     </div>
 
     <div id="card-wizard-preview">
@@ -516,7 +516,10 @@
     base64Card = btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
 
     if (cardName == "") {
+      document.getElementById("generate-card").classList.add("disabled");
       return;
+    } else {
+      document.getElementById("generate-card").classList.remove("disabled");
     }
 
     if (cardFormat == "bbcode") {
@@ -534,24 +537,26 @@
 
     base64Card = btoa(`{"name":"${cardName}","game":"${cardGame}","size":"${cardSize}"}`);
 
-    document.getElementById("progress-ring").style.strokeDasharray = "40";
-    document.getElementById("card-wizard-preview-watermark").style.display = "none";
-    document.getElementById("progress-ring-svg").style.display = "initial";
-    document.getElementById("card-wizard-image").style.display = "none";
-    document.getElementById("card-wizard-preview-message").innerText = getTranslation("header.cards.loading_preview");
-    document.getElementById("card-wizard-image").src = `https://nadeshiko.io/card/${base64Card}`;
-    let svgImageMoving = setInterval(function () {
-      svgCycleCounter++;
-      document.getElementById("progress-ring").style.strokeDashoffset = `${110 * svgCycleCounter}`;
-    }, 1000);
-    // When the image loads
-    document.getElementById("card-wizard-image").onload = function () {
-      clearInterval(svgImageMoving);
-      document.getElementById("card-wizard-preview-message").innerText = "";
-      document.getElementById("progress-ring-svg").style.display = "none";
-      document.getElementById("card-wizard-image").style.display = "initial";
-      document.getElementById("card-wizard-preview-watermark").style.display = "flex";
-    };
+    if (cardName != "") {
+      document.getElementById("progress-ring").style.strokeDasharray = "40";
+      document.getElementById("card-wizard-preview-watermark").style.display = "none";
+      document.getElementById("progress-ring-svg").style.display = "initial";
+      document.getElementById("card-wizard-image").style.display = "none";
+      document.getElementById("card-wizard-preview-message").innerText = getTranslation("header.cards.loading_preview");
+      document.getElementById("card-wizard-image").src = `https://nadeshiko.io/card/${base64Card}`;
+      let svgImageMoving = setInterval(function () {
+        svgCycleCounter++;
+        document.getElementById("progress-ring").style.strokeDashoffset = `${110 * svgCycleCounter}`;
+      }, 1000);
+      // When the image loads
+      document.getElementById("card-wizard-image").onload = function () {
+        clearInterval(svgImageMoving);
+        document.getElementById("card-wizard-preview-message").innerText = "";
+        document.getElementById("progress-ring-svg").style.display = "none";
+        document.getElementById("card-wizard-image").style.display = "initial";
+        document.getElementById("card-wizard-preview-watermark").style.display = "flex";
+      };
+    }
   }
 
   document.getElementById("searchbar").addEventListener("keypress", function (event) {

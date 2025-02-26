@@ -63,7 +63,7 @@
         "prompt": "How do I add the card to my Hypixel Forums signature?",
         "step_0": "<b>①</b> Log into the Hypixel Forums and visit <a href=\"https://hypixel.net/account/signature\" target=\"_blank\">https://hypixel.net/account/signature</a>.",
         "step_1": "<b>②</b> Click the three dots (<img src=\"/img/svg/hypixel_forums/three_dots.svg\" class=\"tinyicon\"> More options) and then \"<img src=\"/img/svg/hypixel_forums/brackets.svg\" class=\"tinyicon\"> Toggle BB code\".",
-        "step_2": "<b>③</b> Paste the BBCode below into the text box and click \"Save\".",
+        "step_2": "<b>③</b> Paste the BBCode below into the text box and click \"<img src=\"/img/svg/hypixel_forums/save.svg\" class=\"tinyicon\"> Save\".",
         "additional": "You can include other text or images in your signature too!"
       },
       "settings": {
@@ -899,7 +899,7 @@
           "halloween": "Гелловін",
           "christmas": "Свята",
           "easter": "Великдень",
-          "permanent": "Permanent",
+          "non_seasonal": "Non-Seasonal",
           "no_seasons": "No Seasons"
         }
       }

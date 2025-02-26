@@ -983,7 +983,7 @@
           "halloween": "Halloween",
           "christmas": "Holidays",
           "easter": "Easter",
-          "permanent": "Permanent",
+          "non_seasonal": "Non-Seasonal",
 
           "no_seasons": "No Seasons"
         }

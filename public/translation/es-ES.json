@@ -899,7 +899,7 @@
           "halloween": "Halloween",
           "christmas": "Fiestas",
           "easter": "Pascua",
-          "permanent": "Permanentes",
+          "non_seasonal": "No estacionales",
           "no_seasons": "Sin temporadas"
         }
       }

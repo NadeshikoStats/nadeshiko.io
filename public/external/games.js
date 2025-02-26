@@ -4794,7 +4794,7 @@ function generateFishing() {
     `/img/games/fishing/specialfish.${imageFileType}`,
     getSpecialFishStats("permanent"),
     [
-      [getTranslation("games.modes.fishing.seasons.permanent"), "permanent"],
+      [getTranslation("games.modes.fishing.seasons.non_seasonal"), "permanent"],
       [getTranslation("games.modes.fishing.seasons.easter"), "easter"],
       [getTranslation("games.modes.fishing.seasons.summer"), "summer"],
       [getTranslation("games.modes.fishing.seasons.halloween"), "halloween"],
