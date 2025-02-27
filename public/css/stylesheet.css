@@ -2627,7 +2627,7 @@ a.general-button {
 }
 
 .expanded .dropdown-arrow {
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
   opacity: 1;
 }
 

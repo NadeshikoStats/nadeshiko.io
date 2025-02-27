@@ -1477,11 +1477,11 @@ function formatLeaderboardStatistic(leaderboard, value) {
     case "pit_experience":
       return generateMinecraftText(pitXpToLevel(value));
     case "buildbattle_experience":
-      return generateMinecraftText(getBuildBattleTitle(value)["title"], true) + " / " + checkAndFormat(Number(value));
+      return `${getBuildBattleTitle(value)["title"]} / ${checkAndFormat(Number(value))}`;
     case "skywars_experience":
       return generateMinecraftText(formatSkyWarsLevel(getSkyWarsLevel(value)), true);
     case "woolgames_experience":
-      return generateMinecraftText(formatWoolGamesLevel(getWoolGamesLevel(value)), true);
+      return formatWoolGamesLevel(getWoolGamesLevel(value));
     case "warlords_wins":
       let warlordsTitles = [
         { req: 0, color: "§8", altName: getTranslation("games.modes.warlords.titles.rookie") },
@@ -1510,17 +1510,17 @@ function formatLeaderboardStatistic(leaderboard, value) {
     case "copsandcrims_score":
       return `<span class="mf">Lv. ${Math.floor(getCopsAndCrimsLevel(value))}</span> / ${checkAndFormat(Number(value))}`;
     case "paintball_kills":
-      return generateMinecraftText(getPaintballTitle(value), true);
+      return getPaintballTitle(value);
     case "tkr_trophies":
-      return generateMinecraftText(getTKRTitle(Number(value)), true);
+      return getTKRTitle(Number(value));
     case "arena_wins":
-      return generateMinecraftText(getArenaBrawlTitle(value), true);
+      return getArenaBrawlTitle(value);
     case "quakecraft_kills":
-      return generateMinecraftText(getQuakecraftTitle(value), true);
+      return getQuakecraftTitle(value);
     case "uhc_score":
-      return `${generateMinecraftText(getUHCTitle(value, false), true)} / ${checkAndFormat(Number(value))}`;
+      return `${getUHCTitle(value, false)} / ${checkAndFormat(Number(value))}`;
     case "speed_uhc_score":
-      return `${generateMinecraftText(getSpeedUHCTitle(value, false), true)} / ${checkAndFormat(Number(value))}`;
+      return `${getSpeedUHCTitle(value, false)} / ${checkAndFormat(Number(value))}`;
     case "large_number":
       return veryLargeNumber(Number(value));
     case "duration_minutes":

@@ -5,14 +5,24 @@ function generateMinecraftText(minecraftText, blackShadow = false) {
     return "";
   }
 
-  const regex = /[^§&]*[^§&]|[§&][0-9a-z][^§&]*/g;
-  const brokenUpStrings = minecraftText.match(regex) || [];
+  const escapeHtml = (text) => {
+    return text
+      .replace(/&/g, '&#38;')
+      .replace(/</g, '&#60;')
+      .replace(/>/g, '&#62;')
+      .replace(/"/g, '&#34;')
+      .replace(/'/g, '&#39;');
+  };
+
+  const regex = /[^§&]*[^§&]|[§&][0-9a-z#][^§&]*/g;
+  console.log(escapeHtml(minecraftText));
+  const brokenUpStrings = escapeHtml(minecraftText).match(regex) || [];
   let returnString = "";
 
   brokenUpStrings.forEach((individual) => {
     let ending = "";
-    const code = individual.split(/[&§][0-9a-z]/);
-    const prefixMatch = individual.match(/[&§][0-9a-z]/);
+    const code = individual.split(/[&§][0-9a-z#]/);
+    const prefixMatch = individual.match(/[&§][0-9a-z#]/);
     const prefix = prefixMatch ? prefixMatch[0] : null;
 
     if (prefix) {
@@ -62,6 +72,10 @@ function generateMinecraftText(minecraftText, blackShadow = false) {
           case "r":
             returnString += ending;
             ending = "";
+            break;
+          case "#":
+            // do nothing
+            returnString += prefixMatch;
             break;
         }
       }

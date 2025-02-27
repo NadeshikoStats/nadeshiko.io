@@ -109,8 +109,8 @@ function updateTranslations(scope = document) {
     } else {
       if (containsHTMLTags(translation)) {
         element.innerHTML = DOMPurify.sanitize(translation, {
-          ALLOWED_TAGS: ["a"],
-          ALLOWED_ATTR: ["href", "target"],
+          ADD_TAGS: ["a"],
+          ADD_ATTR: ["href", "target"],
         });
       } else {
         element.textContent = translation;
