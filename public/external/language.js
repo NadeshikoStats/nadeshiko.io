@@ -108,7 +108,10 @@ function updateTranslations(scope = document) {
       element.value = translation;
     } else {
       if (containsHTMLTags(translation)) {
-        element.innerHTML = DOMPurify.sanitize(translation);
+        element.innerHTML = DOMPurify.sanitize(translation, {
+          ALLOWED_TAGS: ["a"],
+          ALLOWED_ATTR: ["href", "target"],
+        });
       } else {
         element.textContent = translation;
       }
