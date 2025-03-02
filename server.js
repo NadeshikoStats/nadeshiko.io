@@ -43,7 +43,14 @@ async function handleFileMinimization(directory, extension, minifyParser) {
       const filePath = path.join(directory, file);
       const destPath = path.join(outputFolder, file);
       const code = fs.readFileSync(filePath, "utf8");
-      const minifiedCode = await minifyParser(code);
+
+      // skip minification if filename contains "min"
+      let minifiedCode;
+      if (!file.includes(".min.js") && !file.includes(".bundle.js")) {
+        minifiedCode = await minifyParser(code);
+      } else {
+        minifiedCode = code;
+      }
       console.log(`Writing file to ${destPath}`);
       fs.writeFileSync(destPath, minifiedCode); // write the file
     }
