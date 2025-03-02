@@ -8,7 +8,7 @@ const cleancss = require("clean-css");
 const app = express();
 const port = 8080;
 
-const version = "1.4.6"; // Updating this will force the cache to clear for all users; doesn't have to be changed for every update
+const version = "1.4.9"; // Updating this will force the cache to clear for all users; doesn't have to be changed for every update
 
 app.set("view engine", "ejs");
 app.set("views", "./views");

@@ -15,7 +15,6 @@ function generateMinecraftText(minecraftText, blackShadow = false) {
   };
 
   const regex = /[^§&]*[^§&]|[§&][0-9a-z#][^§&]*/g;
-  console.log(escapeHtml(minecraftText));
   const brokenUpStrings = escapeHtml(minecraftText).match(regex) || [];
   let returnString = "";
 

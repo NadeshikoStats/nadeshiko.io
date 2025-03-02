@@ -178,6 +178,7 @@ header {
   overflow-y: scroll;
   top: 0;
   right: 0;
+  overflow-x: clip;
 }
 
 .about-flex {
@@ -1807,6 +1808,7 @@ a.general-button {
 
 .guild-players {
   overflow-y: scroll;
+  overflow-x: clip;
 }
 
 :nth-child(even of .list .row:not(.display-none):not(.has-badge)) .row-header,
@@ -2536,7 +2538,7 @@ a.general-button {
   color: white;
   border-radius: 15px;
   border: 1px solid #6b6b6b74;
-  width: 180px;
+  width: 178px;
 }
 
 #card-wizard-preview {
@@ -2735,6 +2737,7 @@ html {
   position: relative;
   display: inline-block;
   cursor: help;
+  z-index: 2;
 }
 
 .tooltip > :not(:last-child) {
@@ -2749,25 +2752,38 @@ html {
   font-weight: 500;
   text-align: center !important;
   border-radius: 20px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 6;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -90px;
-  opacity: 0;
-  transform: translateY(-15px);
-  transition-duration: var(--transition-small);
   padding: 10px;
+  position: fixed;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
   font-size: 15px;
   cursor: text;
   text-wrap: balance;
+  transition: opacity var(--transition-small);
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
-  transform: translateY(-5px);
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  border: 5px solid transparent;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip .tooltiptext.tooltip-above::after {
+  top: 100%;
+  border-top-color: #222222d0;
+}
+
+.tooltip .tooltiptext.tooltip-below::after {
+  bottom: 100%;
+  border-bottom-color: #222222d0;
 }
 
 .dashed-underline {
@@ -2780,17 +2796,6 @@ html {
 
 .gilded .statistic {
   color: var(--gold);
-}
-
-.tooltip .tooltiptext::after {
-  content: " ";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-inline-start: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #222222d0 transparent transparent transparent;
 }
 
 /* Media styles */
