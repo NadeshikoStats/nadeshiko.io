@@ -936,8 +936,9 @@ Guild Stats
             let playerOneTimeAchievements = getValue(playerData, ["player", "achievements_one_time"]) || [];
             let globalAchievements = getValue(playerData, ["global", "achievements"]) || {};
 
-            let achievementGames = ["arcade", "arena", "bedwars", "blitz", "buildbattle", "christmas2017", "copsandcrims", "duels", "easter", "general", "gingerbread", "halloween2017", "housing", "murdermystery", "paintball", "pit", "quake", "skyblock", /*"skyclash",*/ "skywars", "speeduhc", "summer", "supersmash", "tntgames", /*"truecombat",*/ "uhc", "vampirez", "walls", "walls3", "warlords", "woolgames"];
 
+            let achievementGames = ["arcade", "arena", "bedwars", "blitz", "buildbattle", "copsandcrims", "duels", "easter", "general", "christmas2017", "halloween2017", "housing", "walls3", "murdermystery", "paintball", "pit", "quake", "skyblock", /*"skyclash",*/ "skywars", "speeduhc", "summer", "supersmash", "tntgames", "gingerbread", /*"truecombat",*/ "uhc", "vampirez", "walls", "warlords", "woolgames"];
+            
             let achievementNames = {
               arcade: "🕹️ Arcade",
               arena: "🏟️ Arena Brawl",
