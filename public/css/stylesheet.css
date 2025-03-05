@@ -2180,8 +2180,15 @@ a.general-button {
 .list .leaderboard-head {
   height: 16px;
   width: 16px;
-  margin: 0px 10px;
   image-rendering: pixelated;
+}
+
+.list .leaderboard-rank {
+  margin-inline-end: 10px;
+}
+
+.list .leaderboard-rank-name {
+  margin-inline-start: 10px;
 }
 
 #leaderboard [data-i="quantity"] {

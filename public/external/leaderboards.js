@@ -590,8 +590,8 @@ let leaderboards = [
         translation: "games.overall",
         type: "b",
         leaderboards: [
-          { translation: "statistics.kills", id: "MURDER_MYSTERY_KILLS", format: "number" },
           { translation: "statistics.wins", id: "MURDER_MYSTERY_WINS", format: "number" },
+          { translation: "statistics.kills", id: "MURDER_MYSTERY_KILLS", format: "number" },
           { translation: "statistics.wins_murderer", id: "MURDER_MYSTERY_MURDERER_WINS", format: "number" },
           { translation: "statistics.wins_detective", id: "MURDER_MYSTERY_DETECTIVE_WINS", format: "number" },
         ],
@@ -626,6 +626,7 @@ let leaderboards = [
     leaderboards: [
       { translation: "statistics.wins", id: "PAINTBALL_WINS", format: "number" },
       { translation: "statistics.kills", id: "PAINTBALL_KILLS", format: "paintball_kills" },
+      { translation: "statistics.kdr", id: "PAINTBALL_KDR", format: "decimal_2" },
       { translation: "statistics.killstreaks", id: "PAINTBALL_KILLSTREAKS", format: "number" },
       { translation: "statistics.shots", id: "PAINTBALL_SHOTS_FIRED", format: "number" },
       { translation: "statistics.coins", id: "PAINTBALL_COINS", format: "number" },
@@ -648,6 +649,7 @@ let leaderboards = [
       { translation: "statistics.chat_messages", id: "PIT_CHAT_MESSAGES", format: "number" },
       { translation: "statistics.clicks", id: "PIT_CLICKS", format: "number" },
       { translation: "statistics.mystics_enchanted", id: "PIT_ITEMS_ENCHANTED", format: "number" },
+      { translation: "statistics.launcher_launches", id: "PIT_LAUNCHER_LAUNCHES", format: "number" },
       { translation: "statistics.contracts_completed", id: "PIT_CONTRACTS_COMPLETED", format: "number" },
       { translation: "statistics.items_fished", id: "PIT_ITEMS_FISHED", format: "number" },
       { translation: "statistics.ingots_picked_up", id: "PIT_INGOTS_PICKED_UP", format: "number" },
@@ -1348,7 +1350,7 @@ let leaderboardRowTemplate = `
     <div class="flex-two-item-basic">
       <span data-i="ranking" class="leaderboard-rank"></span>
       <img class="leaderboard-head" data-i="head">
-      <a data-i="rank-name" target="_blank">
+      <a class="leaderboard-rank-name" data-i="rank-name" target="_blank">
         <span data-i="rank"></span>
         <span data-i="name"></span>
       </a>
@@ -1413,8 +1415,15 @@ async function getLeaderboardData(leaderboard, page = 1) {
     let playerBadge = a["badge"] || "NONE";
     checkBadgeInList(playerBadge, row);
 
-    row.querySelector(`[data-i="head"]`).src = `https://h.matdoes.dev/2d/${a["uuid"].replaceAll("-", "")}`;
-    row.querySelector("[data-i='rank-name']").href = `/player/${a["uuid"]}`;
+    // differ based on if it's a player or guild leaderboard
+    if (leaderboard.startsWith("GUILD_")) {
+      row.querySelector(`[data-i="head"]`).style.display = "none";
+      row.querySelector("[data-i='rank-name']").href = `/guild/${a["name"]}`;
+    } else {
+      row.querySelector(`[data-i="head"]`).style.display = "block";
+      row.querySelector(`[data-i="head"]`).src = `https://h.matdoes.dev/2d/${a["uuid"].replaceAll("-", "")}`;
+      row.querySelector("[data-i='rank-name']").href = `/player/${a["uuid"]}`;
+    }
     updateTag(row, "quantity", formatLeaderboardStatistic(currentLeaderboardInformation["format"], a["value"]), true);
 
     leaderboardTable.appendChild(row);

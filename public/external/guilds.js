@@ -5,7 +5,7 @@ function getRankPriorities() {
 
   for (let a = 0; a < guildRankObject.length; a++) {
     let rank = guildRankObject[a];
-    guildRanks[rank["name"]] = rank["priority"];
+    guildRanks[rank["name"].toLowerCase()] = rank["priority"];
   }
 }
 
@@ -158,10 +158,24 @@ function guildPlayerObjectToRow(guildObj) {
 
   newRow.setAttribute("data-name", deformatName(playerProfile["tagged_name"]));
 
-  if (guildRanks[guildObj["rank"]] == undefined) {
-    newRow.setAttribute("data-priority", Number.MAX_SAFE_INTEGER);
+  if (guildRanks[guildObj["rank"].toLowerCase()] == undefined) {
+    console.log("Rank not found: " + guildObj["rank"]);
+    const guildObjRank = guildObj["rank"].toLowerCase();
+
+    const guildDefaultPriorities = { // manually created priorities in old guilds
+      "guildmaster": Number.MAX_SAFE_INTEGER,
+      "guild master": Number.MAX_SAFE_INTEGER,
+      "officer": 2,
+      "member": 1,
+    };
+
+    if (guildDefaultPriorities[guildObjRank] != undefined) {
+      newRow.setAttribute("data-priority", guildDefaultPriorities[guildObjRank]);
+    } else {
+      newRow.setAttribute("data-priority", -1);
+    }
   } else {
-    newRow.setAttribute("data-priority", guildRanks[guildObj["rank"]]);
+    newRow.setAttribute("data-priority", guildRanks[guildObj["rank"].toLowerCase()]);
   }
 
   let weeklyGuildExperience = 0;

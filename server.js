@@ -8,7 +8,7 @@ const cleancss = require("clean-css");
 const app = express();
 const port = 8080;
 
-const version = "1.4.9"; // Updating this will force the cache to clear for all users; doesn't have to be changed for every update
+const version = "1.4.12"; // Updating this will force the cache to clear for all users; doesn't have to be changed for every update
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
@@ -945,7 +945,7 @@ Guild Stats
 
 
             let achievementGames = ["arcade", "arena", "bedwars", "blitz", "buildbattle", "copsandcrims", "duels", "easter", "general", "christmas2017", "halloween2017", "housing", "walls3", "murdermystery", "paintball", "pit", "quake", "skyblock", /*"skyclash",*/ "skywars", "speeduhc", "summer", "supersmash", "tntgames", "gingerbread", /*"truecombat",*/ "uhc", "vampirez", "walls", "warlords", "woolgames"];
-            
+
             let achievementNames = {
               arcade: "🕹️ Arcade",
               arena: "🏟️ Arena Brawl",
