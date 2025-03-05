@@ -1270,6 +1270,53 @@ ${achievementGamesString}`;
       }
     });
 
+    async function fetchGuildData(endpoint, name) {
+      const response = await axios.get(`http://localhost:2000/guild?${endpoint}=${name}`);
+      let guildData = response.data;
+
+      let metaDescription;
+      if (guildData) {
+        metaDescription = getMetaDescription("guild", guildData);
+      } else {
+        metaDescription = `🌸 View Hypixel stats and generate real-time stat cards – perfect for forum signatures or to show off to friends!`;
+      }
+
+      return { guildData, metaDescription };
+    }
+
+    async function handleGuildRoute(name, res) {
+      try {
+        // Trying the ID first: probably the most efficient thing to do. You probably don't need the regex to search caps too but ¯\_(ツ)_/¯
+        if (name && name.length === 24 && /^[0-9a-fA-F]+$/.test(name)) {
+          try {
+            const { guildData, metaDescription } = await fetchGuildData("id", name);
+            return res.render("guild", { name, guildData, metaDescription, version });
+          } catch {
+            // ?
+          }
+        }
+
+        try {
+          const { guildData, metaDescription } = await fetchGuildData("name", name);
+          return res.render("guild", { name, guildData, metaDescription, version });
+        } catch {
+          const { guildData, metaDescription } = await fetchGuildData("player", name);
+          return res.render("guild", { name, guildData, metaDescription, version });
+        }
+
+      } catch (error) {
+        computationError = {
+          message: `Could not find guild with name ${name} (${error})`,
+          player: name,
+          error: error["message"],
+          category: "computation",
+          page: "guild",
+        };
+        console.error("Fetching guild data failed! → ", error);
+        res.render("index", { computationError, version });
+      }
+    }
+
     app.get("/guild/:name?", async (req, res) => {
       const name = req.params.name;
 
@@ -1279,6 +1326,10 @@ ${achievementGamesString}`;
         category: ``,
         page: ``,
       };
+
+      // if name is exactly 24 characters, all hexadecimal, it's a guild ID
+      if (name && name.length == 24 && /^[0-9a-fA-F]+$/.test(name)) {
+      }
 
       try {
         const response = await axios.get(`http://localhost:2000/guild?name=${name}`);

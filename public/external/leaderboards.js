@@ -16,6 +16,15 @@ let leaderboards = [
   },
 
   {
+    translation: "games.modes.network.guild",
+    type: "b",
+    icon: "icon/minecraft/head_guild",
+    leaderboards: [
+      { translation: "statistics.level", id: "GUILD_LEVEL", format: "number" },
+    ],
+  },
+
+  {
     translation: "games.arcade",
     type: "a",
     icon: "icon/minecraft/slime_ball",
