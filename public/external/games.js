@@ -90,8 +90,6 @@ function generateNetwork() {
       updateElement("online-status", getTranslation("player.currently_online"));
       document.getElementById("online-status").style.color = "var(--mca)";
 
-      document.getElementById("online-status-wrapper").classList.add("tooltip");
-
       // If the player is online, show the game and mode
 
       let gameType = gameNames[getValue(playerData, ["status", "game"])] || {};
@@ -111,6 +109,7 @@ function generateNetwork() {
 
       updateElement("online-status-location", gameType["name"] + gameMode);
     } else {
+      document.getElementById("online-status-wrapper").classList.remove("tooltip");
       updateElement("online-status", getTranslation("player.currently_offline"));
     }
 
