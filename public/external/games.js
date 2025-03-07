@@ -67,7 +67,8 @@ function generateNetwork() {
 
       if (firstLoginDate.getMonth() == dateNow.getMonth() && firstLoginDate.getDate() == dateNow.getDate() && firstLoginDate.getYear() != dateNow.getYear()) {
         document.getElementById("birthday").style.display = "initial"; // Makes the birthday cake visible if it's your Hypixel anniversary!
-        updateElement("birthday-text", `Happy ${dateNow.getYear() - firstLoginDate.getYear()} years of Hypixel!`);
+
+        updateElement("birthday-text", insertPlaceholders(getTranslation("player.birthday"), { num: dateNow.getYear() - firstLoginDate.getYear() }));
         console.log("Happy anniversary!");
       }
     }

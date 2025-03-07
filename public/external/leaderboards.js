@@ -9,9 +9,9 @@ let leaderboards = [
       { translation: "statistics.karma", id: "NETWORK_KARMA", format: "number" },
       { translation: "statistics.quests_completed", id: "NETWORK_QUESTS_COMPLETED", format: "number" },
       { translation: "statistics.ranks_gifted", id: "NETWORK_RANKS_GIFTED", format: "number" },
-      { translation: "statistics.first_login", id: "NETWORK_FIRST_LOGIN", format: "date_and_time" },
       { translation: "statistics.current_reward_streak", id: "NETWORK_REWARDS_CURRENT_STREAK", format: "number" },
       { translation: "statistics.highest_reward_streak", id: "NETWORK_REWARDS_HIGHEST_STREAK", format: "number" },
+      { translation: "statistics.first_login", id: "NETWORK_FIRST_LOGIN", format: "date_and_time" },
     ],
   },
 
