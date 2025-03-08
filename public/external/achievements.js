@@ -1154,17 +1154,28 @@ function updateOverall() {
   updateElement("total-achievements", checkAndFormat(globalAchievementStats["total"]["achievements"]));
 
   function formatMaxedGame(game) {
-    let tier = achievementsDatabase[game]["tier"];
-
     let gameElement = document.createElement("span");
     gameElement.classList.add("maxed-game");
 
-    let gameName = getTranslation(["games", game]);
+    let tier, gameName;
+    if (game == "hypixel") {
+      tier = 8;
+      gameName = `Hypixel`; // shouldn't be translated
+    } else {
+      tier = achievementsDatabase[game]["tier"];
+      gameName = getTranslation(["games", game]);
+    }
+
     gameElement.textContent = insertPlaceholders(getTranslation(["achievements", "maxed_game"]), { game: gameName });
     gameElement.classList.add(`tier-${tier}`);
     gameElement.setAttribute("onclick", `switchStats("${game}")`);
 
     return gameElement;
+  }
+
+  if (globalAchievementStats["player"]["achievements"] == globalAchievementStats["total"]["achievements"]) {
+    document.getElementById("maxed-games").appendChild(formatMaxedGame("hypixel"));
+    document.getElementById("max-hypixel").style.display = "block";
   }
 
   maxedGames.sort((a, b) => achievementsDatabase[b]["tier"] - achievementsDatabase[a]["tier"]);
