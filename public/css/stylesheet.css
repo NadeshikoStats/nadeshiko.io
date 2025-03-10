@@ -2617,12 +2617,12 @@ a.general-button {
 }
 
 .quest-game-arrow {
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-small) ease;
 }
 
 .instructions {
   overflow: hidden;
-  transition: height 0.3s ease;
+  transition: height var(--transition-small) ease;
   height: 0;
   display: flex;
   align-items: center;
