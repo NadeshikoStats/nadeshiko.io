@@ -459,39 +459,6 @@ let leaderboards = [
         ],
       },
       {
-        translation: "games.modes.duels.bridge.category",
-        type: "b",
-        leaderboards: [
-          { translation: "statistics.wins", id: "DUELS_BRIDGE_WINS", format: "number" },
-          { translation: "statistics.goals", id: "DUELS_BRIDGE_GOALS", format: "number" },
-        ],
-      },
-      {
-        translation: "games.modes.duels.sw.category",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "DUELS_SW_WINS", format: "number" }],
-      },
-      {
-        translation: "games.modes.duels.classic.category",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "DUELS_CLASSIC_WINS", format: "number" }],
-      },
-      {
-        translation: "games.modes.duels.uhc.category",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "DUELS_UHC_WINS", format: "number" }],
-      },
-      {
-        translation: "games.modes.duels.sumo.category",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "DUELS_SUMO_WINS", format: "number" }],
-      },
-      {
-        translation: "games.modes.duels.parkour.category",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "DUELS_PARKOUR_WINS", format: "number" }],
-      },
-      {
         translation: "games.modes.duels.blitz.category",
         type: "b",
         leaderboards: [{ translation: "statistics.wins", id: "DUELS_BLITZ_WINS", format: "number" }],
@@ -502,24 +469,9 @@ let leaderboards = [
         leaderboards: [{ translation: "statistics.wins", id: "DUELS_BOW_WINS", format: "number" }],
       },
       {
-        translation: "games.modes.duels.mw.category",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "DUELS_MW_WINS", format: "number" }],
-      },
-      {
         translation: "games.modes.duels.bowspleef.category",
         type: "b",
         leaderboards: [{ translation: "statistics.wins", id: "DUELS_BOWSPLEEF_WINS", format: "number" }],
-      },
-      {
-        translation: "games.modes.duels.op.category",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "DUELS_OP_WINS", format: "number" }],
-      },
-      {
-        translation: "games.modes.duels.combo.category",
-        type: "b",
-        leaderboards: [{ translation: "statistics.wins", id: "DUELS_COMBO_WINS", format: "number" }],
       },
       {
         translation: "games.modes.duels.boxing.category",
@@ -527,9 +479,57 @@ let leaderboards = [
         leaderboards: [{ translation: "statistics.wins", id: "DUELS_BOXING_WINS", format: "number" }],
       },
       {
+        translation: "games.modes.duels.bridge.category",
+        type: "b",
+        leaderboards: [
+          { translation: "statistics.wins", id: "DUELS_BRIDGE_WINS", format: "number" },
+          { translation: "statistics.goals", id: "DUELS_BRIDGE_GOALS", format: "number" },
+        ],
+      },
+      {
+        translation: "games.modes.duels.classic.category",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "DUELS_CLASSIC_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.duels.combo.category",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "DUELS_COMBO_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.duels.mw.category",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "DUELS_MW_WINS", format: "number" }],
+      },
+      {
         translation: "games.modes.duels.potion.category",
         type: "b",
         leaderboards: [{ translation: "statistics.wins", id: "DUELS_NODEBUFF_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.duels.op.category",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "DUELS_OP_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.duels.parkour.category",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "DUELS_PARKOUR_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.duels.sw.category",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "DUELS_SW_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.duels.sumo.category",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "DUELS_SUMO_WINS", format: "number" }],
+      },
+      {
+        translation: "games.modes.duels.uhc.category",
+        type: "b",
+        leaderboards: [{ translation: "statistics.wins", id: "DUELS_UHC_WINS", format: "number" }],
       },
       {
         translation: "games.modes.duels.arena.category",
