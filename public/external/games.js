@@ -949,14 +949,20 @@ function getDuelsStats(mode, is_bridge = false, cuteName) {
     importedDuelsStats.push(checkAndFormat(duelsStats[mode + "_kills"]), checkAndFormat(duelsStats[mode + "_deaths"]), calculateRatio(duelsStats[mode + "_kills"], duelsStats[mode + "_deaths"]));
   }
 
-  return [
+  let duelsModeStats = [
     [
       [true, [getTranslation("statistics.winstreak"), importedDuelsStats[0]], [getTranslation("statistics.best_winstreak"), importedDuelsStats[1]]],
       [false, [getTranslation("statistics.wins"), importedDuelsStats[2]], [getTranslation("statistics.losses"), importedDuelsStats[3]], [getTranslation("statistics.wlr"), importedDuelsStats[4]]],
-      [false, [getTranslation("statistics.kills"), importedDuelsStats[5]], [getTranslation("statistics.deaths"), importedDuelsStats[6]], [getTranslation("statistics.kdr"), importedDuelsStats[7]]],
-    ],
-    getDuelsTitle(und(duelsStats[mode + "_wins"]), cuteName),
+    ]
   ];
+
+  if (mode != "parkour_eight" && mode != "bowspleef_duel") { // Some modes don't have kills
+    duelsModeStats[0].push([false, [getTranslation("statistics.kills"), importedDuelsStats[5]], [getTranslation("statistics.deaths"), importedDuelsStats[6]], [getTranslation("statistics.kdr"), importedDuelsStats[7]]]);
+  }
+
+  duelsModeStats.push(getDuelsTitle(und(duelsStats[mode + "_wins"]), cuteName))
+
+  return duelsModeStats;
 }
 
 function getDuelsOverallModeStats(modeArray, is_bridge = false, cuteName) {
@@ -1076,6 +1082,13 @@ function generateDuels() {
             </div>
             <span class="general-button mright mtop" onclick="showCardWizard('DUELS')" data-t="player.generate_card">Generate Card</span>
           </div>
+          <div class="flex-two-item chip-container-duo-parent" id="duels-hot">
+            <div id="duels-hot-1" class="chip-container-duo">
+            </div>
+            <div id="duels-hot-2" class="chip-container-duo">
+            </div>
+          </div>
+          <hr style="width: 100%">
           <div class="flex-two-item chip-container-duo-parent" id="duels-chips">
             <div id="duels-chips-1" class="chip-container-duo">
             </div>
@@ -1164,21 +1177,6 @@ function generateDuels() {
 
     var duelsStatsToShow = [
       [
-        "bridge",
-        getTranslation("games.modes.duels.bridge.category"),
-        [
-          [getTranslation("games.modes.all.overall"), "bridge"],
-          [getTranslation("games.modes.duels.bridge.bridge_duel"), "bridge_duel"],
-          [getTranslation("games.modes.duels.bridge.bridge_doubles"), "bridge_doubles"],
-          [getTranslation("games.modes.duels.bridge.bridge_threes"), "bridge_threes"],
-          [getTranslation("games.modes.duels.bridge.bridge_four"), "bridge_four"],
-          [getTranslation("games.modes.duels.bridge.bridge_2v2v2v2"), "bridge_2v2v2v2"],
-          [getTranslation("games.modes.duels.bridge.bridge_3v3v3v3"), "bridge_3v3v3v3"],
-          [getTranslation("games.modes.duels.bridge.capture_threes"), "capture_threes"],
-        ],
-        "blue_terracotta",
-      ],
-      [
         "sw",
         getTranslation("games.modes.duels.sw.category"),
         [
@@ -1188,7 +1186,6 @@ function generateDuels() {
         ],
         "ender_eye",
       ],
-      ["classic_duel", getTranslation("games.modes.duels.classic.category"), [], "fishing_rod"],
       [
         "uhc",
         getTranslation("games.modes.duels.uhc.category"),
@@ -1229,8 +1226,30 @@ function generateDuels() {
       ["combo_duel", getTranslation("games.modes.duels.combo.category"), [], "potion_weakness"],
       ["boxing_duel", getTranslation("games.modes.duels.boxing.category"), [], "head_boxing"],
       ["potion_duel", getTranslation("games.modes.duels.potion.category"), [], "potion_fire_resistance"],
-      ["duel_arena", getTranslation("games.modes.duels.arena.category"), [], "beacon"],
     ];
+
+
+    duelsStatsToShow.sort((a, b) => sortStrings(a[1], b[1]));
+
+    duelsStatsToShow.unshift(["classic_duel", getTranslation("games.modes.duels.classic.category"), [], "fishing_rod"]); // Classic is the second-most popular mode
+
+    duelsStatsToShow.unshift([
+      "bridge",
+      getTranslation("games.modes.duels.bridge.category"),
+      [
+        [getTranslation("games.modes.all.overall"), "bridge"],
+        [getTranslation("games.modes.duels.bridge.bridge_duel"), "bridge_duel"],
+        [getTranslation("games.modes.duels.bridge.bridge_doubles"), "bridge_doubles"],
+        [getTranslation("games.modes.duels.bridge.bridge_threes"), "bridge_threes"],
+        [getTranslation("games.modes.duels.bridge.bridge_four"), "bridge_four"],
+        [getTranslation("games.modes.duels.bridge.bridge_2v2v2v2"), "bridge_2v2v2v2"],
+        [getTranslation("games.modes.duels.bridge.bridge_3v3v3v3"), "bridge_3v3v3v3"],
+        [getTranslation("games.modes.duels.bridge.capture_threes"), "capture_threes"],
+      ],
+      "blue_terracotta",
+    ]); // Bridge, the most popular mode, goes first
+
+    duelsStatsToShow.push(["duel_arena", getTranslation("games.modes.duels.arena.category"), [], "beacon"]); // this isn't even a real mode
 
     for (a = 0; a < duelsModes.length; a++) {
       allDuelsStats[duelsModes[a][1]] = getDuelsStats(duelsModes[a][1], duelsModes[a][3], duelsModes[a][0]);
@@ -1262,7 +1281,7 @@ function generateDuels() {
       duelsChip = [
         "duels-stats-" + currentDuel[0], // ID
         currentDuel[1], // Title
-        `${currentDuelPrefix[0]} ${formattedWinsToGo}`, // Subtitle (none)
+        (currentDuel[0] != "duel_arena" ? `${currentDuelPrefix[0]} ${formattedWinsToGo}` : ""), // Arena Duel is the only duel without a title
         `/img/games/duels/${currentDuel[0]}.${imageFileType}`, // Background image
         allDuelsStats[currentDuel[0]][0], // Displayed stats
         currentDuel[2], // Other stats (shown in drop-down menu)
@@ -1272,6 +1291,10 @@ function generateDuels() {
       duelsChips.push(duelsChip);
     }
 
+    const duelsHotModes = duelsChips.slice(0, 2);
+    duelsChips = duelsChips.slice(2);
+
+    generateChips(duelsHotModes, "duels-hot");
     generateChips(duelsChips, "duels-chips");
   }
 

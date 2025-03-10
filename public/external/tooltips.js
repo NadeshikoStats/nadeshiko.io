@@ -171,11 +171,14 @@ function positionTooltip(tooltip, tooltipText) {
     horizontalPosition = idealLeft;
   }
 
+  const isInQuestList = tooltip.closest('.quest-list') !== null; // why does this work? uhhhhhh
+  
   let positionedParent = null;
   let element = tooltip;
+  
   while (element && element !== document.body) {
     const position = window.getComputedStyle(element).position;
-    if ((position === 'fixed' || position === 'absolute') && !element.classList.contains('flex-container')) {
+    if ((position === 'fixed' || position === 'absolute' || element.classList.contains('quest-list')) && !element.classList.contains('flex-container')) {
       positionedParent = element;
       break;
     }
@@ -184,14 +187,20 @@ function positionTooltip(tooltip, tooltipText) {
 
   if (positionedParent) {
     const parentRect = positionedParent.getBoundingClientRect();
-    horizontalPosition = Math.max(horizontalMargin, Math.min(
-      horizontalPosition - parentRect.left,
-      parentRect.width - tooltipTextWidth - horizontalMargin
-    ));
-    verticalPosition = Math.max(verticalPadding, Math.min(
-      verticalPosition - parentRect.top,
-      parentRect.height - tooltipTextHeight - verticalPadding
-    ));
+    
+    if (isInQuestList) {
+      horizontalPosition = horizontalPosition - parentRect.left;
+      verticalPosition = verticalPosition - parentRect.top;
+    } else {
+      horizontalPosition = Math.max(horizontalMargin, Math.min(
+        horizontalPosition - parentRect.left,
+        parentRect.width - tooltipTextWidth - horizontalMargin
+      ));
+      verticalPosition = Math.max(verticalPadding, Math.min(
+        verticalPosition - parentRect.top,
+        parentRect.height - tooltipTextHeight - verticalPadding
+      ));
+    }
   }
 
   tooltipText.style.top = `${verticalPosition}px`;
